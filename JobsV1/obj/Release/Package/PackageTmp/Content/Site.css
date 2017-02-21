@@ -1,0 +1,71 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.userClient {
+    font-size:large;
+    font-weight:800;
+    color:Highlight;
+    font-family:Calibri;
+}
+
+.userRemarks {
+    font-size:small;
+    font-weight:200;
+    color:dimgrey;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+.userRemarks02 {
+    font-size:x-small;
+    font-weight:200;
+    color:dimgrey;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.userData {
+    font-size:smaller;
+    font-weight:600;
+    color:brown;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.userData01 {
+    font-size:small;
+    font-weight:200;
+    color:brown;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.userLabel-lg1 {
+    font-size:larger;
+    font-weight:400;
+    color:darkblue;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+.userLabel-sm1 {
+    font-size:small;
+    font-weight:400;
+    color:maroon;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}

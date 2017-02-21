@@ -1,0 +1,1845 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="JobDB.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="JobDBStoreContainer">
+    <EntitySet Name="JobMains" EntityType="JobDB.Store.JobMains" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Suppliers" EntityType="JobDB.Store.Suppliers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Customers" EntityType="JobDB.Store.Customers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="JobTypes" EntityType="JobDB.Store.JobTypes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Services" EntityType="JobDB.Store.Services" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="JobServices" EntityType="JobDB.Store.JobServices" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="JobItineraries" EntityType="JobDB.Store.JobItineraries" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Destinations" EntityType="JobDB.Store.Destinations" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="JobPickups" EntityType="JobDB.Store.JobPickups" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Branches" EntityType="JobDB.Store.Branches" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Cities" EntityType="JobDB.Store.Cities" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SupplierTypes" EntityType="JobDB.Store.SupplierTypes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SupplierItems" EntityType="JobDB.Store.SupplierItems" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="JobServicePickups" EntityType="JobDB.Store.JobServicePickups" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="JobStatus" EntityType="JobDB.Store.JobStatus" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="JobThrus" EntityType="JobDB.Store.JobThrus" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Banks" EntityType="JobDB.Store.Banks" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="JobPayments" EntityType="JobDB.Store.JobPayments" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CarCategories" EntityType="JobDB.Store.CarCategories" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CarUnits" EntityType="JobDB.Store.CarUnits" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CarDestinations" EntityType="JobDB.Store.CarDestinations" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CarRates" EntityType="JobDB.Store.CarRates" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CarReservations" EntityType="JobDB.Store.CarReservations" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CarImages" EntityType="JobDB.Store.CarImages" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="JobContacts" EntityType="JobDB.Store.JobContacts" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="JobMainJobType" Association="JobDB.Store.JobMainJobType">
+      <End Role="JobMain" EntitySet="JobMains" />
+      <End Role="JobType" EntitySet="JobTypes" />
+    </AssociationSet>
+    <AssociationSet Name="JobMainJobSupplier" Association="JobDB.Store.JobMainJobSupplier">
+      <End Role="JobMain" EntitySet="JobMains" />
+      <End Role="JobSupplier" EntitySet="JobServices" />
+    </AssociationSet>
+    <AssociationSet Name="SupplierJobSupplier" Association="JobDB.Store.SupplierJobSupplier">
+      <End Role="Supplier" EntitySet="Suppliers" />
+      <End Role="JobSupplier" EntitySet="JobServices" />
+    </AssociationSet>
+    <AssociationSet Name="CustomerJobMain" Association="JobDB.Store.CustomerJobMain">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="JobMain" EntitySet="JobMains" />
+    </AssociationSet>
+    <AssociationSet Name="ServicesJobServices" Association="JobDB.Store.ServicesJobServices">
+      <End Role="Services" EntitySet="Services" />
+      <End Role="JobServices" EntitySet="JobServices" />
+    </AssociationSet>
+    <AssociationSet Name="JobMainJobItinerary" Association="JobDB.Store.JobMainJobItinerary">
+      <End Role="JobMain" EntitySet="JobMains" />
+      <End Role="JobItinerary" EntitySet="JobItineraries" />
+    </AssociationSet>
+    <AssociationSet Name="DestinationJobItinerary" Association="JobDB.Store.DestinationJobItinerary">
+      <End Role="Destination" EntitySet="Destinations" />
+      <End Role="JobItinerary" EntitySet="JobItineraries" />
+    </AssociationSet>
+    <AssociationSet Name="JobMainJobPickup" Association="JobDB.Store.JobMainJobPickup">
+      <End Role="JobMain" EntitySet="JobMains" />
+      <End Role="JobPickup" EntitySet="JobPickups" />
+    </AssociationSet>
+    <AssociationSet Name="CityBranch" Association="JobDB.Store.CityBranch">
+      <End Role="City" EntitySet="Cities" />
+      <End Role="Branch" EntitySet="Branches" />
+    </AssociationSet>
+    <AssociationSet Name="CitySupplier" Association="JobDB.Store.CitySupplier">
+      <End Role="City" EntitySet="Cities" />
+      <End Role="Supplier" EntitySet="Suppliers" />
+    </AssociationSet>
+    <AssociationSet Name="BranchJobMain" Association="JobDB.Store.BranchJobMain">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="JobMain" EntitySet="JobMains" />
+    </AssociationSet>
+    <AssociationSet Name="CityDestination" Association="JobDB.Store.CityDestination">
+      <End Role="City" EntitySet="Cities" />
+      <End Role="Destination" EntitySet="Destinations" />
+    </AssociationSet>
+    <AssociationSet Name="SupplierTypeSupplier" Association="JobDB.Store.SupplierTypeSupplier">
+      <End Role="SupplierType" EntitySet="SupplierTypes" />
+      <End Role="Supplier" EntitySet="Suppliers" />
+    </AssociationSet>
+    <AssociationSet Name="SupplierSupplierItem" Association="JobDB.Store.SupplierSupplierItem">
+      <End Role="Supplier" EntitySet="Suppliers" />
+      <End Role="SupplierItem" EntitySet="SupplierItems" />
+    </AssociationSet>
+    <AssociationSet Name="SupplierItemJobServices" Association="JobDB.Store.SupplierItemJobServices">
+      <End Role="SupplierItem" EntitySet="SupplierItems" />
+      <End Role="JobServices" EntitySet="JobServices" />
+    </AssociationSet>
+    <AssociationSet Name="JobServicesJobServicePickup" Association="JobDB.Store.JobServicesJobServicePickup">
+      <End Role="JobServices" EntitySet="JobServices" />
+      <End Role="JobServicePickup" EntitySet="JobServicePickups" />
+    </AssociationSet>
+    <AssociationSet Name="JobStatusJobMain" Association="JobDB.Store.JobStatusJobMain">
+      <End Role="JobStatus" EntitySet="JobStatus" />
+      <End Role="JobMain" EntitySet="JobMains" />
+    </AssociationSet>
+    <AssociationSet Name="JobThruJobMain" Association="JobDB.Store.JobThruJobMain">
+      <End Role="JobThru" EntitySet="JobThrus" />
+      <End Role="JobMain" EntitySet="JobMains" />
+    </AssociationSet>
+    <AssociationSet Name="JobMainJobPayment" Association="JobDB.Store.JobMainJobPayment">
+      <End Role="JobMain" EntitySet="JobMains" />
+      <End Role="JobPayment" EntitySet="JobPayments" />
+    </AssociationSet>
+    <AssociationSet Name="BankJobPayment" Association="JobDB.Store.BankJobPayment">
+      <End Role="Bank" EntitySet="Banks" />
+      <End Role="JobPayment" EntitySet="JobPayments" />
+    </AssociationSet>
+    <AssociationSet Name="CarCategoryCarUnit" Association="JobDB.Store.CarCategoryCarUnit">
+      <End Role="CarCategory" EntitySet="CarCategories" />
+      <End Role="CarUnit" EntitySet="CarUnits" />
+    </AssociationSet>
+    <AssociationSet Name="CityCarDestination" Association="JobDB.Store.CityCarDestination">
+      <End Role="City" EntitySet="Cities" />
+      <End Role="CarDestination" EntitySet="CarDestinations" />
+    </AssociationSet>
+    <AssociationSet Name="CarUnitCarRate" Association="JobDB.Store.CarUnitCarRate">
+      <End Role="CarUnit" EntitySet="CarUnits" />
+      <End Role="CarRate" EntitySet="CarRates" />
+    </AssociationSet>
+    <AssociationSet Name="CarUnitCarReservation" Association="JobDB.Store.CarUnitCarReservation">
+      <End Role="CarUnit" EntitySet="CarUnits" />
+      <End Role="CarReservation" EntitySet="CarReservations" />
+    </AssociationSet>
+    <AssociationSet Name="CarUnitCarImage" Association="JobDB.Store.CarUnitCarImage">
+      <End Role="CarUnit" EntitySet="CarUnits" />
+      <End Role="CarImage" EntitySet="CarImages" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="JobMains">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="JobDate" Type="datetime" Nullable="false" />
+    <Property Name="CustomerId" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="180" />
+    <Property Name="NoOfPax" Type="int" Nullable="false" />
+    <Property Name="NoOfDays" Type="int" Nullable="false" />
+    <Property Name="JobRemarks" Type="nvarchar" Nullable="true" MaxLength="180" />
+    <Property Name="JobStatusId" Type="int" Nullable="false" />
+    <Property Name="StatusRemarks" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="BranchId" Type="int" Nullable="false" />
+    <Property Name="JobThruId" Type="int" Nullable="false" />
+    <Property Name="AgreedAmt" Type="decimal" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Suppliers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Contact1" Type="nvarchar" Nullable="true" MaxLength="20" />
+    <Property Name="Contact2" Type="nvarchar" Nullable="true" MaxLength="20" />
+    <Property Name="Contact3" Type="nvarchar" Nullable="true" MaxLength="20" />
+    <Property Name="Email" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Details" Type="nvarchar" Nullable="true" MaxLength="80" />
+    <Property Name="CityId" Type="int" Nullable="false" />
+    <Property Name="SupplierTypeId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Customers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="80" />
+    <Property Name="Email" Type="nvarchar" Nullable="true" MaxLength="80" />
+    <Property Name="Contact1" Type="nvarchar" Nullable="true" MaxLength="20" />
+    <Property Name="Contact2" Type="nvarchar" Nullable="true" MaxLength="20" />
+    <Property Name="Remarks" Type="nvarchar" Nullable="true" MaxLength="120" />
+    <Property Name="Status" Type="nvarchar" Nullable="true" MaxLength="3" />
+  </EntityType>
+  <EntityType Name="JobTypes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="JobMainId" Type="int" Nullable="false" />
+    <Property Name="TTicket" Type="int" Nullable="true" DefaultValue="0" />
+    <Property Name="TTransport" Type="int" Nullable="true" DefaultValue="0" />
+    <Property Name="TTour" Type="int" Nullable="true" DefaultValue="0" />
+    <Property Name="THotel" Type="int" Nullable="true" DefaultValue="0" />
+    <Property Name="TOthers" Type="int" Nullable="true" DefaultValue="0" />
+    <Property Name="Remarks" Type="nvarchar" Nullable="true" MaxLength="80" />
+  </EntityType>
+  <EntityType Name="Services">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="Description" Type="nvarchar" Nullable="true" MaxLength="80" />
+  </EntityType>
+  <EntityType Name="JobServices">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="JobMainId" Type="int" Nullable="false" />
+    <Property Name="ServicesId" Type="int" Nullable="false" />
+    <Property Name="SupplierId" Type="int" Nullable="false" />
+    <Property Name="Particulars" Type="nvarchar" Nullable="true" MaxLength="80" />
+    <Property Name="QuotedAmt" Type="decimal" Nullable="true" />
+    <Property Name="SupplierAmt" Type="decimal" Nullable="true" />
+    <Property Name="ActualAmt" Type="decimal" Nullable="true" />
+    <Property Name="Remarks" Type="nvarchar" Nullable="true" MaxLength="80" />
+    <Property Name="SupplierItemId" Type="int" Nullable="false" />
+    <Property Name="DtStart" Type="datetime" Nullable="true" />
+    <Property Name="DtEnd" Type="datetime" Nullable="true" />
+  </EntityType>
+  <EntityType Name="JobItineraries">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="JobMainId" Type="int" Nullable="false" />
+    <Property Name="DestinationId" Type="int" Nullable="false" />
+    <Property Name="ActualRate" Type="decimal" Nullable="true" />
+    <Property Name="Remarks" Type="nvarchar" Nullable="true" MaxLength="80" />
+    <Property Name="ItiDate" Type="datetime" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Destinations">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="80" />
+    <Property Name="PubRate" Type="decimal" Nullable="true" />
+    <Property Name="ConRate" Type="decimal" Nullable="true" />
+    <Property Name="Remarks" Type="nvarchar" Nullable="true" MaxLength="150" />
+    <Property Name="CityId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="JobPickups">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="JobMainId" Type="int" Nullable="false" />
+    <Property Name="puDate" Type="datetime" Nullable="false" />
+    <Property Name="puTime" Type="nvarchar" Nullable="false" MaxLength="5" />
+    <Property Name="puLocation" Type="nvarchar" Nullable="false" MaxLength="80" />
+    <Property Name="ContactName" Type="nvarchar" Nullable="false" MaxLength="80" />
+    <Property Name="ContactNumber" Type="nvarchar" Nullable="false" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Branches">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="CityId" Type="int" Nullable="false" />
+    <Property Name="Remarks" Type="nvarchar" Nullable="true" MaxLength="80" />
+    <Property Name="Address" Type="nvarchar" Nullable="true" MaxLength="180" />
+    <Property Name="Landline" Type="nvarchar" Nullable="true" MaxLength="20" />
+    <Property Name="Mobile" Type="nvarchar" Nullable="true" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Cities">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="SupplierTypes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SupplierItems">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="Remarks" Type="nvarchar" Nullable="true" MaxLength="80" />
+    <Property Name="SupplierId" Type="int" Nullable="false" />
+    <Property Name="InCharge" Type="nvarchar" Nullable="true" MaxLength="30" />
+    <Property Name="Tel1" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Tel2" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Tel3" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="JobServicePickups">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="JobServicesId" Type="int" Nullable="false" />
+    <Property Name="JsDate" Type="datetime" Nullable="false" />
+    <Property Name="JsTime" Type="nvarchar" Nullable="true" MaxLength="10" />
+    <Property Name="JsLocation" Type="nvarchar" Nullable="true" MaxLength="80" />
+    <Property Name="ClientName" Type="nvarchar" Nullable="true" MaxLength="80" />
+    <Property Name="ClientContact" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="ProviderName" Type="nvarchar" Nullable="true" MaxLength="80" />
+    <Property Name="ProviderContact" Type="nvarchar" Nullable="true" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="JobStatus">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Status" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="JobThrus">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Desc" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Banks">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BankName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="BankBranch" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AccntName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AccntNo" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="JobPayments">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="JobMainId" Type="int" Nullable="false" />
+    <Property Name="DtPayment" Type="datetime" Nullable="false" />
+    <Property Name="PaymentAmt" Type="decimal" Nullable="false" />
+    <Property Name="Remarks" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="BankId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CarCategories">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Remarks" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="CarUnits">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Remarks" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="CarCategoryId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CarDestinations">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CityId" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Kms" Type="int" Nullable="false" DefaultValue="0" />
+  </EntityType>
+  <EntityType Name="CarRates">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Daily" Type="decimal" Nullable="false" />
+    <Property Name="Weekly" Type="decimal" Nullable="false" />
+    <Property Name="Monthly" Type="decimal" Nullable="false" />
+    <Property Name="KmFree" Type="int" Nullable="false" />
+    <Property Name="KmRate" Type="int" Nullable="false" />
+    <Property Name="CarUnitId" Type="int" Nullable="false" />
+    <Property Name="OtRate" Type="decimal" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CarReservations">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DtTrx" Type="datetime" Nullable="false" />
+    <Property Name="CarUnitId" Type="int" Nullable="false" />
+    <Property Name="DtStart" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LocStart" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="DtEnd" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LocEnd" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="BaseRate" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Destinations" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UseFor" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="RenterName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="RenterCompany" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="RenterEmail" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="RenterMobile" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="RenterAddress" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="RenterFbAccnt" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="RenterLinkedInAccnt" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="EstHrPerDay" Type="int" Nullable="true" />
+    <Property Name="EstKmTravel" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="CarImages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CarUnitId" Type="int" Nullable="false" />
+    <Property Name="ImgUrl" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Remarks" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SysCode" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="JobContacts">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ShortName" Type="nvarchar" Nullable="true" MaxLength="20" />
+    <Property Name="Company" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Position" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Tel1" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Tel2" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" Nullable="true" MaxLength="100" />
+    <Property Name="AddInfo" Type="nvarchar" Nullable="true" MaxLength="250" />
+    <Property Name="Remarks" Type="nvarchar" Nullable="true" MaxLength="250" />
+    <Property Name="ContactType" Type="nvarchar" Nullable="true" MaxLength="5" />
+  </EntityType>
+  <Association Name="JobMainJobType">
+    <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="1" />
+    <End Role="JobType" Type="JobDB.Store.JobTypes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobMain">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobType">
+        <PropertyRef Name="JobMainId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="JobMainJobSupplier">
+    <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="1" />
+    <End Role="JobSupplier" Type="JobDB.Store.JobServices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobMain">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobSupplier">
+        <PropertyRef Name="JobMainId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SupplierJobSupplier">
+    <End Role="Supplier" Type="JobDB.Store.Suppliers" Multiplicity="1" />
+    <End Role="JobSupplier" Type="JobDB.Store.JobServices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supplier">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobSupplier">
+        <PropertyRef Name="SupplierId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CustomerJobMain">
+    <End Role="Customer" Type="JobDB.Store.Customers" Multiplicity="1" />
+    <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobMain">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ServicesJobServices">
+    <End Role="Services" Type="JobDB.Store.Services" Multiplicity="1" />
+    <End Role="JobServices" Type="JobDB.Store.JobServices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Services">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobServices">
+        <PropertyRef Name="ServicesId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="JobMainJobItinerary">
+    <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="1" />
+    <End Role="JobItinerary" Type="JobDB.Store.JobItineraries" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobMain">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobItinerary">
+        <PropertyRef Name="JobMainId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DestinationJobItinerary">
+    <End Role="Destination" Type="JobDB.Store.Destinations" Multiplicity="1" />
+    <End Role="JobItinerary" Type="JobDB.Store.JobItineraries" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Destination">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobItinerary">
+        <PropertyRef Name="DestinationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="JobMainJobPickup">
+    <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="1" />
+    <End Role="JobPickup" Type="JobDB.Store.JobPickups" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobMain">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobPickup">
+        <PropertyRef Name="JobMainId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CityBranch">
+    <End Role="City" Type="JobDB.Store.Cities" Multiplicity="1" />
+    <End Role="Branch" Type="JobDB.Store.Branches" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Branch">
+        <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CitySupplier">
+    <End Role="City" Type="JobDB.Store.Cities" Multiplicity="1" />
+    <End Role="Supplier" Type="JobDB.Store.Suppliers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Supplier">
+        <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BranchJobMain">
+    <End Role="Branch" Type="JobDB.Store.Branches" Multiplicity="1" />
+    <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobMain">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CityDestination">
+    <End Role="City" Type="JobDB.Store.Cities" Multiplicity="1" />
+    <End Role="Destination" Type="JobDB.Store.Destinations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Destination">
+        <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SupplierTypeSupplier">
+    <End Role="SupplierType" Type="JobDB.Store.SupplierTypes" Multiplicity="1" />
+    <End Role="Supplier" Type="JobDB.Store.Suppliers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SupplierType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Supplier">
+        <PropertyRef Name="SupplierTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SupplierSupplierItem">
+    <End Role="Supplier" Type="JobDB.Store.Suppliers" Multiplicity="1" />
+    <End Role="SupplierItem" Type="JobDB.Store.SupplierItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supplier">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SupplierItem">
+        <PropertyRef Name="SupplierId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SupplierItemJobServices">
+    <End Role="SupplierItem" Type="JobDB.Store.SupplierItems" Multiplicity="1" />
+    <End Role="JobServices" Type="JobDB.Store.JobServices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SupplierItem">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobServices">
+        <PropertyRef Name="SupplierItemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="JobServicesJobServicePickup">
+    <End Role="JobServices" Type="JobDB.Store.JobServices" Multiplicity="1" />
+    <End Role="JobServicePickup" Type="JobDB.Store.JobServicePickups" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobServices">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobServicePickup">
+        <PropertyRef Name="JobServicesId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="JobStatusJobMain">
+    <End Role="JobStatus" Type="JobDB.Store.JobStatus" Multiplicity="1" />
+    <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobStatus">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobMain">
+        <PropertyRef Name="JobStatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="JobThruJobMain">
+    <End Role="JobThru" Type="JobDB.Store.JobThrus" Multiplicity="1" />
+    <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobThru">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobMain">
+        <PropertyRef Name="JobThruId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="JobMainJobPayment">
+    <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="1" />
+    <End Role="JobPayment" Type="JobDB.Store.JobPayments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobMain">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobPayment">
+        <PropertyRef Name="JobMainId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BankJobPayment">
+    <End Role="Bank" Type="JobDB.Store.Banks" Multiplicity="1" />
+    <End Role="JobPayment" Type="JobDB.Store.JobPayments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bank">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobPayment">
+        <PropertyRef Name="BankId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CarCategoryCarUnit">
+    <End Role="CarCategory" Type="JobDB.Store.CarCategories" Multiplicity="1" />
+    <End Role="CarUnit" Type="JobDB.Store.CarUnits" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarCategory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CarUnit">
+        <PropertyRef Name="CarCategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CityCarDestination">
+    <End Role="City" Type="JobDB.Store.Cities" Multiplicity="1" />
+    <End Role="CarDestination" Type="JobDB.Store.CarDestinations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CarDestination">
+        <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CarUnitCarRate">
+    <End Role="CarUnit" Type="JobDB.Store.CarUnits" Multiplicity="1" />
+    <End Role="CarRate" Type="JobDB.Store.CarRates" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarUnit">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CarRate">
+        <PropertyRef Name="CarUnitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CarUnitCarReservation">
+    <End Role="CarUnit" Type="JobDB.Store.CarUnits" Multiplicity="1" />
+    <End Role="CarReservation" Type="JobDB.Store.CarReservations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarUnit">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CarReservation">
+        <PropertyRef Name="CarUnitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CarUnitCarImage">
+    <End Role="CarUnit" Type="JobDB.Store.CarUnits" Multiplicity="1" />
+    <End Role="CarImage" Type="JobDB.Store.CarImages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarUnit">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CarImage">
+        <PropertyRef Name="CarUnitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="JobDB" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="JobDBContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="JobMains" EntityType="JobDB.JobMain" />
+          <EntitySet Name="Suppliers" EntityType="JobDB.Supplier" />
+          <EntitySet Name="Customers" EntityType="JobDB.Customer" />
+          <EntitySet Name="JobTypes" EntityType="JobDB.JobType" />
+          <EntitySet Name="Services" EntityType="JobDB.Services" />
+          <AssociationSet Name="JobMainJobType" Association="JobDB.JobMainJobType">
+            <End Role="JobMain" EntitySet="JobMains" />
+            <End Role="JobType" EntitySet="JobTypes" />
+          </AssociationSet>
+          <EntitySet Name="JobServices" EntityType="JobDB.JobServices" />
+          <AssociationSet Name="JobMainJobSupplier" Association="JobDB.JobMainJobSupplier">
+            <End Role="JobMain" EntitySet="JobMains" />
+            <End Role="JobSupplier" EntitySet="JobServices" />
+          </AssociationSet>
+          <AssociationSet Name="SupplierJobSupplier" Association="JobDB.SupplierJobSupplier">
+            <End Role="Supplier" EntitySet="Suppliers" />
+            <End Role="JobSupplier" EntitySet="JobServices" />
+          </AssociationSet>
+          <AssociationSet Name="CustomerJobMain" Association="JobDB.CustomerJobMain">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="JobMain" EntitySet="JobMains" />
+          </AssociationSet>
+          <AssociationSet Name="ServicesJobServices" Association="JobDB.ServicesJobServices">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="JobServices" EntitySet="JobServices" />
+          </AssociationSet>
+          <EntitySet Name="JobItineraries" EntityType="JobDB.JobItinerary" />
+          <AssociationSet Name="JobMainJobItinerary" Association="JobDB.JobMainJobItinerary">
+            <End Role="JobMain" EntitySet="JobMains" />
+            <End Role="JobItinerary" EntitySet="JobItineraries" />
+          </AssociationSet>
+          <EntitySet Name="Destinations" EntityType="JobDB.Destination" />
+          <AssociationSet Name="DestinationJobItinerary" Association="JobDB.DestinationJobItinerary">
+            <End Role="Destination" EntitySet="Destinations" />
+            <End Role="JobItinerary" EntitySet="JobItineraries" />
+          </AssociationSet>
+          <EntitySet Name="JobPickups" EntityType="JobDB.JobPickup" />
+          <AssociationSet Name="JobMainJobPickup" Association="JobDB.JobMainJobPickup">
+            <End Role="JobMain" EntitySet="JobMains" />
+            <End Role="JobPickup" EntitySet="JobPickups" />
+          </AssociationSet>
+          <EntitySet Name="Branches" EntityType="JobDB.Branch" />
+          <EntitySet Name="Cities" EntityType="JobDB.City" />
+          <AssociationSet Name="CityBranch" Association="JobDB.CityBranch">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="Branch" EntitySet="Branches" />
+          </AssociationSet>
+          <AssociationSet Name="CitySupplier" Association="JobDB.CitySupplier">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="Supplier" EntitySet="Suppliers" />
+          </AssociationSet>
+          <AssociationSet Name="BranchJobMain" Association="JobDB.BranchJobMain">
+            <End Role="Branch" EntitySet="Branches" />
+            <End Role="JobMain" EntitySet="JobMains" />
+          </AssociationSet>
+          <AssociationSet Name="CityDestination" Association="JobDB.CityDestination">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="Destination" EntitySet="Destinations" />
+          </AssociationSet>
+          <EntitySet Name="SupplierTypes" EntityType="JobDB.SupplierType" />
+          <AssociationSet Name="SupplierTypeSupplier" Association="JobDB.SupplierTypeSupplier">
+            <End Role="SupplierType" EntitySet="SupplierTypes" />
+            <End Role="Supplier" EntitySet="Suppliers" />
+          </AssociationSet>
+          <EntitySet Name="SupplierItems" EntityType="JobDB.SupplierItem" />
+          <AssociationSet Name="SupplierSupplierItem" Association="JobDB.SupplierSupplierItem">
+            <End Role="Supplier" EntitySet="Suppliers" />
+            <End Role="SupplierItem" EntitySet="SupplierItems" />
+          </AssociationSet>
+          <AssociationSet Name="SupplierItemJobServices" Association="JobDB.SupplierItemJobServices">
+            <End Role="SupplierItem" EntitySet="SupplierItems" />
+            <End Role="JobServices" EntitySet="JobServices" />
+          </AssociationSet>
+          <EntitySet Name="JobServicePickups" EntityType="JobDB.JobServicePickup" />
+          <AssociationSet Name="JobServicesJobServicePickup" Association="JobDB.JobServicesJobServicePickup">
+            <End EntitySet="JobServices" Role="JobServices" />
+            <End EntitySet="JobServicePickups" Role="JobServicePickup" />
+          </AssociationSet>
+          <EntitySet Name="JobStatus" EntityType="JobDB.JobStatus" />
+          <EntitySet Name="JobThrus" EntityType="JobDB.JobThru" />
+          <AssociationSet Name="JobStatusJobMain" Association="JobDB.JobStatusJobMain">
+            <End Role="JobStatus" EntitySet="JobStatus" />
+            <End Role="JobMain" EntitySet="JobMains" />
+          </AssociationSet>
+          <AssociationSet Name="JobThruJobMain" Association="JobDB.JobThruJobMain">
+            <End Role="JobThru" EntitySet="JobThrus" />
+            <End Role="JobMain" EntitySet="JobMains" />
+          </AssociationSet>
+          <EntitySet Name="Banks" EntityType="JobDB.Bank" />
+          <EntitySet Name="JobPayments" EntityType="JobDB.JobPayment" />
+          <AssociationSet Name="JobMainJobPayment" Association="JobDB.JobMainJobPayment">
+            <End Role="JobMain" EntitySet="JobMains" />
+            <End Role="JobPayment" EntitySet="JobPayments" />
+          </AssociationSet>
+          <AssociationSet Name="BankJobPayment" Association="JobDB.BankJobPayment">
+            <End Role="Bank" EntitySet="Banks" />
+            <End Role="JobPayment" EntitySet="JobPayments" />
+          </AssociationSet>
+          <EntitySet Name="CarCategories" EntityType="JobDB.CarCategory" />
+          <EntitySet Name="CarUnits" EntityType="JobDB.CarUnit" />
+          <AssociationSet Name="CarCategoryCarUnit" Association="JobDB.CarCategoryCarUnit">
+            <End Role="CarCategory" EntitySet="CarCategories" />
+            <End Role="CarUnit" EntitySet="CarUnits" />
+          </AssociationSet>
+          <EntitySet Name="CarDestinations" EntityType="JobDB.CarDestination" />
+          <AssociationSet Name="CityCarDestination" Association="JobDB.CityCarDestination">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="CarDestination" EntitySet="CarDestinations" />
+          </AssociationSet>
+          <EntitySet Name="CarRates" EntityType="JobDB.CarRate" />
+          <AssociationSet Name="CarUnitCarRate" Association="JobDB.CarUnitCarRate">
+            <End Role="CarUnit" EntitySet="CarUnits" />
+            <End Role="CarRate" EntitySet="CarRates" />
+          </AssociationSet>
+          <EntitySet Name="CarReservations" EntityType="JobDB.CarReservation" />
+          <AssociationSet Name="CarUnitCarReservation" Association="JobDB.CarUnitCarReservation">
+            <End Role="CarUnit" EntitySet="CarUnits" />
+            <End Role="CarReservation" EntitySet="CarReservations" />
+          </AssociationSet>
+          <EntitySet Name="CarImages" EntityType="JobDB.CarImage" />
+          <AssociationSet Name="CarUnitCarImage" Association="JobDB.CarUnitCarImage">
+            <End Role="CarUnit" EntitySet="CarUnits" />
+            <End Role="CarImage" EntitySet="CarImages" />
+          </AssociationSet>
+          <EntitySet Name="JobContacts" EntityType="JobDB.JobContact" />
+        </EntityContainer>
+        <EntityType Name="JobMain">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JobDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="JobTypes" Relationship="JobDB.JobMainJobType" FromRole="JobMain" ToRole="JobType" />
+          <NavigationProperty Name="JobSuppliers" Relationship="JobDB.JobMainJobSupplier" FromRole="JobMain" ToRole="JobSupplier" />
+          <NavigationProperty Name="Customer" Relationship="JobDB.CustomerJobMain" FromRole="JobMain" ToRole="Customer" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="180" />
+          <NavigationProperty Name="JobItineraries" Relationship="JobDB.JobMainJobItinerary" FromRole="JobMain" ToRole="JobItinerary" />
+          <Property Name="NoOfPax" Type="Int32" Nullable="false" />
+          <Property Name="NoOfDays" Type="Int32" Nullable="false" />
+          <Property Name="JobRemarks" Type="String" Nullable="true" MaxLength="180" />
+          <Property Name="JobStatusId" Type="Int32" Nullable="false" />
+          <Property Name="StatusRemarks" Type="String" Nullable="true" />
+          <NavigationProperty Name="JobPickups" Relationship="JobDB.JobMainJobPickup" FromRole="JobMain" ToRole="JobPickup" />
+          <NavigationProperty Name="Branch" Relationship="JobDB.BranchJobMain" FromRole="JobMain" ToRole="Branch" />
+          <Property Name="BranchId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="JobStatus" Relationship="JobDB.JobStatusJobMain" FromRole="JobMain" ToRole="JobStatus" />
+          <NavigationProperty Name="JobThru" Relationship="JobDB.JobThruJobMain" FromRole="JobMain" ToRole="JobThru" />
+          <Property Name="JobThruId" Type="Int32" Nullable="false" />
+          <Property Name="AgreedAmt" Type="Decimal" Nullable="true" />
+          <NavigationProperty Name="JobPayments" Relationship="JobDB.JobMainJobPayment" FromRole="JobMain" ToRole="JobPayment" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" />
+          <Property Name="Contact1" Type="String" Nullable="true" MaxLength="20" />
+          <Property Name="Contact2" Type="String" Nullable="true" MaxLength="20" />
+          <Property Name="Contact3" Type="String" Nullable="true" MaxLength="20" />
+          <Property Name="Email" Type="String" Nullable="true" MaxLength="50" />
+          <Property Name="Details" Type="String" Nullable="true" MaxLength="80" />
+          <NavigationProperty Name="JobSuppliers" Relationship="JobDB.SupplierJobSupplier" FromRole="Supplier" ToRole="JobSupplier" />
+          <NavigationProperty Name="City" Relationship="JobDB.CitySupplier" FromRole="Supplier" ToRole="City" />
+          <Property Name="CityId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SupplierType" Relationship="JobDB.SupplierTypeSupplier" FromRole="Supplier" ToRole="SupplierType" />
+          <Property Name="SupplierTypeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SupplierItems" Relationship="JobDB.SupplierSupplierItem" FromRole="Supplier" ToRole="SupplierItem" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="80" />
+          <Property Name="Email" Type="String" Nullable="true" MaxLength="80" />
+          <Property Name="Contact1" Type="String" Nullable="true" MaxLength="20" />
+          <Property Name="Contact2" Type="String" Nullable="true" MaxLength="20" />
+          <Property Name="Remarks" Type="String" Nullable="true" MaxLength="120" />
+          <NavigationProperty Name="JobMains" Relationship="JobDB.CustomerJobMain" FromRole="Customer" ToRole="JobMain" />
+          <Property Name="Status" Type="String" Nullable="true" MaxLength="3" />
+        </EntityType>
+        <EntityType Name="JobType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JobMainId" Type="Int32" Nullable="false" />
+          <Property Name="TTicket" Type="Int32" Nullable="true" DefaultValue="0" />
+          <Property Name="TTransport" Type="Int32" Nullable="true" DefaultValue="0" />
+          <Property Name="TTour" Type="Int32" Nullable="true" DefaultValue="0" />
+          <Property Name="THotel" Type="Int32" Nullable="true" DefaultValue="0" />
+          <Property Name="TOthers" Type="Int32" Nullable="true" DefaultValue="0" />
+          <Property Name="Remarks" Type="String" Nullable="true" MaxLength="80" />
+          <NavigationProperty Name="JobMain" Relationship="JobDB.JobMainJobType" FromRole="JobType" ToRole="JobMain" />
+        </EntityType>
+        <EntityType Name="Services">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="30" />
+          <Property Name="Description" Type="String" Nullable="true" MaxLength="80" />
+          <NavigationProperty Name="JobServices" Relationship="JobDB.ServicesJobServices" FromRole="Services" ToRole="JobServices" />
+        </EntityType>
+        <Association Name="JobMainJobType">
+          <End Type="JobDB.JobMain" Role="JobMain" Multiplicity="1" />
+          <End Type="JobDB.JobType" Role="JobType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobMain">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JobType">
+              <PropertyRef Name="JobMainId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="JobServices">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="JobMain" Relationship="JobDB.JobMainJobSupplier" FromRole="JobSupplier" ToRole="JobMain" />
+          <Property Name="JobMainId" Type="Int32" Nullable="false" />
+          <Property Name="ServicesId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Supplier" Relationship="JobDB.SupplierJobSupplier" FromRole="JobSupplier" ToRole="Supplier" />
+          <Property Name="SupplierId" Type="Int32" Nullable="false" />
+          <Property Name="Particulars" Type="String" Nullable="true" MaxLength="80" />
+          <NavigationProperty Name="Service" Relationship="JobDB.ServicesJobServices" FromRole="JobServices" ToRole="Services" />
+          <Property Name="QuotedAmt" Type="Decimal" Nullable="true" />
+          <Property Name="SupplierAmt" Type="Decimal" Nullable="true" />
+          <Property Name="ActualAmt" Type="Decimal" Nullable="true" />
+          <Property Name="Remarks" Type="String" Nullable="true" MaxLength="80" />
+          <NavigationProperty Name="SupplierItem" Relationship="JobDB.SupplierItemJobServices" FromRole="JobServices" ToRole="SupplierItem" />
+          <Property Name="SupplierItemId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="JobServicePickups" Relationship="JobDB.JobServicesJobServicePickup" FromRole="JobServices" ToRole="JobServicePickup" />
+          <Property Name="DtStart" Type="DateTime" Nullable="true" />
+          <Property Name="DtEnd" Type="DateTime" Nullable="true" />
+        </EntityType>
+        <Association Name="JobMainJobSupplier">
+          <End Type="JobDB.JobMain" Role="JobMain" Multiplicity="1" />
+          <End Type="JobDB.JobServices" Role="JobSupplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobMain">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JobSupplier">
+              <PropertyRef Name="JobMainId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SupplierJobSupplier">
+          <End Type="JobDB.Supplier" Role="Supplier" Multiplicity="1" />
+          <End Type="JobDB.JobServices" Role="JobSupplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JobSupplier">
+              <PropertyRef Name="SupplierId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CustomerJobMain">
+          <End Type="JobDB.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="JobDB.JobMain" Role="JobMain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JobMain">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ServicesJobServices">
+          <End Type="JobDB.Services" Role="Services" Multiplicity="1" />
+          <End Type="JobDB.JobServices" Role="JobServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JobServices">
+              <PropertyRef Name="ServicesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="JobItinerary">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="JobMain" Relationship="JobDB.JobMainJobItinerary" FromRole="JobItinerary" ToRole="JobMain" />
+          <Property Name="JobMainId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Destination" Relationship="JobDB.DestinationJobItinerary" FromRole="JobItinerary" ToRole="Destination" />
+          <Property Name="DestinationId" Type="Int32" Nullable="false" />
+          <Property Name="ActualRate" Type="Decimal" Nullable="true" />
+          <Property Name="Remarks" Type="String" Nullable="true" MaxLength="80" />
+          <Property Name="ItiDate" Type="DateTime" Nullable="true" />
+        </EntityType>
+        <Association Name="JobMainJobItinerary">
+          <End Type="JobDB.JobMain" Role="JobMain" Multiplicity="1" />
+          <End Type="JobDB.JobItinerary" Role="JobItinerary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobMain">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JobItinerary">
+              <PropertyRef Name="JobMainId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Destination">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="80" />
+          <Property Name="PubRate" Type="Decimal" Nullable="true" />
+          <NavigationProperty Name="JobItineraries" Relationship="JobDB.DestinationJobItinerary" FromRole="Destination" ToRole="JobItinerary" />
+          <Property Name="ConRate" Type="Decimal" Nullable="true" />
+          <Property Name="Remarks" Type="String" Nullable="true" MaxLength="150" />
+          <NavigationProperty Name="City" Relationship="JobDB.CityDestination" FromRole="Destination" ToRole="City" />
+          <Property Name="CityId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="DestinationJobItinerary">
+          <End Type="JobDB.Destination" Role="Destination" Multiplicity="1" />
+          <End Type="JobDB.JobItinerary" Role="JobItinerary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Destination">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JobItinerary">
+              <PropertyRef Name="DestinationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="JobPickup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="JobMain" Relationship="JobDB.JobMainJobPickup" FromRole="JobPickup" ToRole="JobMain" />
+          <Property Name="JobMainId" Type="Int32" Nullable="false" />
+          <Property Name="puDate" Type="DateTime" Nullable="false" />
+          <Property Name="puTime" Type="String" Nullable="false" MaxLength="5" />
+          <Property Name="puLocation" Type="String" Nullable="false" MaxLength="80" />
+          <Property Name="ContactName" Type="String" Nullable="false" MaxLength="80" />
+          <Property Name="ContactNumber" Type="String" Nullable="false" MaxLength="20" />
+        </EntityType>
+        <Association Name="JobMainJobPickup">
+          <End Type="JobDB.JobMain" Role="JobMain" Multiplicity="1" />
+          <End Type="JobDB.JobPickup" Role="JobPickup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobMain">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JobPickup">
+              <PropertyRef Name="JobMainId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Branch">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="30" />
+          <NavigationProperty Name="City" Relationship="JobDB.CityBranch" FromRole="Branch" ToRole="City" />
+          <Property Name="CityId" Type="Int32" Nullable="false" />
+          <Property Name="Remarks" Type="String" Nullable="true" MaxLength="80" />
+          <Property Name="Address" Type="String" Nullable="true" MaxLength="180" />
+          <Property Name="Landline" Type="String" Nullable="true" MaxLength="20" />
+          <NavigationProperty Name="JobMains" Relationship="JobDB.BranchJobMain" FromRole="Branch" ToRole="JobMain" />
+          <Property Name="Mobile" Type="String" Nullable="true" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="20" />
+          <NavigationProperty Name="Branches" Relationship="JobDB.CityBranch" FromRole="City" ToRole="Branch" />
+          <NavigationProperty Name="Suppliers" Relationship="JobDB.CitySupplier" FromRole="City" ToRole="Supplier" />
+          <NavigationProperty Name="Destinations" Relationship="JobDB.CityDestination" FromRole="City" ToRole="Destination" />
+          <NavigationProperty Name="CarDestinations" Relationship="JobDB.CityCarDestination" FromRole="City" ToRole="CarDestination" />
+        </EntityType>
+        <Association Name="CityBranch">
+          <End Type="JobDB.City" Role="City" Multiplicity="1" />
+          <End Type="JobDB.Branch" Role="Branch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Branch">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CitySupplier">
+          <End Type="JobDB.City" Role="City" Multiplicity="1" />
+          <End Type="JobDB.Supplier" Role="Supplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Supplier">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BranchJobMain">
+          <End Type="JobDB.Branch" Role="Branch" Multiplicity="1" />
+          <End Type="JobDB.JobMain" Role="JobMain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JobMain">
+              <PropertyRef Name="BranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CityDestination">
+          <End Type="JobDB.City" Role="City" Multiplicity="1" />
+          <End Type="JobDB.Destination" Role="Destination" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Destination">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SupplierType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <NavigationProperty Name="Suppliers" Relationship="JobDB.SupplierTypeSupplier" FromRole="SupplierType" ToRole="Supplier" />
+        </EntityType>
+        <Association Name="SupplierTypeSupplier">
+          <End Type="JobDB.SupplierType" Role="SupplierType" Multiplicity="1" />
+          <End Type="JobDB.Supplier" Role="Supplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupplierType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Supplier">
+              <PropertyRef Name="SupplierTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SupplierItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="30" />
+          <Property Name="Remarks" Type="String" Nullable="true" MaxLength="80" />
+          <NavigationProperty Name="Supplier" Relationship="JobDB.SupplierSupplierItem" FromRole="SupplierItem" ToRole="Supplier" />
+          <Property Name="SupplierId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="JobServices" Relationship="JobDB.SupplierItemJobServices" FromRole="SupplierItem" ToRole="JobServices" />
+          <Property Name="InCharge" Type="String" Nullable="true" MaxLength="30" />
+          <Property Name="Tel1" Type="String" Nullable="true" />
+          <Property Name="Tel2" Type="String" Nullable="true" />
+          <Property Name="Tel3" Type="String" Nullable="true" />
+        </EntityType>
+        <Association Name="SupplierSupplierItem">
+          <End Type="JobDB.Supplier" Role="Supplier" Multiplicity="1" />
+          <End Type="JobDB.SupplierItem" Role="SupplierItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SupplierItem">
+              <PropertyRef Name="SupplierId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SupplierItemJobServices">
+          <End Type="JobDB.SupplierItem" Role="SupplierItem" Multiplicity="1" />
+          <End Type="JobDB.JobServices" Role="JobServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupplierItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JobServices">
+              <PropertyRef Name="SupplierItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="JobServicePickup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="JobServicesId" Type="Int32" Nullable="false" />
+          <Property Name="JsDate" Nullable="false" Type="DateTime" />
+          <Property Name="JsTime" Nullable="true" MaxLength="10" Type="String" />
+          <Property Name="JsLocation" Nullable="true" MaxLength="80" Type="String" />
+          <Property Name="ClientName" Nullable="true" MaxLength="80" Type="String" />
+          <Property Name="ClientContact" Nullable="true" MaxLength="50" Type="String" />
+          <Property Name="ProviderName" Nullable="true" MaxLength="80" Type="String" />
+          <Property Name="ProviderContact" Nullable="true" MaxLength="50" Type="String" />
+          <NavigationProperty Name="JobService" Relationship="JobDB.JobServicesJobServicePickup" FromRole="JobServicePickup" ToRole="JobServices" />
+        </EntityType>
+        <Association Name="JobServicesJobServicePickup">
+          <End Type="JobDB.JobServices" Multiplicity="1" Role="JobServices" />
+          <End Type="JobDB.JobServicePickup" Multiplicity="*" Role="JobServicePickup" />
+          <ReferentialConstraint>
+            <Principal Role="JobServices">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JobServicePickup">
+              <PropertyRef Name="JobServicesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="JobStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Status" Type="String" Nullable="false" />
+          <NavigationProperty Name="JobMains" Relationship="JobDB.JobStatusJobMain" FromRole="JobStatus" ToRole="JobMain" />
+        </EntityType>
+        <EntityType Name="JobThru">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Desc" Type="String" Nullable="false" />
+          <NavigationProperty Name="JobMains" Relationship="JobDB.JobThruJobMain" FromRole="JobThru" ToRole="JobMain" />
+        </EntityType>
+        <Association Name="JobStatusJobMain">
+          <End Type="JobDB.JobStatus" Role="JobStatus" Multiplicity="1" />
+          <End Type="JobDB.JobMain" Role="JobMain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobStatus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JobMain">
+              <PropertyRef Name="JobStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="JobThruJobMain">
+          <End Type="JobDB.JobThru" Role="JobThru" Multiplicity="1" />
+          <End Type="JobDB.JobMain" Role="JobMain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobThru">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JobMain">
+              <PropertyRef Name="JobThruId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Bank">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BankName" Type="String" Nullable="false" />
+          <Property Name="BankBranch" Type="String" Nullable="false" />
+          <Property Name="AccntName" Type="String" Nullable="false" />
+          <Property Name="AccntNo" Type="String" Nullable="false" />
+          <NavigationProperty Name="JobPayments" Relationship="JobDB.BankJobPayment" FromRole="Bank" ToRole="JobPayment" />
+        </EntityType>
+        <EntityType Name="JobPayment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="JobMain" Relationship="JobDB.JobMainJobPayment" FromRole="JobPayment" ToRole="JobMain" />
+          <Property Name="JobMainId" Type="Int32" Nullable="false" />
+          <Property Name="DtPayment" Type="DateTime" Nullable="false" />
+          <Property Name="PaymentAmt" Type="Decimal" Nullable="false" />
+          <Property Name="Remarks" Type="String" Nullable="true" />
+          <NavigationProperty Name="Bank" Relationship="JobDB.BankJobPayment" FromRole="JobPayment" ToRole="Bank" />
+          <Property Name="BankId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="JobMainJobPayment">
+          <End Type="JobDB.JobMain" Role="JobMain" Multiplicity="1" />
+          <End Type="JobDB.JobPayment" Role="JobPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobMain">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JobPayment">
+              <PropertyRef Name="JobMainId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BankJobPayment">
+          <End Type="JobDB.Bank" Role="Bank" Multiplicity="1" />
+          <End Type="JobDB.JobPayment" Role="JobPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bank">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JobPayment">
+              <PropertyRef Name="BankId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CarCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" Nullable="true" />
+          <Property Name="Remarks" Type="String" Nullable="true" />
+          <NavigationProperty Name="CarUnits" Relationship="JobDB.CarCategoryCarUnit" FromRole="CarCategory" ToRole="CarUnit" />
+        </EntityType>
+        <EntityType Name="CarUnit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" Nullable="true" />
+          <Property Name="Remarks" Type="String" Nullable="true" />
+          <NavigationProperty Name="CarCategory" Relationship="JobDB.CarCategoryCarUnit" FromRole="CarUnit" ToRole="CarCategory" />
+          <Property Name="CarCategoryId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CarRates" Relationship="JobDB.CarUnitCarRate" FromRole="CarUnit" ToRole="CarRate" />
+          <NavigationProperty Name="CarReservations" Relationship="JobDB.CarUnitCarReservation" FromRole="CarUnit" ToRole="CarReservation" />
+          <NavigationProperty Name="CarImages" Relationship="JobDB.CarUnitCarImage" FromRole="CarUnit" ToRole="CarImage" />
+        </EntityType>
+        <Association Name="CarCategoryCarUnit">
+          <End Type="JobDB.CarCategory" Role="CarCategory" Multiplicity="1" />
+          <End Type="JobDB.CarUnit" Role="CarUnit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CarCategory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CarUnit">
+              <PropertyRef Name="CarCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CarDestination">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="City" Relationship="JobDB.CityCarDestination" FromRole="CarDestination" ToRole="City" />
+          <Property Name="CityId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="Kms" Type="Int32" Nullable="false" DefaultValue="0" />
+        </EntityType>
+        <Association Name="CityCarDestination">
+          <End Type="JobDB.City" Role="City" Multiplicity="1" />
+          <End Type="JobDB.CarDestination" Role="CarDestination" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CarDestination">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CarRate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Daily" Type="Decimal" Nullable="false" />
+          <Property Name="Weekly" Type="Decimal" Nullable="false" />
+          <Property Name="Monthly" Type="Decimal" Nullable="false" />
+          <Property Name="KmFree" Type="Int32" Nullable="false" />
+          <Property Name="KmRate" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CarUnit" Relationship="JobDB.CarUnitCarRate" FromRole="CarRate" ToRole="CarUnit" />
+          <Property Name="CarUnitId" Type="Int32" Nullable="false" />
+          <Property Name="OtRate" Type="Decimal" Nullable="false" />
+        </EntityType>
+        <Association Name="CarUnitCarRate">
+          <End Type="JobDB.CarUnit" Role="CarUnit" Multiplicity="1" />
+          <End Type="JobDB.CarRate" Role="CarRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CarUnit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CarRate">
+              <PropertyRef Name="CarUnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CarReservation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DtTrx" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="CarUnit" Relationship="JobDB.CarUnitCarReservation" FromRole="CarReservation" ToRole="CarUnit" />
+          <Property Name="CarUnitId" Type="Int32" Nullable="false" />
+          <Property Name="DtStart" Type="String" Nullable="false" />
+          <Property Name="LocStart" Type="String" Nullable="true" />
+          <Property Name="DtEnd" Type="String" Nullable="false" />
+          <Property Name="LocEnd" Type="String" Nullable="true" />
+          <Property Name="BaseRate" Type="String" Nullable="false" />
+          <Property Name="Destinations" Type="String" Nullable="false" />
+          <Property Name="UseFor" Type="String" Nullable="false" />
+          <Property Name="RenterName" Type="String" Nullable="false" />
+          <Property Name="RenterCompany" Type="String" Nullable="true" />
+          <Property Name="RenterEmail" Type="String" Nullable="false" />
+          <Property Name="RenterMobile" Type="String" Nullable="false" />
+          <Property Name="RenterAddress" Type="String" Nullable="true" />
+          <Property Name="RenterFbAccnt" Type="String" Nullable="true" />
+          <Property Name="RenterLinkedInAccnt" Type="String" Nullable="true" />
+          <Property Name="EstHrPerDay" Type="Int32" Nullable="true" />
+          <Property Name="EstKmTravel" Type="Int32" Nullable="true" />
+        </EntityType>
+        <Association Name="CarUnitCarReservation">
+          <End Type="JobDB.CarUnit" Role="CarUnit" Multiplicity="1" />
+          <End Type="JobDB.CarReservation" Role="CarReservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CarUnit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CarReservation">
+              <PropertyRef Name="CarUnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CarImage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="CarUnit" Relationship="JobDB.CarUnitCarImage" FromRole="CarImage" ToRole="CarUnit" />
+          <Property Name="CarUnitId" Type="Int32" Nullable="false" />
+          <Property Name="ImgUrl" Type="String" Nullable="false" />
+          <Property Name="Remarks" Type="String" Nullable="false" />
+          <Property Name="SysCode" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="CarUnitCarImage">
+          <End Type="JobDB.CarUnit" Role="CarUnit" Multiplicity="1" />
+          <End Type="JobDB.CarImage" Role="CarImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CarUnit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CarImage">
+              <PropertyRef Name="CarUnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="JobContact">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="ShortName" Type="String" Nullable="true" MaxLength="20" />
+          <Property Name="Company" Type="String" Nullable="true" MaxLength="50" />
+          <Property Name="Position" Type="String" Nullable="true" MaxLength="50" />
+          <Property Name="Tel1" Type="String" Nullable="true" MaxLength="50" />
+          <Property Name="Tel2" Type="String" Nullable="true" MaxLength="50" />
+          <Property Name="Email" Type="String" Nullable="true" MaxLength="100" />
+          <Property Name="AddInfo" Type="String" Nullable="true" MaxLength="250" />
+          <Property Name="Remarks" Type="String" Nullable="true" MaxLength="250" />
+          <Property Name="ContactType" Type="String" Nullable="true" MaxLength="5" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="JobDBStoreContainer" CdmEntityContainer="JobDBContainer">
+    <EntitySetMapping Name="JobMains">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.JobMain)">
+        <MappingFragment StoreEntitySet="JobMains">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="JobDate" ColumnName="JobDate" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="NoOfPax" ColumnName="NoOfPax" />
+          <ScalarProperty Name="NoOfDays" ColumnName="NoOfDays" />
+          <ScalarProperty Name="JobRemarks" ColumnName="JobRemarks" />
+          <ScalarProperty Name="JobStatusId" ColumnName="JobStatusId" />
+          <ScalarProperty Name="StatusRemarks" ColumnName="StatusRemarks" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+          <ScalarProperty Name="JobThruId" ColumnName="JobThruId" />
+          <ScalarProperty Name="AgreedAmt" ColumnName="AgreedAmt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Suppliers">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.Supplier)">
+        <MappingFragment StoreEntitySet="Suppliers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Contact1" ColumnName="Contact1" />
+          <ScalarProperty Name="Contact2" ColumnName="Contact2" />
+          <ScalarProperty Name="Contact3" ColumnName="Contact3" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
+          <ScalarProperty Name="SupplierTypeId" ColumnName="SupplierTypeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.Customer)">
+        <MappingFragment StoreEntitySet="Customers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Contact1" ColumnName="Contact1" />
+          <ScalarProperty Name="Contact2" ColumnName="Contact2" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobTypes">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.JobType)">
+        <MappingFragment StoreEntitySet="JobTypes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="JobMainId" ColumnName="JobMainId" />
+          <ScalarProperty Name="TTicket" ColumnName="TTicket" />
+          <ScalarProperty Name="TTransport" ColumnName="TTransport" />
+          <ScalarProperty Name="TTour" ColumnName="TTour" />
+          <ScalarProperty Name="THotel" ColumnName="THotel" />
+          <ScalarProperty Name="TOthers" ColumnName="TOthers" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Services">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.Services)">
+        <MappingFragment StoreEntitySet="Services">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobServices">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.JobServices)">
+        <MappingFragment StoreEntitySet="JobServices">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="JobMainId" ColumnName="JobMainId" />
+          <ScalarProperty Name="ServicesId" ColumnName="ServicesId" />
+          <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+          <ScalarProperty Name="Particulars" ColumnName="Particulars" />
+          <ScalarProperty Name="QuotedAmt" ColumnName="QuotedAmt" />
+          <ScalarProperty Name="SupplierAmt" ColumnName="SupplierAmt" />
+          <ScalarProperty Name="ActualAmt" ColumnName="ActualAmt" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="SupplierItemId" ColumnName="SupplierItemId" />
+          <ScalarProperty Name="DtStart" ColumnName="DtStart" />
+          <ScalarProperty Name="DtEnd" ColumnName="DtEnd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobItineraries">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.JobItinerary)">
+        <MappingFragment StoreEntitySet="JobItineraries">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="JobMainId" ColumnName="JobMainId" />
+          <ScalarProperty Name="DestinationId" ColumnName="DestinationId" />
+          <ScalarProperty Name="ActualRate" ColumnName="ActualRate" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="ItiDate" ColumnName="ItiDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Destinations">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.Destination)">
+        <MappingFragment StoreEntitySet="Destinations">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="PubRate" ColumnName="PubRate" />
+          <ScalarProperty Name="ConRate" ColumnName="ConRate" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobPickups">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.JobPickup)">
+        <MappingFragment StoreEntitySet="JobPickups">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="JobMainId" ColumnName="JobMainId" />
+          <ScalarProperty Name="puDate" ColumnName="puDate" />
+          <ScalarProperty Name="puTime" ColumnName="puTime" />
+          <ScalarProperty Name="puLocation" ColumnName="puLocation" />
+          <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+          <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Branches">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.Branch)">
+        <MappingFragment StoreEntitySet="Branches">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Landline" ColumnName="Landline" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cities">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.City)">
+        <MappingFragment StoreEntitySet="Cities">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SupplierTypes">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.SupplierType)">
+        <MappingFragment StoreEntitySet="SupplierTypes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SupplierItems">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.SupplierItem)">
+        <MappingFragment StoreEntitySet="SupplierItems">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+          <ScalarProperty Name="InCharge" ColumnName="InCharge" />
+          <ScalarProperty Name="Tel1" ColumnName="Tel1" />
+          <ScalarProperty Name="Tel2" ColumnName="Tel2" />
+          <ScalarProperty Name="Tel3" ColumnName="Tel3" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobServicePickups">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.JobServicePickup)">
+        <MappingFragment StoreEntitySet="JobServicePickups">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="JobServicesId" ColumnName="JobServicesId" />
+          <ScalarProperty Name="JsDate" ColumnName="JsDate" />
+          <ScalarProperty Name="JsTime" ColumnName="JsTime" />
+          <ScalarProperty Name="JsLocation" ColumnName="JsLocation" />
+          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+          <ScalarProperty Name="ClientContact" ColumnName="ClientContact" />
+          <ScalarProperty Name="ProviderName" ColumnName="ProviderName" />
+          <ScalarProperty Name="ProviderContact" ColumnName="ProviderContact" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobStatus">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.JobStatus)">
+        <MappingFragment StoreEntitySet="JobStatus">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobThrus">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.JobThru)">
+        <MappingFragment StoreEntitySet="JobThrus">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Desc" ColumnName="Desc" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Banks">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.Bank)">
+        <MappingFragment StoreEntitySet="Banks">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BankName" ColumnName="BankName" />
+          <ScalarProperty Name="BankBranch" ColumnName="BankBranch" />
+          <ScalarProperty Name="AccntName" ColumnName="AccntName" />
+          <ScalarProperty Name="AccntNo" ColumnName="AccntNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobPayments">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.JobPayment)">
+        <MappingFragment StoreEntitySet="JobPayments">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="JobMainId" ColumnName="JobMainId" />
+          <ScalarProperty Name="DtPayment" ColumnName="DtPayment" />
+          <ScalarProperty Name="PaymentAmt" ColumnName="PaymentAmt" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="BankId" ColumnName="BankId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CarCategories">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.CarCategory)">
+        <MappingFragment StoreEntitySet="CarCategories">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CarUnits">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.CarUnit)">
+        <MappingFragment StoreEntitySet="CarUnits">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="CarCategoryId" ColumnName="CarCategoryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CarDestinations">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.CarDestination)">
+        <MappingFragment StoreEntitySet="CarDestinations">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Kms" ColumnName="Kms" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CarRates">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.CarRate)">
+        <MappingFragment StoreEntitySet="CarRates">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Daily" ColumnName="Daily" />
+          <ScalarProperty Name="Weekly" ColumnName="Weekly" />
+          <ScalarProperty Name="Monthly" ColumnName="Monthly" />
+          <ScalarProperty Name="KmFree" ColumnName="KmFree" />
+          <ScalarProperty Name="KmRate" ColumnName="KmRate" />
+          <ScalarProperty Name="CarUnitId" ColumnName="CarUnitId" />
+          <ScalarProperty Name="OtRate" ColumnName="OtRate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CarReservations">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.CarReservation)">
+        <MappingFragment StoreEntitySet="CarReservations">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DtTrx" ColumnName="DtTrx" />
+          <ScalarProperty Name="CarUnitId" ColumnName="CarUnitId" />
+          <ScalarProperty Name="DtStart" ColumnName="DtStart" />
+          <ScalarProperty Name="LocStart" ColumnName="LocStart" />
+          <ScalarProperty Name="DtEnd" ColumnName="DtEnd" />
+          <ScalarProperty Name="LocEnd" ColumnName="LocEnd" />
+          <ScalarProperty Name="BaseRate" ColumnName="BaseRate" />
+          <ScalarProperty Name="Destinations" ColumnName="Destinations" />
+          <ScalarProperty Name="UseFor" ColumnName="UseFor" />
+          <ScalarProperty Name="RenterName" ColumnName="RenterName" />
+          <ScalarProperty Name="RenterCompany" ColumnName="RenterCompany" />
+          <ScalarProperty Name="RenterEmail" ColumnName="RenterEmail" />
+          <ScalarProperty Name="RenterMobile" ColumnName="RenterMobile" />
+          <ScalarProperty Name="RenterAddress" ColumnName="RenterAddress" />
+          <ScalarProperty Name="RenterFbAccnt" ColumnName="RenterFbAccnt" />
+          <ScalarProperty Name="RenterLinkedInAccnt" ColumnName="RenterLinkedInAccnt" />
+          <ScalarProperty Name="EstHrPerDay" ColumnName="EstHrPerDay" />
+          <ScalarProperty Name="EstKmTravel" ColumnName="EstKmTravel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CarImages">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.CarImage)">
+        <MappingFragment StoreEntitySet="CarImages">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CarUnitId" ColumnName="CarUnitId" />
+          <ScalarProperty Name="ImgUrl" ColumnName="ImgUrl" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="SysCode" ColumnName="SysCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobContacts">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.JobContact)">
+        <MappingFragment StoreEntitySet="JobContacts">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+          <ScalarProperty Name="Tel1" ColumnName="Tel1" />
+          <ScalarProperty Name="Tel2" ColumnName="Tel2" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="AddInfo" ColumnName="AddInfo" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="ContactType" ColumnName="ContactType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
