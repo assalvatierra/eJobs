@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 02/20/2017 10:40:39
--- Generated from EDMX file: D:\Data\Real\Apps\JobsV1\JobsV1\Models\JobDB.edmx
+-- Date Created: 02/21/2017 22:52:10
+-- Generated from EDMX file: C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [DB_A0A0AE_job];
+USE [aspnet-JobsV1-20160528101923];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
