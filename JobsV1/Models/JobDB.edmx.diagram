@@ -54,7 +54,14 @@
         <AssociationConnector Association="JobDB.CarUnitCarReservation" />
         <EntityTypeShape EntityType="JobDB.CarImage" Width="1.5" PointX="0.875" PointY="21.625" />
         <AssociationConnector Association="JobDB.CarUnitCarImage" />
-        <EntityTypeShape EntityType="JobDB.JobContact" Width="1.5" PointX="13.75" PointY="3.875" />
+        <EntityTypeShape EntityType="JobDB.JobContact" Width="1.5" PointX="13.375" PointY="3.25" />
+        <EntityTypeShape EntityType="JobDB.Product" Width="1.5" PointX="18.125" PointY="5.75" />
+        <EntityTypeShape EntityType="JobDB.ProductPrice" Width="1.5" PointX="18.125" PointY="9.5" />
+        <AssociationConnector Association="JobDB.ProductProductPrice" />
+        <EntityTypeShape EntityType="JobDB.ProductImage" Width="1.5" PointX="20.125" PointY="9.5" />
+        <AssociationConnector Association="JobDB.ProductProductImages" />
+        <EntityTypeShape EntityType="JobDB.ProductCondition" Width="1.5" PointX="16" PointY="9.5" />
+        <AssociationConnector Association="JobDB.ProductProductCondition" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

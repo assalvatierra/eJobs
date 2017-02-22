@@ -50,5 +50,9 @@ namespace JobsV1.Models
         public virtual DbSet<CarReservation> CarReservations { get; set; }
         public virtual DbSet<CarImage> CarImages { get; set; }
         public virtual DbSet<JobContact> JobContacts { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<ProductPrice> ProductPrices { get; set; }
+        public virtual DbSet<ProductImage> ProductImages1 { get; set; }
+        public virtual DbSet<ProductCondition> ProductConditions { get; set; }
     }
 }
