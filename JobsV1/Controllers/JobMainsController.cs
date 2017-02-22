@@ -262,6 +262,12 @@ namespace JobsV1.Controllers
             return View(jobMain);
         }
 
+        public ActionResult ServiceList()
+        {
+
+        }
+
+
         // GET: JobMains/Edit/5
         public ActionResult Edit(int? id)
         {
