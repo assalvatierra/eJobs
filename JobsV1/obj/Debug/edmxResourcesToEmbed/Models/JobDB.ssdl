@@ -26,6 +26,10 @@
     <EntitySet Name="CarReservations" EntityType="JobDB.Store.CarReservations" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="CarImages" EntityType="JobDB.Store.CarImages" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="JobContacts" EntityType="JobDB.Store.JobContacts" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Products" EntityType="JobDB.Store.Products" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProductPrices" EntityType="JobDB.Store.ProductPrices" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProductImages1" EntityType="JobDB.Store.ProductImages1" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProductConditions" EntityType="JobDB.Store.ProductConditions" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="JobMainJobType" Association="JobDB.Store.JobMainJobType">
       <End Role="JobMain" EntitySet="JobMains" />
       <End Role="JobType" EntitySet="JobTypes" />
@@ -125,6 +129,18 @@
     <AssociationSet Name="CarUnitCarImage" Association="JobDB.Store.CarUnitCarImage">
       <End Role="CarUnit" EntitySet="CarUnits" />
       <End Role="CarImage" EntitySet="CarImages" />
+    </AssociationSet>
+    <AssociationSet Name="ProductProductPrice" Association="JobDB.Store.ProductProductPrice">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="ProductPrice" EntitySet="ProductPrices" />
+    </AssociationSet>
+    <AssociationSet Name="ProductProductImages" Association="JobDB.Store.ProductProductImages">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="ProductImages" EntitySet="ProductImages1" />
+    </AssociationSet>
+    <AssociationSet Name="ProductProductCondition" Association="JobDB.Store.ProductProductCondition">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="ProductCondition" EntitySet="ProductConditions" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="JobMains">
@@ -418,6 +434,46 @@
     <Property Name="AddInfo" Type="nvarchar" Nullable="true" MaxLength="250" />
     <Property Name="Remarks" Type="nvarchar" Nullable="true" MaxLength="250" />
     <Property Name="ContactType" Type="nvarchar" Nullable="true" MaxLength="5" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="TemplateId" Type="int" Nullable="true" />
+    <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="80" />
+    <Property Name="Remarks" Type="nvarchar" Nullable="true" MaxLength="250" />
+    <Property Name="Sort" Type="int" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" Nullable="false" MaxLength="3" />
+  </EntityType>
+  <EntityType Name="ProductPrices">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductId" Type="int" Nullable="false" />
+    <Property Name="Uom" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="Qty" Type="int" Nullable="false" />
+    <Property Name="Rate" Type="decimal" Nullable="false" />
+    <Property Name="Rate1" Type="decimal" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProductImages1">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductId" Type="int" Nullable="false" />
+    <Property Name="Path" Type="nvarchar" Nullable="false" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="ProductConditions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductId" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="250" />
+    <Property Name="Remarks" Type="nvarchar" Nullable="true" MaxLength="250" />
   </EntityType>
   <Association Name="JobMainJobType">
     <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="1" />
@@ -716,6 +772,42 @@
       </Principal>
       <Dependent Role="CarImage">
         <PropertyRef Name="CarUnitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProductProductPrice">
+    <End Role="Product" Type="JobDB.Store.Products" Multiplicity="1" />
+    <End Role="ProductPrice" Type="JobDB.Store.ProductPrices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductPrice">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProductProductImages">
+    <End Role="Product" Type="JobDB.Store.Products" Multiplicity="1" />
+    <End Role="ProductImages" Type="JobDB.Store.ProductImages1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductImages">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProductProductCondition">
+    <End Role="Product" Type="JobDB.Store.Products" Multiplicity="1" />
+    <End Role="ProductCondition" Type="JobDB.Store.ProductConditions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductCondition">
+        <PropertyRef Name="ProductId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

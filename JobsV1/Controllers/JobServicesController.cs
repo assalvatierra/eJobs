@@ -357,5 +357,10 @@ namespace JobsV1.Controllers
 
         }
 
+        public ActionResult ProductList()
+        {
+            return View();
+        }
+
     }
 }
