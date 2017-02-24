@@ -62,6 +62,10 @@
         <AssociationConnector Association="JobDB.ProductProductImages" />
         <EntityTypeShape EntityType="JobDB.ProductCondition" Width="1.5" PointX="16" PointY="9.5" />
         <AssociationConnector Association="JobDB.ProductProductCondition" />
+        <EntityTypeShape EntityType="JobDB.ProductCategory" Width="1.5" PointX="15.625" PointY="3.375" />
+        <EntityTypeShape EntityType="JobDB.ProductProdCat" Width="1.5" PointX="15.625" PointY="5.75" />
+        <AssociationConnector Association="JobDB.ProductCategoryProductProdCat" />
+        <AssociationConnector Association="JobDB.ProductProductProdCat" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

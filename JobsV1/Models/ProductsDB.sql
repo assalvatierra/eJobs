@@ -45,6 +45,21 @@ CREATE TABLE [dbo].[ProductConditions] (
 );
 GO
 
+-- Creating table 'ProductCategories'
+CREATE TABLE [dbo].[ProductCategories] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(max)  NOT NULL,
+    [Remarks] nvarchar(max)  NOT NULL
+);
+GO
+
+-- Creating table 'ProductProdCats'
+CREATE TABLE [dbo].[ProductProdCats] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [ProductCategoryId] int  NOT NULL,
+    [ProductId] int  NOT NULL
+);
+GO
 
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
@@ -72,6 +87,18 @@ GO
 -- Creating primary key on [Id] in table 'ProductConditions'
 ALTER TABLE [dbo].[ProductConditions]
 ADD CONSTRAINT [PK_ProductConditions]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'ProductCategories'
+ALTER TABLE [dbo].[ProductCategories]
+ADD CONSTRAINT [PK_ProductCategories]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'ProductProdCats'
+ALTER TABLE [dbo].[ProductProdCats]
+ADD CONSTRAINT [PK_ProductProdCats]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -123,5 +150,35 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_ProductProductCondition'
 CREATE INDEX [IX_FK_ProductProductCondition]
 ON [dbo].[ProductConditions]
+    ([ProductId]);
+GO
+
+-- Creating foreign key on [ProductCategoryId] in table 'ProductProdCats'
+ALTER TABLE [dbo].[ProductProdCats]
+ADD CONSTRAINT [FK_ProductCategoryProductProdCat]
+    FOREIGN KEY ([ProductCategoryId])
+    REFERENCES [dbo].[ProductCategories]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ProductCategoryProductProdCat'
+CREATE INDEX [IX_FK_ProductCategoryProductProdCat]
+ON [dbo].[ProductProdCats]
+    ([ProductCategoryId]);
+GO
+
+-- Creating foreign key on [ProductId] in table 'ProductProdCats'
+ALTER TABLE [dbo].[ProductProdCats]
+ADD CONSTRAINT [FK_ProductProductProdCat]
+    FOREIGN KEY ([ProductId])
+    REFERENCES [dbo].[Products]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ProductProductProdCat'
+CREATE INDEX [IX_FK_ProductProductProdCat]
+ON [dbo].[ProductProdCats]
     ([ProductId]);
 GO

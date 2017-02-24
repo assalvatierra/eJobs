@@ -283,6 +283,8 @@
     <Compile Include="Controllers\JobServicesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MepuMainController.cs" />
+    <Compile Include="Controllers\ProductPricesController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\SupplierItemsController.cs" />
     <Compile Include="Controllers\SuppliersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -372,6 +374,9 @@
     <Compile Include="Models\Product.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProductCategory.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ProductCondition.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
@@ -379,6 +384,9 @@
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProductPrice.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductProdCat.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Services.cs">
@@ -693,6 +701,16 @@
     <Content Include="Views\JobContacts\Index.cshtml" />
     <Content Include="Views\JobMains\SubDetails.cshtml" />
     <Content Include="Views\JobPayments\AdvanceList.cshtml" />
+    <Content Include="Views\Products\Create.cshtml" />
+    <Content Include="Views\Products\Delete.cshtml" />
+    <Content Include="Views\Products\Details.cshtml" />
+    <Content Include="Views\Products\Edit.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\ProductPrices\Create.cshtml" />
+    <Content Include="Views\ProductPrices\Delete.cshtml" />
+    <Content Include="Views\ProductPrices\Details.cshtml" />
+    <Content Include="Views\ProductPrices\Edit.cshtml" />
+    <Content Include="Views\ProductPrices\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

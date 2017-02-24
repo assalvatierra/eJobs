@@ -30,6 +30,8 @@
     <EntitySet Name="ProductPrices" EntityType="JobDB.Store.ProductPrices" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ProductImages1" EntityType="JobDB.Store.ProductImages1" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ProductConditions" EntityType="JobDB.Store.ProductConditions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProductCategories" EntityType="JobDB.Store.ProductCategories" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProductProdCats" EntityType="JobDB.Store.ProductProdCats" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="JobMainJobType" Association="JobDB.Store.JobMainJobType">
       <End Role="JobMain" EntitySet="JobMains" />
       <End Role="JobType" EntitySet="JobTypes" />
@@ -141,6 +143,14 @@
     <AssociationSet Name="ProductProductCondition" Association="JobDB.Store.ProductProductCondition">
       <End Role="Product" EntitySet="Products" />
       <End Role="ProductCondition" EntitySet="ProductConditions" />
+    </AssociationSet>
+    <AssociationSet Name="ProductCategoryProductProdCat" Association="JobDB.Store.ProductCategoryProductProdCat">
+      <End Role="ProductCategory" EntitySet="ProductCategories" />
+      <End Role="ProductProdCat" EntitySet="ProductProdCats" />
+    </AssociationSet>
+    <AssociationSet Name="ProductProductProdCat" Association="JobDB.Store.ProductProductProdCat">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="ProductProdCat" EntitySet="ProductProdCats" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="JobMains">
@@ -475,6 +485,22 @@
     <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="250" />
     <Property Name="Remarks" Type="nvarchar" Nullable="true" MaxLength="250" />
   </EntityType>
+  <EntityType Name="ProductCategories">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Remarks" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProductProdCats">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductCategoryId" Type="int" Nullable="false" />
+    <Property Name="ProductId" Type="int" Nullable="false" />
+  </EntityType>
   <Association Name="JobMainJobType">
     <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="1" />
     <End Role="JobType" Type="JobDB.Store.JobTypes" Multiplicity="*" />
@@ -807,6 +833,30 @@
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="ProductCondition">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProductCategoryProductProdCat">
+    <End Role="ProductCategory" Type="JobDB.Store.ProductCategories" Multiplicity="1" />
+    <End Role="ProductProdCat" Type="JobDB.Store.ProductProdCats" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductCategory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductProdCat">
+        <PropertyRef Name="ProductCategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProductProductProdCat">
+    <End Role="Product" Type="JobDB.Store.Products" Multiplicity="1" />
+    <End Role="ProductProdCat" Type="JobDB.Store.ProductProdCats" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductProdCat">
         <PropertyRef Name="ProductId" />
       </Dependent>
     </ReferentialConstraint>

@@ -20,6 +20,7 @@ namespace JobsV1.Models
             this.ProductPrices = new HashSet<ProductPrice>();
             this.ProductImages = new HashSet<ProductImage>();
             this.ProductConditions = new HashSet<ProductCondition>();
+            this.ProductProdCats = new HashSet<ProductProdCat>();
         }
     
         public int Id { get; set; }
@@ -36,5 +37,7 @@ namespace JobsV1.Models
         public virtual ICollection<ProductImage> ProductImages { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductCondition> ProductConditions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductProdCat> ProductProdCats { get; set; }
     }
 }
