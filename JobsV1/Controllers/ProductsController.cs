@@ -139,5 +139,10 @@ namespace JobsV1.Controllers
         {
             return RedirectToAction("Index", "ProductPrices", new { ProductId = (int)Id });
         }
+
+        public ActionResult Categories(int? Id)
+        {
+            return RedirectToAction("Index", "ProductProdCats", new { ProductId = (int)Id });
+        }
     }
 }
