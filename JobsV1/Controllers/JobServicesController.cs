@@ -357,10 +357,21 @@ namespace JobsV1.Controllers
 
         }
 
-        public ActionResult ProductList()
+        public ActionResult BrowseTemplate(int JobMainId)
         {
-            return View();
+            TempData["ACTIONTEMPLATE"] = Url.Action("AddTemplate", "JobServices", new { JobId = JobMainId });
+            return RedirectToAction("Index", "Products", new { ListType = 1 });
         }
+
+        public ActionResult AddTemplate(int JobId)
+        {
+            int iTemplate = (int)TempData["SELECTEDTEMPLATE"];
+
+            /// insert template to job
+
+            return RedirectToAction("Services", new { id= JobId } );
+        }
+
 
     }
 }

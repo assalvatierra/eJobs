@@ -283,6 +283,7 @@
     <Compile Include="Controllers\JobServicesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MepuMainController.cs" />
+    <Compile Include="Controllers\ProductCategoriesController.cs" />
     <Compile Include="Controllers\ProductPricesController.cs" />
     <Compile Include="Controllers\ProductProdCatsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
@@ -717,6 +718,12 @@
     <Content Include="Views\ProductProdCats\Details.cshtml" />
     <Content Include="Views\ProductProdCats\Edit.cshtml" />
     <Content Include="Views\ProductProdCats\Index.cshtml" />
+    <Content Include="Views\ProductCategories\Create.cshtml" />
+    <Content Include="Views\ProductCategories\Delete.cshtml" />
+    <Content Include="Views\ProductCategories\Details.cshtml" />
+    <Content Include="Views\ProductCategories\Edit.cshtml" />
+    <Content Include="Views\ProductCategories\Index.cshtml" />
+    <Content Include="Views\Products\PartialViewProductTemplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

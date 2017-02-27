@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<JobsV1.Models.ProductProdCat>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Product Categories";
 }
 
-<h2>Index</h2>
+<h2>Categories</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Add Category", "Create")
 </p>
 <table class="table">
     <tr>
@@ -37,3 +37,7 @@
 }
 
 </table>
+
+<p>
+    @Html.ActionLink("Back to Product List", "index","Products")
+</p>

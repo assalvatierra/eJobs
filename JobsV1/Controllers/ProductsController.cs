@@ -21,8 +21,16 @@ namespace JobsV1.Controllers
 
 
         // GET: Products
-        public ActionResult Index()
+        public ActionResult Index(int? ListType)
         {
+            if (ListType == null) ListType = 0;
+            
+            ViewBag.ListType = (int) ListType;
+
+            var ptemplateId = db.Products.Select(s => s.TemplateId );
+            var pData = db.JobMains.Include(d=>d.JobItineraries) .Where(d => ptemplateId.Contains(d.Id));
+
+            ViewBag.jobTemplates = pData;
             return View(db.Products.ToList());
         }
 
@@ -143,6 +151,17 @@ namespace JobsV1.Controllers
         public ActionResult Categories(int? Id)
         {
             return RedirectToAction("Index", "ProductProdCats", new { ProductId = (int)Id });
+        }
+
+        public ActionResult SelectTemplate(int Id)
+        {
+            TempData["SELECTEDTEMPLATE"] = Id ;
+            string urlref = (string)TempData["ACTIONTEMPLATE"];
+
+            if (urlref == null)
+                return RedirectToAction("index");
+            else
+                return Redirect( urlref );
         }
     }
 }

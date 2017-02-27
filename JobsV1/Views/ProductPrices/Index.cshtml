@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<JobsV1.Models.ProductPrice>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Price";
 }
 
-<h2>Index</h2>
+<h2>Product Pricing</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Add New", "Create")
 </p>
 <table class="table">
     <tr>
@@ -55,3 +55,6 @@
 }
 
 </table>
+<p>
+    @Html.ActionLink("Back to Products", "index", "Products")
+</p>

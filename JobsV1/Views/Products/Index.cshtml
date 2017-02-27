@@ -1,14 +1,18 @@
 ﻿@model IEnumerable<JobsV1.Models.Product>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Products & Services";
 }
 
-<h2>Index</h2>
+<h2>Products & Services</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@if (ViewBag.ListType == 0)
+{
+    <p>
+        @Html.ActionLink("Create New Product", "Create")
+    </p>
+}
+
 <table class="table">
     <tr>
         <th>
@@ -53,12 +57,46 @@
             @Html.DisplayFor(modelItem => item.Status)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Price", "Price", new { id=item.Id }) |
-            @Html.ActionLink("Categories", "Categories", new { id = item.Id }) |
+            @if (ViewBag.ListType == 0)
+            {
+                <p>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Price", "Price", new { id = item.Id }) |
+                    @Html.ActionLink("Categories", "Categories", new { id = item.Id }) |
+                </p>
+            }
+            else
+            {
+                <p>
+                    @Html.ActionLink("Select Template", "SelectTemplate", new { id = item.Id })
+                </p>
+            }
 
         </td>
     </tr>
+    <tr>
+        <td colspan="7">
+            @foreach (var jobItem in ViewBag.jobTemplates)
+            {
+                if (item.TemplateId == jobItem.Id)
+                { 
+                <p>
+                    @Html.Partial("PartialViewProductTemplate", (JobsV1.Models.JobMain)jobItem)
+                </p>
+                }
+                else
+                {
+                    <p>Template not yet defined</p>
+                }
+            }
+        </td>
+
+    </tr>
+
 }
 
 </table>
+
+<p>
+    @Html.ActionLink("Back to Main", "index", "Home")
+</p>
