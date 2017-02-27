@@ -724,6 +724,7 @@
     <Content Include="Views\ProductCategories\Edit.cshtml" />
     <Content Include="Views\ProductCategories\Index.cshtml" />
     <Content Include="Views\Products\PartialViewProductTemplate.cshtml" />
+    <Content Include="Views\Products\PartialViewProductItineraries.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

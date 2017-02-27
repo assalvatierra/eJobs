@@ -81,7 +81,7 @@
                 if (item.TemplateId == jobItem.Id)
                 { 
                 <p>
-                    @Html.Partial("PartialViewProductTemplate", (JobsV1.Models.JobMain)jobItem)
+                    @Html.Partial("PartialViewProductItineraries", (IEnumerable<JobsV1.Models.JobItinerary>)jobItem.JobItineraries)
                 </p>
                 }
                 else
