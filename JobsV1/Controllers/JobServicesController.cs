@@ -369,6 +369,47 @@ namespace JobsV1.Controllers
 
             /// insert template to job
 
+            // copy job services
+            var jobRef = db.JobMains.Find(JobId);
+            var srcJobSvcs = db.JobServices.Where(d => d.JobMainId == iTemplate);
+            var srcJobIti = db.JobItineraries.Where(d => d.JobMainId == iTemplate);
+            decimal dQuoteAmt = 0;
+            decimal dSupplierAmt = 0;
+
+            foreach( var src in srcJobSvcs)
+            {
+                Models.JobServices newJobSrv = new JobServices()
+                {
+                    JobMainId = jobRef.Id,
+                    ServicesId = src.ServicesId,
+                    DtStart = jobRef.JobDate,
+                    DtEnd = jobRef.JobDate.AddDays(jobRef.NoOfDays),
+                    Particulars = src.Particulars,
+                    Remarks = src.Remarks,
+                    QuotedAmt = dQuoteAmt,
+                    SupplierAmt = dSupplierAmt,
+                    ActualAmt = 0,
+                    SupplierId = src.SupplierId,
+                    SupplierItemId = src.SupplierItemId
+                };
+                db.JobServices.Add(newJobSrv);
+            }
+
+
+            // Copy Itinerary
+            foreach (var src in srcJobIti)
+            {
+                Models.JobItinerary newJobIti = new JobItinerary() 
+                {
+                    JobMainId = jobRef.Id,
+                    DestinationId = src.DestinationId,
+                    Remarks = src.Remarks
+                };
+                db.JobItineraries.Add(newJobIti);
+            }
+
+            db.SaveChanges();
+
             return RedirectToAction("Services", new { id= JobId } );
         }
 

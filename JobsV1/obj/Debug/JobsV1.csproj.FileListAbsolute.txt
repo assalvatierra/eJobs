@@ -387,3 +387,4 @@ C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\zh-Hant\Microsoft.SqlServer.Ty
 C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\obj\Debug\JobsV1.dll
 C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\obj\Debug\JobsV1.pdb
 C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\obj\Debug\JobsV1.csprojResolveAssemblyReference.cache
+D:\Data\Real\Apps\GitHub\eJobs\JobsV1\obj\Debug\JobsV1.csprojResolveAssemblyReference.cache

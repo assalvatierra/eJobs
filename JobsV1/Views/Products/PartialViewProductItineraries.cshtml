@@ -1,45 +1,17 @@
 ﻿@model IEnumerable<JobsV1.Models.JobItinerary>
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ActualRate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Remarks)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ItiDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.JobMain.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Destination.Description)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ActualRate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Remarks)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ItiDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.JobMain.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Destination.Description)
-        </td>
-        <td>
-        </td>
-    </tr>
+@{ 
+    int icnt = 0;
+    string sComma = "";
 }
+        @foreach (var item in Model)
+        {
+            if (icnt > 0){sComma = ","; }
+            else { icnt = 1; }
+            <span>
+                @sComma @Html.DisplayFor(modelItem => item.Destination.Description)
+            </span>
 
-</table>
+            
+        }
+
+

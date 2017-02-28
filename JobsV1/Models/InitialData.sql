@@ -15,3 +15,10 @@ insert Into Suppliers([Name],[Contact1],[Details],[Email],[CityId],[SupplierType
 insert into SupplierItems([Description],[SupplierId],[Remarks],[InCharge]) values ('Default','1','Item by supplier','Supplier');
 
 
+insert Into Destinations([Description],[Remarks],[CityId]) 
+values 
+('Eden Nature Park','','1 '),
+('Philippine Eagle','','1 '),
+('Malagos Garden','','1 '),
+('Japanese Tunnel','','1 ')
+;
