@@ -20,6 +20,7 @@ namespace JobsV1.Controllers
         private int JOBCONFIRMED = 3;
         private int JOBCLOSED = 4;
         private int JOBCANCELLED = 5;
+        private int JOBTEMPLATE = 6;
 
         private JobDBContainer db = new JobDBContainer();
 
@@ -134,6 +135,9 @@ namespace JobsV1.Controllers
             ViewBag.sLine2 = sLine2;
             ViewBag.sLine3 = sLine3;
             ViewBag.sLogo = sLogo;
+
+            if(jobMain.JobStatusId==1) //quotation
+                return View("Details_Quote", jobMain);
 
             return View(jobMain);
         }
@@ -499,6 +503,15 @@ namespace JobsV1.Controllers
 
             return View(leads);
         }
+
+        public ActionResult ProductTemplates()
+        {
+            var jobMains2 = db.JobMains.Include(j => j.JobSuppliers).Include(j => j.Customer).Include(j => j.Branch).Include(j => j.JobStatus).Include(j => j.JobThru).OrderBy(d => d.JobDate);
+            var templates = jobMains2.ToList().Where(d => d.JobStatusId == JOBTEMPLATE);
+
+            return View(templates);
+        }
+
 
     }
 

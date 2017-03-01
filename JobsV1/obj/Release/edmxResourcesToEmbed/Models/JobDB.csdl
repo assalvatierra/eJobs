@@ -126,6 +126,32 @@
       <End Role="CarImage" EntitySet="CarImages" />
     </AssociationSet>
     <EntitySet Name="JobContacts" EntityType="JobDB.JobContact" />
+    <EntitySet Name="Products" EntityType="JobDB.Product" />
+    <EntitySet Name="ProductPrices" EntityType="JobDB.ProductPrice" />
+    <AssociationSet Name="ProductProductPrice" Association="JobDB.ProductProductPrice">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="ProductPrice" EntitySet="ProductPrices" />
+    </AssociationSet>
+    <EntitySet Name="ProductImages1" EntityType="JobDB.ProductImage" />
+    <AssociationSet Name="ProductProductImages" Association="JobDB.ProductProductImages">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="ProductImages" EntitySet="ProductImages1" />
+    </AssociationSet>
+    <EntitySet Name="ProductConditions" EntityType="JobDB.ProductCondition" />
+    <AssociationSet Name="ProductProductCondition" Association="JobDB.ProductProductCondition">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="ProductCondition" EntitySet="ProductConditions" />
+    </AssociationSet>
+    <EntitySet Name="ProductCategories" EntityType="JobDB.ProductCategory" />
+    <EntitySet Name="ProductProdCats" EntityType="JobDB.ProductProdCat" />
+    <AssociationSet Name="ProductCategoryProductProdCat" Association="JobDB.ProductCategoryProductProdCat">
+      <End Role="ProductCategory" EntitySet="ProductCategories" />
+      <End Role="ProductProdCat" EntitySet="ProductProdCats" />
+    </AssociationSet>
+    <AssociationSet Name="ProductProductProdCat" Association="JobDB.ProductProductProdCat">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="ProductProdCat" EntitySet="ProductProdCats" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="JobMain">
     <Key>
@@ -769,4 +795,130 @@
     <Property Name="Remarks" Type="String" Nullable="true" MaxLength="250" />
     <Property Name="ContactType" Type="String" Nullable="true" MaxLength="5" />
   </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" Nullable="false" MaxLength="30" />
+    <Property Name="TemplateId" Type="Int32" Nullable="true" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="80" />
+    <Property Name="Remarks" Type="String" Nullable="true" MaxLength="250" />
+    <Property Name="Sort" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="String" Nullable="false" MaxLength="3" />
+    <NavigationProperty Name="ProductPrices" Relationship="JobDB.ProductProductPrice" FromRole="Product" ToRole="ProductPrice" />
+    <NavigationProperty Name="ProductImages" Relationship="JobDB.ProductProductImages" FromRole="Product" ToRole="ProductImages" />
+    <NavigationProperty Name="ProductConditions" Relationship="JobDB.ProductProductCondition" FromRole="Product" ToRole="ProductCondition" />
+    <NavigationProperty Name="ProductProdCats" Relationship="JobDB.ProductProductProdCat" FromRole="Product" ToRole="ProductProdCat" />
+  </EntityType>
+  <EntityType Name="ProductPrice">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="Uom" Type="String" Nullable="false" MaxLength="20" />
+    <Property Name="Qty" Type="Int32" Nullable="false" />
+    <Property Name="Rate" Type="Decimal" Nullable="false" />
+    <NavigationProperty Name="Product" Relationship="JobDB.ProductProductPrice" FromRole="ProductPrice" ToRole="Product" />
+    <Property Name="Rate1" Type="Decimal" Nullable="false" />
+  </EntityType>
+  <Association Name="ProductProductPrice">
+    <End Type="JobDB.Product" Role="Product" Multiplicity="1" />
+    <End Type="JobDB.ProductPrice" Role="ProductPrice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductPrice">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ProductImage">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Product" Relationship="JobDB.ProductProductImages" FromRole="ProductImages" ToRole="Product" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="Path" Type="String" Nullable="false" MaxLength="250" />
+  </EntityType>
+  <Association Name="ProductProductImages">
+    <End Type="JobDB.Product" Role="Product" Multiplicity="1" />
+    <End Type="JobDB.ProductImage" Role="ProductImages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductImages">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ProductCondition">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="250" />
+    <Property Name="Remarks" Type="String" Nullable="true" MaxLength="250" />
+    <NavigationProperty Name="Product" Relationship="JobDB.ProductProductCondition" FromRole="ProductCondition" ToRole="Product" />
+  </EntityType>
+  <Association Name="ProductProductCondition">
+    <End Type="JobDB.Product" Role="Product" Multiplicity="1" />
+    <End Type="JobDB.ProductCondition" Role="ProductCondition" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductCondition">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ProductCategory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <Property Name="Remarks" Type="String" Nullable="false" />
+    <NavigationProperty Name="ProductProdCats" Relationship="JobDB.ProductCategoryProductProdCat" FromRole="ProductCategory" ToRole="ProductProdCat" />
+  </EntityType>
+  <EntityType Name="ProductProdCat">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="ProductCategory" Relationship="JobDB.ProductCategoryProductProdCat" FromRole="ProductProdCat" ToRole="ProductCategory" />
+    <Property Name="ProductCategoryId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Product" Relationship="JobDB.ProductProductProdCat" FromRole="ProductProdCat" ToRole="Product" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="ProductCategoryProductProdCat">
+    <End Type="JobDB.ProductCategory" Role="ProductCategory" Multiplicity="1" />
+    <End Type="JobDB.ProductProdCat" Role="ProductProdCat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductCategory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductProdCat">
+        <PropertyRef Name="ProductCategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProductProductProdCat">
+    <End Type="JobDB.Product" Role="Product" Multiplicity="1" />
+    <End Type="JobDB.ProductProdCat" Role="ProductProdCat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductProdCat">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

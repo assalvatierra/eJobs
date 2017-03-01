@@ -550,6 +550,8 @@
     <Content Include="Scripts\DateRangePicker\moment.min.js" />
     <Content Include="Scripts\DateRangePicker\package.js" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
+    <Content Include="Scripts\Job\Itinerary.js" />
+    <Content Include="Scripts\Job\Services.js" />
     <Content Include="Scripts\Job\Main.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
@@ -725,6 +727,8 @@
     <Content Include="Views\ProductCategories\Index.cshtml" />
     <Content Include="Views\Products\PartialViewProductTemplate.cshtml" />
     <Content Include="Views\Products\PartialViewProductItineraries.cshtml" />
+    <Content Include="Views\JobMains\Details_Quote.cshtml" />
+    <Content Include="Views\JobMains\ProductTemplates.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

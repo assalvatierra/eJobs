@@ -57,6 +57,19 @@
     </div>
 
     <div class="col-md-4">
+        <h2>Products</h2>
+        <p>
+            Products & Services
+            @Html.ActionLink("List", "Index", "Products")
+            <br />Categories
+            @Html.ActionLink("List", "Index", "ProductCategories")
+        </p>
+        <p>@Html.ActionLink("Add New »", "Create", "Products", null, new { @class = "btn btn-default" }) </p>
+    </div>
+
+    
+
+    <div class="col-md-4">
         <h2>Contacts</h2>
         <p>
             Entity Contacts

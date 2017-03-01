@@ -115,10 +115,13 @@
 
 </table>
 
+
 <p>
     @Html.ActionLink("Create New", "Create", new { JobMainId = ViewBag.JobMainId })
+    <br />@Html.ActionLink("Add Template", "BrowseTemplate", new { JobMainId = ViewBag.JobMainId })
     <br />@Html.ActionLink("Back to Job List", "JobTable", "JobMains")
 </p>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
