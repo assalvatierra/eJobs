@@ -153,9 +153,10 @@ namespace JobsV1.Controllers
             return RedirectToAction("Index", "ProductProdCats", new { ProductId = (int)Id });
         }
 
-        public ActionResult SelectTemplate(int Id)
+        public ActionResult SelectTemplate(int Id, int TemplateId)
         {
-            TempData["SELECTEDTEMPLATE"] = Id ;
+            TempData["TEMPLATEID"] = Id;
+            TempData["SELECTEDTEMPLATE"] = TemplateId;
             string urlref = (string)TempData["ACTIONTEMPLATE"];
 
             if (urlref == null)

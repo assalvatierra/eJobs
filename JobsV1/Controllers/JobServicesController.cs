@@ -101,6 +101,7 @@ namespace JobsV1.Controllers
         {
             if (ModelState.IsValid)
             {
+                jobServices.DtEnd = ((DateTime)jobServices.DtEnd).Add(new TimeSpan(23, 59, 59));
                 db.JobServices.Add(jobServices);
                 db.SaveChanges();
 
@@ -145,6 +146,7 @@ namespace JobsV1.Controllers
         {
             if (ModelState.IsValid)
             {
+                jobServices.DtEnd = ((DateTime)jobServices.DtEnd).Add(new TimeSpan(23, 59, 59));
                 db.Entry(jobServices).State = EntityState.Modified;
                 db.SaveChanges();
 
@@ -366,18 +368,26 @@ namespace JobsV1.Controllers
         public ActionResult AddTemplate(int JobId)
         {
             int iTemplate = (int)TempData["SELECTEDTEMPLATE"];
+            int TempId = (int)TempData["TEMPLATEID"];
 
-            /// insert template to job
-
+            var template = db.Products.Find(TempId);
+            var price = db.ProductPrices.Where(d => d.ProductId == template.Id).OrderBy( s=> new { s.Uom, s.Qty });
+            
             // copy job services
+            var jobTemplate = db.JobMains.Find(iTemplate);
             var jobRef = db.JobMains.Find(JobId);
             var srcJobSvcs = db.JobServices.Where(d => d.JobMainId == iTemplate);
             var srcJobIti = db.JobItineraries.Where(d => d.JobMainId == iTemplate);
             decimal dQuoteAmt = 0;
             decimal dSupplierAmt = 0;
 
+            DateTime dtJobTemplate = (DateTime) jobTemplate.JobDate;
+
+            int irow = 0;
             foreach( var src in srcJobSvcs)
             {
+                irow++;
+
                 Models.JobServices newJobSrv = new JobServices()
                 {
                     JobMainId = jobRef.Id,
@@ -392,6 +402,48 @@ namespace JobsV1.Controllers
                     SupplierId = src.SupplierId,
                     SupplierItemId = src.SupplierItemId
                 };
+
+                if (src.DtStart != null)
+                {
+                    DateTime dtSrc = (DateTime)src.DtStart;
+                    TimeSpan tsSrc = dtSrc - dtJobTemplate;
+                    if(jobRef.JobDate != null)
+                    {
+                        newJobSrv.DtStart = jobRef.JobDate.Add(tsSrc);
+                    }
+                    
+                }
+                if (src.DtEnd != null)
+                {
+                    DateTime dtSrc = (DateTime)src.DtEnd;
+                    TimeSpan tsSrc = dtSrc - dtJobTemplate;
+                    if (jobRef.JobDate != null)
+                    {
+                        newJobSrv.DtEnd = jobRef.JobDate.Add(tsSrc);
+                    }
+
+                }
+
+                if( jobRef.NoOfPax > 0 && irow == 1 )
+                {
+                    decimal pPrice = 0;
+                    foreach( var p in price)
+                    {
+                        if ( p.Uom == "PAX")
+                        {
+                            if (p.Qty <= jobRef.NoOfPax)
+                                pPrice = p.Rate;
+                        }
+                        if( p.Uom == "UNIT")
+                        {
+                            pPrice = p.Rate;
+                        }
+                    }
+
+                    newJobSrv.QuotedAmt = pPrice;
+                }
+
+
                 db.JobServices.Add(newJobSrv);
             }
 
@@ -405,6 +457,18 @@ namespace JobsV1.Controllers
                     DestinationId = src.DestinationId,
                     Remarks = src.Remarks
                 };
+                if (src.ItiDate != null)
+                {
+                    DateTime dtSrc = (DateTime)src.ItiDate;
+                    TimeSpan tsSrc = dtSrc - dtJobTemplate;
+                    if (jobRef.JobDate != null)
+                    {
+                        newJobIti.ItiDate = jobRef.JobDate.Add(tsSrc);
+                    }
+
+                }
+
+
                 db.JobItineraries.Add(newJobIti);
             }
 
