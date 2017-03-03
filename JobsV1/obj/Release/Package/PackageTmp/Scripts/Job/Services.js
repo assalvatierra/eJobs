@@ -11,6 +11,9 @@ $(document).ready(function () {
 
 function InitDatePicker()
 {
+    var ddd1 = $('input[name="DtStart"]').val();
+    var ddd2 = $('input[name="DtEnd"]').val();
+
     $('input[name="DtStart"]').daterangepicker(
     {
         timePicker: false,
@@ -27,6 +30,7 @@ function InitDatePicker()
     }
     );
 
+
     $('input[name="DtEnd"]').daterangepicker(
     {
         timePicker: false,
@@ -42,6 +46,10 @@ function InitDatePicker()
         
     }
     );
+
+    $('input[name="DtStart"]').val(ddd1.substr(0, ddd1.length - 12));
+    $('input[name="DtEnd"]').val(ddd2.substr(0, ddd1.length - 12));
+
 
 
 

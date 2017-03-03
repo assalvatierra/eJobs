@@ -139,7 +139,7 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Supplier.Name)
-                <br />[ Make/Model: @Html.DisplayFor(modelItem => item.SupplierItem.Description) ]
+                <br />[ Item: @Html.DisplayFor(modelItem => item.SupplierItem.Description) ]
                 @*<br /><a href="~/Reports/TripVoucher/Viewer.aspx?SrvId=@item.Id&JobId=@item.JobMainId&file=@item.JobMain.Customer.Name">Trip Voucher</a>*@
             </td>
             <td>
@@ -151,9 +151,9 @@
                 @if (pickup != null)
                 {
                     <span style="font:bold 12px arial, verdana;">
-                        [ Pickup: @pickup.JsTime @pickup.JsLocation ]  &nbsp; &nbsp;
+                        [ Time: @pickup.JsTime @pickup.JsLocation ]  &nbsp; &nbsp;
                         [ Contact: @pickup.ClientName / @pickup.ClientContact ]  &nbsp; &nbsp;
-                        [ Driver: @pickup.ProviderName / @pickup.ProviderContact ]
+                        [ InCharge: @pickup.ProviderName / @pickup.ProviderContact ]
                     </span>
                 }
             </td>

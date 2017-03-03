@@ -169,6 +169,8 @@
     <Property Name="BranchId" Type="int" Nullable="false" />
     <Property Name="JobThruId" Type="int" Nullable="false" />
     <Property Name="AgreedAmt" Type="decimal" Nullable="true" />
+    <Property Name="CustContactEmail" Type="nvarchar" Nullable="true" MaxLength="150" />
+    <Property Name="CustContactNumber" Type="nvarchar" Nullable="true" MaxLength="120" />
   </EntityType>
   <EntityType Name="Suppliers">
     <Key>

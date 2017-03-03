@@ -6,12 +6,13 @@
 
 $(document).ready(function () {
     InitDatePicker();
-    InitEditChange();
 })
 
 
 function InitDatePicker()
 {
+    var ddd1 = $('input[name="JobDate"]').val();
+
     $('input[name="JobDate"]').daterangepicker(
     {
         timePicker: false,
@@ -28,5 +29,6 @@ function InitDatePicker()
     }
     );
 
+    $('input[name="JobDate"]').val(ddd1.substr(0, ddd1.length - 12));
 
 }

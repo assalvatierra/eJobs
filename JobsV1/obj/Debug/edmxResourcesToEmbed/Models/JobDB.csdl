@@ -178,6 +178,8 @@
     <Property Name="JobThruId" Type="Int32" Nullable="false" />
     <Property Name="AgreedAmt" Type="Decimal" Nullable="true" />
     <NavigationProperty Name="JobPayments" Relationship="JobDB.JobMainJobPayment" FromRole="JobMain" ToRole="JobPayment" />
+    <Property Name="CustContactEmail" Type="String" Nullable="true" MaxLength="150" />
+    <Property Name="CustContactNumber" Type="String" Nullable="true" MaxLength="120" />
   </EntityType>
   <EntityType Name="Supplier">
     <Key>

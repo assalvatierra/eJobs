@@ -36,6 +36,8 @@ namespace JobsV1.Models
         public int BranchId { get; set; }
         public int JobThruId { get; set; }
         public Nullable<decimal> AgreedAmt { get; set; }
+        public string CustContactEmail { get; set; }
+        public string CustContactNumber { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<JobType> JobTypes { get; set; }

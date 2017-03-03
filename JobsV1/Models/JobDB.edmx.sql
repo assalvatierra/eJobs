@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 02/24/2017 10:37:46
+-- Date Created: 03/03/2017 13:19:08
 -- Generated from EDMX file: D:\Data\Real\Apps\GitHub\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
@@ -101,6 +101,12 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ProductProductCondition]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ProductConditions] DROP CONSTRAINT [FK_ProductProductCondition];
 GO
+IF OBJECT_ID(N'[dbo].[FK_ProductCategoryProductProdCat]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ProductProdCats] DROP CONSTRAINT [FK_ProductCategoryProductProdCat];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ProductProductProdCat]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ProductProdCats] DROP CONSTRAINT [FK_ProductProductProdCat];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -193,6 +199,12 @@ GO
 IF OBJECT_ID(N'[dbo].[ProductConditions]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ProductConditions];
 GO
+IF OBJECT_ID(N'[dbo].[ProductCategories]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ProductCategories];
+GO
+IF OBJECT_ID(N'[dbo].[ProductProdCats]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ProductProdCats];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -211,7 +223,9 @@ CREATE TABLE [dbo].[JobMains] (
     [StatusRemarks] nvarchar(max)  NULL,
     [BranchId] int  NOT NULL,
     [JobThruId] int  NOT NULL,
-    [AgreedAmt] decimal(18,0)  NULL
+    [AgreedAmt] decimal(18,0)  NULL,
+    [CustContactEmail] nvarchar(150)  NULL,
+    [CustContactNumber] nvarchar(120)  NULL
 );
 GO
 

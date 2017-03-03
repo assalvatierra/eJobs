@@ -244,10 +244,17 @@ namespace JobsV1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,JobDate,CustomerId,Description,NoOfPax,NoOfDays,AgreedAmt,JobRemarks,JobStatusId,StatusRemarks,BranchId,JobThruId")] JobMain jobMain)
+        public ActionResult Create([Bind(Include = "Id,JobDate,CustomerId,Description,NoOfPax,NoOfDays,AgreedAmt,JobRemarks,JobStatusId,StatusRemarks,BranchId,JobThruId,CustContactEmail,CustContactNumber")] JobMain jobMain)
         {
             if (ModelState.IsValid)
             {
+                if (jobMain.CustContactEmail == null && jobMain.CustContactNumber == null)
+                {
+                    var cust = db.Customers.Find(jobMain.CustomerId);
+                    jobMain.CustContactEmail = cust.Email;
+                    jobMain.CustContactNumber = cust.Contact1;
+                }
+
                 db.JobMains.Add(jobMain);
                 db.SaveChanges();
 
@@ -294,10 +301,17 @@ namespace JobsV1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,JobDate,CustomerId,Description,NoOfPax,NoOfDays,AgreedAmt,JobRemarks,JobStatusId,StatusRemarks,BranchId,JobThruId")] JobMain jobMain)
+        public ActionResult Edit([Bind(Include = "Id,JobDate,CustomerId,Description,NoOfPax,NoOfDays,AgreedAmt,JobRemarks,JobStatusId,StatusRemarks,BranchId,JobThruId,CustContactEmail,CustContactNumber")] JobMain jobMain)
         {
             if (ModelState.IsValid)
             {
+                if (jobMain.CustContactEmail == null && jobMain.CustContactNumber == null)
+                {
+                    var cust = db.Customers.Find(jobMain.CustomerId);
+                    jobMain.CustContactEmail = cust.Email;
+                    jobMain.CustContactNumber = cust.Contact1;
+                }
+
                 db.Entry(jobMain).State = EntityState.Modified;
                 db.SaveChanges();
 
@@ -371,6 +385,12 @@ namespace JobsV1.Controllers
                 int currentjobid = (int)Session["CurrentJobId"];
                 JobMain job = db.JobMains.Find(currentjobid);
                 job.CustomerId = customer.Id;
+                if (job.CustContactEmail == null && job.CustContactNumber == null)
+                {
+                    job.CustContactEmail = job.Customer.Email;
+                    job.CustContactNumber = job.Customer.Contact1;
+                }
+
                 db.Entry(job).State = EntityState.Modified;
                 db.SaveChanges();
 

@@ -12,6 +12,7 @@ $(document).ready(function () {
 
 function InitDatePicker()
 {
+    var ddd1 = $('input[name="ItiDate"]').val();
     $('input[name="ItiDate"]').daterangepicker(
     {
         timePicker: true,
@@ -28,5 +29,6 @@ function InitDatePicker()
     }
     );
 
+    $('input[name="ItiDate"]').val(ddd1);
 
 }

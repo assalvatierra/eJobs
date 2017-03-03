@@ -16,6 +16,8 @@
           <ScalarProperty Name="BranchId" ColumnName="BranchId" />
           <ScalarProperty Name="JobThruId" ColumnName="JobThruId" />
           <ScalarProperty Name="AgreedAmt" ColumnName="AgreedAmt" />
+          <ScalarProperty Name="CustContactEmail" ColumnName="CustContactEmail" />
+          <ScalarProperty Name="CustContactNumber" ColumnName="CustContactNumber" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

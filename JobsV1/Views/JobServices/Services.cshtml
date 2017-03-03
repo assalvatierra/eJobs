@@ -83,7 +83,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.Particulars)
             <br />[Quote: @Html.DisplayFor(modelItem => item.QuotedAmt)]
-            <br />[Actual: @Html.DisplayFor(modelItem => item.ActualAmt)]
+            <br />[Supplier: @Html.DisplayFor(modelItem => item.SupplierAmt)]
             <br />[Remarks: @Html.DisplayFor(modelItem => item.Remarks)]
         </td>
         <td>
@@ -103,9 +103,9 @@
             @if (pickup != null)
                 {
                 <span style="font:bold 12px arial, verdana;">
-                    [ Pickup: @pickup.JsTime @pickup.JsLocation ]  &nbsp; &nbsp;
+                    [ Time: @pickup.JsTime @pickup.JsLocation ]  &nbsp; &nbsp;
                     [ Contact: @pickup.ClientName / <a href="tel:@pickup.ClientContact">@pickup.ClientContact</a> ] &nbsp; &nbsp;
-                    [ Driver: @pickup.ProviderName / <a href="tel:@pickup.ProviderContact">@pickup.ProviderContact</a> ]
+                    [ InCharge: @pickup.ProviderName / <a href="tel:@pickup.ProviderContact">@pickup.ProviderContact</a> ]
                 </span>
             }
         </td>
