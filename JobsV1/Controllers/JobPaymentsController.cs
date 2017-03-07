@@ -59,6 +59,7 @@ namespace JobsV1.Controllers
         {
             Models.JobPayment jp = new JobPayment();
             jp.JobMainId = (int)JobMainId;
+            jp.DtPayment = DateTime.Now;
 
             ViewBag.JobMainId = new SelectList(db.JobMains, "Id", "Description");
             ViewBag.BankId = new SelectList(db.Banks, "Id", "BankName");

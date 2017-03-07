@@ -47,8 +47,8 @@ function InitDatePicker()
     }
     );
 
-    $('input[name="DtStart"]').val(ddd1.substr(0, ddd1.length - 12));
-    $('input[name="DtEnd"]').val(ddd2.substr(0, ddd1.length - 12));
+    $('input[name="DtStart"]').val(ddd1.substr( 0, ddd1.indexOf(" ") ));
+    $('input[name="DtEnd"]').val(ddd2.substr(0, ddd1.indexOf(" ") ));
 
 
 
