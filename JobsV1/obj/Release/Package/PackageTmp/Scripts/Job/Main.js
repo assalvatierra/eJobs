@@ -29,6 +29,6 @@ function InitDatePicker()
     }
     );
 
-    $('input[name="JobDate"]').val(ddd1.substr(0, ddd1.length - 12));
+    $('input[name="JobDate"]').val(ddd1.substr(0, ddd1.indexOf(" ") ));
 
 }
