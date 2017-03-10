@@ -127,59 +127,47 @@
                 @Html.DisplayFor(modelItem => item.SupplierAmt)
             </td>
         </tr>
+
+        <tr>
+            <td colspan="4" style="border-top:none">
+                @{string sIti = "";
+                    foreach (var ititmp in itineraries)
+                    {
+                        if (ititmp.SvcId == item.Id)
+                        {
+                            if (sIti.Trim() != "") { sIti += ","; }
+                            else { sIti += "Destinations:"; }
+
+                            sIti += " " + ititmp.Destination.Description;
+                        }
+                    }
+
+                }
+
+                <span style="font:14px arial, verdana;">
+                    @sIti
+                </span>
+
+            </td>
+        </tr>
+
         <tr>
             <td colspan="4" style="border-top:none">
                 @if (pickup != null)
                 {
                     <span style="font:bold 12px arial, verdana;">
-                        [ Time: @pickup.JsTime @pickup.JsLocation ]  &nbsp; &nbsp;
+                        [ Call Time: @pickup.JsTime @pickup.JsLocation ]  &nbsp; &nbsp;
                         [ Contact: @pickup.ClientName / @pickup.ClientContact ]  &nbsp; &nbsp;
                         [ InCharge: @pickup.ProviderName / @pickup.ProviderContact ]
                     </span>
                 }
             </td>
         </tr>
-                    }
+    }
 
     <tr><td colspan="4"></td></tr>
 
 </table>
-
-
-@if (itineraries.Count() > 0)
-{
-    <h3>Itinerary</h3>
-    <table class="table">
-        <tr>
-            <th>
-                Date
-            </th>
-            <th>
-                Destination/Remarks
-            </th>
-        </tr>
-
-        @foreach (var item in itineraries)
-        {
-            dContractAmt += (item.Destination.ConRate == null ? 0 : (decimal)item.Destination.ConRate);
-            dQuotedAmt += (item.ActualRate == null ? 0 : (decimal)item.ActualRate);
-
-
-            <tr>
-                <td>
-                    @item.ItiDate.ToString()
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Destination.Description)
-
-                    @Html.DisplayFor(modelItem => item.Remarks)
-                </td>
-            </tr>
-        }
-
-        <tr><td colspan="5">&nbsp;</td></tr>
-    </table>
-}
 
 
 <p>

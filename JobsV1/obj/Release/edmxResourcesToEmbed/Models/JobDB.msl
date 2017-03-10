@@ -99,6 +99,7 @@
           <ScalarProperty Name="ActualRate" ColumnName="ActualRate" />
           <ScalarProperty Name="Remarks" ColumnName="Remarks" />
           <ScalarProperty Name="ItiDate" ColumnName="ItiDate" />
+          <ScalarProperty Name="SvcId" ColumnName="SvcId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

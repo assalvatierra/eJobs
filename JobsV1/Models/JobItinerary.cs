@@ -20,6 +20,7 @@ namespace JobsV1.Models
         public Nullable<decimal> ActualRate { get; set; }
         public string Remarks { get; set; }
         public Nullable<System.DateTime> ItiDate { get; set; }
+        public Nullable<int> SvcId { get; set; }
     
         public virtual JobMain JobMain { get; set; }
         public virtual Destination Destination { get; set; }

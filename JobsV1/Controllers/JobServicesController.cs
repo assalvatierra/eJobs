@@ -51,8 +51,11 @@ namespace JobsV1.Controllers
                     }
                 }
             }        
-            
+           
             ViewBag.Providers = providers;
+
+            ViewBag.Itineraries = db.JobItineraries.Where(d => d.JobMainId == id).ToList();
+
 
             return View( jobServices.OrderBy(d=>d.DtStart).ToList() );
 
@@ -249,9 +252,8 @@ namespace JobsV1.Controllers
                 svcpu.JobServicesId = svc.Id;
                 svcpu.JsDate = svc.JobMain.JobDate;
                 svcpu.JsTime = svc.JobMain.JobDate.ToString("hh:mm:00");
-                svcpu.ClientName = svc.JobMain.Customer.Name;
-                svcpu.ClientContact = (svc.JobMain.Customer.Contact1 == null ? "" : svc.JobMain.Customer.Contact1) +
-                    (svc.JobMain.Customer.Contact2 == null ? "" : "/" + svc.JobMain.Customer.Contact2);
+                svcpu.ClientName = svc.JobMain.Description;
+                svcpu.ClientContact = svc.JobMain.CustContactNumber;
                 svcpu.ProviderName = svc.SupplierItem.InCharge;
                 svcpu.ProviderContact = svc.SupplierItem.Tel1
                     + (svc.SupplierItem.Tel2 == null ? "" : "/" + svc.SupplierItem.Tel2)
@@ -432,7 +434,9 @@ namespace JobsV1.Controllers
                         if ( p.Uom == "PAX")
                         {
                             if (p.Qty <= jobRef.NoOfPax)
-                                pPrice = p.Rate;
+                            {
+                                pPrice = p.Rate * jobRef.NoOfPax;
+                            }
                         }
                         if( p.Uom == "UNIT")
                         {
@@ -455,7 +459,8 @@ namespace JobsV1.Controllers
                 {
                     JobMainId = jobRef.Id,
                     DestinationId = src.DestinationId,
-                    Remarks = src.Remarks
+                    Remarks = src.Remarks,
+                    SvcId = src.SvcId
                 };
                 if (src.ItiDate != null)
                 {

@@ -1,19 +1,18 @@
 ﻿@model JobsV1.Models.JobMain
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Quotation";
     IEnumerable<JobsV1.Models.JobServices> services = ViewBag.Services;
     IEnumerable<JobsV1.Models.JobItinerary> itineraries = ViewBag.Itinerary;
     IEnumerable<JobsV1.Models.JobPayment> payments = ViewBag.Payments;
 
-    decimal dContractAmt = 0;
     decimal dQuotedAmt = 0;
 
     string sDocTitle = "";
 
     if (Model.JobStatusId == 1)
     {
-        sDocTitle = "QUOTATION DETAILS";
+        sDocTitle = "QUOTATION";
     }
     if (Model.JobStatusId == 2)
     {
@@ -121,7 +120,7 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Particulars)
-                <br />Unit/Item: @Html.DisplayFor(modelItem => item.SupplierItem.Description)
+                <br />Item: @Html.DisplayFor(modelItem => item.SupplierItem.Description)
                 <br />@Html.DisplayFor(modelItem => item.Remarks)
            </td>
             <td>
@@ -137,38 +136,39 @@
                     decimal dPpax = dQAmt / iPax;
                     <span>@dPpax.ToString("##,000")</span>
                 }
+                else
+                {
+                    <span>N/A</span>
+                }
             </td>
 
         </tr>
-    }
+        <tr>
+            <td colspan="4" style="border-top:none">
+                @{string sIti = "";
+                    foreach (var ititmp in itineraries)
+                    {
+                        if (ititmp.SvcId == item.Id)
+                        {
+                            if (sIti.Trim() != "") { sIti += ","; }
+                            else { sIti += "Destinations:"; }
+
+                            sIti += " " + ititmp.Destination.Description;
+                        }
+                    }
+
+                }
+
+                <span style="font:14px arial, verdana;">
+                    @sIti
+                </span>
+
+            </td>
+        </tr>
+
+}
 
 </table>
-
-
-@if (itineraries.Count() > 0)
-{
-    <h3>Destinations</h3>
-    <table>
-        @foreach (var item in itineraries)
-        {
-            dContractAmt += (item.Destination.ConRate == null ? 0 : (decimal)item.Destination.ConRate);
-            dQuotedAmt += (item.ActualRate == null ? 0 : (decimal)item.ActualRate);
-            string sItiDate = (item.ItiDate == null ? "" : ((DateTime)item.ItiDate).ToString("MMM-dd (ddd)"));
-
-            <tr>
-                <td>
-                    - @sItiDate &nbsp;
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Destination.Description) - 
-                    @Html.DisplayFor(modelItem => item.Remarks)
-                </td>
-            </tr>
-        }
-
-        <tr><td colspan="5">&nbsp;</td></tr>
-    </table>
-}
 
 
 <div class="jumbotron">

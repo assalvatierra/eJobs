@@ -329,6 +329,7 @@
     <Property Name="ActualRate" Type="Decimal" Nullable="true" />
     <Property Name="Remarks" Type="String" Nullable="true" MaxLength="80" />
     <Property Name="ItiDate" Type="DateTime" Nullable="true" />
+    <Property Name="SvcId" Type="Int32" Nullable="true" />
   </EntityType>
   <Association Name="JobMainJobItinerary">
     <End Type="JobDB.JobMain" Role="JobMain" Multiplicity="1" />

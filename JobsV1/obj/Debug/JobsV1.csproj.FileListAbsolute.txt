@@ -295,7 +295,6 @@ C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\zh-Hans\Microsoft.SqlServer.Ty
 C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\zh-Hant\Microsoft.SqlServer.Types.resources.dll
 C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\obj\Debug\JobsV1.dll
 C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\obj\Debug\JobsV1.pdb
-C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\obj\Debug\JobsV1.csprojResolveAssemblyReference.cache
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\ApplicationInsights.config
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\roslyn\csc.exe
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -388,3 +387,4 @@ D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\Microsoft.Owin.Security.MicrosoftAccou
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\obj\Debug\JobsV1.dll
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\obj\Debug\JobsV1.pdb
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\obj\Debug\JobsV1.csprojResolveAssemblyReference.cache
+C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\obj\Debug\JobsV1.csprojResolveAssemblyReference.cache

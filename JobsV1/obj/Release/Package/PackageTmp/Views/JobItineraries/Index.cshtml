@@ -20,10 +20,13 @@
         @Html.ActionLink("Payments", "Payments", "JobPayments", new { id = ViewBag.JobOrder.Id }, null)
     </p>
 </div>
+@if (ViewBag.SvcParticular != "")
+{<h2>Services: @ViewBag.SvcParticular</h2>}
 
 <h2>Itinerary</h2>
 <table class="table">
     <tr>
+        <th>Svc Item</th>
         <th>
             @Html.DisplayNameFor(model => model.ItiDate)
         </th>
@@ -41,6 +44,9 @@
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SvcId)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.ItiDate)
         </td>

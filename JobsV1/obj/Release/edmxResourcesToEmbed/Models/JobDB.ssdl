@@ -246,6 +246,7 @@
     <Property Name="ActualRate" Type="decimal" Nullable="true" />
     <Property Name="Remarks" Type="nvarchar" Nullable="true" MaxLength="80" />
     <Property Name="ItiDate" Type="datetime" Nullable="true" />
+    <Property Name="SvcId" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="Destinations">
     <Key>
