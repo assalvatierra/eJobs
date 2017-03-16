@@ -532,6 +532,72 @@ namespace JobsV1.Controllers
             return View(templates);
         }
 
+        public ActionResult JobNotes(int? id)
+        {
+            var Job = db.JobMains.Where(d => d.Id == id).FirstOrDefault();
+            ViewBag.JobOrder = Job;
+
+            var jobnotes = db.JobNotes.Where(d => d.JobMainId == id).OrderBy(s=>s.Sort);
+            return View(jobnotes);
+        }
+
+        #region Job Notes
+        public ActionResult CreateJobNote(int? id)
+        {
+            ViewBag.JobMainId = new SelectList(db.JobMains, "Id", "Description");
+            JobNote jn = new JobNote();
+            jn.Sort = 10 * ( 1 + db.JobNotes.Where(d => d.JobMainId == id).ToList().Count() );
+            return View(jn);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateJobNote([Bind(Include = "Id,JobMainId,Sort,Note")] JobNote jobnote)
+        {
+            if (ModelState.IsValid)
+            {
+                db.JobNotes.Add(jobnote);
+                db.SaveChanges();
+                return RedirectToAction("JobNotes", new { id = jobnote.JobMainId });
+            }
+
+            ViewBag.JobMainId = new SelectList(db.JobMains, "Id", "Description", jobnote.JobMainId);
+            return View(jobnote);
+        }
+
+        public ActionResult EditJobNote(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            JobNote jobNote = db.JobNotes.Find(id);
+            if (jobNote == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.JobMainId = new SelectList(db.JobMains, "Id", "Description", jobNote.JobMainId);
+
+            return View(jobNote);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditJobNote([Bind(Include = "Id,JobMainId,Sort,Note")] JobNote jobNote)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(jobNote).State = EntityState.Modified;
+                if ((int)jobNote.Sort % 10 != 0) jobNote.Sort = (int)jobNote.Sort * 10;
+
+                db.SaveChanges();
+                return RedirectToAction("JobNotes", new { id = jobNote.JobMainId });
+            }
+            ViewBag.JobMainId = new SelectList(db.JobMains, "Id", "Description", jobNote.JobMainId);
+
+            return View(jobNote);
+        }
+
+        #endregion
 
     }
 

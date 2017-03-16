@@ -152,6 +152,12 @@
       <End Role="Product" EntitySet="Products" />
       <End Role="ProductProdCat" EntitySet="ProductProdCats" />
     </AssociationSet>
+    <EntitySet Name="PreDefinedNotes" EntityType="JobDB.PreDefinedNote" />
+    <EntitySet Name="JobNotes" EntityType="JobDB.JobNote" />
+    <AssociationSet Name="JobMainJobNote" Association="JobDB.JobMainJobNote">
+      <End Role="JobMain" EntitySet="JobMains" />
+      <End Role="JobNote" EntitySet="JobNotes" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="JobMain">
     <Key>
@@ -180,6 +186,7 @@
     <NavigationProperty Name="JobPayments" Relationship="JobDB.JobMainJobPayment" FromRole="JobMain" ToRole="JobPayment" />
     <Property Name="CustContactEmail" Type="String" Nullable="true" MaxLength="150" />
     <Property Name="CustContactNumber" Type="String" Nullable="true" MaxLength="120" />
+    <NavigationProperty Name="JobNotes" Relationship="JobDB.JobMainJobNote" FromRole="JobMain" ToRole="JobNote" />
   </EntityType>
   <EntityType Name="Supplier">
     <Key>
@@ -921,6 +928,35 @@
       </Principal>
       <Dependent Role="ProductProdCat">
         <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="PreDefinedNote">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Note" Type="String" Nullable="true" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="JobNote">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="JobMain" Relationship="JobDB.JobMainJobNote" FromRole="JobNote" ToRole="JobMain" />
+    <Property Name="JobMainId" Type="Int32" Nullable="false" />
+    <Property Name="Sort" Type="Int32" Nullable="true" />
+    <Property Name="Note" Type="String" Nullable="true" MaxLength="250" />
+  </EntityType>
+  <Association Name="JobMainJobNote">
+    <End Type="JobDB.JobMain" Role="JobMain" Multiplicity="1" />
+    <End Type="JobDB.JobNote" Role="JobNote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobMain">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobNote">
+        <PropertyRef Name="JobMainId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

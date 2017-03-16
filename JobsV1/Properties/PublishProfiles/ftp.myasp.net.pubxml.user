@@ -110,7 +110,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/21/2014 05:25:22</publishTime>
     </File>
     <File Include="bin/JobsV1.dll">
-      <publishTime>03/10/2017 16:28:34</publishTime>
+      <publishTime>03/16/2017 11:47:19</publishTime>
     </File>
     <File Include="bin/ko/Microsoft.SqlServer.Types.resources.dll">
       <publishTime>02/21/2014 05:27:16</publishTime>
@@ -533,10 +533,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/01/2017 00:21:43</publishTime>
     </File>
     <File Include="Models/JobDB.edmx.diagram">
-      <publishTime>02/25/2017 18:05:34</publishTime>
+      <publishTime>03/15/2017 13:40:39</publishTime>
     </File>
     <File Include="Models/JobDB.edmx.sql">
-      <publishTime>03/10/2017 10:08:08</publishTime>
+      <publishTime>03/15/2017 12:32:36</publishTime>
+    </File>
+    <File Include="Models/JobNotes.sql">
+      <publishTime>03/15/2017 13:30:18</publishTime>
     </File>
     <File Include="Models/ProductsDB.sql">
       <publishTime>02/25/2017 18:05:34</publishTime>
@@ -610,6 +613,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/Job/Main.js">
       <publishTime>03/07/2017 21:05:22</publishTime>
     </File>
+    <File Include="Scripts/Job/Product.js">
+      <publishTime>03/13/2017 17:22:20</publishTime>
+    </File>
     <File Include="Scripts/Job/Services.js">
       <publishTime>03/07/2017 21:05:22</publishTime>
     </File>
@@ -662,7 +668,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/28/2016 10:19:14</publishTime>
     </File>
     <File Include="Scripts/_references.js">
-      <publishTime>03/01/2017 17:52:32</publishTime>
+      <publishTime>03/15/2017 13:29:09</publishTime>
     </File>
     <File Include="Views/Account/ConfirmEmail.cshtml">
       <publishTime>05/28/2016 10:19:18</publishTime>
@@ -833,7 +839,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/28/2016 10:18:58</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>03/01/2017 17:52:32</publishTime>
+      <publishTime>03/15/2017 13:53:38</publishTime>
     </File>
     <File Include="Views/JobContacts/Create.cshtml">
       <publishTime>12/28/2016 14:30:54</publishTime>
@@ -1006,6 +1012,21 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/MepuMain/_PartialViewSearchAreas.cshtml">
       <publishTime>11/04/2016 13:42:14</publishTime>
     </File>
+    <File Include="Views/PreDefinedNotes/Create.cshtml">
+      <publishTime>03/15/2017 13:44:41</publishTime>
+    </File>
+    <File Include="Views/PreDefinedNotes/Delete.cshtml">
+      <publishTime>03/15/2017 13:44:42</publishTime>
+    </File>
+    <File Include="Views/PreDefinedNotes/Details.cshtml">
+      <publishTime>03/15/2017 13:44:44</publishTime>
+    </File>
+    <File Include="Views/PreDefinedNotes/Edit.cshtml">
+      <publishTime>03/15/2017 13:44:46</publishTime>
+    </File>
+    <File Include="Views/PreDefinedNotes/Index.cshtml">
+      <publishTime>03/15/2017 13:44:47</publishTime>
+    </File>
     <File Include="Views/ProductCategories/Create.cshtml">
       <publishTime>02/27/2017 21:49:08</publishTime>
     </File>
@@ -1064,7 +1085,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/25/2017 18:05:34</publishTime>
     </File>
     <File Include="Views/Products/Index.cshtml">
-      <publishTime>03/09/2017 17:09:53</publishTime>
+      <publishTime>03/13/2017 17:34:00</publishTime>
     </File>
     <File Include="Views/Products/PartialViewProductItineraries.cshtml">
       <publishTime>03/01/2017 00:21:43</publishTime>

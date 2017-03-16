@@ -32,6 +32,8 @@
     <EntitySet Name="ProductConditions" EntityType="JobDB.Store.ProductConditions" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ProductCategories" EntityType="JobDB.Store.ProductCategories" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ProductProdCats" EntityType="JobDB.Store.ProductProdCats" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PreDefinedNotes" EntityType="JobDB.Store.PreDefinedNotes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="JobNotes" EntityType="JobDB.Store.JobNotes" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="JobMainJobType" Association="JobDB.Store.JobMainJobType">
       <End Role="JobMain" EntitySet="JobMains" />
       <End Role="JobType" EntitySet="JobTypes" />
@@ -151,6 +153,10 @@
     <AssociationSet Name="ProductProductProdCat" Association="JobDB.Store.ProductProductProdCat">
       <End Role="Product" EntitySet="Products" />
       <End Role="ProductProdCat" EntitySet="ProductProdCats" />
+    </AssociationSet>
+    <AssociationSet Name="JobMainJobNote" Association="JobDB.Store.JobMainJobNote">
+      <End Role="JobMain" EntitySet="JobMains" />
+      <End Role="JobNote" EntitySet="JobNotes" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="JobMains">
@@ -503,6 +509,22 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ProductCategoryId" Type="int" Nullable="false" />
     <Property Name="ProductId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PreDefinedNotes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Note" Type="nvarchar" Nullable="true" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="JobNotes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="JobMainId" Type="int" Nullable="false" />
+    <Property Name="Sort" Type="int" Nullable="true" />
+    <Property Name="Note" Type="nvarchar" Nullable="true" MaxLength="250" />
   </EntityType>
   <Association Name="JobMainJobType">
     <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="1" />
@@ -861,6 +883,18 @@
       </Principal>
       <Dependent Role="ProductProdCat">
         <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="JobMainJobNote">
+    <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="1" />
+    <End Role="JobNote" Type="JobDB.Store.JobNotes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobMain">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobNote">
+        <PropertyRef Name="JobMainId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

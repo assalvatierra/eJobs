@@ -151,6 +151,16 @@ namespace JobsV1.Controllers
             {
                 jobServices.DtEnd = ((DateTime)jobServices.DtEnd).Add(new TimeSpan(23, 59, 59));
                 db.Entry(jobServices).State = EntityState.Modified;
+
+                DateTime dtSvc = (DateTime)jobServices.DtStart;
+                List<Models.JobItinerary> iti = db.JobItineraries.Where(d => d.JobMainId == jobServices.JobMainId && d.SvcId == jobServices.Id).ToList();
+                foreach( var ititmp in iti)
+                {
+                    DateTime dtIti = (DateTime)ititmp.ItiDate;
+                    ititmp.ItiDate = new DateTime(dtSvc.Year, dtSvc.Month, dtSvc.Day, dtIti.Hour, dtIti.Minute, 0);
+                    db.Entry(ititmp).State = EntityState.Modified;
+                }
+
                 db.SaveChanges();
 
                 if (jobServices.SupplierId == NewSupplierSysId)

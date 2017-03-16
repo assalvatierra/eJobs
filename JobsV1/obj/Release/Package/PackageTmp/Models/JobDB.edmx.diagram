@@ -66,6 +66,9 @@
         <EntityTypeShape EntityType="JobDB.ProductProdCat" Width="1.5" PointX="15.625" PointY="5.75" />
         <AssociationConnector Association="JobDB.ProductCategoryProductProdCat" />
         <AssociationConnector Association="JobDB.ProductProductProdCat" />
+        <EntityTypeShape EntityType="JobDB.PreDefinedNote" Width="1.5" PointX="1.25" PointY="13" />
+        <EntityTypeShape EntityType="JobDB.JobNote" Width="1.5" PointX="3.125" PointY="13" />
+        <AssociationConnector Association="JobDB.JobMainJobNote" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

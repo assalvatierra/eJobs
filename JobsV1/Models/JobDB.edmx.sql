@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 03/10/2017 10:08:00
+-- Date Created: 03/15/2017 12:32:31
 -- Generated from EDMX file: C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
@@ -561,6 +561,22 @@ CREATE TABLE [dbo].[ProductProdCats] (
 );
 GO
 
+-- Creating table 'PreDefinedNotes'
+CREATE TABLE [dbo].[PreDefinedNotes] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Note] nvarchar(250)  NULL
+);
+GO
+
+-- Creating table 'JobNotes'
+CREATE TABLE [dbo].[JobNotes] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [JobMainId] int  NOT NULL,
+    [Sort] int  NULL,
+    [Note] nvarchar(250)  NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -748,6 +764,18 @@ GO
 -- Creating primary key on [Id] in table 'ProductProdCats'
 ALTER TABLE [dbo].[ProductProdCats]
 ADD CONSTRAINT [PK_ProductProdCats]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'PreDefinedNotes'
+ALTER TABLE [dbo].[PreDefinedNotes]
+ADD CONSTRAINT [PK_PreDefinedNotes]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'JobNotes'
+ALTER TABLE [dbo].[JobNotes]
+ADD CONSTRAINT [PK_JobNotes]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -1203,6 +1231,21 @@ GO
 CREATE INDEX [IX_FK_ProductProductProdCat]
 ON [dbo].[ProductProdCats]
     ([ProductId]);
+GO
+
+-- Creating foreign key on [JobMainId] in table 'JobNotes'
+ALTER TABLE [dbo].[JobNotes]
+ADD CONSTRAINT [FK_JobMainJobNote]
+    FOREIGN KEY ([JobMainId])
+    REFERENCES [dbo].[JobMains]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_JobMainJobNote'
+CREATE INDEX [IX_FK_JobMainJobNote]
+ON [dbo].[JobNotes]
+    ([JobMainId]);
 GO
 
 -- --------------------------------------------------

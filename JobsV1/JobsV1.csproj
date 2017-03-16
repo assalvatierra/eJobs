@@ -283,6 +283,7 @@
     <Compile Include="Controllers\JobServicesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MepuMainController.cs" />
+    <Compile Include="Controllers\PreDefinedNotesController.cs" />
     <Compile Include="Controllers\ProductCategoriesController.cs" />
     <Compile Include="Controllers\ProductPricesController.cs" />
     <Compile Include="Controllers\ProductProdCatsController.cs" />
@@ -351,6 +352,9 @@
     <Compile Include="Models\JobMain.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\JobNote.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\JobPayment.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
@@ -373,6 +377,9 @@
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\PreDefinedNote.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Product.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
@@ -499,6 +506,7 @@
       <LastGenOutput>JobDB.cs</LastGenOutput>
       <DependentUpon>JobDB.edmx</DependentUpon>
     </Content>
+    <Content Include="Models\JobNotes.sql" />
     <Content Include="Models\ProductsDB.sql" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
@@ -551,6 +559,7 @@
     <Content Include="Scripts\DateRangePicker\package.js" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\Job\Itinerary.js" />
+    <Content Include="Scripts\Job\Product.js" />
     <Content Include="Scripts\Job\Services.js" />
     <Content Include="Scripts\Job\Main.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
@@ -729,6 +738,14 @@
     <Content Include="Views\Products\PartialViewProductItineraries.cshtml" />
     <Content Include="Views\JobMains\Details_Quote.cshtml" />
     <Content Include="Views\JobMains\ProductTemplates.cshtml" />
+    <Content Include="Views\PreDefinedNotes\Create.cshtml" />
+    <Content Include="Views\PreDefinedNotes\Delete.cshtml" />
+    <Content Include="Views\PreDefinedNotes\Details.cshtml" />
+    <Content Include="Views\PreDefinedNotes\Edit.cshtml" />
+    <Content Include="Views\PreDefinedNotes\Index.cshtml" />
+    <Content Include="Views\JobMains\JobNotes.cshtml" />
+    <Content Include="Views\JobMains\CreateJobNote.cshtml" />
+    <Content Include="Views\JobMains\EditJobNote.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

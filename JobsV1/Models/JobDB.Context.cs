@@ -56,5 +56,7 @@ namespace JobsV1.Models
         public virtual DbSet<ProductCondition> ProductConditions { get; set; }
         public virtual DbSet<ProductCategory> ProductCategories { get; set; }
         public virtual DbSet<ProductProdCat> ProductProdCats { get; set; }
+        public virtual DbSet<PreDefinedNote> PreDefinedNotes { get; set; }
+        public virtual DbSet<JobNote> JobNotes { get; set; }
     }
 }
