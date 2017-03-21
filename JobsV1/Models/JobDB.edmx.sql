@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 03/15/2017 12:32:31
--- Generated from EDMX file: C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\Models\JobDB.edmx
+-- Date Created: 03/20/2017 11:46:38
+-- Generated from EDMX file: D:\Data\Real\Apps\GitHub\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -107,6 +107,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ProductProductProdCat]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ProductProdCats] DROP CONSTRAINT [FK_ProductProductProdCat];
 GO
+IF OBJECT_ID(N'[dbo].[FK_JobMainJobNote]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[JobNotes] DROP CONSTRAINT [FK_JobMainJobNote];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -204,6 +207,12 @@ IF OBJECT_ID(N'[dbo].[ProductCategories]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[ProductProdCats]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ProductProdCats];
+GO
+IF OBJECT_ID(N'[dbo].[PreDefinedNotes]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[PreDefinedNotes];
+GO
+IF OBJECT_ID(N'[dbo].[JobNotes]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[JobNotes];
 GO
 
 -- --------------------------------------------------

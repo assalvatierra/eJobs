@@ -547,6 +547,9 @@ namespace JobsV1.Controllers
             ViewBag.JobMainId = new SelectList(db.JobMains, "Id", "Description");
             JobNote jn = new JobNote();
             jn.Sort = 10 * ( 1 + db.JobNotes.Where(d => d.JobMainId == id).ToList().Count() );
+
+            ViewBag.templateNotes = db.PreDefinedNotes.ToList();
+
             return View(jn);
         }
         [HttpPost]

@@ -40,8 +40,9 @@
 
     </p>
     <p>
-        Services |
-        @Html.ActionLink("Itinerary", "JobItinerary", "JobItineraries", new { id = ViewBag.JobOrder.Id }, null) | 
+        Services | 
+        @Html.ActionLink("Itinerary", "JobItinerary", "JobItineraries", new { id = ViewBag.JobOrder.Id }, null) |
+        @Html.ActionLink("Notes", "JobNotes", "JobMains", new { id = ViewBag.JobOrder.Id }, null) |
         @Html.ActionLink("Payments", "Payments", "JobPayments", new { id = ViewBag.JobOrder.Id }, null)
     </p>
 
