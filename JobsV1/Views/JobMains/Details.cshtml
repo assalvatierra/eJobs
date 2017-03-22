@@ -4,6 +4,7 @@
     ViewBag.Title = "Details";
     IEnumerable<JobsV1.Models.JobServices> services = ViewBag.Services;
     IEnumerable<JobsV1.Models.JobItinerary> itineraries = ViewBag.Itinerary;
+    IEnumerable<JobsV1.Models.JobNote> jNotes = ViewBag.jNotes;
     IEnumerable<JobsV1.Models.JobPayment> payments = ViewBag.Payments;
 
     decimal dContractAmt = 0;
@@ -69,19 +70,12 @@
         </td>
     </tr>
     <tr>
-        <th>
-            Details
-        </th>
-        <td>
-            @Html.DisplayFor(model => model.Customer.Name)
-        </td>
-    </tr>
-    <tr>
         <th valign="top">
-            &nbsp;
+            Account
         </th>
         <td>
             @Html.DisplayFor(model => model.Description)
+            <br />@Html.DisplayFor(model => model.Customer.Name)
             <br />Pax: @Html.DisplayFor(model => model.NoOfPax) | Days: @Html.DisplayFor(model => model.NoOfDays)
             | Remarks: @Html.DisplayFor(model => model.JobRemarks)
         </td>
@@ -182,10 +176,18 @@
         </tr>
     }
 
-    
-
 </table>
 
+
+@{string sNotes = "";
+    foreach (var notetmp in jNotes)
+    {
+        string s = notetmp.Note;
+        if (sNotes.Trim() != "") { sNotes += "< /br>"; }
+        else { sNotes += "Terms & Conditions:< /br>"; }
+        sNotes += " " + notetmp.Note;
+    }
+}
 
 @if (payments.Count() > 0)
 {
@@ -245,7 +247,108 @@
 </div>
 
 
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
+@if (jNotes.Count() > 0)
+{
+    <table>
+        <tr>
+            <td>Terms & Conditions</td>
+        </tr>
+
+        @foreach (var notetmp in jNotes)
+        {
+            <tr>
+                <td colspan="4" style="border-top:none">
+                    <span style="font:12px calibre, verdana;">
+                        @notetmp.Note
+                    </span>
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+<br />
+
+@if (Model.JobStatusId == 2) /*RESERVATION & CONTRACT*/
+{
+<table style="border:3px solid black; ">
+    <tr>
+        <td colspan="2" style="border-bottom:3px solid black;padding:5px;">
+            <span style="font:italic 21px arial, verdana;">
+                We the undersigned agree to the terms and conditions as stated above
+            </span>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding:10px;vertical-align:top" width="50%">
+            <table>
+                <tr>
+                    <td colspan="2">
+                        <span style="font:bold 18px arial, verdana;">@ViewBag.sCompany</span>
+                        <span style="font:12px arial, verdana;">
+                            <br />@ViewBag.sLine1
+                            <br />@ViewBag.sLine2
+                            <br />@ViewBag.sLine3
+                        </span>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td style="padding:10px;vertical-align:top" width="50%">
+            <table>
+                <tr>
+                    <td colspan="2">
+                        <span style="font:bold 18px arial, verdana;">Client</span>
+                        <span style="font:12px arial, verdana;">
+                            <br />Hereby confirms that all provisions of the contract are agreed 
+                            with me and all persons who travel with me, undertake to keep
+                            the terms of contract. I(we) are acquainted with all necessary,
+                            comprehensible and true information about the condition of the
+                            service(s) under the contract
+                        </span>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding:10px;vertical-align:top" width="50%">
+            <table>
+                <tr>
+                    <td style="vertical-align:bottom;">Representative:</td>
+                    <td><br /><br />_________________________________</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align:bottom;">Signature:</td>
+                    <td><br />_________________________________</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align:bottom;">Date:</td>
+                    <td><br />_________________________________</td>
+                </tr>
+                <tr><td colspan="2">&nbsp;</td></tr>
+            </table>
+
+        </td>
+        <td style="padding:10px;vertical-align:top" width="50%">
+            <table>
+                <tr>
+                    <td style="vertical-align:bottom;">Fullname:</td>
+                    <td><br /><br />_________________________________</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align:bottom;">Signature:</td>
+                    <td><br />_________________________________</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align:bottom;">Date:</td>
+                    <td><br />_________________________________</td>
+                </tr>
+                <tr><td colspan="2">&nbsp;</td></tr>
+            </table>
+        </td>
+    </tr>
+</table>
+}
+
+

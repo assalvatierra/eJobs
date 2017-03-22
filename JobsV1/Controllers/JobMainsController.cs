@@ -90,7 +90,7 @@ namespace JobsV1.Controllers
         }
 
         // GET: JobMains/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, int? iType)
         {
             if (id == null)
             {
@@ -105,6 +105,7 @@ namespace JobsV1.Controllers
             ViewBag.Services = db.JobServices.Include(j => j.JobServicePickups).Where(j => j.JobMainId == jobMain.Id).OrderBy(s=>s.DtStart);
             ViewBag.Itinerary = db.JobItineraries.Include(j => j.Destination).Where(j => j.JobMainId == jobMain.Id);
             ViewBag.Payments = db.JobPayments.Where(j => j.JobMainId == jobMain.Id);
+            ViewBag.jNotes = db.JobNotes.Where(d => d.JobMainId == jobMain.Id).OrderBy(s=>s.Sort);
 
             //Default form
             string sCompany = "AJ88 Car Rental Services";
@@ -136,11 +137,16 @@ namespace JobsV1.Controllers
             ViewBag.sLine3 = sLine3;
             ViewBag.sLogo = sLogo;
 
-            if(jobMain.JobStatusId==1) //quotation
+
+            if (jobMain.JobStatusId==1) //quotation
                 return View("Details_Quote", jobMain);
+
+            if( iType!= null && (int)iType == 1) //Invoice
+                return View("Details_Invoice", jobMain);
 
             return View(jobMain);
         }
+
         /*
         public ActionResult SubContractors(int? id)
         {
