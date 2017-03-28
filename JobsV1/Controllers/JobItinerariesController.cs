@@ -66,6 +66,7 @@ namespace JobsV1.Controllers
 
             Models.JobItinerary ji = new Models.JobItinerary();
             ji.JobMainId = (int) JobMainId;
+            if(SvcId > 0) ji.ItiDate = (DateTime)db.JobServices.Find(SvcId).DtStart;
 
             ViewBag.JobMainId = new SelectList(db.JobMains, "Id", "Description");
             ViewBag.DestinationId = new SelectList(db.Destinations, "Id", "Description");

@@ -89,6 +89,30 @@ namespace JobsV1.Controllers
 
         }
 
+        public ActionResult ActiveJobs()
+        {
+            IQueryable<Models.JobMain> jobMains = db.JobMains.Include(j => j.Customer).Include(j => j.Branch).Include(j => j.JobStatus).Include(j => j.JobThru).OrderBy(d => d.JobDate);
+            jobMains = (IQueryable<Models.JobMain>)jobMains.Where(d => d.JobStatusId == JOBRESERVATION || d.JobStatusId == JOBCONFIRMED);
+
+            var p = jobMains.Select(s => s.Id);
+
+            var data = db.JobServices.Where(w => p.Contains(w.JobMainId)).ToList().OrderBy(s=>s.DtStart);
+
+
+            ViewBag.Current = this.GetCurrentTime().ToString("MMM-dd-yyyy (ddd)");
+
+            return View(data);
+        }
+
+        protected DateTime GetCurrentTime()
+        {
+            DateTime serverTime = DateTime.Now;
+            DateTime _localTime = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(serverTime, TimeZoneInfo.Local.Id, "Taipei Standard Time");
+            return _localTime;
+        }
+
+
+
         // GET: JobMains/Details/5
         public ActionResult Details(int? id, int? iType)
         {
@@ -420,6 +444,17 @@ namespace JobsV1.Controllers
 
         }
 
+        public ActionResult CloseJobActive(int? id)
+        {
+            JobMain job = db.JobMains.Find(id);
+            job.JobStatusId = JOBCLOSED;
+            db.Entry(job).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
+
         public ActionResult CloseJob(int? id)
         {
             JobMain job = db.JobMains.Find(id);
@@ -445,8 +480,8 @@ namespace JobsV1.Controllers
 
         public ActionResult JobTable(int? span=30)
         {
-
-            System.DateTime dtStart = new DateTime(System.DateTime.Now.Year, System.DateTime.Now.Month, System.DateTime.Now.Day, 12,0,0);
+            System.DateTime dtNow = this.GetCurrentTime();
+            System.DateTime dtStart = new DateTime(dtNow.Year, dtNow.Month, dtNow.Day, 12,0,0);
             System.DateTime dtUntil = System.DateTime.Now.AddDays((double)span);
             dtUntil = new DateTime(dtUntil.Year, dtUntil.Month, dtUntil.Day, 23, 59, 59);
             //Column Date Labels
@@ -550,7 +585,7 @@ namespace JobsV1.Controllers
         #region Job Notes
         public ActionResult CreateJobNote(int? id)
         {
-            ViewBag.JobMainId = new SelectList(db.JobMains, "Id", "Description");
+            ViewBag.JobMainId = new SelectList(db.JobMains, "Id", "Description", id);
             JobNote jn = new JobNote();
             jn.Sort = 10 * ( 1 + db.JobNotes.Where(d => d.JobMainId == id).ToList().Count() );
 

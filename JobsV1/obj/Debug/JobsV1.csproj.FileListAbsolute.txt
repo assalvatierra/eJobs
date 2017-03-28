@@ -386,3 +386,4 @@ D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\Microsoft.Owin.Security.Twitter.xml
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\obj\Debug\JobsV1.dll
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\obj\Debug\JobsV1.pdb
+D:\Data\Real\Apps\GitHub\eJobs\JobsV1\obj\Debug\JobsV1.csprojResolveAssemblyReference.cache

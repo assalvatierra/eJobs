@@ -16,9 +16,9 @@
         <AssociationConnector Association="JobDB.SupplierJobSupplier" />
         <AssociationConnector Association="JobDB.CustomerJobMain" />
         <AssociationConnector Association="JobDB.ServicesJobServices" />
-        <EntityTypeShape EntityType="JobDB.JobItinerary" Width="1.5" PointX="5.5" PointY="12.5" />
+        <EntityTypeShape EntityType="JobDB.JobItinerary" Width="1.5" PointX="5.875" PointY="13" />
         <AssociationConnector Association="JobDB.JobMainJobItinerary" />
-        <EntityTypeShape EntityType="JobDB.Destination" Width="1.5" PointX="12.625" PointY="11" />
+        <EntityTypeShape EntityType="JobDB.Destination" Width="1.5" PointX="12.875" PointY="13.25" />
         <AssociationConnector Association="JobDB.DestinationJobItinerary" />
         <EntityTypeShape EntityType="JobDB.JobPickup" Width="1.5" PointX="0.5" PointY="6.125" />
         <AssociationConnector Association="JobDB.JobMainJobPickup" />
@@ -30,17 +30,17 @@
         <AssociationConnector Association="JobDB.CityDestination" />
         <EntityTypeShape EntityType="JobDB.SupplierType" Width="1.5" PointX="9.875" PointY="1.5" />
         <AssociationConnector Association="JobDB.SupplierTypeSupplier" />
-        <EntityTypeShape EntityType="JobDB.SupplierItem" Width="1.5" PointX="10.5" PointY="7.75" />
+        <EntityTypeShape EntityType="JobDB.SupplierItem" Width="1.5" PointX="10.5" PointY="7.5" />
         <AssociationConnector Association="JobDB.SupplierSupplierItem" />
         <AssociationConnector Association="JobDB.SupplierItemJobServices" />
-        <EntityTypeShape EntityType="JobDB.JobServicePickup" PointX="5.25" PointY="9" Width="1.5" />
+        <EntityTypeShape EntityType="JobDB.JobServicePickup" PointX="10.5" PointY="10.625" Width="1.5" />
         <AssociationConnector Association="JobDB.JobServicesJobServicePickup" />
         <EntityTypeShape EntityType="JobDB.JobStatus" Width="1.5" PointX="5.25" PointY="3.75" />
         <EntityTypeShape EntityType="JobDB.JobThru" Width="1.5" PointX="5.25" PointY="5.5" />
         <AssociationConnector Association="JobDB.JobStatusJobMain" />
         <AssociationConnector Association="JobDB.JobThruJobMain" />
-        <EntityTypeShape EntityType="JobDB.Bank" Width="1.5" PointX="0.5" PointY="9.375" />
-        <EntityTypeShape EntityType="JobDB.JobPayment" Width="1.5" PointX="2.625" PointY="9.375" />
+        <EntityTypeShape EntityType="JobDB.Bank" Width="1.5" PointX="0.5" PointY="12.375" />
+        <EntityTypeShape EntityType="JobDB.JobPayment" Width="1.5" PointX="0.625" PointY="9.5" />
         <AssociationConnector Association="JobDB.JobMainJobPayment" />
         <AssociationConnector Association="JobDB.BankJobPayment" />
         <EntityTypeShape EntityType="JobDB.CarCategory" Width="1.5" PointX="1.625" PointY="15.75" />
@@ -66,8 +66,8 @@
         <EntityTypeShape EntityType="JobDB.ProductProdCat" Width="1.5" PointX="15.625" PointY="5.75" />
         <AssociationConnector Association="JobDB.ProductCategoryProductProdCat" />
         <AssociationConnector Association="JobDB.ProductProductProdCat" />
-        <EntityTypeShape EntityType="JobDB.PreDefinedNote" Width="1.5" PointX="1.25" PointY="13" />
-        <EntityTypeShape EntityType="JobDB.JobNote" Width="1.5" PointX="3.125" PointY="13" />
+        <EntityTypeShape EntityType="JobDB.PreDefinedNote" Width="1.5" PointX="2.625" PointY="13" />
+        <EntityTypeShape EntityType="JobDB.JobNote" Width="1.5" PointX="2.625" PointY="10.75" />
         <AssociationConnector Association="JobDB.JobMainJobNote" />
       </Diagram>
     </edmx:Diagrams>

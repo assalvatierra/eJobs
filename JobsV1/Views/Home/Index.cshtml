@@ -8,7 +8,7 @@
 
     <p>@Html.ActionLink("Register New »", "Create", "JobMains", null, new { @class = "btn btn-primary btn-lg" }) </p>
     <p class="lead">Jobs :
-    [ @Html.ActionLink("List", "Index", "JobMains") ]  [ @Html.ActionLink("Job Table", "JobTable","JobMains", new { span = 30 }, null) ]
+    [ @Html.ActionLink("List", "ActiveJobs", "JobMains") ]  [ @Html.ActionLink("Job Table", "JobTable","JobMains", new { span = 30 }, null) ]
     [ @Html.ActionLink("Payments", "AdvanceList", "JobPayments") ]
         <br />Leads  
         [ @Html.ActionLink("List", "JobLeads", "JobMains") ]

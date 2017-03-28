@@ -156,8 +156,14 @@ namespace JobsV1.Controllers
                 List<Models.JobItinerary> iti = db.JobItineraries.Where(d => d.JobMainId == jobServices.JobMainId && d.SvcId == jobServices.Id).ToList();
                 foreach( var ititmp in iti)
                 {
-                    DateTime dtIti = (DateTime)ititmp.ItiDate;
-                    ititmp.ItiDate = new DateTime(dtSvc.Year, dtSvc.Month, dtSvc.Day, dtIti.Hour, dtIti.Minute, 0);
+                    int iHr = dtSvc.Hour, iMn = dtSvc.Minute;
+                    if (ititmp.ItiDate!=null)
+                    {
+                        DateTime dtIti = (DateTime)ititmp.ItiDate; 
+                        iHr = dtIti.Hour;
+                        iMn = dtIti.Minute;
+                    }
+                    ititmp.ItiDate = new DateTime(dtSvc.Year, dtSvc.Month, dtSvc.Day, iHr, iMn, 0);
                     db.Entry(ititmp).State = EntityState.Modified;
                 }
 
@@ -394,9 +400,11 @@ namespace JobsV1.Controllers
             decimal dSupplierAmt = 0;
 
             DateTime dtJobTemplate = (DateTime) jobTemplate.JobDate;
-
+            DateTime dtJobDateStart = (DateTime)jobTemplate.JobDate;
             int irow = 0;
-            foreach( var src in srcJobSvcs)
+
+            #region add new service
+            foreach ( var src in srcJobSvcs)
             {
                 irow++;
 
@@ -405,7 +413,7 @@ namespace JobsV1.Controllers
                     JobMainId = jobRef.Id,
                     ServicesId = src.ServicesId,
                     DtStart = jobRef.JobDate,
-                    DtEnd = jobRef.JobDate.AddDays(jobRef.NoOfDays),
+                    DtEnd = jobRef.JobDate,
                     Particulars = src.Particulars,
                     Remarks = src.Remarks,
                     QuotedAmt = dQuoteAmt,
@@ -422,6 +430,7 @@ namespace JobsV1.Controllers
                     if(jobRef.JobDate != null)
                     {
                         newJobSrv.DtStart = jobRef.JobDate.Add(tsSrc);
+                        dtJobDateStart = jobRef.JobDate.Add(tsSrc);
                     }
                     
                 }
@@ -460,17 +469,16 @@ namespace JobsV1.Controllers
 
                 db.JobServices.Add(newJobSrv);
             }
+            #endregion
 
-
-            // Copy Itinerary
+            #region Copy/Add Itinerary
             foreach (var src in srcJobIti)
             {
                 Models.JobItinerary newJobIti = new JobItinerary() 
                 {
                     JobMainId = jobRef.Id,
                     DestinationId = src.DestinationId,
-                    Remarks = src.Remarks,
-                    SvcId = src.SvcId
+                    Remarks = src.Remarks
                 };
                 if (src.ItiDate != null)
                 {
@@ -480,14 +488,33 @@ namespace JobsV1.Controllers
                     {
                         newJobIti.ItiDate = jobRef.JobDate.Add(tsSrc);
                     }
-
+                }
+                else
+                {
+                    newJobIti.ItiDate = dtJobDateStart;
                 }
 
 
                 db.JobItineraries.Add(newJobIti);
             }
+            #endregion
 
             db.SaveChanges();
+
+            #region set svc id to iti
+            Models.JobServices jtmp = db.JobServices.Where(d => d.JobMainId == JobId).OrderByDescending(o => o.Id).FirstOrDefault();
+            int iAddedSvc = jtmp.Id;
+
+            IList<Models.JobItinerary> jIti = db.JobItineraries.Where(d => d.JobMainId == JobId && d.SvcId==null ).ToList();
+            foreach( var tmp in jIti)
+            {
+                tmp.SvcId = iAddedSvc;
+                db.Entry(tmp).State = EntityState.Modified;
+            }
+            db.SaveChanges();
+
+            #endregion
+
 
             return RedirectToAction("Services", new { id= JobId } );
         }

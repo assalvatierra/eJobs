@@ -747,6 +747,7 @@
     <Content Include="Views\JobMains\CreateJobNote.cshtml" />
     <Content Include="Views\JobMains\EditJobNote.cshtml" />
     <Content Include="Views\JobMains\Details_Invoice.cshtml" />
+    <Content Include="Views\JobMains\ActiveJobs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

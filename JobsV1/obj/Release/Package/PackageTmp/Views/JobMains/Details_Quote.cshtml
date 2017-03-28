@@ -4,6 +4,7 @@
     ViewBag.Title = "Quotation";
     IEnumerable<JobsV1.Models.JobServices> services = ViewBag.Services;
     IEnumerable<JobsV1.Models.JobItinerary> itineraries = ViewBag.Itinerary;
+    IEnumerable<JobsV1.Models.JobNote> jNotes = ViewBag.jNotes;
     IEnumerable<JobsV1.Models.JobPayment> payments = ViewBag.Payments;
 
     decimal dQuotedAmt = 0;
@@ -166,9 +167,10 @@
             </td>
         </tr>
 
-}
+    }
 
 </table>
+
 
 
 <div class="jumbotron">
@@ -183,6 +185,27 @@
     </p>
 </div>
 
-<p>
-    @Html.ActionLink("Back to List", "Services", "JobServices", new { id = Model.Id }, null)
-</p>
+
+@if (jNotes.Count() > 0)
+{
+    <table>
+        <tr>
+            <td>Terms & Conditions</td>
+        </tr>
+
+        @foreach (var notetmp in jNotes)
+        {
+            <tr>
+                <td colspan="4" style="border-top:none">
+                    <span style="font:12px calibre, verdana;">
+                        @notetmp.Note
+                    </span>
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+
+<br />
+
