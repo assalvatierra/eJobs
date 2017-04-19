@@ -274,6 +274,7 @@
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\DestinationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JobChecklistsController.cs" />
     <Compile Include="Controllers\JobContactsController.cs" />
     <Compile Include="Controllers\JobItinerariesController.cs" />
     <Compile Include="Controllers\JobMainsController.cs" />
@@ -328,6 +329,9 @@
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\JobChecklist.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\JobContact.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
@@ -493,6 +497,7 @@
     <Content Include="Images\Mepu\Logo2.png" />
     <Content Include="Images\Phone001.png" />
     <Content Include="Images\RealBreezeLogo01.png" />
+    <Content Include="Models\AddChecklist.SQL" />
     <Content Include="Models\AsExpenseDB.sql" />
     <Content Include="Models\InitialData.sql" />
     <Content Include="Models\JobDB.Context.tt">
@@ -748,6 +753,11 @@
     <Content Include="Views\JobMains\EditJobNote.cshtml" />
     <Content Include="Views\JobMains\Details_Invoice.cshtml" />
     <Content Include="Views\JobMains\ActiveJobs.cshtml" />
+    <Content Include="Views\JobChecklists\Create.cshtml" />
+    <Content Include="Views\JobChecklists\Delete.cshtml" />
+    <Content Include="Views\JobChecklists\Details.cshtml" />
+    <Content Include="Views\JobChecklists\Edit.cshtml" />
+    <Content Include="Views\JobChecklists\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

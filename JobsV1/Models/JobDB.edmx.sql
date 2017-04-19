@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 03/20/2017 11:46:38
+-- Date Created: 04/18/2017 15:19:46
 -- Generated from EDMX file: D:\Data\Real\Apps\GitHub\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
@@ -213,6 +213,9 @@ IF OBJECT_ID(N'[dbo].[PreDefinedNotes]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[JobNotes]', 'U') IS NOT NULL
     DROP TABLE [dbo].[JobNotes];
+GO
+IF OBJECT_ID(N'[dbo].[JobChecklists]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[JobChecklists];
 GO
 
 -- --------------------------------------------------
@@ -586,6 +589,19 @@ CREATE TABLE [dbo].[JobNotes] (
 );
 GO
 
+-- Creating table 'JobChecklists'
+CREATE TABLE [dbo].[JobChecklists] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [dtEntered] datetime  NOT NULL,
+    [dtDue] datetime  NOT NULL,
+    [dtNotification] datetime  NOT NULL,
+    [Description] nvarchar(250)  NOT NULL,
+    [Remarks] nvarchar(250)  NULL,
+    [RefId] int  NULL,
+    [Status] int  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -785,6 +801,12 @@ GO
 -- Creating primary key on [Id] in table 'JobNotes'
 ALTER TABLE [dbo].[JobNotes]
 ADD CONSTRAINT [PK_JobNotes]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'JobChecklists'
+ALTER TABLE [dbo].[JobChecklists]
+ADD CONSTRAINT [PK_JobChecklists]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 

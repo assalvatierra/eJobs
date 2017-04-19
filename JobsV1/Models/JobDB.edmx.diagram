@@ -69,6 +69,7 @@
         <EntityTypeShape EntityType="JobDB.PreDefinedNote" Width="1.5" PointX="2.625" PointY="13" />
         <EntityTypeShape EntityType="JobDB.JobNote" Width="1.5" PointX="2.625" PointY="10.75" />
         <AssociationConnector Association="JobDB.JobMainJobNote" />
+        <EntityTypeShape EntityType="JobDB.JobChecklist" Width="1.5" PointX="7" PointY="18.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

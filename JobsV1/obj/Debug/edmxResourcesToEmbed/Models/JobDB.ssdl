@@ -34,6 +34,7 @@
     <EntitySet Name="ProductProdCats" EntityType="JobDB.Store.ProductProdCats" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="PreDefinedNotes" EntityType="JobDB.Store.PreDefinedNotes" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="JobNotes" EntityType="JobDB.Store.JobNotes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="JobChecklists" EntityType="JobDB.Store.JobChecklists" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="JobMainJobType" Association="JobDB.Store.JobMainJobType">
       <End Role="JobMain" EntitySet="JobMains" />
       <End Role="JobType" EntitySet="JobTypes" />
@@ -525,6 +526,19 @@
     <Property Name="JobMainId" Type="int" Nullable="false" />
     <Property Name="Sort" Type="int" Nullable="true" />
     <Property Name="Note" Type="nvarchar" Nullable="true" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="JobChecklists">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="dtEntered" Type="datetime" Nullable="false" />
+    <Property Name="dtDue" Type="datetime" Nullable="false" />
+    <Property Name="dtNotification" Type="datetime" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="250" />
+    <Property Name="Remarks" Type="nvarchar" Nullable="true" MaxLength="250" />
+    <Property Name="RefId" Type="int" Nullable="true" />
+    <Property Name="Status" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="JobMainJobType">
     <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="1" />

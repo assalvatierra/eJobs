@@ -39,6 +39,7 @@
     <EntitySet Name="ProductProdCats" EntityType="JobDB.Store.ProductProdCats" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="PreDefinedNotes" EntityType="JobDB.Store.PreDefinedNotes" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="JobNotes" EntityType="JobDB.Store.JobNotes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="JobChecklists" EntityType="JobDB.Store.JobChecklists" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="JobMainJobType" Association="JobDB.Store.JobMainJobType">
       <End Role="JobMain" EntitySet="JobMains" />
       <End Role="JobType" EntitySet="JobTypes" />
@@ -530,6 +531,19 @@
     <Property Name="JobMainId" Type="int" Nullable="false" />
     <Property Name="Sort" Type="int" Nullable="true" />
     <Property Name="Note" Type="nvarchar" Nullable="true" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="JobChecklists">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="dtEntered" Type="datetime" Nullable="false" />
+    <Property Name="dtDue" Type="datetime" Nullable="false" />
+    <Property Name="dtNotification" Type="datetime" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="250" />
+    <Property Name="Remarks" Type="nvarchar" Nullable="true" MaxLength="250" />
+    <Property Name="RefId" Type="int" Nullable="true" />
+    <Property Name="Status" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="JobMainJobType">
     <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="1" />
@@ -1065,6 +1079,7 @@
             <End Role="JobMain" EntitySet="JobMains" />
             <End Role="JobNote" EntitySet="JobNotes" />
           </AssociationSet>
+          <EntitySet Name="JobChecklists" EntityType="JobDB.JobChecklist" />
         </EntityContainer>
         <EntityType Name="JobMain">
           <Key>
@@ -1867,6 +1882,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="JobChecklist">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dtEntered" Type="DateTime" Nullable="false" />
+          <Property Name="dtDue" Type="DateTime" Nullable="false" />
+          <Property Name="dtNotification" Type="DateTime" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="250" />
+          <Property Name="Remarks" Type="String" Nullable="true" MaxLength="250" />
+          <Property Name="RefId" Type="Int32" Nullable="true" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2270,6 +2298,20 @@
           <ScalarProperty Name="JobMainId" ColumnName="JobMainId" />
           <ScalarProperty Name="Sort" ColumnName="Sort" />
           <ScalarProperty Name="Note" ColumnName="Note" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobChecklists">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.JobChecklist)">
+        <MappingFragment StoreEntitySet="JobChecklists">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="dtEntered" ColumnName="dtEntered" />
+          <ScalarProperty Name="dtDue" ColumnName="dtDue" />
+          <ScalarProperty Name="dtNotification" ColumnName="dtNotification" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="RefId" ColumnName="RefId" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
