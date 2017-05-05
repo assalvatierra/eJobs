@@ -401,5 +401,19 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="JobChecklists">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.JobChecklist)">
+        <MappingFragment StoreEntitySet="JobChecklists">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="dtEntered" ColumnName="dtEntered" />
+          <ScalarProperty Name="dtDue" ColumnName="dtDue" />
+          <ScalarProperty Name="dtNotification" ColumnName="dtNotification" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="RefId" ColumnName="RefId" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

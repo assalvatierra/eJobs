@@ -110,7 +110,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/21/2014 05:25:22</publishTime>
     </File>
     <File Include="bin/JobsV1.dll">
-      <publishTime>03/28/2017 09:30:51</publishTime>
+      <publishTime>04/24/2017 14:51:31</publishTime>
     </File>
     <File Include="bin/ko/Microsoft.SqlServer.Types.resources.dll">
       <publishTime>02/21/2014 05:27:16</publishTime>
@@ -526,6 +526,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Images/RealBreezeLogo01.png">
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
+    <File Include="Models/AddChecklist.SQL">
+      <publishTime>04/18/2017 14:55:25</publishTime>
+    </File>
     <File Include="Models/AsExpenseDB.sql">
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
@@ -533,10 +536,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/27/2017 14:42:09</publishTime>
     </File>
     <File Include="Models/JobDB.edmx.diagram">
-      <publishTime>03/23/2017 10:36:46</publishTime>
+      <publishTime>04/18/2017 15:22:51</publishTime>
     </File>
     <File Include="Models/JobDB.edmx.sql">
-      <publishTime>03/20/2017 11:46:44</publishTime>
+      <publishTime>04/18/2017 15:19:57</publishTime>
     </File>
     <File Include="Models/JobNotes.sql">
       <publishTime>03/20/2017 11:30:34</publishTime>
@@ -841,6 +844,21 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Home/Index.cshtml">
       <publishTime>03/23/2017 16:55:32</publishTime>
     </File>
+    <File Include="Views/JobChecklists/Create.cshtml">
+      <publishTime>04/18/2017 15:26:31</publishTime>
+    </File>
+    <File Include="Views/JobChecklists/Delete.cshtml">
+      <publishTime>04/18/2017 15:26:33</publishTime>
+    </File>
+    <File Include="Views/JobChecklists/Details.cshtml">
+      <publishTime>04/18/2017 15:26:35</publishTime>
+    </File>
+    <File Include="Views/JobChecklists/Edit.cshtml">
+      <publishTime>04/18/2017 15:26:37</publishTime>
+    </File>
+    <File Include="Views/JobChecklists/Index.cshtml">
+      <publishTime>04/18/2017 15:26:39</publishTime>
+    </File>
     <File Include="Views/JobContacts/Create.cshtml">
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
@@ -890,7 +908,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
     <File Include="Views/JobMains/Details.cshtml">
-      <publishTime>03/22/2017 17:44:11</publishTime>
+      <publishTime>03/31/2017 12:26:20</publishTime>
     </File>
     <File Include="Views/JobMains/Details_Invoice.cshtml">
       <publishTime>03/22/2017 17:41:36</publishTime>

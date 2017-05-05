@@ -158,6 +158,7 @@
       <End Role="JobMain" EntitySet="JobMains" />
       <End Role="JobNote" EntitySet="JobNotes" />
     </AssociationSet>
+    <EntitySet Name="JobChecklists" EntityType="JobDB.JobChecklist" />
   </EntityContainer>
   <EntityType Name="JobMain">
     <Key>
@@ -960,4 +961,17 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="JobChecklist">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="dtEntered" Type="DateTime" Nullable="false" />
+    <Property Name="dtDue" Type="DateTime" Nullable="false" />
+    <Property Name="dtNotification" Type="DateTime" Nullable="false" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="250" />
+    <Property Name="Remarks" Type="String" Nullable="true" MaxLength="250" />
+    <Property Name="RefId" Type="Int32" Nullable="true" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
+  </EntityType>
 </Schema>
