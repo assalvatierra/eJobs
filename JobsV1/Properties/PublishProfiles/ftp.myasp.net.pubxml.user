@@ -110,7 +110,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/21/2014 05:25:22</publishTime>
     </File>
     <File Include="bin/JobsV1.dll">
-      <publishTime>04/24/2017 14:51:31</publishTime>
+      <publishTime>06/20/2017 06:15:52</publishTime>
     </File>
     <File Include="bin/ko/Microsoft.SqlServer.Types.resources.dll">
       <publishTime>02/21/2014 05:27:16</publishTime>
