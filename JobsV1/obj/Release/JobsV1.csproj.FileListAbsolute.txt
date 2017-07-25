@@ -388,3 +388,14 @@ C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\zh-Hant\Microsoft.SqlServer.Ty
 C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\obj\Release\JobsV1.csprojResolveAssemblyReference.cache
 C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\obj\Release\JobsV1.dll
 C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\obj\Release\JobsV1.pdb
+D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\Microsoft.SqlServer.Types.dll
+D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\de\Microsoft.SqlServer.Types.resources.dll
+D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\es\Microsoft.SqlServer.Types.resources.dll
+D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\fr\Microsoft.SqlServer.Types.resources.dll
+D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\it\Microsoft.SqlServer.Types.resources.dll
+D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\ja\Microsoft.SqlServer.Types.resources.dll
+D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\ko\Microsoft.SqlServer.Types.resources.dll
+D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\pt\Microsoft.SqlServer.Types.resources.dll
+D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\ru\Microsoft.SqlServer.Types.resources.dll
+D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\zh-Hans\Microsoft.SqlServer.Types.resources.dll
+D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\zh-Hant\Microsoft.SqlServer.Types.resources.dll

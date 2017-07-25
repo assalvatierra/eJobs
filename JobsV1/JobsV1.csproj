@@ -554,6 +554,7 @@
     <Content Include="Areas\Accounting\Views\AsExpenses\ParamForm.cshtml" />
     <Content Include="Areas\Accounting\Views\AsMain\Index.cshtml" />
     <None Include="Properties\PublishProfiles\ftp.myasp.net.pubxml" />
+    <None Include="Properties\PublishProfiles\ftp.Somee.com.pubxml" />
     <None Include="Properties\PublishProfiles\LocalPath.pubxml" />
     <Content Include="Scripts\DateRangePicker\bower.json" />
     <Content Include="Scripts\DateRangePicker\package.json" />
