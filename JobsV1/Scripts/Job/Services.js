@@ -6,6 +6,7 @@
 
 $(document).ready(function () {
     InitDatePicker();
+    initFieldEvents();
 })
 
 
@@ -51,6 +52,22 @@ function InitDatePicker()
     $('input[name="DtEnd"]').val(ddd2.substr(0, ddd1.indexOf(" ") ));
 
 
+
+
+}
+
+function initFieldEvents()
+{
+    $('#QuotedAmt').on('change', function () {
+        var sTmp = $('#QuotedAmt').val();
+        $('#SupplierAmt').val(sTmp);
+        $('#ActualAmt').val(sTmp);
+    });
+
+    $('#SupplierAmt').on('change', function () {
+        var sTmp = $('#SupplierAmt').val();
+        $('#ActualAmt').val(sTmp);
+    });
 
 
 }
