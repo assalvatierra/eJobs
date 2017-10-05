@@ -620,7 +620,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/20/2017 11:30:34</publishTime>
     </File>
     <File Include="Scripts/Job/Services.js">
-      <publishTime>03/07/2017 16:35:55</publishTime>
+      <publishTime>08/10/2017 09:16:58</publishTime>
     </File>
     <File Include="Scripts/jquery-1.10.2.js">
       <publishTime>05/28/2016 10:19:08</publishTime>
@@ -938,7 +938,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/01/2017 16:32:07</publishTime>
     </File>
     <File Include="Views/JobMains/SubDetails.cshtml">
-      <publishTime>03/20/2017 11:30:34</publishTime>
+      <publishTime>08/24/2017 14:13:30</publishTime>
     </File>
     <File Include="Views/JobPayments/AdvanceList.cshtml">
       <publishTime>02/22/2017 09:02:29</publishTime>
