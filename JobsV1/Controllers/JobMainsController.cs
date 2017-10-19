@@ -136,6 +136,7 @@ namespace JobsV1.Controllers
             string sLine1 = "2nd Floor J. Sulit Bldg. Mac Arthur Highway, Matina Davao City ";
             string sLine2 = "Tel# (+63)822971831; (+63)9167558473; (+63)9330895358 ";
             string sLine3 = "Email: ajdavao88@gmail.com; Website: http://www.AJDavaoCarRental.com/";
+            string sLine4 = "TIN: 414-880-772-001 (non-Vat)";
             string sLogo = "LOGO_AJRENTACAR.jpg";
 
             if (jobMain.Branch.Name == "RealBreeze")
@@ -144,6 +145,7 @@ namespace JobsV1.Controllers
                 sLine1 = "2nd Floor J. Sulit Bldg. Mac Arthur Highway, Matina Davao City ";
                 sLine2 = "Tel# (+63)822971831; (+63)916-755-8473; (+63)933-089-5358 ";
                 sLine3 = "Email: RealBreezeDavao@gmail.com; Website: http://www.realbreezedavaotours.com//";
+                sLine4 = "TIN: 414-880-772-001 (non-Vat)";
                 sLogo = "RealBreezeLogo01.png";
             }
             if (jobMain.Branch.Name == "AJ88")
@@ -152,6 +154,7 @@ namespace JobsV1.Controllers
                 sLine1 = "2nd Floor J. Sulit Bldg. Mac Arthur Highway, Matina Davao City ";
                 sLine2 = "Tel# (+63)822971831; (+63)9167558473; (+63)9330895358 ";
                 sLine3 = "Email: ajdavao88@gmail.com; Website: http://www.AJDavaoCarRental.com/";
+                sLine4 = "TIN: 414-880-772-000 (non-Vat)";
                 sLogo = "LOGO_AJRENTACAR.jpg";
             }
 
@@ -159,6 +162,7 @@ namespace JobsV1.Controllers
             ViewBag.sLine1 = sLine1;
             ViewBag.sLine2 = sLine2;
             ViewBag.sLine3 = sLine3;
+            ViewBag.sLine4 = sLine4;
             ViewBag.sLogo = sLogo;
 
 
