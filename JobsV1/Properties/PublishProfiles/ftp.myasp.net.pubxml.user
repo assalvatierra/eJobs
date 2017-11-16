@@ -911,7 +911,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/19/2017 10:41:09</publishTime>
     </File>
     <File Include="Views/JobMains/Details_Invoice.cshtml">
-      <publishTime>10/19/2017 10:41:44</publishTime>
+      <publishTime>11/16/2017 10:18:19</publishTime>
     </File>
     <File Include="Views/JobMains/Details_Quote.cshtml">
       <publishTime>10/19/2017 10:41:37</publishTime>
