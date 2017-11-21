@@ -194,18 +194,6 @@ C:\Data\ABEL\Projects\JobsV1\JobsV1\obj\Release\JobsV1.csprojResolveAssemblyRefe
 C:\Data\ABEL\Projects\JobsV1\JobsV1\obj\Release\JobsV1.dll
 C:\Data\ABEL\Projects\JobsV1\JobsV1\obj\Release\JobsV1.pdb
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\ApplicationInsights.config
-D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\roslyn\csc.exe
-D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
-D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
-D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\roslyn\Microsoft.CodeAnalysis.dll
-D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\roslyn\Microsoft.CSharp.Core.targets
-D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\roslyn\Microsoft.VisualBasic.Core.targets
-D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\roslyn\System.Collections.Immutable.dll
-D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\roslyn\System.Reflection.Metadata.dll
-D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\roslyn\vbc.exe
-D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\roslyn\VBCSCompiler.exe
-D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\roslyn\VBCSCompiler.exe.config
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\JobsV1.dll.config
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\JobsV1.dll
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\JobsV1.pdb
@@ -222,7 +210,6 @@ D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\Microsoft.ApplicationInsights.dll
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\Microsoft.AspNet.Identity.Core.dll
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\Microsoft.AspNet.Identity.EntityFramework.dll
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\Microsoft.AspNet.Identity.Owin.dll
-D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\Microsoft.Owin.dll
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\Microsoft.Owin.Host.SystemWeb.dll
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\Microsoft.Owin.Security.Cookies.dll
@@ -255,7 +242,6 @@ D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\Microsoft.AI.ServerTelemetryChannel.xm
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\Microsoft.AI.Web.xml
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\Microsoft.AI.WindowsServer.xml
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\Microsoft.ApplicationInsights.xml
-D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\System.Web.Helpers.xml
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\System.Web.Mvc.xml
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\System.Web.Optimization.xml
