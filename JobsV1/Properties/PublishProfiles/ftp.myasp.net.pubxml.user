@@ -65,7 +65,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
     <File Include="Areas/Accounting/Views/AsSales/Edit.cshtml">
-      <publishTime>12/13/2016 16:23:29</publishTime>
+      <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
     <File Include="Areas/Accounting/Views/AsSales/Index.cshtml">
       <publishTime>02/22/2017 09:02:29</publishTime>
@@ -89,7 +89,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
     <File Include="bin/de/Microsoft.SqlServer.Types.resources.dll">
-      <publishTime>02/21/2014 05:26:06</publishTime>
+      <publishTime>02/21/2014 06:26:06</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>02/22/2017 09:02:31</publishTime>
@@ -98,22 +98,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2017 09:02:31</publishTime>
     </File>
     <File Include="bin/es/Microsoft.SqlServer.Types.resources.dll">
-      <publishTime>02/21/2014 05:25:54</publishTime>
+      <publishTime>02/21/2014 06:25:54</publishTime>
     </File>
     <File Include="bin/fr/Microsoft.SqlServer.Types.resources.dll">
-      <publishTime>02/21/2014 05:27:18</publishTime>
+      <publishTime>02/21/2014 06:27:18</publishTime>
     </File>
     <File Include="bin/it/Microsoft.SqlServer.Types.resources.dll">
-      <publishTime>02/21/2014 05:26:02</publishTime>
+      <publishTime>02/21/2014 06:26:02</publishTime>
     </File>
     <File Include="bin/ja/Microsoft.SqlServer.Types.resources.dll">
-      <publishTime>02/21/2014 05:25:22</publishTime>
+      <publishTime>02/21/2014 06:25:22</publishTime>
     </File>
     <File Include="bin/JobsV1.dll">
-      <publishTime>11/21/2017 09:35:59</publishTime>
+      <publishTime>12/07/2017 13:47:47</publishTime>
     </File>
     <File Include="bin/ko/Microsoft.SqlServer.Types.resources.dll">
-      <publishTime>02/21/2014 05:27:16</publishTime>
+      <publishTime>02/21/2014 06:27:16</publishTime>
     </File>
     <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
       <publishTime>02/22/2017 09:02:31</publishTime>
@@ -188,7 +188,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2017 09:02:32</publishTime>
     </File>
     <File Include="bin/Microsoft.SqlServer.Types.dll">
-      <publishTime>02/21/2014 05:28:46</publishTime>
+      <publishTime>02/21/2014 06:28:46</publishTime>
     </File>
     <File Include="bin/Microsoft.Web.Infrastructure.dll">
       <publishTime>02/22/2017 09:02:32</publishTime>
@@ -200,7 +200,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2017 09:02:32</publishTime>
     </File>
     <File Include="bin/pt/Microsoft.SqlServer.Types.resources.dll">
-      <publishTime>02/21/2014 05:25:24</publishTime>
+      <publishTime>02/21/2014 06:25:24</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>02/22/2017 09:02:32</publishTime>
@@ -239,7 +239,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2017 09:02:32</publishTime>
     </File>
     <File Include="bin/ru/Microsoft.SqlServer.Types.resources.dll">
-      <publishTime>02/21/2014 05:25:46</publishTime>
+      <publishTime>02/21/2014 06:25:46</publishTime>
     </File>
     <File Include="bin/System.Net.Http.Formatting.dll">
       <publishTime>02/22/2017 09:02:32</publishTime>
@@ -275,10 +275,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2017 09:02:32</publishTime>
     </File>
     <File Include="bin/zh-Hans/Microsoft.SqlServer.Types.resources.dll">
-      <publishTime>02/21/2014 05:27:58</publishTime>
+      <publishTime>02/21/2014 06:27:58</publishTime>
     </File>
     <File Include="bin/zh-Hant/Microsoft.SqlServer.Types.resources.dll">
-      <publishTime>02/21/2014 05:28:10</publishTime>
+      <publishTime>02/21/2014 06:28:10</publishTime>
     </File>
     <File Include="Content/bootstrap.css">
       <publishTime>02/22/2017 09:02:29</publishTime>
@@ -548,7 +548,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/24/2017 10:41:06</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>11/21/2017 09:35:16</publishTime>
+      <publishTime>11/22/2017 09:30:11</publishTime>
     </File>
     <File Include="Reports/BookingDetails/DsBooking.xsc">
       <publishTime>07/19/2016 11:47:18</publishTime>
@@ -1175,7 +1175,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>11/21/2017 09:36:13</publishTime>
+      <publishTime>12/07/2017 10:53:52</publishTime>
     </File>
   </ItemGroup>
 </Project>
