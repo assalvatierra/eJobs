@@ -492,6 +492,7 @@
     <Content Include="Images\Mepu\Logo2.png" />
     <Content Include="Images\Phone001.png" />
     <Content Include="Images\RealBreezeLogo01.png" />
+    <Content Include="Images\Signature-1.png" />
     <Content Include="Models\AddChecklist.SQL" />
     <Content Include="Models\AsExpenseDB.sql" />
     <Content Include="Models\InitialData.sql" />
