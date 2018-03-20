@@ -110,7 +110,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/21/2014 06:25:22</publishTime>
     </File>
     <File Include="bin/JobsV1.dll">
-      <publishTime>12/07/2017 13:47:47</publishTime>
+      <publishTime>02/19/2018 10:33:30</publishTime>
     </File>
     <File Include="bin/ko/Microsoft.SqlServer.Types.resources.dll">
       <publishTime>02/21/2014 06:27:16</publishTime>
@@ -526,6 +526,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Images/RealBreezeLogo01.png">
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
+    <File Include="Images/Signature-1.png">
+      <publishTime>12/04/2015 17:14:55</publishTime>
+    </File>
     <File Include="Models/AddChecklist.SQL">
       <publishTime>04/18/2017 14:55:25</publishTime>
     </File>
@@ -908,7 +911,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
     <File Include="Views/JobMains/Details.cshtml">
-      <publishTime>10/19/2017 10:41:09</publishTime>
+      <publishTime>01/11/2018 16:07:27</publishTime>
     </File>
     <File Include="Views/JobMains/Details_Invoice.cshtml">
       <publishTime>11/16/2017 10:18:19</publishTime>
@@ -1175,7 +1178,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>12/07/2017 10:53:52</publishTime>
+      <publishTime>03/01/2018 10:50:55</publishTime>
     </File>
   </ItemGroup>
 </Project>
