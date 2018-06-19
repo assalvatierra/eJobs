@@ -22,3 +22,19 @@ values
 ('Malagos Garden','','1 '),
 ('Japanese Tunnel','','1 ')
 ;
+
+
+insert into CustCategories([Name])
+values ('PRIORITY'),('ACTIVE'),('SUSPENDED'),('BAD ACCOUNT'); 
+
+insert into CustEntMains([Name],[Address],[Contact1],[Contact2])
+values ('NEW (not yet defined)',' ',' ',' ');
+
+insert into SalesStatusCodes([SeqNo],[Name])
+values (1,'NEW'), (2,'ASSESMENT'), (3, 'PROPOSAL SENT'), (4, 'NEGOTIATION'), (5, 'ACCEPTED'), (6, 'REJECTED');
+
+insert into SalesActCodes([Name],[SysCode])
+values ('CALL-DONE','CALL DONE'), ('CALL-REQUEST','CALL REQUEST');   
+
+insert into SalesActStatus([Name])
+values ('REQUEST'),('DONE'),('SUSPEND')

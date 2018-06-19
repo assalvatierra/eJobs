@@ -40,6 +40,16 @@
     <EntitySet Name="PreDefinedNotes" EntityType="JobDB.Store.PreDefinedNotes" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="JobNotes" EntityType="JobDB.Store.JobNotes" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="JobChecklists" EntityType="JobDB.Store.JobChecklists" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CustCategories" EntityType="JobDB.Store.CustCategories" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CustCats" EntityType="JobDB.Store.CustCats" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CustEntMains" EntityType="JobDB.Store.CustEntMains" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SalesLeads" EntityType="JobDB.Store.SalesLeads" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SalesStatusCodes" EntityType="JobDB.Store.SalesStatusCodes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SalesStatus" EntityType="JobDB.Store.SalesStatus" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SalesActCodes" EntityType="JobDB.Store.SalesActCodes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SalesActivities" EntityType="JobDB.Store.SalesActivities" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CustEntities" EntityType="JobDB.Store.CustEntities" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SalesActStatus" EntityType="JobDB.Store.SalesActStatus" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="JobMainJobType" Association="JobDB.Store.JobMainJobType">
       <End Role="JobMain" EntitySet="JobMains" />
       <End Role="JobType" EntitySet="JobTypes" />
@@ -163,6 +173,46 @@
     <AssociationSet Name="JobMainJobNote" Association="JobDB.Store.JobMainJobNote">
       <End Role="JobMain" EntitySet="JobMains" />
       <End Role="JobNote" EntitySet="JobNotes" />
+    </AssociationSet>
+    <AssociationSet Name="CustomerCustCat" Association="JobDB.Store.CustomerCustCat">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="CustCat" EntitySet="CustCats" />
+    </AssociationSet>
+    <AssociationSet Name="CustCategoryCustCat" Association="JobDB.Store.CustCategoryCustCat">
+      <End Role="CustCategory" EntitySet="CustCategories" />
+      <End Role="CustCat" EntitySet="CustCats" />
+    </AssociationSet>
+    <AssociationSet Name="SalesLeadSalesStatusLog" Association="JobDB.Store.SalesLeadSalesStatusLog">
+      <End Role="SalesLead" EntitySet="SalesLeads" />
+      <End Role="SalesStatusLog" EntitySet="SalesStatus" />
+    </AssociationSet>
+    <AssociationSet Name="CustomerSalesLead" Association="JobDB.Store.CustomerSalesLead">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="SalesLead" EntitySet="SalesLeads" />
+    </AssociationSet>
+    <AssociationSet Name="SalesStatusCodeSalesStatus" Association="JobDB.Store.SalesStatusCodeSalesStatus">
+      <End Role="SalesStatusCode" EntitySet="SalesStatusCodes" />
+      <End Role="SalesStatus" EntitySet="SalesStatus" />
+    </AssociationSet>
+    <AssociationSet Name="SalesActCodeSalesActivity" Association="JobDB.Store.SalesActCodeSalesActivity">
+      <End Role="SalesActCode" EntitySet="SalesActCodes" />
+      <End Role="SalesActivity" EntitySet="SalesActivities" />
+    </AssociationSet>
+    <AssociationSet Name="SalesLeadSalesActivity" Association="JobDB.Store.SalesLeadSalesActivity">
+      <End Role="SalesLead" EntitySet="SalesLeads" />
+      <End Role="SalesActivity" EntitySet="SalesActivities" />
+    </AssociationSet>
+    <AssociationSet Name="CustEntMainCustEntity" Association="JobDB.Store.CustEntMainCustEntity">
+      <End Role="CustEntMain" EntitySet="CustEntMains" />
+      <End Role="CustEntity" EntitySet="CustEntities" />
+    </AssociationSet>
+    <AssociationSet Name="CustomerCustEntity" Association="JobDB.Store.CustomerCustEntity">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="CustEntity" EntitySet="CustEntities" />
+    </AssociationSet>
+    <AssociationSet Name="SalesActStatusSalesActivity" Association="JobDB.Store.SalesActStatusSalesActivity">
+      <End Role="SalesActStatus" EntitySet="SalesActStatus" />
+      <End Role="SalesActivity" EntitySet="SalesActivities" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="JobMains">
@@ -545,6 +595,94 @@
     <Property Name="RefId" Type="int" Nullable="true" />
     <Property Name="Status" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="CustCategories">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CustCats">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerId" Type="int" Nullable="false" />
+    <Property Name="CustCategoryId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CustEntMains">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Contact1" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Contact2" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SalesLeads">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Details" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Remarks" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CustomerId" Type="int" Nullable="false" />
+    <Property Name="CustName" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SalesStatusCodes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SeqNo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SalesStatus">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SalesLeadId" Type="int" Nullable="false" />
+    <Property Name="SalesStatusCodeId" Type="int" Nullable="false" />
+    <Property Name="DtStatus" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SalesActCodes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Desc" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SysCode" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SalesActivities">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SalesLeadId" Type="int" Nullable="false" />
+    <Property Name="SalesActCodeId" Type="int" Nullable="false" />
+    <Property Name="Particulars" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DtActivity" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SalesActStatusId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CustEntities">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustEntMainId" Type="int" Nullable="false" />
+    <Property Name="CustomerId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SalesActStatus">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
   <Association Name="JobMainJobType">
     <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="1" />
     <End Role="JobType" Type="JobDB.Store.JobTypes" Multiplicity="*" />
@@ -917,6 +1055,126 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="CustomerCustCat">
+    <End Role="Customer" Type="JobDB.Store.Customers" Multiplicity="1" />
+    <End Role="CustCat" Type="JobDB.Store.CustCats" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CustCat">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CustCategoryCustCat">
+    <End Role="CustCategory" Type="JobDB.Store.CustCategories" Multiplicity="1" />
+    <End Role="CustCat" Type="JobDB.Store.CustCats" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CustCategory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CustCat">
+        <PropertyRef Name="CustCategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SalesLeadSalesStatusLog">
+    <End Role="SalesLead" Type="JobDB.Store.SalesLeads" Multiplicity="1" />
+    <End Role="SalesStatusLog" Type="JobDB.Store.SalesStatus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SalesLead">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SalesStatusLog">
+        <PropertyRef Name="SalesLeadId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CustomerSalesLead">
+    <End Role="Customer" Type="JobDB.Store.Customers" Multiplicity="1" />
+    <End Role="SalesLead" Type="JobDB.Store.SalesLeads" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SalesLead">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SalesStatusCodeSalesStatus">
+    <End Role="SalesStatusCode" Type="JobDB.Store.SalesStatusCodes" Multiplicity="1" />
+    <End Role="SalesStatus" Type="JobDB.Store.SalesStatus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SalesStatusCode">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SalesStatus">
+        <PropertyRef Name="SalesStatusCodeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SalesActCodeSalesActivity">
+    <End Role="SalesActCode" Type="JobDB.Store.SalesActCodes" Multiplicity="1" />
+    <End Role="SalesActivity" Type="JobDB.Store.SalesActivities" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SalesActCode">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SalesActivity">
+        <PropertyRef Name="SalesActCodeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SalesLeadSalesActivity">
+    <End Role="SalesLead" Type="JobDB.Store.SalesLeads" Multiplicity="1" />
+    <End Role="SalesActivity" Type="JobDB.Store.SalesActivities" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SalesLead">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SalesActivity">
+        <PropertyRef Name="SalesLeadId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CustEntMainCustEntity">
+    <End Role="CustEntMain" Type="JobDB.Store.CustEntMains" Multiplicity="1" />
+    <End Role="CustEntity" Type="JobDB.Store.CustEntities" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CustEntMain">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CustEntity">
+        <PropertyRef Name="CustEntMainId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CustomerCustEntity">
+    <End Role="Customer" Type="JobDB.Store.Customers" Multiplicity="1" />
+    <End Role="CustEntity" Type="JobDB.Store.CustEntities" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CustEntity">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SalesActStatusSalesActivity">
+    <End Role="SalesActStatus" Type="JobDB.Store.SalesActStatus" Multiplicity="1" />
+    <End Role="SalesActivity" Type="JobDB.Store.SalesActivities" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SalesActStatus">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SalesActivity">
+        <PropertyRef Name="SalesActStatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -1080,6 +1338,56 @@
             <End Role="JobNote" EntitySet="JobNotes" />
           </AssociationSet>
           <EntitySet Name="JobChecklists" EntityType="JobDB.JobChecklist" />
+          <EntitySet Name="CustCategories" EntityType="JobDB.CustCategory" />
+          <EntitySet Name="CustCats" EntityType="JobDB.CustCat" />
+          <AssociationSet Name="CustomerCustCat" Association="JobDB.CustomerCustCat">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="CustCat" EntitySet="CustCats" />
+          </AssociationSet>
+          <AssociationSet Name="CustCategoryCustCat" Association="JobDB.CustCategoryCustCat">
+            <End Role="CustCategory" EntitySet="CustCategories" />
+            <End Role="CustCat" EntitySet="CustCats" />
+          </AssociationSet>
+          <EntitySet Name="CustEntMains" EntityType="JobDB.CustEntMain" />
+          <EntitySet Name="SalesLeads" EntityType="JobDB.SalesLead" />
+          <EntitySet Name="SalesStatusCodes" EntityType="JobDB.SalesStatusCode" />
+          <EntitySet Name="SalesStatus" EntityType="JobDB.SalesStatus" />
+          <AssociationSet Name="SalesLeadSalesStatusLog" Association="JobDB.SalesLeadSalesStatusLog">
+            <End Role="SalesLead" EntitySet="SalesLeads" />
+            <End Role="SalesStatusLog" EntitySet="SalesStatus" />
+          </AssociationSet>
+          <AssociationSet Name="CustomerSalesLead" Association="JobDB.CustomerSalesLead">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="SalesLead" EntitySet="SalesLeads" />
+          </AssociationSet>
+          <EntitySet Name="SalesActCodes" EntityType="JobDB.SalesActCode" />
+          <AssociationSet Name="SalesStatusCodeSalesStatus" Association="JobDB.SalesStatusCodeSalesStatus">
+            <End Role="SalesStatusCode" EntitySet="SalesStatusCodes" />
+            <End Role="SalesStatus" EntitySet="SalesStatus" />
+          </AssociationSet>
+          <EntitySet Name="SalesActivities" EntityType="JobDB.SalesActivity" />
+          <AssociationSet Name="SalesActCodeSalesActivity" Association="JobDB.SalesActCodeSalesActivity">
+            <End Role="SalesActCode" EntitySet="SalesActCodes" />
+            <End Role="SalesActivity" EntitySet="SalesActivities" />
+          </AssociationSet>
+          <AssociationSet Name="SalesLeadSalesActivity" Association="JobDB.SalesLeadSalesActivity">
+            <End Role="SalesLead" EntitySet="SalesLeads" />
+            <End Role="SalesActivity" EntitySet="SalesActivities" />
+          </AssociationSet>
+          <EntitySet Name="CustEntities" EntityType="JobDB.CustEntity" />
+          <AssociationSet Name="CustEntMainCustEntity" Association="JobDB.CustEntMainCustEntity">
+            <End Role="CustEntMain" EntitySet="CustEntMains" />
+            <End Role="CustEntity" EntitySet="CustEntities" />
+          </AssociationSet>
+          <AssociationSet Name="CustomerCustEntity" Association="JobDB.CustomerCustEntity">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="CustEntity" EntitySet="CustEntities" />
+          </AssociationSet>
+          <EntitySet Name="SalesActStatus" EntityType="JobDB.SalesActStatus" />
+          <AssociationSet Name="SalesActStatusSalesActivity" Association="JobDB.SalesActStatusSalesActivity">
+            <End Role="SalesActStatus" EntitySet="SalesActStatus" />
+            <End Role="SalesActivity" EntitySet="SalesActivities" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="JobMain">
           <Key>
@@ -1140,6 +1448,9 @@
           <Property Name="Remarks" Type="String" Nullable="true" MaxLength="120" />
           <NavigationProperty Name="JobMains" Relationship="JobDB.CustomerJobMain" FromRole="Customer" ToRole="JobMain" />
           <Property Name="Status" Type="String" Nullable="true" MaxLength="3" />
+          <NavigationProperty Name="CustCats" Relationship="JobDB.CustomerCustCat" FromRole="Customer" ToRole="CustCat" />
+          <NavigationProperty Name="SalesLeads" Relationship="JobDB.CustomerSalesLead" FromRole="Customer" ToRole="SalesLead" />
+          <NavigationProperty Name="CustEntities" Relationship="JobDB.CustomerCustEntity" FromRole="Customer" ToRole="CustEntity" />
         </EntityType>
         <EntityType Name="JobType">
           <Key>
@@ -1895,6 +2206,233 @@
           <Property Name="RefId" Type="Int32" Nullable="true" />
           <Property Name="Status" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="CustCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="CustCats" Relationship="JobDB.CustCategoryCustCat" FromRole="CustCategory" ToRole="CustCat" />
+        </EntityType>
+        <EntityType Name="CustCat">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Customer" Relationship="JobDB.CustomerCustCat" FromRole="CustCat" ToRole="Customer" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CustCategory" Relationship="JobDB.CustCategoryCustCat" FromRole="CustCat" ToRole="CustCategory" />
+          <Property Name="CustCategoryId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="CustomerCustCat">
+          <End Type="JobDB.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="JobDB.CustCat" Role="CustCat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustCat">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CustCategoryCustCat">
+          <End Type="JobDB.CustCategory" Role="CustCategory" Multiplicity="1" />
+          <End Type="JobDB.CustCat" Role="CustCat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustCategory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustCat">
+              <PropertyRef Name="CustCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CustEntMain">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Address" Type="String" Nullable="false" />
+          <Property Name="Contact1" Type="String" Nullable="false" />
+          <Property Name="Contact2" Type="String" Nullable="false" />
+          <NavigationProperty Name="CustEntities" Relationship="JobDB.CustEntMainCustEntity" FromRole="CustEntMain" ToRole="CustEntity" />
+        </EntityType>
+        <EntityType Name="SalesLead">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="String" Nullable="false" />
+          <Property Name="Details" Type="String" Nullable="false" />
+          <Property Name="Remarks" Type="String" Nullable="false" />
+          <NavigationProperty Name="SalesStatusLogs" Relationship="JobDB.SalesLeadSalesStatusLog" FromRole="SalesLead" ToRole="SalesStatusLog" />
+          <NavigationProperty Name="Customer" Relationship="JobDB.CustomerSalesLead" FromRole="SalesLead" ToRole="Customer" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="CustName" Type="String" Nullable="false" />
+          <NavigationProperty Name="SalesActivities" Relationship="JobDB.SalesLeadSalesActivity" FromRole="SalesLead" ToRole="SalesActivity" />
+        </EntityType>
+        <EntityType Name="SalesStatusCode">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SeqNo" Type="String" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="SalesStatus" Relationship="JobDB.SalesStatusCodeSalesStatus" FromRole="SalesStatusCode" ToRole="SalesStatus" />
+        </EntityType>
+        <EntityType Name="SalesStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="SalesLead" Relationship="JobDB.SalesLeadSalesStatusLog" FromRole="SalesStatusLog" ToRole="SalesLead" />
+          <Property Name="SalesLeadId" Type="Int32" Nullable="false" />
+          <Property Name="SalesStatusCodeId" Type="Int32" Nullable="false" />
+          <Property Name="DtStatus" Type="String" Nullable="false" />
+          <NavigationProperty Name="SalesStatusCode" Relationship="JobDB.SalesStatusCodeSalesStatus" FromRole="SalesStatus" ToRole="SalesStatusCode" />
+        </EntityType>
+        <Association Name="SalesLeadSalesStatusLog">
+          <End Type="JobDB.SalesLead" Role="SalesLead" Multiplicity="1" />
+          <End Type="JobDB.SalesStatus" Role="SalesStatusLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SalesLead">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SalesStatusLog">
+              <PropertyRef Name="SalesLeadId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CustomerSalesLead">
+          <End Type="JobDB.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="JobDB.SalesLead" Role="SalesLead" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SalesLead">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SalesActCode">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Desc" Type="String" Nullable="false" />
+          <Property Name="SysCode" Type="String" Nullable="false" />
+          <NavigationProperty Name="SalesActivities" Relationship="JobDB.SalesActCodeSalesActivity" FromRole="SalesActCode" ToRole="SalesActivity" />
+        </EntityType>
+        <Association Name="SalesStatusCodeSalesStatus">
+          <End Type="JobDB.SalesStatusCode" Role="SalesStatusCode" Multiplicity="1" />
+          <End Type="JobDB.SalesStatus" Role="SalesStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SalesStatusCode">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SalesStatus">
+              <PropertyRef Name="SalesStatusCodeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SalesActivity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="SalesActCode" Relationship="JobDB.SalesActCodeSalesActivity" FromRole="SalesActivity" ToRole="SalesActCode" />
+          <Property Name="SalesLeadId" Type="Int32" Nullable="false" />
+          <Property Name="SalesActCodeId" Type="Int32" Nullable="false" />
+          <Property Name="Particulars" Type="String" Nullable="false" />
+          <Property Name="DtActivity" Type="String" Nullable="false" />
+          <NavigationProperty Name="SalesLead" Relationship="JobDB.SalesLeadSalesActivity" FromRole="SalesActivity" ToRole="SalesLead" />
+          <NavigationProperty Name="SalesActStatu" Relationship="JobDB.SalesActStatusSalesActivity" FromRole="SalesActivity" ToRole="SalesActStatus" />
+          <Property Name="SalesActStatusId" Type="Int32" Nullable="false" />
+          <Property Name="DtEntered" Type="String" Nullable="false" />
+          <Property Name="EnteredBy" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="SalesActCodeSalesActivity">
+          <End Type="JobDB.SalesActCode" Role="SalesActCode" Multiplicity="1" />
+          <End Type="JobDB.SalesActivity" Role="SalesActivity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SalesActCode">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SalesActivity">
+              <PropertyRef Name="SalesActCodeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SalesLeadSalesActivity">
+          <End Type="JobDB.SalesLead" Role="SalesLead" Multiplicity="1" />
+          <End Type="JobDB.SalesActivity" Role="SalesActivity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SalesLead">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SalesActivity">
+              <PropertyRef Name="SalesLeadId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CustEntity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="CustEntMain" Relationship="JobDB.CustEntMainCustEntity" FromRole="CustEntity" ToRole="CustEntMain" />
+          <Property Name="CustEntMainId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="JobDB.CustomerCustEntity" FromRole="CustEntity" ToRole="Customer" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="CustEntMainCustEntity">
+          <End Type="JobDB.CustEntMain" Role="CustEntMain" Multiplicity="1" />
+          <End Type="JobDB.CustEntity" Role="CustEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustEntMain">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustEntity">
+              <PropertyRef Name="CustEntMainId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CustomerCustEntity">
+          <End Type="JobDB.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="JobDB.CustEntity" Role="CustEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustEntity">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SalesActStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="SalesActivities" Relationship="JobDB.SalesActStatusSalesActivity" FromRole="SalesActStatus" ToRole="SalesActivity" />
+        </EntityType>
+        <Association Name="SalesActStatusSalesActivity">
+          <End Type="JobDB.SalesActStatus" Role="SalesActStatus" Multiplicity="1" />
+          <End Type="JobDB.SalesActivity" Role="SalesActivity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SalesActStatus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SalesActivity">
+              <PropertyRef Name="SalesActStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2312,6 +2850,104 @@
           <ScalarProperty Name="Remarks" ColumnName="Remarks" />
           <ScalarProperty Name="RefId" ColumnName="RefId" />
           <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustCategories">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.CustCategory)">
+        <MappingFragment StoreEntitySet="CustCategories">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustCats">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.CustCat)">
+        <MappingFragment StoreEntitySet="CustCats">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="CustCategoryId" ColumnName="CustCategoryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustEntMains">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.CustEntMain)">
+        <MappingFragment StoreEntitySet="CustEntMains">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Contact1" ColumnName="Contact1" />
+          <ScalarProperty Name="Contact2" ColumnName="Contact2" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SalesLeads">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.SalesLead)">
+        <MappingFragment StoreEntitySet="SalesLeads">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="CustName" ColumnName="CustName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SalesStatusCodes">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.SalesStatusCode)">
+        <MappingFragment StoreEntitySet="SalesStatusCodes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SeqNo" ColumnName="SeqNo" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SalesStatus">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.SalesStatus)">
+        <MappingFragment StoreEntitySet="SalesStatus">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SalesLeadId" ColumnName="SalesLeadId" />
+          <ScalarProperty Name="SalesStatusCodeId" ColumnName="SalesStatusCodeId" />
+          <ScalarProperty Name="DtStatus" ColumnName="DtStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SalesActCodes">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.SalesActCode)">
+        <MappingFragment StoreEntitySet="SalesActCodes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Desc" ColumnName="Desc" />
+          <ScalarProperty Name="SysCode" ColumnName="SysCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SalesActivities">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.SalesActivity)">
+        <MappingFragment StoreEntitySet="SalesActivities">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SalesLeadId" ColumnName="SalesLeadId" />
+          <ScalarProperty Name="SalesActCodeId" ColumnName="SalesActCodeId" />
+          <ScalarProperty Name="Particulars" ColumnName="Particulars" />
+          <ScalarProperty Name="DtActivity" ColumnName="DtActivity" />
+          <ScalarProperty Name="SalesActStatusId" ColumnName="SalesActStatusId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustEntities">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.CustEntity)">
+        <MappingFragment StoreEntitySet="CustEntities">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CustEntMainId" ColumnName="CustEntMainId" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SalesActStatus">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.SalesActStatus)">
+        <MappingFragment StoreEntitySet="SalesActStatus">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -284,6 +284,7 @@
     <Compile Include="Controllers\ProductPricesController.cs" />
     <Compile Include="Controllers\ProductProdCatsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\SalesLeadsController.cs" />
     <Compile Include="Controllers\SupplierItemsController.cs" />
     <Compile Include="Controllers\SuppliersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -315,6 +316,18 @@
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\City.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustCat.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustCategory.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustEntity.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustEntMain.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Customer.cs">
@@ -397,6 +410,24 @@
     <Compile Include="Models\ProductProdCat.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SalesActCode.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SalesActivity.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SalesActStatus.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SalesLead.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SalesStatus.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SalesStatusCode.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Services.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
@@ -475,6 +506,7 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Documents\FeatureList.txt" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -496,6 +528,7 @@
     <Content Include="Models\AddChecklist.SQL" />
     <Content Include="Models\AsExpenseDB.sql" />
     <Content Include="Models\InitialData.sql" />
+    <Content Include="Models\JobDB.Car.sql" />
     <Content Include="Models\JobDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>JobDB.Context.cs</LastGenOutput>
@@ -755,6 +788,11 @@
     <Content Include="Views\JobChecklists\Details.cshtml" />
     <Content Include="Views\JobChecklists\Edit.cshtml" />
     <Content Include="Views\JobChecklists\Index.cshtml" />
+    <Content Include="Views\SalesLeads\Create.cshtml" />
+    <Content Include="Views\SalesLeads\Delete.cshtml" />
+    <Content Include="Views\SalesLeads\Details.cshtml" />
+    <Content Include="Views\SalesLeads\Edit.cshtml" />
+    <Content Include="Views\SalesLeads\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

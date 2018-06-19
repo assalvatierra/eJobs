@@ -59,5 +59,15 @@ namespace JobsV1.Models
         public virtual DbSet<PreDefinedNote> PreDefinedNotes { get; set; }
         public virtual DbSet<JobNote> JobNotes { get; set; }
         public virtual DbSet<JobChecklist> JobChecklists { get; set; }
+        public virtual DbSet<CustCategory> CustCategories { get; set; }
+        public virtual DbSet<CustCat> CustCats { get; set; }
+        public virtual DbSet<CustEntMain> CustEntMains { get; set; }
+        public virtual DbSet<SalesLead> SalesLeads { get; set; }
+        public virtual DbSet<SalesStatusCode> SalesStatusCodes { get; set; }
+        public virtual DbSet<SalesStatus> SalesStatus { get; set; }
+        public virtual DbSet<SalesActCode> SalesActCodes { get; set; }
+        public virtual DbSet<SalesActivity> SalesActivities { get; set; }
+        public virtual DbSet<CustEntity> CustEntities { get; set; }
+        public virtual DbSet<SalesActStatus> SalesActStatus { get; set; }
     }
 }

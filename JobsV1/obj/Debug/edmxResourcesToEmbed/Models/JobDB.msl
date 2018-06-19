@@ -415,5 +415,103 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="CustCategories">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.CustCategory)">
+        <MappingFragment StoreEntitySet="CustCategories">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustCats">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.CustCat)">
+        <MappingFragment StoreEntitySet="CustCats">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="CustCategoryId" ColumnName="CustCategoryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustEntMains">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.CustEntMain)">
+        <MappingFragment StoreEntitySet="CustEntMains">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Contact1" ColumnName="Contact1" />
+          <ScalarProperty Name="Contact2" ColumnName="Contact2" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SalesLeads">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.SalesLead)">
+        <MappingFragment StoreEntitySet="SalesLeads">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="CustName" ColumnName="CustName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SalesStatusCodes">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.SalesStatusCode)">
+        <MappingFragment StoreEntitySet="SalesStatusCodes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SeqNo" ColumnName="SeqNo" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SalesStatus">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.SalesStatus)">
+        <MappingFragment StoreEntitySet="SalesStatus">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SalesLeadId" ColumnName="SalesLeadId" />
+          <ScalarProperty Name="SalesStatusCodeId" ColumnName="SalesStatusCodeId" />
+          <ScalarProperty Name="DtStatus" ColumnName="DtStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SalesActCodes">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.SalesActCode)">
+        <MappingFragment StoreEntitySet="SalesActCodes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Desc" ColumnName="Desc" />
+          <ScalarProperty Name="SysCode" ColumnName="SysCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SalesActivities">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.SalesActivity)">
+        <MappingFragment StoreEntitySet="SalesActivities">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SalesLeadId" ColumnName="SalesLeadId" />
+          <ScalarProperty Name="SalesActCodeId" ColumnName="SalesActCodeId" />
+          <ScalarProperty Name="Particulars" ColumnName="Particulars" />
+          <ScalarProperty Name="DtActivity" ColumnName="DtActivity" />
+          <ScalarProperty Name="SalesActStatusId" ColumnName="SalesActStatusId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustEntities">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.CustEntity)">
+        <MappingFragment StoreEntitySet="CustEntities">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CustEntMainId" ColumnName="CustEntMainId" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SalesActStatus">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.SalesActStatus)">
+        <MappingFragment StoreEntitySet="SalesActStatus">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -18,6 +18,15 @@
 
 <div class="row">
     <div class="col-md-4">
+        <h2>Sales Lead</h2>
+        <p>
+            Inquiries, Leads, Opportunities
+            @Html.ActionLink("List", "Index", "SalesLeads")
+        </p>
+        <p>@Html.ActionLink("Add New »", "Create", "SalesLeads", null, new {@class = "btn btn-default"} ) </p>
+
+    </div>
+    <div class="col-md-4">
         <h2>Suppliers</h2>
         <p>
             Tour Operators, Island Hopping,
@@ -25,7 +34,7 @@
             Hotel, Accomodation, Rooms, Party Venues
             @Html.ActionLink("List", "Index", "Suppliers")
         </p>
-        <p>@Html.ActionLink("Add New »", "Create", "Suppliers", null, new {@class = "btn btn-default"} ) </p>
+        <p>@Html.ActionLink("Add New »", "Create", "Suppliers", null, new { @class = "btn btn-default" }) </p>
 
     </div>
     <div class="col-md-4">
