@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/19/2018 14:16:14
--- Generated from EDMX file: D:\Data\Real\Apps\GitHub\eJobs\JobsV1\Models\JobDB.edmx
+-- Date Created: 06/20/2018 16:27:43
+-- Generated from EDMX file: C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -136,6 +136,21 @@ IF OBJECT_ID(N'[dbo].[FK_CustEntMainCustEntity]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_CustomerCustEntity]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[CustEntities] DROP CONSTRAINT [FK_CustomerCustEntity];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SalesActStatusSalesActivity]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SalesActivities] DROP CONSTRAINT [FK_SalesActStatusSalesActivity];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SalesLeadCatCodeSalesLeadCategory]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SalesLeadCategories] DROP CONSTRAINT [FK_SalesLeadCatCodeSalesLeadCategory];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SalesLeadSalesLeadCategory]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SalesLeadCategories] DROP CONSTRAINT [FK_SalesLeadSalesLeadCategory];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SalesLeadCatCodeCustSalesCategory]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CustSalesCategories] DROP CONSTRAINT [FK_SalesLeadCatCodeCustSalesCategory];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CustomerCustSalesCategory]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CustSalesCategories] DROP CONSTRAINT [FK_CustomerCustSalesCategory];
 GO
 
 -- --------------------------------------------------
@@ -270,6 +285,18 @@ IF OBJECT_ID(N'[dbo].[SalesActivities]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[CustEntities]', 'U') IS NOT NULL
     DROP TABLE [dbo].[CustEntities];
+GO
+IF OBJECT_ID(N'[dbo].[SalesActStatus]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SalesActStatus];
+GO
+IF OBJECT_ID(N'[dbo].[SalesLeadCatCodes]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SalesLeadCatCodes];
+GO
+IF OBJECT_ID(N'[dbo].[SalesLeadCategories]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SalesLeadCategories];
+GO
+IF OBJECT_ID(N'[dbo].[CustSalesCategories]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CustSalesCategories];
 GO
 
 -- --------------------------------------------------
@@ -725,7 +752,9 @@ CREATE TABLE [dbo].[SalesActivities] (
     [SalesActCodeId] int  NOT NULL,
     [Particulars] nvarchar(max)  NOT NULL,
     [DtActivity] nvarchar(max)  NOT NULL,
-    [SalesActStatusId] int  NOT NULL
+    [SalesActStatusId] int  NOT NULL,
+    [DtEntered] nvarchar(max)  NOT NULL,
+    [EnteredBy] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -741,6 +770,30 @@ GO
 CREATE TABLE [dbo].[SalesActStatus] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NOT NULL
+);
+GO
+
+-- Creating table 'SalesLeadCatCodes'
+CREATE TABLE [dbo].[SalesLeadCatCodes] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [CatName] nvarchar(max)  NOT NULL,
+    [SysCode] nvarchar(max)  NOT NULL
+);
+GO
+
+-- Creating table 'SalesLeadCategories'
+CREATE TABLE [dbo].[SalesLeadCategories] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [SalesLeadCatCodeId] int  NOT NULL,
+    [SalesLeadId] int  NOT NULL
+);
+GO
+
+-- Creating table 'CustSalesCategories'
+CREATE TABLE [dbo].[CustSalesCategories] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [SalesLeadCatCodeId] int  NOT NULL,
+    [CustomerId] int  NOT NULL
 );
 GO
 
@@ -1009,6 +1062,24 @@ GO
 -- Creating primary key on [Id] in table 'SalesActStatus'
 ALTER TABLE [dbo].[SalesActStatus]
 ADD CONSTRAINT [PK_SalesActStatus]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'SalesLeadCatCodes'
+ALTER TABLE [dbo].[SalesLeadCatCodes]
+ADD CONSTRAINT [PK_SalesLeadCatCodes]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'SalesLeadCategories'
+ALTER TABLE [dbo].[SalesLeadCategories]
+ADD CONSTRAINT [PK_SalesLeadCategories]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'CustSalesCategories'
+ALTER TABLE [dbo].[CustSalesCategories]
+ADD CONSTRAINT [PK_CustSalesCategories]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -1629,6 +1700,66 @@ GO
 CREATE INDEX [IX_FK_SalesActStatusSalesActivity]
 ON [dbo].[SalesActivities]
     ([SalesActStatusId]);
+GO
+
+-- Creating foreign key on [SalesLeadCatCodeId] in table 'SalesLeadCategories'
+ALTER TABLE [dbo].[SalesLeadCategories]
+ADD CONSTRAINT [FK_SalesLeadCatCodeSalesLeadCategory]
+    FOREIGN KEY ([SalesLeadCatCodeId])
+    REFERENCES [dbo].[SalesLeadCatCodes]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SalesLeadCatCodeSalesLeadCategory'
+CREATE INDEX [IX_FK_SalesLeadCatCodeSalesLeadCategory]
+ON [dbo].[SalesLeadCategories]
+    ([SalesLeadCatCodeId]);
+GO
+
+-- Creating foreign key on [SalesLeadId] in table 'SalesLeadCategories'
+ALTER TABLE [dbo].[SalesLeadCategories]
+ADD CONSTRAINT [FK_SalesLeadSalesLeadCategory]
+    FOREIGN KEY ([SalesLeadId])
+    REFERENCES [dbo].[SalesLeads]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SalesLeadSalesLeadCategory'
+CREATE INDEX [IX_FK_SalesLeadSalesLeadCategory]
+ON [dbo].[SalesLeadCategories]
+    ([SalesLeadId]);
+GO
+
+-- Creating foreign key on [SalesLeadCatCodeId] in table 'CustSalesCategories'
+ALTER TABLE [dbo].[CustSalesCategories]
+ADD CONSTRAINT [FK_SalesLeadCatCodeCustSalesCategory]
+    FOREIGN KEY ([SalesLeadCatCodeId])
+    REFERENCES [dbo].[SalesLeadCatCodes]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SalesLeadCatCodeCustSalesCategory'
+CREATE INDEX [IX_FK_SalesLeadCatCodeCustSalesCategory]
+ON [dbo].[CustSalesCategories]
+    ([SalesLeadCatCodeId]);
+GO
+
+-- Creating foreign key on [CustomerId] in table 'CustSalesCategories'
+ALTER TABLE [dbo].[CustSalesCategories]
+ADD CONSTRAINT [FK_CustomerCustSalesCategory]
+    FOREIGN KEY ([CustomerId])
+    REFERENCES [dbo].[Customers]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CustomerCustSalesCategory'
+CREATE INDEX [IX_FK_CustomerCustSalesCategory]
+ON [dbo].[CustSalesCategories]
+    ([CustomerId]);
 GO
 
 -- --------------------------------------------------

@@ -69,5 +69,8 @@ namespace JobsV1.Models
         public virtual DbSet<SalesActivity> SalesActivities { get; set; }
         public virtual DbSet<CustEntity> CustEntities { get; set; }
         public virtual DbSet<SalesActStatus> SalesActStatus { get; set; }
+        public virtual DbSet<SalesLeadCatCode> SalesLeadCatCodes { get; set; }
+        public virtual DbSet<SalesLeadCategory> SalesLeadCategories { get; set; }
+        public virtual DbSet<CustSalesCategory> CustSalesCategories { get; set; }
     }
 }

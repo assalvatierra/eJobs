@@ -33,8 +33,11 @@ values ('NEW (not yet defined)',' ',' ',' ');
 insert into SalesStatusCodes([SeqNo],[Name])
 values (1,'NEW'), (2,'ASSESMENT'), (3, 'PROPOSAL SENT'), (4, 'NEGOTIATION'), (5, 'ACCEPTED'), (6, 'REJECTED');
 
-insert into SalesActCodes([Name],[SysCode])
-values ('CALL-DONE','CALL DONE'), ('CALL-REQUEST','CALL REQUEST');   
+insert into SalesActCodes([Name],[Desc],[SysCode])
+values ('CALL-DONE','Call is done', 'CALL DONE'), ('CALL-REQUEST','Return Call request','CALL REQUEST');   
 
 insert into SalesActStatus([Name])
-values ('REQUEST'),('DONE'),('SUSPEND')
+values ('REQUEST'),('DONE'),('SUSPEND');
+
+insert into SalesLeadCatCodes([CatName],[SysCode])
+values ('Priority','PRIORITY'), ('HighMargin','HIGHMARGIN'), ('Long Term','LONGTERM'), ('Corporate','CORPORATE ACCOUNT'), ('Hard One', 'HARDONE');
