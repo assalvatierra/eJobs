@@ -39,5 +39,9 @@ values ('CALL-DONE','Call is done', 'CALL DONE'), ('CALL-REQUEST','Return Call r
 insert into SalesActStatus([Name])
 values ('REQUEST'),('DONE'),('SUSPEND');
 
-insert into SalesLeadCatCodes([CatName],[SysCode])
-values ('Priority','PRIORITY'), ('HighMargin','HIGHMARGIN'), ('Long Term','LONGTERM'), ('Corporate','CORPORATE ACCOUNT'), ('Hard One', 'HARDONE');
+insert into SalesLeadCatCodes([CatName],[SysCode],[iconPath])
+values ('Priority','PRIORITY','~/Images/SalesLead/high-importance.png'), 
+('HighMargin','HIGHMARGIN','~/Images/SalesLead/GreenArrow.png'),
+('Long Term','LONGTERM','~/Images/SalesLead/Longterm.png'), 
+('Corporate','CORPORATE ACCOUNT','~/Images/SalesLead/ShakeHands.png'), 
+('Hard One', 'HARDONE','~/Images/SalesLead/unhappy.jpg');

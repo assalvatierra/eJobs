@@ -15,11 +15,11 @@ namespace JobsV1.Models
     public partial class SalesStatus
     {
         public int Id { get; set; }
-        public int SalesLeadId { get; set; }
+        public System.DateTime DtStatus { get; set; }
         public int SalesStatusCodeId { get; set; }
-        public string DtStatus { get; set; }
+        public int SalesLeadId { get; set; }
     
-        public virtual SalesLead SalesLead { get; set; }
         public virtual SalesStatusCode SalesStatusCode { get; set; }
+        public virtual SalesLead SalesLead { get; set; }
     }
 }

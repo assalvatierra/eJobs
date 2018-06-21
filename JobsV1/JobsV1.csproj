@@ -284,6 +284,7 @@
     <Compile Include="Controllers\ProductPricesController.cs" />
     <Compile Include="Controllers\ProductProdCatsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\SalesActivitiesController.cs" />
     <Compile Include="Controllers\SalesLeadsController.cs" />
     <Compile Include="Controllers\SupplierItemsController.cs" />
     <Compile Include="Controllers\SuppliersController.cs" />
@@ -533,6 +534,13 @@
     <Content Include="Images\Mepu\Logo2.png" />
     <Content Include="Images\Phone001.png" />
     <Content Include="Images\RealBreezeLogo01.png" />
+    <Content Include="Images\SalesLead\3dots.jpg" />
+    <Content Include="Images\SalesLead\DoubleArrow.jpg" />
+    <Content Include="Images\SalesLead\GreenArrow.png" />
+    <Content Include="Images\SalesLead\high-importance.png" />
+    <Content Include="Images\SalesLead\Longterm.png" />
+    <Content Include="Images\SalesLead\ShakeHands.png" />
+    <Content Include="Images\SalesLead\unhappy.jpg" />
     <Content Include="Images\Signature-1.png" />
     <Content Include="Models\AddChecklist.SQL" />
     <Content Include="Models\AsExpenseDB.sql" />
@@ -802,6 +810,14 @@
     <Content Include="Views\SalesLeads\Details.cshtml" />
     <Content Include="Views\SalesLeads\Edit.cshtml" />
     <Content Include="Views\SalesLeads\Index.cshtml" />
+    <Content Include="Views\SalesLeads\SalesLeadCat.cshtml" />
+    <Content Include="Views\SalesLeads\ListActivityCodes.cshtml" />
+    <Content Include="Views\SalesLeads\AddActivityCode.cshtml" />
+    <Content Include="Views\SalesActivities\Create.cshtml" />
+    <Content Include="Views\SalesActivities\Delete.cshtml" />
+    <Content Include="Views\SalesActivities\Details.cshtml" />
+    <Content Include="Views\SalesActivities\Edit.cshtml" />
+    <Content Include="Views\SalesActivities\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

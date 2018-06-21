@@ -24,6 +24,7 @@ namespace JobsV1.Models
         public int Id { get; set; }
         public string CatName { get; set; }
         public string SysCode { get; set; }
+        public string iconPath { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SalesLeadCategory> SalesLeadCategories { get; set; }

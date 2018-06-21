@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/20/2018 16:27:43
+-- Date Created: 06/21/2018 19:27:22
 -- Generated from EDMX file: C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
@@ -116,14 +116,8 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_CustCategoryCustCat]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[CustCats] DROP CONSTRAINT [FK_CustCategoryCustCat];
 GO
-IF OBJECT_ID(N'[dbo].[FK_SalesLeadSalesStatusLog]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[SalesStatus] DROP CONSTRAINT [FK_SalesLeadSalesStatusLog];
-GO
 IF OBJECT_ID(N'[dbo].[FK_CustomerSalesLead]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[SalesLeads] DROP CONSTRAINT [FK_CustomerSalesLead];
-GO
-IF OBJECT_ID(N'[dbo].[FK_SalesStatusCodeSalesStatus]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[SalesStatus] DROP CONSTRAINT [FK_SalesStatusCodeSalesStatus];
 GO
 IF OBJECT_ID(N'[dbo].[FK_SalesActCodeSalesActivity]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[SalesActivities] DROP CONSTRAINT [FK_SalesActCodeSalesActivity];
@@ -151,6 +145,12 @@ IF OBJECT_ID(N'[dbo].[FK_SalesLeadCatCodeCustSalesCategory]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_CustomerCustSalesCategory]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[CustSalesCategories] DROP CONSTRAINT [FK_CustomerCustSalesCategory];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SalesStatusCodeSalesStatus]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SalesStatus] DROP CONSTRAINT [FK_SalesStatusCodeSalesStatus];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SalesLeadSalesStatus]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SalesStatus] DROP CONSTRAINT [FK_SalesLeadSalesStatus];
 GO
 
 -- --------------------------------------------------
@@ -686,7 +686,8 @@ GO
 -- Creating table 'CustCategories'
 CREATE TABLE [dbo].[CustCategories] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Name] nvarchar(max)  NOT NULL
+    [Name] nvarchar(80)  NOT NULL,
+    [iconPath] nvarchar(150)  NULL
 );
 GO
 
@@ -701,38 +702,42 @@ GO
 -- Creating table 'CustEntMains'
 CREATE TABLE [dbo].[CustEntMains] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Name] nvarchar(max)  NOT NULL,
-    [Address] nvarchar(max)  NOT NULL,
-    [Contact1] nvarchar(max)  NOT NULL,
-    [Contact2] nvarchar(max)  NOT NULL
+    [Name] nvarchar(80)  NOT NULL,
+    [Address] nvarchar(180)  NULL,
+    [Contact1] nvarchar(80)  NULL,
+    [Contact2] nvarchar(80)  NULL,
+    [iconPath] nvarchar(150)  NULL
 );
 GO
 
 -- Creating table 'SalesLeads'
 CREATE TABLE [dbo].[SalesLeads] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Date] nvarchar(max)  NOT NULL,
-    [Details] nvarchar(max)  NOT NULL,
-    [Remarks] nvarchar(max)  NOT NULL,
+    [Date] datetime  NOT NULL,
+    [Details] nvarchar(250)  NOT NULL,
+    [Remarks] nvarchar(250)  NULL,
     [CustomerId] int  NOT NULL,
-    [CustName] nvarchar(max)  NOT NULL
+    [CustName] nvarchar(80)  NULL,
+    [DtEntered] datetime  NOT NULL,
+    [EnteredBy] nvarchar(80)  NOT NULL
 );
 GO
 
 -- Creating table 'SalesStatusCodes'
 CREATE TABLE [dbo].[SalesStatusCodes] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [SeqNo] nvarchar(max)  NOT NULL,
-    [Name] nvarchar(max)  NOT NULL
+    [SeqNo] int  NULL,
+    [Name] nvarchar(80)  NOT NULL,
+    [iconPath] nvarchar(150)  NULL
 );
 GO
 
 -- Creating table 'SalesStatus'
 CREATE TABLE [dbo].[SalesStatus] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [SalesLeadId] int  NOT NULL,
+    [DtStatus] datetime  NOT NULL,
     [SalesStatusCodeId] int  NOT NULL,
-    [DtStatus] nvarchar(max)  NOT NULL
+    [SalesLeadId] int  NOT NULL
 );
 GO
 
@@ -740,8 +745,9 @@ GO
 CREATE TABLE [dbo].[SalesActCodes] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
-    [Desc] nvarchar(max)  NOT NULL,
-    [SysCode] nvarchar(max)  NOT NULL
+    [Desc] nvarchar(40)  NOT NULL,
+    [SysCode] nvarchar(20)  NULL,
+    [iconPath] nvarchar(150)  NULL
 );
 GO
 
@@ -750,11 +756,11 @@ CREATE TABLE [dbo].[SalesActivities] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [SalesLeadId] int  NOT NULL,
     [SalesActCodeId] int  NOT NULL,
-    [Particulars] nvarchar(max)  NOT NULL,
-    [DtActivity] nvarchar(max)  NOT NULL,
+    [Particulars] nvarchar(250)  NOT NULL,
+    [DtActivity] datetime  NOT NULL,
     [SalesActStatusId] int  NOT NULL,
-    [DtEntered] nvarchar(max)  NOT NULL,
-    [EnteredBy] nvarchar(max)  NOT NULL
+    [DtEntered] datetime  NOT NULL,
+    [EnteredBy] nvarchar(80)  NOT NULL
 );
 GO
 
@@ -769,15 +775,17 @@ GO
 -- Creating table 'SalesActStatus'
 CREATE TABLE [dbo].[SalesActStatus] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Name] nvarchar(max)  NOT NULL
+    [Name] nvarchar(40)  NOT NULL,
+    [iconPath] nvarchar(150)  NULL
 );
 GO
 
 -- Creating table 'SalesLeadCatCodes'
 CREATE TABLE [dbo].[SalesLeadCatCodes] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [CatName] nvarchar(max)  NOT NULL,
-    [SysCode] nvarchar(max)  NOT NULL
+    [CatName] nvarchar(80)  NOT NULL,
+    [SysCode] nvarchar(20)  NOT NULL,
+    [iconPath] nvarchar(150)  NULL
 );
 GO
 
@@ -1582,21 +1590,6 @@ ON [dbo].[CustCats]
     ([CustCategoryId]);
 GO
 
--- Creating foreign key on [SalesLeadId] in table 'SalesStatus'
-ALTER TABLE [dbo].[SalesStatus]
-ADD CONSTRAINT [FK_SalesLeadSalesStatusLog]
-    FOREIGN KEY ([SalesLeadId])
-    REFERENCES [dbo].[SalesLeads]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_SalesLeadSalesStatusLog'
-CREATE INDEX [IX_FK_SalesLeadSalesStatusLog]
-ON [dbo].[SalesStatus]
-    ([SalesLeadId]);
-GO
-
 -- Creating foreign key on [CustomerId] in table 'SalesLeads'
 ALTER TABLE [dbo].[SalesLeads]
 ADD CONSTRAINT [FK_CustomerSalesLead]
@@ -1610,21 +1603,6 @@ GO
 CREATE INDEX [IX_FK_CustomerSalesLead]
 ON [dbo].[SalesLeads]
     ([CustomerId]);
-GO
-
--- Creating foreign key on [SalesStatusCodeId] in table 'SalesStatus'
-ALTER TABLE [dbo].[SalesStatus]
-ADD CONSTRAINT [FK_SalesStatusCodeSalesStatus]
-    FOREIGN KEY ([SalesStatusCodeId])
-    REFERENCES [dbo].[SalesStatusCodes]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_SalesStatusCodeSalesStatus'
-CREATE INDEX [IX_FK_SalesStatusCodeSalesStatus]
-ON [dbo].[SalesStatus]
-    ([SalesStatusCodeId]);
 GO
 
 -- Creating foreign key on [SalesActCodeId] in table 'SalesActivities'
@@ -1760,6 +1738,36 @@ GO
 CREATE INDEX [IX_FK_CustomerCustSalesCategory]
 ON [dbo].[CustSalesCategories]
     ([CustomerId]);
+GO
+
+-- Creating foreign key on [SalesStatusCodeId] in table 'SalesStatus'
+ALTER TABLE [dbo].[SalesStatus]
+ADD CONSTRAINT [FK_SalesStatusCodeSalesStatus]
+    FOREIGN KEY ([SalesStatusCodeId])
+    REFERENCES [dbo].[SalesStatusCodes]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SalesStatusCodeSalesStatus'
+CREATE INDEX [IX_FK_SalesStatusCodeSalesStatus]
+ON [dbo].[SalesStatus]
+    ([SalesStatusCodeId]);
+GO
+
+-- Creating foreign key on [SalesLeadId] in table 'SalesStatus'
+ALTER TABLE [dbo].[SalesStatus]
+ADD CONSTRAINT [FK_SalesLeadSalesStatus]
+    FOREIGN KEY ([SalesLeadId])
+    REFERENCES [dbo].[SalesLeads]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SalesLeadSalesStatus'
+CREATE INDEX [IX_FK_SalesLeadSalesStatus]
+ON [dbo].[SalesStatus]
+    ([SalesLeadId]);
 GO
 
 -- --------------------------------------------------

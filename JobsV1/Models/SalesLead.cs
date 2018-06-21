@@ -17,24 +17,26 @@ namespace JobsV1.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SalesLead()
         {
-            this.SalesStatusLogs = new HashSet<SalesStatus>();
             this.SalesActivities = new HashSet<SalesActivity>();
             this.SalesLeadCategories = new HashSet<SalesLeadCategory>();
+            this.SalesStatus = new HashSet<SalesStatus>();
         }
     
         public int Id { get; set; }
-        public string Date { get; set; }
+        public System.DateTime Date { get; set; }
         public string Details { get; set; }
         public string Remarks { get; set; }
         public int CustomerId { get; set; }
         public string CustName { get; set; }
+        public System.DateTime DtEntered { get; set; }
+        public string EnteredBy { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SalesStatus> SalesStatusLogs { get; set; }
         public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SalesActivity> SalesActivities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SalesLeadCategory> SalesLeadCategories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SalesStatus> SalesStatus { get; set; }
     }
 }

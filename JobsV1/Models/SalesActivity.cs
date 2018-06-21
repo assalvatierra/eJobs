@@ -18,9 +18,9 @@ namespace JobsV1.Models
         public int SalesLeadId { get; set; }
         public int SalesActCodeId { get; set; }
         public string Particulars { get; set; }
-        public string DtActivity { get; set; }
+        public System.DateTime DtActivity { get; set; }
         public int SalesActStatusId { get; set; }
-        public string DtEntered { get; set; }
+        public System.DateTime DtEntered { get; set; }
         public string EnteredBy { get; set; }
     
         public virtual SalesActCode SalesActCode { get; set; }

@@ -25,6 +25,7 @@ namespace JobsV1.Models
         public string Address { get; set; }
         public string Contact1 { get; set; }
         public string Contact2 { get; set; }
+        public string iconPath { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustEntity> CustEntities { get; set; }
