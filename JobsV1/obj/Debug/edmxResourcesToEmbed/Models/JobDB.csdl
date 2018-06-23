@@ -1118,6 +1118,7 @@
     <Property Name="DtEntered" Type="DateTime" Nullable="false" />
     <Property Name="EnteredBy" Type="String" Nullable="false" MaxLength="80" />
     <NavigationProperty Name="SalesStatus" Relationship="JobDB.SalesLeadSalesStatus" FromRole="SalesLead" ToRole="SalesStatus" />
+    <Property Name="Price" Type="Decimal" Nullable="false" />
   </EntityType>
   <EntityType Name="SalesStatusCode">
     <Key>
@@ -1162,6 +1163,7 @@
     <Property Name="SysCode" Type="String" Nullable="true" MaxLength="20" />
     <NavigationProperty Name="SalesActivities" Relationship="JobDB.SalesActCodeSalesActivity" FromRole="SalesActCode" ToRole="SalesActivity" />
     <Property Name="iconPath" Type="String" Nullable="true" MaxLength="150" />
+    <Property Name="DefaultActStatus" Type="Int32" Nullable="true" />
   </EntityType>
   <EntityType Name="SalesActivity">
     <Key>

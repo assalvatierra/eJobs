@@ -456,6 +456,7 @@
           <ScalarProperty Name="CustName" ColumnName="CustName" />
           <ScalarProperty Name="DtEntered" ColumnName="DtEntered" />
           <ScalarProperty Name="EnteredBy" ColumnName="EnteredBy" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -487,6 +488,7 @@
           <ScalarProperty Name="Desc" ColumnName="Desc" />
           <ScalarProperty Name="SysCode" ColumnName="SysCode" />
           <ScalarProperty Name="iconPath" ColumnName="iconPath" />
+          <ScalarProperty Name="DefaultActStatus" ColumnName="DefaultActStatus" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -33,8 +33,14 @@ values ('NEW (not yet defined)',' ',' ',' ');
 insert into SalesStatusCodes([SeqNo],[Name])
 values (1,'NEW'), (2,'ASSESMENT'), (3, 'PROPOSAL SENT'), (4, 'NEGOTIATION'), (5, 'ACCEPTED'), (6, 'REJECTED');
 
-insert into SalesActCodes([Name],[Desc],[SysCode])
-values ('CALL-DONE','Call is done', 'CALL DONE'), ('CALL-REQUEST','Return Call request','CALL REQUEST');   
+insert into SalesActCodes([Name],[Desc],[SysCode],[iconPath],[DefaultActStatus])
+values 
+('RFQ','Request for quotation', 'RFQ','~/Images/SalesLead/Quotation101.png',1), 
+('CALL-REQUEST','Return Call request','CALL REQUEST','~/Images/SalesLead/Phone103.png',1),   
+('EMAIL-REQUEST','Request to Check/reply Email','EMAIL REQUEST','~/Images/SalesLead/Email102.jpg',1),   
+('CALL-DONE','Call is done', 'CALL DONE','~/Images/SalesLead/Phone103.png',2), 
+('MEETING-REQUEST','Schedule an appointment','APPOINTMENT','~/Images/SalesLead/meeting102.jpg',1),   
+('MEETING-DONE','Meeting done', 'APPOINTMENT_DONE','~/Images/SalesLead/meeting102.jpg',2); 
 
 insert into SalesActStatus([Name])
 values ('REQUEST'),('DONE'),('SUSPEND');
@@ -42,6 +48,6 @@ values ('REQUEST'),('DONE'),('SUSPEND');
 insert into SalesLeadCatCodes([CatName],[SysCode],[iconPath])
 values ('Priority','PRIORITY','~/Images/SalesLead/high-importance.png'), 
 ('HighMargin','HIGHMARGIN','~/Images/SalesLead/GreenArrow.png'),
-('Long Term','LONGTERM','~/Images/SalesLead/Longterm.png'), 
+('LongTerm','LONGTERM','~/Images/SalesLead/Longterm.png'), 
 ('Corporate','CORPORATE ACCOUNT','~/Images/SalesLead/ShakeHands.png'), 
-('Hard One', 'HARDONE','~/Images/SalesLead/unhappy.jpg');
+('HardOne', 'HARDONE','~/Images/SalesLead/unhappy.jpg');

@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/21/2018 19:27:22
--- Generated from EDMX file: C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\Models\JobDB.edmx
+-- Date Created: 06/23/2018 15:19:31
+-- Generated from EDMX file: D:\Data\Real\Apps\GitHub\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -719,7 +719,8 @@ CREATE TABLE [dbo].[SalesLeads] (
     [CustomerId] int  NOT NULL,
     [CustName] nvarchar(80)  NULL,
     [DtEntered] datetime  NOT NULL,
-    [EnteredBy] nvarchar(80)  NOT NULL
+    [EnteredBy] nvarchar(80)  NOT NULL,
+    [Price] decimal(18,0)  NOT NULL
 );
 GO
 
@@ -747,7 +748,8 @@ CREATE TABLE [dbo].[SalesActCodes] (
     [Name] nvarchar(max)  NOT NULL,
     [Desc] nvarchar(40)  NOT NULL,
     [SysCode] nvarchar(20)  NULL,
-    [iconPath] nvarchar(150)  NULL
+    [iconPath] nvarchar(150)  NULL,
+    [DefaultActStatus] int  NULL
 );
 GO
 

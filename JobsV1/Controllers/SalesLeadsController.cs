@@ -57,7 +57,7 @@ namespace JobsV1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Date,Details,Remarks,CustomerId,CustName,DtEntered,EnteredBy")] SalesLead salesLead)
+        public ActionResult Create([Bind(Include = "Id,Date,Details,Remarks,Price,CustomerId,CustName,DtEntered,EnteredBy")] SalesLead salesLead)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace JobsV1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Date,Details,Remarks,CustomerId,CustName,DtEntered,EnteredBy")] SalesLead salesLead)
+        public ActionResult Edit([Bind(Include = "Id,Date,Details,Remarks,Price,CustomerId,CustName,DtEntered,EnteredBy")] SalesLead salesLead)
         {
             if (ModelState.IsValid)
             {
@@ -229,13 +229,14 @@ namespace JobsV1.Controllers
             data.SalesLeadId = slId;
             data.SalesActCodeId = ActCodeId;
             data.DtActivity = DateTime.Now;
-            data.SalesActStatusId = 1;
+            data.SalesActStatusId = (int)db.SalesActCodes.Find(ActCodeId).DefaultActStatus;
             data.DtEntered = DateTime.Now;
             data.EnteredBy = User.Identity.Name;
+            data.Particulars = db.SalesActCodes.Find(ActCodeId).Desc;
 
             ViewBag.SalesActCodeId = new SelectList(db.SalesActCodes, "Id", "Name", ActCodeId);
             ViewBag.SalesLeadId = new SelectList(db.SalesLeads, "Id", "Details", slId);
-            ViewBag.SalesActStatusId = new SelectList(db.SalesActStatus, "Id", "Name");
+            ViewBag.SalesActStatusId = new SelectList(db.SalesActStatus, "Id", "Name", data.SalesActStatusId);
             return View(data);
         }
         [HttpPost]
@@ -259,6 +260,81 @@ namespace JobsV1.Controllers
             db.Database.ExecuteSqlCommand("update SalesActivities set SalesActStatusId=2 where Id=" + id);
             return RedirectToAction("Index");
         }
+        #endregion
+
+        #region Customer
+
+        private List<SelectListItem> StatusList = new List<SelectListItem> {
+                new SelectListItem { Value = "ACT", Text = "Active" },
+                new SelectListItem { Value = "INC", Text = "Inactive" },
+                new SelectListItem { Value = "BAD", Text = "Bad Account" }
+                };
+
+        public ActionResult CompanyDetail(int id, int CustId)
+        {
+            var data = db.Customers.Find(CustId);
+
+            if (data.Name == "<< New Customer >>")
+            {
+                return RedirectToAction("CreateCustomer", new { SlId = id } );
+            }
+
+            ViewBag.Status = new SelectList(StatusList, "value", "text", data.Status);
+
+            return View(data);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CompanyDetail([Bind(Include = "Id,Name,Email,Contact1,Contact2,Remarks,Status")] Customer customer)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(customer).State = EntityState.Modified;
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            ViewBag.Status = new SelectList(StatusList, "value", "text", customer.Status);
+
+            return View(customer);
+        }
+
+
+
+        public ActionResult CreateCustomer(int SlId)
+        {
+            string CustTmp = db.SalesLeads.Find(SlId).CustName;
+            var data = new Models.Customer();
+            data.Name = CustTmp;
+            data.Status = "ACT";
+
+            ViewBag.Status = new SelectList(StatusList, "value", "text", data.Status);
+            ViewBag.LeadId = SlId;
+            return View(data);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateCustomer([Bind(Include = "Id,Name,Email,Contact1,Contact2,Remarks,Status")] Customer customer)
+        {
+            if (ModelState.IsValid)
+            {
+                if (customer.Status == null || customer.Status.Trim() == "") customer.Status = "ACT";
+
+                db.Customers.Add(customer);
+                db.SaveChanges();
+
+                string SlId = Request.Form["SalesLeadId"];
+                db.Database.ExecuteSqlCommand(@"
+                    Update SalesLeads set CustomerId="+ customer.Id +" where Id=" + SlId +";"
+                    );
+
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.Status = new SelectList(StatusList, "value", "text", customer.Status);
+            return View(customer);
+        }
+
         #endregion
     }
 }

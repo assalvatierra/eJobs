@@ -648,6 +648,7 @@
     <Property Name="CustName" Type="nvarchar" Nullable="true" MaxLength="80" />
     <Property Name="DtEntered" Type="datetime" Nullable="false" />
     <Property Name="EnteredBy" Type="nvarchar" Nullable="false" MaxLength="80" />
+    <Property Name="Price" Type="decimal" Nullable="false" />
   </EntityType>
   <EntityType Name="SalesStatusCodes">
     <Key>
@@ -676,6 +677,7 @@
     <Property Name="Desc" Type="nvarchar" Nullable="false" MaxLength="40" />
     <Property Name="SysCode" Type="nvarchar" Nullable="true" MaxLength="20" />
     <Property Name="iconPath" Type="nvarchar" Nullable="true" MaxLength="150" />
+    <Property Name="DefaultActStatus" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="SalesActivities">
     <Key>

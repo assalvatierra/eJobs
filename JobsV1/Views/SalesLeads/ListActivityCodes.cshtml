@@ -12,10 +12,13 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.iconPath) |
+                <img src=@Url.Content(@item.iconPath)
+                     alt=@item.iconPath height="16"
+                     title=@item.iconPath />
+                &nbsp;
                 @Html.ActionLink(item.Name, "AddActivityCode", new { ActCodeId = item.Id, slId = LeadId }) |
                 @Html.DisplayFor(modelItem => item.Desc) |
-                @Html.DisplayFor(modelItem => item.SysCode)
+                @Html.DisplayFor(modelItem => item.DefaultActStatus)
             </td>
         </tr>
     }
