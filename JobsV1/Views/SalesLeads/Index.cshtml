@@ -47,10 +47,12 @@
                     @Html.DisplayFor(modelItem => item.Customer.Name)
                 </span> |
                 <span style="color:maroon;font:bold 12px arial, verdana;">
-                    @Html.DisplayFor(modelItem => item.CustName)
-                </span>
+                    @Html.DisplayFor(modelItem => item.CustName) / 
+                    @Html.DisplayFor(modelItem => item.CustPhone) / 
+                    @Html.DisplayFor(modelItem => item.CustEmail)
+                </span> 
                 &nbsp; &nbsp;
-                [ @Html.ActionLink("Edit Company", "CompanyDetail", new { id = item.Id, CustId = item.CustomerId }) |
+                [ @Html.ActionLink("Edit Company", "CompanyDetail", new { slid = item.Id, CustId = item.CustomerId }) |
                 @Html.ActionLink("Edit Lead", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
                 @Html.ActionLink("Profitability","SalesLeadCat", new { id = item.Id })  
@@ -96,22 +98,22 @@
                             }
                             if (tmpAct.SalesActStatusId == 2)
                             {
-                            <span style="color:red;font-weight:800;">&#10004; </span>
+                            <span style="color:darkgray;font-weight:800;">&#10004; </span>
                             <img src=@Url.Content(@tmpAct.SalesActCode.iconPath)
                                  alt=@tmpAct.SalesActCode.iconPath height="16"
                                  title=@tmpAct.SalesActCode.iconPath />
-                            <span style="color:maroon;">@tmpAct.Particulars</span>
-                            <span style="font:status-bar;color:maroon;"> @tmpAct.DtActivity.ToString("MMM-dd-yyyy")</span>
+                            <span style="color:darkgray;">@tmpAct.Particulars</span>
+                            <span style="font:status-bar;color:darkgray;"> @tmpAct.DtActivity.ToString("MMM-dd-yyyy")</span>
                             <br />
                             }
                             if (tmpAct.SalesActStatusId == 3)
                             {
-                            <span style="color:red;font-weight:800;">&#x2022; </span>
+                            <span style="color:darkgray;font-weight:800;">&#x2022; </span>
                             <img src=@Url.Content(@tmpAct.SalesActCode.iconPath)
                                  alt=@tmpAct.SalesActCode.iconPath height="16"
                                  title=@tmpAct.SalesActCode.iconPath />
-                            <span style="color:maroon;">@tmpAct.Particulars</span>
-                            <span style="font:status-bar;color:maroon;"> @tmpAct.DtActivity.ToString("MMM-dd-yyyy")</span>
+                            <span style="color:darkgray;">@tmpAct.Particulars</span>
+                            <span style="font:status-bar;color:darkgray;"> @tmpAct.DtActivity.ToString("MMM-dd-yyyy")</span>
                             <br />
                             }
                         }
@@ -124,6 +126,10 @@
                 <span style="font: status-bar; color:gray;">
                     Entered: @Html.DisplayFor(modelItem => item.EnteredBy)
                     @@ @Html.DisplayFor(modelItem => item.DtEntered)
+                </span>
+                <br />
+                <span style="font: status-bar; color:gray;">
+                    Assigned: @Html.DisplayFor(modelItem => item.AssignedTo)
                 </span>
             </div>
 

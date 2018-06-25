@@ -31,7 +31,7 @@ insert into CustEntMains([Name],[Address],[Contact1],[Contact2])
 values ('NEW (not yet defined)',' ',' ',' ');
 
 insert into SalesStatusCodes([SeqNo],[Name])
-values (1,'NEW'), (2,'ASSESMENT'), (3, 'PROPOSAL SENT'), (4, 'NEGOTIATION'), (5, 'ACCEPTED'), (6, 'REJECTED');
+values (1,'NEW'), (2,'ASSESMENT'), (3, 'PROPOSAL SENT'), (4, 'NEGOTIATION'), (5, 'ACCEPTED'), (6, 'REJECTED'), (7, 'CLOSE');
 
 insert into SalesActCodes([Name],[Desc],[SysCode],[iconPath],[DefaultActStatus])
 values 

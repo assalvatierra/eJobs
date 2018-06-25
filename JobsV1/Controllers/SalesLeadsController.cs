@@ -13,7 +13,7 @@ namespace JobsV1.Controllers
     public class SalesLeadsController : Controller
     {
         private JobDBContainer db = new JobDBContainer();
-
+        private DBClasses dbclasses = new DBClasses();
         // GET: SalesLeads
         public ActionResult Index()
         {
@@ -49,6 +49,8 @@ namespace JobsV1.Controllers
             tmp.EnteredBy = HttpContext.User.Identity.Name;
 
             ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name");
+            ViewBag.AssignedTo = new SelectList(dbclasses.getUsers(), "UserName", "UserName");
+
             return View(tmp);
         }
 
@@ -57,7 +59,7 @@ namespace JobsV1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Date,Details,Remarks,Price,CustomerId,CustName,DtEntered,EnteredBy")] SalesLead salesLead)
+        public ActionResult Create([Bind(Include = "Id,Date,Details,Remarks,Price,CustomerId,CustName,DtEntered,EnteredBy,AssignedTo,CustPhone,CustEmail")] SalesLead salesLead)
         {
             if (ModelState.IsValid)
             {
@@ -67,6 +69,8 @@ namespace JobsV1.Controllers
             }
 
             ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name", salesLead.CustomerId);
+            ViewBag.AssignedTo = new SelectList(dbclasses.getUsers(), "UserName", "UserName", salesLead.AssignedTo);
+
             return View(salesLead);
         }
 
@@ -83,6 +87,7 @@ namespace JobsV1.Controllers
                 return HttpNotFound();
             }
             ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name", salesLead.CustomerId);
+            ViewBag.AssignedTo = new SelectList(dbclasses.getUsers(), "UserName", "UserName", salesLead.AssignedTo);
             return View(salesLead);
         }
 
@@ -91,7 +96,7 @@ namespace JobsV1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Date,Details,Remarks,Price,CustomerId,CustName,DtEntered,EnteredBy")] SalesLead salesLead)
+        public ActionResult Edit([Bind(Include = "Id,Date,Details,Remarks,Price,CustomerId,CustName,DtEntered,EnteredBy,AssignedTo,CustPhone,CustEmail")] SalesLead salesLead)
         {
             if (ModelState.IsValid)
             {
@@ -100,6 +105,7 @@ namespace JobsV1.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name", salesLead.CustomerId);
+            ViewBag.AssignedTo = new SelectList(dbclasses.getUsers(), "UserName", "UserName", salesLead.AssignedTo);
             return View(salesLead);
         }
 
@@ -270,13 +276,13 @@ namespace JobsV1.Controllers
                 new SelectListItem { Value = "BAD", Text = "Bad Account" }
                 };
 
-        public ActionResult CompanyDetail(int id, int CustId)
+        public ActionResult CompanyDetail(int slid, int CustId)
         {
             var data = db.Customers.Find(CustId);
 
             if (data.Name == "<< New Customer >>")
             {
-                return RedirectToAction("CreateCustomer", new { SlId = id } );
+                return RedirectToAction("CreateCustomer", new { SlId = slid } );
             }
 
             ViewBag.Status = new SelectList(StatusList, "value", "text", data.Status);
@@ -303,9 +309,12 @@ namespace JobsV1.Controllers
 
         public ActionResult CreateCustomer(int SlId)
         {
-            string CustTmp = db.SalesLeads.Find(SlId).CustName;
+            var dslCust = db.SalesLeads.Find(SlId);
             var data = new Models.Customer();
-            data.Name = CustTmp;
+            data.Name = dslCust.CustName;
+            data.Email = dslCust.CustEmail;
+            data.Contact1 = dslCust.CustPhone;
+
             data.Status = "ACT";
 
             ViewBag.Status = new SelectList(StatusList, "value", "text", data.Status);

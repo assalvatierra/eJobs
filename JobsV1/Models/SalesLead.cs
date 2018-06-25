@@ -31,6 +31,9 @@ namespace JobsV1.Models
         public System.DateTime DtEntered { get; set; }
         public string EnteredBy { get; set; }
         public decimal Price { get; set; }
+        public string AssignedTo { get; set; }
+        public string CustPhone { get; set; }
+        public string CustEmail { get; set; }
     
         public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

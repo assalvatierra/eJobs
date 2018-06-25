@@ -12,7 +12,9 @@
     <div class="form-horizontal">
         <h4>Customer</h4>
         <hr />
-        <input class="form-control text-box single-line" id="SalesLeadId" name="SalesLeadId" type="text" value="@ViewBag.LeadId">
+        <input class="form-control text-box single-line" id="SalesLeadId" name="SalesLeadId" type="hidden" value="@ViewBag.LeadId">
+        @Html.HiddenFor(model => model.Id)
+
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">

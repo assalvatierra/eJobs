@@ -654,6 +654,9 @@
     <Property Name="DtEntered" Type="datetime" Nullable="false" />
     <Property Name="EnteredBy" Type="nvarchar" Nullable="false" MaxLength="80" />
     <Property Name="Price" Type="decimal" Nullable="false" />
+    <Property Name="AssignedTo" Type="nvarchar" Nullable="true" MaxLength="80" />
+    <Property Name="CustPhone" Type="nvarchar" Nullable="true" MaxLength="20" />
+    <Property Name="CustEmail" Type="nvarchar" Nullable="true" MaxLength="80" />
   </EntityType>
   <EntityType Name="SalesStatusCodes">
     <Key>
@@ -2401,6 +2404,9 @@
           <Property Name="EnteredBy" Type="String" Nullable="false" MaxLength="80" />
           <NavigationProperty Name="SalesStatus" Relationship="JobDB.SalesLeadSalesStatus" FromRole="SalesLead" ToRole="SalesStatus" />
           <Property Name="Price" Type="Decimal" Nullable="false" />
+          <Property Name="AssignedTo" Type="String" Nullable="true" MaxLength="80" />
+          <Property Name="CustPhone" Type="String" Nullable="true" MaxLength="20" />
+          <Property Name="CustEmail" Type="String" Nullable="true" MaxLength="80" />
         </EntityType>
         <EntityType Name="SalesStatusCode">
           <Key>
@@ -3107,6 +3113,9 @@
           <ScalarProperty Name="DtEntered" ColumnName="DtEntered" />
           <ScalarProperty Name="EnteredBy" ColumnName="EnteredBy" />
           <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="AssignedTo" ColumnName="AssignedTo" />
+          <ScalarProperty Name="CustPhone" ColumnName="CustPhone" />
+          <ScalarProperty Name="CustEmail" ColumnName="CustEmail" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

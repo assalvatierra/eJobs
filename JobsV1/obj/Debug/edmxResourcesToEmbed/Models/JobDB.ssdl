@@ -649,6 +649,9 @@
     <Property Name="DtEntered" Type="datetime" Nullable="false" />
     <Property Name="EnteredBy" Type="nvarchar" Nullable="false" MaxLength="80" />
     <Property Name="Price" Type="decimal" Nullable="false" />
+    <Property Name="AssignedTo" Type="nvarchar" Nullable="true" MaxLength="80" />
+    <Property Name="CustPhone" Type="nvarchar" Nullable="true" MaxLength="20" />
+    <Property Name="CustEmail" Type="nvarchar" Nullable="true" MaxLength="80" />
   </EntityType>
   <EntityType Name="SalesStatusCodes">
     <Key>

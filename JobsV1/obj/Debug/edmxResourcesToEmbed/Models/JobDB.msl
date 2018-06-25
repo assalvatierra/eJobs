@@ -457,6 +457,9 @@
           <ScalarProperty Name="DtEntered" ColumnName="DtEntered" />
           <ScalarProperty Name="EnteredBy" ColumnName="EnteredBy" />
           <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="AssignedTo" ColumnName="AssignedTo" />
+          <ScalarProperty Name="CustPhone" ColumnName="CustPhone" />
+          <ScalarProperty Name="CustEmail" ColumnName="CustEmail" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

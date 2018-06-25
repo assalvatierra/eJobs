@@ -1119,6 +1119,9 @@
     <Property Name="EnteredBy" Type="String" Nullable="false" MaxLength="80" />
     <NavigationProperty Name="SalesStatus" Relationship="JobDB.SalesLeadSalesStatus" FromRole="SalesLead" ToRole="SalesStatus" />
     <Property Name="Price" Type="Decimal" Nullable="false" />
+    <Property Name="AssignedTo" Type="String" Nullable="true" MaxLength="80" />
+    <Property Name="CustPhone" Type="String" Nullable="true" MaxLength="20" />
+    <Property Name="CustEmail" Type="String" Nullable="true" MaxLength="80" />
   </EntityType>
   <EntityType Name="SalesStatusCode">
     <Key>
