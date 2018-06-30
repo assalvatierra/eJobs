@@ -1513,6 +1513,25 @@
             <End Role="SalesLead" EntitySet="SalesLeads" />
             <End Role="SalesStatus" EntitySet="SalesStatus" />
           </AssociationSet>
+          <EntitySet Name="SrvActionCatCodes" EntityType="JobDB.SrvActionCatCode" />
+          <EntitySet Name="SrvActionLists" EntityType="JobDB.SrvActionList" />
+          <AssociationSet Name="SrvActionCatCodeSrvActionList" Association="JobDB.SrvActionCatCodeSrvActionList">
+            <End Role="SrvActionCatCode" EntitySet="SrvActionCatCodes" />
+            <End Role="SrvActionList" EntitySet="SrvActionLists" />
+          </AssociationSet>
+          <AssociationSet Name="ServicesSrvActionList" Association="JobDB.ServicesSrvActionList">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="SrvActionList" EntitySet="SrvActionLists" />
+          </AssociationSet>
+          <EntitySet Name="JobActions" EntityType="JobDB.JobAction" />
+          <AssociationSet Name="JobServicesJobAction" Association="JobDB.JobServicesJobAction">
+            <End Role="JobServices" EntitySet="JobServices" />
+            <End Role="JobAction" EntitySet="JobActions" />
+          </AssociationSet>
+          <AssociationSet Name="SrvActionListJobAction" Association="JobDB.SrvActionListJobAction">
+            <End Role="SrvActionList" EntitySet="SrvActionLists" />
+            <End Role="JobAction" EntitySet="JobActions" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="JobMain">
           <Key>
@@ -1600,6 +1619,7 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="30" />
           <Property Name="Description" Type="String" Nullable="true" MaxLength="80" />
           <NavigationProperty Name="JobServices" Relationship="JobDB.ServicesJobServices" FromRole="Services" ToRole="JobServices" />
+          <NavigationProperty Name="SrvActionLists" Relationship="JobDB.ServicesSrvActionList" FromRole="Services" ToRole="SrvActionList" />
         </EntityType>
         <Association Name="JobMainJobType">
           <End Type="JobDB.JobMain" Role="JobMain" Multiplicity="1" />
@@ -1634,6 +1654,7 @@
           <NavigationProperty Name="JobServicePickups" Relationship="JobDB.JobServicesJobServicePickup" FromRole="JobServices" ToRole="JobServicePickup" />
           <Property Name="DtStart" Type="DateTime" Nullable="true" />
           <Property Name="DtEnd" Type="DateTime" Nullable="true" />
+          <NavigationProperty Name="JobActions" Relationship="JobDB.JobServicesJobAction" FromRole="JobServices" ToRole="JobAction" />
         </EntityType>
         <Association Name="JobMainJobSupplier">
           <End Type="JobDB.JobMain" Role="JobMain" Multiplicity="1" />
@@ -2648,6 +2669,90 @@
             </Principal>
             <Dependent Role="SalesStatus">
               <PropertyRef Name="SalesLeadId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SrvActionCatCode">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CatName" Type="String" Nullable="false" MaxLength="80" />
+          <NavigationProperty Name="SrvActionLists" Relationship="JobDB.SrvActionCatCodeSrvActionList" FromRole="SrvActionCatCode" ToRole="SrvActionList" />
+        </EntityType>
+        <EntityType Name="SrvActionList">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="SrvActionCatCode" Relationship="JobDB.SrvActionCatCodeSrvActionList" FromRole="SrvActionList" ToRole="SrvActionCatCode" />
+          <Property Name="SrvActionCatCodeId" Type="Int32" Nullable="false" />
+          <Property Name="ServicesId" Type="Int32" Nullable="false" />
+          <Property Name="Desc" Type="String" Nullable="false" MaxLength="150" />
+          <Property Name="Remarks" Type="String" Nullable="true" MaxLength="180" />
+          <Property Name="SortNo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Service" Relationship="JobDB.ServicesSrvActionList" FromRole="SrvActionList" ToRole="Services" />
+          <NavigationProperty Name="JobActions" Relationship="JobDB.SrvActionListJobAction" FromRole="SrvActionList" ToRole="JobAction" />
+        </EntityType>
+        <Association Name="SrvActionCatCodeSrvActionList">
+          <End Type="JobDB.SrvActionCatCode" Role="SrvActionCatCode" Multiplicity="1" />
+          <End Type="JobDB.SrvActionList" Role="SrvActionList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SrvActionCatCode">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SrvActionList">
+              <PropertyRef Name="SrvActionCatCodeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ServicesSrvActionList">
+          <End Type="JobDB.Services" Role="Services" Multiplicity="1" />
+          <End Type="JobDB.SrvActionList" Role="SrvActionList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SrvActionList">
+              <PropertyRef Name="ServicesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="JobAction">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="JobService" Relationship="JobDB.JobServicesJobAction" FromRole="JobAction" ToRole="JobServices" />
+          <Property Name="JobServicesId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SrvActionList" Relationship="JobDB.SrvActionListJobAction" FromRole="JobAction" ToRole="SrvActionList" />
+          <Property Name="SrvActionListId" Type="Int32" Nullable="false" />
+          <Property Name="AssignedTo" Type="String" Nullable="true" MaxLength="80" />
+          <Property Name="PerformedBy" Type="String" Nullable="true" MaxLength="80" />
+          <Property Name="DtAssigned" Type="DateTime" Nullable="true" />
+          <Property Name="DtPerformed" Type="DateTime" Nullable="true" />
+        </EntityType>
+        <Association Name="JobServicesJobAction">
+          <End Type="JobDB.JobServices" Role="JobServices" Multiplicity="1" />
+          <End Type="JobDB.JobAction" Role="JobAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobServices">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JobAction">
+              <PropertyRef Name="JobServicesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SrvActionListJobAction">
+          <End Type="JobDB.SrvActionList" Role="SrvActionList" Multiplicity="1" />
+          <End Type="JobDB.JobAction" Role="JobAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SrvActionList">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JobAction">
+              <PropertyRef Name="SrvActionListId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
