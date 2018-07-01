@@ -18,7 +18,7 @@ namespace JobsV1.Models
         public Services()
         {
             this.JobServices = new HashSet<JobServices>();
-            this.SrvActionLists = new HashSet<SrvActionList>();
+            this.SrvActionItems = new HashSet<SrvActionItem>();
         }
     
         public int Id { get; set; }
@@ -28,6 +28,6 @@ namespace JobsV1.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<JobServices> JobServices { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SrvActionList> SrvActionLists { get; set; }
+        public virtual ICollection<SrvActionItem> SrvActionItems { get; set; }
     }
 }

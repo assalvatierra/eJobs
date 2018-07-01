@@ -72,8 +72,8 @@ namespace JobsV1.Models
         public virtual DbSet<SalesLeadCatCode> SalesLeadCatCodes { get; set; }
         public virtual DbSet<SalesLeadCategory> SalesLeadCategories { get; set; }
         public virtual DbSet<CustSalesCategory> CustSalesCategories { get; set; }
-        public virtual DbSet<SrvActionCatCode> SrvActionCatCodes { get; set; }
-        public virtual DbSet<SrvActionList> SrvActionLists { get; set; }
+        public virtual DbSet<SrvActionCode> SrvActionCodes { get; set; }
+        public virtual DbSet<SrvActionItem> SrvActionItems { get; set; }
         public virtual DbSet<JobAction> JobActions { get; set; }
         public virtual DbSet<InvItem> InvItems { get; set; }
         public virtual DbSet<InvItemCat> InvItemCats { get; set; }

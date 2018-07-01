@@ -16,13 +16,14 @@ namespace JobsV1.Models
     {
         public int Id { get; set; }
         public int JobServicesId { get; set; }
-        public int SrvActionListId { get; set; }
         public string AssignedTo { get; set; }
         public string PerformedBy { get; set; }
         public Nullable<System.DateTime> DtAssigned { get; set; }
         public Nullable<System.DateTime> DtPerformed { get; set; }
+        public int SrvActionItemId { get; set; }
+        public string Remarks { get; set; }
     
         public virtual JobServices JobService { get; set; }
-        public virtual SrvActionList SrvActionList { get; set; }
+        public virtual SrvActionItem SrvActionItem { get; set; }
     }
 }

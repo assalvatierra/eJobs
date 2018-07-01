@@ -12,24 +12,19 @@ namespace JobsV1.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class SrvActionList
+    public partial class SrvActionCode
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SrvActionList()
+        public SrvActionCode()
         {
-            this.JobActions = new HashSet<JobAction>();
+            this.SrvActionItems = new HashSet<SrvActionItem>();
         }
     
         public int Id { get; set; }
-        public int SrvActionCatCodeId { get; set; }
-        public int ServicesId { get; set; }
-        public string Desc { get; set; }
-        public string Remarks { get; set; }
+        public string CatCode { get; set; }
         public int SortNo { get; set; }
     
-        public virtual SrvActionCatCode SrvActionCatCode { get; set; }
-        public virtual Services Service { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<JobAction> JobActions { get; set; }
+        public virtual ICollection<SrvActionItem> SrvActionItems { get; set; }
     }
 }

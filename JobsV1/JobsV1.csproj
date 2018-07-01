@@ -344,6 +344,15 @@
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\InvItem.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InvItemCat.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InvItemCategory.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\JobAction.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
@@ -381,6 +390,9 @@
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\JobPickup.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\JobServiceItem.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\JobServicePickup.cs">
@@ -447,13 +459,16 @@
     <Compile Include="Models\Services.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SrvActionCatCode.cs">
+    <Compile Include="Models\SrvActionCode.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SrvActionList.cs">
+    <Compile Include="Models\SrvActionItem.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Supplier.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SupplierInvItem.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SupplierItem.cs">
@@ -533,9 +548,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\CarRental\car101.png" />
+    <Content Include="Images\CarRental\Driver101.png" />
     <Content Include="Images\CarRental\FordEverest.jpg" />
     <Content Include="Images\CarRental\HondaCity.jpg" />
     <Content Include="Images\CarRental\placeholder.png" />
+    <Content Include="Images\CarRental\Repair101.png" />
     <Content Include="Images\CarRental\ToyotaGrandia.jpg" />
     <Content Include="Images\CarRental\ToyotaHilux.jpg" />
     <Content Include="Images\CarRental\ToyotaInnova.jpg" />
@@ -581,6 +599,7 @@
     </Content>
     <Content Include="Models\JobNotes.sql" />
     <Content Include="Models\ProductsDB.sql" />
+    <Content Include="Models\SalesLead.sql" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\bootstrap.js" />

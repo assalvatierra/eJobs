@@ -228,6 +228,54 @@
       <End Role="SalesLead" EntitySet="SalesLeads" />
       <End Role="SalesStatus" EntitySet="SalesStatus" />
     </AssociationSet>
+    <EntitySet Name="SrvActionCodes" EntityType="JobDB.SrvActionCode" />
+    <EntitySet Name="SrvActionItems" EntityType="JobDB.SrvActionItem" />
+    <EntitySet Name="JobActions" EntityType="JobDB.JobAction" />
+    <AssociationSet Name="JobServicesJobAction" Association="JobDB.JobServicesJobAction">
+      <End Role="JobServices" EntitySet="JobServices" />
+      <End Role="JobAction" EntitySet="JobActions" />
+    </AssociationSet>
+    <EntitySet Name="InvItems" EntityType="JobDB.InvItem" />
+    <EntitySet Name="InvItemCats" EntityType="JobDB.InvItemCat" />
+    <EntitySet Name="InvItemCategories" EntityType="JobDB.InvItemCategory" />
+    <AssociationSet Name="InvItemCatInvItemCategory" Association="JobDB.InvItemCatInvItemCategory">
+      <End Role="InvItemCat" EntitySet="InvItemCats" />
+      <End Role="InvItemCategory" EntitySet="InvItemCategories" />
+    </AssociationSet>
+    <AssociationSet Name="InvItemInvItemCategory" Association="JobDB.InvItemInvItemCategory">
+      <End Role="InvItem" EntitySet="InvItems" />
+      <End Role="InvItemCategory" EntitySet="InvItemCategories" />
+    </AssociationSet>
+    <EntitySet Name="JobServiceItems" EntityType="JobDB.JobServiceItem" />
+    <AssociationSet Name="JobServicesJobServiceItem" Association="JobDB.JobServicesJobServiceItem">
+      <End Role="JobServices" EntitySet="JobServices" />
+      <End Role="JobServiceItem" EntitySet="JobServiceItems" />
+    </AssociationSet>
+    <AssociationSet Name="InvItemJobServiceItem" Association="JobDB.InvItemJobServiceItem">
+      <End Role="InvItem" EntitySet="InvItems" />
+      <End Role="JobServiceItem" EntitySet="JobServiceItems" />
+    </AssociationSet>
+    <EntitySet Name="SupplierInvItems" EntityType="JobDB.SupplierInvItem" />
+    <AssociationSet Name="SupplierSupplierInvItem" Association="JobDB.SupplierSupplierInvItem">
+      <End Role="Supplier" EntitySet="Suppliers" />
+      <End Role="SupplierInvItem" EntitySet="SupplierInvItems" />
+    </AssociationSet>
+    <AssociationSet Name="InvItemSupplierInvItem" Association="JobDB.InvItemSupplierInvItem">
+      <End Role="InvItem" EntitySet="InvItems" />
+      <End Role="SupplierInvItem" EntitySet="SupplierInvItems" />
+    </AssociationSet>
+    <AssociationSet Name="ServicesSrvActionItem" Association="JobDB.ServicesSrvActionItem">
+      <End Role="Services" EntitySet="Services" />
+      <End Role="SrvActionItem" EntitySet="SrvActionItems" />
+    </AssociationSet>
+    <AssociationSet Name="SrvActionItemJobAction" Association="JobDB.SrvActionItemJobAction">
+      <End Role="SrvActionItem" EntitySet="SrvActionItems" />
+      <End Role="JobAction" EntitySet="JobActions" />
+    </AssociationSet>
+    <AssociationSet Name="SrvActionCodeSrvActionItem" Association="JobDB.SrvActionCodeSrvActionItem">
+      <End Role="SrvActionCode" EntitySet="SrvActionCodes" />
+      <End Role="SrvActionItem" EntitySet="SrvActionItems" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="JobMain">
     <Key>
@@ -275,6 +323,7 @@
     <NavigationProperty Name="SupplierType" Relationship="JobDB.SupplierTypeSupplier" FromRole="Supplier" ToRole="SupplierType" />
     <Property Name="SupplierTypeId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="SupplierItems" Relationship="JobDB.SupplierSupplierItem" FromRole="Supplier" ToRole="SupplierItem" />
+    <NavigationProperty Name="SupplierInvItems" Relationship="JobDB.SupplierSupplierInvItem" FromRole="Supplier" ToRole="SupplierInvItem" />
   </EntityType>
   <EntityType Name="Customer">
     <Key>
@@ -312,9 +361,10 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="30" />
-    <Property Name="Description" Type="String" Nullable="true" MaxLength="80" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="80" />
+    <Property Name="Description" Type="String" Nullable="true" MaxLength="150" />
     <NavigationProperty Name="JobServices" Relationship="JobDB.ServicesJobServices" FromRole="Services" ToRole="JobServices" />
+    <NavigationProperty Name="SrvActionItems" Relationship="JobDB.ServicesSrvActionItem" FromRole="Services" ToRole="SrvActionItem" />
   </EntityType>
   <Association Name="JobMainJobType">
     <End Type="JobDB.JobMain" Role="JobMain" Multiplicity="1" />
@@ -349,6 +399,8 @@
     <NavigationProperty Name="JobServicePickups" Relationship="JobDB.JobServicesJobServicePickup" FromRole="JobServices" ToRole="JobServicePickup" />
     <Property Name="DtStart" Type="DateTime" Nullable="true" />
     <Property Name="DtEnd" Type="DateTime" Nullable="true" />
+    <NavigationProperty Name="JobActions" Relationship="JobDB.JobServicesJobAction" FromRole="JobServices" ToRole="JobAction" />
+    <NavigationProperty Name="JobServiceItems" Relationship="JobDB.JobServicesJobServiceItem" FromRole="JobServices" ToRole="JobServiceItem" />
   </EntityType>
   <Association Name="JobMainJobSupplier">
     <End Type="JobDB.JobMain" Role="JobMain" Multiplicity="1" />
@@ -1363,6 +1415,218 @@
       </Principal>
       <Dependent Role="SalesStatus">
         <PropertyRef Name="SalesLeadId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="SrvActionCode">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CatCode" Type="String" Nullable="false" MaxLength="80" />
+    <Property Name="SortNo" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="SrvActionItems" Relationship="JobDB.SrvActionCodeSrvActionItem" FromRole="SrvActionCode" ToRole="SrvActionItem" />
+  </EntityType>
+  <EntityType Name="SrvActionItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Desc" Type="String" Nullable="false" MaxLength="150" />
+    <Property Name="Remarks" Type="String" Nullable="true" MaxLength="180" />
+    <Property Name="SortNo" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Service" Relationship="JobDB.ServicesSrvActionItem" FromRole="SrvActionItem" ToRole="Services" />
+    <Property Name="ServicesId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="JobActions" Relationship="JobDB.SrvActionItemJobAction" FromRole="SrvActionItem" ToRole="JobAction" />
+    <NavigationProperty Name="SrvActionCode" Relationship="JobDB.SrvActionCodeSrvActionItem" FromRole="SrvActionItem" ToRole="SrvActionCode" />
+    <Property Name="SrvActionCodeId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="JobAction">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="JobService" Relationship="JobDB.JobServicesJobAction" FromRole="JobAction" ToRole="JobServices" />
+    <Property Name="JobServicesId" Type="Int32" Nullable="false" />
+    <Property Name="AssignedTo" Type="String" Nullable="true" MaxLength="80" />
+    <Property Name="PerformedBy" Type="String" Nullable="true" MaxLength="80" />
+    <Property Name="DtAssigned" Type="DateTime" Nullable="true" />
+    <Property Name="DtPerformed" Type="DateTime" Nullable="true" />
+    <NavigationProperty Name="SrvActionItem" Relationship="JobDB.SrvActionItemJobAction" FromRole="JobAction" ToRole="SrvActionItem" />
+    <Property Name="SrvActionItemId" Type="Int32" Nullable="false" />
+    <Property Name="Remarks" Type="String" Nullable="true" MaxLength="150" />
+  </EntityType>
+  <Association Name="JobServicesJobAction">
+    <End Type="JobDB.JobServices" Role="JobServices" Multiplicity="1" />
+    <End Type="JobDB.JobAction" Role="JobAction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobServices">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobAction">
+        <PropertyRef Name="JobServicesId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="InvItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ItemCode" Type="String" Nullable="false" MaxLength="30" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="80" />
+    <Property Name="Remarks" Type="String" Nullable="true" MaxLength="150" />
+    <Property Name="ImgPath" Type="String" Nullable="true" MaxLength="80" />
+    <NavigationProperty Name="InvItemCategories" Relationship="JobDB.InvItemInvItemCategory" FromRole="InvItem" ToRole="InvItemCategory" />
+    <NavigationProperty Name="JobServiceItems" Relationship="JobDB.InvItemJobServiceItem" FromRole="InvItem" ToRole="JobServiceItem" />
+    <NavigationProperty Name="SupplierInvItems" Relationship="JobDB.InvItemSupplierInvItem" FromRole="InvItem" ToRole="SupplierInvItem" />
+  </EntityType>
+  <EntityType Name="InvItemCat">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="80" />
+    <Property Name="Remarks" Type="String" Nullable="true" MaxLength="150" />
+    <Property Name="ImgPath" Type="String" Nullable="true" MaxLength="150" />
+    <NavigationProperty Name="InvItemCategories" Relationship="JobDB.InvItemCatInvItemCategory" FromRole="InvItemCat" ToRole="InvItemCategory" />
+    <Property Name="SysCode" Type="String" Nullable="true" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="InvItemCategory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="InvItemCat" Relationship="JobDB.InvItemCatInvItemCategory" FromRole="InvItemCategory" ToRole="InvItemCat" />
+    <Property Name="InvItemCatId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="InvItem" Relationship="JobDB.InvItemInvItemCategory" FromRole="InvItemCategory" ToRole="InvItem" />
+    <Property Name="InvItemId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="InvItemCatInvItemCategory">
+    <End Type="JobDB.InvItemCat" Role="InvItemCat" Multiplicity="1" />
+    <End Type="JobDB.InvItemCategory" Role="InvItemCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InvItemCat">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InvItemCategory">
+        <PropertyRef Name="InvItemCatId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InvItemInvItemCategory">
+    <End Type="JobDB.InvItem" Role="InvItem" Multiplicity="1" />
+    <End Type="JobDB.InvItemCategory" Role="InvItemCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InvItem">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InvItemCategory">
+        <PropertyRef Name="InvItemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="JobServiceItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="JobService" Relationship="JobDB.JobServicesJobServiceItem" FromRole="JobServiceItem" ToRole="JobServices" />
+    <Property Name="JobServicesId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="InvItem" Relationship="JobDB.InvItemJobServiceItem" FromRole="JobServiceItem" ToRole="InvItem" />
+    <Property Name="InvItemId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="JobServicesJobServiceItem">
+    <End Type="JobDB.JobServices" Role="JobServices" Multiplicity="1" />
+    <End Type="JobDB.JobServiceItem" Role="JobServiceItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobServices">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobServiceItem">
+        <PropertyRef Name="JobServicesId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InvItemJobServiceItem">
+    <End Type="JobDB.InvItem" Role="InvItem" Multiplicity="1" />
+    <End Type="JobDB.JobServiceItem" Role="JobServiceItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InvItem">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobServiceItem">
+        <PropertyRef Name="InvItemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="SupplierInvItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Supplier" Relationship="JobDB.SupplierSupplierInvItem" FromRole="SupplierInvItem" ToRole="Supplier" />
+    <Property Name="SupplierId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="InvItem" Relationship="JobDB.InvItemSupplierInvItem" FromRole="SupplierInvItem" ToRole="InvItem" />
+    <Property Name="InvItemId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="SupplierSupplierInvItem">
+    <End Type="JobDB.Supplier" Role="Supplier" Multiplicity="1" />
+    <End Type="JobDB.SupplierInvItem" Role="SupplierInvItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supplier">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SupplierInvItem">
+        <PropertyRef Name="SupplierId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InvItemSupplierInvItem">
+    <End Type="JobDB.InvItem" Role="InvItem" Multiplicity="1" />
+    <End Type="JobDB.SupplierInvItem" Role="SupplierInvItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InvItem">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SupplierInvItem">
+        <PropertyRef Name="InvItemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ServicesSrvActionItem">
+    <End Type="JobDB.Services" Role="Services" Multiplicity="1" />
+    <End Type="JobDB.SrvActionItem" Role="SrvActionItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Services">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SrvActionItem">
+        <PropertyRef Name="ServicesId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SrvActionItemJobAction">
+    <End Type="JobDB.SrvActionItem" Role="SrvActionItem" Multiplicity="1" />
+    <End Type="JobDB.JobAction" Role="JobAction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SrvActionItem">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobAction">
+        <PropertyRef Name="SrvActionItemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SrvActionCodeSrvActionItem">
+    <End Type="JobDB.SrvActionCode" Role="SrvActionCode" Multiplicity="1" />
+    <End Type="JobDB.SrvActionItem" Role="SrvActionItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SrvActionCode">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SrvActionItem">
+        <PropertyRef Name="SrvActionCodeId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

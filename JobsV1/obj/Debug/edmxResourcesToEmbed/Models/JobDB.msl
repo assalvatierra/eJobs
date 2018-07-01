@@ -555,5 +555,89 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="SrvActionCodes">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.SrvActionCode)">
+        <MappingFragment StoreEntitySet="SrvActionCodes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CatCode" ColumnName="CatCode" />
+          <ScalarProperty Name="SortNo" ColumnName="SortNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SrvActionItems">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.SrvActionItem)">
+        <MappingFragment StoreEntitySet="SrvActionItems">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Desc" ColumnName="Desc" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="SortNo" ColumnName="SortNo" />
+          <ScalarProperty Name="ServicesId" ColumnName="ServicesId" />
+          <ScalarProperty Name="SrvActionCodeId" ColumnName="SrvActionCodeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobActions">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.JobAction)">
+        <MappingFragment StoreEntitySet="JobActions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="JobServicesId" ColumnName="JobServicesId" />
+          <ScalarProperty Name="AssignedTo" ColumnName="AssignedTo" />
+          <ScalarProperty Name="PerformedBy" ColumnName="PerformedBy" />
+          <ScalarProperty Name="DtAssigned" ColumnName="DtAssigned" />
+          <ScalarProperty Name="DtPerformed" ColumnName="DtPerformed" />
+          <ScalarProperty Name="SrvActionItemId" ColumnName="SrvActionItemId" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InvItems">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.InvItem)">
+        <MappingFragment StoreEntitySet="InvItems">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="ImgPath" ColumnName="ImgPath" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InvItemCats">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.InvItemCat)">
+        <MappingFragment StoreEntitySet="InvItemCats">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="ImgPath" ColumnName="ImgPath" />
+          <ScalarProperty Name="SysCode" ColumnName="SysCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InvItemCategories">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.InvItemCategory)">
+        <MappingFragment StoreEntitySet="InvItemCategories">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="InvItemCatId" ColumnName="InvItemCatId" />
+          <ScalarProperty Name="InvItemId" ColumnName="InvItemId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobServiceItems">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.JobServiceItem)">
+        <MappingFragment StoreEntitySet="JobServiceItems">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="JobServicesId" ColumnName="JobServicesId" />
+          <ScalarProperty Name="InvItemId" ColumnName="InvItemId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SupplierInvItems">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.SupplierInvItem)">
+        <MappingFragment StoreEntitySet="SupplierInvItems">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+          <ScalarProperty Name="InvItemId" ColumnName="InvItemId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>
