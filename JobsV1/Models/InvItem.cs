@@ -12,32 +12,26 @@ namespace JobsV1.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Supplier
+    public partial class InvItem
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Supplier()
+        public InvItem()
         {
-            this.JobSuppliers = new HashSet<JobServices>();
-            this.SupplierItems = new HashSet<SupplierItem>();
+            this.InvItemCategories = new HashSet<InvItemCategory>();
+            this.JobServiceItems = new HashSet<JobServiceItem>();
             this.SupplierInvItems = new HashSet<SupplierInvItem>();
         }
     
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Contact1 { get; set; }
-        public string Contact2 { get; set; }
-        public string Contact3 { get; set; }
-        public string Email { get; set; }
-        public string Details { get; set; }
-        public int CityId { get; set; }
-        public int SupplierTypeId { get; set; }
+        public string ItemCode { get; set; }
+        public string Description { get; set; }
+        public string Remarks { get; set; }
+        public string ImgPath { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<JobServices> JobSuppliers { get; set; }
-        public virtual City City { get; set; }
-        public virtual SupplierType SupplierType { get; set; }
+        public virtual ICollection<InvItemCategory> InvItemCategories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SupplierItem> SupplierItems { get; set; }
+        public virtual ICollection<JobServiceItem> JobServiceItems { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupplierInvItem> SupplierInvItems { get; set; }
     }
