@@ -868,6 +868,7 @@
     <Content Include="Views\JobOrder\PartialViewServiceList.cshtml" />
     <Content Include="Views\JobOrder\PartialViewJobServiceItems.cshtml" />
     <Content Include="Views\JobOrder\PartialViewSrvActionItems.cshtml" />
+    <Content Include="Views\JobOrder\PartialViewJS.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -100,5 +100,10 @@ namespace JobsV1.Controllers
 
         }
 
+        public ActionResult AjaxTest()
+        {
+            return Json("insomia", JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

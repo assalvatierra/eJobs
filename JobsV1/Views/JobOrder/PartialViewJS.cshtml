@@ -1,0 +1,34 @@
+﻿<script type="text/javascript">
+
+    function initialize() {
+        $(".clickitem").click(fClick_item);
+    }
+
+    function fClick_item() {
+        alert(".clickitem - clicked : " + $(this).attr("id"));
+        fAjax_updateAction();
+        event.preventDefault();
+    }
+
+    function fAjax_updateAction() {
+        var serviceURL = '/JobOrder/AjaxTest';
+
+        $.ajax({
+            type: "POST",
+            url: serviceURL,
+            data: param = "",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: successFunc,
+            error: errorFunc
+        });
+
+        function successFunc(data, status) {
+            alert(data);    
+        }
+
+        function errorFunc() {
+            alert('error');
+        }
+    }
+</script>

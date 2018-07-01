@@ -8,7 +8,10 @@
             <li>
                 @Html.DisplayFor(modelItem => item.Desc) + @SvcId
                 [ @Html.ActionLink("Mark Done", "ActionDone",new { srvactionitemid = item.Id, svcid = SvcId }) ]
+
+                - <a id="@item.Id" name="@item.Id" href="" class="clickitem">test</a>
             </li>
         }
     </ul>
 </div>
+

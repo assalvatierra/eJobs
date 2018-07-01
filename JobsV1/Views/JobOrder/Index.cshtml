@@ -32,3 +32,16 @@
 }
 
 </table>
+
+@Html.Partial("PartialViewJS")
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            initialize();
+        });
+
+    </script>
+
+}
