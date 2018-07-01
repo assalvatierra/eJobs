@@ -1,0 +1,15 @@
+﻿@model IEnumerable<JobsV1.Models.JobServiceItem>
+
+
+<div class="section">
+    <h4>Inventory Items</h4>
+    <ul>
+        @foreach (var item in Model)
+        {
+            <li>
+                @Html.DisplayFor(modelItem => item.InvItem.ItemCode)
+            </li>
+        }
+    </ul>
+</div>
+

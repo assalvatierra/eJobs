@@ -275,6 +275,7 @@
     <Compile Include="Controllers\JobContactsController.cs" />
     <Compile Include="Controllers\JobItinerariesController.cs" />
     <Compile Include="Controllers\JobMainsController.cs" />
+    <Compile Include="Controllers\JobOrderController.cs" />
     <Compile Include="Controllers\JobPaymentsController.cs" />
     <Compile Include="Controllers\JobPickupsController.cs" />
     <Compile Include="Controllers\JobServicePickupsController.cs" />
@@ -600,6 +601,7 @@
     <Content Include="Models\JobNotes.sql" />
     <Content Include="Models\ProductsDB.sql" />
     <Content Include="Models\SalesLead.sql" />
+    <Content Include="Models\InitTestData.sql" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -861,6 +863,11 @@
     <Content Include="Views\SalesActivities\Index.cshtml" />
     <Content Include="Views\SalesLeads\CreateCustomer.cshtml" />
     <Content Include="Views\SalesLeads\CompanyDetail.cshtml" />
+    <Content Include="Views\JobOrder\Index.cshtml" />
+    <Content Include="Views\JobOrder\PartialViewService.cshtml" />
+    <Content Include="Views\JobOrder\PartialViewServiceList.cshtml" />
+    <Content Include="Views\JobOrder\PartialViewJobServiceItems.cshtml" />
+    <Content Include="Views\JobOrder\PartialViewSrvActionItems.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
