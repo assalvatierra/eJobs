@@ -19,6 +19,7 @@ namespace JobsV1.Controllers
         public int Id { get; set; }
         public Models.JobMain Main { get; set; }
         public List<cJobService> Services { get; set; }
+        public List<cjobCounter> ActionCounter { get; set; }
     }
 
     public class cJobService
@@ -29,6 +30,15 @@ namespace JobsV1.Controllers
         public IQueryable<Models.JobAction> Actions { get; set; }
         public IQueryable<Models.SrvActionItem> SvcActions { get; set; }
         public IQueryable<Models.JobServiceItem> SvcItems { get; set; }
+    }
+
+    public class cjobCounter
+    {
+        public int JobId { get; set; }
+        public int? CodeId { get; set; }
+        public string CodeDesc { get; set; }
+        public int CntItem { get; set; }
+        public int CntDone { get; set; }
     }
 
     public class JobOrderController : Controller
@@ -52,10 +62,9 @@ namespace JobsV1.Controllers
                 .Include(j => j.Branch)
                 .Include(j => j.JobStatus)
                 .Include(j => j.JobThru)
-                
                 .OrderBy(d => d.JobDate);
             jobMains = (IQueryable<Models.JobMain>)jobMains.Where(d => d.JobStatusId == JOBRESERVATION || d.JobStatusId == JOBCONFIRMED);
-
+            List<cjobCounter> jobActionCntr = getJobActionCount(jobMains.Select(d => d.Id).ToList());
             var data = new List<cJobOrder>();
 
            
@@ -71,12 +80,16 @@ namespace JobsV1.Controllers
                     cJobService cjoTmp = new cJobService();
                     cjoTmp.Service = svc;
 
-                    cjoTmp.SvcActions = db.SrvActionItems.Where(d => d.ServicesId == svc.ServicesId).Include(d => d.SrvActionCode);
+                    var ActionDone = db.JobActions.Where(d => d.JobServicesId == svc.Id).Select(s => s.SrvActionItemId);
+
+                    cjoTmp.SvcActions = db.SrvActionItems.Where(d => d.ServicesId == svc.ServicesId && !ActionDone.Contains(d.Id) ).Include(d => d.SrvActionCode);
                     cjoTmp.Actions = db.JobActions.Where(d => d.JobServicesId == svc.Id).Include(d=>d.SrvActionItem);
                     cjoTmp.SvcItems = db.JobServiceItems.Where(d => d.JobServicesId == svc.Id).Include(d => d.InvItem);
 
                     joTmp.Services.Add(cjoTmp);
                 }
+
+                joTmp.ActionCounter = jobActionCntr.Where(d => d.JobId == joTmp.Main.Id).ToList();
 
                 data.Add(joTmp);
             }
@@ -84,6 +97,41 @@ namespace JobsV1.Controllers
             return View(data);
         }
 
+
+        public List<cjobCounter> getJobActionCount(List<Int32> jobidlist )
+        {
+            #region sqlstr
+            string sqlstr = @"
+select max(x.jobid) JobId, x.Id CodeId, max(x.code) CodeDesc, sum(x.ActionCount) CntItem, sum(x.DoneCount) CntDone
+from 
+(
+
+select max(a.JobMainId) jobid , d.Id, max(d.CatCode) code, '0' as ActionCount, count(b.Id) DoneCount
+from JobServices a
+left outer join JobActions b on a.Id = b.JobServicesId
+left outer join SrvActionitems c on b.SrvActionItemId = c.Id
+left outer join SrvActionCodes d on c.SrvActionCodeId = d.Id
+Group by a.JobMainId,d.Id
+
+union
+
+select max(a.JobMainId) jobid , d.Id, max(d.CatCode) code, count(c.Id) as ActionCount, '0' as DoneCount
+from JobServices a
+left outer join [Services] b on a.ServicesId = b.Id
+left outer join SrvActionitems c on b.Id = c.ServicesId
+left outer join SrvActionCodes d on c.SrvActionCodeId = d.Id
+Group by a.JobMainId,d.Id
+)x Group by x.jobid, x.Id
+order by x.jobid
+;
+
+";
+            #endregion
+            List<cjobCounter> jobcntr = db.Database.SqlQuery<cjobCounter>(sqlstr).Where(d=>jobidlist.Contains(d.JobId)).ToList();
+            return jobcntr;
+        }
+
+        //Obsolete
         public ActionResult ActionDone(int srvactionitemid, int svcid)
         {
             Models.JobAction newAction = new JobAction();
@@ -100,6 +148,26 @@ namespace JobsV1.Controllers
 
         }
 
+        //Ajax Call
+        public ActionResult MarkDone(int SvcId, int ActionId)
+        {
+            Models.JobAction jaTmp = new JobAction();
+            jaTmp.AssignedTo = User.Identity.Name;
+            jaTmp.DtAssigned = DateTime.Now;
+            jaTmp.DtPerformed = DateTime.Now;
+            jaTmp.PerformedBy = User.Identity.Name;
+            jaTmp.Remarks = "Done";
+            jaTmp.JobServicesId = SvcId;
+            jaTmp.SrvActionItemId = ActionId;
+
+            db.JobActions.Add(jaTmp);
+            db.SaveChanges();
+
+            return Json("from MarkDone:" + SvcId.ToString() + "/" + ActionId.ToString(),
+                JsonRequestBehavior.AllowGet);
+        }
+
+        //ajax test
         public ActionResult AjaxTest()
         {
             return Json("insomia", JsonRequestBehavior.AllowGet);

@@ -114,7 +114,10 @@
         <AssociationConnector Association="JobDB.SupplierSupplierInvItem" />
         <AssociationConnector Association="JobDB.InvItemSupplierInvItem" />
         <AssociationConnector Association="JobDB.ServicesSrvActionItem" />
-        <AssociationConnector Association="JobDB.SrvActionItemJobAction" />
+        <AssociationConnector Association="JobDB.SrvActionItemJobAction" ManuallyRouted="true" >
+          <ConnectorPoint PointX="19.875" PointY="23.06224609375" />
+          <ConnectorPoint PointX="19.375" PointY="23.06224609375" />
+        </AssociationConnector>
         <AssociationConnector Association="JobDB.SrvActionCodeSrvActionItem" />
       </Diagram>
     </edmx:Diagrams>

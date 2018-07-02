@@ -5,12 +5,48 @@
     }
 
     function fClick_item() {
-        alert(".clickitem - clicked : " + $(this).attr("id"));
-        fAjax_updateAction();
+        var svcid = $(this).attr("data_svcid");
+        var actionid = $(this).attr("id");
+
+        //alert(".clickitem - svcid : " + svcid + " : actionid : " + actionid);
+        var r = confirm("Mark '" + $(this).attr("Name") + "' as done?");
+
+        if (r) {
+            fAjax_updateAction(svcid, actionid);
+        }
+
         event.preventDefault();
     }
 
-    function fAjax_updateAction() {
+    //AJAX CALLS
+    function fAjax_updateAction(svcid, actionid) {
+        var serviceURL = '/JobOrder/MarkDone';
+        //alert("fAjax_updateAction - svcid : " + svcid + " : actionid : " + actionid);
+
+        $.ajax({
+            type: "GET",
+            url: serviceURL,
+            data: { SvcId: svcid, ActionId: actionid },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: successFunc,
+            error: errorFunc
+        });
+
+        function successFunc(data, status) {
+            alert("Successfully Done!");
+            $("#" + actionid).hide();
+        }
+
+        function errorFunc() {
+            alert('error');
+        }
+    }
+
+
+    // test function
+    /*
+    function fAjax_test() {
         var serviceURL = '/JobOrder/AjaxTest';
 
         $.ajax({
@@ -31,4 +67,5 @@
             alert('error');
         }
     }
+    */
 </script>

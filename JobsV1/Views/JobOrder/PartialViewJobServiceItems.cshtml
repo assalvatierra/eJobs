@@ -2,14 +2,14 @@
 
 
 <div class="section">
-    <h4>Inventory Items</h4>
-    <ul>
+    <span>Inventory </span>
         @foreach (var item in Model)
         {
-            <li>
+            <span>&#187;</span>
+             <span>
                 @Html.DisplayFor(modelItem => item.InvItem.ItemCode)
-            </li>
+            </span>
         }
-    </ul>
+    
 </div>
 

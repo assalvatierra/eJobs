@@ -1,17 +1,14 @@
 ﻿@model IEnumerable<JobsV1.Models.SrvActionItem>
 @{ int SvcId = Convert.ToInt32(ViewData["svcId1"]);  }
-<div class="section">
-    <h4>Action Items</h4>
-    <ul>
+
+<div>
+    <span>Tasks </span>
         @foreach (var item in Model)
         {
-            <li>
-                @Html.DisplayFor(modelItem => item.Desc) + @SvcId
-                [ @Html.ActionLink("Mark Done", "ActionDone",new { srvactionitemid = item.Id, svcid = SvcId }) ]
-
-                - <a id="@item.Id" name="@item.Id" href="" class="clickitem">test</a>
-            </li>
+            <span>&#187;</span>
+            <span>
+                <a id="@item.Id" data_svcid="@SvcId" name="@item.Desc" href="" class="clickitem">@item.Desc</a>
+            </span>
         }
-    </ul>
 </div>
 
