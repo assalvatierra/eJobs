@@ -22,6 +22,8 @@ namespace JobsV1.Controllers
             return View(jobServices.ToList());
         }
 
+
+
         public ActionResult Services(int? id)
         {
             ViewBag.JobMainId = id;
@@ -518,7 +520,13 @@ namespace JobsV1.Controllers
 
             return RedirectToAction("Services", new { id= JobId } );
         }
-
-
+        
+        //web service call to send notification
+        public void Notification(int id)
+        {
+            SMSWebService ws = new SMSWebService();
+            ws.AddNotification(id);
+        }
+        
     }
 }
