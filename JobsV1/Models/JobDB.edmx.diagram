@@ -119,6 +119,7 @@
           <ConnectorPoint PointX="19.375" PointY="23.06224609375" />
         </AssociationConnector>
         <AssociationConnector Association="JobDB.SrvActionCodeSrvActionItem" />
+        <EntityTypeShape EntityType="JobDB.JobNotificationRequest" Width="1.5" PointX="10.5" PointY="19.625" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

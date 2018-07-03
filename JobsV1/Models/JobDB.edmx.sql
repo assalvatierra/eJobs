@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/01/2018 13:52:50
--- Generated from EDMX file: C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\Models\JobDB.edmx
+-- Date Created: 07/03/2018 12:22:27
+-- Generated from EDMX file: D:\Data\Real\Apps\GitHub\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -351,6 +351,9 @@ IF OBJECT_ID(N'[dbo].[JobServiceItems]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[SupplierInvItems]', 'U') IS NOT NULL
     DROP TABLE [dbo].[SupplierInvItems];
+GO
+IF OBJECT_ID(N'[dbo].[JobNotificationRequests]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[JobNotificationRequests];
 GO
 
 -- --------------------------------------------------
@@ -940,6 +943,15 @@ CREATE TABLE [dbo].[SupplierInvItems] (
 );
 GO
 
+-- Creating table 'JobNotificationRequests'
+CREATE TABLE [dbo].[JobNotificationRequests] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [ServiceId] int  NOT NULL,
+    [ReqDt] datetime  NOT NULL,
+    [RefId] nvarchar(20)  NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -1271,6 +1283,12 @@ GO
 -- Creating primary key on [Id] in table 'SupplierInvItems'
 ALTER TABLE [dbo].[SupplierInvItems]
 ADD CONSTRAINT [PK_SupplierInvItems]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'JobNotificationRequests'
+ALTER TABLE [dbo].[JobNotificationRequests]
+ADD CONSTRAINT [PK_JobNotificationRequests]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 

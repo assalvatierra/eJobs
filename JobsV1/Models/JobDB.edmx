@@ -61,6 +61,7 @@
     <EntitySet Name="InvItemCategories" EntityType="JobDB.Store.InvItemCategories" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="JobServiceItems" EntityType="JobDB.Store.JobServiceItems" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SupplierInvItems" EntityType="JobDB.Store.SupplierInvItems" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="JobNotificationRequests" EntityType="JobDB.Store.JobNotificationRequests" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="JobMainJobType" Association="JobDB.Store.JobMainJobType">
       <End Role="JobMain" EntitySet="JobMains" />
       <End Role="JobType" EntitySet="JobTypes" />
@@ -864,6 +865,15 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="SupplierId" Type="int" Nullable="false" />
     <Property Name="InvItemId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="JobNotificationRequests">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceId" Type="int" Nullable="false" />
+    <Property Name="ReqDt" Type="datetime" Nullable="false" />
+    <Property Name="RefId" Type="nvarchar" Nullable="true" MaxLength="20" />
   </EntityType>
   <Association Name="JobMainJobType">
     <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="1" />
@@ -1805,6 +1815,7 @@
             <End Role="SrvActionCode" EntitySet="SrvActionCodes" />
             <End Role="SrvActionItem" EntitySet="SrvActionItems" />
           </AssociationSet>
+          <EntitySet Name="JobNotificationRequests" EntityType="JobDB.JobNotificationRequest" />
         </EntityContainer>
         <EntityType Name="JobMain">
           <Key>
@@ -3159,6 +3170,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="JobNotificationRequest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServiceId" Type="Int32" Nullable="false" />
+          <Property Name="ReqDt" Type="DateTime" Nullable="false" />
+          <Property Name="RefId" Type="String" Nullable="true" MaxLength="20" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3800,6 +3820,16 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
           <ScalarProperty Name="InvItemId" ColumnName="InvItemId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobNotificationRequests">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.JobNotificationRequest)">
+        <MappingFragment StoreEntitySet="JobNotificationRequests">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+          <ScalarProperty Name="ReqDt" ColumnName="ReqDt" />
+          <ScalarProperty Name="RefId" ColumnName="RefId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
