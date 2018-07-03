@@ -131,6 +131,12 @@ order by x.jobid
             return jobcntr;
         }
 
+        public ActionResult BrowseInvItem(int JobServiceId)
+        {
+            var data = db.InvItems.ToList();
+            return View(data); //no view to view
+        }
+
         //Obsolete
         public ActionResult ActionDone(int srvactionitemid, int svcid)
         {

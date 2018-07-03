@@ -387,6 +387,9 @@
     <Compile Include="Models\JobNote.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\JobNotificationRequest.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\JobPayment.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>

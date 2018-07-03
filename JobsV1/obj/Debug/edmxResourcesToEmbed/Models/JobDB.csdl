@@ -276,6 +276,7 @@
       <End Role="SrvActionCode" EntitySet="SrvActionCodes" />
       <End Role="SrvActionItem" EntitySet="SrvActionItems" />
     </AssociationSet>
+    <EntitySet Name="JobNotificationRequests" EntityType="JobDB.JobNotificationRequest" />
   </EntityContainer>
   <EntityType Name="JobMain">
     <Key>
@@ -1630,4 +1631,13 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="JobNotificationRequest">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ServiceId" Type="Int32" Nullable="false" />
+    <Property Name="ReqDt" Type="DateTime" Nullable="false" />
+    <Property Name="RefId" Type="String" Nullable="true" MaxLength="20" />
+  </EntityType>
 </Schema>

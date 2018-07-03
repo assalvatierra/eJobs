@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<JobsV1.Models.JobServiceItem>
-
+@{ int SvcId = Convert.ToInt32(ViewData["svcId1"]);  }
 
 <div class="section">
     <span>Inventory </span>
@@ -10,6 +10,7 @@
                 @Html.DisplayFor(modelItem => item.InvItem.ItemCode)
             </span>
         }
+    @Html.ActionLink("Add","BrowseInvItem",new { JobServiceId = @SvcId })
     
 </div>
 
