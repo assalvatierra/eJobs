@@ -23,6 +23,14 @@ namespace JobsV1.Controllers
         public int status { get; set; }
     }
 
+    public class cItemSchedule
+    {
+        public int ItemId { get; set; }
+        public int JobId { get; set; }
+        public int ServiceId { get; set; }
+        public DateTime DtStart { get; set; }
+        public DateTime DtEnd { get; set; }
+    }
 
     public class InvItemsController : Controller
     {
@@ -36,11 +44,24 @@ namespace JobsV1.Controllers
 
         public ActionResult ItemSchedules()
         {
+            #region get itemJobs
+            string SqlStr = @"
+select  b.InvItemId, c.JobMainId, c.Id ServiceId, c.Particulars, c.DtStart, c.DtEnd from 
+InvItems a
+left outer join JobServiceItems b on b.InvItemId = a.Id 
+left outer join JobServices c on b.JobServicesId = c.Id
+;";
+            List<cItemSchedule> itemJobs = db.Database.SqlQuery<cItemSchedule>(SqlStr).ToList();
+
+            //cItemSchedule
+            #endregion
+
             int NoOfDays = 10;
             List<ItemSchedule> ItemSched = new List<ItemSchedule>();
 
             var InvItems = db.InvItems.ToList();
             var ItemId = db.InvItems.Select(s => s.Id).ToList();
+
 
             foreach ( var d in InvItems)
             {
@@ -49,8 +70,10 @@ namespace JobsV1.Controllers
                 ItemTmp.ItemId = d.Id;
                 ItemTmp.Item = d;
 
-                var JobServiceList = db.JobServices.Where(s => DateTime.Now.AddDays(-1) <= s.DtStart).Include(j => j.JobServiceItems); //.Where(k=>ItemId.Contains(k.)
-                foreach( var jsItem in JobServiceList )
+                //var JobServiceList = itemJobs.Where(d=>d.ItemId == d.)
+
+
+                foreach ( var jsItem in JobServiceList )
                 {
 
                 }
@@ -65,6 +88,9 @@ namespace JobsV1.Controllers
             //Models.InvItem item =
             return View();
         }
+
+
+        
 
         // GET: InvItems/Details/5
         public ActionResult Details(int? id)

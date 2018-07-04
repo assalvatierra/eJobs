@@ -1,3 +1,5 @@
-﻿select * from JobServices a
-left outer join JobServiceItems b on b.JobServicesId = a.Id
+﻿select  b.InvItemId, c.JobMainId, c.Id ServiceId, c.Particulars, c.DtStart, c.DtEnd from 
+InvItems a
+left outer join JobServiceItems b on b.InvItemId = a.Id 
+left outer join JobServices c on b.JobServicesId = c.Id
 ;
