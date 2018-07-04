@@ -73,10 +73,10 @@ left outer join JobServices c on b.JobServicesId = c.Id
                 //var JobServiceList = itemJobs.Where(d=>d.ItemId == d.)
 
 
-                foreach ( var jsItem in JobServiceList )
-                {
+                //foreach ( var jsItem in JobServiceList )
+                //{
 
-                }
+                //}
 
                 //foreach()
 
