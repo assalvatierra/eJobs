@@ -131,11 +131,19 @@ order by x.jobid
             return jobcntr;
         }
 
+        #region Inventory Items
+        public ActionResult InventoryItemList()
+        {
+            var data = db.InvItems.ToList();
+            return View(data); //no view to view
+        }
+
         public ActionResult BrowseInvItem(int JobServiceId)
         {
             var data = db.InvItems.ToList();
             return View(data); //no view to view
         }
+        #endregion
 
         //Obsolete
         public ActionResult ActionDone(int srvactionitemid, int svcid)

@@ -271,6 +271,7 @@
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\DestinationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InvItemsController.cs" />
     <Compile Include="Controllers\JobChecklistsController.cs" />
     <Compile Include="Controllers\JobContactsController.cs" />
     <Compile Include="Controllers\JobItinerariesController.cs" />
@@ -877,6 +878,11 @@
     <Content Include="Views\JobOrder\PartialViewJobServiceItems.cshtml" />
     <Content Include="Views\JobOrder\PartialViewSrvActionItems.cshtml" />
     <Content Include="Views\JobOrder\PartialViewJS.cshtml" />
+    <Content Include="Views\InvItems\Create.cshtml" />
+    <Content Include="Views\InvItems\Delete.cshtml" />
+    <Content Include="Views\InvItems\Details.cshtml" />
+    <Content Include="Views\InvItems\Edit.cshtml" />
+    <Content Include="Views\InvItems\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
