@@ -81,5 +81,7 @@ namespace JobsV1.Models
         public virtual DbSet<JobServiceItem> JobServiceItems { get; set; }
         public virtual DbSet<SupplierInvItem> SupplierInvItems { get; set; }
         public virtual DbSet<JobNotificationRequest> JobNotificationRequests { get; set; }
+
+        public System.Data.Entity.DbSet<JobsV1.Controllers.ItemSchedule> ItemSchedules { get; set; }
     }
 }
