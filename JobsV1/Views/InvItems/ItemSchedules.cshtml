@@ -50,6 +50,10 @@
             string sBgColor = "none";
             if(dt.status==1)
             { sBgColor = "darkgray"; }
+            if (dt.status > 1)
+            { sBgColor = "red"; }
+
+
             <td style="border:1px solid red; background-color:@sBgColor;">
                 <span>@Html.DisplayFor(modelItemday => dt.Day)</span>
             </td>

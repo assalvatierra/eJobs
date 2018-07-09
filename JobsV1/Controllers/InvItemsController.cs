@@ -100,7 +100,7 @@ left outer join JobServices c on b.JobServicesId = c.Id
 
                         if ( istart >= 0 && iend <= 0 )
                         {
-                            dsTmp.status = 1;
+                            dsTmp.status += 1;
                         }
                     }
 
@@ -131,7 +131,11 @@ left outer join JobServices c on b.JobServicesId = c.Id
             return View(ItemSched);
         }
 
-
+        public ActionResult ItemList_byServiceId(int serviceId)
+        {
+            var data = db.JobServiceItems.Where(d => d.JobServicesId == serviceId).Include(j=>j.InvItem).ToList();
+            return View(data);
+        }
         
 
         // GET: InvItems/Details/5
