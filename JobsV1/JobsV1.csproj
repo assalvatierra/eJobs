@@ -884,6 +884,8 @@
     <Content Include="Views\InvItems\Edit.cshtml" />
     <Content Include="Views\InvItems\Index.cshtml" />
     <Content Include="Views\InvItems\ItemSchedules.cshtml" />
+    <Content Include="Views\InvItems\ItemList_byServiceId.cshtml" />
+    <Content Include="Views\JobOrder\InventoryItemList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

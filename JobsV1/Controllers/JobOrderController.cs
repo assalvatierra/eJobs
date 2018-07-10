@@ -132,16 +132,27 @@ order by x.jobid
         }
 
         #region Inventory Items
-        public ActionResult InventoryItemList()
+        public ActionResult InventoryItemList(int serviceId)
         {
-            var data = db.InvItems.ToList();
-            return View(data); //no view to view
+            var data = db.JobServiceItems.Where(d => d.JobServicesId == serviceId).Include(j => j.InvItem).ToList();
+            ViewBag.hdrdata = db.JobServices.Find(serviceId);
+            return View(data); 
         }
 
         public ActionResult BrowseInvItem(int JobServiceId)
         {
             var data = db.InvItems.ToList();
             return View(data); //no view to view
+        }
+
+        public ActionResult RemoveItem(int itemId, int serviceId)
+        {
+            string sqlstr = "Delete from JobServiceItems where JobServicesId = " + serviceId.ToString()
+                + " AND InvItemId = " + itemId.ToString();
+
+            db.Database.ExecuteSqlCommand(sqlstr);
+
+            return RedirectToAction("InventoryItemList", new { serviceId = serviceId });
         }
         #endregion
 

@@ -10,7 +10,9 @@
                 @Html.DisplayFor(modelItem => item.InvItem.ItemCode)
             </span>
         }
+    [
+    @Html.ActionLink("Edit", "InventoryItemList", new { serviceId = @SvcId }) | 
     @Html.ActionLink("Add","BrowseInvItem",new { JobServiceId = @SvcId })
-    
+    ]
 </div>
 
