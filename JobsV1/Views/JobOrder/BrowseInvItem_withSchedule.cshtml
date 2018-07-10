@@ -1,0 +1,69 @@
+﻿@model IEnumerable<JobsV1.Models.ItemSchedule>
+
+@{
+    ViewBag.Title = "Select Item";
+
+    List<JobsV1.Models.DayLabel> vLabel = (List<JobsV1.Models.DayLabel>)ViewBag.dtLabel;
+    
+
+}
+
+<h2>Select Item to Add</h2>
+
+<table class="table">
+    <tr>
+        <td>ITEM</td>
+        @foreach (var dtLabel in vLabel)
+        {
+            <td>
+                @{
+                    string fColor = "darkgray";
+                    if (@dtLabel.sDayName == "Sun")
+                    { fColor = "red"; }
+                    if (@dtLabel.sDayName == "Sat")
+                    { fColor = "blue"; }
+                }
+
+                <span style="color: @fColor ; ">
+                    @dtLabel.sDayNo
+                </span>
+                <br />
+                <span style="color: @fColor ; ">
+                    @dtLabel.sDayName
+                </span>
+
+            </td>
+                    }
+
+
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemId)
+                <span style="font:700 12px verdana,arial;">
+                @Html.ActionLink(item.Item.ItemCode + "-" + @item.Item.Description,
+                "AddItem", new { itemId = @item.ItemId, serviceId = @ViewBag.serviceId } )
+                </span>
+                <span>@item.Item.Remarks</span>
+            </td>
+
+            @foreach (var dt in item.dayStatus)
+            {
+                string sBgColor = "none";
+                if (dt.status == 1)
+                { sBgColor = "darkgray"; }
+                if (dt.status > 1)
+                { sBgColor = "red"; }
+
+
+                <td style="border:1px solid red; background-color:@sBgColor;">
+                    <span>@Html.DisplayFor(modelItemday => dt.Day)</span>
+                </td>
+            }
+
+        </tr>
+    }
+
+</table>

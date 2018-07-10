@@ -139,10 +139,22 @@ order by x.jobid
             return View(data); 
         }
 
-        public ActionResult BrowseInvItem(int JobServiceId)
+        public ActionResult BrowseInvItem_withSchedule(int JobServiceId)
         {
-            var data = db.InvItems.ToList();
-            return View(data); //no view to view
+            DBClasses dbclass = new DBClasses();
+            Models.getItemSchedReturn gret = dbclass.ItemSchedules();
+            ViewBag.dtLabel = gret.dLabel;
+            ViewBag.serviceId = JobServiceId;
+            return View(gret.ItemSched);
+        }
+
+        public ActionResult AddItem(int itemId, int serviceId)
+        {
+            string sqlstr = "Insert Into JobServiceItems([JobServicesId],[InvItemId]) values(" + serviceId.ToString() + "," + itemId.ToString() + ")";
+            db.Database.ExecuteSqlCommand(sqlstr);
+
+            return RedirectToAction("Index", new { serviceId = serviceId });
+
         }
 
         public ActionResult RemoveItem(int itemId, int serviceId)
