@@ -268,6 +268,7 @@
     <Compile Include="Controllers\CarRentalController.cs" />
     <Compile Include="Controllers\CarReservationsController.cs" />
     <Compile Include="Controllers\CarUnitsController.cs" />
+    <Compile Include="Controllers\CustEntitiesController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\DestinationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -323,6 +324,7 @@
     <Compile Include="Models\City.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CostumerViewModel.cs" />
     <Compile Include="Models\CustCat.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
@@ -509,6 +511,7 @@
     <Content Include="Areas\Accounting\Scripts\Sales.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\CustomerStyle.css" />
     <Content Include="Content\daterangepicker.css" />
     <Content Include="Content\ModalUser.css" />
     <Content Include="Content\themes\base\accordion.css" />
@@ -887,6 +890,12 @@
     <Content Include="Views\InvItems\ItemList_byServiceId.cshtml" />
     <Content Include="Views\JobOrder\InventoryItemList.cshtml" />
     <Content Include="Views\JobOrder\BrowseInvItem_withSchedule.cshtml" />
+    <Content Include="Views\Customers\PartialView_CompanyDetails.cshtml" />
+    <Content Include="Views\CustEntities\Create.cshtml" />
+    <Content Include="Views\CustEntities\Delete.cshtml" />
+    <Content Include="Views\CustEntities\Details.cshtml" />
+    <Content Include="Views\CustEntities\Edit.cshtml" />
+    <Content Include="Views\CustEntities\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

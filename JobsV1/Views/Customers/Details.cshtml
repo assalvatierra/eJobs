@@ -52,6 +52,14 @@
 
     </dl>
 </div>
+
+<p>
+    @Html.ActionLink("Add Company", "Create", "CustEntities", new { id = Model.Id }, null)
+</p>
+
+@{Html.RenderPartial("PartialView_CompanyDetails", (List<JobsV1.Models.CustEntMain>)ViewBag.companyList);}
+
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")

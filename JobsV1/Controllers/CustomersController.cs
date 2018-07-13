@@ -22,8 +22,36 @@ namespace JobsV1.Controllers
         // GET: Customers
         public ActionResult Index()
         {
-            return View(db.Customers.ToList());
+            var customerList = db.Customers.ToList();
+           
+            List<CostumerDetails> customerDetailList = new List<CostumerDetails>();
+            foreach (var customer in customerList)
+            {
+                customerDetailList.Add(new CostumerDetails {
+                    Id = customer.Id,
+                    Name = customer.Name,
+                    Email = customer.Email,
+                    Contact1 = customer.Contact1,
+                    Contact2 = customer.Contact2,
+                    Remarks = customer.Remarks,
+                    Status = customer.Status,
+                    JobID = 1,
+                    CustCategoryID = 1,
+                    CustCategoryIcon = "High",
+                    CustEntID = 0,
+                    CustEntName = "Company.Inc",
+                    CustEntIconPath = ""
+                   // JobID = db.JobMains.Where(jm => jm.CustomerId.Equals(customer.Id)).FirstOrDefault() == null ? 0 : db.JobMains.Where(jm => jm.CustomerId.Equals(customer.Id)).FirstOrDefault().Id,
+
+                });
+            }
+
+
+            //return View(db.Customers.ToList());
+            return View(customerDetailList);
+
         }
+        
 
         // GET: Customers/Details/5
         public ActionResult Details(int? id)
@@ -32,11 +60,56 @@ namespace JobsV1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Customer customer = db.Customers.Find(id);
+
             if (customer == null)
             {
                 return HttpNotFound();
             }
+
+            //PartialView for Details of the Customer
+
+            List<CustEntMain> CompanyList = new List<CustEntMain>();
+
+            //error
+            var CompanyRecord = db.CustEntities.Where(c => c.CustomerId == id).ToList();
+
+            if (CompanyRecord == null)
+            {
+
+                CompanyList.Add(new CustEntMain
+                {
+                    Id = 0,
+                    Name = "None",
+                    Address = "None",
+                    Contact1 = "None",
+                    Contact2 = "None",
+                    iconPath = "None"
+                });
+
+            }
+            else
+            {
+
+                foreach (var record in CompanyRecord) {
+              
+
+                    CompanyList.Add(new CustEntMain {
+                        Id = record.CustEntMain.Id,
+                        Name = record.CustEntMain.Name,
+                        Address = record.CustEntMain.Address,
+                        Contact1 = record.CustEntMain.Contact1,
+                        Contact2 = record.CustEntMain.Contact2,
+                        iconPath = record.CustEntMain.iconPath
+                    });
+               
+                }
+
+            }
+            ViewBag.companyList = CompanyList;
+            ViewBag.CustomerID = id;
+
             return View(customer);
         }
 
