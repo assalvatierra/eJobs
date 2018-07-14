@@ -269,6 +269,7 @@
     <Compile Include="Controllers\CarReservationsController.cs" />
     <Compile Include="Controllers\CarUnitsController.cs" />
     <Compile Include="Controllers\CustEntitiesController.cs" />
+    <Compile Include="Controllers\CustEntMainsController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\DestinationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -890,12 +891,18 @@
     <Content Include="Views\InvItems\ItemList_byServiceId.cshtml" />
     <Content Include="Views\JobOrder\InventoryItemList.cshtml" />
     <Content Include="Views\JobOrder\BrowseInvItem_withSchedule.cshtml" />
-    <Content Include="Views\Customers\PartialView_CompanyDetails.cshtml" />
     <Content Include="Views\CustEntities\Create.cshtml" />
     <Content Include="Views\CustEntities\Delete.cshtml" />
     <Content Include="Views\CustEntities\Details.cshtml" />
     <Content Include="Views\CustEntities\Edit.cshtml" />
     <Content Include="Views\CustEntities\Index.cshtml" />
+    <Content Include="Views\CustEntMains\Create.cshtml" />
+    <Content Include="Views\CustEntMains\Delete.cshtml" />
+    <Content Include="Views\CustEntMains\Details.cshtml" />
+    <Content Include="Views\CustEntMains\Edit.cshtml" />
+    <Content Include="Views\CustEntMains\Index.cshtml" />
+    <Content Include="Views\Customers\PartialView_CompanyDetails.cshtml" />
+    <Content Include="Views\Customers\PartialView_JobDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

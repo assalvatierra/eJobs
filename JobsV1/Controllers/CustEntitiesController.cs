@@ -33,14 +33,28 @@ namespace JobsV1.Controllers
             {
                 return HttpNotFound();
             }
+
+
+
             return View(custEntity);
         }
 
         // GET: CustEntities/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
+            if (id != null)
+            {
+                ViewBag.Id = id;
+            } else {
+                ViewBag.Id = 0;
+            }
+
+            Customer selectedCustomer = db.Customers.Find(id);
+            CustEntity custEntity = db.CustEntities.Find(id);
+
             ViewBag.CustEntMainId = new SelectList(db.CustEntMains, "Id", "Name");
-            ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name");
+            ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name", id);
+
             return View();
         }
 
@@ -55,7 +69,7 @@ namespace JobsV1.Controllers
             {
                 db.CustEntities.Add(custEntity);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Customers", new {id = custEntity.CustomerId });
             }
 
             ViewBag.CustEntMainId = new SelectList(db.CustEntMains, "Id", "Name", custEntity.CustEntMainId);
@@ -132,5 +146,18 @@ namespace JobsV1.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+        // POST: CustEntities/Remove/companyid,custid
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int companyid, int custid)
+        {
+            CustEntity custEntity = db.CustEntities.Where(c => c.CustEntMainId == companyid && c.CustomerId == custid).FirstOrDefault();
+            db.CustEntities.Remove(custEntity);
+            db.SaveChanges();
+            return RedirectToAction("Details","Customers",new { id=custid });
+        }
+
     }
 }

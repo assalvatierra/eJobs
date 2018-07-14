@@ -1,0 +1,66 @@
+﻿@model IEnumerable<JobsV1.Models.CustomerJobDetails >
+
+@{
+    ViewBag.Title = "PartialView_JobDetails";
+}
+<table class="table table-striped" >
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id )
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JobDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AgreedAmt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NoOfDays)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NoOfPax)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StatusRemarks)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AgreedAmt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoOfDays)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoOfPax)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StatusRemarks)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", "JobMains", new { id = item.Id },null)
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+<style>
+</style>

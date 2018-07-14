@@ -5,7 +5,7 @@ using System.Web;
 
 namespace JobsV1.Models
 {
-    public class CostumerDetails
+    public class CustomerDetails
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -14,12 +14,24 @@ namespace JobsV1.Models
         public string Contact2 { get; set; }
         public string Remarks { get; set; }
         public string Status { get; set; }
-        public int    JobID { get; set; }
-        public int    CustCategoryID { get; set; }
+        public int JobID { get; set; }
+        public int CustCategoryID { get; set; }
         public string CustCategoryIcon { get; set; }
-        public int    CustEntID { get; set; }
+        public int CustEntID { get; set; }
         public string CustEntName { get; set; }
         public string CustEntIconPath { get; set; }
+    }
+
+    
+    public class CustomerJobDetails
+    {
+        public int Id { get; set; }
+        public string JobDate { get; set; }
+        public string Description { get; set; }
+        public string AgreedAmt { get; set; }
+        public string NoOfDays { get; set; }
+        public string NoOfPax { get; set; }
+        public string StatusRemarks { get; set; }
     }
 
     public class CostumerViewModel

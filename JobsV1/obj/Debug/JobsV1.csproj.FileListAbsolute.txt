@@ -446,3 +446,4 @@ C:\Users\Villosa\Documents\GitHub\eJobs\JobsV1\bin\Microsoft.Owin.Security.Twitt
 C:\Users\Villosa\Documents\GitHub\eJobs\JobsV1\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\Villosa\Documents\GitHub\eJobs\JobsV1\obj\Debug\JobsV1.dll
 C:\Users\Villosa\Documents\GitHub\eJobs\JobsV1\obj\Debug\JobsV1.pdb
+C:\Users\Villosa\Documents\GitHub\eJobs\JobsV1\obj\Debug\JobsV1.csprojResolveAssemblyReference.cache

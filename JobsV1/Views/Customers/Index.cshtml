@@ -1,4 +1,4 @@
-﻿@model IEnumerable<JobsV1.Models.CostumerDetails >
+﻿@model IEnumerable<JobsV1.Models.CustomerDetails>
 
 @{
     ViewBag.Title = "Index";
@@ -12,6 +12,10 @@
 <table class="table">
     
     <tr>
+        <th>
+            Status
+        </th>
+
         <th>
             Customer
         </th>
@@ -38,17 +42,19 @@
     {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
                 <h4>@Html.DisplayFor(modelItem => item.Name)</h4>
                 <p>
                     <a href="mailto:@item.Email">@Html.DisplayFor(modelItem => item.Email)</a>
                 </p>
                 <p>
-                    <a href="tel:@item.Contact1">@Html.DisplayFor(modelItem => item.Contact1)</a>
+                    <a href="tel:@item.Contact1">@Html.DisplayFor(modelItem => item.Contact1)</a> |
                     <a href="tel:@item.Contact2">@Html.DisplayFor(modelItem => item.Contact2)</a>
                 </p>
                 <p>
                     @Html.DisplayFor(modelItem => item.Remarks)
-                    @Html.DisplayFor(modelItem => item.Status)
                 </p>
             </td>
             <td>

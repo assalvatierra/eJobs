@@ -53,14 +53,26 @@
     </dl>
 </div>
 
-<p>
-    @Html.ActionLink("Add Company", "Create", "CustEntities", new { id = Model.Id }, null)
+<p style="padding:2px">
+    <h2>Company List</h2>
+        @Html.ActionLink("Add Company", "Create", "CustEntities", new { id = Model.Id }, new { @class = "btn btn-default" })
+
 </p>
+@{Html.RenderPartial("PartialView_CompanyDetails", (List<JobsV1.Models.CustEntMain>)ViewBag.companyList );}
 
-@{Html.RenderPartial("PartialView_CompanyDetails", (List<JobsV1.Models.CustEntMain>)ViewBag.companyList);}
+<p style="padding:2px">
+    <h2>Job List</h2>
+
+        @Html.ActionLink("Add Job", "Create", "JobMains", new { id = Model.Id }, new { @class = "btn btn-default" })
+
+</p>
+@{Html.RenderPartial("PartialView_JobDetails", (List<JobsV1.Models.CustomerJobDetails>)ViewBag.jobList);}
+
+
 
 
 <p>
+    @Html.ActionLink("Home", "Index", "Home", null, null) |
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

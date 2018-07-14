@@ -4,9 +4,8 @@
     ViewBag.Title = "PartialView_CompanyDetails";
 }
 
-<h2>PartialView_CompanyDetails</h2>
 
-<table class="table">
+<table class="table table-striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Name)
@@ -44,9 +43,8 @@
             @Html.DisplayFor(modelItem => item.iconPath)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Details", "Details", "CustEntMains",new { id = item.Id }, null) |
+            @Html.ActionLink("Remove", "Index", "CustEntities" ,null, null)
         </td>
     </tr>
 }
