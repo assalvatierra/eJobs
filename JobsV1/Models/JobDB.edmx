@@ -62,6 +62,7 @@
     <EntitySet Name="JobServiceItems" EntityType="JobDB.Store.JobServiceItems" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SupplierInvItems" EntityType="JobDB.Store.SupplierInvItems" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="JobNotificationRequests" EntityType="JobDB.Store.JobNotificationRequests" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CustFiles" EntityType="JobDB.Store.CustFiles" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="JobMainJobType" Association="JobDB.Store.JobMainJobType">
       <End Role="JobMain" EntitySet="JobMains" />
       <End Role="JobType" EntitySet="JobTypes" />
@@ -281,6 +282,10 @@
     <AssociationSet Name="SrvActionCodeSrvActionItem" Association="JobDB.Store.SrvActionCodeSrvActionItem">
       <End Role="SrvActionCode" EntitySet="SrvActionCodes" />
       <End Role="SrvActionItem" EntitySet="SrvActionItems" />
+    </AssociationSet>
+    <AssociationSet Name="CustomerCustFiles" Association="JobDB.Store.CustomerCustFiles">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="CustFiles" EntitySet="CustFiles" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="JobMains">
@@ -874,6 +879,17 @@
     <Property Name="ServiceId" Type="int" Nullable="false" />
     <Property Name="ReqDt" Type="datetime" Nullable="false" />
     <Property Name="RefId" Type="nvarchar" Nullable="true" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="CustFiles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Desc" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="Folder" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="Path" Type="nvarchar" Nullable="false" MaxLength="250" />
+    <Property Name="Remarks" Type="nvarchar" Nullable="true" MaxLength="150" />
+    <Property Name="CustomerId" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="JobMainJobType">
     <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="1" />
@@ -1535,6 +1551,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="CustomerCustFiles">
+    <End Role="Customer" Type="JobDB.Store.Customers" Multiplicity="1" />
+    <End Role="CustFiles" Type="JobDB.Store.CustFiles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CustFiles">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -1816,6 +1844,11 @@
             <End Role="SrvActionItem" EntitySet="SrvActionItems" />
           </AssociationSet>
           <EntitySet Name="JobNotificationRequests" EntityType="JobDB.JobNotificationRequest" />
+          <EntitySet Name="CustFiles" EntityType="JobDB.CustFiles" />
+          <AssociationSet Name="CustomerCustFiles" Association="JobDB.CustomerCustFiles">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="CustFiles" EntitySet="CustFiles" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="JobMain">
           <Key>
@@ -1881,6 +1914,7 @@
           <NavigationProperty Name="SalesLeads" Relationship="JobDB.CustomerSalesLead" FromRole="Customer" ToRole="SalesLead" />
           <NavigationProperty Name="CustEntities" Relationship="JobDB.CustomerCustEntity" FromRole="Customer" ToRole="CustEntity" />
           <NavigationProperty Name="CustSalesCategories" Relationship="JobDB.CustomerCustSalesCategory" FromRole="Customer" ToRole="CustSalesCategory" />
+          <NavigationProperty Name="CustFiles" Relationship="JobDB.CustomerCustFiles" FromRole="Customer" ToRole="CustFiles" />
         </EntityType>
         <EntityType Name="JobType">
           <Key>
@@ -3179,6 +3213,30 @@
           <Property Name="ReqDt" Type="DateTime" Nullable="false" />
           <Property Name="RefId" Type="String" Nullable="true" MaxLength="20" />
         </EntityType>
+        <EntityType Name="CustFiles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Desc" Type="String" Nullable="false" MaxLength="150" />
+          <Property Name="Folder" Type="String" Nullable="false" MaxLength="150" />
+          <Property Name="Path" Type="String" Nullable="false" MaxLength="250" />
+          <Property Name="Remarks" Type="String" Nullable="true" MaxLength="150" />
+          <NavigationProperty Name="Customer" Relationship="JobDB.CustomerCustFiles" FromRole="CustFiles" ToRole="Customer" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="CustomerCustFiles">
+          <End Type="JobDB.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="JobDB.CustFiles" Role="CustFiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustFiles">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3830,6 +3888,18 @@
           <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
           <ScalarProperty Name="ReqDt" ColumnName="ReqDt" />
           <ScalarProperty Name="RefId" ColumnName="RefId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustFiles">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.CustFiles)">
+        <MappingFragment StoreEntitySet="CustFiles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Desc" ColumnName="Desc" />
+          <ScalarProperty Name="Folder" ColumnName="Folder" />
+          <ScalarProperty Name="Path" ColumnName="Path" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

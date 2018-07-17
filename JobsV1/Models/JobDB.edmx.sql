@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/05/2018 11:24:01
+-- Date Created: 07/17/2018 10:00:17
 -- Generated from EDMX file: D:\Data\Real\Apps\GitHub\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
@@ -952,6 +952,17 @@ CREATE TABLE [dbo].[JobNotificationRequests] (
 );
 GO
 
+-- Creating table 'CustFiles'
+CREATE TABLE [dbo].[CustFiles] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Desc] nvarchar(150)  NOT NULL,
+    [Folder] nvarchar(150)  NOT NULL,
+    [Path] nvarchar(250)  NOT NULL,
+    [Remarks] nvarchar(150)  NULL,
+    [CustomerId] int  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -1289,6 +1300,12 @@ GO
 -- Creating primary key on [Id] in table 'JobNotificationRequests'
 ALTER TABLE [dbo].[JobNotificationRequests]
 ADD CONSTRAINT [PK_JobNotificationRequests]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'CustFiles'
+ALTER TABLE [dbo].[CustFiles]
+ADD CONSTRAINT [PK_CustFiles]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -2119,6 +2136,21 @@ GO
 CREATE INDEX [IX_FK_SrvActionCodeSrvActionItem]
 ON [dbo].[SrvActionItems]
     ([SrvActionCodeId]);
+GO
+
+-- Creating foreign key on [CustomerId] in table 'CustFiles'
+ALTER TABLE [dbo].[CustFiles]
+ADD CONSTRAINT [FK_CustomerCustFiles]
+    FOREIGN KEY ([CustomerId])
+    REFERENCES [dbo].[Customers]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CustomerCustFiles'
+CREATE INDEX [IX_FK_CustomerCustFiles]
+ON [dbo].[CustFiles]
+    ([CustomerId]);
 GO
 
 -- --------------------------------------------------
