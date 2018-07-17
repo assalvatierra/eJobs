@@ -26,6 +26,18 @@
         <p>@Html.ActionLink("Add New »", "Create", "SalesLeads", null, new {@class = "btn btn-default"} ) </p>
 
     </div>
+
+    <div class="col-md-4">
+        <h2>Job Orders</h2>
+        <p>
+            Jobs and Work in Progress
+            @Html.ActionLink("List", "Index", "JobOrder")
+        </p>
+        <p>@Html.ActionLink("Add New »", "Create", "JobOrder", null, new { @class = "btn btn-default" }) </p>
+
+    </div>
+
+
     <div class="col-md-4">
         <h2>Suppliers</h2>
         <p>

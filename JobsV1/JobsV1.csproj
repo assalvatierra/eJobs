@@ -338,6 +338,9 @@
     <Compile Include="Models\CustEntMain.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CustFiles.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Customer.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>

@@ -57,6 +57,7 @@
     <EntitySet Name="JobServiceItems" EntityType="JobDB.Store.JobServiceItems" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SupplierInvItems" EntityType="JobDB.Store.SupplierInvItems" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="JobNotificationRequests" EntityType="JobDB.Store.JobNotificationRequests" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CustFiles" EntityType="JobDB.Store.CustFiles" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="JobMainJobType" Association="JobDB.Store.JobMainJobType">
       <End Role="JobMain" EntitySet="JobMains" />
       <End Role="JobType" EntitySet="JobTypes" />
@@ -276,6 +277,10 @@
     <AssociationSet Name="SrvActionCodeSrvActionItem" Association="JobDB.Store.SrvActionCodeSrvActionItem">
       <End Role="SrvActionCode" EntitySet="SrvActionCodes" />
       <End Role="SrvActionItem" EntitySet="SrvActionItems" />
+    </AssociationSet>
+    <AssociationSet Name="CustomerCustFiles" Association="JobDB.Store.CustomerCustFiles">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="CustFiles" EntitySet="CustFiles" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="JobMains">
@@ -869,6 +874,17 @@
     <Property Name="ServiceId" Type="int" Nullable="false" />
     <Property Name="ReqDt" Type="datetime" Nullable="false" />
     <Property Name="RefId" Type="nvarchar" Nullable="true" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="CustFiles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Desc" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="Folder" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="Path" Type="nvarchar" Nullable="false" MaxLength="250" />
+    <Property Name="Remarks" Type="nvarchar" Nullable="true" MaxLength="150" />
+    <Property Name="CustomerId" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="JobMainJobType">
     <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="1" />
@@ -1527,6 +1543,18 @@
       </Principal>
       <Dependent Role="SrvActionItem">
         <PropertyRef Name="SrvActionCodeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CustomerCustFiles">
+    <End Role="Customer" Type="JobDB.Store.Customers" Multiplicity="1" />
+    <End Role="CustFiles" Type="JobDB.Store.CustFiles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CustFiles">
+        <PropertyRef Name="CustomerId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
