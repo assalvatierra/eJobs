@@ -109,6 +109,7 @@ namespace JobsV1.Controllers
             //generate partial view list for companies
             PartialView_Companies(id);
             PartialView_Jobs(id);
+            PartialView_Categories(id);
             return View(customer);
         }
 
@@ -300,6 +301,48 @@ namespace JobsV1.Controllers
             }
 
             ViewBag.jobList = jobList;
+
+        }
+
+
+        private void PartialView_Categories(int? id)
+        {
+
+            //PartialView for Details of the Customer
+            List<CustCategory> categoryDetails = new List<CustCategory>();
+
+            //error
+            var categoryList = db.CustCats.Where(c => c.CustomerId == id).ToList();
+
+            if (categoryList == null)
+            {
+
+                categoryDetails.Add(new CustCategory
+                {
+                    Id = 0,
+                    iconPath = "none",
+                    Name = "not assigned"
+                });
+
+            }
+            else
+            {
+
+                foreach (var category in categoryList)
+                {
+                    categoryDetails.Add(new CustCategory
+                    {
+                        Id = category.CustCategory.Id,
+                        iconPath = category.CustCategory.iconPath,
+                        Name = category.CustCategory.Name
+
+                    });
+
+                }
+
+            }
+
+            ViewBag.categoryDetails = categoryDetails;
 
         }
     }

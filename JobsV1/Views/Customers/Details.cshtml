@@ -53,21 +53,29 @@
     </dl>
 </div>
 
-<p style="padding:2px">
-    <h2>Company List</h2>
+<div>
+    <p style="padding:2px">
+        <h2>Category List</h2>
+        @Html.ActionLink("Add Category", "Create", "CustCats", new { id = Model.Id }, new { @class = "btn btn-default" })
+    </p>
+    @{Html.RenderPartial("PartialView_CategoryDetails", (List<JobsV1.Models.CustCategory>)ViewBag.categoryDetails);}
+</div>
+<div>
+    <p style="padding:2px">
+        <h2>Company List</h2>
         @Html.ActionLink("Add Company", "Create", "CustEntities", new { id = Model.Id }, new { @class = "btn btn-default" })
-
-</p>
-@{Html.RenderPartial("PartialView_CompanyDetails", (List<JobsV1.Models.CustEntMain>)ViewBag.companyList );}
-
-<p style="padding:2px">
-    <h2>Job List</h2>
+    </p>
+    @{Html.RenderPartial("PartialView_CompanyDetails", (List<JobsV1.Models.CustEntMain>)ViewBag.companyList);}
+</div>
+<div>
+    <p style="padding:2px">
+        <h2>Job List</h2>
 
         @Html.ActionLink("Add Job", "Create", "JobMains", new { id = Model.Id }, new { @class = "btn btn-default" })
 
-</p>
-@{Html.RenderPartial("PartialView_JobDetails", (List<JobsV1.Models.CustomerJobDetails>)ViewBag.jobList);}
-
+    </p>
+    @{Html.RenderPartial("PartialView_JobDetails", (List<JobsV1.Models.CustomerJobDetails>)ViewBag.jobList);}
+</div>
 
 
 
