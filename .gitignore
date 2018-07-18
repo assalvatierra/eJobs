@@ -1,0 +1,6 @@
+JobsV1/Controllers/CustomersController.cs
+JobsV1/JobsV1.csproj
+JobsV1/obj/Debug/edmxResourcesToEmbed/Models/JobDB.csdl
+JobsV1/obj/Debug/edmxResourcesToEmbed/Models/JobDB.ssdl
+JobsV1/Views/Customers/Details.cshtml
+JobsV1/Views/Customers/Index.cshtml

@@ -256,7 +256,7 @@ namespace JobsV1.Controllers
             return View(jobMain);
         }
 
-        /*
+
         // GET: JobMains/Create
         public ActionResult Create()
         {
@@ -266,29 +266,6 @@ namespace JobsV1.Controllers
             job.NoOfPax = 1;
             
             ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status == "ACT"), "Id", "Name", NewCustSysId);
-            ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name");
-            ViewBag.JobStatusId = new SelectList(db.JobStatus, "Id", "Status");
-            ViewBag.JobThruId = new SelectList(db.JobThrus, "Id", "Desc");
-
-            return View(job);
-        }
-        */
-
-        // GET: JobMains/Create/id
-        public ActionResult Create(int? id)
-        {
-            JobMain job = new JobMain();
-            job.JobDate = System.DateTime.Today;
-            job.NoOfDays = 1;
-            job.NoOfPax = 1;
-
-            if (id == null){
-                ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status == "ACT"), "Id", "Name", NewCustSysId);
-            }
-            else {
-                ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name", id);
-            }
-
             ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name");
             ViewBag.JobStatusId = new SelectList(db.JobStatus, "Id", "Status");
             ViewBag.JobThruId = new SelectList(db.JobThrus, "Id", "Desc");

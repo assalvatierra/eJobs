@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/17/2018 10:00:17
+-- Date Created: 07/18/2018 09:25:39
 -- Generated from EDMX file: D:\Data\Real\Apps\GitHub\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
@@ -955,10 +955,10 @@ GO
 -- Creating table 'CustFiles'
 CREATE TABLE [dbo].[CustFiles] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Desc] nvarchar(150)  NOT NULL,
+    [Desc] nvarchar(180)  NOT NULL,
     [Folder] nvarchar(150)  NOT NULL,
-    [Path] nvarchar(250)  NOT NULL,
-    [Remarks] nvarchar(150)  NULL,
+    [Path] nvarchar(150)  NOT NULL,
+    [Remarks] nvarchar(180)  NULL,
     [CustomerId] int  NOT NULL
 );
 GO

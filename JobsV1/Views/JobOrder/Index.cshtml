@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Job Orders</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -42,9 +42,8 @@
                     @item.Main.Customer.Name
                 </span>
                 [
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Customer Details", "CompanyDetail", new { jobid = item.Main.Id, custid = item.Main.CustomerId}) |
+                @Html.ActionLink("Job Details", "JobDetails", new { jobid = item.Main.Id })                
                 ]
             </div>
             <div>

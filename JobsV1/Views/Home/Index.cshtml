@@ -27,6 +27,15 @@
 
     </div>
     <div class="col-md-4">
+        <h2>Job Orders</h2>
+        <p>
+            Jobs / Work in Progress
+            @Html.ActionLink("List", "Index", "JobOrder")
+        </p>
+        <p>@Html.ActionLink("Add New »", "Create", "JobOrder", null, new { @class = "btn btn-default" }) </p>
+
+    </div>
+    <div class="col-md-4">
         <h2>Suppliers</h2>
         <p>
             Tour Operators, Island Hopping,
@@ -96,7 +105,10 @@
         <p>
             Entity Contacts
             @Html.ActionLink("List", "Index", "JobContacts")
+
         </p>
         <p>@Html.ActionLink("Add New »", "Create", "JobContacts", null, new { @class = "btn btn-default" }) </p>
     </div>
+
+
 </div>

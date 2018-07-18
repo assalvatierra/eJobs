@@ -88,11 +88,11 @@
         <AssociationConnector Association="JobDB.CustomerCustEntity" />
         <EntityTypeShape EntityType="JobDB.SalesActStatus" Width="1.5" PointX="7" PointY="16.5" />
         <AssociationConnector Association="JobDB.SalesActStatusSalesActivity" />
-        <EntityTypeShape EntityType="JobDB.SalesLeadCatCode" Width="1.5" PointX="0.5" PointY="8.125" />
-        <EntityTypeShape EntityType="JobDB.SalesLeadCategory" Width="1.5" PointX="0.5" PointY="10.625" />
+        <EntityTypeShape EntityType="JobDB.SalesLeadCatCode" Width="1.5" PointX="3" PointY="7.875" />
+        <EntityTypeShape EntityType="JobDB.SalesLeadCategory" Width="1.5" PointX="3" PointY="10.25" />
         <AssociationConnector Association="JobDB.SalesLeadCatCodeSalesLeadCategory" />
         <AssociationConnector Association="JobDB.SalesLeadSalesLeadCategory" />
-        <EntityTypeShape EntityType="JobDB.CustSalesCategory" Width="1.5" PointX="0.5" PointY="5.625" />
+        <EntityTypeShape EntityType="JobDB.CustSalesCategory" Width="1.5" PointX="3" PointY="5.625" />
         <AssociationConnector Association="JobDB.SalesLeadCatCodeCustSalesCategory" />
         <AssociationConnector Association="JobDB.CustomerCustSalesCategory" />
         <AssociationConnector Association="JobDB.SalesStatusCodeSalesStatus" />

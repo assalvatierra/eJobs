@@ -13,6 +13,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace JobsV1.Controllers
 {
+    #region support classes
     public class cJobOrder
     {
         [Key]
@@ -40,6 +41,7 @@ namespace JobsV1.Controllers
         public int CntItem { get; set; }
         public int CntDone { get; set; }
     }
+    #endregion
 
     public class JobOrderController : Controller
     {
@@ -168,6 +170,97 @@ order by x.jobid
         }
         #endregion
 
+        #region Customer Detail
+        private List<SelectListItem> StatusList = new List<SelectListItem> {
+                new SelectListItem { Value = "ACT", Text = "Active" },
+                new SelectListItem { Value = "INC", Text = "Inactive" },
+                new SelectListItem { Value = "BAD", Text = "Bad Account" }
+                };
+
+        public ActionResult CompanyDetail(int jobid, int custid)
+        {
+            var data = db.Customers.Find(custid);
+
+            if (data.Name == "<< New Customer >>")
+            {
+                return RedirectToAction("CreateCustomer", new { CreateCustJobId = jobid });
+            }
+
+            ViewBag.Status = new SelectList(StatusList, "value", "text", data.Status);
+
+            return View(data);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CompanyDetail([Bind(Include = "Id,Name,Email,Contact1,Contact2,Remarks,Status")] Customer customer)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(customer).State = EntityState.Modified;
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            ViewBag.Status = new SelectList(StatusList, "value", "text", customer.Status);
+
+            return View(customer);
+        }
+        public ActionResult CreateCustomer(int CreateCustJobId)
+        {
+            var jobCust = db.JobMains.Find(CreateCustJobId);
+            var data = new Models.Customer();
+            data.Name = jobCust.Description;
+            data.Email = jobCust.CustContactEmail;
+            data.Contact1 = jobCust.CustContactNumber;
+
+            data.Status = "ACT";
+
+            ViewBag.Status = new SelectList(StatusList, "value", "text", data.Status);
+            ViewBag.jobOrderId = CreateCustJobId;
+          
+            return View(data);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateCustomer([Bind(Include = "Id,Name,Email,Contact1,Contact2,Remarks,Status")] Customer customer)
+        {
+            if (ModelState.IsValid)
+            {
+                if (customer.Status == null || customer.Status.Trim() == "") customer.Status = "ACT";
+
+                db.Customers.Add(customer);
+                db.SaveChanges();
+                
+                string JobId = Request.Form["jobOrderId"];
+                db.Database.ExecuteSqlCommand(@"
+                    Update JobMains set CustomerId=" + customer.Id + " where Id=" + JobId + ";"
+                    );
+
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.Status = new SelectList(StatusList, "value", "text", customer.Status);
+            return View(customer);
+        }
+
+        #endregion
+
+        #region jobMain
+
+        public ActionResult JobDetails(int jobid)
+        {
+            var jobMain = db.JobMains.Find(jobid);
+            ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status == "ACT"), "Id", "Name", jobMain.CustomerId);
+            ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name", jobMain.BranchId);
+            ViewBag.JobStatusId = new SelectList(db.JobStatus, "Id", "Status", jobMain.JobStatusId);
+            ViewBag.JobThruId = new SelectList(db.JobThrus, "Id", "Desc", jobMain.JobThruId);
+            return View(jobMain);
+        }
+        #endregion
+
+
+
+        /*
         //Obsolete
         public ActionResult ActionDone(int srvactionitemid, int svcid)
         {
@@ -184,6 +277,7 @@ order by x.jobid
             return RedirectToAction("index");
 
         }
+        */
 
         //Ajax Call
         public ActionResult MarkDone(int SvcId, int ActionId)

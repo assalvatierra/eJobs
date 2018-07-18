@@ -885,10 +885,10 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Desc" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="Desc" Type="nvarchar" Nullable="false" MaxLength="180" />
     <Property Name="Folder" Type="nvarchar" Nullable="false" MaxLength="150" />
-    <Property Name="Path" Type="nvarchar" Nullable="false" MaxLength="250" />
-    <Property Name="Remarks" Type="nvarchar" Nullable="true" MaxLength="150" />
+    <Property Name="Path" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="Remarks" Type="nvarchar" Nullable="true" MaxLength="180" />
     <Property Name="CustomerId" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="JobMainJobType">
@@ -3218,10 +3218,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Desc" Type="String" Nullable="false" MaxLength="150" />
+          <Property Name="Desc" Type="String" Nullable="false" MaxLength="180" />
           <Property Name="Folder" Type="String" Nullable="false" MaxLength="150" />
-          <Property Name="Path" Type="String" Nullable="false" MaxLength="250" />
-          <Property Name="Remarks" Type="String" Nullable="true" MaxLength="150" />
+          <Property Name="Path" Type="String" Nullable="false" MaxLength="150" />
+          <Property Name="Remarks" Type="String" Nullable="true" MaxLength="180" />
           <NavigationProperty Name="Customer" Relationship="JobDB.CustomerCustFiles" FromRole="CustFiles" ToRole="Customer" />
           <Property Name="CustomerId" Type="Int32" Nullable="false" />
         </EntityType>
