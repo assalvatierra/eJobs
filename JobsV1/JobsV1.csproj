@@ -268,8 +268,11 @@
     <Compile Include="Controllers\CarRentalController.cs" />
     <Compile Include="Controllers\CarReservationsController.cs" />
     <Compile Include="Controllers\CarUnitsController.cs" />
+    <Compile Include="Controllers\CustCategoriesController.cs" />
+    <Compile Include="Controllers\CustCatsController.cs" />
     <Compile Include="Controllers\CustEntitiesController.cs" />
     <Compile Include="Controllers\CustEntMainsController.cs" />
+    <Compile Include="Controllers\CustFilesController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\DestinationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -338,6 +341,7 @@
     <Compile Include="Models\CustEntMain.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CustFiles.cs" />
     <Compile Include="Models\Customer.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
@@ -571,6 +575,23 @@
     <Content Include="Images\CarRental\ToyotaHilux.jpg" />
     <Content Include="Images\CarRental\ToyotaInnova.jpg" />
     <Content Include="Images\CarRental\ToyotaInnovaDetails.jpg" />
+    <Content Include="Images\Customers\Category\Active-30.png" />
+    <Content Include="Images\Customers\Category\cancel-40.png" />
+    <Content Include="Images\Customers\Category\star-filled-40.png" />
+    <Content Include="Images\Customers\Category\vip-50.png" />
+    <Content Include="Images\Customers\Category\medium-priority-40.png" />
+    <Content Include="Images\Customers\Category\suspended-64.png" />
+    <Content Include="Images\Customers\Category\unavailable-40.png" />
+    <Content Include="Images\Customers\Company\beach-40.png" />
+    <Content Include="Images\Customers\Company\dining-50.png" />
+    <Content Include="Images\Customers\Company\hotel-bed-40.png" />
+    <Content Include="Images\Customers\Company\hotel-building-50.png" />
+    <Content Include="Images\Customers\Company\organization-40.png" />
+    <Content Include="Images\Customers\Company\museum-40.png" />
+    <Content Include="Images\Customers\Company\small-business-40.png" />
+    <Content Include="Images\Customers\Category\high-priority-40.png" />
+    <Content Include="Images\Customers\Category\medium2-priority-40.png" />
+    <Content Include="Images\Customers\Category\low-priority-40.png" />
     <Content Include="Images\Envelop001.png" />
     <Content Include="Images\LOGO_AJRENTACAR.jpg" />
     <Content Include="Images\Mepu\Logo.jpg" />
@@ -675,6 +696,7 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery.form.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -903,6 +925,24 @@
     <Content Include="Views\CustEntMains\Index.cshtml" />
     <Content Include="Views\Customers\PartialView_CompanyDetails.cshtml" />
     <Content Include="Views\Customers\PartialView_JobDetails.cshtml" />
+    <Content Include="Views\CustCategories\Create.cshtml" />
+    <Content Include="Views\CustCategories\Delete.cshtml" />
+    <Content Include="Views\CustCategories\Details.cshtml" />
+    <Content Include="Views\CustCategories\Edit.cshtml" />
+    <Content Include="Views\CustCategories\Index.cshtml" />
+    <Content Include="Views\CustCats\Create.cshtml" />
+    <Content Include="Views\CustCats\Delete.cshtml" />
+    <Content Include="Views\CustCats\Details.cshtml" />
+    <Content Include="Views\CustCats\Edit.cshtml" />
+    <Content Include="Views\CustCats\Index.cshtml" />
+    <Content Include="Views\Customers\PartialView_CategoryDetails.cshtml" />
+    <Content Include="Views\CustFiles\Create.cshtml" />
+    <Content Include="Views\CustFiles\Delete.cshtml" />
+    <Content Include="Views\CustFiles\Details.cshtml" />
+    <Content Include="Views\CustFiles\Edit.cshtml" />
+    <Content Include="Views\CustFiles\Index.cshtml" />
+    <Content Include="Views\CustFiles\AsynFileUpload.cshtml" />
+    <Content Include="Views\Customers\PartialView_Files.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

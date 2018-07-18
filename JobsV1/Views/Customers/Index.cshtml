@@ -59,12 +59,14 @@
             </td>
             <td>
                 <p>
-                    @Html.DisplayFor(modelItem => item.CustCategoryIcon)
-                </p>
+                  <img src="@Html.DisplayFor(modelItem => item.CustCategoryIcon)"  width="25" height="25"  />
 
+                </p>
             </td>
             <td>
                 <p>
+                    <img src="@Html.DisplayFor(modelItem => item.CustEntIconPath)" width="25" height="25" />
+
                     @Html.DisplayFor(modelItem => item.CustEntName)
                 </p>
             </td>

@@ -8,6 +8,7 @@
 
 <div>
     <h4>Customer</h4>
+    @Html.ActionLink("Back to List", "Index")
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -58,14 +59,21 @@
         <h2>Category List</h2>
         @Html.ActionLink("Add Category", "Create", "CustCats", new { id = Model.Id }, new { @class = "btn btn-default" })
     </p>
-    @{Html.RenderPartial("PartialView_CategoryDetails", (List<JobsV1.Models.CustCategory>)ViewBag.categoryDetails);}
+    @{Html.RenderPartial("PartialView_CategoryDetails", (List<JobsV1.Models.CustCategory>)ViewBag.categoryDetails, new ViewDataDictionary { { "customerId", Model.Id } });}
 </div>
 <div>
     <p style="padding:2px">
         <h2>Company List</h2>
         @Html.ActionLink("Add Company", "Create", "CustEntities", new { id = Model.Id }, new { @class = "btn btn-default" })
     </p>
-    @{Html.RenderPartial("PartialView_CompanyDetails", (List<JobsV1.Models.CustEntMain>)ViewBag.companyList);}
+    @{Html.RenderPartial("PartialView_CompanyDetails", (List<JobsV1.Models.CustEntMain>)ViewBag.companyList, new ViewDataDictionary { { "customerId", Model.Id } });}
+</div>
+<div>
+    <p style="padding:2px">
+        <h2>Customer Files</h2>
+        @Html.ActionLink("Upload File", "AsynFileUpload", "CustFiles", null, new { @class = "btn btn-default" })
+    </p>
+    @{Html.RenderPartial("PartialView_Files", (List<JobsV1.Models.CustFiles>)ViewBag.fileList);}
 </div>
 <div>
     <p style="padding:2px">
@@ -74,7 +82,9 @@
         @Html.ActionLink("Add Job", "Create", "JobMains", new { id = Model.Id }, new { @class = "btn btn-default" })
 
     </p>
+
     @{Html.RenderPartial("PartialView_JobDetails", (List<JobsV1.Models.CustomerJobDetails>)ViewBag.jobList);}
+
 </div>
 
 

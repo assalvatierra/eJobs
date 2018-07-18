@@ -43,7 +43,7 @@ namespace JobsV1.Controllers
                     custcategory = new CustCategory {
                         Id = 0,
                         Name = "Not Assigned",
-                        iconPath = "0"
+                        iconPath = "http://localhost:50382/Images/Customers/Category/unavailable-40.png"
                     };
                 }
 
@@ -60,7 +60,7 @@ namespace JobsV1.Controllers
                         Address = "none",
                         Contact1 = "0",
                         Contact2 = "0",
-                        iconPath = "0"
+                        iconPath = "http://localhost:50382/Images/Customers/Category/unavailable-40.png"
                     };
                 }
 
@@ -73,7 +73,7 @@ namespace JobsV1.Controllers
                     Contact2 = customer.Contact2,
                     Remarks = customer.Remarks,
                     Status = customer.Status,
-                    JobID = 1,
+                    JobID = customer.JobMains.Count() ,
                     CustCategoryID = custcategory.Id,
                     CustCategoryIcon = custcategory.iconPath,
                     CustEntID = company.Id,
@@ -106,10 +106,13 @@ namespace JobsV1.Controllers
             {
                 return HttpNotFound();
             }
+
             //generate partial view list for companies
             PartialView_Companies(id);
             PartialView_Jobs(id);
             PartialView_Categories(id);
+            PartialView_CustomerFiles(id);
+
             return View(customer);
         }
 
@@ -320,7 +323,7 @@ namespace JobsV1.Controllers
                 categoryDetails.Add(new CustCategory
                 {
                     Id = 0,
-                    iconPath = "none",
+                    iconPath = "http://localhost:50382/Images/Customers/Category/unavailable-40.png",
                     Name = "not assigned"
                 });
 
@@ -343,6 +346,48 @@ namespace JobsV1.Controllers
             }
 
             ViewBag.categoryDetails = categoryDetails;
+
+        }
+
+        private void PartialView_CustomerFiles(int? id)
+        {
+
+            //PartialView for Details of the Customer
+            List<CustFiles> customerFiles = new List<CustFiles>();
+
+            //error
+            customerFiles = db.CustFiles.Where(c => c.CustomerId == id).ToList();
+
+            if (customerFiles == null)
+            {
+
+                customerFiles.Add(new CustFiles
+                {
+                    Id = 0,
+                    CustomerId = 0,
+                    Path = "none",
+                    Desc = "none",
+                    Folder = "none",
+                    Remarks ="",
+                    
+                });
+
+            }else{
+                foreach (var file in customerFiles)
+                {
+                    customerFiles.Add(new CustFiles
+                    {
+                        Id = file.Id,
+                        CustomerId = file.CustomerId,
+                        Path = file.Path,
+                        Desc = file.Desc,
+                        Folder = file.Folder,
+                        Remarks = file.Remarks,
+
+                    });
+                }
+            }
+            ViewBag.fileList = customerFiles;
 
         }
     }
