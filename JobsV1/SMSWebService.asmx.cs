@@ -16,7 +16,7 @@ namespace JobsV1
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
     // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
-     [System.Web.Script.Services.ScriptService]
+    [System.Web.Script.Services.ScriptService]
     public class SMSWebService : System.Web.Services.WebService
     {
         //database
@@ -96,7 +96,7 @@ namespace JobsV1
                 Context.Response.Write(JsonConvert.SerializeObject(ds, Newtonsoft.Json.Formatting.Indented));
 
             }
-            
+
         }
 
         [WebMethod]
@@ -109,7 +109,8 @@ namespace JobsV1
 
             //add notification
             JobNotificationRequest jnr = new JobNotificationRequest();
-            db.JobNotificationRequests.Add( new JobNotificationRequest {
+            db.JobNotificationRequests.Add(new JobNotificationRequest
+            {
                 RefId = "0",    //job id
                 ReqDt = DateTime.Parse(DateTime.Now.ToString("MMM dd yyyy HH:mm:ss")),
                 ServiceId = jobServiceId

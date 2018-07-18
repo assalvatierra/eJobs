@@ -22,7 +22,81 @@ namespace JobsV1.Controllers
         // GET: Customers
         public ActionResult Index()
         {
-            return View(db.Customers.ToList());
+
+            var customerList = db.Customers.ToList();
+            string category;
+            string companyName;
+
+
+            List<CustomerDetails> customerDetailList = new List<CustomerDetails>();
+            foreach (var customer in customerList)
+            {
+                CustCategory custcategory = new CustCategory();
+                CustCat custcat = new CustCat();
+                CustEntity companyEntity = new CustEntity();
+                CustEntMain company = new CustEntMain();
+
+                try
+                {
+                    custcat = db.CustCats.Where(c => c.CustomerId == customer.Id).FirstOrDefault();
+                    custcategory = db.CustCategories.Where(cat => cat.Id == custcat.CustCategoryId).FirstOrDefault();
+
+                }
+                catch (Exception ex)
+                {
+                    custcategory = new CustCategory
+                    {
+                        Id = 0,
+                        Name = "Not Assigned",
+                        iconPath = "http://localhost:50382/Images/Customers/Category/unavailable-40.png"
+                    };
+                }
+
+                try
+                {
+                    companyEntity = db.CustEntities.Where(ce => ce.CustomerId == customer.Id).FirstOrDefault();
+                    company = db.CustEntMains.Where(co => co.Id == companyEntity.CustEntMainId).FirstOrDefault();
+
+                }
+                catch (Exception ex)
+                {
+                    company = new CustEntMain
+                    {
+                        Id = 0,
+                        Name = "Not Assigned",
+                        Address = "none",
+                        Contact1 = "0",
+                        Contact2 = "0",
+                        iconPath = "http://localhost:50382/Images/Customers/Category/unavailable-40.png"
+                    };
+                }
+
+                customerDetailList.Add(new CustomerDetails
+                {
+                    Id = customer.Id,
+                    Name = customer.Name,
+                    Email = customer.Email,
+                    Contact1 = customer.Contact1,
+                    Contact2 = customer.Contact2,
+                    Remarks = customer.Remarks,
+                    Status = customer.Status,
+                    JobID = customer.JobMains.Count(),
+                    CustCategoryID = custcategory.Id,
+                    CustCategoryIcon = custcategory.iconPath,
+                    CustEntID = company.Id,
+                    CustEntName = company.Name,
+                    CustEntIconPath = company.iconPath
+                    // JobID = db.JobMains.Where(jm => jm.CustomerId.Equals(customer.Id)).FirstOrDefault() == null ? 0 : db.JobMains.Where(jm => jm.CustomerId.Equals(customer.Id)).FirstOrDefault().Id,
+
+                });
+
+            }
+
+
+            //return View(db.Customers.ToList());
+            return View(customerDetailList);
+
+
         }
 
         // GET: Customers/Details/5
@@ -37,6 +111,13 @@ namespace JobsV1.Controllers
             {
                 return HttpNotFound();
             }
+
+            //generate partial view list for companies
+            PartialView_Companies(id);
+            PartialView_Jobs(id);
+            PartialView_Categories(id);
+            //PartialView_CustomerFiles(id);
+
             return View(customer);
         }
 
@@ -78,7 +159,7 @@ namespace JobsV1.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.Status = new SelectList( StatusList,"value", "text" ,customer.Status );
+            ViewBag.Status = new SelectList(StatusList, "value", "text", customer.Status);
 
             return View(customer);
         }
@@ -136,5 +217,187 @@ namespace JobsV1.Controllers
             }
             base.Dispose(disposing);
         }
+
+        private void PartialView_Companies(int? id)
+        {
+
+            //PartialView for Details of the Customer
+            List<CustEntMain> CompanyList = new List<CustEntMain>();
+            //error
+            var CompanyRecord = db.CustEntities.Where(c => c.CustomerId == id).ToList();
+
+            if (CompanyRecord == null)
+            {
+
+                CompanyList.Add(new CustEntMain
+                {
+                    Id = 0,
+                    Name = "None",
+                    Address = "None",
+                    Contact1 = "None",
+                    Contact2 = "None",
+                    iconPath = "None"
+                });
+
+            }
+            else
+            {
+
+                foreach (var record in CompanyRecord)
+                {
+                    CompanyList.Add(new CustEntMain
+                    {
+                        Id = record.CustEntMain.Id,
+                        Name = record.CustEntMain.Name,
+                        Address = record.CustEntMain.Address,
+                        Contact1 = record.CustEntMain.Contact1,
+                        Contact2 = record.CustEntMain.Contact2,
+                        iconPath = record.CustEntMain.iconPath
+                    });
+
+                }
+
+            }
+            ViewBag.companyList = CompanyList;
+            ViewBag.CustomerID = id;
+
+        }
+
+
+        private void PartialView_Jobs(int? id)
+        {
+
+            //PartialView for Details of the Customer
+            List<CustomerJobDetails> jobList = new List<CustomerJobDetails>();
+            //error
+            var jobRecord = db.JobMains.Where(j => j.CustomerId == id).ToList();
+
+            if (jobRecord == null)
+            {
+
+                jobList.Add(new CustomerJobDetails
+                {
+                    Id = 0,
+                    JobDate = "7/24/2018",
+                    Description = "none",
+                    AgreedAmt = "0",
+                    NoOfDays = "0",
+                    NoOfPax = "0",
+                    StatusRemarks = "none"
+                });
+
+            }
+            else
+            {
+
+                foreach (var record in jobRecord)
+                {
+                    jobList.Add(new CustomerJobDetails
+                    {
+
+                        Id = record.Id,
+                        JobDate = record.JobDate.ToString(),
+                        Description = record.Description,
+                        AgreedAmt = record.AgreedAmt.ToString(),
+                        NoOfDays = record.NoOfDays.ToString(),
+                        NoOfPax = record.NoOfPax.ToString(),
+                        StatusRemarks = record.JobStatus.Status
+
+                    });
+
+                }
+
+            }
+
+            ViewBag.jobList = jobList;
+
+        }
+
+
+        private void PartialView_Categories(int? id)
+        {
+
+            //PartialView for Details of the Customer
+            List<CustCategory> categoryDetails = new List<CustCategory>();
+
+            //error
+            var categoryList = db.CustCats.Where(c => c.CustomerId == id).ToList();
+
+            if (categoryList == null)
+            {
+
+                categoryDetails.Add(new CustCategory
+                {
+                    Id = 0,
+                    iconPath = "http://localhost:50382/Images/Customers/Category/unavailable-40.png",
+                    Name = "not assigned"
+                });
+
+            }
+            else
+            {
+
+                foreach (var category in categoryList)
+                {
+                    categoryDetails.Add(new CustCategory
+                    {
+                        Id = category.CustCategory.Id,
+                        iconPath = category.CustCategory.iconPath,
+                        Name = category.CustCategory.Name
+
+                    });
+
+                }
+
+            }
+
+            ViewBag.categoryDetails = categoryDetails;
+
+        }
+
+        private void PartialView_CustomerFiles(int? id)
+        {
+            /*
+            //PartialView for Details of the Customer
+            List<CustFiles> customerFiles = new List<CustFiles>();
+
+            //error
+            customerFiles = db.CustFiles.Where(c => c.CustomerId == id).ToList();
+
+            if (customerFiles == null)
+            {
+
+                customerFiles.Add(new CustFiles
+                {
+                    Id = 0,
+                    CustomerId = 0,
+                    Path = "none",
+                    Desc = "none",
+                    Folder = "none",
+                    Remarks = "",
+
+                });
+
+            }
+            else
+            {
+                foreach (var file in customerFiles)
+                {
+                    customerFiles.Add(new CustFiles
+                    {
+                        Id = file.Id,
+                        CustomerId = file.CustomerId,
+                        Path = file.Path,
+                        Desc = file.Desc,
+                        Folder = file.Folder,
+                        Remarks = file.Remarks,
+
+                    });
+                }
+            }
+            ViewBag.fileList = customerFiles;
+            */
+        }
+
     }
 }

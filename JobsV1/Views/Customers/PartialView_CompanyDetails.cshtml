@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = "PartialView_CompanyDetails";
+    int customerid = Convert.ToInt32(ViewData["customerId"]);
+
 }
 
 
@@ -44,7 +46,7 @@
         </td>
         <td>
             @Html.ActionLink("Details", "Details", "CustEntMains",new { id = item.Id }, null) |
-            @Html.ActionLink("Remove", "Index", "CustEntities" ,null, null)
+            @Html.ActionLink("Remove", "Remove", "CustEntities", new { comid = item.Id, custid = customerid }, null)
         </td>
     </tr>
 }

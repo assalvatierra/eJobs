@@ -33,15 +33,16 @@ namespace JobsV1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(custCat);
+            return RedirectToAction("Index");
         }
 
         // GET: CustCats/Create
         public ActionResult Create(int? id)
         {
-            ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name",id);
+            ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name", id);
             ViewBag.CustCategoryId = new SelectList(db.CustCategories, "Id", "Name");
             return View();
+            // return RedirectToAction("Details", "Customers", new { id = id });
         }
 
         // POST: CustCats/Create
@@ -55,7 +56,8 @@ namespace JobsV1.Controllers
             {
                 db.CustCats.Add(custCat);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                //  return RedirectToAction("Index");
+                return RedirectToAction("Details", "Customers", new { id = custCat.CustomerId });
             }
 
             ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name", custCat.CustomerId);
@@ -131,6 +133,17 @@ namespace JobsV1.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+
+        // POST: CustCats/Delete/catid?custid?
+        public ActionResult Remove(int? catid, int custid)
+        {
+            CustCat cust = db.CustCats.Where(c => c.CustCategoryId == catid && c.CustomerId == custid).FirstOrDefault();
+            CustCat custCat = db.CustCats.Find(cust.Id);
+            db.CustCats.Remove(custCat);
+            db.SaveChanges();
+            return RedirectToAction("Details", "Customers", new { id = custid });
         }
     }
 }

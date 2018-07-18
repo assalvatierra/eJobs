@@ -45,7 +45,9 @@ namespace JobsV1.Controllers
             if (id != null)
             {
                 ViewBag.Id = id;
-            } else {
+            }
+            else
+            {
                 ViewBag.Id = 0;
             }
 
@@ -69,7 +71,7 @@ namespace JobsV1.Controllers
             {
                 db.CustEntities.Add(custEntity);
                 db.SaveChanges();
-                return RedirectToAction("Details", "Customers", new {id = custEntity.CustomerId });
+                return RedirectToAction("Details", "Customers", new { id = custEntity.CustomerId });
             }
 
             ViewBag.CustEntMainId = new SelectList(db.CustEntMains, "Id", "Name", custEntity.CustEntMainId);
@@ -149,15 +151,17 @@ namespace JobsV1.Controllers
 
 
         // POST: CustEntities/Remove/companyid,custid
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int companyid, int custid)
+        // [HttpPost]
+        // [ValidateAntiForgeryToken]
+        public ActionResult Remove(int comid, int custid)
         {
-            CustEntity custEntity = db.CustEntities.Where(c => c.CustEntMainId == companyid && c.CustomerId == custid).FirstOrDefault();
-            db.CustEntities.Remove(custEntity);
+            CustEntity custEntity = db.CustEntities.Where(c => c.CustEntMainId == comid && c.CustomerId == custid).FirstOrDefault();
+            CustEntity custEntityDeleted = db.CustEntities.Find(custEntity.Id);
+            db.CustEntities.Remove(custEntityDeleted);
             db.SaveChanges();
-            return RedirectToAction("Details","Customers",new { id=custid });
+            return RedirectToAction("Details", "Customers", new { id = custid });
         }
+
 
     }
 }

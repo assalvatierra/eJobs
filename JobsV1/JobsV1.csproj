@@ -272,6 +272,7 @@
     <Compile Include="Controllers\CustCatsController.cs" />
     <Compile Include="Controllers\CustEntitiesController.cs" />
     <Compile Include="Controllers\CustEntMainsController.cs" />
+    <Compile Include="Controllers\CustFilesController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\DestinationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -517,6 +518,8 @@
     <Content Include="Areas\Accounting\Scripts\Sales.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap.min.slate.css" />
+    <Content Include="Content\CustomerStyle.css" />
     <Content Include="Content\daterangepicker.css" />
     <Content Include="Content\ModalUser.css" />
     <Content Include="Content\themes\base\accordion.css" />
@@ -920,6 +923,15 @@
     <Content Include="Views\CustEntMains\Details.cshtml" />
     <Content Include="Views\CustEntMains\Edit.cshtml" />
     <Content Include="Views\CustEntMains\Index.cshtml" />
+    <Content Include="Views\CustFiles\AsynFileUpload.cshtml" />
+    <Content Include="Views\CustFiles\Create.cshtml" />
+    <Content Include="Views\CustFiles\Delete.cshtml" />
+    <Content Include="Views\CustFiles\Details.cshtml" />
+    <Content Include="Views\CustFiles\Edit.cshtml" />
+    <Content Include="Views\Customers\PartialView_CategoryDetails.cshtml" />
+    <Content Include="Views\Customers\PartialView_CompanyDetails.cshtml" />
+    <Content Include="Views\Customers\PartialView_Files.cshtml" />
+    <Content Include="Views\Customers\PartialView_JobDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

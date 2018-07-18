@@ -1,4 +1,4 @@
-﻿@model IEnumerable<JobsV1.Models.Customer>
+﻿@model IEnumerable<JobsV1.Models.CustomerDetails >
 
 @{
     ViewBag.Title = "Index";
@@ -12,52 +12,72 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+           Status
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Email)
+           Customer
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Contact1)
+           Category
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Contact2)
+           Company
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Remarks)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
+            Jobs
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            <a href="mailto:@item.Email">@Html.DisplayFor(modelItem => item.Email)</a>
-        </td>
-        <td>
-            <a href="tel:@item.Contact1">@Html.DisplayFor(modelItem => item.Contact1)</a>
-        </td>
-        <td>
-            <a href="tel:@item.Contact2">@Html.DisplayFor(modelItem => item.Contact2)</a>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Remarks)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                <h4>@Html.DisplayFor(modelItem => item.Name)</h4>
+                <p>
+                    <a href="mailto:@item.Email">@Html.DisplayFor(modelItem => item.Email)</a>
+                </p>
+                <p>
+                    <a href="tel:@item.Contact1">@Html.DisplayFor(modelItem => item.Contact1)</a> |
+                    <a href="tel:@item.Contact2">@Html.DisplayFor(modelItem => item.Contact2)</a>
+                </p>
+                <p>
+                    @Html.DisplayFor(modelItem => item.Remarks)
+                </p>
+            </td>
+            <td>
+                <p>
+                
+                   <img src="@Html.DisplayFor(modelItem => item.CustCategoryIcon)" width="25" height="25" />
+                       
+                </p>
+            </td>
+            <td>
+                <p>
+                 
+                 <img src="@Html.DisplayFor(modelItem => item.CustEntIconPath)" width="25" height="25" />
+
+                    @Html.DisplayFor(modelItem => item.CustEntName)
+                   
+                </p>
+            </td>
+
+            <td>
+                <p>
+                 
+                    @Html.DisplayFor(modelItem => item.JobID)
+                     
+                </p>
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>
