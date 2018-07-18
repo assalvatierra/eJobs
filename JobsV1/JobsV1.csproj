@@ -268,6 +268,10 @@
     <Compile Include="Controllers\CarRentalController.cs" />
     <Compile Include="Controllers\CarReservationsController.cs" />
     <Compile Include="Controllers\CarUnitsController.cs" />
+    <Compile Include="Controllers\CustCategoriesController.cs" />
+    <Compile Include="Controllers\CustCatsController.cs" />
+    <Compile Include="Controllers\CustEntitiesController.cs" />
+    <Compile Include="Controllers\CustEntMainsController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\DestinationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -323,6 +327,7 @@
     <Compile Include="Models\City.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CostumerViewModel.cs" />
     <Compile Include="Models\CustCat.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
@@ -333,6 +338,9 @@
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CustEntMain.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustFiles.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Customer.cs">
@@ -607,6 +615,8 @@
       <DependentUpon>JobDB.edmx</DependentUpon>
     </Content>
     <Content Include="Models\JobNotes.sql" />
+    <Content Include="Models\Job_ActionItemCount.sql" />
+    <Content Include="Models\Job_ItemSchedules.sql" />
     <Content Include="Models\ProductsDB.sql" />
     <Content Include="Models\SalesLead.sql" />
     <Content Include="Models\InitTestData.sql" />
@@ -890,6 +900,26 @@
     <Content Include="Views\JobOrder\CompanyDetail.cshtml" />
     <Content Include="Views\JobOrder\CreateCustomer.cshtml" />
     <Content Include="Views\JobOrder\JobDetails.cshtml" />
+    <Content Include="Views\CustCategories\Create.cshtml" />
+    <Content Include="Views\CustCategories\Delete.cshtml" />
+    <Content Include="Views\CustCategories\Details.cshtml" />
+    <Content Include="Views\CustCategories\Edit.cshtml" />
+    <Content Include="Views\CustCategories\Index.cshtml" />
+    <Content Include="Views\CustCats\Create.cshtml" />
+    <Content Include="Views\CustCats\Delete.cshtml" />
+    <Content Include="Views\CustCats\Details.cshtml" />
+    <Content Include="Views\CustCats\Edit.cshtml" />
+    <Content Include="Views\CustCats\Index.cshtml" />
+    <Content Include="Views\CustEntities\Create.cshtml" />
+    <Content Include="Views\CustEntities\Delete.cshtml" />
+    <Content Include="Views\CustEntities\Details.cshtml" />
+    <Content Include="Views\CustEntities\Edit.cshtml" />
+    <Content Include="Views\CustEntities\Index.cshtml" />
+    <Content Include="Views\CustEntMains\Create.cshtml" />
+    <Content Include="Views\CustEntMains\Delete.cshtml" />
+    <Content Include="Views\CustEntMains\Details.cshtml" />
+    <Content Include="Views\CustEntMains\Edit.cshtml" />
+    <Content Include="Views\CustEntMains\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -277,6 +277,11 @@
       <End Role="SrvActionItem" EntitySet="SrvActionItems" />
     </AssociationSet>
     <EntitySet Name="JobNotificationRequests" EntityType="JobDB.JobNotificationRequest" />
+    <EntitySet Name="CustFiles" EntityType="JobDB.CustFiles" />
+    <AssociationSet Name="CustomerCustFiles" Association="JobDB.CustomerCustFiles">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="CustFiles" EntitySet="CustFiles" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="JobMain">
     <Key>
@@ -342,6 +347,7 @@
     <NavigationProperty Name="SalesLeads" Relationship="JobDB.CustomerSalesLead" FromRole="Customer" ToRole="SalesLead" />
     <NavigationProperty Name="CustEntities" Relationship="JobDB.CustomerCustEntity" FromRole="Customer" ToRole="CustEntity" />
     <NavigationProperty Name="CustSalesCategories" Relationship="JobDB.CustomerCustSalesCategory" FromRole="Customer" ToRole="CustSalesCategory" />
+    <NavigationProperty Name="CustFiles" Relationship="JobDB.CustomerCustFiles" FromRole="Customer" ToRole="CustFiles" />
   </EntityType>
   <EntityType Name="JobType">
     <Key>
@@ -1640,4 +1646,28 @@
     <Property Name="ReqDt" Type="DateTime" Nullable="false" />
     <Property Name="RefId" Type="String" Nullable="true" MaxLength="20" />
   </EntityType>
+  <EntityType Name="CustFiles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Desc" Type="String" Nullable="false" MaxLength="180" />
+    <Property Name="Folder" Type="String" Nullable="false" MaxLength="150" />
+    <Property Name="Path" Type="String" Nullable="false" MaxLength="150" />
+    <Property Name="Remarks" Type="String" Nullable="true" MaxLength="180" />
+    <NavigationProperty Name="Customer" Relationship="JobDB.CustomerCustFiles" FromRole="CustFiles" ToRole="Customer" />
+    <Property Name="CustomerId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="CustomerCustFiles">
+    <End Type="JobDB.Customer" Role="Customer" Multiplicity="1" />
+    <End Type="JobDB.CustFiles" Role="CustFiles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CustFiles">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>
