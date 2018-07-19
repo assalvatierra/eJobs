@@ -63,6 +63,10 @@
     <EntitySet Name="SupplierInvItems" EntityType="JobDB.Store.SupplierInvItems" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="JobNotificationRequests" EntityType="JobDB.Store.JobNotificationRequests" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="CustFiles" EntityType="JobDB.Store.CustFiles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SupplierPoHdrs" EntityType="JobDB.Store.SupplierPoHdrs" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SupplierPoDtls" EntityType="JobDB.Store.SupplierPoDtls" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SupplierPoStatus" EntityType="JobDB.Store.SupplierPoStatus" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SupplierPoItems" EntityType="JobDB.Store.SupplierPoItems" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="JobMainJobType" Association="JobDB.Store.JobMainJobType">
       <End Role="JobMain" EntitySet="JobMains" />
       <End Role="JobType" EntitySet="JobTypes" />
@@ -286,6 +290,30 @@
     <AssociationSet Name="CustomerCustFiles" Association="JobDB.Store.CustomerCustFiles">
       <End Role="Customer" EntitySet="Customers" />
       <End Role="CustFiles" EntitySet="CustFiles" />
+    </AssociationSet>
+    <AssociationSet Name="SupplierSupplierPoHdr" Association="JobDB.Store.SupplierSupplierPoHdr">
+      <End Role="Supplier" EntitySet="Suppliers" />
+      <End Role="SupplierPoHdr" EntitySet="SupplierPoHdrs" />
+    </AssociationSet>
+    <AssociationSet Name="SupplierPoStatusSupplierPoHdr" Association="JobDB.Store.SupplierPoStatusSupplierPoHdr">
+      <End Role="SupplierPoStatus" EntitySet="SupplierPoStatus" />
+      <End Role="SupplierPoHdr" EntitySet="SupplierPoHdrs" />
+    </AssociationSet>
+    <AssociationSet Name="SupplierPoHdrSupplierPoDtl" Association="JobDB.Store.SupplierPoHdrSupplierPoDtl">
+      <End Role="SupplierPoHdr" EntitySet="SupplierPoHdrs" />
+      <End Role="SupplierPoDtl" EntitySet="SupplierPoDtls" />
+    </AssociationSet>
+    <AssociationSet Name="JobServicesSupplierPoDtl" Association="JobDB.Store.JobServicesSupplierPoDtl">
+      <End Role="JobServices" EntitySet="JobServices" />
+      <End Role="SupplierPoDtl" EntitySet="SupplierPoDtls" />
+    </AssociationSet>
+    <AssociationSet Name="SupplierPoDtlSupplierPoItem" Association="JobDB.Store.SupplierPoDtlSupplierPoItem">
+      <End Role="SupplierPoDtl" EntitySet="SupplierPoDtls" />
+      <End Role="SupplierPoItem" EntitySet="SupplierPoItems" />
+    </AssociationSet>
+    <AssociationSet Name="InvItemSupplierPoItem" Association="JobDB.Store.InvItemSupplierPoItem">
+      <End Role="InvItem" EntitySet="InvItems" />
+      <End Role="SupplierPoItem" EntitySet="SupplierPoItems" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="JobMains">
@@ -890,6 +918,43 @@
     <Property Name="Path" Type="nvarchar" Nullable="false" MaxLength="150" />
     <Property Name="Remarks" Type="nvarchar" Nullable="true" MaxLength="180" />
     <Property Name="CustomerId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SupplierPoHdrs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PoDate" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Remarks" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SupplierId" Type="int" Nullable="false" />
+    <Property Name="SupplierPoStatusId" Type="int" Nullable="false" />
+    <Property Name="RequestBy" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DtRequest" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SupplierPoDtls">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SupplierPoHdrId" Type="int" Nullable="false" />
+    <Property Name="Remarks" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Amount" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="JobServicesId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SupplierPoStatus">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Status" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SupplierPoItems">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SupplierPoDtlId" Type="int" Nullable="false" />
+    <Property Name="InvItemId" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="JobMainJobType">
     <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="1" />
@@ -1560,6 +1625,78 @@
       </Principal>
       <Dependent Role="CustFiles">
         <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SupplierSupplierPoHdr">
+    <End Role="Supplier" Type="JobDB.Store.Suppliers" Multiplicity="1" />
+    <End Role="SupplierPoHdr" Type="JobDB.Store.SupplierPoHdrs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supplier">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SupplierPoHdr">
+        <PropertyRef Name="SupplierId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SupplierPoStatusSupplierPoHdr">
+    <End Role="SupplierPoStatus" Type="JobDB.Store.SupplierPoStatus" Multiplicity="1" />
+    <End Role="SupplierPoHdr" Type="JobDB.Store.SupplierPoHdrs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SupplierPoStatus">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SupplierPoHdr">
+        <PropertyRef Name="SupplierPoStatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SupplierPoHdrSupplierPoDtl">
+    <End Role="SupplierPoHdr" Type="JobDB.Store.SupplierPoHdrs" Multiplicity="1" />
+    <End Role="SupplierPoDtl" Type="JobDB.Store.SupplierPoDtls" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SupplierPoHdr">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SupplierPoDtl">
+        <PropertyRef Name="SupplierPoHdrId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="JobServicesSupplierPoDtl">
+    <End Role="JobServices" Type="JobDB.Store.JobServices" Multiplicity="1" />
+    <End Role="SupplierPoDtl" Type="JobDB.Store.SupplierPoDtls" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobServices">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SupplierPoDtl">
+        <PropertyRef Name="JobServicesId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SupplierPoDtlSupplierPoItem">
+    <End Role="SupplierPoDtl" Type="JobDB.Store.SupplierPoDtls" Multiplicity="1" />
+    <End Role="SupplierPoItem" Type="JobDB.Store.SupplierPoItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SupplierPoDtl">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SupplierPoItem">
+        <PropertyRef Name="SupplierPoDtlId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InvItemSupplierPoItem">
+    <End Role="InvItem" Type="JobDB.Store.InvItems" Multiplicity="1" />
+    <End Role="SupplierPoItem" Type="JobDB.Store.SupplierPoItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InvItem">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SupplierPoItem">
+        <PropertyRef Name="InvItemId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -4049,6 +4186,47 @@
           <ScalarProperty Name="Path" ColumnName="Path" />
           <ScalarProperty Name="Remarks" ColumnName="Remarks" />
           <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SupplierPoHdrs">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.SupplierPoHdr)">
+        <MappingFragment StoreEntitySet="SupplierPoHdrs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PoDate" ColumnName="PoDate" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+          <ScalarProperty Name="SupplierPoStatusId" ColumnName="SupplierPoStatusId" />
+          <ScalarProperty Name="RequestBy" ColumnName="RequestBy" />
+          <ScalarProperty Name="DtRequest" ColumnName="DtRequest" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SupplierPoDtls">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.SupplierPoDtl)">
+        <MappingFragment StoreEntitySet="SupplierPoDtls">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SupplierPoHdrId" ColumnName="SupplierPoHdrId" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="JobServicesId" ColumnName="JobServicesId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SupplierPoStatus">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.SupplierPoStatus)">
+        <MappingFragment StoreEntitySet="SupplierPoStatus">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SupplierPoItems">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.SupplierPoItem)">
+        <MappingFragment StoreEntitySet="SupplierPoItems">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SupplierPoDtlId" ColumnName="SupplierPoDtlId" />
+          <ScalarProperty Name="InvItemId" ColumnName="InvItemId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

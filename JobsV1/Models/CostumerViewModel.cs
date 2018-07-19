@@ -20,6 +20,8 @@ namespace JobsV1.Models
         public int CustEntID { get; set; }
         public string CustEntName { get; set; }
         public string CustEntIconPath { get; set; }
+        public List<CustCategory> categories { get; set; }
+        public List<CustEntMain> companies { get; set; }
     }
 
     

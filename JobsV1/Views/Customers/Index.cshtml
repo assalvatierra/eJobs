@@ -50,17 +50,24 @@
             </td>
             <td>
                 <p>
-                
-                   <img src="@Html.DisplayFor(modelItem => item.CustCategoryIcon)" width="25" height="25" />
-                       
+                    @foreach (var cat in @item.categories)
+                    {
+                        <img src="@Html.DisplayFor(modelItem => cat.iconPath)" width="25" height="25" />
+                    }
                 </p>
             </td>
             <td>
                 <p>
-                 
-                 <img src="@Html.DisplayFor(modelItem => item.CustEntIconPath)" width="25" height="25" />
 
-                    @Html.DisplayFor(modelItem => item.CustEntName)
+                    @foreach (var comp in @item.companies)
+                    {
+                        <p>
+                        <img src="@Html.DisplayFor(modelItem => comp.iconPath)" width="25" height="25" />
+
+                        @Html.DisplayFor(modelItem => comp.Name)
+                        </p>
+                    }
+
                    
                 </p>
             </td>

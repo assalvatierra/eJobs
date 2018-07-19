@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/18/2018 09:25:39
--- Generated from EDMX file: D:\Data\Real\Apps\GitHub\eJobs\JobsV1\Models\JobDB.edmx
+-- Date Created: 07/19/2018 14:44:10
+-- Generated from EDMX file: C:\Users\Villosa\Documents\GitHub\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -182,6 +182,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_SrvActionCodeSrvActionItem]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[SrvActionItems] DROP CONSTRAINT [FK_SrvActionCodeSrvActionItem];
 GO
+IF OBJECT_ID(N'[dbo].[FK_CustomerCustFiles]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CustFiles] DROP CONSTRAINT [FK_CustomerCustFiles];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -354,6 +357,9 @@ IF OBJECT_ID(N'[dbo].[SupplierInvItems]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[JobNotificationRequests]', 'U') IS NOT NULL
     DROP TABLE [dbo].[JobNotificationRequests];
+GO
+IF OBJECT_ID(N'[dbo].[CustFiles]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CustFiles];
 GO
 
 -- --------------------------------------------------
@@ -963,6 +969,43 @@ CREATE TABLE [dbo].[CustFiles] (
 );
 GO
 
+-- Creating table 'SupplierPoHdrs'
+CREATE TABLE [dbo].[SupplierPoHdrs] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [PoDate] nvarchar(max)  NOT NULL,
+    [Remarks] nvarchar(max)  NOT NULL,
+    [SupplierId] int  NOT NULL,
+    [SupplierPoStatusId] int  NOT NULL,
+    [RequestBy] nvarchar(max)  NOT NULL,
+    [DtRequest] nvarchar(max)  NOT NULL
+);
+GO
+
+-- Creating table 'SupplierPoDtls'
+CREATE TABLE [dbo].[SupplierPoDtls] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [SupplierPoHdrId] int  NOT NULL,
+    [Remarks] nvarchar(max)  NOT NULL,
+    [Amount] nvarchar(max)  NOT NULL,
+    [JobServicesId] int  NOT NULL
+);
+GO
+
+-- Creating table 'SupplierPoStatus'
+CREATE TABLE [dbo].[SupplierPoStatus] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Status] nvarchar(max)  NOT NULL
+);
+GO
+
+-- Creating table 'SupplierPoItems'
+CREATE TABLE [dbo].[SupplierPoItems] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [SupplierPoDtlId] int  NOT NULL,
+    [InvItemId] int  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -1306,6 +1349,30 @@ GO
 -- Creating primary key on [Id] in table 'CustFiles'
 ALTER TABLE [dbo].[CustFiles]
 ADD CONSTRAINT [PK_CustFiles]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'SupplierPoHdrs'
+ALTER TABLE [dbo].[SupplierPoHdrs]
+ADD CONSTRAINT [PK_SupplierPoHdrs]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'SupplierPoDtls'
+ALTER TABLE [dbo].[SupplierPoDtls]
+ADD CONSTRAINT [PK_SupplierPoDtls]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'SupplierPoStatus'
+ALTER TABLE [dbo].[SupplierPoStatus]
+ADD CONSTRAINT [PK_SupplierPoStatus]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'SupplierPoItems'
+ALTER TABLE [dbo].[SupplierPoItems]
+ADD CONSTRAINT [PK_SupplierPoItems]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -2151,6 +2218,96 @@ GO
 CREATE INDEX [IX_FK_CustomerCustFiles]
 ON [dbo].[CustFiles]
     ([CustomerId]);
+GO
+
+-- Creating foreign key on [SupplierId] in table 'SupplierPoHdrs'
+ALTER TABLE [dbo].[SupplierPoHdrs]
+ADD CONSTRAINT [FK_SupplierSupplierPoHdr]
+    FOREIGN KEY ([SupplierId])
+    REFERENCES [dbo].[Suppliers]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SupplierSupplierPoHdr'
+CREATE INDEX [IX_FK_SupplierSupplierPoHdr]
+ON [dbo].[SupplierPoHdrs]
+    ([SupplierId]);
+GO
+
+-- Creating foreign key on [SupplierPoStatusId] in table 'SupplierPoHdrs'
+ALTER TABLE [dbo].[SupplierPoHdrs]
+ADD CONSTRAINT [FK_SupplierPoStatusSupplierPoHdr]
+    FOREIGN KEY ([SupplierPoStatusId])
+    REFERENCES [dbo].[SupplierPoStatus]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SupplierPoStatusSupplierPoHdr'
+CREATE INDEX [IX_FK_SupplierPoStatusSupplierPoHdr]
+ON [dbo].[SupplierPoHdrs]
+    ([SupplierPoStatusId]);
+GO
+
+-- Creating foreign key on [SupplierPoHdrId] in table 'SupplierPoDtls'
+ALTER TABLE [dbo].[SupplierPoDtls]
+ADD CONSTRAINT [FK_SupplierPoHdrSupplierPoDtl]
+    FOREIGN KEY ([SupplierPoHdrId])
+    REFERENCES [dbo].[SupplierPoHdrs]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SupplierPoHdrSupplierPoDtl'
+CREATE INDEX [IX_FK_SupplierPoHdrSupplierPoDtl]
+ON [dbo].[SupplierPoDtls]
+    ([SupplierPoHdrId]);
+GO
+
+-- Creating foreign key on [JobServicesId] in table 'SupplierPoDtls'
+ALTER TABLE [dbo].[SupplierPoDtls]
+ADD CONSTRAINT [FK_JobServicesSupplierPoDtl]
+    FOREIGN KEY ([JobServicesId])
+    REFERENCES [dbo].[JobServices]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_JobServicesSupplierPoDtl'
+CREATE INDEX [IX_FK_JobServicesSupplierPoDtl]
+ON [dbo].[SupplierPoDtls]
+    ([JobServicesId]);
+GO
+
+-- Creating foreign key on [SupplierPoDtlId] in table 'SupplierPoItems'
+ALTER TABLE [dbo].[SupplierPoItems]
+ADD CONSTRAINT [FK_SupplierPoDtlSupplierPoItem]
+    FOREIGN KEY ([SupplierPoDtlId])
+    REFERENCES [dbo].[SupplierPoDtls]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SupplierPoDtlSupplierPoItem'
+CREATE INDEX [IX_FK_SupplierPoDtlSupplierPoItem]
+ON [dbo].[SupplierPoItems]
+    ([SupplierPoDtlId]);
+GO
+
+-- Creating foreign key on [InvItemId] in table 'SupplierPoItems'
+ALTER TABLE [dbo].[SupplierPoItems]
+ADD CONSTRAINT [FK_InvItemSupplierPoItem]
+    FOREIGN KEY ([InvItemId])
+    REFERENCES [dbo].[InvItems]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_InvItemSupplierPoItem'
+CREATE INDEX [IX_FK_InvItemSupplierPoItem]
+ON [dbo].[SupplierPoItems]
+    ([InvItemId]);
 GO
 
 -- --------------------------------------------------

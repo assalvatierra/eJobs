@@ -258,14 +258,22 @@ namespace JobsV1.Controllers
 
 
         // GET: JobMains/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
             JobMain job = new JobMain();
             job.JobDate = System.DateTime.Today;
             job.NoOfDays = 1;
             job.NoOfPax = 1;
-            
-            ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status == "ACT"), "Id", "Name", NewCustSysId);
+
+            if (id == null)
+            {
+                ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status == "ACT"), "Id", "Name", NewCustSysId);
+            }
+            else {
+
+                ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status == "ACT"), "Id", "Name", id);
+            }
+
             ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name");
             ViewBag.JobStatusId = new SelectList(db.JobStatus, "Id", "Status");
             ViewBag.JobThruId = new SelectList(db.JobThrus, "Id", "Desc");
