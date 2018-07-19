@@ -126,12 +126,14 @@ namespace JobsV1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             CustFiles custFiles = db.CustFiles.Find(id);
             if (custFiles == null)
             {
                 return HttpNotFound();
             }
-            return View(custFiles);
+
+            return RedirectToAction("Index", "Customers", null);
         }
 
         // POST: CustFiles/Delete/5
@@ -153,5 +155,69 @@ namespace JobsV1.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult UploadFiles(int? id) {
+            ViewBag.custid = id;
+
+            ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name", id);
+
+            return View();
+            
+        }
+
+        [HttpPost]
+        public ActionResult UploadFiles(HttpPostedFileBase file, [Bind(Include = "Id,Desc,Folder,Path,Remarks,CustomerId")] CustFiles custFiles)
+        {
+            if (file != null && file.ContentLength > 0)
+                try
+                {
+                    string path = Path.Combine(Server.MapPath("~/Images/Uploads"),
+                                               Path.GetFileName(file.FileName));
+                    file.SaveAs(path);
+                    ViewBag.Message = "File uploaded successfully";
+
+
+                    if (ModelState.IsValid)
+                    {
+                        db.CustFiles.Add(custFiles);
+                        db.SaveChanges();
+                    }
+
+                    ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name", custFiles.CustomerId);
+             
+
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = "ERROR:" + ex.Message.ToString();
+                }
+            else
+            {
+                ViewBag.Message = "You have not specified a file.";
+            }
+
+            return RedirectToAction("Details", "Customers", new { id = custFiles.CustomerId });
+        }
+
+        public void UploadUpdateDb(int? id) {
+
+        }
+
+
+        // POST: CustEntities/Remove/companyid,custid
+        // [HttpPost]
+        // [ValidateAntiForgeryToken]
+        public ActionResult Remove(int fileid, int custid)
+        {
+            CustFiles custEntity = db.CustFiles.Where(c => c.Id == fileid && c.CustomerId == custid).FirstOrDefault();
+            CustFiles custEntityDeleted = db.CustFiles.Find(custEntity.Id);
+            db.CustFiles.Remove(custEntityDeleted);
+            db.SaveChanges();
+
+            return RedirectToAction("Details", "Customers", new { id = custid });
+        }
+
+
     }
 }
+

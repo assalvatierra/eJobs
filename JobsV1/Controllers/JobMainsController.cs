@@ -273,6 +273,23 @@ namespace JobsV1.Controllers
             return View(job);
         }
 
+
+        // GET: JobMains/Create
+        public ActionResult Create2(int? custid)
+        {
+            JobMain job = new JobMain();
+            job.JobDate = System.DateTime.Today;
+            job.NoOfDays = 1;
+            job.NoOfPax = 1;
+
+            ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status == "ACT"), "Id", "Name", custid);
+            ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name");
+            ViewBag.JobStatusId = new SelectList(db.JobStatus, "Id", "Status");
+            ViewBag.JobThruId = new SelectList(db.JobThrus, "Id", "Desc");
+
+            return View(job);
+        }
+
         // POST: JobMains/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
