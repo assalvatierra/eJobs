@@ -6,6 +6,16 @@
 
 <h2>Create</h2>
 
+@using (Html.BeginForm("UploadFiles", "CustFiles", FormMethod.Post, new { enctype = "multipart/form-data", custid = ViewBag.custid }))
+{
+    <label for="file">Upload Files:</label>
+    <input type="file" name="file" id="file" /><br><br>
+    <input type="submit" value="Upload Files" class="btn btn-default" />
+
+    <br><br>
+    @ViewBag.Message
+}
+
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()

@@ -116,7 +116,7 @@ namespace JobsV1.Controllers
             PartialView_Companies(id);
             PartialView_Jobs(id);
             PartialView_Categories(id);
-            //PartialView_CustomerFiles(id);
+            PartialView_CustomerFiles(id);
 
             return View(customer);
         }
@@ -357,17 +357,17 @@ namespace JobsV1.Controllers
 
         private void PartialView_CustomerFiles(int? id)
         {
-            /*
+            
             //PartialView for Details of the Customer
-            List<CustFiles> customerFiles = new List<CustFiles>();
+           List<CustFiles> FilesList = new List<CustFiles>();
 
             //error
-            customerFiles = db.CustFiles.Where(c => c.CustomerId == id).ToList();
+            var customerFiles = db.CustFiles.Where(c => c.CustomerId == id).ToList();
 
             if (customerFiles == null)
             {
 
-                customerFiles.Add(new CustFiles
+                FilesList.Add(new CustFiles
                 {
                     Id = 0,
                     CustomerId = 0,
@@ -383,7 +383,7 @@ namespace JobsV1.Controllers
             {
                 foreach (var file in customerFiles)
                 {
-                    customerFiles.Add(new CustFiles
+                    FilesList.Add(new CustFiles
                     {
                         Id = file.Id,
                         CustomerId = file.CustomerId,
@@ -395,8 +395,8 @@ namespace JobsV1.Controllers
                     });
                 }
             }
-            ViewBag.fileList = customerFiles;
-            */
+            ViewBag.fileList = FilesList;
+            
         }
 
     }

@@ -71,17 +71,17 @@
 <div>
     <p style="padding:2px">
         <h2>Customer Files</h2>
-        @Html.ActionLink("Upload File", "AsynFileUpload", "CustFiles", null, new { @class = "btn btn-default" })
+        @Html.ActionLink("Upload File", "UploadFiles", "CustFiles", new { id = Model.Id }, new { @class = "btn btn-default" })
     </p>
-    <!--
-    {Html.RenderPartial("PartialView_Files", (List<JobsV1.Models.CustFiles>)ViewBag.fileList);}
-        -->
+  
+    @{Html.RenderPartial("PartialView_Files", (List<JobsV1.Models.CustFiles>)ViewBag.fileList, new ViewDataDictionary { { "customerId", Model.Id } });}
+    
 </div>
 <div>
     <p style="padding:2px">
         <h2>Job List</h2>
 
-        @Html.ActionLink("Add Job", "Create", "JobMains", new { id = Model.Id }, new { @class = "btn btn-default" })
+        @Html.ActionLink("Add Job", "Create2", "JobMains", new { custid = Model.Id }, new { @class = "btn btn-default" })
 
     </p>
 
