@@ -578,6 +578,23 @@
     <Content Include="Images\CarRental\ToyotaHilux.jpg" />
     <Content Include="Images\CarRental\ToyotaInnova.jpg" />
     <Content Include="Images\CarRental\ToyotaInnovaDetails.jpg" />
+    <Content Include="Images\Customers\Category\Active-30.png" />
+    <Content Include="Images\Customers\Category\cancel-40.png" />
+    <Content Include="Images\Customers\Category\high-priority-40.png" />
+    <Content Include="Images\Customers\Category\low-priority-40.png" />
+    <Content Include="Images\Customers\Category\medium-priority-40.png" />
+    <Content Include="Images\Customers\Category\medium2-priority-40.png" />
+    <Content Include="Images\Customers\Category\star-filled-40.png" />
+    <Content Include="Images\Customers\Category\suspended-64.png" />
+    <Content Include="Images\Customers\Category\unavailable-40.png" />
+    <Content Include="Images\Customers\Category\vip-50.png" />
+    <Content Include="Images\Customers\Company\beach-40.png" />
+    <Content Include="Images\Customers\Company\dining-50.png" />
+    <Content Include="Images\Customers\Company\hotel-bed-40.png" />
+    <Content Include="Images\Customers\Company\hotel-building-50.png" />
+    <Content Include="Images\Customers\Company\museum-40.png" />
+    <Content Include="Images\Customers\Company\organization-40.png" />
+    <Content Include="Images\Customers\Company\small-business-40.png" />
     <Content Include="Images\Envelop001.png" />
     <Content Include="Images\LOGO_AJRENTACAR.jpg" />
     <Content Include="Images\Mepu\Logo.jpg" />
@@ -604,6 +621,7 @@
     <Content Include="Images\Signature-1.png" />
     <Content Include="Models\AddChecklist.SQL" />
     <Content Include="Models\AsExpenseDB.sql" />
+    <Content Include="Models\CustomerInitial.sql" />
     <Content Include="Models\InitialData.sql" />
     <Content Include="Models\JobDB.Car.sql" />
     <Content Include="Models\JobDB.Context.tt">
@@ -932,6 +950,8 @@
     <Content Include="Views\Customers\PartialView_CompanyDetails.cshtml" />
     <Content Include="Views\Customers\PartialView_Files.cshtml" />
     <Content Include="Views\Customers\PartialView_JobDetails.cshtml" />
+    <Content Include="Views\CustFiles\UploadFiles.cshtml" />
+    <Content Include="Views\CustFiles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

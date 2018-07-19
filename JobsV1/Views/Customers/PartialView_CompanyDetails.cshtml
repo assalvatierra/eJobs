@@ -9,6 +9,7 @@
 
 <table class="table table-striped">
     <tr>
+        <th></th>
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
@@ -21,14 +22,16 @@
         <th>
             @Html.DisplayNameFor(model => model.Contact2)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.iconPath)
-        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+
+            <img src="@Html.DisplayFor(modelItem => item.iconPath)" width="20" height="20" style="margin-right:20px;" />
+
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>
@@ -40,9 +43,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Contact2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.iconPath)
         </td>
         <td>
             @Html.ActionLink("Details", "Details", "CustEntMains",new { id = item.Id }, null) |

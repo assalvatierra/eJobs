@@ -171,16 +171,33 @@ namespace JobsV1.Controllers
             if (file != null && file.ContentLength > 0)
                 try
                 {
-                    string path = Path.Combine(Server.MapPath("~/Images/Uploads"),
+
+                    string extension = Path.GetExtension(file.FileName);
+
+                    //  ~/Images/CustomerFiles/(customerid)/filename.png Path.GetFileName(file.FileName)
+                    string path = Path.Combine(Server.MapPath("~/Images/CustomerFiles/"+custFiles.CustomerId),
                                                Path.GetFileName(file.FileName));
-                    file.SaveAs(path);
-                    ViewBag.Message = "File uploaded successfully";
-
-
+                    string directory = "http://localhost:50382/Images/CustomerFiles/" + custFiles.CustomerId + "/";
                     if (ModelState.IsValid)
                     {
+                        custFiles.Folder = custFiles.CustomerId.ToString(); // ~/customerid
+                        custFiles.Path = directory + Path.GetFileName(file.FileName);
                         db.CustFiles.Add(custFiles);
                         db.SaveChanges();
+
+                        //create directory if does not exist
+                        var folder = Server.MapPath("~/Images/CustomerFiles/" + custFiles.CustomerId);
+                        if (!Directory.Exists(folder))
+                        {
+                            Directory.CreateDirectory(folder);
+                        }
+
+                        file.SaveAs(path);
+                        ViewBag.Message = "File uploaded successfully";
+                    }else{
+                        ViewBag.Message = "File uploaded unsuccessfully";
+                        return View("#");
+
                     }
 
                     ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name", custFiles.CustomerId);

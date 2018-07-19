@@ -4,17 +4,12 @@
     ViewBag.Title = "PartialView_Files";
     int customerid = Convert.ToInt32(ViewData["customerId"]);
 }
+<link rel="stylesheet" href="~/Content/CustomerStyle.css"> 
 
-<table class="table">
+<table class="table table-striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Desc)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Folder)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Path)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Remarks)
@@ -28,19 +23,60 @@
             @Html.DisplayFor(modelItem => item.Desc)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Folder)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Path)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Remarks)
+
+            <img id="@Html.DisplayFor(modelItem => item.Id )" src="@Html.DisplayFor(modelItem => item.Path)" alt="@Html.DisplayFor(modelItem => item.Desc)" style="width:100%;max-width:300px;display:none;">
+
         </td>
         <td>
-            @Html.ActionLink("Details", "Details", "CustFiles", new { id = item.Id }, null) |
+
+            <a id='"viewBtn" + @Html.DisplayFor(modelItem => item.Id )' onclick="viewPicture(@Html.DisplayFor(modelItem => item.Id ))">View</a>  |
+
             @Html.ActionLink("Remove", "Remove", "CustFiles", new { fileid = item.Id, custid = customerid }, null)
+           
+         <!--
+            <a href="Html.DisplayFor(modelItem => item.Path)" target="_blank">View</a>
+             -->
         </td>
     </tr>
 }
 
 </table>
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="img01">
+    <div id="caption"></div>
+</div>
+
+
+<script>
+
+    function viewPicture(id) {
+
+
+        // Get the modal
+        var modal = document.getElementById('myModal');
+
+        // Get the image and insert it inside the modal - use its "alt" text as a caption
+        var img = document.getElementById(id);
+        var modalImg = document.getElementById("img01");
+        var captionText = document.getElementById("caption");
+        var viewBtn = document.getElementById('viewBtn' + id);
+
+            modal.style.display = "block";
+            modalImg.src = img.src;
+            captionText.innerHTML = img.alt;
+        
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+    }
+
+</script>
