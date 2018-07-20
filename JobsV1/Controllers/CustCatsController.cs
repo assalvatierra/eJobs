@@ -145,5 +145,23 @@ namespace JobsV1.Controllers
             db.SaveChanges();
             return RedirectToAction("Details", "Customers", new { id = custid });
         }
+
+
+        public ActionResult addCategory(int catid, int userid)
+        {
+            
+                CustCat cat = new CustCat();
+
+                db.CustCats.Add(new CustCat
+                {
+                    CustCategoryId = catid,
+                    CustomerId = userid
+                });
+                db.SaveChanges();
+                //  return RedirectToAction("Index");
+                return RedirectToAction("Details", "Customers", new { id =userid });
+        
+        }
+
     }
 }
