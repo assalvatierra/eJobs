@@ -119,3 +119,8 @@ Values
 ('Driver','Driver','~/Images/CarRental/Driver101.png','DRIVER'),
 ('Others','Other Types','~/Images/CarRental/Repair101.png','OTHER');
 
+-- ----------------------------------------------
+-- Supplier PO Configuration
+-- ----------------------------------------------
+insert into SupplierPoStatus ([Status]) values ('ONGOING'),('APPROVED'),('CANCELLED'),('CLOSE');
+

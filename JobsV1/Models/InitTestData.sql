@@ -27,3 +27,11 @@ values(1,2),(1,3),
 (2,3),(2,4),
 (3,3),(3,4),
 (4,3),(4,4);
+
+-- Supplier PO Samples
+insert into SupplierPoHdrs([PoDate],[Remarks],[SupplierId],[SupplierPoStatusId],[RequestBy],[DtRequest])
+values ('07-20-2018','Test Po',1,1,'Abel','07-20-2018');
+
+insert into SupplierPoDtls([SupplierPoHdrId],[Remarks],[Amount],[JobServicesId])
+values (1,'10 seater vehicle',3500,1);
+

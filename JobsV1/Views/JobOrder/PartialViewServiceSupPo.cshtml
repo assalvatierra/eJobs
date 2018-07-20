@@ -1,0 +1,17 @@
+﻿@model IEnumerable<JobsV1.Models.SupplierPoDtl>
+@{ int SvcId = Convert.ToInt32(ViewData["svcId1"]);  }
+
+<div>
+    <span>PO(Supplier)</span>
+    @foreach (var item in Model)
+    {
+        <span>&#187;</span>
+        <span>
+            <a id="@item.Id" data_svcid="@SvcId" name="@item.Id" href="" class="clickitem">@item.Remarks (@item.Amount)</a>
+        </span>
+        <br />
+    }
+</div>
+
+
+

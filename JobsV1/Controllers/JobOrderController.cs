@@ -31,6 +31,7 @@ namespace JobsV1.Controllers
         public IQueryable<Models.JobAction> Actions { get; set; }
         public IQueryable<Models.SrvActionItem> SvcActions { get; set; }
         public IQueryable<Models.JobServiceItem> SvcItems { get; set; }
+        public IQueryable<Models.SupplierPoDtl> SupplierPos { get; set; }
     }
 
     public class cjobCounter
@@ -87,6 +88,7 @@ namespace JobsV1.Controllers
                     cjoTmp.SvcActions = db.SrvActionItems.Where(d => d.ServicesId == svc.ServicesId && !ActionDone.Contains(d.Id) ).Include(d => d.SrvActionCode);
                     cjoTmp.Actions = db.JobActions.Where(d => d.JobServicesId == svc.Id).Include(d=>d.SrvActionItem);
                     cjoTmp.SvcItems = db.JobServiceItems.Where(d => d.JobServicesId == svc.Id).Include(d => d.InvItem);
+                    cjoTmp.SupplierPos = db.SupplierPoDtls.Where(d => d.JobServicesId == svc.Id).Include(i => i.SupplierPoHdr);
 
                     joTmp.Services.Add(cjoTmp);
                 }

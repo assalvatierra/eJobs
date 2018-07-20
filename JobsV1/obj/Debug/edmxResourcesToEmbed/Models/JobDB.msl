@@ -661,5 +661,46 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="SupplierPoHdrs">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.SupplierPoHdr)">
+        <MappingFragment StoreEntitySet="SupplierPoHdrs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PoDate" ColumnName="PoDate" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+          <ScalarProperty Name="SupplierPoStatusId" ColumnName="SupplierPoStatusId" />
+          <ScalarProperty Name="RequestBy" ColumnName="RequestBy" />
+          <ScalarProperty Name="DtRequest" ColumnName="DtRequest" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SupplierPoDtls">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.SupplierPoDtl)">
+        <MappingFragment StoreEntitySet="SupplierPoDtls">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SupplierPoHdrId" ColumnName="SupplierPoHdrId" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="JobServicesId" ColumnName="JobServicesId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SupplierPoStatus">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.SupplierPoStatus)">
+        <MappingFragment StoreEntitySet="SupplierPoStatus">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SupplierPoItems">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.SupplierPoItem)">
+        <MappingFragment StoreEntitySet="SupplierPoItems">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SupplierPoDtlId" ColumnName="SupplierPoDtlId" />
+          <ScalarProperty Name="InvItemId" ColumnName="InvItemId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

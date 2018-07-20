@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/19/2018 14:44:10
--- Generated from EDMX file: C:\Users\Villosa\Documents\GitHub\eJobs\JobsV1\Models\JobDB.edmx
+-- Date Created: 07/20/2018 08:39:43
+-- Generated from EDMX file: D:\Data\Real\Apps\GitHub\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -185,6 +185,24 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_CustomerCustFiles]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[CustFiles] DROP CONSTRAINT [FK_CustomerCustFiles];
 GO
+IF OBJECT_ID(N'[dbo].[FK_SupplierSupplierPoHdr]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SupplierPoHdrs] DROP CONSTRAINT [FK_SupplierSupplierPoHdr];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SupplierPoStatusSupplierPoHdr]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SupplierPoHdrs] DROP CONSTRAINT [FK_SupplierPoStatusSupplierPoHdr];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SupplierPoHdrSupplierPoDtl]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SupplierPoDtls] DROP CONSTRAINT [FK_SupplierPoHdrSupplierPoDtl];
+GO
+IF OBJECT_ID(N'[dbo].[FK_JobServicesSupplierPoDtl]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SupplierPoDtls] DROP CONSTRAINT [FK_JobServicesSupplierPoDtl];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SupplierPoDtlSupplierPoItem]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SupplierPoItems] DROP CONSTRAINT [FK_SupplierPoDtlSupplierPoItem];
+GO
+IF OBJECT_ID(N'[dbo].[FK_InvItemSupplierPoItem]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SupplierPoItems] DROP CONSTRAINT [FK_InvItemSupplierPoItem];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -360,6 +378,18 @@ IF OBJECT_ID(N'[dbo].[JobNotificationRequests]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[CustFiles]', 'U') IS NOT NULL
     DROP TABLE [dbo].[CustFiles];
+GO
+IF OBJECT_ID(N'[dbo].[SupplierPoHdrs]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SupplierPoHdrs];
+GO
+IF OBJECT_ID(N'[dbo].[SupplierPoDtls]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SupplierPoDtls];
+GO
+IF OBJECT_ID(N'[dbo].[SupplierPoStatus]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SupplierPoStatus];
+GO
+IF OBJECT_ID(N'[dbo].[SupplierPoItems]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SupplierPoItems];
 GO
 
 -- --------------------------------------------------

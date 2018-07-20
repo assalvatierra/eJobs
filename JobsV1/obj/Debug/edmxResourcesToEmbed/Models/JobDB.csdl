@@ -282,6 +282,34 @@
       <End Role="Customer" EntitySet="Customers" />
       <End Role="CustFiles" EntitySet="CustFiles" />
     </AssociationSet>
+    <EntitySet Name="SupplierPoHdrs" EntityType="JobDB.SupplierPoHdr" />
+    <AssociationSet Name="SupplierSupplierPoHdr" Association="JobDB.SupplierSupplierPoHdr">
+      <End Role="Supplier" EntitySet="Suppliers" />
+      <End Role="SupplierPoHdr" EntitySet="SupplierPoHdrs" />
+    </AssociationSet>
+    <EntitySet Name="SupplierPoDtls" EntityType="JobDB.SupplierPoDtl" />
+    <EntitySet Name="SupplierPoStatus" EntityType="JobDB.SupplierPoStatus" />
+    <AssociationSet Name="SupplierPoStatusSupplierPoHdr" Association="JobDB.SupplierPoStatusSupplierPoHdr">
+      <End Role="SupplierPoStatus" EntitySet="SupplierPoStatus" />
+      <End Role="SupplierPoHdr" EntitySet="SupplierPoHdrs" />
+    </AssociationSet>
+    <AssociationSet Name="SupplierPoHdrSupplierPoDtl" Association="JobDB.SupplierPoHdrSupplierPoDtl">
+      <End Role="SupplierPoHdr" EntitySet="SupplierPoHdrs" />
+      <End Role="SupplierPoDtl" EntitySet="SupplierPoDtls" />
+    </AssociationSet>
+    <AssociationSet Name="JobServicesSupplierPoDtl" Association="JobDB.JobServicesSupplierPoDtl">
+      <End Role="JobServices" EntitySet="JobServices" />
+      <End Role="SupplierPoDtl" EntitySet="SupplierPoDtls" />
+    </AssociationSet>
+    <EntitySet Name="SupplierPoItems" EntityType="JobDB.SupplierPoItem" />
+    <AssociationSet Name="SupplierPoDtlSupplierPoItem" Association="JobDB.SupplierPoDtlSupplierPoItem">
+      <End Role="SupplierPoDtl" EntitySet="SupplierPoDtls" />
+      <End Role="SupplierPoItem" EntitySet="SupplierPoItems" />
+    </AssociationSet>
+    <AssociationSet Name="InvItemSupplierPoItem" Association="JobDB.InvItemSupplierPoItem">
+      <End Role="InvItem" EntitySet="InvItems" />
+      <End Role="SupplierPoItem" EntitySet="SupplierPoItems" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="JobMain">
     <Key>
@@ -330,6 +358,7 @@
     <Property Name="SupplierTypeId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="SupplierItems" Relationship="JobDB.SupplierSupplierItem" FromRole="Supplier" ToRole="SupplierItem" />
     <NavigationProperty Name="SupplierInvItems" Relationship="JobDB.SupplierSupplierInvItem" FromRole="Supplier" ToRole="SupplierInvItem" />
+    <NavigationProperty Name="SupplierPoHdrs" Relationship="JobDB.SupplierSupplierPoHdr" FromRole="Supplier" ToRole="SupplierPoHdr" />
   </EntityType>
   <EntityType Name="Customer">
     <Key>
@@ -408,6 +437,7 @@
     <Property Name="DtEnd" Type="DateTime" Nullable="true" />
     <NavigationProperty Name="JobActions" Relationship="JobDB.JobServicesJobAction" FromRole="JobServices" ToRole="JobAction" />
     <NavigationProperty Name="JobServiceItems" Relationship="JobDB.JobServicesJobServiceItem" FromRole="JobServices" ToRole="JobServiceItem" />
+    <NavigationProperty Name="SupplierPoDtls" Relationship="JobDB.JobServicesSupplierPoDtl" FromRole="JobServices" ToRole="SupplierPoDtl" />
   </EntityType>
   <Association Name="JobMainJobSupplier">
     <End Type="JobDB.JobMain" Role="JobMain" Multiplicity="1" />
@@ -1487,6 +1517,7 @@
     <NavigationProperty Name="InvItemCategories" Relationship="JobDB.InvItemInvItemCategory" FromRole="InvItem" ToRole="InvItemCategory" />
     <NavigationProperty Name="JobServiceItems" Relationship="JobDB.InvItemJobServiceItem" FromRole="InvItem" ToRole="JobServiceItem" />
     <NavigationProperty Name="SupplierInvItems" Relationship="JobDB.InvItemSupplierInvItem" FromRole="InvItem" ToRole="SupplierInvItem" />
+    <NavigationProperty Name="SupplierPoItems" Relationship="JobDB.InvItemSupplierPoItem" FromRole="InvItem" ToRole="SupplierPoItem" />
   </EntityType>
   <EntityType Name="InvItemCat">
     <Key>
@@ -1667,6 +1698,124 @@
       </Principal>
       <Dependent Role="CustFiles">
         <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="SupplierPoHdr">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PoDate" Type="String" Nullable="false" />
+    <Property Name="Remarks" Type="String" Nullable="false" />
+    <NavigationProperty Name="Supplier" Relationship="JobDB.SupplierSupplierPoHdr" FromRole="SupplierPoHdr" ToRole="Supplier" />
+    <Property Name="SupplierId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="SupplierPoStatu" Relationship="JobDB.SupplierPoStatusSupplierPoHdr" FromRole="SupplierPoHdr" ToRole="SupplierPoStatus" />
+    <Property Name="SupplierPoStatusId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="SupplierPoDtls" Relationship="JobDB.SupplierPoHdrSupplierPoDtl" FromRole="SupplierPoHdr" ToRole="SupplierPoDtl" />
+    <Property Name="RequestBy" Type="String" Nullable="false" />
+    <Property Name="DtRequest" Type="String" Nullable="false" />
+  </EntityType>
+  <Association Name="SupplierSupplierPoHdr">
+    <End Type="JobDB.Supplier" Role="Supplier" Multiplicity="1" />
+    <End Type="JobDB.SupplierPoHdr" Role="SupplierPoHdr" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supplier">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SupplierPoHdr">
+        <PropertyRef Name="SupplierId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="SupplierPoDtl">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="SupplierPoHdr" Relationship="JobDB.SupplierPoHdrSupplierPoDtl" FromRole="SupplierPoDtl" ToRole="SupplierPoHdr" />
+    <Property Name="SupplierPoHdrId" Type="Int32" Nullable="false" />
+    <Property Name="Remarks" Type="String" Nullable="false" />
+    <Property Name="Amount" Type="String" Nullable="false" />
+    <NavigationProperty Name="JobService" Relationship="JobDB.JobServicesSupplierPoDtl" FromRole="SupplierPoDtl" ToRole="JobServices" />
+    <Property Name="JobServicesId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="SupplierPoItems" Relationship="JobDB.SupplierPoDtlSupplierPoItem" FromRole="SupplierPoDtl" ToRole="SupplierPoItem" />
+  </EntityType>
+  <EntityType Name="SupplierPoStatus">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Status" Type="String" Nullable="false" />
+    <NavigationProperty Name="SupplierPoHdrs" Relationship="JobDB.SupplierPoStatusSupplierPoHdr" FromRole="SupplierPoStatus" ToRole="SupplierPoHdr" />
+  </EntityType>
+  <Association Name="SupplierPoStatusSupplierPoHdr">
+    <End Type="JobDB.SupplierPoStatus" Role="SupplierPoStatus" Multiplicity="1" />
+    <End Type="JobDB.SupplierPoHdr" Role="SupplierPoHdr" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SupplierPoStatus">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SupplierPoHdr">
+        <PropertyRef Name="SupplierPoStatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SupplierPoHdrSupplierPoDtl">
+    <End Type="JobDB.SupplierPoHdr" Role="SupplierPoHdr" Multiplicity="1" />
+    <End Type="JobDB.SupplierPoDtl" Role="SupplierPoDtl" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SupplierPoHdr">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SupplierPoDtl">
+        <PropertyRef Name="SupplierPoHdrId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="JobServicesSupplierPoDtl">
+    <End Type="JobDB.JobServices" Role="JobServices" Multiplicity="1" />
+    <End Type="JobDB.SupplierPoDtl" Role="SupplierPoDtl" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobServices">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SupplierPoDtl">
+        <PropertyRef Name="JobServicesId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="SupplierPoItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="SupplierPoDtl" Relationship="JobDB.SupplierPoDtlSupplierPoItem" FromRole="SupplierPoItem" ToRole="SupplierPoDtl" />
+    <Property Name="SupplierPoDtlId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="InvItem" Relationship="JobDB.InvItemSupplierPoItem" FromRole="SupplierPoItem" ToRole="InvItem" />
+    <Property Name="InvItemId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="SupplierPoDtlSupplierPoItem">
+    <End Type="JobDB.SupplierPoDtl" Role="SupplierPoDtl" Multiplicity="1" />
+    <End Type="JobDB.SupplierPoItem" Role="SupplierPoItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SupplierPoDtl">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SupplierPoItem">
+        <PropertyRef Name="SupplierPoDtlId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InvItemSupplierPoItem">
+    <End Type="JobDB.InvItem" Role="InvItem" Multiplicity="1" />
+    <End Type="JobDB.SupplierPoItem" Role="SupplierPoItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InvItem">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SupplierPoItem">
+        <PropertyRef Name="InvItemId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
