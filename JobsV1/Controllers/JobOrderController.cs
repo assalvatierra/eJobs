@@ -260,27 +260,20 @@ order by x.jobid
         }
         #endregion
 
-
-
-        /*
-        //Obsolete
-        public ActionResult ActionDone(int srvactionitemid, int svcid)
+        #region Supplier Po
+        public ActionResult InitializePO(int srcId)
         {
-            Models.JobAction newAction = new JobAction();
-            newAction.DtPerformed = DateTime.Now;
-            newAction.PerformedBy = "abel";
-            newAction.Remarks = "Done";
-            newAction.JobServicesId = svcid;
-            newAction.SrvActionItemId = srvactionitemid;
+            var tmp = new Models.SupplierPoHdr();
+            tmp.PoDate = DateTime.Now;
+            tmp.RequestBy = User.Identity.Name;
+            tmp.DtRequest = DateTime.Now;
 
-            db.JobActions.Add(newAction);
-            db.SaveChanges();
-
-            return RedirectToAction("index");
-
+            return View(tmp);
         }
-        */
 
+        #endregion
+
+        #region Action Items status update
         //Ajax Call
         public ActionResult MarkDone(int SvcId, int ActionId)
         {
@@ -305,6 +298,6 @@ order by x.jobid
         {
             return Json("insomia", JsonRequestBehavior.AllowGet);
         }
-
+        #endregion
     }
 }

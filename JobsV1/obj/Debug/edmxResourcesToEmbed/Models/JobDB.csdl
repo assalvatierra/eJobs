@@ -1706,15 +1706,15 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="PoDate" Type="String" Nullable="false" />
-    <Property Name="Remarks" Type="String" Nullable="false" />
+    <Property Name="PoDate" Type="DateTime" Nullable="false" />
+    <Property Name="Remarks" Type="String" Nullable="true" MaxLength="250" />
     <NavigationProperty Name="Supplier" Relationship="JobDB.SupplierSupplierPoHdr" FromRole="SupplierPoHdr" ToRole="Supplier" />
     <Property Name="SupplierId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="SupplierPoStatu" Relationship="JobDB.SupplierPoStatusSupplierPoHdr" FromRole="SupplierPoHdr" ToRole="SupplierPoStatus" />
     <Property Name="SupplierPoStatusId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="SupplierPoDtls" Relationship="JobDB.SupplierPoHdrSupplierPoDtl" FromRole="SupplierPoHdr" ToRole="SupplierPoDtl" />
     <Property Name="RequestBy" Type="String" Nullable="false" />
-    <Property Name="DtRequest" Type="String" Nullable="false" />
+    <Property Name="DtRequest" Type="DateTime" Nullable="false" />
   </EntityType>
   <Association Name="SupplierSupplierPoHdr">
     <End Type="JobDB.Supplier" Role="Supplier" Multiplicity="1" />
@@ -1735,8 +1735,8 @@
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <NavigationProperty Name="SupplierPoHdr" Relationship="JobDB.SupplierPoHdrSupplierPoDtl" FromRole="SupplierPoDtl" ToRole="SupplierPoHdr" />
     <Property Name="SupplierPoHdrId" Type="Int32" Nullable="false" />
-    <Property Name="Remarks" Type="String" Nullable="false" />
-    <Property Name="Amount" Type="String" Nullable="false" />
+    <Property Name="Remarks" Type="String" Nullable="true" MaxLength="250" />
+    <Property Name="Amount" Type="Decimal" Nullable="false" />
     <NavigationProperty Name="JobService" Relationship="JobDB.JobServicesSupplierPoDtl" FromRole="SupplierPoDtl" ToRole="JobServices" />
     <Property Name="JobServicesId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="SupplierPoItems" Relationship="JobDB.SupplierPoDtlSupplierPoItem" FromRole="SupplierPoDtl" ToRole="SupplierPoItem" />

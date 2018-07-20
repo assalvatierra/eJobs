@@ -23,7 +23,7 @@ namespace JobsV1.Models
         public int Id { get; set; }
         public int SupplierPoHdrId { get; set; }
         public string Remarks { get; set; }
-        public string Amount { get; set; }
+        public decimal Amount { get; set; }
         public int JobServicesId { get; set; }
     
         public virtual SupplierPoHdr SupplierPoHdr { get; set; }

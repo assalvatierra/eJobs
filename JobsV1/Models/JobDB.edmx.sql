@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/20/2018 08:39:43
+-- Date Created: 07/20/2018 14:02:09
 -- Generated from EDMX file: D:\Data\Real\Apps\GitHub\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
@@ -1002,12 +1002,12 @@ GO
 -- Creating table 'SupplierPoHdrs'
 CREATE TABLE [dbo].[SupplierPoHdrs] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [PoDate] nvarchar(max)  NOT NULL,
-    [Remarks] nvarchar(max)  NOT NULL,
+    [PoDate] datetime  NOT NULL,
+    [Remarks] nvarchar(250)  NULL,
     [SupplierId] int  NOT NULL,
     [SupplierPoStatusId] int  NOT NULL,
     [RequestBy] nvarchar(max)  NOT NULL,
-    [DtRequest] nvarchar(max)  NOT NULL
+    [DtRequest] datetime  NOT NULL
 );
 GO
 
@@ -1015,8 +1015,8 @@ GO
 CREATE TABLE [dbo].[SupplierPoDtls] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [SupplierPoHdrId] int  NOT NULL,
-    [Remarks] nvarchar(max)  NOT NULL,
-    [Amount] nvarchar(max)  NOT NULL,
+    [Remarks] nvarchar(250)  NULL,
+    [Amount] decimal(18,0)  NOT NULL,
     [JobServicesId] int  NOT NULL
 );
 GO

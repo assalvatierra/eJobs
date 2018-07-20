@@ -21,12 +21,12 @@ namespace JobsV1.Models
         }
     
         public int Id { get; set; }
-        public string PoDate { get; set; }
+        public System.DateTime PoDate { get; set; }
         public string Remarks { get; set; }
         public int SupplierId { get; set; }
         public int SupplierPoStatusId { get; set; }
         public string RequestBy { get; set; }
-        public string DtRequest { get; set; }
+        public System.DateTime DtRequest { get; set; }
     
         public virtual Supplier Supplier { get; set; }
         public virtual SupplierPoStatus SupplierPoStatu { get; set; }

@@ -919,12 +919,12 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="PoDate" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Remarks" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PoDate" Type="datetime" Nullable="false" />
+    <Property Name="Remarks" Type="nvarchar" Nullable="true" MaxLength="250" />
     <Property Name="SupplierId" Type="int" Nullable="false" />
     <Property Name="SupplierPoStatusId" Type="int" Nullable="false" />
     <Property Name="RequestBy" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="DtRequest" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DtRequest" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="SupplierPoDtls">
     <Key>
@@ -932,8 +932,8 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="SupplierPoHdrId" Type="int" Nullable="false" />
-    <Property Name="Remarks" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Amount" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Remarks" Type="nvarchar" Nullable="true" MaxLength="250" />
+    <Property Name="Amount" Type="decimal" Nullable="false" />
     <Property Name="JobServicesId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="SupplierPoStatus">

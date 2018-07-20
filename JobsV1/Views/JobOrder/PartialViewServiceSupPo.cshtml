@@ -2,30 +2,32 @@
 @{ int SvcId = Convert.ToInt32(ViewData["svcId1"]);  }
 
 <div>
-    <span>PO(Supplier)</span>
-    @foreach (var poTmp in Model)
-    {
-        <span>&#187;</span>
-        <span>
-            <a id="@poTmp.Id" data_svcid="@SvcId" name="@poTmp.Id" href="" class="clickitem">
-            @poTmp.SupplierPoHdr.Supplier.Name (@poTmp.Amount) 
-            </a>
-        </span>
-
-        foreach (var item in poTmp.SupplierPoItems)
+    <span>Supplier Items</span>
+    <span>&#187;</span>
+    <div style="padding-left:1.5em;">
+        @foreach (var poTmp in Model)
         {
             <span>
-                [<a id="@item.Id" data_svcid="@SvcId" name="@item.Id" href="" class="clickitem">
-                    @item.InvItem.ItemCode  @item.InvItem.Description
+                <a id="@poTmp.Id" data_svcid="@SvcId" name="@poTmp.Id" href="" class="clickitem">
+                    @poTmp.SupplierPoHdr.Supplier.Name (@poTmp.Amount)
                 </a>
-                ] &nbsp;
             </span>
 
+            foreach (var item in poTmp.SupplierPoItems)
+            {
+                <span>
+                    [<a id="@item.Id" data_svcid="@SvcId" name="@item.Id" href="" class="clickitem">
+                        @item.InvItem.ItemCode  @item.InvItem.Description
+                    </a>
+                    ] &nbsp;
+                </span>
+
+            }
         }
 
+    <div>[@Html.ActionLink("ADD PO", "CreatePO")]</div>
 
-        <br />
-    }
+    </div>
 </div>
 
 
