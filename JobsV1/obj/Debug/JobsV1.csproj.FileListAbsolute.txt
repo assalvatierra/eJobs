@@ -447,4 +447,3 @@ C:\Users\Villosa\Documents\GitHub\eJobs\JobsV1\bin\Microsoft.Owin.Security.Micro
 C:\Users\Villosa\Documents\GitHub\eJobs\JobsV1\obj\Debug\JobsV1.dll
 C:\Users\Villosa\Documents\GitHub\eJobs\JobsV1\obj\Debug\JobsV1.pdb
 C:\Users\Villosa\Documents\GitHub\eJobs\JobsV1\obj\Debug\JobsV1.csprojResolveAssemblyReference.cache
-D:\Data\Real\Apps\GitHub\eJobs\JobsV1\obj\Debug\JobsV1.csprojResolveAssemblyReference.cache
