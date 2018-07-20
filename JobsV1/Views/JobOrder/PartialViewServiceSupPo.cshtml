@@ -3,12 +3,27 @@
 
 <div>
     <span>PO(Supplier)</span>
-    @foreach (var item in Model)
+    @foreach (var poTmp in Model)
     {
         <span>&#187;</span>
         <span>
-            <a id="@item.Id" data_svcid="@SvcId" name="@item.Id" href="" class="clickitem">@item.Remarks (@item.Amount)</a>
+            <a id="@poTmp.Id" data_svcid="@SvcId" name="@poTmp.Id" href="" class="clickitem">
+            @poTmp.SupplierPoHdr.Supplier.Name (@poTmp.Amount) 
+            </a>
         </span>
+
+        foreach (var item in poTmp.SupplierPoItems)
+        {
+            <span>
+                [<a id="@item.Id" data_svcid="@SvcId" name="@item.Id" href="" class="clickitem">
+                    @item.InvItem.ItemCode  @item.InvItem.Description
+                </a>
+                ] &nbsp;
+            </span>
+
+        }
+
+
         <br />
     }
 </div>
