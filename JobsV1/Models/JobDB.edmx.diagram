@@ -115,8 +115,8 @@
         <AssociationConnector Association="JobDB.InvItemSupplierInvItem" />
         <AssociationConnector Association="JobDB.ServicesSrvActionItem" />
         <AssociationConnector Association="JobDB.SrvActionItemJobAction" ManuallyRouted="true" >
-          <ConnectorPoint PointX="19.875" PointY="23.06224609375" />
-          <ConnectorPoint PointX="19.375" PointY="23.06224609375" />
+          <ConnectorPoint PointX="19.875" PointY="23.749492187500003" />
+          <ConnectorPoint PointX="19.375" PointY="24.155834667928477" />
         </AssociationConnector>
         <AssociationConnector Association="JobDB.SrvActionCodeSrvActionItem" />
         <EntityTypeShape EntityType="JobDB.JobNotificationRequest" Width="1.5" PointX="10.5" PointY="19.625" />
