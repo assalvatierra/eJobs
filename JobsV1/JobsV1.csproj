@@ -965,6 +965,7 @@
     <Content Include="Views\CustFiles\UploadFiles.cshtml" />
     <Content Include="Views\CustFiles\Index.cshtml" />
     <Content Include="Views\JobOrder\PartialViewServiceSupPo.cshtml" />
+    <Content Include="Views\Customers\PartialView_UploadFiles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

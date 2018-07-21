@@ -50,10 +50,11 @@ namespace JobsV1.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 db.CustEntMains.Add(custEntMain);
                 db.SaveChanges();
 
-                return RedirectToAction("Create", "CustEntities", new { id = id });
+                return RedirectToAction("Create", "CustEntities", new { id = id, companyId = custEntMain.Id });
             }
 
             return View(custEntMain);

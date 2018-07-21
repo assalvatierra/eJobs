@@ -349,6 +349,10 @@ namespace JobsV1.Controllers
                 }
 
             }
+            List<CustEntMain> List = new List<CustEntMain>();
+            List = db.CustEntMains.ToList();
+            ViewBag.companies = List;
+            
             ViewBag.companyList = CompanyList;
             ViewBag.CustomerID = id;
 
