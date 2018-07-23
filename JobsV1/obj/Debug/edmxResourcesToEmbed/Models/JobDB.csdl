@@ -1715,6 +1715,8 @@
     <NavigationProperty Name="SupplierPoDtls" Relationship="JobDB.SupplierPoHdrSupplierPoDtl" FromRole="SupplierPoHdr" ToRole="SupplierPoDtl" />
     <Property Name="RequestBy" Type="String" Nullable="false" />
     <Property Name="DtRequest" Type="DateTime" Nullable="false" />
+    <Property Name="ApprovedBy" Type="String" Nullable="true" MaxLength="80" />
+    <Property Name="DtApproved" Type="DateTime" Nullable="true" />
   </EntityType>
   <Association Name="SupplierSupplierPoHdr">
     <End Type="JobDB.Supplier" Role="Supplier" Multiplicity="1" />

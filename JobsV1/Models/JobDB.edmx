@@ -930,6 +930,8 @@
     <Property Name="SupplierPoStatusId" Type="int" Nullable="false" />
     <Property Name="RequestBy" Type="nvarchar(max)" Nullable="false" />
     <Property Name="DtRequest" Type="datetime" Nullable="false" />
+    <Property Name="ApprovedBy" Type="nvarchar" Nullable="true" MaxLength="80" />
+    <Property Name="DtApproved" Type="datetime" Nullable="true" />
   </EntityType>
   <EntityType Name="SupplierPoDtls">
     <Key>
@@ -3419,6 +3421,8 @@
           <NavigationProperty Name="SupplierPoDtls" Relationship="JobDB.SupplierPoHdrSupplierPoDtl" FromRole="SupplierPoHdr" ToRole="SupplierPoDtl" />
           <Property Name="RequestBy" Type="String" Nullable="false" />
           <Property Name="DtRequest" Type="DateTime" Nullable="false" />
+          <Property Name="ApprovedBy" Type="String" Nullable="true" MaxLength="80" />
+          <Property Name="DtApproved" Type="DateTime" Nullable="true" />
         </EntityType>
         <Association Name="SupplierSupplierPoHdr">
           <End Type="JobDB.Supplier" Role="Supplier" Multiplicity="1" />
@@ -4199,6 +4203,8 @@
           <ScalarProperty Name="SupplierPoStatusId" ColumnName="SupplierPoStatusId" />
           <ScalarProperty Name="RequestBy" ColumnName="RequestBy" />
           <ScalarProperty Name="DtRequest" ColumnName="DtRequest" />
+          <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+          <ScalarProperty Name="DtApproved" ColumnName="DtApproved" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -296,6 +296,8 @@
     <Compile Include="Controllers\SalesActivitiesController.cs" />
     <Compile Include="Controllers\SalesLeadsController.cs" />
     <Compile Include="Controllers\SupplierItemsController.cs" />
+    <Compile Include="Controllers\SupplierPoDtlsController.cs" />
+    <Compile Include="Controllers\SupplierPoHdrsController.cs" />
     <Compile Include="Controllers\SuppliersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -965,6 +967,16 @@
     <Content Include="Views\CustFiles\UploadFiles.cshtml" />
     <Content Include="Views\CustFiles\Index.cshtml" />
     <Content Include="Views\JobOrder\PartialViewServiceSupPo.cshtml" />
+    <Content Include="Views\SupplierPoHdrs\Create.cshtml" />
+    <Content Include="Views\SupplierPoHdrs\Delete.cshtml" />
+    <Content Include="Views\SupplierPoHdrs\Details.cshtml" />
+    <Content Include="Views\SupplierPoHdrs\Edit.cshtml" />
+    <Content Include="Views\SupplierPoHdrs\Index.cshtml" />
+    <Content Include="Views\SupplierPoDtls\Create.cshtml" />
+    <Content Include="Views\SupplierPoDtls\Delete.cshtml" />
+    <Content Include="Views\SupplierPoDtls\Details.cshtml" />
+    <Content Include="Views\SupplierPoDtls\Edit.cshtml" />
+    <Content Include="Views\SupplierPoDtls\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

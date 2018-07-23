@@ -27,6 +27,8 @@ namespace JobsV1.Models
         public int SupplierPoStatusId { get; set; }
         public string RequestBy { get; set; }
         public System.DateTime DtRequest { get; set; }
+        public string ApprovedBy { get; set; }
+        public Nullable<System.DateTime> DtApproved { get; set; }
     
         public virtual Supplier Supplier { get; set; }
         public virtual SupplierPoStatus SupplierPoStatu { get; set; }

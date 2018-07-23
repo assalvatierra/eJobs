@@ -925,6 +925,8 @@
     <Property Name="SupplierPoStatusId" Type="int" Nullable="false" />
     <Property Name="RequestBy" Type="nvarchar(max)" Nullable="false" />
     <Property Name="DtRequest" Type="datetime" Nullable="false" />
+    <Property Name="ApprovedBy" Type="nvarchar" Nullable="true" MaxLength="80" />
+    <Property Name="DtApproved" Type="datetime" Nullable="true" />
   </EntityType>
   <EntityType Name="SupplierPoDtls">
     <Key>

@@ -671,6 +671,8 @@
           <ScalarProperty Name="SupplierPoStatusId" ColumnName="SupplierPoStatusId" />
           <ScalarProperty Name="RequestBy" ColumnName="RequestBy" />
           <ScalarProperty Name="DtRequest" ColumnName="DtRequest" />
+          <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+          <ScalarProperty Name="DtApproved" ColumnName="DtApproved" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

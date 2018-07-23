@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/20/2018 14:02:09
+-- Date Created: 07/23/2018 09:01:27
 -- Generated from EDMX file: D:\Data\Real\Apps\GitHub\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
@@ -1007,7 +1007,9 @@ CREATE TABLE [dbo].[SupplierPoHdrs] (
     [SupplierId] int  NOT NULL,
     [SupplierPoStatusId] int  NOT NULL,
     [RequestBy] nvarchar(max)  NOT NULL,
-    [DtRequest] datetime  NOT NULL
+    [DtRequest] datetime  NOT NULL,
+    [ApprovedBy] nvarchar(80)  NULL,
+    [DtApproved] datetime  NULL
 );
 GO
 
