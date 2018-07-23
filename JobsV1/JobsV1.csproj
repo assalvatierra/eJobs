@@ -977,6 +977,8 @@
     <Content Include="Views\SupplierPoDtls\Details.cshtml" />
     <Content Include="Views\SupplierPoDtls\Edit.cshtml" />
     <Content Include="Views\SupplierPoDtls\Index.cshtml" />
+    <Content Include="Views\Customers\PartialView_UploadFiles.cshtml" />
+    <Content Include="Views\SupplierPoDtls\ItemCreate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -18,6 +18,35 @@ namespace JobsV1.Controllers
         public ActionResult Index(int? hdrId)
         {
             var supplierPoDtls = db.SupplierPoDtls.Include(s => s.SupplierPoHdr).Include(s => s.JobService).Where(d=>d.SupplierPoHdrId== (int)hdrId);
+
+            SupplierPoDtl supplier = db.SupplierPoDtls.Where(s => s.SupplierPoHdrId == hdrId).FirstOrDefault();
+
+            List<SupplierPoItem> supItems = db.SupplierPoItems.Where(s => s.SupplierPoDtlId == supplier.Id).ToList();
+            if (supItems == null) {
+                supItems.Add(new SupplierPoItem {
+                    Id = 0,
+                    InvItem = null,
+                    InvItemId = 0, 
+                    SupplierPoDtl = null,
+                    SupplierPoDtlId = 0,
+                });
+            }
+
+            List<InvItem> invItems = db.InvItems.ToList();
+            if (invItems == null)
+            {
+                invItems.Add(new InvItem
+                {
+                    Id = 0,
+                    
+                });
+            }
+
+            ViewBag.HdrId = hdrId;
+            ViewBag.Id = supplier.Id;
+            ViewBag.supplierPoItems = supItems;
+            ViewBag.InvItemsList = invItems;
+            
             return View(supplierPoDtls.ToList());
         }
 
@@ -33,12 +62,14 @@ namespace JobsV1.Controllers
             {
                 return HttpNotFound();
             }
+            
             return View(supplierPoDtl);
         }
 
         // GET: SupplierPoDtls/Create
-        public ActionResult Create()
+        public ActionResult Create(int? hdrid)
         {
+            ViewBag.Hdrid = hdrid;
             ViewBag.SupplierPoHdrId = new SelectList(db.SupplierPoHdrs, "Id", "Remarks");
             ViewBag.JobServicesId = new SelectList(db.JobServices, "Id", "Particulars");
             return View();
@@ -132,5 +163,63 @@ namespace JobsV1.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult ItemCreate(int? dtlsId) {
+            ViewBag.Id = dtlsId;
+            ViewBag.SupplierPoDtlId = new SelectList(db.SupplierPoDtls, "Id", "Id", dtlsId);
+            ViewBag.InvItemId = new SelectList(db.InvItems, "Id", "Description");
+            return View();
+        }
+
+        // POST: SupplierPoDtls/ItemCreate/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ItemCreate([Bind(Include = "Id,SupplierPoDtlId,InvItemId")] SupplierPoItem supplierPoItem)
+        {
+            if (ModelState.IsValid)
+            {
+                db.SupplierPoItems.Add(supplierPoItem);
+                db.SaveChanges();
+
+                var sup = db.SupplierPoDtls.Find(supplierPoItem.SupplierPoDtlId);
+
+                return RedirectToAction("Index",new { hdrId = sup.SupplierPoHdrId});
+            }
+
+            ViewBag.SupplierPoDtlId = new SelectList(db.SupplierPoDtls, "Id", "Id", supplierPoItem.SupplierPoDtlId);
+            ViewBag.InvItems = new SelectList(db.InvItems, "Id", "Description", supplierPoItem.InvItemId);
+            return View(supplierPoItem);
+        }
+
+
+        // POST: SupplierPoDtls/Remove/SupPOItemId=1
+        public ActionResult Remove(int SupPOItemId)
+        {
+            SupplierPoItem supPOItem = db.SupplierPoItems.Find(SupPOItemId);
+            db.SupplierPoItems.Remove(supPOItem);
+            db.SaveChanges();
+
+            var sup = db.SupplierPoDtls.Find(supPOItem.SupplierPoDtlId);
+
+            return RedirectToAction("Index", "SupplierPoDtls", new { hdrId = sup.SupplierPoHdrId });
+        }
+
+
+        public ActionResult addInvItem(int InvID, int DtlsId)
+        {
+
+                db.SupplierPoItems.Add(new SupplierPoItem
+                {
+                    SupplierPoDtlId = DtlsId,
+                    InvItemId = InvID
+                });
+                
+                db.SaveChanges();
+
+            var sup = db.SupplierPoDtls.Find(DtlsId);
+            return RedirectToAction("Index", "SupplierPoDtls", new { hdrId = sup.SupplierPoHdrId });
+           
+        }
+
     }
 }
