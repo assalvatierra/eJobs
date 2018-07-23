@@ -40,7 +40,7 @@ namespace JobsV1.Controllers
         }
 
         // GET: CustEntities/Create
-        public ActionResult Create(int? id)
+        public ActionResult Create(int? id, int? companyId)
         {
             if (id != null)
             {
@@ -50,13 +50,14 @@ namespace JobsV1.Controllers
             {
                 ViewBag.Id = 0;
             }
+            
 
             Customer selectedCustomer = db.Customers.Find(id);
             CustEntity custEntity = db.CustEntities.Find(id);
 
-            ViewBag.CustEntMainId = new SelectList(db.CustEntMains, "Id", "Name");
+            ViewBag.CustEntMainId = new SelectList(db.CustEntMains, "Id", "Name", companyId);
             ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name", id);
-
+           
             return View();
         }
 
@@ -161,6 +162,32 @@ namespace JobsV1.Controllers
             db.SaveChanges();
             return RedirectToAction("Details", "Customers", new { id = custid });
         }
+
+
+
+
+        public ActionResult addCategory(int companyId, int userid)
+        {
+            if (companyId > 1)
+            {
+
+
+                db.CustEntities.Add(new CustEntity
+                {
+                    CustEntMainId = companyId,
+                    CustomerId = userid
+                });
+
+                db.SaveChanges();
+                return RedirectToAction("Details", "Customers", new { id = userid });
+            }
+            else
+            {   //create new company
+                return RedirectToAction("Create", "CustEntMains", new { id = userid });
+            }
+
+        }
+
 
 
     }

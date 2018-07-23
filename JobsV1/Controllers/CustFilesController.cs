@@ -216,6 +216,60 @@ namespace JobsV1.Controllers
             return RedirectToAction("Details", "Customers", new { id = custFiles.CustomerId });
         }
 
+
+        [HttpPost]
+        public ActionResult UploadFile(HttpPostedFileBase file, [Bind(Include = "Id,Desc,Folder,Path,Remarks,CustomerId")] CustFiles custFiles)
+        {
+            if (file != null && file.ContentLength > 0)
+                try
+                {
+
+                    string extension = Path.GetExtension(file.FileName);
+
+                    //  ~/Images/CustomerFiles/(customerid)/filename.png Path.GetFileName(file.FileName)
+                    string path = Path.Combine(Server.MapPath("~/Images/CustomerFiles/" + custFiles.CustomerId),
+                                               Path.GetFileName(file.FileName));
+                    string directory = "http://localhost:50382/Images/CustomerFiles/" + custFiles.CustomerId + "/";
+                    if (ModelState.IsValid)
+                    {
+                        custFiles.Folder = custFiles.CustomerId.ToString(); // ~/customerid
+                        custFiles.Path = directory + Path.GetFileName(file.FileName);
+                        db.CustFiles.Add(custFiles);
+                        db.SaveChanges();
+
+                        //create directory if does not exist
+                        var folder = Server.MapPath("~/Images/CustomerFiles/" + custFiles.CustomerId);
+                        if (!Directory.Exists(folder))
+                        {
+                            Directory.CreateDirectory(folder);
+                        }
+
+                        file.SaveAs(path);
+                        ViewBag.Message = "File uploaded successfully";
+                    }
+                    else
+                    {
+                        ViewBag.Message = "File uploaded unsuccessfully";
+                        return View("#");
+
+                    }
+
+                    ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name", custFiles.CustomerId);
+
+
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = "ERROR:" + ex.Message.ToString();
+                }
+            else
+            {
+                ViewBag.Message = "You have not specified a file.";
+            }
+
+            return RedirectToAction("Details", "Customers", new { id = custFiles.CustomerId });
+        }
+
         public void UploadUpdateDb(int? id) {
 
         }
