@@ -591,6 +591,11 @@
     <Content Include="Images\CarRental\ToyotaHilux.jpg" />
     <Content Include="Images\CarRental\ToyotaInnova.jpg" />
     <Content Include="Images\CarRental\ToyotaInnovaDetails.jpg" />
+    <Content Include="Images\CustomerFiles\13\20180623_131024.jpg" />
+    <Content Include="Images\CustomerFiles\13\tutorme.png" />
+    <Content Include="Images\CustomerFiles\3\20180623_131024.jpg" />
+    <Content Include="Images\CustomerFiles\3\tutorme.png" />
+    <Content Include="Images\CustomerFiles\3\WDashboard-bigger.png" />
     <Content Include="Images\Customers\Category\Active-30.png" />
     <Content Include="Images\Customers\Category\cancel-40.png" />
     <Content Include="Images\Customers\Category\high-priority-40.png" />
@@ -977,6 +982,7 @@
     <Content Include="Views\SupplierPoDtls\Details.cshtml" />
     <Content Include="Views\SupplierPoDtls\Edit.cshtml" />
     <Content Include="Views\SupplierPoDtls\Index.cshtml" />
+    <Content Include="Views\JobOrder\InitializePO.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
