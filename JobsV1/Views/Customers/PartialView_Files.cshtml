@@ -49,7 +49,7 @@
 
             <div class="modal-body" id="modal2-content">
 
-                @{Html.RenderPartial("PartialView_UploadFiles", new JobsV1.Models.CustFiles() );}
+                @{Html.RenderPartial("PartialView_UploadFiles", new JobsV1.Models.CustFiles(), new ViewDataDictionary { { "customerId", customerid } });}
 
                 </div>
             <div class="modal-footer">
