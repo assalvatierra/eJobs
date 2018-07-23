@@ -263,11 +263,61 @@ order by x.jobid
         #region Supplier Po
         public ActionResult InitializePO(int srcId)
         {
+            var srcdata = db.JobServices.Find(srcId);
             var tmp = new Models.SupplierPoHdr();
             tmp.PoDate = DateTime.Now;
+            tmp.Remarks = srcdata.Particulars;
             tmp.RequestBy = User.Identity.Name;
             tmp.DtRequest = DateTime.Now;
 
+            ViewBag.SupplierId = new SelectList(db.Suppliers, "Id", "Name");
+            ViewBag.SupplierPoStatusId = new SelectList(db.SupplierPoStatus, "Id", "Status");
+            ViewBag.SrcId = srcId;
+
+            return View(tmp);
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult InitializePO([Bind(Include = "Id,PoDate,Remarks,SupplierId,SupplierPoStatusId,RequestBy,DtRequest,ApprovedBy,DtApproved")] SupplierPoHdr supplierPoHdr)
+        {
+            string strSrcId = Request.Form["SrcId"];
+            int SrcId = Int32.Parse(strSrcId);
+            string strAmt = Request.Form["Amount"];
+            decimal PoAmt = decimal.Parse(strAmt);
+
+            if (ModelState.IsValid)
+            {
+                db.SupplierPoHdrs.Add(supplierPoHdr);
+                db.SaveChanges();
+
+                #region Add Details
+                var tmp = new Models.SupplierPoDtl();
+                tmp.SupplierPoHdrId = supplierPoHdr.Id;
+                tmp.Remarks = supplierPoHdr.Remarks;
+                tmp.JobServicesId = SrcId;
+                tmp.Amount = PoAmt;
+                db.SupplierPoDtls.Add(tmp);
+                db.SaveChanges();
+                #endregion
+
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.SupplierId = new SelectList(db.Suppliers, "Id", "Name", supplierPoHdr.SupplierId);
+            ViewBag.SupplierPoStatusId = new SelectList(db.SupplierPoStatus, "Id", "Status", supplierPoHdr.SupplierPoStatusId);
+            return View(supplierPoHdr);
+        }
+
+        public ActionResult AddSupplierPODetails(int srcId, int pohdrId)
+        {
+            var srcdata = db.JobServices.Find(srcId);
+            var tmp = new Models.SupplierPoDtl();
+            tmp.SupplierPoHdrId = pohdrId;
+            tmp.Remarks = srcdata.Particulars;
+            tmp.JobServicesId = srcId;
+            tmp.Amount = 0;
 
             return View(tmp);
         }
