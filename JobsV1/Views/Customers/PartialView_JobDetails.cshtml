@@ -2,65 +2,48 @@
 
 @{
     ViewBag.Title = "PartialView_JobDetails";
+    int customerid = Convert.ToInt32(ViewData["customerId"]);
 }
-<table class="table table-striped" >
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Id )
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.JobDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AgreedAmt)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NoOfDays)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NoOfPax)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StatusRemarks)
-        </th>
-        <th></th>
-    </tr>
 
+
+<dl class="dl-horizontal">
+
+    <dt>
+        Job List
+    </dt>
+    <dd></dd>
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
+
+            <dd>
                 @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
+            </dd>
+            <dd>
                 @Html.DisplayFor(modelItem => item.JobDate)
-            </td>
-            <td>
+            </dd>
+            <dd>
                 @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
+            </dd>
+            <dd>
                 @Html.DisplayFor(modelItem => item.AgreedAmt)
-            </td>
-            <td>
+            </dd>
+            <dd>
                 @Html.DisplayFor(modelItem => item.NoOfDays)
-            </td>
-            <td>
+            </dd>
+            <dd>
                 @Html.DisplayFor(modelItem => item.NoOfPax)
-            </td>
-            <td>
+            </dd>
+            <dd>
                 @Html.DisplayFor(modelItem => item.StatusRemarks)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", "JobMains", new { id = item.Id },null)
-            </td>
-        </tr>
+            </dd>
+            <dd>
+                @Html.ActionLink("Details", "Details", "JobMains", new { id = item.Id }, null)
+            </dd>
+        
     }
 
-</table>
+    <dd>
+        @Html.ActionLink("Add Job", "Create", "JobMains", new { id = customerid }, null)
+    </dd>
 
-
-<style>
-</style>
+</dl>

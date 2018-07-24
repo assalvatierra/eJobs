@@ -5,30 +5,35 @@
 
 <script src="~/Scripts/jquery-3.3.1.js"></script>
 
-<button type="button" id="catbtn" class="btn btn-default" data-toggle="modal" data-target="#categoryModal" style="margin-bottom:10px;">Add Category</button>
-<br />
-<table class="table table-striped">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th></th>
-    </tr>
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                Category
+            </dt>
+            <dd></dd>
 
-@foreach (var item in Model) {
-    <tr>
-        <td >
-            <img src="@Html.DisplayFor(modelItem => item.iconPath)" width="25" height="25" style="margin-right:20px;"/>
-           
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Remove", "Remove", "CustCats",new { catid = item.Id, custid = customerid }, null)
-        </td>
-    </tr>
-}
+        @foreach (var item in Model)
+        {
+            <dt>
+                <img src="@Html.DisplayFor(modelItem => item.iconPath)" width="25" height="25" style="margin-right:20px;" />
 
-</table>
+            </dt>
+            <dd>
+                @Html.DisplayFor(modelItem => item.Name)
+            </dd>
+            <dd>
+                @Html.ActionLink("Remove", "Remove", "CustCats", new { catid = item.Id, custid = customerid }, null)
+            </dd>
+        }
+            <dd>
+                <a id="catbtn" href="#" data-toggle="modal" data-target="#categoryModal" style="margin-bottom:10px;">Add Category</a>
+                
+            </dd>
+
+        </dl>
+</div>
+
+
 
 <!-- Modal -->
 <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -53,3 +58,5 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+

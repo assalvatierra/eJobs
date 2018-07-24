@@ -2,8 +2,9 @@
 
 @{
     ViewBag.Title = "Index";
+    int itemID = 0;
 }
-
+<script src="~/Scripts/jquery-3.3.1.js"></script>
 <h2>Purchase Order List</h2>
 
 <p>
@@ -38,7 +39,9 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+
+@foreach (var item in Model)
+{
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.PoDate)
@@ -62,14 +65,61 @@
             @Html.DisplayFor(modelItem => item.Supplier.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.SupplierPoStatu.Status)
+            
+        
+            <a href="#" id="statusbtn" onclick="updateId(@item.Id)" data-toggle="modal" data-target="#HdrStatusModal" style="margin-bottom:10px;">@Html.DisplayFor(modelItem => item.SupplierPoStatu.Status)</a>
+             
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
         </td>
     </tr>
 }
 
 </table>
+<!-- Modal -->
+<div class="modal fade" id="HdrStatusModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Purchase Order Status </h4>
+            </div>
+
+            <div class="modal-body" id="modal2-content">
+
+                <div class="list-group" id="categorylist">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script>
+
+
+    function updateId(ID) {
+        itemID = ID;
+
+        var id = ID;
+        var newLink = '<a href="SupplierPoHdrs/updateStatus?statusid=1&hdrid=' + ID + '" class="list-group-item"> REQUEST </a>';
+
+         newLink += '<a href="SupplierPoHdrs/updateStatus?statusid=2&hdrid=' + ID + '" class="list-group-item"> APPROVED </a>';
+
+         newLink += '<a href="SupplierPoHdrs/updateStatus?statusid=3&hdrid=' + ID + '" class="list-group-item"> CANCELLED </a>';
+
+         newLink += '<a href="SupplierPoHdrs/updateStatus?statusid=4&hdrid=' + ID + '" class="list-group-item"> CONFIRMED </a>';
+
+         newLink += '<a href="SupplierPoHdrs/updateStatus?statusid=5&hdrid=' + ID + '" class="list-group-item"> DELIVERED </a>';
+
+         newLink += '<a href="SupplierPoHdrs/updateStatus?statusid=6&hdrid=' + ID + '" class="list-group-item"> CLOSE </a>';
+
+        $("#categorylist").append( newLink);
+    }
+</script>

@@ -123,5 +123,15 @@ namespace JobsV1.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult updateStatus(int statusid , int hdrid ) {
+
+            SupplierPoHdr supHdr = db.SupplierPoHdrs.Find(hdrid);
+            supHdr.SupplierPoStatusId = statusid;
+            db.Entry(supHdr).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
     }
 }

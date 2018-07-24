@@ -18,35 +18,45 @@ namespace JobsV1.Controllers
         public ActionResult Index(int? hdrId)
         {
             var supplierPoDtls = db.SupplierPoDtls.Include(s => s.SupplierPoHdr).Include(s => s.JobService).Where(d=>d.SupplierPoHdrId== (int)hdrId);
+            SupplierPoDtl supplier = new SupplierPoDtl();
+            List<SupplierPoItem> supItems = new List<SupplierPoItem>();
+            List<InvItem> invItems = new List<InvItem>();
+            var hdr = db.SupplierPoHdrs.Where(h=>h.Id == hdrId).ToList();
 
-            SupplierPoDtl supplier = db.SupplierPoDtls.Where(s => s.SupplierPoHdrId == hdrId).FirstOrDefault();
-
-            List<SupplierPoItem> supItems = db.SupplierPoItems.Where(s => s.SupplierPoDtlId == supplier.Id).ToList();
-            if (supItems == null) {
-                supItems.Add(new SupplierPoItem {
-                    Id = 0,
-                    InvItem = null,
-                    InvItemId = 0, 
-                    SupplierPoDtl = null,
-                    SupplierPoDtlId = 0,
-                });
+            supplier = db.SupplierPoDtls.Where(s => s.SupplierPoHdrId == hdrId).FirstOrDefault();
+            if (supplier != null){
+                supItems = db.SupplierPoItems.Where(s => s.SupplierPoDtlId == supplier.Id).ToList();
+            }else{
+                supplier = new SupplierPoDtl {
+                    Id = 0
+                };
             }
 
-            List<InvItem> invItems = db.InvItems.ToList();
-            if (invItems == null)
-            {
-                invItems.Add(new InvItem
+            if (supItems == null)
                 {
-                    Id = 0,
-                    
-                });
+                    supItems.Add(new SupplierPoItem
+                    {
+                        Id = 0,
+                        InvItem = null,
+                        InvItemId = 0,
+                        SupplierPoDtl = null,
+                        SupplierPoDtlId = 0,
+                    });
+                }
+
+            invItems = db.InvItems.ToList();
+            if (invItems == null){
+               invItems.Add(new InvItem{
+                        Id = 0,
+               });
             }
 
+            ViewBag.HdrInfo = hdr;
             ViewBag.HdrId = hdrId;
-            ViewBag.Id = supplier.Id;
             ViewBag.supplierPoItems = supItems;
             ViewBag.InvItemsList = invItems;
-            
+            ViewBag.Id = supplier.Id;
+
             return View(supplierPoDtls.ToList());
         }
 
@@ -70,7 +80,7 @@ namespace JobsV1.Controllers
         public ActionResult Create(int? hdrid)
         {
             ViewBag.Hdrid = hdrid;
-            ViewBag.SupplierPoHdrId = new SelectList(db.SupplierPoHdrs, "Id", "Remarks");
+            ViewBag.SupplierPoHdrId = new SelectList(db.SupplierPoHdrs, "Id", "Remarks", hdrid);
             ViewBag.JobServicesId = new SelectList(db.JobServices, "Id", "Particulars");
             return View();
         }
@@ -86,7 +96,7 @@ namespace JobsV1.Controllers
             {
                 db.SupplierPoDtls.Add(supplierPoDtl);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "SupplierPoDtls", new { hdrId = supplierPoDtl.SupplierPoHdrId });
             }
 
             ViewBag.SupplierPoHdrId = new SelectList(db.SupplierPoHdrs, "Id", "Remarks", supplierPoDtl.SupplierPoHdrId);
@@ -152,7 +162,7 @@ namespace JobsV1.Controllers
             SupplierPoDtl supplierPoDtl = db.SupplierPoDtls.Find(id);
             db.SupplierPoDtls.Remove(supplierPoDtl);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "SupplierPoDtls", new { hdrId = supplierPoDtl.SupplierPoHdrId });
         }
 
         protected override void Dispose(bool disposing)
@@ -219,6 +229,36 @@ namespace JobsV1.Controllers
             var sup = db.SupplierPoDtls.Find(DtlsId);
             return RedirectToAction("Index", "SupplierPoDtls", new { hdrId = sup.SupplierPoHdrId });
            
+        }
+
+        public ActionResult AddVehicle( int DtlsId) {
+
+            ViewBag.DtlsId = DtlsId;
+            ViewBag.SupplierPoDtlId = new SelectList(db.SupplierPoDtls, "Id", "Id", DtlsId);
+            ViewBag.InvItemId = new SelectList(db.InvItems, "Id", "Description");
+
+            var sup = db.SupplierPoDtls.Find(DtlsId);
+            ViewBag.HdrId = sup.SupplierPoHdrId;
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddVehicle([Bind(Include = "Id,SupplierPoDtlId,InvItemId")] SupplierPoItem supplieritem)
+        {
+            if (ModelState.IsValid)
+            {
+                db.SupplierPoItems.Add(supplieritem);
+                db.SaveChanges();
+
+                var sup = db.SupplierPoDtls.Find(supplieritem.SupplierPoDtlId);
+                return RedirectToAction("Index", "SupplierPoDtls", new { hdrId = sup.SupplierPoHdrId });
+            }
+
+            ViewBag.SupplierPoDtlId = new SelectList(db.SupplierPoDtls, "Id", "Id", supplieritem.SupplierPoDtlId);
+            ViewBag.InvItemId = new SelectList(db.InvItems, "Id", "Description", supplieritem.InvItemId);
+
+            return View(supplieritem);
         }
 
     }

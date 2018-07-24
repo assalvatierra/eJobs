@@ -6,54 +6,39 @@
 
 }
 
-<button type="button" id="catbtn" class="btn btn-default" data-toggle="modal" data-target="#companyViewModal" style="margin-bottom:10px;">Add Company</button>
-<br />
-<table class="table table-striped">
-    <tr>
-        <th></th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Contact1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Contact2)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-
+    <dl class="dl-horizontal">
+        <dt>
+                Company
+        </dt>
+        <dd></dd>
+    @foreach (var item in Model)
+    {
+        <dt>
             <img src="@Html.DisplayFor(modelItem => item.iconPath)" width="20" height="20" style="margin-right:20px;" />
-
-        </td>
-        <td>
+        </dt>
+        <dd>
             @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
+        </dd>
+        <dd>
             @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
+        </dd>
+        <dd>
             @Html.DisplayFor(modelItem => item.Contact1)
-        </td>
-        <td>
+        </dd>
+        <dd>
             @Html.DisplayFor(modelItem => item.Contact2)
-        </td>
-        <td>
+        </dd>
+        <dd>
             @Html.ActionLink("Details", "Details", "CustEntMains",new { id = item.Id }, null) |
-            @Html.ActionLink("Remove", "Remove", "CustEntities", new { comid = item.Id, custid = customerid }, null)
-        </td>
-    </tr>
-}
+            @Html.ActionLink("Remove", "Remove", "CustEntities", new { comid = item.Id, custid = customerid }, null) 
 
-</table>
+         </dd>
+        }
 
+        <dd>
+            <a id="catbtn" data-toggle="modal" data-target="#companyViewModal" style="margin-bottom:10px;">Add Company</a> 
+        </dd>
+    </dl>
 
 <!-- Modal -->
 <div class="modal fade" id="companyViewModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
