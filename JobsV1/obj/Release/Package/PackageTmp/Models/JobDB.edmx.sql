@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/18/2017 15:19:46
+-- Date Created: 07/24/2018 09:56:54
 -- Generated from EDMX file: D:\Data\Real\Apps\GitHub\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
@@ -109,6 +109,99 @@ IF OBJECT_ID(N'[dbo].[FK_ProductProductProdCat]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_JobMainJobNote]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[JobNotes] DROP CONSTRAINT [FK_JobMainJobNote];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CustomerCustCat]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CustCats] DROP CONSTRAINT [FK_CustomerCustCat];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CustCategoryCustCat]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CustCats] DROP CONSTRAINT [FK_CustCategoryCustCat];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CustomerSalesLead]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SalesLeads] DROP CONSTRAINT [FK_CustomerSalesLead];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SalesActCodeSalesActivity]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SalesActivities] DROP CONSTRAINT [FK_SalesActCodeSalesActivity];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SalesLeadSalesActivity]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SalesActivities] DROP CONSTRAINT [FK_SalesLeadSalesActivity];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CustEntMainCustEntity]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CustEntities] DROP CONSTRAINT [FK_CustEntMainCustEntity];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CustomerCustEntity]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CustEntities] DROP CONSTRAINT [FK_CustomerCustEntity];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SalesActStatusSalesActivity]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SalesActivities] DROP CONSTRAINT [FK_SalesActStatusSalesActivity];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SalesLeadCatCodeSalesLeadCategory]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SalesLeadCategories] DROP CONSTRAINT [FK_SalesLeadCatCodeSalesLeadCategory];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SalesLeadSalesLeadCategory]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SalesLeadCategories] DROP CONSTRAINT [FK_SalesLeadSalesLeadCategory];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SalesLeadCatCodeCustSalesCategory]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CustSalesCategories] DROP CONSTRAINT [FK_SalesLeadCatCodeCustSalesCategory];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CustomerCustSalesCategory]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CustSalesCategories] DROP CONSTRAINT [FK_CustomerCustSalesCategory];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SalesStatusCodeSalesStatus]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SalesStatus] DROP CONSTRAINT [FK_SalesStatusCodeSalesStatus];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SalesLeadSalesStatus]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SalesStatus] DROP CONSTRAINT [FK_SalesLeadSalesStatus];
+GO
+IF OBJECT_ID(N'[dbo].[FK_JobServicesJobAction]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[JobActions] DROP CONSTRAINT [FK_JobServicesJobAction];
+GO
+IF OBJECT_ID(N'[dbo].[FK_InvItemCatInvItemCategory]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[InvItemCategories] DROP CONSTRAINT [FK_InvItemCatInvItemCategory];
+GO
+IF OBJECT_ID(N'[dbo].[FK_InvItemInvItemCategory]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[InvItemCategories] DROP CONSTRAINT [FK_InvItemInvItemCategory];
+GO
+IF OBJECT_ID(N'[dbo].[FK_JobServicesJobServiceItem]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[JobServiceItems] DROP CONSTRAINT [FK_JobServicesJobServiceItem];
+GO
+IF OBJECT_ID(N'[dbo].[FK_InvItemJobServiceItem]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[JobServiceItems] DROP CONSTRAINT [FK_InvItemJobServiceItem];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SupplierSupplierInvItem]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SupplierInvItems] DROP CONSTRAINT [FK_SupplierSupplierInvItem];
+GO
+IF OBJECT_ID(N'[dbo].[FK_InvItemSupplierInvItem]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SupplierInvItems] DROP CONSTRAINT [FK_InvItemSupplierInvItem];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ServicesSrvActionItem]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SrvActionItems] DROP CONSTRAINT [FK_ServicesSrvActionItem];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SrvActionItemJobAction]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[JobActions] DROP CONSTRAINT [FK_SrvActionItemJobAction];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SrvActionCodeSrvActionItem]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SrvActionItems] DROP CONSTRAINT [FK_SrvActionCodeSrvActionItem];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CustomerCustFiles]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CustFiles] DROP CONSTRAINT [FK_CustomerCustFiles];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SupplierSupplierPoHdr]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SupplierPoHdrs] DROP CONSTRAINT [FK_SupplierSupplierPoHdr];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SupplierPoStatusSupplierPoHdr]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SupplierPoHdrs] DROP CONSTRAINT [FK_SupplierPoStatusSupplierPoHdr];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SupplierPoHdrSupplierPoDtl]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SupplierPoDtls] DROP CONSTRAINT [FK_SupplierPoHdrSupplierPoDtl];
+GO
+IF OBJECT_ID(N'[dbo].[FK_JobServicesSupplierPoDtl]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SupplierPoDtls] DROP CONSTRAINT [FK_JobServicesSupplierPoDtl];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SupplierPoDtlSupplierPoItem]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SupplierPoItems] DROP CONSTRAINT [FK_SupplierPoDtlSupplierPoItem];
+GO
+IF OBJECT_ID(N'[dbo].[FK_InvItemSupplierPoItem]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SupplierPoItems] DROP CONSTRAINT [FK_InvItemSupplierPoItem];
 GO
 
 -- --------------------------------------------------
@@ -217,6 +310,87 @@ GO
 IF OBJECT_ID(N'[dbo].[JobChecklists]', 'U') IS NOT NULL
     DROP TABLE [dbo].[JobChecklists];
 GO
+IF OBJECT_ID(N'[dbo].[CustCategories]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CustCategories];
+GO
+IF OBJECT_ID(N'[dbo].[CustCats]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CustCats];
+GO
+IF OBJECT_ID(N'[dbo].[CustEntMains]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CustEntMains];
+GO
+IF OBJECT_ID(N'[dbo].[SalesLeads]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SalesLeads];
+GO
+IF OBJECT_ID(N'[dbo].[SalesStatusCodes]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SalesStatusCodes];
+GO
+IF OBJECT_ID(N'[dbo].[SalesStatus]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SalesStatus];
+GO
+IF OBJECT_ID(N'[dbo].[SalesActCodes]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SalesActCodes];
+GO
+IF OBJECT_ID(N'[dbo].[SalesActivities]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SalesActivities];
+GO
+IF OBJECT_ID(N'[dbo].[CustEntities]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CustEntities];
+GO
+IF OBJECT_ID(N'[dbo].[SalesActStatus]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SalesActStatus];
+GO
+IF OBJECT_ID(N'[dbo].[SalesLeadCatCodes]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SalesLeadCatCodes];
+GO
+IF OBJECT_ID(N'[dbo].[SalesLeadCategories]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SalesLeadCategories];
+GO
+IF OBJECT_ID(N'[dbo].[CustSalesCategories]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CustSalesCategories];
+GO
+IF OBJECT_ID(N'[dbo].[SrvActionCodes]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SrvActionCodes];
+GO
+IF OBJECT_ID(N'[dbo].[SrvActionItems]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SrvActionItems];
+GO
+IF OBJECT_ID(N'[dbo].[JobActions]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[JobActions];
+GO
+IF OBJECT_ID(N'[dbo].[InvItems]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[InvItems];
+GO
+IF OBJECT_ID(N'[dbo].[InvItemCats]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[InvItemCats];
+GO
+IF OBJECT_ID(N'[dbo].[InvItemCategories]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[InvItemCategories];
+GO
+IF OBJECT_ID(N'[dbo].[JobServiceItems]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[JobServiceItems];
+GO
+IF OBJECT_ID(N'[dbo].[SupplierInvItems]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SupplierInvItems];
+GO
+IF OBJECT_ID(N'[dbo].[JobNotificationRequests]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[JobNotificationRequests];
+GO
+IF OBJECT_ID(N'[dbo].[CustFiles]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CustFiles];
+GO
+IF OBJECT_ID(N'[dbo].[SupplierPoHdrs]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SupplierPoHdrs];
+GO
+IF OBJECT_ID(N'[dbo].[SupplierPoDtls]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SupplierPoDtls];
+GO
+IF OBJECT_ID(N'[dbo].[SupplierPoStatus]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SupplierPoStatus];
+GO
+IF OBJECT_ID(N'[dbo].[SupplierPoItems]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SupplierPoItems];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -283,8 +457,8 @@ GO
 -- Creating table 'Services'
 CREATE TABLE [dbo].[Services] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Name] nvarchar(30)  NOT NULL,
-    [Description] nvarchar(80)  NULL
+    [Name] nvarchar(80)  NOT NULL,
+    [Description] nvarchar(150)  NULL
 );
 GO
 
@@ -602,6 +776,269 @@ CREATE TABLE [dbo].[JobChecklists] (
 );
 GO
 
+-- Creating table 'CustCategories'
+CREATE TABLE [dbo].[CustCategories] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(80)  NOT NULL,
+    [iconPath] nvarchar(150)  NULL
+);
+GO
+
+-- Creating table 'CustCats'
+CREATE TABLE [dbo].[CustCats] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [CustomerId] int  NOT NULL,
+    [CustCategoryId] int  NOT NULL
+);
+GO
+
+-- Creating table 'CustEntMains'
+CREATE TABLE [dbo].[CustEntMains] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(80)  NOT NULL,
+    [Address] nvarchar(180)  NULL,
+    [Contact1] nvarchar(80)  NULL,
+    [Contact2] nvarchar(80)  NULL,
+    [iconPath] nvarchar(150)  NULL
+);
+GO
+
+-- Creating table 'SalesLeads'
+CREATE TABLE [dbo].[SalesLeads] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Date] datetime  NOT NULL,
+    [Details] nvarchar(250)  NOT NULL,
+    [Remarks] nvarchar(250)  NULL,
+    [CustomerId] int  NOT NULL,
+    [CustName] nvarchar(80)  NULL,
+    [DtEntered] datetime  NOT NULL,
+    [EnteredBy] nvarchar(80)  NOT NULL,
+    [Price] decimal(18,0)  NOT NULL,
+    [AssignedTo] nvarchar(80)  NULL,
+    [CustPhone] nvarchar(20)  NULL,
+    [CustEmail] nvarchar(80)  NULL
+);
+GO
+
+-- Creating table 'SalesStatusCodes'
+CREATE TABLE [dbo].[SalesStatusCodes] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [SeqNo] int  NULL,
+    [Name] nvarchar(80)  NOT NULL,
+    [iconPath] nvarchar(150)  NULL
+);
+GO
+
+-- Creating table 'SalesStatus'
+CREATE TABLE [dbo].[SalesStatus] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [DtStatus] datetime  NOT NULL,
+    [SalesStatusCodeId] int  NOT NULL,
+    [SalesLeadId] int  NOT NULL
+);
+GO
+
+-- Creating table 'SalesActCodes'
+CREATE TABLE [dbo].[SalesActCodes] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(max)  NOT NULL,
+    [Desc] nvarchar(40)  NOT NULL,
+    [SysCode] nvarchar(20)  NULL,
+    [iconPath] nvarchar(150)  NULL,
+    [DefaultActStatus] int  NULL
+);
+GO
+
+-- Creating table 'SalesActivities'
+CREATE TABLE [dbo].[SalesActivities] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [SalesLeadId] int  NOT NULL,
+    [SalesActCodeId] int  NOT NULL,
+    [Particulars] nvarchar(250)  NOT NULL,
+    [DtActivity] datetime  NOT NULL,
+    [SalesActStatusId] int  NOT NULL,
+    [DtEntered] datetime  NOT NULL,
+    [EnteredBy] nvarchar(80)  NOT NULL
+);
+GO
+
+-- Creating table 'CustEntities'
+CREATE TABLE [dbo].[CustEntities] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [CustEntMainId] int  NOT NULL,
+    [CustomerId] int  NOT NULL
+);
+GO
+
+-- Creating table 'SalesActStatus'
+CREATE TABLE [dbo].[SalesActStatus] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(40)  NOT NULL,
+    [iconPath] nvarchar(150)  NULL
+);
+GO
+
+-- Creating table 'SalesLeadCatCodes'
+CREATE TABLE [dbo].[SalesLeadCatCodes] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [CatName] nvarchar(80)  NOT NULL,
+    [SysCode] nvarchar(20)  NOT NULL,
+    [iconPath] nvarchar(150)  NULL
+);
+GO
+
+-- Creating table 'SalesLeadCategories'
+CREATE TABLE [dbo].[SalesLeadCategories] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [SalesLeadCatCodeId] int  NOT NULL,
+    [SalesLeadId] int  NOT NULL
+);
+GO
+
+-- Creating table 'CustSalesCategories'
+CREATE TABLE [dbo].[CustSalesCategories] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [SalesLeadCatCodeId] int  NOT NULL,
+    [CustomerId] int  NOT NULL
+);
+GO
+
+-- Creating table 'SrvActionCodes'
+CREATE TABLE [dbo].[SrvActionCodes] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [CatCode] nvarchar(80)  NOT NULL,
+    [SortNo] int  NOT NULL
+);
+GO
+
+-- Creating table 'SrvActionItems'
+CREATE TABLE [dbo].[SrvActionItems] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Desc] nvarchar(150)  NOT NULL,
+    [Remarks] nvarchar(180)  NULL,
+    [SortNo] int  NOT NULL,
+    [ServicesId] int  NOT NULL,
+    [SrvActionCodeId] int  NOT NULL
+);
+GO
+
+-- Creating table 'JobActions'
+CREATE TABLE [dbo].[JobActions] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [JobServicesId] int  NOT NULL,
+    [AssignedTo] nvarchar(80)  NULL,
+    [PerformedBy] nvarchar(80)  NULL,
+    [DtAssigned] datetime  NULL,
+    [DtPerformed] datetime  NULL,
+    [SrvActionItemId] int  NOT NULL,
+    [Remarks] nvarchar(150)  NULL
+);
+GO
+
+-- Creating table 'InvItems'
+CREATE TABLE [dbo].[InvItems] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [ItemCode] nvarchar(30)  NOT NULL,
+    [Description] nvarchar(80)  NOT NULL,
+    [Remarks] nvarchar(150)  NULL,
+    [ImgPath] nvarchar(80)  NULL
+);
+GO
+
+-- Creating table 'InvItemCats'
+CREATE TABLE [dbo].[InvItemCats] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(80)  NOT NULL,
+    [Remarks] nvarchar(150)  NULL,
+    [ImgPath] nvarchar(150)  NULL,
+    [SysCode] nvarchar(20)  NULL
+);
+GO
+
+-- Creating table 'InvItemCategories'
+CREATE TABLE [dbo].[InvItemCategories] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [InvItemCatId] int  NOT NULL,
+    [InvItemId] int  NOT NULL
+);
+GO
+
+-- Creating table 'JobServiceItems'
+CREATE TABLE [dbo].[JobServiceItems] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [JobServicesId] int  NOT NULL,
+    [InvItemId] int  NOT NULL
+);
+GO
+
+-- Creating table 'SupplierInvItems'
+CREATE TABLE [dbo].[SupplierInvItems] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [SupplierId] int  NOT NULL,
+    [InvItemId] int  NOT NULL
+);
+GO
+
+-- Creating table 'JobNotificationRequests'
+CREATE TABLE [dbo].[JobNotificationRequests] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [ServiceId] int  NOT NULL,
+    [ReqDt] datetime  NOT NULL,
+    [RefId] nvarchar(20)  NULL
+);
+GO
+
+-- Creating table 'CustFiles'
+CREATE TABLE [dbo].[CustFiles] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Desc] nvarchar(180)  NOT NULL,
+    [Folder] nvarchar(150)  NOT NULL,
+    [Path] nvarchar(150)  NOT NULL,
+    [Remarks] nvarchar(180)  NULL,
+    [CustomerId] int  NOT NULL
+);
+GO
+
+-- Creating table 'SupplierPoHdrs'
+CREATE TABLE [dbo].[SupplierPoHdrs] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [PoDate] datetime  NOT NULL,
+    [Remarks] nvarchar(250)  NULL,
+    [SupplierId] int  NOT NULL,
+    [SupplierPoStatusId] int  NOT NULL,
+    [RequestBy] nvarchar(max)  NOT NULL,
+    [DtRequest] datetime  NOT NULL,
+    [ApprovedBy] nvarchar(80)  NULL,
+    [DtApproved] datetime  NULL
+);
+GO
+
+-- Creating table 'SupplierPoDtls'
+CREATE TABLE [dbo].[SupplierPoDtls] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [SupplierPoHdrId] int  NOT NULL,
+    [Remarks] nvarchar(250)  NULL,
+    [Amount] decimal(18,0)  NOT NULL,
+    [JobServicesId] int  NOT NULL
+);
+GO
+
+-- Creating table 'SupplierPoStatus'
+CREATE TABLE [dbo].[SupplierPoStatus] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Status] nvarchar(max)  NOT NULL,
+    [OrderNo] int  NOT NULL
+);
+GO
+
+-- Creating table 'SupplierPoItems'
+CREATE TABLE [dbo].[SupplierPoItems] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [SupplierPoDtlId] int  NOT NULL,
+    [InvItemId] int  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -807,6 +1244,168 @@ GO
 -- Creating primary key on [Id] in table 'JobChecklists'
 ALTER TABLE [dbo].[JobChecklists]
 ADD CONSTRAINT [PK_JobChecklists]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'CustCategories'
+ALTER TABLE [dbo].[CustCategories]
+ADD CONSTRAINT [PK_CustCategories]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'CustCats'
+ALTER TABLE [dbo].[CustCats]
+ADD CONSTRAINT [PK_CustCats]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'CustEntMains'
+ALTER TABLE [dbo].[CustEntMains]
+ADD CONSTRAINT [PK_CustEntMains]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'SalesLeads'
+ALTER TABLE [dbo].[SalesLeads]
+ADD CONSTRAINT [PK_SalesLeads]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'SalesStatusCodes'
+ALTER TABLE [dbo].[SalesStatusCodes]
+ADD CONSTRAINT [PK_SalesStatusCodes]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'SalesStatus'
+ALTER TABLE [dbo].[SalesStatus]
+ADD CONSTRAINT [PK_SalesStatus]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'SalesActCodes'
+ALTER TABLE [dbo].[SalesActCodes]
+ADD CONSTRAINT [PK_SalesActCodes]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'SalesActivities'
+ALTER TABLE [dbo].[SalesActivities]
+ADD CONSTRAINT [PK_SalesActivities]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'CustEntities'
+ALTER TABLE [dbo].[CustEntities]
+ADD CONSTRAINT [PK_CustEntities]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'SalesActStatus'
+ALTER TABLE [dbo].[SalesActStatus]
+ADD CONSTRAINT [PK_SalesActStatus]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'SalesLeadCatCodes'
+ALTER TABLE [dbo].[SalesLeadCatCodes]
+ADD CONSTRAINT [PK_SalesLeadCatCodes]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'SalesLeadCategories'
+ALTER TABLE [dbo].[SalesLeadCategories]
+ADD CONSTRAINT [PK_SalesLeadCategories]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'CustSalesCategories'
+ALTER TABLE [dbo].[CustSalesCategories]
+ADD CONSTRAINT [PK_CustSalesCategories]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'SrvActionCodes'
+ALTER TABLE [dbo].[SrvActionCodes]
+ADD CONSTRAINT [PK_SrvActionCodes]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'SrvActionItems'
+ALTER TABLE [dbo].[SrvActionItems]
+ADD CONSTRAINT [PK_SrvActionItems]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'JobActions'
+ALTER TABLE [dbo].[JobActions]
+ADD CONSTRAINT [PK_JobActions]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'InvItems'
+ALTER TABLE [dbo].[InvItems]
+ADD CONSTRAINT [PK_InvItems]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'InvItemCats'
+ALTER TABLE [dbo].[InvItemCats]
+ADD CONSTRAINT [PK_InvItemCats]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'InvItemCategories'
+ALTER TABLE [dbo].[InvItemCategories]
+ADD CONSTRAINT [PK_InvItemCategories]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'JobServiceItems'
+ALTER TABLE [dbo].[JobServiceItems]
+ADD CONSTRAINT [PK_JobServiceItems]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'SupplierInvItems'
+ALTER TABLE [dbo].[SupplierInvItems]
+ADD CONSTRAINT [PK_SupplierInvItems]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'JobNotificationRequests'
+ALTER TABLE [dbo].[JobNotificationRequests]
+ADD CONSTRAINT [PK_JobNotificationRequests]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'CustFiles'
+ALTER TABLE [dbo].[CustFiles]
+ADD CONSTRAINT [PK_CustFiles]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'SupplierPoHdrs'
+ALTER TABLE [dbo].[SupplierPoHdrs]
+ADD CONSTRAINT [PK_SupplierPoHdrs]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'SupplierPoDtls'
+ALTER TABLE [dbo].[SupplierPoDtls]
+ADD CONSTRAINT [PK_SupplierPoDtls]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'SupplierPoStatus'
+ALTER TABLE [dbo].[SupplierPoStatus]
+ADD CONSTRAINT [PK_SupplierPoStatus]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'SupplierPoItems'
+ALTER TABLE [dbo].[SupplierPoItems]
+ADD CONSTRAINT [PK_SupplierPoItems]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -1277,6 +1876,471 @@ GO
 CREATE INDEX [IX_FK_JobMainJobNote]
 ON [dbo].[JobNotes]
     ([JobMainId]);
+GO
+
+-- Creating foreign key on [CustomerId] in table 'CustCats'
+ALTER TABLE [dbo].[CustCats]
+ADD CONSTRAINT [FK_CustomerCustCat]
+    FOREIGN KEY ([CustomerId])
+    REFERENCES [dbo].[Customers]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CustomerCustCat'
+CREATE INDEX [IX_FK_CustomerCustCat]
+ON [dbo].[CustCats]
+    ([CustomerId]);
+GO
+
+-- Creating foreign key on [CustCategoryId] in table 'CustCats'
+ALTER TABLE [dbo].[CustCats]
+ADD CONSTRAINT [FK_CustCategoryCustCat]
+    FOREIGN KEY ([CustCategoryId])
+    REFERENCES [dbo].[CustCategories]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CustCategoryCustCat'
+CREATE INDEX [IX_FK_CustCategoryCustCat]
+ON [dbo].[CustCats]
+    ([CustCategoryId]);
+GO
+
+-- Creating foreign key on [CustomerId] in table 'SalesLeads'
+ALTER TABLE [dbo].[SalesLeads]
+ADD CONSTRAINT [FK_CustomerSalesLead]
+    FOREIGN KEY ([CustomerId])
+    REFERENCES [dbo].[Customers]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CustomerSalesLead'
+CREATE INDEX [IX_FK_CustomerSalesLead]
+ON [dbo].[SalesLeads]
+    ([CustomerId]);
+GO
+
+-- Creating foreign key on [SalesActCodeId] in table 'SalesActivities'
+ALTER TABLE [dbo].[SalesActivities]
+ADD CONSTRAINT [FK_SalesActCodeSalesActivity]
+    FOREIGN KEY ([SalesActCodeId])
+    REFERENCES [dbo].[SalesActCodes]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SalesActCodeSalesActivity'
+CREATE INDEX [IX_FK_SalesActCodeSalesActivity]
+ON [dbo].[SalesActivities]
+    ([SalesActCodeId]);
+GO
+
+-- Creating foreign key on [SalesLeadId] in table 'SalesActivities'
+ALTER TABLE [dbo].[SalesActivities]
+ADD CONSTRAINT [FK_SalesLeadSalesActivity]
+    FOREIGN KEY ([SalesLeadId])
+    REFERENCES [dbo].[SalesLeads]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SalesLeadSalesActivity'
+CREATE INDEX [IX_FK_SalesLeadSalesActivity]
+ON [dbo].[SalesActivities]
+    ([SalesLeadId]);
+GO
+
+-- Creating foreign key on [CustEntMainId] in table 'CustEntities'
+ALTER TABLE [dbo].[CustEntities]
+ADD CONSTRAINT [FK_CustEntMainCustEntity]
+    FOREIGN KEY ([CustEntMainId])
+    REFERENCES [dbo].[CustEntMains]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CustEntMainCustEntity'
+CREATE INDEX [IX_FK_CustEntMainCustEntity]
+ON [dbo].[CustEntities]
+    ([CustEntMainId]);
+GO
+
+-- Creating foreign key on [CustomerId] in table 'CustEntities'
+ALTER TABLE [dbo].[CustEntities]
+ADD CONSTRAINT [FK_CustomerCustEntity]
+    FOREIGN KEY ([CustomerId])
+    REFERENCES [dbo].[Customers]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CustomerCustEntity'
+CREATE INDEX [IX_FK_CustomerCustEntity]
+ON [dbo].[CustEntities]
+    ([CustomerId]);
+GO
+
+-- Creating foreign key on [SalesActStatusId] in table 'SalesActivities'
+ALTER TABLE [dbo].[SalesActivities]
+ADD CONSTRAINT [FK_SalesActStatusSalesActivity]
+    FOREIGN KEY ([SalesActStatusId])
+    REFERENCES [dbo].[SalesActStatus]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SalesActStatusSalesActivity'
+CREATE INDEX [IX_FK_SalesActStatusSalesActivity]
+ON [dbo].[SalesActivities]
+    ([SalesActStatusId]);
+GO
+
+-- Creating foreign key on [SalesLeadCatCodeId] in table 'SalesLeadCategories'
+ALTER TABLE [dbo].[SalesLeadCategories]
+ADD CONSTRAINT [FK_SalesLeadCatCodeSalesLeadCategory]
+    FOREIGN KEY ([SalesLeadCatCodeId])
+    REFERENCES [dbo].[SalesLeadCatCodes]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SalesLeadCatCodeSalesLeadCategory'
+CREATE INDEX [IX_FK_SalesLeadCatCodeSalesLeadCategory]
+ON [dbo].[SalesLeadCategories]
+    ([SalesLeadCatCodeId]);
+GO
+
+-- Creating foreign key on [SalesLeadId] in table 'SalesLeadCategories'
+ALTER TABLE [dbo].[SalesLeadCategories]
+ADD CONSTRAINT [FK_SalesLeadSalesLeadCategory]
+    FOREIGN KEY ([SalesLeadId])
+    REFERENCES [dbo].[SalesLeads]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SalesLeadSalesLeadCategory'
+CREATE INDEX [IX_FK_SalesLeadSalesLeadCategory]
+ON [dbo].[SalesLeadCategories]
+    ([SalesLeadId]);
+GO
+
+-- Creating foreign key on [SalesLeadCatCodeId] in table 'CustSalesCategories'
+ALTER TABLE [dbo].[CustSalesCategories]
+ADD CONSTRAINT [FK_SalesLeadCatCodeCustSalesCategory]
+    FOREIGN KEY ([SalesLeadCatCodeId])
+    REFERENCES [dbo].[SalesLeadCatCodes]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SalesLeadCatCodeCustSalesCategory'
+CREATE INDEX [IX_FK_SalesLeadCatCodeCustSalesCategory]
+ON [dbo].[CustSalesCategories]
+    ([SalesLeadCatCodeId]);
+GO
+
+-- Creating foreign key on [CustomerId] in table 'CustSalesCategories'
+ALTER TABLE [dbo].[CustSalesCategories]
+ADD CONSTRAINT [FK_CustomerCustSalesCategory]
+    FOREIGN KEY ([CustomerId])
+    REFERENCES [dbo].[Customers]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CustomerCustSalesCategory'
+CREATE INDEX [IX_FK_CustomerCustSalesCategory]
+ON [dbo].[CustSalesCategories]
+    ([CustomerId]);
+GO
+
+-- Creating foreign key on [SalesStatusCodeId] in table 'SalesStatus'
+ALTER TABLE [dbo].[SalesStatus]
+ADD CONSTRAINT [FK_SalesStatusCodeSalesStatus]
+    FOREIGN KEY ([SalesStatusCodeId])
+    REFERENCES [dbo].[SalesStatusCodes]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SalesStatusCodeSalesStatus'
+CREATE INDEX [IX_FK_SalesStatusCodeSalesStatus]
+ON [dbo].[SalesStatus]
+    ([SalesStatusCodeId]);
+GO
+
+-- Creating foreign key on [SalesLeadId] in table 'SalesStatus'
+ALTER TABLE [dbo].[SalesStatus]
+ADD CONSTRAINT [FK_SalesLeadSalesStatus]
+    FOREIGN KEY ([SalesLeadId])
+    REFERENCES [dbo].[SalesLeads]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SalesLeadSalesStatus'
+CREATE INDEX [IX_FK_SalesLeadSalesStatus]
+ON [dbo].[SalesStatus]
+    ([SalesLeadId]);
+GO
+
+-- Creating foreign key on [JobServicesId] in table 'JobActions'
+ALTER TABLE [dbo].[JobActions]
+ADD CONSTRAINT [FK_JobServicesJobAction]
+    FOREIGN KEY ([JobServicesId])
+    REFERENCES [dbo].[JobServices]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_JobServicesJobAction'
+CREATE INDEX [IX_FK_JobServicesJobAction]
+ON [dbo].[JobActions]
+    ([JobServicesId]);
+GO
+
+-- Creating foreign key on [InvItemCatId] in table 'InvItemCategories'
+ALTER TABLE [dbo].[InvItemCategories]
+ADD CONSTRAINT [FK_InvItemCatInvItemCategory]
+    FOREIGN KEY ([InvItemCatId])
+    REFERENCES [dbo].[InvItemCats]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_InvItemCatInvItemCategory'
+CREATE INDEX [IX_FK_InvItemCatInvItemCategory]
+ON [dbo].[InvItemCategories]
+    ([InvItemCatId]);
+GO
+
+-- Creating foreign key on [InvItemId] in table 'InvItemCategories'
+ALTER TABLE [dbo].[InvItemCategories]
+ADD CONSTRAINT [FK_InvItemInvItemCategory]
+    FOREIGN KEY ([InvItemId])
+    REFERENCES [dbo].[InvItems]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_InvItemInvItemCategory'
+CREATE INDEX [IX_FK_InvItemInvItemCategory]
+ON [dbo].[InvItemCategories]
+    ([InvItemId]);
+GO
+
+-- Creating foreign key on [JobServicesId] in table 'JobServiceItems'
+ALTER TABLE [dbo].[JobServiceItems]
+ADD CONSTRAINT [FK_JobServicesJobServiceItem]
+    FOREIGN KEY ([JobServicesId])
+    REFERENCES [dbo].[JobServices]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_JobServicesJobServiceItem'
+CREATE INDEX [IX_FK_JobServicesJobServiceItem]
+ON [dbo].[JobServiceItems]
+    ([JobServicesId]);
+GO
+
+-- Creating foreign key on [InvItemId] in table 'JobServiceItems'
+ALTER TABLE [dbo].[JobServiceItems]
+ADD CONSTRAINT [FK_InvItemJobServiceItem]
+    FOREIGN KEY ([InvItemId])
+    REFERENCES [dbo].[InvItems]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_InvItemJobServiceItem'
+CREATE INDEX [IX_FK_InvItemJobServiceItem]
+ON [dbo].[JobServiceItems]
+    ([InvItemId]);
+GO
+
+-- Creating foreign key on [SupplierId] in table 'SupplierInvItems'
+ALTER TABLE [dbo].[SupplierInvItems]
+ADD CONSTRAINT [FK_SupplierSupplierInvItem]
+    FOREIGN KEY ([SupplierId])
+    REFERENCES [dbo].[Suppliers]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SupplierSupplierInvItem'
+CREATE INDEX [IX_FK_SupplierSupplierInvItem]
+ON [dbo].[SupplierInvItems]
+    ([SupplierId]);
+GO
+
+-- Creating foreign key on [InvItemId] in table 'SupplierInvItems'
+ALTER TABLE [dbo].[SupplierInvItems]
+ADD CONSTRAINT [FK_InvItemSupplierInvItem]
+    FOREIGN KEY ([InvItemId])
+    REFERENCES [dbo].[InvItems]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_InvItemSupplierInvItem'
+CREATE INDEX [IX_FK_InvItemSupplierInvItem]
+ON [dbo].[SupplierInvItems]
+    ([InvItemId]);
+GO
+
+-- Creating foreign key on [ServicesId] in table 'SrvActionItems'
+ALTER TABLE [dbo].[SrvActionItems]
+ADD CONSTRAINT [FK_ServicesSrvActionItem]
+    FOREIGN KEY ([ServicesId])
+    REFERENCES [dbo].[Services]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ServicesSrvActionItem'
+CREATE INDEX [IX_FK_ServicesSrvActionItem]
+ON [dbo].[SrvActionItems]
+    ([ServicesId]);
+GO
+
+-- Creating foreign key on [SrvActionItemId] in table 'JobActions'
+ALTER TABLE [dbo].[JobActions]
+ADD CONSTRAINT [FK_SrvActionItemJobAction]
+    FOREIGN KEY ([SrvActionItemId])
+    REFERENCES [dbo].[SrvActionItems]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SrvActionItemJobAction'
+CREATE INDEX [IX_FK_SrvActionItemJobAction]
+ON [dbo].[JobActions]
+    ([SrvActionItemId]);
+GO
+
+-- Creating foreign key on [SrvActionCodeId] in table 'SrvActionItems'
+ALTER TABLE [dbo].[SrvActionItems]
+ADD CONSTRAINT [FK_SrvActionCodeSrvActionItem]
+    FOREIGN KEY ([SrvActionCodeId])
+    REFERENCES [dbo].[SrvActionCodes]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SrvActionCodeSrvActionItem'
+CREATE INDEX [IX_FK_SrvActionCodeSrvActionItem]
+ON [dbo].[SrvActionItems]
+    ([SrvActionCodeId]);
+GO
+
+-- Creating foreign key on [CustomerId] in table 'CustFiles'
+ALTER TABLE [dbo].[CustFiles]
+ADD CONSTRAINT [FK_CustomerCustFiles]
+    FOREIGN KEY ([CustomerId])
+    REFERENCES [dbo].[Customers]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CustomerCustFiles'
+CREATE INDEX [IX_FK_CustomerCustFiles]
+ON [dbo].[CustFiles]
+    ([CustomerId]);
+GO
+
+-- Creating foreign key on [SupplierId] in table 'SupplierPoHdrs'
+ALTER TABLE [dbo].[SupplierPoHdrs]
+ADD CONSTRAINT [FK_SupplierSupplierPoHdr]
+    FOREIGN KEY ([SupplierId])
+    REFERENCES [dbo].[Suppliers]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SupplierSupplierPoHdr'
+CREATE INDEX [IX_FK_SupplierSupplierPoHdr]
+ON [dbo].[SupplierPoHdrs]
+    ([SupplierId]);
+GO
+
+-- Creating foreign key on [SupplierPoStatusId] in table 'SupplierPoHdrs'
+ALTER TABLE [dbo].[SupplierPoHdrs]
+ADD CONSTRAINT [FK_SupplierPoStatusSupplierPoHdr]
+    FOREIGN KEY ([SupplierPoStatusId])
+    REFERENCES [dbo].[SupplierPoStatus]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SupplierPoStatusSupplierPoHdr'
+CREATE INDEX [IX_FK_SupplierPoStatusSupplierPoHdr]
+ON [dbo].[SupplierPoHdrs]
+    ([SupplierPoStatusId]);
+GO
+
+-- Creating foreign key on [SupplierPoHdrId] in table 'SupplierPoDtls'
+ALTER TABLE [dbo].[SupplierPoDtls]
+ADD CONSTRAINT [FK_SupplierPoHdrSupplierPoDtl]
+    FOREIGN KEY ([SupplierPoHdrId])
+    REFERENCES [dbo].[SupplierPoHdrs]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SupplierPoHdrSupplierPoDtl'
+CREATE INDEX [IX_FK_SupplierPoHdrSupplierPoDtl]
+ON [dbo].[SupplierPoDtls]
+    ([SupplierPoHdrId]);
+GO
+
+-- Creating foreign key on [JobServicesId] in table 'SupplierPoDtls'
+ALTER TABLE [dbo].[SupplierPoDtls]
+ADD CONSTRAINT [FK_JobServicesSupplierPoDtl]
+    FOREIGN KEY ([JobServicesId])
+    REFERENCES [dbo].[JobServices]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_JobServicesSupplierPoDtl'
+CREATE INDEX [IX_FK_JobServicesSupplierPoDtl]
+ON [dbo].[SupplierPoDtls]
+    ([JobServicesId]);
+GO
+
+-- Creating foreign key on [SupplierPoDtlId] in table 'SupplierPoItems'
+ALTER TABLE [dbo].[SupplierPoItems]
+ADD CONSTRAINT [FK_SupplierPoDtlSupplierPoItem]
+    FOREIGN KEY ([SupplierPoDtlId])
+    REFERENCES [dbo].[SupplierPoDtls]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SupplierPoDtlSupplierPoItem'
+CREATE INDEX [IX_FK_SupplierPoDtlSupplierPoItem]
+ON [dbo].[SupplierPoItems]
+    ([SupplierPoDtlId]);
+GO
+
+-- Creating foreign key on [InvItemId] in table 'SupplierPoItems'
+ALTER TABLE [dbo].[SupplierPoItems]
+ADD CONSTRAINT [FK_InvItemSupplierPoItem]
+    FOREIGN KEY ([InvItemId])
+    REFERENCES [dbo].[InvItems]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_InvItemSupplierPoItem'
+CREATE INDEX [IX_FK_InvItemSupplierPoItem]
+ON [dbo].[SupplierPoItems]
+    ([InvItemId]);
 GO
 
 -- --------------------------------------------------

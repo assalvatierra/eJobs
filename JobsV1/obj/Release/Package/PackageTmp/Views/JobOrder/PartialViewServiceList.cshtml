@@ -1,0 +1,24 @@
+﻿@model IEnumerable<JobsV1.Controllers.cJobService>
+
+<div style="padding-left:1.5em;">
+
+@foreach (var item in Model) {
+    <div>
+        <div style="background-color:lightgray;padding:0.5em;">
+            <span style="font-weight:600;color:darkblue;">@item.Service.Particulars</span>
+            <span>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </span>
+        </div>
+        @Html.Partial("PartialViewSrvActionItems", item.SvcActions, new ViewDataDictionary(this.ViewData) { { "svcId1", item.Service.Id } })
+
+        <div>
+            @Html.Partial("PartialViewJobServiceItems", item.SvcItems, new ViewDataDictionary(this.ViewData) { { "svcId1", item.Service.Id } })
+            @Html.Partial("PartialViewServiceSupPo", item.SupplierPos, new ViewDataDictionary(this.ViewData) { { "svcId1", item.Service.Id } })
+        </div>
+    </div>
+}
+
+</div>

@@ -506,8 +506,89 @@ namespace JobsV1.Controllers
             //return RedirectToAction("JobTable", new { span = 30 });
         }
 
+        public ActionResult JobTable2(int? span = 30) //version: 2018
+        {
+            System.DateTime dtNow = this.GetCurrentTime();
+            System.DateTime dtStart = new DateTime(dtNow.Year, dtNow.Month, dtNow.Day, 12, 0, 0);
+            System.DateTime dtUntil = System.DateTime.Now.AddDays((double)span);
+            dtUntil = new DateTime(dtUntil.Year, dtUntil.Month, dtUntil.Day, 23, 59, 59);
+            //Column Date Labels
+            System.Collections.ArrayList ColLabels = new System.Collections.ArrayList();
+            for (DateTime dtItem = dtStart; dtItem.CompareTo(dtUntil) < 0; dtItem = dtItem.AddDays(1))
+            {
+                ColLabels.Add(dtItem.ToString("dd") + "-" + dtItem.DayOfWeek.ToString());
+            }
 
-        public ActionResult JobTable(int? span=30)
+            System.Collections.ArrayList CustData = new System.Collections.ArrayList();
+
+            var jobMains2 = db.JobMains.Include(j => j.Customer).Include(j => j.Branch).Include(j => j.JobStatus).Include(j => j.JobThru).OrderBy(d => d.JobDate);
+
+            var jobMains = jobMains2.ToList().Where(
+                d => (d.JobStatusId == JOBRESERVATION || d.JobStatusId == JOBCONFIRMED)
+              //                || (d.JobStatusId == JOBCLOSED && d.JobDate.CompareTo(System.DateTime.Now.AddDays(1)) >= 0)
+              );
+
+            System.Collections.ArrayList data = new System.Collections.ArrayList();
+            foreach (var item in jobMains)
+            {
+                JobTableData cust = new JobTableData();
+                cust.tblValue = new List<JobTableValue>();
+
+                cust.iCustId = item.CustomerId;
+                cust.iJobId = item.Id;
+
+                List<Models.JobServices> svc = db.JobServices.Include(j => j.JobServicePickups).Where(d => d.JobMainId == item.Id).ToList();
+
+                for (DateTime dtItem = dtStart; dtItem.CompareTo(dtUntil) < 0; dtItem = dtItem.AddDays(1))
+                {
+                    foreach (var svcitem in svc)
+                    {
+                        int istart = dtItem.CompareTo((DateTime)svcitem.DtStart);
+                        int iend = dtItem.CompareTo((DateTime)svcitem.DtEnd);
+
+                        string sLabel = dtItem.ToString("dd") + "-" + dtItem.DayOfWeek.ToString();
+                        if (dtItem.CompareTo((DateTime)svcitem.DtStart) >= 0 && dtItem.CompareTo((DateTime)svcitem.DtEnd) <= 0)
+                        {
+                            // get inv items
+                            //Models.InvItem invItems = db.JobServiceItems
+                            
+
+                            //old code
+                            string sDriver = "";
+                            try
+                            {
+                                sDriver = svcitem.JobServicePickups.FirstOrDefault().ProviderName.Trim();
+                            }
+                            catch (Exception e)
+                            {
+                                sDriver = "";
+                            }
+                            //end of old code
+
+                            cust.tblValue.Add(new JobTableValue { DtDate = dtItem, Book = 1, supplier = svcitem.Supplier.Name, item = svcitem.SupplierItem.Description, Incharge = sDriver, label = sLabel });
+                        }
+                        else
+                        {
+                            cust.tblValue.Add(new JobTableValue { DtDate = dtItem, Book = 0, supplier = "", item = "", Incharge = "", label = sLabel });
+
+                        }//end of if dtItem.Compare
+
+                    } //end of foreach ( var svcitem...
+
+                }// end of for(DateTime
+
+                CustData.Add(cust);
+            }//end of foreach
+
+            ViewBag.ColLabels = ColLabels;
+            ViewBag.ColValues = CustData;
+
+            return View(jobMains.ToList());
+
+        }
+
+
+        public ActionResult JobTable(int? span=30) //2017 version
         {
             System.DateTime dtNow = this.GetCurrentTime();
             System.DateTime dtStart = new DateTime(dtNow.Year, dtNow.Month, dtNow.Day, 12,0,0);
