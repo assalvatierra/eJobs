@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/23/2018 09:01:27
+-- Date Created: 07/24/2018 09:56:54
 -- Generated from EDMX file: D:\Data\Real\Apps\GitHub\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
@@ -1026,7 +1026,8 @@ GO
 -- Creating table 'SupplierPoStatus'
 CREATE TABLE [dbo].[SupplierPoStatus] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Status] nvarchar(max)  NOT NULL
+    [Status] nvarchar(max)  NOT NULL,
+    [OrderNo] int  NOT NULL
 );
 GO
 

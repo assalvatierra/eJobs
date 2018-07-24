@@ -949,6 +949,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Status" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="OrderNo" Type="int" Nullable="false" DefaultValue="0" />
   </EntityType>
   <EntityType Name="SupplierPoItems">
     <Key>
@@ -3456,6 +3457,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Status" Type="String" Nullable="false" />
           <NavigationProperty Name="SupplierPoHdrs" Relationship="JobDB.SupplierPoStatusSupplierPoHdr" FromRole="SupplierPoStatus" ToRole="SupplierPoHdr" />
+          <Property Name="OrderNo" Type="Int32" Nullable="false" DefaultValue="0" />
         </EntityType>
         <Association Name="SupplierPoStatusSupplierPoHdr">
           <End Type="JobDB.SupplierPoStatus" Role="SupplierPoStatus" Multiplicity="1" />
@@ -4224,6 +4226,7 @@
         <MappingFragment StoreEntitySet="SupplierPoStatus">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="OrderNo" ColumnName="OrderNo" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

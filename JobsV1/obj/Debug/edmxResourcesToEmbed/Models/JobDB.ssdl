@@ -944,6 +944,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Status" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="OrderNo" Type="int" Nullable="false" DefaultValue="0" />
   </EntityType>
   <EntityType Name="SupplierPoItems">
     <Key>

@@ -692,6 +692,7 @@
         <MappingFragment StoreEntitySet="SupplierPoStatus">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="OrderNo" ColumnName="OrderNo" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

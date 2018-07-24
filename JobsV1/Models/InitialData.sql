@@ -122,5 +122,5 @@ Values
 -- ----------------------------------------------
 -- Supplier PO Configuration
 -- ----------------------------------------------
-insert into SupplierPoStatus ([Status]) values ('REQUEST'),('APPROVED'),('CANCELLED'),('CONFIRMED'),('DELIVERED'),('CLOSE');
+insert into SupplierPoStatus ([Status],[OrderNo]) values ('REQUEST',1),('APPROVED',2),('CANCELLED',2),('CONFIRMED',3),('DELIVERED',4),('CLOSE',5);
 

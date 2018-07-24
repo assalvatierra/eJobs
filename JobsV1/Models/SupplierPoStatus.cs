@@ -17,11 +17,13 @@ namespace JobsV1.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SupplierPoStatus()
         {
+            this.OrderNo = 0;
             this.SupplierPoHdrs = new HashSet<SupplierPoHdr>();
         }
     
         public int Id { get; set; }
         public string Status { get; set; }
+        public int OrderNo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupplierPoHdr> SupplierPoHdrs { get; set; }
