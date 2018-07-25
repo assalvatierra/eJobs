@@ -8,8 +8,7 @@ using System.Data.Entity;
 using JobsV1.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-
-
+using System.Net;
 
 namespace JobsV1.Controllers
 {
@@ -324,6 +323,88 @@ order by x.jobid
 
         #endregion
 
+
+        #region Services
+
+
+        // GET: JobServices/Edit/5
+        public ActionResult JobServiceEdit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            JobServices jobServices = db.JobServices.Find(id);
+            if (jobServices == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.JobMainId = new SelectList(db.JobMains, "Id", "Description", jobServices.JobMainId);
+            ViewBag.SupplierId = new SelectList(db.Suppliers, "Id", "Name", jobServices.SupplierId);
+            ViewBag.ServicesId = new SelectList(db.Services, "Id", "Name", jobServices.ServicesId);
+            ViewBag.SupplierItemId = new SelectList(db.SupplierItems, "Id", "Description", jobServices.SupplierItemId);
+            return View(jobServices);
+        }
+
+        // POST: JobServices/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult JobServiceEdit([Bind(Include = "Id,JobMainId,ServicesId,SupplierId,DtStart,DtEnd,Particulars,QuotedAmt,SupplierAmt,ActualAmt,Remarks,SupplierItemId")] JobServices jobServices)
+        {
+
+            int NewSupplierSysId = 1;
+
+            if (ModelState.IsValid)
+            {
+                jobServices.DtEnd = ((DateTime)jobServices.DtEnd).Add(new TimeSpan(23, 59, 59));
+                db.Entry(jobServices).State = EntityState.Modified;
+
+                DateTime dtSvc = (DateTime)jobServices.DtStart;
+                List<Models.JobItinerary> iti = db.JobItineraries.Where(d => d.JobMainId == jobServices.JobMainId && d.SvcId == jobServices.Id).ToList();
+                foreach (var ititmp in iti)
+                {
+                    int iHr = dtSvc.Hour, iMn = dtSvc.Minute;
+                    if (ititmp.ItiDate != null)
+                    {
+                        DateTime dtIti = (DateTime)ititmp.ItiDate;
+                        iHr = dtIti.Hour;
+                        iMn = dtIti.Minute;
+                    }
+                    ititmp.ItiDate = new DateTime(dtSvc.Year, dtSvc.Month, dtSvc.Day, iHr, iMn, 0);
+                    db.Entry(ititmp).State = EntityState.Modified;
+                }
+
+                db.SaveChanges();
+
+                if (jobServices.SupplierId == NewSupplierSysId)
+                    return RedirectToAction("CreateSupplier", new { Svcid = jobServices.Id });
+                else
+                    return RedirectToAction("Index");
+            }
+            ViewBag.JobMainId = new SelectList(db.JobMains, "Id", "Description", jobServices.JobMainId);
+            ViewBag.SupplierId = new SelectList(db.Suppliers, "Id", "Name", jobServices.SupplierId);
+            ViewBag.ServicesId = new SelectList(db.Services, "Id", "Name", jobServices.ServicesId);
+            ViewBag.SupplierItemId = new SelectList(db.SupplierItems, "Id", "Description", jobServices.SupplierItemId);
+            return View(jobServices);
+        }
+
+        // GET: JobServices/Details/5
+        public ActionResult JobServiceDetails(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            JobServices jobServices = db.JobServices.Find(id);
+            if (jobServices == null)
+            {
+                return HttpNotFound();
+            }
+            return View(jobServices);
+        }
+        #endregion
         #region Action Items status update
         //Ajax Call
         public ActionResult MarkDone(int SvcId, int ActionId)

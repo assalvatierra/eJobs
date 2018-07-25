@@ -29,7 +29,7 @@
             @Html.DisplayFor(modelItem => item.InvItem.Description)
         </td>
         <td>
-            @Html.ActionLink("Remove", "RemoveItem", new { itemId = item.Id, serviceId = item.JobServicesId })
+            @Html.ActionLink("Remove", "RemoveItem", new { itemId = item.InvItemId, serviceId = item.JobServicesId })
         </td>
     </tr>
 }
