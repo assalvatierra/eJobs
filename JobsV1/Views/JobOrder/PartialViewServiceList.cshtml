@@ -7,9 +7,10 @@
         <div style="background-color:lightgray;padding:0.5em;">
             <span style="font-weight:600;color:darkblue;">@item.Service.Particulars</span>
             <span>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+
+                @Html.ActionLink("Edit", "JobServiceEdit", new { id = item.Service.Id }) |
+                @Html.ActionLink("Details", "JobServiceDetails", new { id = item.Service.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Service.Id })
             </span>
         </div>
         @Html.Partial("PartialViewSrvActionItems", item.SvcActions, new ViewDataDictionary(this.ViewData) { { "svcId1", item.Service.Id } })
