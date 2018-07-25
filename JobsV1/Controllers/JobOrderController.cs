@@ -405,6 +405,61 @@ order by x.jobid
             return View(jobServices);
         }
         #endregion
+
+        #region supplier
+        public ActionResult PoDetails(int? hdrId) {
+            var supplierPoDtls = db.SupplierPoDtls.Include(s => s.SupplierPoHdr).Include(s => s.JobService).Where(d => d.SupplierPoHdrId == (int)hdrId);
+            SupplierPoDtl supplier = new SupplierPoDtl();
+            List<SupplierPoItem> supItems = new List<SupplierPoItem>();
+            List<InvItem> invItems = new List<InvItem>();
+            var hdr = db.SupplierPoHdrs.Where(h => h.Id == hdrId).ToList();
+
+            supplier = db.SupplierPoDtls.Where(s => s.SupplierPoHdrId == hdrId).FirstOrDefault();
+            if (supplier != null)
+            {
+                supItems = db.SupplierPoItems.Where(s => s.SupplierPoDtlId == supplier.Id).ToList();
+            }
+            else
+            {
+                supplier = new SupplierPoDtl
+                {
+                    Id = 0
+                };
+            }
+
+            if (supItems == null)
+            {
+                supItems.Add(new SupplierPoItem
+                {
+                    Id = 0,
+                    InvItem = null,
+                    InvItemId = 0,
+                    SupplierPoDtl = null,
+                    SupplierPoDtlId = 0,
+                });
+            }
+
+            invItems = db.InvItems.ToList();
+            if (invItems == null)
+            {
+                invItems.Add(new InvItem
+                {
+                    Id = 0,
+                });
+            }
+
+            ViewBag.HdrInfo = hdr;
+            ViewBag.HdrId = hdrId;
+            ViewBag.supplierPoItems = supItems;
+            ViewBag.InvItemsList = invItems;
+            ViewBag.Id = supplier.Id;
+
+            return View(supplierPoDtls.ToList());
+        }
+
+
+
+        #endregion
         #region Action Items status update
         //Ajax Call
         public ActionResult MarkDone(int SvcId, int ActionId)
