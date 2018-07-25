@@ -1,0 +1,126 @@
+﻿@model IEnumerable<JobsV1.Models.SupplierPoDtl>
+
+@{
+    ViewBag.Title = "Index";
+    ViewBag.dtlID = 0;
+}
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<h2>Supplier PO Details:</h2>
+<p>
+    @Html.ActionLink("Back to List", "Index", "JobOrder", null, null)
+</p>
+
+<table class="table" style="border-top:none">
+    @foreach (var header in ViewBag.HdrInfo as IEnumerable<JobsV1.Models.SupplierPoHdr>)
+    {
+
+        <tr style="border-top:none">
+            <td>
+                <span style="font-weight:bold">Supplier:</span>
+
+                @Html.DisplayFor(modelItem => header.Supplier.Name)
+            </td>
+
+            <td>
+                <span style="font-weight:bold">Date:</span>
+                @Html.DisplayFor(modelItem => header.PoDate)
+            </td>
+            <td>
+                <span style="font-weight:bold">Remarks:</span>
+                @Html.DisplayFor(modelItem => header.Remarks)
+            </td>
+            <td>
+                <span style="font-weight:bold">Status:</span>
+                @Html.DisplayFor(modelItem => header.SupplierPoStatu.Status)
+            </td>
+
+        </tr>
+
+        <tr style="border-top:none">
+            <td>
+                <span style="font-weight:bold">DtRequest:</span>
+                @Html.DisplayFor(modelItem => header.DtRequest)
+            </td>
+            <td>
+                <span style="font-weight:bold">by:</span>
+                @Html.DisplayFor(modelItem => header.RequestBy)
+            </td>
+            <td>
+                <span style="font-weight:bold">DtApproved:</span>
+                @Html.DisplayFor(modelItem => header.DtApproved )
+            </td>
+            <td>
+                <span style="font-weight:bold">by:</span>
+                @Html.DisplayFor(modelItem => header.ApprovedBy )
+            </td>
+        </tr>
+    }
+</table>
+
+@foreach (var item in Model)
+{
+
+    <table class="table table-striped" id="details-tbl">
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Remarks)
+            </th>
+            <th>
+                Assigned Vehicle
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupplierPoHdr.Remarks)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.JobService.Particulars)
+            </th>
+            <th></th>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Remarks)
+            </td>
+            <td>
+
+                @foreach (var car in ViewBag.supplierPoItems as IEnumerable<JobsV1.Models.SupplierPoItem>)
+                {
+
+                    <p>
+                        @Html.DisplayFor(modelItem => car.InvItem.Description)
+                        
+                    </p>
+                }
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupplierPoHdr.Remarks)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobService.Particulars)
+            </td>
+        </tr>
+
+    </table>
+}
+
+
+<p>
+    @Html.ActionLink("Back to List", "Index", "JobOrder", null, null)
+</p>
+
+<br />
