@@ -583,6 +583,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Images\CarRental\car101.png" />
     <Content Include="Images\CarRental\Driver101.png" />
+    <Content Include="Images\CarRental\Driver102.png" />
     <Content Include="Images\CarRental\FordEverest.jpg" />
     <Content Include="Images\CarRental\HondaCity.jpg" />
     <Content Include="Images\CarRental\placeholder.png" />
@@ -591,6 +592,12 @@
     <Content Include="Images\CarRental\ToyotaHilux.jpg" />
     <Content Include="Images\CarRental\ToyotaInnova.jpg" />
     <Content Include="Images\CarRental\ToyotaInnovaDetails.jpg" />
+    <Content Include="Images\CustomerFiles\13\20180623_131024.jpg" />
+    <Content Include="Images\CustomerFiles\13\tutorme.png" />
+    <Content Include="Images\CustomerFiles\2\IMG_20151223_064601.jpg" />
+    <Content Include="Images\CustomerFiles\3\20180623_131024.jpg" />
+    <Content Include="Images\CustomerFiles\3\tutorme.png" />
+    <Content Include="Images\CustomerFiles\3\WDashboard-bigger.png" />
     <Content Include="Images\Customers\Category\Active-30.png" />
     <Content Include="Images\Customers\Category\cancel-40.png" />
     <Content Include="Images\Customers\Category\high-priority-40.png" />

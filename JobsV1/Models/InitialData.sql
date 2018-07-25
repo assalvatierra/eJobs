@@ -116,7 +116,7 @@ values
 insert into InvItemCats([Name],[Remarks],[ImgPath],[SysCode])
 Values
 ('Vehicle','VAN/CAR','~/Images/CarRental/car101.png','CAR'),
-('Driver','Driver','~/Images/CarRental/Driver101.png','DRIVER'),
+('Driver','Driver','~/Images/CarRental/Driver102.png','DRIVER'),
 ('Others','Other Types','~/Images/CarRental/Repair101.png','OTHER');
 
 -- ----------------------------------------------

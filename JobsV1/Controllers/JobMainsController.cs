@@ -553,6 +553,12 @@ namespace JobsV1.Controllers
                             var invItems = db.JobServiceItems.Where(d => d.JobServicesId == svcitem.Id);
                             foreach( var invitemtmp in invItems)
                             {
+                                string itemiconpath = "*";
+                                var itemcat = invitemtmp.InvItem.InvItemCategories.FirstOrDefault();
+                                if (itemcat != null)
+                                    itemiconpath = itemcat.InvItemCat.ImgPath;
+
+
                                 JobTableValue jtvTmp = new JobTableValue
                                 {
                                     DtDate = dtItem,
@@ -560,13 +566,39 @@ namespace JobsV1.Controllers
                                     supplier = "Internal",
                                     item = invitemtmp.InvItem.ItemCode + " " + invitemtmp.InvItem.Description,
                                     Incharge = "",
-                                    label = sLabel
+                                    label = sLabel,
+                                    itemicon = itemiconpath
                                 };
 
                                 cust.tblValue.Add(jtvTmp);
                             }
 
-                            // get Supplier Items
+                            // get Supplier Items - Po
+                            var suppItems = db.SupplierPoDtls.Where(d=>d.JobServicesId==svcitem.Id);
+                            foreach ( var supPoDtl in suppItems )
+                            {
+                                foreach ( var supItem in supPoDtl.SupplierPoItems)
+                                {
+                                    string itemiconpath = "*";
+                                    var itemcat = supItem.InvItem.InvItemCategories.FirstOrDefault();
+                                    if (itemcat != null)
+                                        itemiconpath = itemcat.InvItemCat.ImgPath;
+
+
+                                    JobTableValue jtvTmp = new JobTableValue
+                                    {
+                                        DtDate = dtItem,
+                                        Book = 1,
+                                        supplier = supPoDtl.SupplierPoHdr.Supplier.Name,
+                                        item = supItem.InvItem.ItemCode + " " + supItem.InvItem.Description,
+                                        Incharge = "",
+                                        label = sLabel,
+                                        itemicon = itemiconpath
+                                    };
+
+                                    cust.tblValue.Add(jtvTmp);
+                                }
+                            }
 
                         }
                         else
@@ -642,7 +674,6 @@ namespace JobsV1.Controllers
                             {
                                 sDriver = "";
                             }
-                                
                                 
                             cust.tblValue.Add(new JobTableValue { DtDate = dtItem, Book = 1, supplier = svcitem.Supplier.Name, item = svcitem.SupplierItem.Description, Incharge = sDriver, label = sLabel } );
                         }
@@ -773,6 +804,7 @@ namespace JobsV1.Controllers
         public string item { get; set; }
         public string Incharge { get; set; }
         public string label { get; set; }
+        public string itemicon { get; set; }
     }
 
     public class svcId

@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "JobTable";
+    string remarksClass = "userRemarks01"; //css class for inventory items
 }
 
 <h2>Schedules</h2>
@@ -84,18 +85,33 @@
                             {
                                 if (bkValue.Book == 1)
                                 {
+                                    if (bkValue.supplier == "Internal")
+                                    {
+                                        <img src=@Url.Content(@bkValue.itemicon)
+                                             alt=@bkValue.itemicon height="16"
+                                             title=@bkValue.itemicon />
+                                        <span class="userRemarks02">
+                                            @bkValue.item
+                                        </span>
+                                    }
                                     if (bkValue.supplier != "Internal")
                                     {
-                                        <span>@bkValue.supplier</span>
-                                        <br />
+                                        <div style="background-color:lightgray;">
+                                            <span style="font:600 10px arial, verdanan;">@bkValue.supplier</span>
+                                            <br />
+                                            <img src=@Url.Content(@bkValue.itemicon)
+                                                 alt=@bkValue.itemicon height="16"
+                                                 title=@bkValue.itemicon />
+                                            <span class="userRemarks02">
+                                                @bkValue.item
+                                            </span>
+                                        </div>
                                     }
-
-                                    <span class="userRemarks02">@bkValue.item</span>
                                     <br />
                                     if (bkValue.Incharge != "")
                                     {
-                                        <span class="userRemarks02">[@bkValue.Incharge]</span>
-                                        <br />
+                                    <span class="userRemarks02">[@bkValue.Incharge]</span>
+                                    <br />
                                     }
 
                                 }
