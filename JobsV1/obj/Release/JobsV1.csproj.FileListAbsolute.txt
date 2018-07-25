@@ -272,18 +272,6 @@ D:\Data\Real\Apps\GitHub\eJobs\JobsV1\obj\Release\JobsV1.csprojResolveAssemblyRe
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\obj\Release\JobsV1.dll
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\obj\Release\JobsV1.pdb
 C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\ApplicationInsights.config
-C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\roslyn\csc.exe
-C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
-C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
-C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\roslyn\Microsoft.CodeAnalysis.dll
-C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\roslyn\Microsoft.CSharp.Core.targets
-C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\roslyn\Microsoft.VisualBasic.Core.targets
-C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\roslyn\System.Collections.Immutable.dll
-C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\roslyn\System.Reflection.Metadata.dll
-C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\roslyn\vbc.exe
-C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\roslyn\VBCSCompiler.exe
-C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\roslyn\VBCSCompiler.exe.config
 C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\JobsV1.dll.config
 C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\JobsV1.dll
 C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\JobsV1.pdb
@@ -300,7 +288,6 @@ C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\Microsoft.ApplicationInsights.
 C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\Microsoft.AspNet.Identity.Core.dll
 C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\Microsoft.AspNet.Identity.EntityFramework.dll
 C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\Microsoft.AspNet.Identity.Owin.dll
-C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\Microsoft.Owin.dll
 C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\Microsoft.Owin.Host.SystemWeb.dll
 C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\Microsoft.Owin.Security.Cookies.dll
@@ -334,7 +321,6 @@ C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\Microsoft.AI.ServerTelemetryCh
 C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\Microsoft.AI.Web.xml
 C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\Microsoft.AI.WindowsServer.xml
 C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\Microsoft.ApplicationInsights.xml
-C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\System.Web.Helpers.xml
 C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\System.Web.Mvc.xml
 C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\System.Web.Optimization.xml
@@ -371,7 +357,6 @@ C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\pt\Microsoft.SqlServer.Types.r
 C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\ru\Microsoft.SqlServer.Types.resources.dll
 C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\zh-Hans\Microsoft.SqlServer.Types.resources.dll
 C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\zh-Hant\Microsoft.SqlServer.Types.resources.dll
-C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\obj\Release\JobsV1.csprojResolveAssemblyReference.cache
 C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\obj\Release\JobsV1.dll
 C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\obj\Release\JobsV1.pdb
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\Microsoft.SqlServer.Types.dll
@@ -385,3 +370,4 @@ D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\pt\Microsoft.SqlServer.Types.resources
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\ru\Microsoft.SqlServer.Types.resources.dll
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\zh-Hans\Microsoft.SqlServer.Types.resources.dll
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\zh-Hant\Microsoft.SqlServer.Types.resources.dll
+C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\obj\Release\JobsV1.csprojResolveAssemblyReference.cache

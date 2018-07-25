@@ -980,6 +980,7 @@
     <Content Include="Views\Customers\PartialView_UploadFiles.cshtml" />
     <Content Include="Views\SupplierPoDtls\ItemCreate.cshtml" />
     <Content Include="Views\SupplierPoDtls\AddVehicle.cshtml" />
+    <Content Include="Views\JobMains\JobTable2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

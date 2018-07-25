@@ -84,8 +84,12 @@
                             {
                                 if (bkValue.Book == 1)
                                 {
-                                    <span>@bkValue.supplier</span>
-                                    <br />
+                                    if (bkValue.supplier != "Internal")
+                                    {
+                                        <span>@bkValue.supplier</span>
+                                        <br />
+                                    }
+
                                     <span class="userRemarks02">@bkValue.item</span>
                                     <br />
                                     if (bkValue.Incharge != "")
@@ -97,7 +101,7 @@
                                 }
                                 else
                                 {
-                                    <br /><span>---</span>
+                                    <span>---</span><br />
                                 }
                             }
                         }

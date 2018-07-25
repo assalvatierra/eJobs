@@ -506,7 +506,7 @@ namespace JobsV1.Controllers
             //return RedirectToAction("JobTable", new { span = 30 });
         }
 
-        public ActionResult JobTable2(int? span = 30) //version: 2018
+        public ActionResult JobTable(int? span = 30) //version: 2018
         {
             System.DateTime dtNow = this.GetCurrentTime();
             System.DateTime dtStart = new DateTime(dtNow.Year, dtNow.Month, dtNow.Day, 12, 0, 0);
@@ -549,23 +549,25 @@ namespace JobsV1.Controllers
                         string sLabel = dtItem.ToString("dd") + "-" + dtItem.DayOfWeek.ToString();
                         if (dtItem.CompareTo((DateTime)svcitem.DtStart) >= 0 && dtItem.CompareTo((DateTime)svcitem.DtEnd) <= 0)
                         {
-                            // get inv items
-                            //Models.InvItem invItems = db.JobServiceItems
-                            
-
-                            //old code
-                            string sDriver = "";
-                            try
+                            // get Inventory items - Internal
+                            var invItems = db.JobServiceItems.Where(d => d.JobServicesId == svcitem.Id);
+                            foreach( var invitemtmp in invItems)
                             {
-                                sDriver = svcitem.JobServicePickups.FirstOrDefault().ProviderName.Trim();
-                            }
-                            catch (Exception e)
-                            {
-                                sDriver = "";
-                            }
-                            //end of old code
+                                JobTableValue jtvTmp = new JobTableValue
+                                {
+                                    DtDate = dtItem,
+                                    Book = 1,
+                                    supplier = "Internal",
+                                    item = invitemtmp.InvItem.ItemCode + " " + invitemtmp.InvItem.Description,
+                                    Incharge = "",
+                                    label = sLabel
+                                };
 
-                            cust.tblValue.Add(new JobTableValue { DtDate = dtItem, Book = 1, supplier = svcitem.Supplier.Name, item = svcitem.SupplierItem.Description, Incharge = sDriver, label = sLabel });
+                                cust.tblValue.Add(jtvTmp);
+                            }
+
+                            // get Supplier Items
+
                         }
                         else
                         {
@@ -588,7 +590,7 @@ namespace JobsV1.Controllers
         }
 
 
-        public ActionResult JobTable(int? span=30) //2017 version
+        public ActionResult JobTable2(int? span=30) //2017 version
         {
             System.DateTime dtNow = this.GetCurrentTime();
             System.DateTime dtStart = new DateTime(dtNow.Year, dtNow.Month, dtNow.Day, 12,0,0);
