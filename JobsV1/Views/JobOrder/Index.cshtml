@@ -7,8 +7,9 @@
 <h2>Job Orders</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "jobCreate",null,null)
 </p>
+
 <table class="table">
 
 @foreach (var item in Model) {
@@ -43,14 +44,16 @@
                 </span>
                 [
                 @Html.ActionLink("Customer Details", "CompanyDetail", new { jobid = item.Main.Id, custid = item.Main.CustomerId}) |
-                @Html.ActionLink("Job Details", "JobDetails", new { jobid = item.Main.Id })                
+                @Html.ActionLink("Job Details", "JobDetails", new { jobid = item.Main.Id }) |    
+                @Html.ActionLink("Change Company", "JobDetails", new { jobid = item.Main.Id })                
                 ]
             </div>
             <div>
                 @Html.Partial("PartialViewServiceList", item.Services)
             </div>
-        </td>
 
+            @Html.ActionLink("[ Add New Service ]", "JobServiceAdd", new { JobMainId = item.Main.Id }, null)
+        </td>
     </tr>
 }
 

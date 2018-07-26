@@ -12,6 +12,16 @@ namespace JobsV1.Models
         public string UserName { get; set; }
     }
 
+    public class InvItemsModified
+    {
+        public int Id { get; set; }
+        public string ItemCode { get; set; }
+        public string Description { get; set; }
+        public string Remarks { get; set; }
+        public string ImgPath { get; set; }
+        public List<InvItemCategory> CategoryList { get; set; }
+    }
+
     #region Item schedule classes
     public class getItemSchedReturn
     {
@@ -144,9 +154,26 @@ left outer join JobServices c on b.JobServicesId = c.Id
             return dReturn;
         }
 
+        public void addNotification(string Module, string Desc) {
+
+            db.JobNotificationRequests.Add(new JobNotificationRequest {
+                ReqDt = DateTime.Parse(DateTime.Now.ToString("MMM dd yyyy HH:mm:ss")),
+                ServiceId = 4   //SMS service Id
+            
+            });
+            db.SaveChanges();
 
 
-
+            db.JobServices.Add(new JobServices {
+                Id = 0,
+                SupplierId = 1,
+                SupplierItemId= 1,
+                JobMainId = 4,
+                ServicesId = 1,
+                Remarks = Module + " - " + Desc
+            });
+            db.SaveChanges();
+        }
     }
 
 

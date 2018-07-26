@@ -85,8 +85,7 @@ namespace JobsV1
                 //the same msg
                 recipients = "09279016517"; //admin contact
                 Dt.Rows.Add(Id, dtSchedule, msg, recipients);
-
-
+                
                 DataSet ds = new DataSet();
                 ds.Tables.Add(Dt);
                 ds.DataSetName = "Table";

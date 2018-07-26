@@ -14,25 +14,45 @@
     <dd></dd>
     @foreach (var item in Model)
     {
-
+            <dt>
+                ID
+            </dt>
             <dd>
                 @Html.DisplayFor(modelItem => item.Id)
             </dd>
+            <dt>
+                Job Date
+            </dt>
             <dd>
                 @Html.DisplayFor(modelItem => item.JobDate)
             </dd>
+            <dt>
+                Description
+            </dt>
             <dd>
                 @Html.DisplayFor(modelItem => item.Description)
             </dd>
+            <dt>
+                Agreed Amount
+            </dt>
             <dd>
                 @Html.DisplayFor(modelItem => item.AgreedAmt)
             </dd>
+            <dt>
+                No of Days
+            </dt>
             <dd>
                 @Html.DisplayFor(modelItem => item.NoOfDays)
             </dd>
+            <dt>
+                No of Pax
+            </dt>
             <dd>
                 @Html.DisplayFor(modelItem => item.NoOfPax)
             </dd>
+            <dt>
+                Status
+            </dt>
             <dd>
                 @Html.DisplayFor(modelItem => item.StatusRemarks)
             </dd>

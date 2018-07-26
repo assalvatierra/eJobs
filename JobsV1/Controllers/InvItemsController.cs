@@ -18,6 +18,27 @@ namespace JobsV1.Controllers
         // GET: InvItems
         public ActionResult Index()
         {
+            List<InvItemCat> InvCats = db.InvItemCats.ToList();
+            ViewBag.CatList = InvCats;
+
+            List<InvItem> ItemList = db.InvItems.ToList();
+
+            List<InvItemsModified> InvListMod = new List<InvItemsModified>();
+
+            foreach (var item in ItemList)
+            {
+                List<InvItemCategory> itemCats = db.InvItemCategories.Where(i => i.InvItemId == item.Id).ToList();
+
+                InvListMod.Add(new InvItemsModified
+                {
+                    Id = item.Id,
+                    Description = item.Description,
+                    ItemCode = item.ItemCode,
+                    ImgPath = item.ImgPath,
+                    Remarks = item.Remarks,
+                    CategoryList = itemCats
+                });
+            }
             return View(db.InvItems.ToList());
         }
 
@@ -138,6 +159,29 @@ namespace JobsV1.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+
+        public ActionResult addCategory(int id, int catid) {
+            db.InvItemCategories.Add(
+                new InvItemCategory {
+                    InvItemCatId = catid,
+                    InvItemId = id
+                }
+            );
+
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        // GET: InvItems/Delete/5
+        public ActionResult CatRemove(int id)
+        {
+            InvItemCategory cat = db.InvItemCategories.Find(id);
+            db.InvItemCategories.Remove(cat);
+            db.SaveChanges();
+
+            return RedirectToAction("Index","InvItems",null);
         }
     }
 }
