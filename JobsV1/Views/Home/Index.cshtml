@@ -8,7 +8,7 @@
 
     <p>@Html.ActionLink("Register New »", "Create", "JobMains", null, new { @class = "btn btn-primary btn-lg" }) </p>
     <p class="lead">Jobs :
-    [ @Html.ActionLink("List", "ActiveJobs", "JobMains") ]  [ @Html.ActionLink("Job Table", "JobTable","JobMains", new { span = 30 }, null) ]
+    [ @Html.ActionLink("List", "ActiveJobs", "JobMains") ]  [ @Html.ActionLink("Job Table", "JobTable", "JobMains", new { span = 30 }, null) ]
     [ @Html.ActionLink("Payments", "AdvanceList", "JobPayments") ]
         <br />Leads  
         [ @Html.ActionLink("List", "JobLeads", "JobMains") ]
@@ -23,7 +23,7 @@
             Inquiries, Leads, Opportunities
             @Html.ActionLink("List", "Index", "SalesLeads")
         </p>
-        <p>@Html.ActionLink("Add New »", "Create", "SalesLeads", null, new {@class = "btn btn-default"} ) </p>
+        <p>@Html.ActionLink("Add New »", "Create", "SalesLeads", null, new { @class = "btn btn-default" }) </p>
 
     </div>
     <div class="col-md-4">
@@ -68,7 +68,10 @@
         <p>
             Buses, Vans, Cars, Boats, 
             Sporting Gears, Cameras
-            @Html.ActionLink("List", "Index", "SupplierItems")
+            [ 
+            @Html.ActionLink("List", "Index", "SupplierItems") |
+            
+            @Html.ActionLink("Items", "Index", "InvItems") ]
 
         </p>
         <p>@Html.ActionLink("Add New »", "Create", "SupplierItems", null, new { @class = "btn btn-default" }) </p>

@@ -217,6 +217,7 @@ order by x.jobid
             data.Status = "ACT";
 
             ViewBag.Status = new SelectList(StatusList, "value", "text", data.Status);
+            ViewBag.Status = new SelectList("JobStatusId", "Id", "text", data.Status);
             ViewBag.jobOrderId = CreateCustJobId;
           
             return View(data);
@@ -257,6 +258,70 @@ order by x.jobid
             ViewBag.JobThruId = new SelectList(db.JobThrus, "Id", "Desc", jobMain.JobThruId);
             return View(jobMain);
         }
+
+
+        // GET: JobMains/Create
+        public ActionResult jobCreate(int? id)
+        {
+            JobMain job = new JobMain();
+            job.JobDate = System.DateTime.Today;
+            job.NoOfDays = 1;
+            job.NoOfPax = 1;
+
+            if (id == null)
+            {
+                ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status == "ACT"), "Id", "Name", NewCustSysId);
+            }
+            else
+            {
+
+                ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status == "ACT"), "Id", "Name", id);
+            }
+
+            ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name");
+            ViewBag.JobStatusId = new SelectList(db.JobStatus, "Id", "Status", JOBCONFIRMED);
+            ViewBag.JobThruId = new SelectList(db.JobThrus, "Id", "Desc");
+
+            return View(job);
+        }
+
+        
+        // POST: JobMains/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult jobCreate([Bind(Include = "Id,JobDate,CustomerId,Description,NoOfPax,NoOfDays,AgreedAmt,JobRemarks,JobStatusId,StatusRemarks,BranchId,JobThruId,CustContactEmail,CustContactNumber")] JobMain jobMain)
+        {
+            if (ModelState.IsValid)
+            {
+                if (jobMain.CustContactEmail == null && jobMain.CustContactNumber == null)
+                {
+                    var cust = db.Customers.Find(jobMain.CustomerId);
+                    jobMain.CustContactEmail = cust.Email;
+                    jobMain.CustContactNumber = cust.Contact1;
+                }
+
+                db.JobMains.Add(jobMain);
+                db.SaveChanges();
+
+                if (jobMain.CustomerId == NewCustSysId)
+                    return RedirectToAction("CreateCustomer",new { CreateCustJobId = jobMain.Id });
+                else
+                    return RedirectToAction("Index");
+                //return RedirectToAction("Services", "JobServices", new { id = jobMain.Id });
+                //return RedirectToAction("JobTable", new { span = 30 });
+
+            }
+
+            ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status == "ACT"), "Id", "Name", jobMain.CustomerId);
+            ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name", jobMain.BranchId);
+            ViewBag.JobStatusId = new SelectList(db.JobStatus, "Id", "Status", jobMain.JobStatusId);
+            ViewBag.JobThruId = new SelectList(db.JobThrus, "Id", "Desc", jobMain.JobThruId);
+            return View(jobMain);
+        }
+
+
         #endregion
 
         #region Supplier Po
@@ -325,7 +390,49 @@ order by x.jobid
 
 
         #region Services
+        public ActionResult JobServiceAdd(int? JobMainId) {
+            Models.JobMain job = db.JobMains.Find((int)JobMainId);
+            Models.JobServices js = new JobServices();
+            js.JobMainId = (int)JobMainId;
 
+            DateTime dtTmp = new DateTime(job.JobDate.Year, job.JobDate.Month, job.JobDate.Day, 8, 0, 0);
+            js.DtStart = dtTmp;
+            js.DtEnd = dtTmp.AddDays(job.NoOfDays - 1).AddHours(10);
+            js.Remarks = "10hrs use per day P250 in excess, Driver and Fuel Included";
+
+            ViewBag.JobMainId = new SelectList(db.JobMains, "Id", "Description",job.Description);
+            ViewBag.SupplierId = new SelectList(db.Suppliers, "Id", "Name");
+            ViewBag.ServicesId = new SelectList(db.Services, "Id", "Name");
+            ViewBag.SupplierItemId = new SelectList(db.SupplierItems, "Id", "Description");
+            return View(js);
+        }
+
+
+        // POST: JobServices/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        public ActionResult JobServiceAdd([Bind(Include = "Id,JobMainId,ServicesId,SupplierId,DtStart,DtEnd,Particulars,QuotedAmt,SupplierAmt,ActualAmt,Remarks,SupplierItemId")] JobServices jobServices)
+        {
+            var NewSupplierSysId = 1;
+            if (ModelState.IsValid)
+            {
+                jobServices.DtEnd = ((DateTime)jobServices.DtEnd).Add(new TimeSpan(23, 59, 59));
+                db.JobServices.Add(jobServices);
+                db.SaveChanges();
+
+                if (jobServices.SupplierId == NewSupplierSysId)
+                    return RedirectToAction("CreateSupplier", "JobServices", new { Svcid = jobServices.Id });
+                else
+                    return RedirectToAction("Index","JobOrder", null);
+            }
+
+            ViewBag.JobMainId = new SelectList(db.JobMains, "Id", "Description", jobServices.JobMainId);
+            ViewBag.SupplierId = new SelectList(db.Suppliers, "Id", "Name", jobServices.SupplierId);
+            ViewBag.ServicesId = new SelectList(db.Services, "Id", "Name", jobServices.ServicesId);
+            ViewBag.SupplierItemId = new SelectList(db.SupplierItems, "Id", "Description", jobServices.SupplierItemId);
+            return View(jobServices);
+        }
 
         // GET: JobServices/Edit/5
         public ActionResult JobServiceEdit(int? id)
@@ -403,6 +510,22 @@ order by x.jobid
                 return HttpNotFound();
             }
             return View(jobServices);
+        }
+
+
+        public ActionResult JobSvcDelete(int? id) {
+
+            JobServices jobServices = db.JobServices.Find(id);
+            int jId = jobServices.JobMainId;
+            db.JobServices.Remove(jobServices);
+            db.SaveChanges();
+            return RedirectToAction("Index", "JobOrder",null);
+        }
+
+        public ActionResult notify() {
+            DBClasses dbc = new DBClasses();
+            dbc.addNotification("Job Order","Test");
+            return RedirectToAction("Index");
         }
         #endregion
 

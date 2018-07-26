@@ -713,7 +713,9 @@
     <Content Include="Scripts\DateRangePicker\package.js" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\Job\Itinerary.js" />
+    <Content Include="Scripts\Job\PO.js" />
     <Content Include="Scripts\Job\Product.js" />
+    <Content Include="Scripts\Job\SalesLead.js" />
     <Content Include="Scripts\Job\Services.js" />
     <Content Include="Scripts\Job\Main.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
@@ -988,6 +990,12 @@
     <Content Include="Views\SupplierPoDtls\ItemCreate.cshtml" />
     <Content Include="Views\SupplierPoDtls\AddVehicle.cshtml" />
     <Content Include="Views\JobMains\JobTable2.cshtml" />
+    <Content Include="Views\JobOrder\JobServiceEdit.cshtml" />
+    <Content Include="Views\JobOrder\JobServiceDetails.cshtml" />
+    <Content Include="Views\JobOrder\InitializePO.cshtml" />
+    <Content Include="Views\JobOrder\PoDetails.cshtml" />
+    <Content Include="Views\JobOrder\JobServiceAdd.cshtml" />
+    <Content Include="Views\JobOrder\jobCreate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
