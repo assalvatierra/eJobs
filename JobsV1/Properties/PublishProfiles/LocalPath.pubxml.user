@@ -13,10 +13,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
     <File Include="App_Data/aspnet-JobsV1-20160528101923.mdf">
-      <publishTime>07/24/2018 10:18:27</publishTime>
+      <publishTime>07/26/2018 10:32:40</publishTime>
     </File>
     <File Include="App_Data/aspnet-JobsV1-20160528101923_log.ldf">
-      <publishTime>07/24/2018 10:18:27</publishTime>
+      <publishTime>07/26/2018 10:32:40</publishTime>
     </File>
     <File Include="Areas/Accounting/Models/AccountingDB.edmx.diagram">
       <publishTime>02/22/2017 09:02:29</publishTime>
@@ -109,7 +109,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/21/2014 06:25:22</publishTime>
     </File>
     <File Include="bin/JobsV1.dll">
-      <publishTime>07/24/2018 10:18:02</publishTime>
+      <publishTime>07/26/2018 13:41:21</publishTime>
     </File>
     <File Include="bin/ko/Microsoft.SqlServer.Types.resources.dll">
       <publishTime>02/21/2014 06:27:16</publishTime>
@@ -298,7 +298,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/21/2018 12:46:50</publishTime>
     </File>
     <File Include="Content/Site.css">
-      <publishTime>06/22/2018 13:14:07</publishTime>
+      <publishTime>07/26/2018 08:25:53</publishTime>
     </File>
     <File Include="Content/themes/base/accordion.css">
       <publishTime>02/22/2017 09:02:29</publishTime>
@@ -450,6 +450,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Images/CarRental/Driver101.png">
       <publishTime>07/03/2018 10:23:19</publishTime>
     </File>
+    <File Include="Images/CarRental/Driver102.png">
+      <publishTime>07/26/2018 08:25:53</publishTime>
+    </File>
     <File Include="Images/CarRental/FordEverest.jpg">
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
@@ -473,6 +476,24 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Images/CarRental/ToyotaInnovaDetails.jpg">
       <publishTime>02/22/2017 09:02:29</publishTime>
+    </File>
+    <File Include="Images/CustomerFiles/13/20180623_131024.jpg">
+      <publishTime>07/20/2018 08:23:40</publishTime>
+    </File>
+    <File Include="Images/CustomerFiles/13/tutorme.png">
+      <publishTime>07/20/2018 08:23:40</publishTime>
+    </File>
+    <File Include="Images/CustomerFiles/2/IMG_20151223_064601.jpg">
+      <publishTime>07/23/2018 10:14:17</publishTime>
+    </File>
+    <File Include="Images/CustomerFiles/3/20180623_131024.jpg">
+      <publishTime>07/20/2018 08:23:40</publishTime>
+    </File>
+    <File Include="Images/CustomerFiles/3/tutorme.png">
+      <publishTime>07/20/2018 08:23:40</publishTime>
+    </File>
+    <File Include="Images/CustomerFiles/3/WDashboard-bigger.png">
+      <publishTime>07/23/2018 10:02:02</publishTime>
     </File>
     <File Include="Images/Customers/Category/Active-30.png">
       <publishTime>07/18/2018 10:31:26</publishTime>
@@ -607,10 +628,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/23/2018 10:12:31</publishTime>
     </File>
     <File Include="Models/InitialData.sql">
-      <publishTime>07/24/2018 09:58:34</publishTime>
+      <publishTime>07/26/2018 08:25:53</publishTime>
     </File>
     <File Include="Models/InitTestData.sql">
-      <publishTime>07/24/2018 09:37:11</publishTime>
+      <publishTime>07/26/2018 09:18:50</publishTime>
     </File>
     <File Include="Models/JobDB.Car.sql">
       <publishTime>02/22/2017 09:02:29</publishTime>
@@ -623,6 +644,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Models/JobNotes.sql">
       <publishTime>03/20/2017 11:30:34</publishTime>
+    </File>
+    <File Include="Models/JobOrder.PO.Tbls.sql">
+      <publishTime>07/26/2018 10:25:00</publishTime>
     </File>
     <File Include="Models/Job_ActionItemCount.sql">
       <publishTime>07/03/2018 10:23:19</publishTime>
@@ -988,7 +1012,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
     <File Include="Views/Customers/Details.cshtml">
-      <publishTime>07/23/2018 10:02:02</publishTime>
+      <publishTime>07/26/2018 08:25:53</publishTime>
     </File>
     <File Include="Views/Customers/Edit.cshtml">
       <publishTime>02/22/2017 09:02:29</publishTime>
@@ -997,16 +1021,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/20/2018 08:23:40</publishTime>
     </File>
     <File Include="Views/Customers/PartialView_CategoryDetails.cshtml">
-      <publishTime>07/23/2018 10:02:02</publishTime>
+      <publishTime>07/26/2018 08:25:53</publishTime>
     </File>
     <File Include="Views/Customers/PartialView_CompanyDetails.cshtml">
-      <publishTime>07/23/2018 10:02:02</publishTime>
+      <publishTime>07/26/2018 08:25:53</publishTime>
     </File>
     <File Include="Views/Customers/PartialView_Files.cshtml">
-      <publishTime>07/24/2018 09:23:16</publishTime>
+      <publishTime>07/26/2018 08:25:53</publishTime>
     </File>
     <File Include="Views/Customers/PartialView_JobDetails.cshtml">
-      <publishTime>07/18/2018 10:32:38</publishTime>
+      <publishTime>07/26/2018 08:25:53</publishTime>
     </File>
     <File Include="Views/Customers/PartialView_UploadFiles.cshtml">
       <publishTime>07/24/2018 09:23:16</publishTime>
@@ -1144,7 +1168,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/20/2017 11:30:34</publishTime>
     </File>
     <File Include="Views/JobMains/JobTable.cshtml">
-      <publishTime>02/22/2017 09:02:29</publishTime>
+      <publishTime>07/26/2018 08:25:53</publishTime>
+    </File>
+    <File Include="Views/JobMains/JobTable2.cshtml">
+      <publishTime>07/26/2018 08:25:53</publishTime>
     </File>
     <File Include="Views/JobMains/ProductTemplates.cshtml">
       <publishTime>03/01/2017 16:32:07</publishTime>
@@ -1164,11 +1191,20 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/JobOrder/Index.cshtml">
       <publishTime>07/18/2018 09:15:18</publishTime>
     </File>
+    <File Include="Views/JobOrder/InitializePO.cshtml">
+      <publishTime>07/24/2018 09:23:16</publishTime>
+    </File>
     <File Include="Views/JobOrder/InventoryItemList.cshtml">
-      <publishTime>07/10/2018 09:45:45</publishTime>
+      <publishTime>07/26/2018 08:25:53</publishTime>
     </File>
     <File Include="Views/JobOrder/JobDetails.cshtml">
       <publishTime>07/18/2018 08:33:52</publishTime>
+    </File>
+    <File Include="Views/JobOrder/JobServiceDetails.cshtml">
+      <publishTime>07/26/2018 08:25:53</publishTime>
+    </File>
+    <File Include="Views/JobOrder/JobServiceEdit.cshtml">
+      <publishTime>07/26/2018 08:25:53</publishTime>
     </File>
     <File Include="Views/JobOrder/PartialViewJobServiceItems.cshtml">
       <publishTime>07/20/2018 11:38:41</publishTime>
@@ -1180,13 +1216,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/03/2018 10:23:19</publishTime>
     </File>
     <File Include="Views/JobOrder/PartialViewServiceList.cshtml">
-      <publishTime>07/20/2018 11:43:04</publishTime>
+      <publishTime>07/26/2018 08:25:53</publishTime>
     </File>
     <File Include="Views/JobOrder/PartialViewServiceSupPo.cshtml">
-      <publishTime>07/23/2018 10:30:04</publishTime>
+      <publishTime>07/26/2018 08:25:53</publishTime>
     </File>
     <File Include="Views/JobOrder/PartialViewSrvActionItems.cshtml">
       <publishTime>07/20/2018 11:16:25</publishTime>
+    </File>
+    <File Include="Views/JobOrder/PoDetails.cshtml">
+      <publishTime>07/26/2018 08:25:53</publishTime>
     </File>
     <File Include="Views/JobPayments/AdvanceList.cshtml">
       <publishTime>02/22/2017 09:02:29</publishTime>
@@ -1446,6 +1485,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/SupplierItems/Index.cshtml">
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
+    <File Include="Views/SupplierPoDtls/AddVehicle.cshtml">
+      <publishTime>07/26/2018 08:25:53</publishTime>
+    </File>
     <File Include="Views/SupplierPoDtls/Create.cshtml">
       <publishTime>07/24/2018 09:23:16</publishTime>
     </File>
@@ -1453,13 +1495,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/23/2018 10:02:00</publishTime>
     </File>
     <File Include="Views/SupplierPoDtls/Details.cshtml">
-      <publishTime>07/23/2018 10:02:00</publishTime>
+      <publishTime>07/26/2018 08:25:53</publishTime>
     </File>
     <File Include="Views/SupplierPoDtls/Edit.cshtml">
       <publishTime>07/23/2018 10:02:00</publishTime>
     </File>
     <File Include="Views/SupplierPoDtls/Index.cshtml">
-      <publishTime>07/24/2018 09:23:16</publishTime>
+      <publishTime>07/26/2018 08:25:53</publishTime>
     </File>
     <File Include="Views/SupplierPoDtls/ItemCreate.cshtml">
       <publishTime>07/24/2018 09:23:16</publishTime>
@@ -1477,7 +1519,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/23/2018 10:02:00</publishTime>
     </File>
     <File Include="Views/SupplierPoHdrs/Index.cshtml">
-      <publishTime>07/23/2018 10:02:00</publishTime>
+      <publishTime>07/26/2018 08:25:53</publishTime>
     </File>
     <File Include="Views/Suppliers/Create.cshtml">
       <publishTime>02/22/2017 09:02:29</publishTime>
@@ -1501,7 +1543,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/24/2018 10:18:10</publishTime>
+      <publishTime>07/26/2018 10:15:04</publishTime>
     </File>
   </ItemGroup>
 </Project>

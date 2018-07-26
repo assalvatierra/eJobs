@@ -19,7 +19,7 @@ values ('RNY301','Toyota Innova E M/T 2013 Dsl',''),
 
 
 insert into InvItemCategories([InvItemId],[InvItemCatId])
-values (1,1), (1,1), (1,1), (1,2);
+values (1,1), (2,1), (3,1), (4,2);
 
 
 Insert into JobServiceItems([JobServicesId],[InvItemId])

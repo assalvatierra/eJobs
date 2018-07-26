@@ -656,6 +656,7 @@
       <DependentUpon>JobDB.edmx</DependentUpon>
     </Content>
     <Content Include="Models\JobNotes.sql" />
+    <Content Include="Models\JobOrder.PO.Tbls.sql" />
     <Content Include="Models\Job_ActionItemCount.sql" />
     <Content Include="Models\Job_ItemSchedules.sql" />
     <Content Include="Models\ProductsDB.sql" />
@@ -988,6 +989,10 @@
     <Content Include="Views\SupplierPoDtls\ItemCreate.cshtml" />
     <Content Include="Views\SupplierPoDtls\AddVehicle.cshtml" />
     <Content Include="Views\JobMains\JobTable2.cshtml" />
+    <Content Include="Views\JobOrder\InitializePO.cshtml" />
+    <Content Include="Views\JobOrder\JobServiceDetails.cshtml" />
+    <Content Include="Views\JobOrder\JobServiceEdit.cshtml" />
+    <Content Include="Views\JobOrder\PoDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
