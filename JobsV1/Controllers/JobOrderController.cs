@@ -248,6 +248,7 @@ order by x.jobid
             return View(customer);
         }
 
+        
         #endregion
 
         #region jobMain
@@ -328,10 +329,9 @@ order by x.jobid
 
             JobMain jobMain = db.JobMains.Find(id);
             jobMain.CustomerId = newId;
-            
-
             db.Entry(jobMain).State = EntityState.Modified;
             db.SaveChanges();
+
             return RedirectToAction("Index");
         }
         #endregion
@@ -611,7 +611,7 @@ order by x.jobid
             db.JobActions.Add(jaTmp);
             db.SaveChanges();
 
-            return Json("from MarkDone:" + SvcId.ToString() + "/" + ActionId.ToString(),
+            return Json( "from MarkDone:" + SvcId.ToString() + "/" + ActionId.ToString(),
                 JsonRequestBehavior.AllowGet);
         }
 

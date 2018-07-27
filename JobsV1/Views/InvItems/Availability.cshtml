@@ -8,7 +8,7 @@
 
 }
 
-<h2>Select Item to Add</h2>
+<h2>Item Availability</h2>
 
 <table class="table">
     <tr>
@@ -44,7 +44,7 @@
                 @Html.DisplayFor(modelItem => item.ItemId)
                 <span style="font:700 12px verdana,arial;">
                     @Html.ActionLink(item.Item.ItemCode + "-" + @item.Item.Description,
-                "AddItem", new { itemId = @item.ItemId, serviceId = @ViewBag.serviceId })
+                "Details", new { id = @item.ItemId })
                 </span>
                 <span>@item.Item.Remarks</span>
             </td>

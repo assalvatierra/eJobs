@@ -61,7 +61,7 @@ namespace JobsV1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Date,Details,Remarks,Price,CustomerId,CustName,DtEntered,EnteredBy,AssignedTo,CustPhone,CustEmail")] SalesLead salesLead)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && salesLead.EnteredBy != null)
             {
                 db.SalesLeads.Add(salesLead);
                 db.SaveChanges();
