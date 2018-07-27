@@ -19,9 +19,8 @@
 
             </dt>
             <dd>
-                @Html.DisplayFor(modelItem => item.Name)
-            </dd>
-            <dd>
+                @Html.DisplayFor(modelItem => item.Name) - 
+
                 @Html.ActionLink("Remove", "Remove", "CustCats", new { catid = item.Id, custid = customerid }, null)
             </dd>
         }

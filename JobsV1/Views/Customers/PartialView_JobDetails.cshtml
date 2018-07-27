@@ -15,12 +15,6 @@
     @foreach (var item in Model)
     {
             <dt>
-                ID
-            </dt>
-            <dd>
-                @Html.DisplayFor(modelItem => item.Id)
-            </dd>
-            <dt>
                 Job Date
             </dt>
             <dd>
@@ -33,22 +27,16 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </dd>
             <dt>
-                Agreed Amount
-            </dt>
-            <dd>
-                @Html.DisplayFor(modelItem => item.AgreedAmt)
-            </dd>
-            <dt>
                 No of Days
             </dt>
             <dd>
-                @Html.DisplayFor(modelItem => item.NoOfDays)
+                @Html.DisplayFor(modelItem => item.NoOfDays) Day(s)
             </dd>
             <dt>
                 No of Pax
             </dt>
             <dd>
-                @Html.DisplayFor(modelItem => item.NoOfPax)
+                @Html.DisplayFor(modelItem => item.NoOfPax) Person(s)
             </dd>
             <dt>
                 Status

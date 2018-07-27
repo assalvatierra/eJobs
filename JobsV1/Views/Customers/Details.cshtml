@@ -31,23 +31,19 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Email)
+                <a href='mailto:@Html.DisplayFor(model => model.Email)'>  @Html.DisplayFor(model => model.Email) </a>
+
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.Contact1)
+               @Html.DisplayNameFor(model => model.Contact1)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Contact1)
-            </dd>
+                <a href='tel:@Html.DisplayFor(model => model.Contact1)'>  @Html.DisplayFor(model => model.Contact1) </a> |
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Contact2)
-            </dt>
+                <a href='tel:@Html.DisplayFor(model => model.Contact2)'>  @Html.DisplayFor(model => model.Contact2) </a> 
 
-            <dd>
-                @Html.DisplayFor(model => model.Contact2)
             </dd>
 
             <dt>

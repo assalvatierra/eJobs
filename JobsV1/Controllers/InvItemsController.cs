@@ -183,5 +183,14 @@ namespace JobsV1.Controllers
 
             return RedirectToAction("Index","InvItems",null);
         }
+
+        #region Availability
+        public ActionResult Availability() {
+            DBClasses dbclass = new DBClasses();
+            Models.getItemSchedReturn gret = dbclass.ItemSchedules();
+            ViewBag.dtLabel = gret.dLabel;
+            return View(gret.ItemSched);
+        }
+        #endregion
     }
 }

@@ -13,21 +13,26 @@
         <dd></dd>
     @foreach (var item in Model)
     {
+
         <dt>
-            <img src="@Html.DisplayFor(modelItem => item.iconPath)" width="20" height="20" style="margin-right:20px;" />
+            @Html.DisplayNameFor(model => model.Name)
         </dt>
         <dd>
             @Html.DisplayFor(modelItem => item.Name)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
         <dd>
             @Html.DisplayFor(modelItem => item.Address)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Contact1 )
+        </dt>
         <dd>
-            @Html.DisplayFor(modelItem => item.Contact1)
-        </dd>
-        <dd>
-            @Html.DisplayFor(modelItem => item.Contact2)
-        </dd>
+            <a href='tel:@Html.DisplayFor(modelItem => item.Contact1)'>  @Html.DisplayFor(modelItem => item.Contact1) </a> |
+            <a href='tel:@Html.DisplayFor(modelItem => item.Contact1)'> @Html.DisplayFor(modelItem => item.Contact2) </a>
+</dd>
         <dd>
             @Html.ActionLink("Details", "Details", "CustEntMains",new { id = item.Id }, null) |
             @Html.ActionLink("Remove", "Remove", "CustEntities", new { comid = item.Id, custid = customerid }, null) 

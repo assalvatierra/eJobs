@@ -130,7 +130,7 @@ namespace JobsV1.Controllers
             supHdr.SupplierPoStatusId = statusid;
             db.Entry(supHdr).State = EntityState.Modified;
             db.SaveChanges();
-
+            ViewBag.Status = "hello";
             return RedirectToAction("Index");
         }
     }

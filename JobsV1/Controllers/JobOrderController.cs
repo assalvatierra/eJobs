@@ -97,6 +97,9 @@ namespace JobsV1.Controllers
                 data.Add(joTmp);
             }
 
+            List<Customer> customers = db.Customers.ToList();
+            ViewBag.companyList = customers;
+
             return View(data);
         }
 
@@ -321,7 +324,16 @@ order by x.jobid
             return View(jobMain);
         }
 
+        public ActionResult ChangeCompany(int id , int newId) {
 
+            JobMain jobMain = db.JobMains.Find(id);
+            jobMain.CustomerId = newId;
+            
+
+            db.Entry(jobMain).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
         #endregion
 
         #region Supplier Po

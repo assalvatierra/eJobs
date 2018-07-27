@@ -8,15 +8,17 @@
 <script src="~/Scripts/jquery-3.3.1.js"></script>
 <h2>Supplier PO Details: </h2>
 
+@foreach (var item in Model)
+{
 <table class="table">
     @foreach(var header in ViewBag.HdrInfo as IEnumerable<JobsV1.Models.SupplierPoHdr>) {
 
-    <tr>
+    <tr style=" background-color:lightgray;color:dodgerblue">
         <td>
             <span style="font-weight:bold">Supplier:</span>
 
             @Html.DisplayFor(modelItem => header.Supplier.Name)
-            |
+
         </td>
        
         <td>
@@ -33,11 +35,24 @@
         </td>
 
     </tr>
+    <tr>
+        <td>
+            <span style="font-weight:bold">Remarks:</span>
+            @Html.DisplayFor(modelItem => item.SupplierPoHdr.Remarks)
+        </td>
+        <td>
+            <span style="font-weight:bold">Particulars:</span>
+            @Html.DisplayFor(modelItem => item.JobService.Particulars)
+        </td>
+        <td>
+        </td>
+        <td>
+
+        </td>
+    </tr>
     }
 </table>
 
-@foreach (var item in Model)
-{
 
     <table class="table table-striped" id="details-tbl">
 
@@ -52,13 +67,7 @@
                 Items
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Amount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SupplierPoHdr.Remarks)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.JobService.Particulars)
+                Amount
             </th>
             <th></th>
         </tr>
@@ -84,14 +93,9 @@
 
                 <a href="#" id="catbtn" data-toggle="modal" data-target="#SupplierPoItemsModal" style="margin-bottom:10px;">Add Item</a>
             </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.Amount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SupplierPoHdr.Remarks)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.JobService.Particulars)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
@@ -128,8 +132,6 @@
                     {
                         <a href="@Url.Action("addInvItem", "SupplierPoDtls", new { InvID = carList.Id, DtlsId = @ViewBag.Id })" class="list-group-item"> @carList.Description </a>
                     }
-           
-
                 </div>
 
             </div>
