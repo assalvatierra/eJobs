@@ -181,7 +181,16 @@ namespace JobsV1.Controllers
             db.InvItemCategories.Remove(cat);
             db.SaveChanges();
 
-            return RedirectToAction("Index","InvItems",null);
+            return RedirectToAction("Index", "InvItems", null);
+        }
+
+        public ActionResult CatRemove2(int Id)
+        {
+            InvItemCategory cat = db.InvItemCategories.Find(Id);
+            db.InvItemCategories.Remove(cat);
+            db.SaveChanges();
+
+            return Json("CatRemove:", JsonRequestBehavior.AllowGet);
         }
 
         #region Availability
