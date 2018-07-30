@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Edit";
 }
+<link rel="stylesheet" href="~/Content/ModalSalesLead.css">
 
 <h2>Edit</h2>
 
@@ -49,10 +50,14 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.CustomerId, "CustomerId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-sm-4"  style="width:320px">
                 @Html.DropDownList("CustomerId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.CustomerId, "", new { @class = "text-danger" })
+
             </div>
+            <span style="float:left">
+                <button class="btn btn-default" href="#" id="catbtn" data-toggle="modal" data-target="#CustomersModal" style="margin-bottom:10px;float:left;">Search Customer</button>
+            </span>
         </div>
 
         <div class="form-group">
@@ -106,8 +111,73 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="CustomersModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Customer List</h4>
+                </div>
+
+                <div class="modal-body" id="modal2-content">
+
+                    <h2>My Phonebook</h2>
+
+                    <input type="text" id="SearchBarCustomer" onkeyup="searchCustomer()" placeholder="Search for names.." title="Type in a name">
+
+                    <ul id="SearchListCustomer">
+                        @foreach (var cust in ViewBag.CustomerList as IEnumerable<JobsV1.Models.Customer>)
+                        {
+                            <li style="cursor:pointer;" value="@cust.Name">
+                                <a onclick="setValue(@cust.Id)">
+                                    @cust.Name
+                                </a>
+                            </li>
+                        }
+
+                    </ul>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 }
 
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" src="~/Scripts/Job/SalesLead.js"></script>
+}
+
+<script>
+function searchCustomer() {
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("SearchBarCustomer");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("SearchListCustomer");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
+
+function setValue(value){
+    $('#CustomerId').val(value);
+    $('#CustomersModal').modal('toggle');
+}
+</script>

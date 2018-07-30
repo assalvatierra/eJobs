@@ -156,10 +156,11 @@ namespace JobsV1.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult UploadFiles(int? id) {
+        public ActionResult UploadFiles(int id) {
             ViewBag.custid = id;
 
             ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name", id);
+
 
             return View();
             
@@ -199,10 +200,7 @@ namespace JobsV1.Controllers
                         return View("#");
 
                     }
-
                     ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name", custFiles.CustomerId);
-             
-
                 }
                 catch (Exception ex)
                 {
@@ -212,7 +210,6 @@ namespace JobsV1.Controllers
             {
                 ViewBag.Message = "You have not specified a file.";
             }
-
             return RedirectToAction("Details", "Customers", new { id = custFiles.CustomerId });
         }
 

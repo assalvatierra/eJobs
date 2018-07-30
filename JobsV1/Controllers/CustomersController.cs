@@ -424,7 +424,7 @@ namespace JobsV1.Controllers
                 categoryDetails.Add(new CustCategory
                 {
                     Id = 0,
-                    iconPath = "http://localhost:50382/Images/Customers/Category/unavailable-40.png",
+                    iconPath = "/Images/Customers/Category/unavailable-40.png",
                     Name = "not assigned"
                 });
 
@@ -441,9 +441,7 @@ namespace JobsV1.Controllers
                         Name = category.CustCategory.Name
 
                     });
-
                 }
-
             }
 
             ViewBag.categoryDetails = categoryDetails;

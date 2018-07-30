@@ -22,7 +22,7 @@
     //AJAX CALLS
     function fAjax_updateAction(svcid, actionid) {
         var serviceURL = '/JobOrder/MarkDone';
-        //alert("fAjax_updateAction - svcid : " + svcid + " : actionid : " + actionid);
+        alert("fAjax_updateAction - svcid : " + svcid + " : actionid : " + actionid);
 
         $.ajax({
             type: "GET",
@@ -30,13 +30,13 @@
             data: { SvcId: svcid, ActionId: actionid },
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            success: successFunc(),
+            success: successFunc(actionid),
             error: errorFunc()
         });
 
     }
 
-    function successFunc() {
+    function successFunc(actionid) {
         alert("Successfully Done!");
         $("#" + actionid).hide();
     }

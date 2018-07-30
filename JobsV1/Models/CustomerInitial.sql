@@ -16,7 +16,3 @@ update CustCategories set iconPath = '/Images/Customers/Category/star-filled-40.
 update CustCategories set iconPath = '/Images/Customers/Category/Active-30.png' where Id = 2; 
 update CustCategories set iconPath = '/Images/Customers/Category//suspended-64.png' where Id = 3; 
 update CustCategories set iconPath = '/Images/Customers/Category/cancel-40.png' where Id = 4;  
-
-update InvItemCats set ImgPath = '/Images/CarRental/car101.png' where Id = 1; 
-update InvItemCats set ImgPath = '/Images/CarRental/Driver101.png' where Id = 2; 
-update InvItemCats set ImgPath = '/Images/CarRental/Repair101.png' where Id = 3; 

@@ -40,11 +40,13 @@
         <td>
             
             @foreach (var cat in item.InvItemCategories as IEnumerable<JobsV1.Models.InvItemCategory>)
-            {
-                <img src="@cat.InvItemCat.ImgPath" height="20" width="20"/>
+            {                    
+                <img src=@Url.Content(@cat.InvItemCat.ImgPath)
+                                      alt=@cat.InvItemCat.ImgPath height="21"
+                                      title=@cat.InvItemCat.ImgPath />
                 <span > 
                     @Html.DisplayFor(modelItem => cat.InvItemCat.Name)
-                    @Html.ActionLink(" [ x ]", "CatRemove", "InvItems", new { id = cat.Id }, null) |
+                    @Html.ActionLink(" [ Remove ]", "CatRemove", "InvItems", new { id = cat.Id }, null) |
                 </span>
                
             }

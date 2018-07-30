@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using JobsV1.Models;
+using System.IO;
 
 namespace JobsV1.Controllers
 {
@@ -15,11 +16,24 @@ namespace JobsV1.Controllers
         private JobDBContainer db = new JobDBContainer();
         private DBClasses dbclasses = new DBClasses();
         // GET: SalesLeads
-        public ActionResult Index()
+        public ActionResult Index(int? sortid)
         {
             var salesLeads = db.SalesLeads.Include(s => s.Customer)
-                .Include(s=>s.SalesLeadCategories)
-                .Include(s => s.SalesStatus);
+                        .Include(s => s.SalesLeadCategories)
+                        .Include(s => s.SalesStatus).OrderByDescending(s => s.Date);
+
+            switch (sortid) {
+                case 1:
+                    salesLeads = db.SalesLeads.Include(s => s.Customer)
+                       .Include(s => s.SalesLeadCategories)
+                       .Include(s => s.SalesStatus).Take(60).OrderByDescending(s => s.Date);
+                    break;
+                default:
+                    salesLeads = db.SalesLeads.Include(s => s.Customer)
+                        .Include(s => s.SalesLeadCategories)
+                        .Include(s => s.SalesStatus).OrderBy(s => s.Date);
+                    break;
+            }
 
             ViewBag.StatusCodes = db.SalesStatusCodes.ToList();
             return View(salesLeads.ToList());
@@ -89,6 +103,7 @@ namespace JobsV1.Controllers
             }
             ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name", salesLead.CustomerId);
             ViewBag.AssignedTo = new SelectList(dbclasses.getUsers(), "UserName", "UserName", salesLead.AssignedTo);
+            ViewBag.CustomerList = db.Customers.ToList();
             return View(salesLead);
         }
 
@@ -344,7 +359,110 @@ namespace JobsV1.Controllers
             ViewBag.Status = new SelectList(StatusList, "value", "text", customer.Status);
             return View(customer);
         }
-        
+
+        #endregion
+
+        #region SalesLeadFiles
+
+        // GET: SalesLeads/Create
+        public ActionResult FileCreate(int custid, int salesleadId)
+        {
+            ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name", custid);
+            ViewBag.SalesleadId = salesleadId;
+            return View();
+        }
+
+        // POST: SalesLeads/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult FileCreate([Bind(Include = "Id,Date,Details,Remarks,Price,CustomerId,CustName,DtEntered,EnteredBy,AssignedTo,CustPhone,CustEmail")] SalesLead salesLead)
+        {
+            if (ModelState.IsValid && salesLead.EnteredBy != null)
+            {
+                db.SalesLeads.Add(salesLead);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name", salesLead.CustomerId);
+            ViewBag.AssignedTo = new SelectList(dbclasses.getUsers(), "UserName", "UserName", salesLead.AssignedTo);
+
+            return View(salesLead);
+        }
+
+
+        [HttpPost]
+        public ActionResult UploadFiles(HttpPostedFileBase file, [Bind(Include = "Id,Desc,Folder,Path,Remarks,CustomerId")] CustFiles custFiles, int salesleadId)
+        {
+            if (file != null && file.ContentLength > 0)
+                try
+                {
+
+                    string extension = Path.GetExtension(file.FileName);
+
+                    //  ~/Images/CustomerFiles/(customerid)/filename.png Path.GetFileName(file.FileName)
+                    string path = Path.Combine(Server.MapPath("~/Images/CustomerFiles/" + custFiles.CustomerId),
+                                               Path.GetFileName(file.FileName));
+                    string directory = "/Images/CustomerFiles/" + custFiles.CustomerId + "/";
+                    if (ModelState.IsValid)
+                    {
+                        //add customer
+                        custFiles.Folder = custFiles.CustomerId.ToString(); // ~/customerid
+                        custFiles.Path = directory + Path.GetFileName(file.FileName);
+                        db.CustFiles.Add(custFiles);
+                        db.SaveChanges();
+
+                        AddFileReference(salesleadId, custFiles.Id);
+
+                        //create directory if does not exist
+                        var folder = Server.MapPath("~/Images/CustomerFiles/" + custFiles.CustomerId);
+                        if (!Directory.Exists(folder))
+                        {
+                            Directory.CreateDirectory(folder);
+                        }
+
+                        file.SaveAs(path);
+                        ViewBag.Message = "File uploaded successfully";
+                    }
+                    else
+                    {
+                        ViewBag.Message = "File uploaded unsuccessfully";
+                        return View("#");
+                    }
+
+                    ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name", custFiles.CustomerId);
+                    
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = "ERROR:" + ex.Message.ToString();
+                }
+            else
+            {
+                ViewBag.Message = "You have not specified a file.";
+            }
+
+            return RedirectToAction("Index", "SalesLeads", null);
+        }
+
+        public void AddFileReference(int RefId, int custfileId) {
+            db.CustFileRefs.Add(new CustFileRef {
+                RefTable = "SalesLead",
+                RefId    = RefId,
+                CustFilesId = custfileId
+            });
+            db.SaveChanges();
+        }
+
+
+        public ActionResult FileList(int custid, int salesleadId) {
+            List<CustFileRef> Files = db.CustFileRefs.Where(f => f.CustFile.Customer.Id == custid && f.RefId == salesleadId).ToList();
+            ViewBag.CustId = custid;
+            ViewBag.SalesLeadId = salesleadId;
+            return View(Files);
+        }
         #endregion
     }
 }
