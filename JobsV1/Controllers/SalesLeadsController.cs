@@ -47,10 +47,11 @@ namespace JobsV1.Controllers
             tmp.Date = DateTime.Now;
             tmp.DtEntered = DateTime.Now;
             tmp.EnteredBy = HttpContext.User.Identity.Name;
+            
 
             ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name");
             ViewBag.AssignedTo = new SelectList(dbclasses.getUsers(), "UserName", "UserName");
-
+            ViewBag.CustomerList = db.Customers.ToList();
             return View(tmp);
         }
 
@@ -343,7 +344,7 @@ namespace JobsV1.Controllers
             ViewBag.Status = new SelectList(StatusList, "value", "text", customer.Status);
             return View(customer);
         }
-
+        
         #endregion
     }
 }

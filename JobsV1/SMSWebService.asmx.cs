@@ -119,5 +119,15 @@ namespace JobsV1
             return "Notification added to the list";
 
         }
+
+        [WebMethod]
+        public void CatRemove2(int Id)
+        {
+            InvItemCategory cat = db.InvItemCategories.Find(Id);
+            db.InvItemCategories.Remove(cat);
+            db.SaveChanges();
+            
+        }
     }
+
 }
