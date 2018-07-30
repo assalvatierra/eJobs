@@ -3,25 +3,28 @@
 }
 
 <div class="jumbotron">
-    <h1>Booking</h1>
-    <p class="lead">Register confirmed booking.</p>
+    <h1>Sys Online v1.1</h1>
+    <p class="lead">Resource Planning App</p>
 
-    <p>@Html.ActionLink("Register New »", "Create", "JobMains", null, new { @class = "btn btn-primary btn-lg" }) </p>
-    <p class="lead">Jobs :
-    [ @Html.ActionLink("List", "ActiveJobs", "JobMains") ]  [ @Html.ActionLink("Job Table", "JobTable", "JobMains", new { span = 30 }, null) ]
+    <p>@Html.ActionLink("Register New Job Order »", "Create", "JobMains", null, new { @class = "btn btn-primary btn-lg" }) </p>
+    <p class="lead">Jobs
+    [ @Html.ActionLink("Work In Progress", "Index", "JobOrder") ] [ @Html.ActionLink("Job Table", "JobTable", "JobMains", new { span = 30 }, null) ]
     [ @Html.ActionLink("Payments", "AdvanceList", "JobPayments") ]
-        <br />Leads  
-        [ @Html.ActionLink("List", "JobLeads", "JobMains") ]
+        <br />Sales Lead  
+        [ @Html.ActionLink("List", "Index", "SalesLeads") ]
+        <br />Inventory
+        [ @Html.ActionLink("Availability", "Availability", "InvItems") ]
     </p>
-
+     
 </div>
 
 <div class="row">
     <div class="col-md-4">
         <h2>Sales Lead</h2>
         <p>
-            Inquiries, Leads, Opportunities
-            @Html.ActionLink("List", "Index", "SalesLeads")
+            Inquiries, Leads, Opportunities <br />
+            [ @Html.ActionLink("List", "Index", "SalesLeads") | 
+            @Html.ActionLink("Quotations", "JobLeads", "JobMains") ]
         </p>
         <p>@Html.ActionLink("Add New »", "Create", "SalesLeads", null, new { @class = "btn btn-default" }) </p>
 
@@ -29,8 +32,9 @@
     <div class="col-md-4">
         <h2>Job Orders</h2>
         <p>
-            Jobs / Work in Progress
-            @Html.ActionLink("List", "Index", "JobOrder")
+            Jobs / Work in Progress <br />
+            [ @Html.ActionLink("Work In Progress", "Index", "JobOrder") | 
+            @Html.ActionLink("Quick List", "ActiveJobs", "JobMains") ]
         </p>
         <p>@Html.ActionLink("Add New »", "Create", "JobOrder", null, new { @class = "btn btn-default" }) </p>
 
@@ -55,26 +59,27 @@
         <p>@Html.ActionLink("Add New »", "Create", "Customers", null, new { @class = "btn btn-default" }) </p>
     </div>
     <div class="col-md-4">
-        <h2>Destinations</h2>
-        <p>Tourist Destinations, Resorts, Places, museums, parks
-            @Html.ActionLink("List", "Index", "Destinations")
-
-        </p>
-        <p>@Html.ActionLink("Add New »", "Create", "Destinations", null, new { @class = "btn btn-default" }) </p>
-    </div>
-
-    <div class="col-md-4">
         <h2>Equipments</h2>
         <p>
-            Buses, Vans, Cars, Boats, 
+            Buses, Vans, Cars, Boats,
             Sporting Gears, Cameras
-            [ 
+            [
             @Html.ActionLink("List", "Index", "SupplierItems") |
             @Html.ActionLink("Items", "Index", "InvItems") |
             @Html.ActionLink("Availability", "Availability", "InvItems")]
 
         </p>
         <p>@Html.ActionLink("Add New »", "Create", "SupplierItems", null, new { @class = "btn btn-default" }) </p>
+    </div>
+
+    <!--
+    <div class="col-md-4">
+        <h2>Destinations</h2>
+        <p>Tourist Destinations, Resorts, Places, museums, parks
+            @Html.ActionLink("List", "Index", "Destinations")
+
+        </p>
+        <p>@Html.ActionLink("Add New »", "Create", "Destinations", null, new { @class = "btn btn-default" }) </p>
     </div>
 
     <div class="col-md-4">
@@ -101,8 +106,6 @@
         <p>@Html.ActionLink("Add New »", "Create", "PreDefinedNotes", null, new { @class = "btn btn-default" }) </p>
     </div>
 
-    
-
     <div class="col-md-4">
         <h2>Contacts</h2>
         <p>
@@ -112,6 +115,7 @@
         </p>
         <p>@Html.ActionLink("Add New »", "Create", "JobContacts", null, new { @class = "btn btn-default" }) </p>
     </div>
+    -->
 
 
 </div>

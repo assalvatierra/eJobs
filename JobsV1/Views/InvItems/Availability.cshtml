@@ -1,11 +1,9 @@
 ﻿@model IEnumerable<JobsV1.Models.ItemSchedule>
 
 @{
-    ViewBag.Title = "Select Item";
+    ViewBag.Title = "Item Availability";
 
     List<JobsV1.Models.DayLabel> vLabel = (List<JobsV1.Models.DayLabel>)ViewBag.dtLabel;
-
-
 }
 
 <h2>Item Availability</h2>
@@ -42,6 +40,14 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.ItemId)
+                &nbsp;
+                @foreach (var iconpath in item.Item.InvItemCategories)
+                {
+                    <img src=@Url.Content(@iconpath.InvItemCat.ImgPath)
+                         alt=@iconpath.InvItemCat.ImgPath height="21"
+                         title=@iconpath.InvItemCat.ImgPath />
+                }
+
                 <span style="font:700 12px verdana,arial;">
                     @Html.ActionLink(item.Item.ItemCode + "-" + @item.Item.Description,
                 "Details", new { id = @item.ItemId })
