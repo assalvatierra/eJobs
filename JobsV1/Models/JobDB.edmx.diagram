@@ -132,6 +132,8 @@
         <EntityTypeShape EntityType="JobDB.SupplierPoItem" Width="1.5" PointX="21.5" PointY="12.375" />
         <AssociationConnector Association="JobDB.SupplierPoDtlSupplierPoItem" />
         <AssociationConnector Association="JobDB.InvItemSupplierPoItem" />
+        <EntityTypeShape EntityType="JobDB.CustFileRef" Width="1.5" PointX="3" PointY="0.5" />
+        <AssociationConnector Association="JobDB.CustFilesCustFileRef" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

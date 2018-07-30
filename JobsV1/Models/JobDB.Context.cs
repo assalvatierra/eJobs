@@ -86,5 +86,6 @@ namespace JobsV1.Models
         public virtual DbSet<SupplierPoDtl> SupplierPoDtls { get; set; }
         public virtual DbSet<SupplierPoStatus> SupplierPoStatus { get; set; }
         public virtual DbSet<SupplierPoItem> SupplierPoItems { get; set; }
+        public virtual DbSet<CustFileRef> CustFileRefs { get; set; }
     }
 }

@@ -14,6 +14,12 @@ namespace JobsV1.Models
     
     public partial class CustFiles
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public CustFiles()
+        {
+            this.CustFileRefs = new HashSet<CustFileRef>();
+        }
+    
         public int Id { get; set; }
         public string Desc { get; set; }
         public string Folder { get; set; }
@@ -22,5 +28,7 @@ namespace JobsV1.Models
         public int CustomerId { get; set; }
     
         public virtual Customer Customer { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CustFileRef> CustFileRefs { get; set; }
     }
 }
