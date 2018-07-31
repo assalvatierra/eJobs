@@ -119,14 +119,15 @@ Values
 ('Driver','Driver','~/Images/CarRental/Driver102.png','DRIVER'),
 
 ('VAN','Any VAN','~/Images/CarRental/car101.png','VAN'),
-('Grandia','Grandia','~/Images/CarRental/car101.png','VAN'),
-('Super Grandia','Super Grandia','~/Images/CarRental/car101.png','VAN'),
+('Grandia','Grandia','~/Images/CarRental/Van101.jpg','VAN'),
+('Super Grandia','Super Grandia','~/Images/CarRental/Van102.jpg','VAN'),
 
-('SUV','SUV/Fortuner/Everest/Innova','~/Images/CarRental/car101.png','SUV'),
-('MPV','AUV/Innova','~/Images/CarRental/car101.png','SUV'),
+('SUV','SUV/Fortuner/Everest/Innova','~/Images/CarRental/suv-101.png','SUV'),
+('MPV','AUV/Innova','~/Images/CarRental/suv-101.png','SUV'),
 ('Pickup','Pick-up','~/Images/CarRental/car101.png','Pickup'),
-('4x4','Pick-up','~/Images/CarRental/car101.png','Pickup'),
-('Sedan','Sedan','~/Images/CarRental/car101.png','Sedan'),
+('4x4','4x4 Vehicles','~/Images/CarRental/4x4.101.png','4x4'),
+('OffRoad','OffRoad Vehicles','~/Images/CarRental/OffRoad101.png','OFFROAD'),
+('Sedan','Sedan','~/Images/CarRental/sedan-101.png','Sedan'),
 
 ('Others','Other Types','~/Images/CarRental/Repair101.png','OTHER');
 
