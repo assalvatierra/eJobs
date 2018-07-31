@@ -38,7 +38,8 @@ namespace JobsV1.Controllers
             }
 
             ViewBag.StatusCodes = db.SalesStatusCodes.ToList();
-            return View(salesLeads.ToList());
+            salesLeads.Where(s => s.Date.CompareTo(DateTime.Now) < 60).ToList();
+            return View(salesLeads);
         }
 
         // GET: SalesLeads/Details/5
