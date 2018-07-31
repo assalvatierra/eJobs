@@ -13,6 +13,7 @@ namespace JobsV1.Controllers
 {
     public class SalesLeadsController : Controller
     {
+        private int NewCustSysId = 1;
         private JobDBContainer db = new JobDBContainer();
         private DBClasses dbclasses = new DBClasses();
         // GET: SalesLeads
@@ -23,12 +24,13 @@ namespace JobsV1.Controllers
                         .Include(s => s.SalesStatus).OrderByDescending(s => s.Date);
 
             switch (sortid) {
-                case 1:
+                case 1: //New
                     salesLeads = db.SalesLeads.Include(s => s.Customer)
                        .Include(s => s.SalesLeadCategories)
-                       .Include(s => s.SalesStatus).Take(60).OrderByDescending(s => s.Date);
+                       .Include(s => s.SalesStatus)
+                       .OrderByDescending(s => s.Date);
                     break;
-                default:
+                default: //Last 60 Days
                     salesLeads = db.SalesLeads.Include(s => s.Customer)
                         .Include(s => s.SalesLeadCategories)
                         .Include(s => s.SalesStatus).OrderBy(s => s.Date);
@@ -462,6 +464,124 @@ namespace JobsV1.Controllers
             ViewBag.CustId = custid;
             ViewBag.SalesLeadId = salesleadId;
             return View(Files);
+        }
+        #endregion
+
+        #region Quotation
+        public ActionResult QuotationCreate(int id, int custid, decimal amount, string cusmail, string contact) {
+
+            JobMain job = new JobMain();
+            job.JobDate = System.DateTime.Today;
+            job.NoOfDays = 1;
+            job.NoOfPax = 1;
+            job.AgreedAmt = amount;
+            job.CustContactEmail = cusmail;
+            job.CustContactNumber = contact;
+            
+            ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name");
+            ViewBag.JobStatusId = new SelectList(db.JobStatus, "Id", "Status",1);
+            ViewBag.JobThruId = new SelectList(db.JobThrus, "Id", "Desc");
+            ViewBag.CustomerId = new SelectList(db.Customers , "Id", "Name", custid);
+            ViewBag.Id = id;
+            return View(job);
+        }
+
+
+        // POST: JobMains/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult QuotationCreate([Bind(Include = "Id,JobDate,CustomerId,Description,NoOfPax,NoOfDays,AgreedAmt,JobRemarks,JobStatusId,StatusRemarks,BranchId,JobThruId,CustContactEmail,CustContactNumber")] JobMain jobMain, int leadId)
+        {
+            int NewCustSysId = 1;
+            int jobMainId = jobMain.Id;
+            if (ModelState.IsValid)
+            {
+                if (jobMain.CustContactEmail == null && jobMain.CustContactNumber == null)
+                {
+                    var cust = db.Customers.Find(jobMain.CustomerId);
+                    jobMain.CustContactEmail = cust.Email;
+                    jobMain.CustContactNumber = cust.Contact1;
+                }
+
+                db.JobMains.Add(jobMain);
+               // db.SaveChanges();
+
+                db.SalesLeadLinks.Add(new SalesLeadLink {
+                    JobMainId = jobMain.Id,
+                    SalesLeadId = leadId,
+                });
+                db.SaveChanges();
+
+                if (jobMain.CustomerId == NewCustSysId)
+                    return RedirectToAction("CreateCustomer", "JobMains", new { jobid = jobMain.Id });
+                else
+                    return RedirectToAction("Services", "JobServices", new { id = jobMain.Id });
+            }
+
+            ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status == "ACT"), "Id", "Name", jobMain.CustomerId);
+            ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name", jobMain.BranchId);
+            ViewBag.JobStatusId = new SelectList(db.JobStatus, "Id", "Status", jobMain.JobStatusId);
+            ViewBag.JobThruId = new SelectList(db.JobThrus, "Id", "Desc", jobMain.JobThruId);
+            return View(jobMain);
+        }
+
+
+        // GET: SalesLead/QuotationEdit/5
+        public ActionResult QuotationEdit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            JobMain jobMain = db.JobMains.Find(id);
+            if (jobMain == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status == "ACT"), "Id", "Name", jobMain.CustomerId);
+            ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name", jobMain.BranchId);
+            ViewBag.JobStatusId = new SelectList(db.JobStatus, "Id", "Status", jobMain.JobStatusId);
+            ViewBag.JobThruId = new SelectList(db.JobThrus, "Id", "Desc", jobMain.JobThruId);
+
+            TempData["UrlSource"] = Request.UrlReferrer.ToString();
+            return View(jobMain);
+        }
+
+        // POST: JobMains/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult QuotationEdit([Bind(Include = "Id,JobDate,CustomerId,Description,NoOfPax,NoOfDays,AgreedAmt,JobRemarks,JobStatusId,StatusRemarks,BranchId,JobThruId,CustContactEmail,CustContactNumber")] JobMain jobMain)
+        {    
+            if (ModelState.IsValid)
+            {
+                if (jobMain.CustContactEmail == null && jobMain.CustContactNumber == null)
+                {
+                    var cust = db.Customers.Find(jobMain.CustomerId);
+                    jobMain.CustContactEmail = cust.Email;
+                    jobMain.CustContactNumber = cust.Contact1;
+                }
+
+                db.Entry(jobMain).State = EntityState.Modified;
+                db.SaveChanges();
+
+                //if (jobMain.Customer.Name == "<< New Customer >>")
+                if (jobMain.CustomerId == NewCustSysId)
+                    return RedirectToAction("CreateCustomer", "JobMains",new { jobid = jobMain.Id });
+                else
+                    return Redirect((string)TempData["UrlSource"]);
+                //return RedirectToAction("Services", "JobServices", new { id = jobMain.Id });
+                //return RedirectToAction("Index");
+
+            }
+            ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status == "ACT"), "Id", "Name", jobMain.CustomerId);
+            ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name", jobMain.BranchId);
+            ViewBag.JobStatusId = new SelectList(db.JobStatus, "Id", "Status", jobMain.JobStatusId);
+            ViewBag.JobThruId = new SelectList(db.JobThrus, "Id", "Desc", jobMain.JobThruId);
+            return View(jobMain);
         }
         #endregion
     }

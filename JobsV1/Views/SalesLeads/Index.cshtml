@@ -27,7 +27,7 @@
             <div style="background-color:lightgray;">
                 @foreach (var salesstat in SalesStatCode)
                 {
-                    if(item.SalesStatus.Select(s=>s.SalesStatusCodeId).Contains(salesstat.Id))
+                    if (item.SalesStatus.Select(s => s.SalesStatusCodeId).Contains(salesstat.Id))
                     {
                         <span style="font-weight:800; color: gray">
                             @Html.ActionLink(salesstat.Name, "AddSalesStatus", new { slId = item.Id, StatusId = salesstat.Id }) &nbsp;>
@@ -55,8 +55,19 @@
                 [ @Html.ActionLink("Edit Company", "CompanyDetail", new { slid = item.Id, CustId = item.CustomerId }) |
                 @Html.ActionLink("Edit Lead", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
-                @Html.ActionLink("Profitability","SalesLeadCat", new { id = item.Id })  |
-                @Html.ActionLink("Files List", "FileList", new { custid = item.CustomerId, salesleadId = item.Id })
+                @Html.ActionLink("Profitability", "SalesLeadCat", new { id = item.Id })  |
+                @Html.ActionLink("Files List", "FileList", new { custid = item.CustomerId, salesleadId = item.Id }) |
+   
+                @{
+                    if (@item.SalesLeadLinks.Count() == 0)
+                    {
+                        @Html.ActionLink("New Quotation", "QuotationCreate", new { id = item.Id, custid = item.CustomerId, amount = item.Price, cusmail = item.CustEmail, contact = item.CustPhone })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Edit Quotation", "QuotationEdit", new { id = item.SalesLeadLinks.Where(s=>s.SalesLeadId == item.Id).FirstOrDefault().JobMainId})
+                    }
+                }
                 ]
 
                 @foreach (var salescat in item.SalesLeadCategories)
@@ -142,5 +153,12 @@
 </table>
 
 <p>
-    @Html.ActionLink("Last 60 Days", "Index", new { sortid = 1 })
+    @Html.ActionLink("Last 60 Days", "Index", new { sortid = 1 }) |
+    @Html.ActionLink("New", "Index", new { sortid = 2 }) |
+    @Html.ActionLink("Assesment", "Index", new { sortid = 3 }) |
+    @Html.ActionLink("Proposal Sent", "Index", new { sortid = 4 }) |
+    @Html.ActionLink("Negotiation", "Index", new { sortid = 5 }) |
+    @Html.ActionLink("Accepted", "Index", new { sortid = 6 }) |
+    @Html.ActionLink("Rejected", "Index", new { sortid = 7 }) |
+    @Html.ActionLink("Closed", "Index", new { sortid = 8 }) 
 </p>
