@@ -715,5 +715,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="SalesLeadLinks">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.SalesLeadLink)">
+        <MappingFragment StoreEntitySet="SalesLeadLinks">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SalesLeadId" ColumnName="SalesLeadId" />
+          <ScalarProperty Name="JobMainId" ColumnName="JobMainId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

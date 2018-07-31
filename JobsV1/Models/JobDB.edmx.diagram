@@ -76,17 +76,17 @@
         <AssociationConnector Association="JobDB.CustCategoryCustCat" />
         <EntityTypeShape EntityType="JobDB.CustEntMain" Width="1.5" PointX="7.25" PointY="0.75" />
         <EntityTypeShape EntityType="JobDB.SalesLead" Width="1.5" PointX="5" PointY="9.25" />
-        <EntityTypeShape EntityType="JobDB.SalesStatusCode" Width="1.5" PointX="7" PointY="8.5" />
-        <EntityTypeShape EntityType="JobDB.SalesStatus" Width="1.5" PointX="7" PointY="11.375" />
+        <EntityTypeShape EntityType="JobDB.SalesStatusCode" Width="1.5" PointX="7" PointY="9.75" />
+        <EntityTypeShape EntityType="JobDB.SalesStatus" Width="1.5" PointX="7" PointY="12.125" />
         <AssociationConnector Association="JobDB.CustomerSalesLead" />
-        <EntityTypeShape EntityType="JobDB.SalesActCode" Width="1.5" PointX="7" PointY="13.875" />
-        <EntityTypeShape EntityType="JobDB.SalesActivity" Width="1.5" PointX="5" PointY="13.875" />
+        <EntityTypeShape EntityType="JobDB.SalesActCode" Width="1.5" PointX="7.125" PointY="15.125" />
+        <EntityTypeShape EntityType="JobDB.SalesActivity" Width="1.5" PointX="5.125" PointY="15.125" />
         <AssociationConnector Association="JobDB.SalesActCodeSalesActivity" />
         <AssociationConnector Association="JobDB.SalesLeadSalesActivity" />
         <EntityTypeShape EntityType="JobDB.CustEntity" Width="1.5" PointX="7.25" PointY="3.25" />
         <AssociationConnector Association="JobDB.CustEntMainCustEntity" />
         <AssociationConnector Association="JobDB.CustomerCustEntity" />
-        <EntityTypeShape EntityType="JobDB.SalesActStatus" Width="1.5" PointX="7" PointY="16.5" />
+        <EntityTypeShape EntityType="JobDB.SalesActStatus" Width="1.5" PointX="7.125" PointY="17.75" />
         <AssociationConnector Association="JobDB.SalesActStatusSalesActivity" />
         <EntityTypeShape EntityType="JobDB.SalesLeadCatCode" Width="1.5" PointX="3" PointY="7.875" />
         <EntityTypeShape EntityType="JobDB.SalesLeadCategory" Width="1.5" PointX="3" PointY="10.25" />
@@ -134,6 +134,9 @@
         <AssociationConnector Association="JobDB.InvItemSupplierPoItem" />
         <EntityTypeShape EntityType="JobDB.CustFileRef" Width="1.5" PointX="3" PointY="0.5" />
         <AssociationConnector Association="JobDB.CustFilesCustFileRef" />
+        <EntityTypeShape EntityType="JobDB.SalesLeadLink" Width="1.5" PointX="7" PointY="7.125" />
+        <AssociationConnector Association="JobDB.SalesLeadSalesLeadLink" />
+        <AssociationConnector Association="JobDB.JobMainSalesLeadLink" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

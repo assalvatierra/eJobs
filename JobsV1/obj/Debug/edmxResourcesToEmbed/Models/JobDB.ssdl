@@ -63,6 +63,7 @@
     <EntitySet Name="SupplierPoStatus" EntityType="JobDB.Store.SupplierPoStatus" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SupplierPoItems" EntityType="JobDB.Store.SupplierPoItems" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="CustFileRefs" EntityType="JobDB.Store.CustFileRefs" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SalesLeadLinks" EntityType="JobDB.Store.SalesLeadLinks" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="JobMainJobType" Association="JobDB.Store.JobMainJobType">
       <End Role="JobMain" EntitySet="JobMains" />
       <End Role="JobType" EntitySet="JobTypes" />
@@ -314,6 +315,14 @@
     <AssociationSet Name="CustFilesCustFileRef" Association="JobDB.Store.CustFilesCustFileRef">
       <End Role="CustFiles" EntitySet="CustFiles" />
       <End Role="CustFileRef" EntitySet="CustFileRefs" />
+    </AssociationSet>
+    <AssociationSet Name="SalesLeadSalesLeadLink" Association="JobDB.Store.SalesLeadSalesLeadLink">
+      <End Role="SalesLead" EntitySet="SalesLeads" />
+      <End Role="SalesLeadLink" EntitySet="SalesLeadLinks" />
+    </AssociationSet>
+    <AssociationSet Name="JobMainSalesLeadLink" Association="JobDB.Store.JobMainSalesLeadLink">
+      <End Role="JobMain" EntitySet="JobMains" />
+      <End Role="SalesLeadLink" EntitySet="SalesLeadLinks" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="JobMains">
@@ -967,6 +976,14 @@
     <Property Name="RefTable" Type="nvarchar" Nullable="false" MaxLength="80" />
     <Property Name="RefId" Type="int" Nullable="false" />
     <Property Name="CustFilesId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SalesLeadLinks">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SalesLeadId" Type="int" Nullable="false" />
+    <Property Name="JobMainId" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="JobMainJobType">
     <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="1" />
@@ -1721,6 +1738,30 @@
       </Principal>
       <Dependent Role="CustFileRef">
         <PropertyRef Name="CustFilesId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SalesLeadSalesLeadLink">
+    <End Role="SalesLead" Type="JobDB.Store.SalesLeads" Multiplicity="1" />
+    <End Role="SalesLeadLink" Type="JobDB.Store.SalesLeadLinks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SalesLead">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SalesLeadLink">
+        <PropertyRef Name="SalesLeadId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="JobMainSalesLeadLink">
+    <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="1" />
+    <End Role="SalesLeadLink" Type="JobDB.Store.SalesLeadLinks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobMain">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SalesLeadLink">
+        <PropertyRef Name="JobMainId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

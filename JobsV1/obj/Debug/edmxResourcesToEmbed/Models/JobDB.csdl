@@ -315,6 +315,15 @@
       <End Role="CustFiles" EntitySet="CustFiles" />
       <End Role="CustFileRef" EntitySet="CustFileRefs" />
     </AssociationSet>
+    <EntitySet Name="SalesLeadLinks" EntityType="JobDB.SalesLeadLink" />
+    <AssociationSet Name="SalesLeadSalesLeadLink" Association="JobDB.SalesLeadSalesLeadLink">
+      <End Role="SalesLead" EntitySet="SalesLeads" />
+      <End Role="SalesLeadLink" EntitySet="SalesLeadLinks" />
+    </AssociationSet>
+    <AssociationSet Name="JobMainSalesLeadLink" Association="JobDB.JobMainSalesLeadLink">
+      <End Role="JobMain" EntitySet="JobMains" />
+      <End Role="SalesLeadLink" EntitySet="SalesLeadLinks" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="JobMain">
     <Key>
@@ -344,6 +353,7 @@
     <Property Name="CustContactEmail" Type="String" Nullable="true" MaxLength="150" />
     <Property Name="CustContactNumber" Type="String" Nullable="true" MaxLength="120" />
     <NavigationProperty Name="JobNotes" Relationship="JobDB.JobMainJobNote" FromRole="JobMain" ToRole="JobNote" />
+    <NavigationProperty Name="SalesLeadLinks" Relationship="JobDB.JobMainSalesLeadLink" FromRole="JobMain" ToRole="SalesLeadLink" />
   </EntityType>
   <EntityType Name="Supplier">
     <Key>
@@ -1216,6 +1226,7 @@
     <Property Name="AssignedTo" Type="String" Nullable="true" MaxLength="80" />
     <Property Name="CustPhone" Type="String" Nullable="true" MaxLength="20" />
     <Property Name="CustEmail" Type="String" Nullable="true" MaxLength="80" />
+    <NavigationProperty Name="SalesLeadLinks" Relationship="JobDB.SalesLeadSalesLeadLink" FromRole="SalesLead" ToRole="SalesLeadLink" />
   </EntityType>
   <EntityType Name="SalesStatusCode">
     <Key>
@@ -1847,6 +1858,40 @@
       </Principal>
       <Dependent Role="CustFileRef">
         <PropertyRef Name="CustFilesId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="SalesLeadLink">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="SalesLead" Relationship="JobDB.SalesLeadSalesLeadLink" FromRole="SalesLeadLink" ToRole="SalesLead" />
+    <Property Name="SalesLeadId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="JobMain" Relationship="JobDB.JobMainSalesLeadLink" FromRole="SalesLeadLink" ToRole="JobMain" />
+    <Property Name="JobMainId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="SalesLeadSalesLeadLink">
+    <End Type="JobDB.SalesLead" Role="SalesLead" Multiplicity="1" />
+    <End Type="JobDB.SalesLeadLink" Role="SalesLeadLink" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SalesLead">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SalesLeadLink">
+        <PropertyRef Name="SalesLeadId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="JobMainSalesLeadLink">
+    <End Type="JobDB.JobMain" Role="JobMain" Multiplicity="1" />
+    <End Type="JobDB.SalesLeadLink" Role="SalesLeadLink" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobMain">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SalesLeadLink">
+        <PropertyRef Name="JobMainId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

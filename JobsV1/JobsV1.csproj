@@ -469,6 +469,9 @@
     <Compile Include="Models\SalesLeadCategory.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SalesLeadLink.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SalesStatus.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>

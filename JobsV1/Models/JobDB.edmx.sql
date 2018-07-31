@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/30/2018 10:15:56
+-- Date Created: 07/31/2018 10:00:18
 -- Generated from EDMX file: D:\Data\Real\Apps\GitHub\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
@@ -203,6 +203,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_InvItemSupplierPoItem]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[SupplierPoItems] DROP CONSTRAINT [FK_InvItemSupplierPoItem];
 GO
+IF OBJECT_ID(N'[dbo].[FK_CustFilesCustFileRef]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CustFileRefs] DROP CONSTRAINT [FK_CustFilesCustFileRef];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -390,6 +393,9 @@ IF OBJECT_ID(N'[dbo].[SupplierPoStatus]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[SupplierPoItems]', 'U') IS NOT NULL
     DROP TABLE [dbo].[SupplierPoItems];
+GO
+IF OBJECT_ID(N'[dbo].[CustFileRefs]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CustFileRefs];
 GO
 
 -- --------------------------------------------------
@@ -1048,6 +1054,14 @@ CREATE TABLE [dbo].[CustFileRefs] (
 );
 GO
 
+-- Creating table 'SalesLeadLinks'
+CREATE TABLE [dbo].[SalesLeadLinks] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [SalesLeadId] int  NOT NULL,
+    [JobMainId] int  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -1421,6 +1435,12 @@ GO
 -- Creating primary key on [Id] in table 'CustFileRefs'
 ALTER TABLE [dbo].[CustFileRefs]
 ADD CONSTRAINT [PK_CustFileRefs]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'SalesLeadLinks'
+ALTER TABLE [dbo].[SalesLeadLinks]
+ADD CONSTRAINT [PK_SalesLeadLinks]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -2371,6 +2391,36 @@ GO
 CREATE INDEX [IX_FK_CustFilesCustFileRef]
 ON [dbo].[CustFileRefs]
     ([CustFilesId]);
+GO
+
+-- Creating foreign key on [SalesLeadId] in table 'SalesLeadLinks'
+ALTER TABLE [dbo].[SalesLeadLinks]
+ADD CONSTRAINT [FK_SalesLeadSalesLeadLink]
+    FOREIGN KEY ([SalesLeadId])
+    REFERENCES [dbo].[SalesLeads]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SalesLeadSalesLeadLink'
+CREATE INDEX [IX_FK_SalesLeadSalesLeadLink]
+ON [dbo].[SalesLeadLinks]
+    ([SalesLeadId]);
+GO
+
+-- Creating foreign key on [JobMainId] in table 'SalesLeadLinks'
+ALTER TABLE [dbo].[SalesLeadLinks]
+ADD CONSTRAINT [FK_JobMainSalesLeadLink]
+    FOREIGN KEY ([JobMainId])
+    REFERENCES [dbo].[JobMains]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_JobMainSalesLeadLink'
+CREATE INDEX [IX_FK_JobMainSalesLeadLink]
+ON [dbo].[SalesLeadLinks]
+    ([JobMainId]);
 GO
 
 -- --------------------------------------------------
