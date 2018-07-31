@@ -115,8 +115,19 @@ values
 -- ----------------------------------------------
 insert into InvItemCats([Name],[Remarks],[ImgPath],[SysCode])
 Values
-('Vehicle','VAN/CAR','~/Images/CarRental/car101.png','CAR'),
+('Vehicle','Vehicle','~/Images/CarRental/car101.png','CAR'),
 ('Driver','Driver','~/Images/CarRental/Driver102.png','DRIVER'),
+
+('VAN','Any VAN','~/Images/CarRental/car101.png','VAN'),
+('Grandia','Grandia','~/Images/CarRental/car101.png','VAN'),
+('Super Grandia','Super Grandia','~/Images/CarRental/car101.png','VAN'),
+
+('SUV','SUV/Fortuner/Everest/Innova','~/Images/CarRental/car101.png','SUV'),
+('MPV','AUV/Innova','~/Images/CarRental/car101.png','SUV'),
+('Pickup','Pick-up','~/Images/CarRental/car101.png','Pickup'),
+('4x4','Pick-up','~/Images/CarRental/car101.png','Pickup'),
+('Sedan','Sedan','~/Images/CarRental/car101.png','Sedan'),
+
 ('Others','Other Types','~/Images/CarRental/Repair101.png','OTHER');
 
 -- ----------------------------------------------

@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<JobsV1.Controllers.cJobOrder>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Work in Progress";
 }
 
 <h2>Job Orders</h2>
 
 <p>
-    @Html.ActionLink("Create New", "jobCreate",null,null)
+    @Html.ActionLink("Create New", "jobCreate",null,null) | Work In Progress | @Html.ActionLink("Job Table", "JobTable", "JobMains", new { span = 30 }, null)
 </p>
 
 <table class="table">

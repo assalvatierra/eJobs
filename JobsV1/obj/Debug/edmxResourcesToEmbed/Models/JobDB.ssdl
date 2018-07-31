@@ -62,6 +62,7 @@
     <EntitySet Name="SupplierPoDtls" EntityType="JobDB.Store.SupplierPoDtls" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SupplierPoStatus" EntityType="JobDB.Store.SupplierPoStatus" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SupplierPoItems" EntityType="JobDB.Store.SupplierPoItems" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CustFileRefs" EntityType="JobDB.Store.CustFileRefs" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="JobMainJobType" Association="JobDB.Store.JobMainJobType">
       <End Role="JobMain" EntitySet="JobMains" />
       <End Role="JobType" EntitySet="JobTypes" />
@@ -309,6 +310,10 @@
     <AssociationSet Name="InvItemSupplierPoItem" Association="JobDB.Store.InvItemSupplierPoItem">
       <End Role="InvItem" EntitySet="InvItems" />
       <End Role="SupplierPoItem" EntitySet="SupplierPoItems" />
+    </AssociationSet>
+    <AssociationSet Name="CustFilesCustFileRef" Association="JobDB.Store.CustFilesCustFileRef">
+      <End Role="CustFiles" EntitySet="CustFiles" />
+      <End Role="CustFileRef" EntitySet="CustFileRefs" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="JobMains">
@@ -953,6 +958,15 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="SupplierPoDtlId" Type="int" Nullable="false" />
     <Property Name="InvItemId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CustFileRefs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RefTable" Type="nvarchar" Nullable="false" MaxLength="80" />
+    <Property Name="RefId" Type="int" Nullable="false" />
+    <Property Name="CustFilesId" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="JobMainJobType">
     <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="1" />
@@ -1695,6 +1709,18 @@
       </Principal>
       <Dependent Role="SupplierPoItem">
         <PropertyRef Name="InvItemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CustFilesCustFileRef">
+    <End Role="CustFiles" Type="JobDB.Store.CustFiles" Multiplicity="1" />
+    <End Role="CustFileRef" Type="JobDB.Store.CustFileRefs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CustFiles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CustFileRef">
+        <PropertyRef Name="CustFilesId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

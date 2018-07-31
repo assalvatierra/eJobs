@@ -705,5 +705,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="CustFileRefs">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.CustFileRef)">
+        <MappingFragment StoreEntitySet="CustFileRefs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RefTable" ColumnName="RefTable" />
+          <ScalarProperty Name="RefId" ColumnName="RefId" />
+          <ScalarProperty Name="CustFilesId" ColumnName="CustFilesId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

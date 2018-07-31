@@ -310,6 +310,11 @@
       <End Role="InvItem" EntitySet="InvItems" />
       <End Role="SupplierPoItem" EntitySet="SupplierPoItems" />
     </AssociationSet>
+    <EntitySet Name="CustFileRefs" EntityType="JobDB.CustFileRef" />
+    <AssociationSet Name="CustFilesCustFileRef" Association="JobDB.CustFilesCustFileRef">
+      <End Role="CustFiles" EntitySet="CustFiles" />
+      <End Role="CustFileRef" EntitySet="CustFileRefs" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="JobMain">
     <Key>
@@ -1688,6 +1693,7 @@
     <Property Name="Remarks" Type="String" Nullable="true" MaxLength="180" />
     <NavigationProperty Name="Customer" Relationship="JobDB.CustomerCustFiles" FromRole="CustFiles" ToRole="Customer" />
     <Property Name="CustomerId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CustFileRefs" Relationship="JobDB.CustFilesCustFileRef" FromRole="CustFiles" ToRole="CustFileRef" />
   </EntityType>
   <Association Name="CustomerCustFiles">
     <End Type="JobDB.Customer" Role="Customer" Multiplicity="1" />
@@ -1819,6 +1825,28 @@
       </Principal>
       <Dependent Role="SupplierPoItem">
         <PropertyRef Name="InvItemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="CustFileRef">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RefTable" Type="String" Nullable="false" MaxLength="80" />
+    <Property Name="RefId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CustFile" Relationship="JobDB.CustFilesCustFileRef" FromRole="CustFileRef" ToRole="CustFiles" />
+    <Property Name="CustFilesId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="CustFilesCustFileRef">
+    <End Type="JobDB.CustFiles" Role="CustFiles" Multiplicity="1" />
+    <End Type="JobDB.CustFileRef" Role="CustFileRef" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CustFiles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CustFileRef">
+        <PropertyRef Name="CustFilesId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
