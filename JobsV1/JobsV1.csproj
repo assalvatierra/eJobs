@@ -1009,6 +1009,8 @@
     <Content Include="Views\JobOrder\jobCreate.cshtml" />
     <Content Include="Views\SalesLeads\FileCreate.cshtml" />
     <Content Include="Views\SalesLeads\FileList.cshtml" />
+    <Content Include="Views\SalesLeads\QuotationCreate.cshtml" />
+    <Content Include="Views\SalesLeads\QuotationEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
