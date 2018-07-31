@@ -4,6 +4,8 @@
     ViewBag.Title = "Create";
 }
 
+<link rel="stylesheet" href="~/Content/ModalSalesLead.css">
+
 <h2>Create</h2>
 
 @using (Html.BeginForm()) 
@@ -131,7 +133,7 @@
 
                 <h2>My Phonebook</h2>
 
-                <input type="text" id="SearchBarCustomer" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+                <input type="text" id="SearchBarCustomer" onkeyup="searchCustomer()" placeholder="Search for names.." title="Type in a name">
 
                 <ul id="SearchListCustomer">
                     @foreach (var cust in ViewBag.CustomerList as IEnumerable<JobsV1.Models.Customer>)
@@ -154,7 +156,7 @@
 </div><!-- /.modal -->
 
 <script>
-function myFunction() {
+    function searchCustomer() {
     var input, filter, ul, li, a, i;
     input = document.getElementById("SearchBarCustomer");
     filter = input.value.toUpperCase();
@@ -175,38 +177,3 @@ function setValue(value){
     $('#CustomersModal').modal('toggle');
 }
 </script>
-<style>
-    * {
-        box-sizing: border-box;
-    }
-
-    #SearchBarCustomer {
-        background-image: url('/css/searchicon.png');
-        background-position: 10px 12px;
-        background-repeat: no-repeat;
-        width: 100%;
-        font-size: 16px;
-        padding: 12px 20px 12px 40px;
-        border: 1px solid #ddd;
-        margin-bottom: 12px;
-    }
-
-    #SearchListCustomer {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-    }
-    #SearchListCustomer li a {
-            border: 1px solid #ddd;
-            margin-top: -1px; /* Prevent double borders */
-            background-color: #f6f6f6;
-            padding: 12px;
-            text-decoration: none;
-            font-size: 18px;
-            color: black;
-            display: block;
-    }
-    #SearchListCustomer li a:hover:not(.header) {
-           background-color: #eee;
-    }
-</style>

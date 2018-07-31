@@ -55,7 +55,8 @@
                 [ @Html.ActionLink("Edit Company", "CompanyDetail", new { slid = item.Id, CustId = item.CustomerId }) |
                 @Html.ActionLink("Edit Lead", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
-                @Html.ActionLink("Profitability","SalesLeadCat", new { id = item.Id })  
+                @Html.ActionLink("Profitability","SalesLeadCat", new { id = item.Id })  |
+                @Html.ActionLink("Files List", "FileList", new { custid = item.CustomerId, salesleadId = item.Id })
                 ]
 
                 @foreach (var salescat in item.SalesLeadCategories)
@@ -139,3 +140,7 @@
 }
 
 </table>
+
+<p>
+    @Html.ActionLink("Last 60 Days", "Index", new { sortid = 1 })
+</p>

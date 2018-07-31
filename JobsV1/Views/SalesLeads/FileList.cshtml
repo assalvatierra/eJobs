@@ -1,0 +1,40 @@
+﻿@model IEnumerable<JobsV1.Models.CustFileRef>
+
+@{
+    ViewBag.Title = "FileList";
+}
+
+<h2>FileList</h2>
+@Html.ActionLink("Upload Files", "FileCreate", new { custid = @ViewBag.CustId, salesleadId = @ViewBag.SalesLeadId })
+
+<table class="table">
+    <tr>
+        <th>
+           
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CustFile.Desc)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <a href="@item.CustFile.Path"><img src="@item.CustFile.Path" height="80" width="100" /></a>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CustFile.Desc)
+        </td>
+        <td>
+            
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

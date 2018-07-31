@@ -41,7 +41,14 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ItemId)
+
+                @foreach (var iconpath in item.Item.InvItemCategories)
+                {
+                    <img src=@Url.Content(@iconpath.InvItemCat.ImgPath)
+                         alt=@iconpath.InvItemCat.ImgPath height="21"
+                         title=@iconpath.InvItemCat.ImgPath />
+                }
+                &nbsp;
                 <span style="font:700 12px verdana,arial;">
                 @Html.ActionLink(item.Item.ItemCode + "-" + @item.Item.Description,
                 "AddItem", new { itemId = @item.ItemId, serviceId = @ViewBag.serviceId } )
