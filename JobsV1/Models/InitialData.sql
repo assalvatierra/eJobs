@@ -131,6 +131,19 @@ Values
 
 ('Others','Other Types','~/Images/CarRental/Repair101.png','OTHER');
 
+
+insert into InvItem ([ItemCode],[Description],[Remarks])
+values
+('RNY301','Toyota Innova','M/T 2.5 Diesel 2013 Brown'),
+('AAF8980','Toyota Innova','M/T 2.5 Diesel 2013 Silver '),
+('NEO380','Toyota Fortuner','A/T 3.0 Diesel 2009 Gold'),
+('ADP22640','Ford Everest','A/T 2.2 Diesel 2016 White'),
+('EOK873','Honda City','A/T 1.5 Gasoline 2018 White'),
+('AOA5108','Toyota Super Grandia','A/T 2.5 Diesel 2015 White');
+
+insert into InvItemCategories([InvItemId],[InvItemCatId])
+values
+(1,7),(2,7),(3,10),(4,6),(5,11),(6,5);
 -- ----------------------------------------------
 -- Supplier PO Configuration
 -- ----------------------------------------------

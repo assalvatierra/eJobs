@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/31/2018 10:00:18
--- Generated from EDMX file: D:\Data\Real\Apps\GitHub\eJobs\JobsV1\Models\JobDB.edmx
+-- Date Created: 08/01/2018 08:29:44
+-- Generated from EDMX file: C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -206,6 +206,12 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_CustFilesCustFileRef]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[CustFileRefs] DROP CONSTRAINT [FK_CustFilesCustFileRef];
 GO
+IF OBJECT_ID(N'[dbo].[FK_SalesLeadSalesLeadLink]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SalesLeadLinks] DROP CONSTRAINT [FK_SalesLeadSalesLeadLink];
+GO
+IF OBJECT_ID(N'[dbo].[FK_JobMainSalesLeadLink]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SalesLeadLinks] DROP CONSTRAINT [FK_JobMainSalesLeadLink];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -396,6 +402,9 @@ IF OBJECT_ID(N'[dbo].[SupplierPoItems]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[CustFileRefs]', 'U') IS NOT NULL
     DROP TABLE [dbo].[CustFileRefs];
+GO
+IF OBJECT_ID(N'[dbo].[SalesLeadLinks]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SalesLeadLinks];
 GO
 
 -- --------------------------------------------------

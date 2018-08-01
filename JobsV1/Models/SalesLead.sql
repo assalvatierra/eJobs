@@ -88,7 +88,12 @@ GO
 IF OBJECT_ID(N'[dbo].[CustSalesCategories]', 'U') IS NOT NULL
     DROP TABLE [dbo].[CustSalesCategories];
 GO
-
+IF OBJECT_ID(N'[dbo].[CustFileRefs]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CustFileRefs];
+GO
+IF OBJECT_ID(N'[dbo].[SalesLeadLinks]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SalesLeadLinks];
+GO
 -- --------------------------------------------------
 -- Creating all tables
 -- --------------------------------------------------
@@ -219,6 +224,21 @@ CREATE TABLE [dbo].[CustSalesCategories] (
 );
 GO
 
+-- Creating table 'CustFileRefs'
+CREATE TABLE [dbo].[CustFileRefs] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [RefTable] nvarchar(80)  NOT NULL,
+    [RefId] int  NOT NULL,
+    [CustFilesId] int  NOT NULL
+);
+GO
+
+-- Creating table 'SalesLeadLinks'
+CREATE TABLE [dbo].[SalesLeadLinks] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [SalesLeadId] int  NOT NULL,
+    [JobMainId] int  NOT NULL
+);
 
 
 
@@ -298,6 +318,17 @@ GO
 -- Creating primary key on [Id] in table 'CustSalesCategories'
 ALTER TABLE [dbo].[CustSalesCategories]
 ADD CONSTRAINT [PK_CustSalesCategories]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+-- Creating primary key on [Id] in table 'CustFileRefs'
+ALTER TABLE [dbo].[CustFileRefs]
+ADD CONSTRAINT [PK_CustFileRefs]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'SalesLeadLinks'
+ALTER TABLE [dbo].[SalesLeadLinks]
+ADD CONSTRAINT [PK_SalesLeadLinks]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -511,5 +542,49 @@ GO
 CREATE INDEX [IX_FK_SalesLeadSalesStatus]
 ON [dbo].[SalesStatus]
     ([SalesLeadId]);
+GO
+-- Creating foreign key on [CustFilesId] in table 'CustFileRefs'
+ALTER TABLE [dbo].[CustFileRefs]
+ADD CONSTRAINT [FK_CustFilesCustFileRef]
+    FOREIGN KEY ([CustFilesId])
+    REFERENCES [dbo].[CustFiles]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CustFilesCustFileRef'
+CREATE INDEX [IX_FK_CustFilesCustFileRef]
+ON [dbo].[CustFileRefs]
+    ([CustFilesId]);
+GO
+
+-- Creating foreign key on [SalesLeadId] in table 'SalesLeadLinks'
+ALTER TABLE [dbo].[SalesLeadLinks]
+ADD CONSTRAINT [FK_SalesLeadSalesLeadLink]
+    FOREIGN KEY ([SalesLeadId])
+    REFERENCES [dbo].[SalesLeads]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SalesLeadSalesLeadLink'
+CREATE INDEX [IX_FK_SalesLeadSalesLeadLink]
+ON [dbo].[SalesLeadLinks]
+    ([SalesLeadId]);
+GO
+
+-- Creating foreign key on [JobMainId] in table 'SalesLeadLinks'
+ALTER TABLE [dbo].[SalesLeadLinks]
+ADD CONSTRAINT [FK_JobMainSalesLeadLink]
+    FOREIGN KEY ([JobMainId])
+    REFERENCES [dbo].[JobMains]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_JobMainSalesLeadLink'
+CREATE INDEX [IX_FK_JobMainSalesLeadLink]
+ON [dbo].[SalesLeadLinks]
+    ([JobMainId]);
 GO
 
