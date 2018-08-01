@@ -21,39 +21,63 @@ namespace JobsV1.Controllers
         {
             var salesLeads = db.SalesLeads.Include(s => s.Customer)
                         .Include(s => s.SalesLeadCategories)
-                        .Include(s => s.SalesStatus).OrderByDescending(s => s.Date);
+                        .Include(s => s.SalesStatus).OrderByDescending(s => s.Date)
+                        .ToList();
 
             switch (sortid) {
-                case 1: //New
+                case 1://approved
+
                     salesLeads = db.SalesLeads.Include(s => s.Customer)
-                       .Include(s => s.SalesLeadCategories)
-                       .Include(s => s.SalesStatus)
-                       .OrderByDescending(s => s.Date);
+                                .Include(s => s.SalesLeadCategories)
+                                .Include(s => s.SalesStatus).OrderByDescending(s => s.Date)
+                                .Where(s => s.SalesStatus.Where(ss => ss.SalesStatusCodeId == 5).FirstOrDefault().SalesLeadId == s.Id)
+                                .ToList();
                     break;
-                default: //Last 60 Days
+                case 2:// closed
                     salesLeads = db.SalesLeads.Include(s => s.Customer)
-                        .Include(s => s.SalesLeadCategories)
-                        .Include(s => s.SalesStatus).OrderBy(s => s.Date);
+                                .Include(s => s.SalesLeadCategories)
+                                .Include(s => s.SalesStatus).OrderByDescending(s => s.Date)
+                                .Where(s => s.SalesStatus.Where(ss => ss.SalesStatusCodeId == 7).FirstOrDefault().SalesLeadId == s.Id)
+                                .ToList();
+                    break;
+                default:
+
+                    salesLeads = db.SalesLeads.Include(s => s.Customer)
+                         .Include(s => s.SalesLeadCategories)
+                         .Include(s => s.SalesStatus).OrderByDescending(s => s.Date)
+                         .ToList();
                     break;
             }
+            
 
             ViewBag.StatusCodes = db.SalesStatusCodes.ToList();
-            salesLeads.Where(s => s.Date.CompareTo(DateTime.Now) < 60).ToList();
+
             return View(salesLeads);
         }
 
         // GET: SalesLeads/Details/5
         public ActionResult Details(int? id)
         {
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             SalesLead salesLead = db.SalesLeads.Find(id);
             if (salesLead == null)
             {
                 return HttpNotFound();
             }
+
+            var salesLeads = db.SalesLeads.Include(s => s.Customer)
+                        .Include(s => s.SalesLeadCategories)
+                        .Include(s => s.SalesStatus).OrderByDescending(s => s.Date)
+                        .ToList();
+            
+            ViewBag.StatusCodes = db.SalesStatusCodes.ToList();
+
+
             return View(salesLead);
         }
 
@@ -280,9 +304,16 @@ namespace JobsV1.Controllers
             ViewBag.SalesActStatusId = new SelectList(db.SalesActStatus, "Id", "Name", salesActivity.SalesActStatusId);
             return View(salesActivity);
         }
+
         public ActionResult SalesActivityDone(int id)
         {
             db.Database.ExecuteSqlCommand("update SalesActivities set SalesActStatusId=2 where Id=" + id);
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult SalesActivityRemove(int id)
+        {
+            db.Database.ExecuteSqlCommand("DELETE FROM SalesActivities where Id=" + id);
             return RedirectToAction("Index");
         }
         #endregion
@@ -469,8 +500,11 @@ namespace JobsV1.Controllers
         #endregion
 
         #region Quotation
-        public ActionResult QuotationCreate(int id, int custid, decimal amount, string cusmail, string contact) {
+        public ActionResult QuotationCreate(int id, int custid,
+            decimal amount, string cusmail, string contact,
+            string desc, string remarks, DateTime leadDT) {
 
+            //initial values from 
             JobMain job = new JobMain();
             job.JobDate = System.DateTime.Today;
             job.NoOfDays = 1;
@@ -478,12 +512,16 @@ namespace JobsV1.Controllers
             job.AgreedAmt = amount;
             job.CustContactEmail = cusmail;
             job.CustContactNumber = contact;
+            job.Description = desc;
+            job.JobRemarks = remarks;
+            job.JobDate = leadDT;
             
             ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name");
             ViewBag.JobStatusId = new SelectList(db.JobStatus, "Id", "Status",1);
             ViewBag.JobThruId = new SelectList(db.JobThrus, "Id", "Desc");
             ViewBag.CustomerId = new SelectList(db.Customers , "Id", "Name", custid);
             ViewBag.Id = id;
+
             return View(job);
         }
 

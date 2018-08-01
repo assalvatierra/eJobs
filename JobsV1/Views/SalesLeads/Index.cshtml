@@ -5,10 +5,14 @@
     var SalesStatCode = (List < JobsV1.Models.SalesStatusCode >) ViewBag.StatusCodes;
 }
 
-<h2>Leads</h2>
+<h2>Sales Lead: List</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create") |
+    Sales Lead |
+    @Html.ActionLink("Quotation", "JobLeads", "JobMains")
+
+
 </p>
 <table class="table">
 
@@ -56,18 +60,8 @@
                 @Html.ActionLink("Edit Lead", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
                 @Html.ActionLink("Profitability", "SalesLeadCat", new { id = item.Id })  |
-                @Html.ActionLink("Files List", "FileList", new { custid = item.CustomerId, salesleadId = item.Id }) |
+                @Html.ActionLink("Files List", "FileList", new { custid = item.CustomerId, salesleadId = item.Id })
    
-                @{
-                    if (@item.SalesLeadLinks.Count() == 0)
-                    {
-                        @Html.ActionLink("New Quotation", "QuotationCreate", new { id = item.Id, custid = item.CustomerId, amount = item.Price, cusmail = item.CustEmail, contact = item.CustPhone })
-                    }
-                    else
-                    {
-                        @Html.ActionLink("Edit Quotation", "QuotationEdit", new { id = item.SalesLeadLinks.Where(s=>s.SalesLeadId == item.Id).FirstOrDefault().JobMainId})
-                    }
-                }
                 ]
 
                 @foreach (var salescat in item.SalesLeadCategories)
@@ -105,7 +99,9 @@
 
                             <span style="color:maroon;">@tmpAct.Particulars</span>
                             <span style="font:status-bar;color:maroon;"> @tmpAct.DtActivity.ToString("MMM-dd-yyyy")</span>
-                            @Html.ActionLink("Done", "SalesActivityDone", new { id = tmpAct.Id })
+                            @Html.ActionLink("Done |", "SalesActivityDone", new { id = tmpAct.Id }) 
+                            @Html.ActionLink(" [x]", "SalesActivityRemove", new { id = tmpAct.Id })
+
                             <br />
                             }
                             if (tmpAct.SalesActStatusId == 2)
@@ -132,7 +128,28 @@
                     </span>
                 }
                 [ @Html.ActionLink("Add Activity", "ListActivityCodes", new { id = item.Id }) ]
+                <br />[ Quotation : 
+                @{  
+                    if (@item.SalesLeadLinks.Count() == 0)
+                    {
+                        @Html.ActionLink("New ", "QuotationCreate", new { id = item.Id, custid = item.CustomerId, amount = item.Price,
+                                        cusmail = item.CustEmail, contact = item.CustPhone, desc = item.Details,remarks = item.Remarks,
+                                        leadDT = item.Date }, new { @target = "_blank" })
+                    }
+                    else
+                    {
+                        
+                        @Html.ActionLink("Approve  |", "ConfirmJob", "JobMains" ,
+                                        new { id = item.SalesLeadLinks.Where(s => s.SalesLeadId == item.Id)
+                                        .FirstOrDefault().JobMainId }, null) 
 
+                        @Html.ActionLink(" Edit ", "Services", "JobServices",
+                                        new { id = item.SalesLeadLinks.Where(s => s.SalesLeadId == item.Id)
+                                        .FirstOrDefault().JobMainId }, new { @target = "_blank" })
+
+                    }
+                   
+                } ]
 
                 <br />
                 <span style="font: status-bar; color:gray;">
@@ -144,21 +161,14 @@
                     Assigned: @Html.DisplayFor(modelItem => item.AssignedTo)
                 </span>
             </div>
-
         </td>
-
     </tr>
 }
 
 </table>
 
-<p>
-    @Html.ActionLink("Last 60 Days", "Index", new { sortid = 1 }) |
-    @Html.ActionLink("New", "Index", new { sortid = 2 }) |
-    @Html.ActionLink("Assesment", "Index", new { sortid = 3 }) |
-    @Html.ActionLink("Proposal Sent", "Index", new { sortid = 4 }) |
-    @Html.ActionLink("Negotiation", "Index", new { sortid = 5 }) |
-    @Html.ActionLink("Accepted", "Index", new { sortid = 6 }) |
-    @Html.ActionLink("Rejected", "Index", new { sortid = 7 }) |
-    @Html.ActionLink("Closed", "Index", new { sortid = 8 }) 
+<p>Filters:
+    @Html.ActionLink("All", "Index", null,null ) |
+    @Html.ActionLink("Accepted", "Index", new { sortid = 1 }) |
+    @Html.ActionLink("Closed", "Index", new { sortid = 2 }) 
 </p>

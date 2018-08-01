@@ -4,10 +4,14 @@
     ViewBag.Title = "Sales Lead";
 }
 
-<h2>Sales Lead</h2>
+<h2>Sales Lead : Quotations</h2>
 
 <p>
-    @Html.ActionLink("Create New Lead", "Create")
+    @Html.ActionLink("Create New", "Create", "SalesLeads") |
+    @Html.ActionLink("Sales Lead", "Index", "SalesLeads") |
+    Quotations
+
+
 </p>
 <table class="table">
     <tr>

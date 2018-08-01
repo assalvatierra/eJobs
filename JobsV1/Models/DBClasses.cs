@@ -22,6 +22,15 @@ namespace JobsV1.Models
         public List<InvItemCategory> CategoryList { get; set; }
     }
 
+    public class DailyUpdate
+    {
+        public int Id { get; set; }
+        public string StatusCategory { get; set; }
+        public DateTime dtTaken { get; set; }
+        public int refId { get; set; }
+        public string Details { get; set; }
+    }
+
     #region Item schedule classes
     public class getItemSchedReturn
     {

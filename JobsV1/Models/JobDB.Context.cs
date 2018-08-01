@@ -88,5 +88,7 @@ namespace JobsV1.Models
         public virtual DbSet<SupplierPoItem> SupplierPoItems { get; set; }
         public virtual DbSet<CustFileRef> CustFileRefs { get; set; }
         public virtual DbSet<SalesLeadLink> SalesLeadLinks { get; set; }
+
+        public System.Data.Entity.DbSet<JobsV1.Models.DailyUpdate> DailyUpdates { get; set; }
     }
 }

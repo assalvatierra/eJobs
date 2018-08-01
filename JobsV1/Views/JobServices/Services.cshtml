@@ -147,7 +147,8 @@
 <p>
     @Html.ActionLink("Create New", "Create", new { JobMainId = ViewBag.JobMainId })
     <br />@Html.ActionLink("Add Template", "BrowseTemplate", new { JobMainId = ViewBag.JobMainId })
-    <br />@Html.ActionLink("Back to Job List", "JobTable", "JobMains")
+    <br />    @Html.ActionLink("Go to Job List", "JobTable", "JobMains", null, null)
+    <br />@Html.ActionLink("Go to Sales Lead", "Index", "SalesLeads",null,null)
 </p>
 
 
