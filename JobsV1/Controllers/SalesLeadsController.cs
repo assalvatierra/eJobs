@@ -133,6 +133,8 @@ namespace JobsV1.Controllers
             {
                 db.SalesLeads.Add(salesLead);
                 db.SaveChanges();
+
+                AddSalesStatus(salesLead.Id, 1);    //NEW
                 return RedirectToAction("Index");
             }
 

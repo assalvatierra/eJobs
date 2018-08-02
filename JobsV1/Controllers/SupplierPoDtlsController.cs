@@ -26,15 +26,7 @@ namespace JobsV1.Controllers
             var hdr = db.SupplierPoHdrs.Where(h=>h.Id == hdrId).ToList();
 
             supplier = db.SupplierPoDtls.Where(s => s.SupplierPoHdrId == hdrId).ToList();
-            /*
-            if (supplier != null){
-                supItems = db.SupplierPoItems.Where(s => s.SupplierPoDtlId == supplier.Id).ToList();
-            }else{
-                supplier = new SupplierPoDtl {
-                    Id = 0
-                };
-            }
-            */
+          
             if (supItems == null)
                 {
                     supItems.Add(new SupplierPoItem
