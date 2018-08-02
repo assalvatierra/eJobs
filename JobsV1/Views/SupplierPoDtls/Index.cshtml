@@ -8,8 +8,6 @@
 <script src="~/Scripts/jquery-3.3.1.js"></script>
 <h2>Supplier PO Details: </h2>
 
-@foreach (var item in Model)
-{
 <table class="table">
     @foreach(var header in ViewBag.HdrInfo as IEnumerable<JobsV1.Models.SupplierPoHdr>) {
 
@@ -36,14 +34,16 @@
 
     </tr>
     <tr>
+        <!--
         <td>
             <span style="font-weight:bold">Remarks:</span>
-            @Html.DisplayFor(modelItem => item.SupplierPoHdr.Remarks)
+            Html.DisplayFor(modelItem => item.SupplierPoHdr.Remarks)
         </td>
         <td>
             <span style="font-weight:bold">Particulars:</span>
-            @Html.DisplayFor(modelItem => item.JobService.Particulars)
+            Html.DisplayFor(modelItem => item.JobService.Particulars)
         </td>
+            -->
         <td>
         </td>
         <td>
@@ -53,25 +53,27 @@
     }
 </table>
 
+<table class="table table-striped" id="details-tbl">
 
-    <table class="table table-striped" id="details-tbl">
+    <tr>
+        <th>
+            Id
+        </th>
+        <th>
+            Remarks
+        </th>
+        <th>
+            Items
+        </th>
+        <th>
+            Amount
+        </th>
+        <th></th>
+    </tr>
 
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Remarks)
-            </th>
-            <th>
-                Items
-            </th>
-            <th>
-                Amount
-            </th>
-            <th></th>
-        </tr>
 
+    @foreach (var item in Model)
+    {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Id)
@@ -80,18 +82,19 @@
                 @Html.DisplayFor(modelItem => item.Remarks)
             </td>
             <td>
-
-                @foreach (var car in ViewBag.supplierPoItems as IEnumerable<JobsV1.Models.SupplierPoItem>)
+                @foreach (var car in @item.SupplierPoItems)
                 {
-                    
+
                     <p>
                         @Html.DisplayFor(modelItem => car.InvItem.Description)
                         |
-                        @Html.ActionLink("Remove", "Remove", new { SupPOItemId = car.Id },null  )
+                        @Html.ActionLink("Remove", "Remove", new { SupPOItemId = car.Id }, null)
                     </p>
+
+
                 }
 
-                <a href="#" id="catbtn" data-toggle="modal" data-target="#SupplierPoItemsModal" style="margin-bottom:10px;">Add Item</a>
+                <a href="" id="catbtn" data-toggle="modal" data-target="#@item.Id" style="margin-bottom:10px;">Add Item</a>
             </td>
 
             <td>
@@ -104,9 +107,37 @@
             </td>
         </tr>
 
-    </table>
-}
 
+                    <!-- Modal -->
+        <div class="modal fade" id="@item.Id" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Item List</h4>
+                    </div>
+
+                    <div class="modal-body" id="modal2-content">
+
+                        <div class="list-group" id="categorylist">
+
+                            @foreach (var carList in ViewBag.InvItemsList as IEnumerable<JobsV1.Models.InvItem>)
+                            {
+                                <a href="@Url.Action("addInvItem", "SupplierPoDtls", new { InvID = carList.Id, DtlsId = @item.Id })" class="list-group-item"> @carList.Description </a>
+                            }
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+    }
+
+</table>
 
 <p>
     @Html.ActionLink("Back to List", "Index", "SupplierPoHdrs", null,null) |
@@ -115,38 +146,11 @@
 
 <br />
 
-<!-- Modal -->
-<div class="modal fade" id="SupplierPoItemsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Item List</h4>
-            </div>
-
-            <div class="modal-body" id="modal2-content">
-
-                <div class="list-group" id="categorylist">
-  
-                    @foreach (var carList in ViewBag.InvItemsList as IEnumerable<JobsV1.Models.InvItem>)
-                    {
-                        <a href="@Url.Action("addInvItem", "SupplierPoDtls", new { InvID = carList.Id, DtlsId = @ViewBag.Id })" class="list-group-item"> @carList.Description </a>
-                    }
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
 <script>
     var rowCount = $('#details-tbl tr').length;
 
     if (rowCount > 1) {
-        $('#create-btn').hide();
+       // $('#create-btn').hide();
     }
 
     function deleteCheck() {

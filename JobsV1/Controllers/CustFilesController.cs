@@ -266,11 +266,7 @@ namespace JobsV1.Controllers
 
             return RedirectToAction("Details", "Customers", new { id = custFiles.CustomerId });
         }
-
-        public void UploadUpdateDb(int? id) {
-
-        }
-
+        
 
         // POST: CustEntities/Remove/companyid,custid
         // [HttpPost]

@@ -132,7 +132,7 @@ Values
 ('Others','Other Types','~/Images/CarRental/Repair101.png','OTHER');
 
 
-insert into InvItem ([ItemCode],[Description],[Remarks])
+insert into InvItems ([ItemCode],[Description],[Remarks])
 values
 ('RNY301','Toyota Innova','M/T 2.5 Diesel 2013 Brown'),
 ('AAF8980','Toyota Innova','M/T 2.5 Diesel 2013 Silver '),

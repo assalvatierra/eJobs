@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "FileList";
+    
 }
 
 <h2>FileList</h2>
@@ -23,7 +24,9 @@
                @Html.DisplayFor(modelItem => item.CustFile.Remarks )
             </p>
             <p>
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                <!--
+                Html.ActionLink("Delete", "DeleteFile", new { id = item.Id, custid = ViewBag.CustId, salesleadId = ViewBag.SalesLeadId })
+                -->
             </p>
         </td>
     </tr>

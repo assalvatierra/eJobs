@@ -13,7 +13,16 @@ namespace JobsV1.Controllers
 {
     public class SalesLeadsController : Controller
     {
+        // NEW CUSTOMER Reference ID
         private int NewCustSysId = 1;
+        // Job Status
+        private int JOBINQUIRY = 1;
+        private int JOBRESERVATION = 2;
+        private int JOBCONFIRMED = 3;
+        private int JOBCLOSED = 4;
+        private int JOBCANCELLED = 5;
+        private int JOBTEMPLATE = 6;
+
         private JobDBContainer db = new JobDBContainer();
         private DBClasses dbclasses = new DBClasses();
         // GET: SalesLeads
@@ -29,25 +38,42 @@ namespace JobsV1.Controllers
 
                     salesLeads = db.SalesLeads.Include(s => s.Customer)
                                 .Include(s => s.SalesLeadCategories)
-                                .Include(s => s.SalesStatus).OrderByDescending(s => s.Date)
+                                .Include(s => s.SalesStatus).OrderByDescending(s => s.Date).Include(s => s.Customer.JobMains)
                                 .Where(s => s.SalesStatus.Where(ss => ss.SalesStatusCodeId == 5).FirstOrDefault().SalesLeadId == s.Id)
                                 .ToList();
                     break;
-                case 2:// closed
+                case 2:// closedb
                     salesLeads = db.SalesLeads.Include(s => s.Customer)
                                 .Include(s => s.SalesLeadCategories)
-                                .Include(s => s.SalesStatus).OrderByDescending(s => s.Date)
+                                .Include(s => s.SalesStatus).OrderByDescending(s => s.Date).Include(s => s.Customer.JobMains) 
                                 .Where(s => s.SalesStatus.Where(ss => ss.SalesStatusCodeId == 7).FirstOrDefault().SalesLeadId == s.Id)
                                 .ToList();
                     break;
-                default:
 
+                case 3:
+                    // all
                     salesLeads = db.SalesLeads.Include(s => s.Customer)
-                         .Include(s => s.SalesLeadCategories)
+                                .Include(s => s.SalesLeadCategories)
+                                .Include(s => s.SalesStatus).OrderByDescending(s => s.Date).Include(s => s.Customer.JobMains)
+                                .Where(s => s.SalesStatus.Where(ss => ss.SalesStatusCodeId > 0).OrderByDescending(ss => ss.SalesStatusCodeId).FirstOrDefault().SalesStatusCodeId < 8) // Current
+                                .ToList();
+                    break;
+                default:
+                    // Current
+                    salesLeads = db.SalesLeads.Include(s => s.Customer)
+                                .Include(s => s.SalesLeadCategories)
+                                .Include(s => s.SalesStatus).OrderByDescending(s => s.Date).Include(s => s.Customer.JobMains)
+                                .Where(s => s.SalesStatus.Where(ss => ss.SalesStatusCodeId > 0).OrderByDescending(ss => ss.SalesStatusCodeId).FirstOrDefault().SalesStatusCodeId < 5) // Current
+                                .ToList();
+                    /*
+                    salesLeads = db.SalesLeads.Include(s => s.Customer)
+                         .Include(s => s.SalesLeadCategories).Include(s => s.Customer.JobMains)
                          .Include(s => s.SalesStatus).OrderByDescending(s => s.Date)
                          .ToList();
+                         */
                     break;
             }
+            
             
 
             ViewBag.StatusCodes = db.SalesStatusCodes.ToList();
@@ -260,7 +286,7 @@ namespace JobsV1.Controllers
             }
 
             ViewBag.Message = strMsg;
-            return RedirectToAction("Index");
+            return Redirect(Request.UrlReferrer.ToString());
         }
         #endregion
 
@@ -417,7 +443,7 @@ namespace JobsV1.Controllers
             {
                 db.SalesLeads.Add(salesLead);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("FileList",new { custid  = salesLead.CustomerId, salesleadId = salesLead.Id});
             }
 
             ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name", salesLead.CustomerId);
@@ -478,7 +504,8 @@ namespace JobsV1.Controllers
                 ViewBag.Message = "You have not specified a file.";
             }
 
-            return RedirectToAction("Index", "SalesLeads", null);
+            return RedirectToAction("FileList", new { custid = custFiles.Id, salesleadId = salesleadId });
+
         }
 
         public void AddFileReference(int RefId, int custfileId) {
@@ -495,7 +522,17 @@ namespace JobsV1.Controllers
             List<CustFileRef> Files = db.CustFileRefs.Where(f => f.CustFile.Customer.Id == custid && f.RefId == salesleadId).ToList();
             ViewBag.CustId = custid;
             ViewBag.SalesLeadId = salesleadId;
+
             return View(Files);
+        }
+
+        public ActionResult DeleteFile(int id, int custid, int salesleadId) {
+            
+            CustFiles custfiles = db.CustFiles.Find(id);
+            db.CustFiles.Remove(custfiles);
+            db.SaveChanges();
+
+            return RedirectToAction("FileList", new { custid = custid, salesleadId = salesleadId });
         }
         #endregion
 
@@ -621,6 +658,17 @@ namespace JobsV1.Controllers
             ViewBag.JobStatusId = new SelectList(db.JobStatus, "Id", "Status", jobMain.JobStatusId);
             ViewBag.JobThruId = new SelectList(db.JobThrus, "Id", "Desc", jobMain.JobThruId);
             return View(jobMain);
+        }
+
+
+        public ActionResult ConfirmJob(int? id)
+        {
+            JobMain job = db.JobMains.Find(id);
+            job.JobStatusId = JOBCONFIRMED;
+            db.Entry(job).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return Redirect(Request.UrlReferrer.ToString());
         }
         #endregion
     }

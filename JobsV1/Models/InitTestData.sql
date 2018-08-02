@@ -33,5 +33,5 @@ insert into SupplierPoHdrs([PoDate],[Remarks],[SupplierId],[SupplierPoStatusId],
 values ('07-25-2018','Test Po',1,1,'Abel','07-25-2018');
 
 insert into SupplierPoDtls([SupplierPoHdrId],[Remarks],[Amount],[JobServicesId])
-values (1,'10 seater vehicle',3500,1);
+values (1,'10 seater vehicle',3500,1), (1,'14 seater vehicle',4000,1);
 

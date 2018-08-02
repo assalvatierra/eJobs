@@ -17,13 +17,16 @@ namespace JobsV1.Controllers
         // GET: SupplierPoDtls
         public ActionResult Index(int? hdrId)
         {
-            var supplierPoDtls = db.SupplierPoDtls.Include(s => s.SupplierPoHdr).Include(s => s.JobService).Where(d=>d.SupplierPoHdrId== (int)hdrId);
-            SupplierPoDtl supplier = new SupplierPoDtl();
+            var supplierPoDtls = db.SupplierPoDtls.Include(s => s.SupplierPoHdr).Include(s => s.JobService).Include(s=>s.SupplierPoItems).Where(d=>d.SupplierPoHdrId== (int)hdrId);
+
+            List<SupplierPoDtl> supplier = new List<SupplierPoDtl>();
             List<SupplierPoItem> supItems = new List<SupplierPoItem>();
             List<InvItem> invItems = new List<InvItem>();
+
             var hdr = db.SupplierPoHdrs.Where(h=>h.Id == hdrId).ToList();
 
-            supplier = db.SupplierPoDtls.Where(s => s.SupplierPoHdrId == hdrId).FirstOrDefault();
+            supplier = db.SupplierPoDtls.Where(s => s.SupplierPoHdrId == hdrId).ToList();
+            /*
             if (supplier != null){
                 supItems = db.SupplierPoItems.Where(s => s.SupplierPoDtlId == supplier.Id).ToList();
             }else{
@@ -31,7 +34,7 @@ namespace JobsV1.Controllers
                     Id = 0
                 };
             }
-
+            */
             if (supItems == null)
                 {
                     supItems.Add(new SupplierPoItem
@@ -45,6 +48,7 @@ namespace JobsV1.Controllers
                 }
 
             invItems = db.InvItems.ToList();
+
             if (invItems == null){
                invItems.Add(new InvItem{
                         Id = 0,
@@ -55,7 +59,7 @@ namespace JobsV1.Controllers
             ViewBag.HdrId = hdrId;
             ViewBag.supplierPoItems = supItems;
             ViewBag.InvItemsList = invItems;
-            ViewBag.Id = supplier.Id;
+           // ViewBag.Id = supplier.Id;
 
             return View(supplierPoDtls.ToList());
         }
