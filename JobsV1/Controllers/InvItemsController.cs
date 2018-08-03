@@ -217,6 +217,15 @@ namespace JobsV1.Controllers
             return RedirectToAction("Index", "InvItems", null);
         }
 
+        public ActionResult removeSupplier(int id) {
+
+            SupplierInvItem supInv = db.SupplierInvItems.Find(id);
+            db.SupplierInvItems.Remove(supInv);
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "InvItems", null);
+        }
+
         #region Availability
         public ActionResult Availability() {
             DBClasses dbclass = new DBClasses();

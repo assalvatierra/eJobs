@@ -39,7 +39,7 @@ namespace JobsV1.Controllers
                     });
                 }
 
-            invItems = db.InvItems.ToList();
+            invItems = db.InvItems.Include(s => s.SupplierInvItems).ToList();
 
             if (invItems == null){
                invItems.Add(new InvItem{

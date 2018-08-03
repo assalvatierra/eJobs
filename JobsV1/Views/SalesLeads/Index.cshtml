@@ -145,6 +145,10 @@
                         @Html.ActionLink("New Quotation ", "QuotationCreate", new { id = item.Id, custid = item.CustomerId, amount = item.Price,
                        cusmail = item.CustEmail, contact = item.CustPhone, desc = item.Details, remarks = item.Remarks,
                        leadDT = item.Date }, null)
+                        <span>|</span>
+
+                        @Html.ActionLink("Link Quotation ", "QuotationLink", new { id = item.Id }, null)
+
                     }
                     else if(@item.SalesLeadLinks.Where(s => s.SalesLeadId == item.Id).FirstOrDefault().JobMain.JobStatusId == 3)
                     {

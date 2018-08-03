@@ -42,6 +42,8 @@
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id })
                 <br />
                 @Html.ActionLink("Items", "Index", "SupplierItems")
+                <br />
+                @Html.ActionLink("InvItems", "InvItems", "Suppliers", new { id = item.Id },null)
 
             </td>
         </tr>

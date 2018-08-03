@@ -135,5 +135,9 @@ namespace JobsV1.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult InvItems(int id) {
+            return View(db.SupplierInvItems.Where(s=>s.SupplierId == id).ToList());
+        }
     }
 }

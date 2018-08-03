@@ -671,6 +671,33 @@ namespace JobsV1.Controllers
 
             return Redirect(Request.UrlReferrer.ToString());
         }
+
+
+        public ActionResult QuotationLink(int id)
+        {
+            var links = db.SalesLeadLinks.ToList();
+            var main = db.JobMains.Where(s=> s.SalesLeadLinks.Where(l=>l.JobMainId == s.Id).FirstOrDefault().JobMainId > 0).ToList();
+            // Get all anotherHumans where the record does not exist in humans
+            ViewBag.links = links;
+            var jobMains2 = db.JobMains.Include(j => j.JobSuppliers).Include(j => j.Customer).Include(j => j.Branch).Include(j => j.JobStatus).Include(j => j.JobThru).Include(s=>s.SalesLeadLinks).OrderBy(d => d.JobDate);
+            var leads = jobMains2.ToList().Where(d => d.JobStatusId == JOBINQUIRY ).Except(main);
+            ViewBag.LeadId = id;
+            
+
+
+            return View(leads);
+        }
+
+
+        public ActionResult QuotationLinkSelect(int id, int leadId)
+        {
+            db.SalesLeadLinks.Add(new SalesLeadLink{
+                JobMainId = id,
+                SalesLeadId = leadId
+            });
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
         #endregion
     }
 }

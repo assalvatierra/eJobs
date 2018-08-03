@@ -114,7 +114,26 @@
                             @foreach (var carList in ViewBag.InvItemsList as IEnumerable<JobsV1.Models.InvItem>)
                             {
                                 <a href="@Url.Action("addInvItem", "SupplierPoDtls", new { InvID = carList.Id, DtlsId = @item.Id })" class="list-group-item">
-                                @carList.ItemCode - @carList.Description - </a>
+                                @{
+                                    if (carList.SupplierInvItems.Where(s=>s.InvItemId == carList.Id).FirstOrDefault() == null)
+                                    {
+                                        @Html.DisplayFor(modelItem => carList.ItemCode)
+                                        <span> - </span>
+                                        @Html.DisplayFor(modelItem => carList.Description)
+
+                                    }
+                                    else
+                                    {
+
+                                        @Html.DisplayFor(modelItem => carList.ItemCode)
+                                        <span> - </span>
+                                        @Html.DisplayFor(modelItem => carList.Description)
+                                        <span> - </span>
+                                        @Html.DisplayFor(modelItem => carList.SupplierInvItems.Where(s => s.InvItemId == carList.Id).FirstOrDefault().Supplier.Name)
+
+                                    }
+                                }
+                                </a>
                             }
                         </div>
 
