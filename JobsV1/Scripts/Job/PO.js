@@ -14,7 +14,7 @@ function InitDatePicker() {
     var ddd1 = $('input[name="PoDate"]').val();
     $('input[name="PoDate"]').daterangepicker(
     {
-        timePicker: true,
+        timePicker: false,
         timePickerIncrement: 30,
         singleDatePicker: true,
         showDropdowns: true,
@@ -33,7 +33,7 @@ function InitDatePicker() {
     var ddd1 = $('input[name="DtRequest"]').val();
     $('input[name="DtRequest"]').daterangepicker(
     {
-        timePicker: true,
+        timePicker: false,
         timePickerIncrement: 30,
         singleDatePicker: true,
         showDropdowns: true,
@@ -52,7 +52,7 @@ function InitDatePicker() {
     var ddd1 = $('input[name="DtApproved"]').val();
     $('input[name="DtApproved"]').daterangepicker(
     {
-        timePicker: true,
+        timePicker: false,
         timePickerIncrement: 30,
         singleDatePicker: true,
         showDropdowns: true,

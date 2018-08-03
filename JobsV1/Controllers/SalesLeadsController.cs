@@ -53,10 +53,9 @@ namespace JobsV1.Controllers
                 case 3:
                     // all
                     salesLeads = db.SalesLeads.Include(s => s.Customer)
-                                .Include(s => s.SalesLeadCategories)
-                                .Include(s => s.SalesStatus).OrderByDescending(s => s.Date).Include(s => s.Customer.JobMains)
-                                .Where(s => s.SalesStatus.Where(ss => ss.SalesStatusCodeId > 0).OrderByDescending(ss => ss.SalesStatusCodeId).FirstOrDefault().SalesStatusCodeId < 8) // Current
-                                .ToList();
+                         .Include(s => s.SalesLeadCategories).Include(s => s.Customer.JobMains)
+                         .Include(s => s.SalesStatus).OrderByDescending(s => s.Date)
+                         .ToList();
                     break;
                 default:
                     // Current

@@ -39,7 +39,10 @@ namespace JobsV1.Controllers
                     CategoryList = itemCats
                 });
             }
-            return View(db.InvItems.ToList());
+
+            ViewBag.SupplierList = db.Suppliers.ToList();
+            
+            return View(db.InvItems.Include(s=>s.SupplierInvItems).ToList());
         }
 
         public ActionResult ItemSchedules()
@@ -191,6 +194,27 @@ namespace JobsV1.Controllers
             db.SaveChanges();
 
             return Json("CatRemove:", JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult AddSupplier(int id, int supId) {
+            SupplierInvItem newSupInv = new SupplierInvItem();
+            newSupInv.InvItemId = id;
+            newSupInv.SupplierId = supId;
+
+            if (db.SupplierInvItems.Where(s=>s.InvItemId == id).FirstOrDefault() != null)
+            {
+                newSupInv = db.SupplierInvItems.Where(s => s.InvItemId == id).FirstOrDefault();
+                newSupInv.SupplierId = supId;
+                //update if record exist
+                db.Entry(newSupInv).State = EntityState.Modified;
+            }
+            else {
+                //add if record does not
+                db.SupplierInvItems.Add(newSupInv);
+            }
+
+            db.SaveChanges();
+            return RedirectToAction("Index", "InvItems", null);
         }
 
         #region Availability

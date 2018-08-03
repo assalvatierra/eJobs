@@ -34,16 +34,6 @@
 
     </tr>
     <tr>
-        <!--
-        <td>
-            <span style="font-weight:bold">Remarks:</span>
-            Html.DisplayFor(modelItem => item.SupplierPoHdr.Remarks)
-        </td>
-        <td>
-            <span style="font-weight:bold">Particulars:</span>
-            Html.DisplayFor(modelItem => item.JobService.Particulars)
-        </td>
-            -->
         <td>
         </td>
         <td>
@@ -123,7 +113,8 @@
 
                             @foreach (var carList in ViewBag.InvItemsList as IEnumerable<JobsV1.Models.InvItem>)
                             {
-                                <a href="@Url.Action("addInvItem", "SupplierPoDtls", new { InvID = carList.Id, DtlsId = @item.Id })" class="list-group-item"> @carList.Description </a>
+                                <a href="@Url.Action("addInvItem", "SupplierPoDtls", new { InvID = carList.Id, DtlsId = @item.Id })" class="list-group-item">
+                                @carList.ItemCode - @carList.Description - </a>
                             }
                         </div>
 

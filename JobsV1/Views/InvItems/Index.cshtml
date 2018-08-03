@@ -20,12 +20,6 @@
         <th>
             Categories
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Remarks)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ImgPath)
-        </th>
         <th></th>
     </tr>
 
@@ -35,10 +29,11 @@
             @Html.DisplayFor(modelItem => item.ItemCode)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Description)
+            @Html.DisplayFor(modelItem => item.Description) <br /> 
+            @Html.DisplayFor(modelItem => item.Remarks)
         </td>
         <td>
-            
+            <!--List for Inv Item Categories-->
             @foreach (var cat in item.InvItemCategories as IEnumerable<JobsV1.Models.InvItemCategory>)
             {                    
                 <img src=@Url.Content(@cat.InvItemCat.ImgPath)
@@ -46,23 +41,23 @@
                                       title=@cat.InvItemCat.ImgPath />
                 <span > 
                     @Html.DisplayFor(modelItem => cat.InvItemCat.Name)
-                    @Html.ActionLink(" [ Remove ]", "CatRemove", "InvItems", new { id = cat.Id }, null) |
+                    @Html.ActionLink(" [ x ]", "CatRemove", "InvItems", new { id = cat.Id }, null) |
                 </span>
                
             }
-            <a id="catbtn" data-toggle="modal" data-target="#@item.Id" style="margin-bottom:10px;cursor:pointer" >Add</a>
-
+            <a id="catbtn" data-toggle="modal" data-target="#@item.Id" style="margin-bottom:10px;cursor:pointer" >Add Category</a>
+            <br />
+            <!--List for Inv Item Suppliers-->
+            @foreach (var supplier in item.SupplierInvItems as IEnumerable<JobsV1.Models.SupplierInvItem>)
+            {
+                @Html.DisplayFor(modelItem => supplier.Supplier.Name )
+            }
+            <a id="catbtn" data-toggle="modal" data-target="@("#sup"+@item.Id)" style="margin-bottom:10px;cursor:pointer">Add Supplier</a>
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Remarks)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ImgPath)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |         
             @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
         </td>
     </tr>
 
@@ -74,18 +69,15 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Company List</h4>
+                    <h4 class="modal-title">Items List</h4>
                 </div>
 
                 <div class="modal-body" id="modal2-content">
 
                     <div class="list-group" id="categorylist">
-
-
                         @foreach (var cat in ViewBag.CatList as IEnumerable<JobsV1.Models.InvItemCat>)
                         {
                             <a href="@Url.Action("addCategory", "InvItems", new { id = @item.Id, catid = @cat.Id })" class="list-group-item"> @cat.Name </a>
-
                         }
                     </div>
 
@@ -97,9 +89,37 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
+
+    <!-- Modal -->
+    <div class="modal fade" id="@("sup"+@item.Id)" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Supplier List</h4>
+                </div>
+
+                <div class="modal-body" id="modal2-content">
+
+                    <div class="list-group" id="categorylist">
+                        @foreach (var supplier in ViewBag.SupplierList as IEnumerable<JobsV1.Models.Supplier>)
+                        {
+                            <a href="@Url.Action("AddSupplier", "InvItems", new { id = @item.Id, supId = @supplier.Id })" class="list-group-item"> @supplier.Name </a>
+
+                        }
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
 }
 
 </table>
+
 
 
 <script type="text/javascript" src="~/Scripts/jquery-3.3.1.js"></script>
@@ -129,6 +149,10 @@
 
     function errorFunc() {
         alert('error');
+    }
+
+    function openSupModal(){
+        $('suppliers').modal('toggle');
     }
 
 </script>
