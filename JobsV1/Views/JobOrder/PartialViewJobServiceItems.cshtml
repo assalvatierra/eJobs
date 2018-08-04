@@ -13,8 +13,10 @@
         @foreach (var item in Model)
         {
             <div>
-                @Html.DisplayFor(modelItem => item.InvItem.ItemCode)
-                - @Html.DisplayFor(modelItem => item.InvItem.Description)
+                <span style="color:black;">
+                    @Html.DisplayFor(modelItem => item.InvItem.ItemCode)
+                    - @Html.DisplayFor(modelItem => item.InvItem.Description)
+                </span>
             </div>
         }
         [
