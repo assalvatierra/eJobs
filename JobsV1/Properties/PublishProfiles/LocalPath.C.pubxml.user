@@ -82,10 +82,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/28/2016 10:19:36</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>08/02/2018 22:30:44</publishTime>
+      <publishTime>08/04/2018 10:39:14</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>08/02/2018 22:30:44</publishTime>
+      <publishTime>08/04/2018 10:39:14</publishTime>
     </File>
     <File Include="bin/de/Microsoft.SqlServer.Types.resources.dll">
       <publishTime>02/21/2014 05:26:06</publishTime>
@@ -109,7 +109,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/21/2014 05:25:22</publishTime>
     </File>
     <File Include="bin/JobsV1.dll">
-      <publishTime>08/02/2018 22:30:34</publishTime>
+      <publishTime>08/03/2018 19:14:50</publishTime>
     </File>
     <File Include="bin/ko/Microsoft.SqlServer.Types.resources.dll">
       <publishTime>02/21/2014 05:27:16</publishTime>
@@ -652,7 +652,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/22/2017 21:33:14</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>08/02/2018 22:30:38</publishTime>
+      <publishTime>08/04/2018 10:39:10</publishTime>
     </File>
     <File Include="Scripts/ai.0.15.0-build58334.js">
       <publishTime>05/28/2016 10:19:38</publishTime>
@@ -694,7 +694,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/07/2017 21:05:22</publishTime>
     </File>
     <File Include="Scripts/Job/PO.js">
-      <publishTime>07/27/2018 13:58:07</publishTime>
+      <publishTime>08/03/2018 12:54:52</publishTime>
     </File>
     <File Include="Scripts/Job/Product.js">
       <publishTime>03/13/2017 17:22:20</publishTime>
@@ -1021,7 +1021,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/28/2016 10:18:58</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>08/02/2018 22:09:34</publishTime>
+      <publishTime>08/03/2018 18:03:59</publishTime>
     </File>
     <File Include="Views/InvItems/Availability.cshtml">
       <publishTime>07/31/2018 16:43:21</publishTime>
@@ -1039,7 +1039,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/04/2018 22:37:18</publishTime>
     </File>
     <File Include="Views/InvItems/Index.cshtml">
-      <publishTime>07/31/2018 16:30:12</publishTime>
+      <publishTime>08/03/2018 18:03:59</publishTime>
     </File>
     <File Include="Views/InvItems/ItemList_byServiceId.cshtml">
       <publishTime>07/11/2018 20:59:00</publishTime>
@@ -1159,7 +1159,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/02/2018 22:09:34</publishTime>
     </File>
     <File Include="Views/JobOrder/Index.cshtml">
-      <publishTime>07/31/2018 16:43:21</publishTime>
+      <publishTime>08/04/2018 10:37:53</publishTime>
     </File>
     <File Include="Views/JobOrder/InitializePO.cshtml">
       <publishTime>07/27/2018 13:58:07</publishTime>
@@ -1183,7 +1183,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/25/2018 17:43:08</publishTime>
     </File>
     <File Include="Views/JobOrder/PartialViewJobServiceItems.cshtml">
-      <publishTime>07/22/2018 09:56:21</publishTime>
+      <publishTime>08/04/2018 10:38:29</publishTime>
     </File>
     <File Include="Views/JobOrder/PartialViewJS.cshtml">
       <publishTime>08/02/2018 22:09:34</publishTime>
@@ -1192,13 +1192,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/01/2018 17:24:35</publishTime>
     </File>
     <File Include="Views/JobOrder/PartialViewServiceList.cshtml">
-      <publishTime>07/27/2018 13:58:07</publishTime>
+      <publishTime>08/04/2018 10:34:04</publishTime>
     </File>
     <File Include="Views/JobOrder/PartialViewServiceSupPo.cshtml">
       <publishTime>07/25/2018 17:43:08</publishTime>
     </File>
     <File Include="Views/JobOrder/PartialViewSrvActionItems.cshtml">
-      <publishTime>07/02/2018 15:40:31</publishTime>
+      <publishTime>08/04/2018 10:18:56</publishTime>
     </File>
     <File Include="Views/JobOrder/PoDetails.cshtml">
       <publishTime>07/25/2018 17:43:08</publishTime>
@@ -1432,7 +1432,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/02/2018 22:09:34</publishTime>
     </File>
     <File Include="Views/SalesLeads/Index.cshtml">
-      <publishTime>08/02/2018 22:09:34</publishTime>
+      <publishTime>08/03/2018 18:03:59</publishTime>
     </File>
     <File Include="Views/SalesLeads/ListActivityCodes.cshtml">
       <publishTime>06/23/2018 22:36:55</publishTime>
@@ -1442,6 +1442,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Views/SalesLeads/QuotationEdit.cshtml">
       <publishTime>07/31/2018 16:30:12</publishTime>
+    </File>
+    <File Include="Views/SalesLeads/QuotationLink.cshtml">
+      <publishTime>08/03/2018 18:03:59</publishTime>
     </File>
     <File Include="Views/SalesLeads/SalesLeadCat.cshtml">
       <publishTime>06/21/2018 20:29:44</publishTime>
@@ -1489,7 +1492,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/23/2018 17:30:43</publishTime>
     </File>
     <File Include="Views/SupplierPoDtls/Index.cshtml">
-      <publishTime>08/02/2018 22:09:34</publishTime>
+      <publishTime>08/03/2018 18:03:59</publishTime>
     </File>
     <File Include="Views/SupplierPoDtls/ItemCreate.cshtml">
       <publishTime>07/27/2018 13:58:07</publishTime>
@@ -1504,7 +1507,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/23/2018 17:30:43</publishTime>
     </File>
     <File Include="Views/SupplierPoHdrs/Edit.cshtml">
-      <publishTime>07/23/2018 17:30:43</publishTime>
+      <publishTime>08/03/2018 12:54:52</publishTime>
     </File>
     <File Include="Views/SupplierPoHdrs/Index.cshtml">
       <publishTime>07/27/2018 14:40:45</publishTime>
@@ -1522,7 +1525,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/07/2016 14:04:48</publishTime>
     </File>
     <File Include="Views/Suppliers/Index.cshtml">
-      <publishTime>08/30/2016 14:33:16</publishTime>
+      <publishTime>08/03/2018 18:03:59</publishTime>
+    </File>
+    <File Include="Views/Suppliers/InvItems.cshtml">
+      <publishTime>08/03/2018 18:03:59</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>05/28/2016 10:18:58</publishTime>
@@ -1531,7 +1537,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/28/2016 10:18:58</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>08/02/2018 22:30:37</publishTime>
+      <publishTime>08/03/2018 19:14:55</publishTime>
     </File>
   </ItemGroup>
 </Project>

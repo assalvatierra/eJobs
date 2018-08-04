@@ -3,8 +3,15 @@
 <div style="padding-left:1.5em;">
 
 @foreach (var item in Model) {
+    DateTime dtstart = (DateTime) item.Service.DtStart;
+    DateTime dtend = (DateTime)item.Service.DtEnd;
+
     <div>
         <div style="background-color:lightgray;padding:0.5em;">
+            <span style="font:bold 11px;color:darkblue;">
+                @dtstart.ToString("MMM-dd") to
+                @dtend.ToString("MMM-dd") 
+            </span>  
             <span style="font-weight:600;color:darkblue;">@item.Service.Particulars</span>
             <span>
 
