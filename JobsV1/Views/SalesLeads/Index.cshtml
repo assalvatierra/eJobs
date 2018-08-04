@@ -189,7 +189,8 @@
 
 <p>
     Filters:
-    @Html.ActionLink("Current", "Index", null, null) |
+    @Html.ActionLink("New Lead", "Index", null, null) |
+    @Html.ActionLink("OnGoing", "Index", new { sortid = 4 }) |
     @Html.ActionLink("Accepted", "Index", new { sortid = 1 }) |
     @Html.ActionLink("Closed", "Index", new { sortid = 2 }) |
     @Html.ActionLink("All", "Index", new { sortid = 3 }, null)

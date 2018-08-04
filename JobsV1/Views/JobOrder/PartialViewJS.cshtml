@@ -39,6 +39,9 @@
     function successFunc(actionid) {
         //alert("Successfully Done!");
         $("#" + actionid).hide();
+        $("#" + actionid).css("color", "gray");
+        $("#" + actionid).css("background-color", "gray");
+       // location.reload();
     }
 
     function errorFunc() {

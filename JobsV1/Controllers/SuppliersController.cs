@@ -136,8 +136,33 @@ namespace JobsV1.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult InvItems(int id) {
+        public ActionResult InvItems(int id)
+        {
+            ViewBag.SupplierId = id;
+            ViewBag.SupplierName = db.Suppliers.Find(id).Name;
+            ViewBag.ItemList = db.InvItems.ToList();
             return View(db.SupplierInvItems.Where(s=>s.SupplierId == id).ToList());
+        }
+
+        public ActionResult AddInvItems(int InvID, int supID) {
+            db.SupplierInvItems.Add(new SupplierInvItem {
+                InvItemId = InvID,
+                SupplierId = supID
+            });
+            db.SaveChanges();
+
+            return RedirectToAction("InvItems", "Suppliers", new { id = supID });
+        }
+
+
+        public ActionResult RemoveInvItems(int id)
+        {
+            SupplierInvItem item = db.SupplierInvItems.Find(id);
+            db.SupplierInvItems.Remove(item);
+
+            db.SaveChanges();
+
+            return RedirectToAction("InvItems", "Suppliers", new { id = item.SupplierId });
         }
     }
 }

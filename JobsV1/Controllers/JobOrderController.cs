@@ -9,6 +9,7 @@ using JobsV1.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
+using System.Data.Entity.Core.Objects;
 
 namespace JobsV1.Controllers
 {
@@ -57,7 +58,7 @@ namespace JobsV1.Controllers
 
         private JobDBContainer db = new JobDBContainer();
         // GET: JobOrder
-        public ActionResult Index()
+        public ActionResult Index(int? sortid)
         {
             IQueryable<Models.JobMain> jobMains = db.JobMains
                 .Include(j => j.Customer)
@@ -65,7 +66,34 @@ namespace JobsV1.Controllers
                 .Include(j => j.JobStatus)
                 .Include(j => j.JobThru)
                 .OrderBy(d => d.JobDate);
-            jobMains = (IQueryable<Models.JobMain>)jobMains.Where(d => d.JobStatusId == JOBRESERVATION || d.JobStatusId == JOBCONFIRMED);
+
+            switch (sortid) {
+                case 1: //OnGoing
+                    jobMains = (IQueryable<Models.JobMain>)jobMains
+                        .Where(d => (d.JobStatusId == JOBRESERVATION || d.JobStatusId == JOBCONFIRMED)
+                        && (d.JobDate.CompareTo(DateTime.Today) >= 0));
+                    break;
+                case 2: //Previous
+                    jobMains = (IQueryable<Models.JobMain>)jobMains
+                        .Where(d => (d.JobStatusId == JOBRESERVATION || d.JobStatusId == JOBCONFIRMED)
+                        ).Where(p => DbFunctions.AddDays(p.JobDate, 60) > DateTime.Today && DbFunctions.AddDays(p.JobDate, 0) < DateTime.Today);
+                    break;
+                case 3: //Closed (60 days below)
+                    jobMains = (IQueryable<Models.JobMain>)jobMains
+                        .Where(d => (d.JobStatusId == JOBRESERVATION || d.JobStatusId == JOBCONFIRMED)
+                        ).Where(p => DbFunctions.AddDays(p.JobDate, 60) < DateTime.Today); ;
+
+                    break;
+                default:
+                
+                    jobMains = (IQueryable<Models.JobMain>)jobMains
+                        .Where(d => (d.JobStatusId == JOBRESERVATION || d.JobStatusId == JOBCONFIRMED));
+                    break;
+            }
+
+
+            
+
             List<cjobCounter> jobActionCntr = getJobActionCount(jobMains.Select(d => d.Id).ToList());
             var data = new List<cJobOrder>();
 
@@ -95,6 +123,7 @@ namespace JobsV1.Controllers
                 joTmp.ActionCounter = jobActionCntr.Where(d => d.JobId == joTmp.Main.Id).ToList();
 
                 data.Add(joTmp);
+                
             }
 
             List<Customer> customers = db.Customers.ToList();
@@ -262,7 +291,38 @@ order by x.jobid
             ViewBag.JobThruId = new SelectList(db.JobThrus, "Id", "Desc", jobMain.JobThruId);
             return View(jobMain);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult JobDetails([Bind(Include = "Id,JobDate,CustomerId,Description,NoOfPax,NoOfDays,AgreedAmt,JobRemarks,JobStatusId,StatusRemarks,BranchId,JobThruId,CustContactEmail,CustContactNumber")] JobMain jobMain)
+        {
+            if (ModelState.IsValid)
+            {
+                if (jobMain.CustContactEmail == null && jobMain.CustContactNumber == null)
+                {
+                    var cust = db.Customers.Find(jobMain.CustomerId);
+                    jobMain.CustContactEmail = cust.Email;
+                    jobMain.CustContactNumber = cust.Contact1;
+                }
 
+                db.Entry(jobMain).State = EntityState.Modified;
+                db.SaveChanges();
+
+                //if (jobMain.Customer.Name == "<< New Customer >>")
+                if (jobMain.CustomerId == NewCustSysId)
+                    return RedirectToAction("CreateCustomer", new { jobid = jobMain.Id });
+                else
+                    return RedirectToAction("Index");
+                //return RedirectToAction("Services", "JobServices", new { id = jobMain.Id });
+                //return RedirectToAction("Index");
+
+            }
+
+            ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status == "ACT"), "Id", "Name", jobMain.CustomerId);
+            ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name", jobMain.BranchId);
+            ViewBag.JobStatusId = new SelectList(db.JobStatus, "Id", "Status", jobMain.JobStatusId);
+            ViewBag.JobThruId = new SelectList(db.JobThrus, "Id", "Desc", jobMain.JobThruId);
+            return View(jobMain);
+        }
 
         // GET: JobMains/Create
         public ActionResult jobCreate(int? id)

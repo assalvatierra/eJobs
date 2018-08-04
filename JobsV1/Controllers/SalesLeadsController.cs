@@ -57,12 +57,23 @@ namespace JobsV1.Controllers
                          .Include(s => s.SalesStatus).OrderByDescending(s => s.Date)
                          .ToList();
                     break;
-                default:
-                    // Current
+
+                case 4:
+                    // OnGiong
                     salesLeads = db.SalesLeads.Include(s => s.Customer)
                                 .Include(s => s.SalesLeadCategories)
                                 .Include(s => s.SalesStatus).OrderByDescending(s => s.Date).Include(s => s.Customer.JobMains)
-                                .Where(s => s.SalesStatus.Where(ss => ss.SalesStatusCodeId > 0).OrderByDescending(ss => ss.SalesStatusCodeId).FirstOrDefault().SalesStatusCodeId < 5) // Current
+                                .Where(s => s.SalesStatus.Where(ss => ss.SalesStatusCodeId > 2)
+                                .OrderByDescending(ss => ss.SalesStatusCodeId).FirstOrDefault().SalesStatusCodeId < 5) // Current
+                                .ToList();
+                    break;
+                default:
+                    // new Leads
+                    salesLeads = db.SalesLeads.Include(s => s.Customer)
+                                .Include(s => s.SalesLeadCategories)
+                                .Include(s => s.SalesStatus).OrderByDescending(s => s.Date).Include(s => s.Customer.JobMains)
+                                .Where(s => s.SalesStatus.Where(ss => ss.SalesStatusCodeId > 0)
+                                .OrderByDescending(ss => ss.SalesStatusCodeId).FirstOrDefault().SalesStatusCodeId < 3) // Current
                                 .ToList();
                     /*
                     salesLeads = db.SalesLeads.Include(s => s.Customer)
