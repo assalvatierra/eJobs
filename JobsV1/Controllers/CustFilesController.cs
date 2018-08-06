@@ -178,7 +178,7 @@ namespace JobsV1.Controllers
                     //  ~/Images/CustomerFiles/(customerid)/filename.png Path.GetFileName(file.FileName)
                     string path = Path.Combine(Server.MapPath("~/Images/CustomerFiles/"+custFiles.CustomerId),
                                                Path.GetFileName(file.FileName));
-                    string directory = "http://localhost:50382/Images/CustomerFiles/" + custFiles.CustomerId + "/";
+                    string directory = Request.Url.GetLeftPart(UriPartial.Authority) + "/Images/CustomerFiles/" + custFiles.CustomerId + "/";
                     if (ModelState.IsValid)
                     {
                         custFiles.Folder = custFiles.CustomerId.ToString(); // ~/customerid

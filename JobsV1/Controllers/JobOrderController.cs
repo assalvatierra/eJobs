@@ -58,7 +58,7 @@ namespace JobsV1.Controllers
 
         private JobDBContainer db = new JobDBContainer();
         // GET: JobOrder
-        public ActionResult Index(int? sortid)
+        public ActionResult Index(int? sortid, int? serviceId)
         {
             IQueryable<Models.JobMain> jobMains = db.JobMains
                 .Include(j => j.Customer)
@@ -129,6 +129,11 @@ namespace JobsV1.Controllers
             List<Customer> customers = db.Customers.ToList();
             ViewBag.companyList = customers;
 
+           
+            var jobmainId = serviceId != null ? db.JobServices.Find(serviceId).JobMainId : 0;
+
+            ViewBag.mainId = jobmainId;
+            
             return View(data);
         }
 
@@ -690,12 +695,13 @@ order by x.jobid
 
                
                var updates = db.Database.SqlQuery<DailyUpdate>(@"
+                    
                     select
                     'New SalesLead' as StatusCategory, 
                     a.DtEntered dtTaken,  
                     a.Id refId, a.CustName + ' / ' + a.Details Details 
                     from SalesLeads a
-                    where datediff(day, getdate(),a.DtEntered) > -2
+                    where datediff(day, getdate(),a.DtEntered) > - 1
 
                     union
 
@@ -703,10 +709,58 @@ order by x.jobid
                     'SalesLead Activity' as StatusCategory,
                     a.DtActivity dtTaken,
                     a.SalesLeadId refId,
-                    a.Particulars Details
+                    c.Name + ' - ' + a.Particulars Details
                     from 
                     SalesActivities a
-                    where a.SalesActStatusId=2 AND datediff(day, getdate(),a.DtActivity) > -2;
+                    left join SalesLeads as s on s.Id = a.SalesLeadId 
+                    left join Customers as c on c.Id = s.CustomerId 
+                    where a.SalesActStatusId=2 AND datediff(day, getdate(),a.DtActivity) > -2
+
+                    union
+
+                    select 
+                    'SalesStatus Activity' as StatusCategory,
+                    a.DtStatus dtTaken,
+                    a.SalesLeadId refId,
+                    s.CustName + ' - ' + s.Details + ' - '+ sc.Name as Details
+                    from 
+                    SalesStatus a
+                    left join SalesLeads as s on s.Id = a.SalesLeadId 
+                    left join Customers as c on c.Id = s.CustomerId 
+                    left join SalesStatusCodes as sc on sc.Id = a.SalesStatusCodeId 
+                    where datediff(day, getdate(),a.DtStatus) > -1
+
+                    union
+
+                    select 
+                    'New JobOrder' as StatusCategory,
+                    j.JobDate as dtTaken,
+                    j.Id as refId,
+                    c.Name +' - '+ j.Description as Details
+                    from 
+                    JobMains j 
+                    left join Customers as c on c.Id = j.CustomerId 
+                    where datediff(day, getdate(),j.JobDate) > - 1
+
+                    union
+
+                    select 
+                    'JobOrder Activity' as StatusCategory,
+                    j.DtPerformed as dtTaken,
+                    j.JobServicesId as refId,
+                    cu.Name +' - '+ js.Particulars +' / '+ 
+                    c.CatCode +' - '+ j.Remarks as Details
+                    from 
+                    JobActions j 
+                    left join SrvActionItems as s on s.Id = j.SrvActionItemId 
+                    left join SrvActionCodes as c on c.Id = s.SrvActionCodeId 
+                    left join JobServices as js on js.Id = j.JobServicesId 
+                    left join JobMains as m on m.Id = js.JobMainId 
+                    left join Customers as cu on cu.Id = m.CustomerId 
+
+                    where datediff(day, getdate(),j.DtPerformed) > - 1
+                    Order by dtTaken
+                    ;
                     ").ToList();
 
                 return View(updates);

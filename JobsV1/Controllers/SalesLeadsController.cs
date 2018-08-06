@@ -83,9 +83,9 @@ namespace JobsV1.Controllers
                          */
                     break;
             }
-            
-            
 
+
+            ViewBag.CurrentFilter = sortid;
             ViewBag.StatusCodes = db.SalesStatusCodes.ToList();
 
             return View(salesLeads);
@@ -287,7 +287,7 @@ namespace JobsV1.Controllers
             {
                 db.Database.ExecuteSqlCommand(@"
                 Insert into SalesStatus([DtStatus],[SalesStatusCodeId],[SalesLeadId])
-                Values('" + DateTime.Now.ToString("MM/dd/yyyy") + "','" + StatusId + "','" + slId.ToString() + @"');
+                Values('" + DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + "','" + StatusId + "','" + slId.ToString() + @"');
                 ");
 
                 strMsg = "Success";
@@ -477,7 +477,7 @@ namespace JobsV1.Controllers
                     //  ~/Images/CustomerFiles/(customerid)/filename.png Path.GetFileName(file.FileName)
                     string path = Path.Combine(Server.MapPath("~/Images/CustomerFiles/" + custFiles.CustomerId),
                                                Path.GetFileName(file.FileName));
-                    string directory = "/Images/CustomerFiles/" + custFiles.CustomerId + "/";
+                    string directory = Request.Url.GetLeftPart(UriPartial.Authority) + "/Images/CustomerFiles/" + custFiles.CustomerId + "/";
                     if (ModelState.IsValid)
                     {
                         //add customer

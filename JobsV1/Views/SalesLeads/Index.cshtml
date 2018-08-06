@@ -11,9 +11,16 @@
     @Html.ActionLink("Create New", "Create") |
     Sales Lead |
     @Html.ActionLink("Quotation", "JobLeads", "JobMains")
-
-
 </p>
+<p>
+    Filters:
+    @Html.ActionLink("New Lead", "Index", null, null) |
+    @Html.ActionLink("OnGoing", "Index", new { sortid = 4 }) |
+    @Html.ActionLink("Accepted", "Index", new { sortid = 1 }, new { @id="Accepted-Filter", @onclick= "filter();" }) |
+    @Html.ActionLink("Closed", "Index", new { sortid = 2 }) |
+    @Html.ActionLink("All", "Index", new { sortid = 3 }, null)
+</p>
+
 <table class="table">
 
 @foreach (var item in Model)
@@ -188,6 +195,11 @@
 </table>
 
 <p>
+    @Html.ActionLink("Create New", "Create") |
+    Sales Lead |
+    @Html.ActionLink("Quotation", "JobLeads", "JobMains")
+</p>
+<p>
     Filters:
     @Html.ActionLink("New Lead", "Index", null, null) |
     @Html.ActionLink("OnGoing", "Index", new { sortid = 4 }) |
@@ -195,3 +207,19 @@
     @Html.ActionLink("Closed", "Index", new { sortid = 2 }) |
     @Html.ActionLink("All", "Index", new { sortid = 3 }, null)
 </p>
+
+
+<script>
+    function filter(){
+        alert(@ViewBag.CurrentFilter);
+        switch( @ViewBag.CurrentFilter){
+            case 1:
+                $("#Accepted-Filter").css("background-color","red");
+                break;
+            case 2:
+                break;
+            default:
+                break;
+        }
+    }
+</script>

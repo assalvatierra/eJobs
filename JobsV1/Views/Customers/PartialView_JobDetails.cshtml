@@ -5,53 +5,47 @@
     int customerid = Convert.ToInt32(ViewData["customerId"]);
 }
 
-
+<br /><br /><br />
 <dl class="dl-horizontal">
-
-    <dt>
-        Job List
-    </dt>
+    
     <dd></dd>
-    @foreach (var item in Model)
-    {
-            <dt>
-                Job Date
-            </dt>
-            <dd>
-                @Html.DisplayFor(modelItem => item.JobDate)
-            </dd>
-            <dt>
-                Description
-            </dt>
-            <dd>
-                @Html.DisplayFor(modelItem => item.Description)
-            </dd>
-            <dt>
-                No of Days
-            </dt>
-            <dd>
-                @Html.DisplayFor(modelItem => item.NoOfDays) Day(s)
-            </dd>
-            <dt>
-                No of Pax
-            </dt>
-            <dd>
-                @Html.DisplayFor(modelItem => item.NoOfPax) Person(s)
-            </dd>
-            <dt>
-                Status
-            </dt>
-            <dd>
-                @Html.DisplayFor(modelItem => item.StatusRemarks)
-            </dd>
-            <dd>
-                @Html.ActionLink("Details", "Details", "JobMains", new { id = item.Id }, null)
-            </dd>
-        
-    }
+    <table  class="table table-striped">
 
-    <dd>
+        <tr style="border:1px solid lightgray">
+            <th>Job Date </th>
+            <th>Description </th>
+            <th> No of Days </th>
+            <th> No of Pax </th>
+            <th> Status </th>
+            <th>  </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+         <tr style="border:1px solid lightgray">
+            <td>
+                @Html.DisplayFor(modelItem => item.JobDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+             <td>
+                 @Html.DisplayFor(modelItem => item.NoOfDays) Day(s)
+             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoOfPax) Person(s)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StatusRemarks)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", "JobMains", new { id = item.Id }, null)
+            </td>
+        </tr>
+        }
+
+    </table>
+    <h4>
         @Html.ActionLink("Add Job", "Create", "JobMains", new { id = customerid }, null)
-    </dd>
+    </h4>
 
 </dl>

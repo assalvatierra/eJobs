@@ -13,17 +13,25 @@
     | @Html.ActionLink("Availability", "Availability", "InvItems")
 </p>
 
+<p>
+    Filters:
+    @Html.ActionLink("OnGoing", "Index", new { sortid = 1 }, null) |
+    @Html.ActionLink("Previous", "Index", new { sortid = 2 }) |
+    @Html.ActionLink("Closed", "Index", new { sortid = 3 }) 
+</p>
+
 <table class="table">
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
+    <tr >
+        <td id="main@(item.Main.Id)">
+            
             <div style="background-color:lightgray;text-align:center;">
                 <span style="color:darkblue; font: bold 12px arial, verdana;">@item.Main.JobDate.ToString("MMM-yyyy")</span>
                 <br /><span style="color:blue; font: bold 28px arial, verdana;">@item.Main.JobDate.ToString("dd")</span>
                 <span style="color:blue; font: bold 12px arial, verdana;">(@item.Main.JobDate.ToString("ddd"))</span>
                 <br /><br /><span style="color:red; font: normal 18px arial, verdana;">&nbsp;</span>
-
+                <span >@item.Main.Id</span>
             </div>
         </td>
 
@@ -57,7 +65,9 @@
                 ]
                 <br />
                 <span style="font:500 10px;color:darkblue;">
-                    @item.Main.Description
+                   <!--
+                    item.Main.Description
+                     -->
                 </span>
 
             </div>
@@ -97,17 +107,24 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 }
-
 </table>
 
+<span id="target">test</span>
 @Html.Partial("PartialViewJS")
 
+
+<p>
+    @Html.ActionLink("Create New", "jobCreate", null, null)
+    | Work In Progress
+    | @Html.ActionLink("Job Table", "JobTable", "JobMains", new { span = 30 }, null)
+    | @Html.ActionLink("Availability", "Availability", "InvItems")
+</p>
 
 <p>
     Filters:
     @Html.ActionLink("OnGoing", "Index", new { sortid = 1 },null) |
     @Html.ActionLink("Previous", "Index", new { sortid = 2 }) |
-    @Html.ActionLink("Closed", "Index", new { sortid = 3 }) |
+    @Html.ActionLink("Closed", "Index", new { sortid = 3 }) 
 </p>
 
 
@@ -116,7 +133,12 @@
     <script type="text/javascript">
         $(document).ready(function () {
             initialize();
+
+            $('html, body').animate({
+                scrollTop: $("#main@(ViewBag.mainId)").offset().top - 50 
+            }, 1000);
         });
+
 
     </script>
 

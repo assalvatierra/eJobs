@@ -8,10 +8,12 @@
 
     <div>
         <div style="background-color:lightgray;padding:0.5em;">
+            <!--
             <span style="font:bold 11px;color:darkblue;">
-                @dtstart.ToString("MMM-dd") to
-                @dtend.ToString("MMM-dd") 
-            </span>  
+                dtstart.ToString("MMM-dd") to
+                dtend.ToString("MMM-dd") 
+            </span> 
+             -->
             <span style="font-weight:600;color:darkblue;">@item.Service.Particulars</span>
             <span>
 
@@ -27,5 +29,6 @@
             @Html.Partial("PartialViewServiceSupPo", item.SupplierPos, new ViewDataDictionary(this.ViewData) { { "svcId1", item.Service.Id } })
         </div>
     </div>
+
 }
 </div>
