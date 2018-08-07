@@ -12,6 +12,11 @@
 | Job Table
 | @Html.ActionLink("Availability", "Availability", "InvItems")
 
+<p>
+    Sort By :
+    @Html.ActionLink("Latest", "JobTable", "JobMains",new { filter = 1 },null)
+
+</p>
 <table class="table" style="white-space:nowrap;">
     <tr>
         <td>
@@ -35,6 +40,10 @@
             {
                 <span class="userClient">
                     @Html.ActionLink(item.Customer.Name, "Edit", "Customers",new { id = item.CustomerId },null)
+                </span>
+                <br />
+                <span>
+                    @Html.DisplayFor(itemModel => item.JobDate)
                 </span>
             }
             else
@@ -71,7 +80,7 @@
                     <img src="~/Images/Phone001.png" width="20" />
                     <a href="tel:@item.Customer.Contact1">@item.Customer.Contact1</a>
                 </span>
-</td>
+        </td>
 
 
         @foreach (var sLabel in ViewBag.ColLabels)

@@ -60,6 +60,9 @@
             Particulars
         </th>
         <th>
+            Supplier Items
+        </th>
+        <th>
             Supplier
         </th>
         <th></th>
@@ -88,6 +91,17 @@
             <br />[Quote: @Html.DisplayFor(modelItem => item.QuotedAmt)]
             <br />[Supplier: @Html.DisplayFor(modelItem => item.SupplierAmt)]
             <br />[Remarks: @Html.DisplayFor(modelItem => item.Remarks)]
+        </td>
+        <td>
+            @foreach (var supitem in item.Supplier.SupplierInvItems)
+            {
+
+                @Html.DisplayFor(modelItem => supitem.InvItem.Description)
+                <br />
+                <span>[</span>
+                @Html.DisplayFor(modelItem => supitem.InvItem.Remarks)
+                <span>]</span>
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Supplier.Name)
