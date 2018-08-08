@@ -104,6 +104,8 @@ namespace JobsV1.Controllers
             return View(data);
         }
 
+        
+
         protected DateTime GetCurrentTime()
         {
             DateTime serverTime = DateTime.Now;
@@ -786,6 +788,23 @@ namespace JobsV1.Controllers
 
         #endregion
 
+
+        #region  JobQuickList
+        public ActionResult JobQuickList()
+        {
+            IQueryable<Models.JobMain> jobMains = db.JobMains.Include(j => j.Customer).Include(j => j.Branch).Include(j => j.JobStatus).Include(j => j.JobThru).OrderBy(d => d.JobDate);
+            jobMains = (IQueryable<Models.JobMain>)jobMains.Where(d => (d.JobStatusId == JOBRESERVATION || d.JobStatusId == JOBCONFIRMED) && d.JobDate.CompareTo(DateTime.Today) < 0  );
+
+            var p = jobMains.Select(s => s.Id);
+
+            var data = db.JobServices.Where(w => p.Contains(w.JobMainId)).ToList().OrderBy(s => s.DtStart);
+
+
+            ViewBag.Current = this.GetCurrentTime().ToString("MMM-dd-yyyy (ddd)");
+
+            return View(data);
+        }
+        #endregion
     }
 
 

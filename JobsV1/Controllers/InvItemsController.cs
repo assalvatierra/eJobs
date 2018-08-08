@@ -21,7 +21,7 @@ namespace JobsV1.Controllers
             List<InvItemCat> InvCats = db.InvItemCats.ToList();
             ViewBag.CatList = InvCats;
 
-            List<InvItem> ItemList = db.InvItems.ToList();
+            List<InvItem> ItemList = db.InvItems.Where(d=>d.Remarks == "").ToList();
 
             List<InvItemsModified> InvListMod = new List<InvItemsModified>();
 

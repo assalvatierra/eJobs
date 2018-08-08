@@ -128,9 +128,7 @@ namespace JobsV1.Controllers
 
             List<Customer> customers = db.Customers.ToList();
             ViewBag.companyList = customers;
-
-            ViewBag.JobServicePickup = db.JobServicePickups.Where(s=>s.JobService.JobMain.Id == )
-           
+            
             var jobmainId = serviceId != null ? db.JobServices.Find(serviceId).JobMainId : 0;
 
             ViewBag.mainId = jobmainId;
