@@ -74,7 +74,7 @@
             <div>
                 @Html.Partial("PartialViewServiceList", item.Services)
             </div>
-
+           
             @Html.ActionLink("[ Add New Service ]", "JobServiceAdd", new { JobMainId = item.Main.Id }, null)
         </td>
     </tr>
@@ -109,7 +109,6 @@
 }
 </table>
 
-<span id="target">test</span>
 @Html.Partial("PartialViewJS")
 
 
@@ -136,7 +135,7 @@
 
             $('html, body').animate({
                 scrollTop: $("#main@(ViewBag.mainId)").offset().top - 50 
-            }, 1000);
+            }, 500);
         });
 
 

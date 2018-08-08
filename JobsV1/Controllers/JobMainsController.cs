@@ -538,7 +538,7 @@ namespace JobsV1.Controllers
                 cust.iJobId = item.Id;
 
                 List<Models.JobServices> svc = db.JobServices.Include(j => j.JobServicePickups).Where(d => d.JobMainId == item.Id).ToList();
-
+               
                 for (DateTime dtItem = dtStart; dtItem.CompareTo(dtUntil) < 0; dtItem = dtItem.AddDays(1))
                 {
                     foreach (var svcitem in svc)
@@ -617,7 +617,7 @@ namespace JobsV1.Controllers
             ViewBag.ColLabels = ColLabels;
             ViewBag.ColValues = CustData;
 
-            return View(jobMains.ToList());
+            return View(jobMains.ToList().Where(j=>j.JobDate.CompareTo(DateTime.Today) > 0));
 
         }
 

@@ -40,7 +40,14 @@ namespace JobsV1.Controllers
                 });
             }
 
-            ViewBag.SupplierList = db.Suppliers.ToList();
+            List<Supplier> suppliers = new List<Supplier>();
+            if (db.Suppliers.ToList() != null) {
+                suppliers = db.Suppliers.ToList();
+            } else {
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.SupplierList = suppliers;
             
             return View(db.InvItems.Include(s=>s.SupplierInvItems).ToList());
         }
