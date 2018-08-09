@@ -121,7 +121,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", new { sortid = 1, serviceId = @ViewBag.svcId }, null)
 </div>
 
 @section Scripts {

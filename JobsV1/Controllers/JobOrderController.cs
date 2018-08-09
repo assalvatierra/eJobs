@@ -58,7 +58,7 @@ namespace JobsV1.Controllers
 
         private JobDBContainer db = new JobDBContainer();
         // GET: JobOrder
-        public ActionResult Index(int? sortid, int? serviceId)
+        public ActionResult Index(int? sortid, int? serviceId, int? mainid)
         {
 
             if (sortid != null)
@@ -138,9 +138,11 @@ namespace JobsV1.Controllers
 
             List<Customer> customers = db.Customers.ToList();
             ViewBag.companyList = customers;
-            
+
             var jobmainId = serviceId != null ? db.JobServices.Find(serviceId).JobMainId : 0;
 
+            jobmainId = mainid != null ? (int)mainid : jobmainId;
+            
             ViewBag.mainId = jobmainId;
             
             return View(data);
@@ -185,6 +187,7 @@ order by x.jobid
         {
             var data = db.JobServiceItems.Where(d => d.JobServicesId == serviceId).Include(j => j.InvItem).ToList();
             ViewBag.hdrdata = db.JobServices.Find(serviceId);
+            ViewBag.svcId = serviceId;
             return View(data); 
         }
 
@@ -234,19 +237,19 @@ order by x.jobid
             }
 
             ViewBag.Status = new SelectList(StatusList, "value", "text", data.Status);
-
+            ViewBag.mainid = jobid;
             return View(data);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CompanyDetail([Bind(Include = "Id,Name,Email,Contact1,Contact2,Remarks,Status")] Customer customer)
+        public ActionResult CompanyDetail([Bind(Include = "Id,Name,Email,Contact1,Contact2,Remarks,Status")] Customer customer, int mainid)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(customer).State = EntityState.Modified;
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { sortd= 1, mainid = mainid});
             }
             ViewBag.Status = new SelectList(StatusList, "value", "text", customer.Status);
 
@@ -299,6 +302,7 @@ order by x.jobid
         public ActionResult JobDetails(int jobid)
         {
             var jobMain = db.JobMains.Find(jobid);
+            ViewBag.mainid = jobid;
             ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status == "ACT"), "Id", "Name", jobMain.CustomerId);
             ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name", jobMain.BranchId);
             ViewBag.JobStatusId = new SelectList(db.JobStatus, "Id", "Status", jobMain.JobStatusId);
@@ -320,15 +324,8 @@ order by x.jobid
 
                 db.Entry(jobMain).State = EntityState.Modified;
                 db.SaveChanges();
-
-                //if (jobMain.Customer.Name == "<< New Customer >>")
-                //if (jobMain.CustomerId == NewCustSysId)
-                //    return RedirectToAction("CreateCustomer", new { jobid = jobMain.Id });
-                //else
-                //    return RedirectToAction("Index");
-                //return RedirectToAction("Services", "JobServices", new { id = jobMain.Id });
-
-                return RedirectToAction("Index");
+                
+                return RedirectToAction("Index", new { sortd = 1, mainid = jobMain.Id });
 
             }
 
@@ -455,7 +452,7 @@ order by x.jobid
                 db.SaveChanges();
                 #endregion
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { sortid= 1, serviceId = SrcId });
             }
 
             ViewBag.SupplierId = new SelectList(db.Suppliers, "Id", "Name", supplierPoHdr.SupplierId);
@@ -488,7 +485,7 @@ order by x.jobid
             js.DtStart = dtTmp;
             js.DtEnd = dtTmp.AddDays(job.NoOfDays - 1).AddHours(10);
             js.Remarks = "10hrs use per day P250 in excess, Driver and Fuel Included";
-
+            ViewBag.id = JobMainId;
             ViewBag.JobMainId = new SelectList(db.JobMains, "Id", "Description",job.Description);
             ViewBag.SupplierId = new SelectList(db.Suppliers, "Id", "Name");
             ViewBag.ServicesId = new SelectList(db.Services, "Id", "Name");
@@ -530,6 +527,7 @@ order by x.jobid
             {
                 return HttpNotFound();
             }
+            ViewBag.svcId = jobServices.Id;
             ViewBag.JobMainId = new SelectList(db.JobMains, "Id", "Description", jobServices.JobMainId);
             ViewBag.SupplierId = new SelectList(db.Suppliers, "Id", "Name", jobServices.SupplierId);
             ViewBag.ServicesId = new SelectList(db.Services, "Id", "Name", jobServices.ServicesId);
@@ -571,7 +569,8 @@ order by x.jobid
             ViewBag.SupplierId = new SelectList(db.Suppliers, "Id", "Name", jobServices.SupplierId);
             ViewBag.ServicesId = new SelectList(db.Services, "Id", "Name", jobServices.ServicesId);
             ViewBag.SupplierItemId = new SelectList(db.SupplierItems, "Id", "Description", jobServices.SupplierItemId);
-            return RedirectToAction("Index", "JobOrder");
+
+            return RedirectToAction("Index", new { sortid = 1, serviceId = jobServices.Id });
 
         }
 
@@ -587,6 +586,7 @@ order by x.jobid
             {
                 return HttpNotFound();
             }
+            ViewBag.svcId = id;
             return View(jobServices);
         }
 
@@ -605,6 +605,74 @@ order by x.jobid
             dbc.addNotification("Job Order","Test");
             return RedirectToAction("Index", "JobOrder", new { sortid = 1 });
         }
+
+
+        public ActionResult InitServicePickup(int? id)
+        {
+            Models.JobServicePickup svcpu;
+
+            Models.JobServices svc = db.JobServices.Find(id);
+            if (svc.JobServicePickups.FirstOrDefault() == null)
+            {
+                svcpu = new JobServicePickup();
+                svcpu.JobServicesId = svc.Id;
+                svcpu.JsDate = svc.JobMain.JobDate;
+                svcpu.JsTime = svc.JobMain.JobDate.ToString("hh:mm:00");
+                svcpu.ClientName = svc.JobMain.Description;
+                svcpu.ClientContact = svc.JobMain.CustContactNumber;
+                svcpu.ProviderName = svc.SupplierItem.InCharge;
+                svcpu.ProviderContact = svc.SupplierItem.Tel1
+                    + (svc.SupplierItem.Tel2 == null ? "" : "/" + svc.SupplierItem.Tel2)
+                    + (svc.SupplierItem.Tel3 == null ? "" : "/" + svc.SupplierItem.Tel3);
+
+                db.JobServicePickups.Add(svcpu);
+                db.SaveChanges();
+            }
+            else
+            {
+                svcpu = svc.JobServicePickups.FirstOrDefault();
+            }
+
+            return RedirectToAction("JobServicePickup", new { id = svcpu.Id });
+        }
+
+
+        public ActionResult JobServicePickup(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            JobServicePickup jobServicePickup = db.JobServicePickups.Find(id);
+            if (jobServicePickup == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.Contact = db.JobContacts.Where(d => d.ContactType == "100").ToList();
+            ViewBag.svcId = jobServicePickup.JobServicesId;
+            return View(jobServicePickup);
+        }
+
+
+        [HttpPost, ActionName("JobServicePickup")]
+        public ActionResult JobServicePickup([Bind(Include = "Id,JobServicesId,JsDate,JsTime,JsLocation,ClientName,ClientContact,ProviderName,ProviderContact")] JobServicePickup jobServicePickup)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(jobServicePickup).State = EntityState.Modified;
+                db.SaveChanges();
+
+                int ij = db.JobServices.Find(jobServicePickup.JobServicesId).JobMainId;
+
+                return RedirectToAction("Index", new { sortd = 1, serviceid = jobServicePickup.JobServicesId });
+            }
+            //ViewBag.JobServicesId = new SelectList(db.JobServices, "Id", "Particulars", jobServicePickup.JobServicesId);
+
+            return View(jobServicePickup);
+
+        }
+
         #endregion
 
         #region supplier

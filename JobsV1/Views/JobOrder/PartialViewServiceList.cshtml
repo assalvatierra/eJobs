@@ -30,15 +30,16 @@
             @Html.Partial("PartialViewServiceSupPo", item.SupplierPos, new ViewDataDictionary(this.ViewData) { { "svcId1", item.Service.Id } })
         </div>
     </div>
-
-             <!-- Add Pickup Details -->
+        
+    <!-- Add Pickup Details -->
     JobsV1.Models.JobServicePickup pickup = item.Service.JobServicePickups.FirstOrDefault();
-
+        
     <p>
+        @Html.ActionLink("Pickup Details", "InitServicePickup", new { id = item.Service.Id }) |
         @if (pickup != null)
                 {
-            <span style="font:bold 12px arial, verdana;">
-                Pickup Details: 
+            <span style="font:normal 11px arial, verdana;">
+                
                 [ Time: @pickup.JsTime @pickup.JsLocation ]  &nbsp; &nbsp;
                 [ Contact: @pickup.ClientName / <a href="tel:@pickup.ClientContact">@pickup.ClientContact</a> ] &nbsp; &nbsp;
                 [ InCharge: @pickup.ProviderName / <a href="tel:@pickup.ProviderContact">@pickup.ProviderContact</a> ]
