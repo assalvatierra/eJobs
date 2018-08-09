@@ -60,6 +60,16 @@ namespace JobsV1.Controllers
         // GET: JobOrder
         public ActionResult Index(int? sortid, int? serviceId)
         {
+
+            if (sortid != null)
+                Session["FilterID"] = (int)sortid;
+            else
+            {
+                if (Session["FilterID"] != null)
+                    sortid = (int)Session["FilterID"];
+            }
+
+
             IQueryable<Models.JobMain> jobMains = db.JobMains
                 .Include(j => j.Customer)
                 .Include(j => j.Branch)
@@ -312,12 +322,13 @@ order by x.jobid
                 db.SaveChanges();
 
                 //if (jobMain.Customer.Name == "<< New Customer >>")
-                if (jobMain.CustomerId == NewCustSysId)
-                    return RedirectToAction("CreateCustomer", new { jobid = jobMain.Id });
-                else
-                    return RedirectToAction("Index");
+                //if (jobMain.CustomerId == NewCustSysId)
+                //    return RedirectToAction("CreateCustomer", new { jobid = jobMain.Id });
+                //else
+                //    return RedirectToAction("Index");
                 //return RedirectToAction("Services", "JobServices", new { id = jobMain.Id });
-                //return RedirectToAction("Index");
+
+                return RedirectToAction("Index");
 
             }
 
@@ -373,12 +384,14 @@ order by x.jobid
                 db.JobMains.Add(jobMain);
                 db.SaveChanges();
 
-                if (jobMain.CustomerId == NewCustSysId)
-                    return RedirectToAction("CreateCustomer",new { CreateCustJobId = jobMain.Id });
-                else
-                    return RedirectToAction("Index");
+                //if (jobMain.CustomerId == NewCustSysId)
+                //    return RedirectToAction("CreateCustomer",new { CreateCustJobId = jobMain.Id });
+                //else
+                //    return RedirectToAction("Index");
                 //return RedirectToAction("Services", "JobServices", new { id = jobMain.Id });
                 //return RedirectToAction("JobTable", new { span = 30 });
+
+                return RedirectToAction("Index");
 
             }
 
@@ -490,24 +503,19 @@ order by x.jobid
         [HttpPost]
         public ActionResult JobServiceAdd([Bind(Include = "Id,JobMainId,ServicesId,SupplierId,DtStart,DtEnd,Particulars,QuotedAmt,SupplierAmt,ActualAmt,Remarks,SupplierItemId")] JobServices jobServices)
         {
-            var NewSupplierSysId = 1;
             if (ModelState.IsValid)
             {
                 jobServices.DtEnd = ((DateTime)jobServices.DtEnd).Add(new TimeSpan(23, 59, 59));
                 db.JobServices.Add(jobServices);
                 db.SaveChanges();
-
-                if (jobServices.SupplierId == NewSupplierSysId)
-                    return RedirectToAction("CreateSupplier", "JobServices", new { Svcid = jobServices.Id });
-                else
-                    return RedirectToAction("Index","JobOrder", null);
             }
 
             ViewBag.JobMainId = new SelectList(db.JobMains, "Id", "Description", jobServices.JobMainId);
             ViewBag.SupplierId = new SelectList(db.Suppliers, "Id", "Name", jobServices.SupplierId);
             ViewBag.ServicesId = new SelectList(db.Services, "Id", "Name", jobServices.ServicesId);
             ViewBag.SupplierItemId = new SelectList(db.SupplierItems, "Id", "Description", jobServices.SupplierItemId);
-            return View(jobServices);
+
+            return RedirectToAction("Index", "JobOrder");
         }
 
         // GET: JobServices/Edit/5
@@ -536,9 +544,6 @@ order by x.jobid
         [ValidateAntiForgeryToken]
         public ActionResult JobServiceEdit([Bind(Include = "Id,JobMainId,ServicesId,SupplierId,DtStart,DtEnd,Particulars,QuotedAmt,SupplierAmt,ActualAmt,Remarks,SupplierItemId")] JobServices jobServices)
         {
-
-            int NewSupplierSysId = 1;
-
             if (ModelState.IsValid)
             {
                 jobServices.DtEnd = ((DateTime)jobServices.DtEnd).Add(new TimeSpan(23, 59, 59));
@@ -560,17 +565,14 @@ order by x.jobid
                 }
 
                 db.SaveChanges();
-
-                if (jobServices.SupplierId == NewSupplierSysId)
-                    return RedirectToAction("CreateSupplier", new { Svcid = jobServices.Id });
-                else
-                    return RedirectToAction("Index");
             }
+
             ViewBag.JobMainId = new SelectList(db.JobMains, "Id", "Description", jobServices.JobMainId);
             ViewBag.SupplierId = new SelectList(db.Suppliers, "Id", "Name", jobServices.SupplierId);
             ViewBag.ServicesId = new SelectList(db.Services, "Id", "Name", jobServices.ServicesId);
             ViewBag.SupplierItemId = new SelectList(db.SupplierItems, "Id", "Description", jobServices.SupplierItemId);
-            return View(jobServices);
+            return RedirectToAction("Index", "JobOrder");
+
         }
 
         // GET: JobServices/Details/5
@@ -601,7 +603,7 @@ order by x.jobid
         public ActionResult notify() {
             DBClasses dbc = new DBClasses();
             dbc.addNotification("Job Order","Test");
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "JobOrder", new { sortid = 1 });
         }
         #endregion
 

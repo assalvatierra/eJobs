@@ -8,7 +8,7 @@
 
     <p>@Html.ActionLink("Register New Job Order »", "Create", "JobMains", null, new { @class = "btn btn-primary btn-lg" }) </p>
     <p class="lead">Jobs
-    [ @Html.ActionLink("Work In Progress", "Index", "JobOrder") ] [ @Html.ActionLink("Job Table", "JobTable", "JobMains", new { span = 30 }, null) ]
+    [ @Html.ActionLink("Work In Progress", "Index", "JobOrder", new { sortid = 1 },null) ] [ @Html.ActionLink("Job Table", "JobTable", "JobMains", new { span = 30 }, null) ]
     [ @Html.ActionLink("Payments", "AdvanceList", "JobPayments") ]
         <br />Sales Lead  
         [ @Html.ActionLink("List", "Index", "SalesLeads") ]
@@ -35,7 +35,7 @@
         <h2>Job Orders</h2>
         <p>
             Jobs / Work in Progress <br />
-            [ @Html.ActionLink("Work In Progress", "Index", "JobOrder") | 
+            [ @Html.ActionLink("Work In Progress", "Index", "JobOrder", new { sortid = 1 }, null) | 
             @Html.ActionLink("Quick List", "ActiveJobs", "JobMains") ]
         </p>
         <p>@Html.ActionLink("Add New »", "jobCreate", "JobOrder", null, new { @class = "btn btn-default" }) </p>
