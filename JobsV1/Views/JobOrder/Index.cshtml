@@ -57,6 +57,7 @@
                 [
                 @Html.ActionLink("Customer Details", "CompanyDetail", new { jobid = item.Main.Id, custid = item.Main.CustomerId}) |
                 @Html.ActionLink("Job Details", "JobDetails", new { jobid = item.Main.Id }) |    
+                
                 <!--
                 Html.ActionLink("Change Company", "ChangeCompany", "JobOrder",new { jobid = item.Main.Id }, new { data-toggle = "modal", data-target = "#SupplierPoItemsModal" })                
                 -->
@@ -74,9 +75,17 @@
             <div>
                 @Html.Partial("PartialViewServiceList", item.Services)
             </div>
-           
-            @Html.ActionLink("[ Add New Service ]", "JobServiceAdd", new { JobMainId = item.Main.Id }, null)
-        </td>
+
+            <p>
+                @Html.ActionLink("[ Add New Service ]", "JobServiceAdd", new { JobMainId = item.Main.Id }, null)
+            </p>
+
+            <p>
+                @Html.ActionLink("[ Quotation ]", "JobServices", new { JobMainId = item.Main.Id }, null)
+                @Html.ActionLink("[ Booking ]", "BookingDetails", new { id = item.Main.Id }, null)
+                @Html.ActionLink("[ Invoice ]", "BookingDetails", new { id = item.Main.Id , iType  = 1}, null)
+            </p>
+         </td>
     </tr>
 
 

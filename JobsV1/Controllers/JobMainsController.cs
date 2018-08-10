@@ -352,7 +352,7 @@ namespace JobsV1.Controllers
             ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name", jobMain.BranchId);
             ViewBag.JobStatusId = new SelectList(db.JobStatus, "Id", "Status", jobMain.JobStatusId);
             ViewBag.JobThruId = new SelectList(db.JobThrus, "Id", "Desc", jobMain.JobThruId);
-
+            
             TempData["UrlSource"] = Request.UrlReferrer.ToString();
             return View(jobMain);
         }

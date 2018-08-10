@@ -673,6 +673,149 @@ order by x.jobid
 
         }
 
+
+        public ActionResult JobServices(int? JobMainId, int? serviceId)
+        {
+            ViewBag.JobMainId = JobMainId;
+
+            var Job = db.JobMains.Where(d => d.Id == JobMainId).FirstOrDefault();
+            ViewBag.JobOrder = Job;
+
+            var jobServices = db.JobServices.Include(j => j.JobMain).Include(j => j.Supplier).Include(j => j.Service).Include(j => j.SupplierItem).Include(j => j.JobServicePickups).Where(d => d.JobMainId == JobMainId);
+            System.Collections.ArrayList providers = new System.Collections.ArrayList();
+            foreach (var item in jobServices)
+            {
+                if (item.JobServicePickups != null)
+                {
+                    string sTmp = "";
+                    try
+                    {
+                        sTmp = item.JobServicePickups.FirstOrDefault().ProviderName;
+                    }
+                    catch
+                    {
+                        sTmp = "Provider not defined.";
+                    }
+
+                    if (!providers.Contains(sTmp))
+                    {
+                        providers.Add(sTmp);
+                    }
+                }
+            }
+
+          
+
+            ViewBag.Providers = providers;
+
+            ViewBag.Itineraries = db.JobItineraries.Where(d => d.JobMainId == JobMainId).ToList();
+            
+            return View(jobServices.OrderBy(d => d.DtStart).ToList());
+
+        }
+        
+        // GET: JobMains/Details/5
+        public ActionResult BookingDetails(int? id, int? iType)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var jobMain = db.JobMains.Find(id);
+            if (jobMain == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.Services = db.JobServices.Include(j => j.JobServicePickups).Where(j => j.JobMainId == jobMain.Id).OrderBy(s => s.DtStart);
+            ViewBag.Itinerary = db.JobItineraries.Include(j => j.Destination).Where(j => j.JobMainId == jobMain.Id);
+            ViewBag.Payments = db.JobPayments.Where(j => j.JobMainId == jobMain.Id);
+            ViewBag.jNotes = db.JobNotes.Where(d => d.JobMainId == jobMain.Id).OrderBy(s => s.Sort);
+
+            //Default form
+            string sCompany = "AJ88 Car Rental Services";
+            string sLine1 = "2nd Floor J. Sulit Bldg. Mac Arthur Highway, Matina Davao City ";
+            string sLine2 = "Tel# (+63)822971831; (+63)9167558473; (+63)9330895358 ";
+            string sLine3 = "Email: ajdavao88@gmail.com; Website: http://www.AJDavaoCarRental.com/";
+            string sLine4 = "TIN: 414-880-772-001 (non-Vat)";
+            string sLogo = "LOGO_AJRENTACAR.jpg";
+
+            if (jobMain.Branch.Name == "RealBreeze")
+            {
+                sCompany = "Real Breeze Travel & Tours - Davao City";
+                sLine1 = "2nd Floor J. Sulit Bldg. Mac Arthur Highway, Matina Davao City ";
+                sLine2 = "Tel# (+63)822971831; (+63)916-755-8473; (+63)933-089-5358 ";
+                sLine3 = "Email: RealBreezeDavao@gmail.com; Website: http://www.realbreezedavaotours.com//";
+                sLine4 = "TIN: 414-880-772-000 (non-Vat)";
+                sLogo = "RealBreezeLogo01.png";
+            }
+            if (jobMain.Branch.Name == "AJ88")
+            {
+                sCompany = "AJ88 Car Rental Services";
+                sLine1 = "2nd Floor J. Sulit Bldg. Mac Arthur Highway, Matina Davao City ";
+                sLine2 = "Tel# (+63)822971831; (+63)9167558473; (+63)9330895358 ";
+                sLine3 = "Email: ajdavao88@gmail.com; Website: http://www.AJDavaoCarRental.com/";
+                sLine4 = "TIN: 414-880-772-001 (non-Vat)";
+                sLogo = "LOGO_AJRENTACAR.jpg";
+            }
+
+            ViewBag.sCompany = sCompany;
+            ViewBag.sLine1 = sLine1;
+            ViewBag.sLine2 = sLine2;
+            ViewBag.sLine3 = sLine3;
+            ViewBag.sLine4 = sLine4;
+            ViewBag.sLogo = sLogo;
+
+
+            if (jobMain.JobStatusId == 1) //quotation
+                return View("Details_Quote", jobMain);
+
+            if (iType != null && (int)iType == 1) //Invoice
+                return View("Details_Invoice", jobMain);
+
+            return View(jobMain);
+        }
+
+
+        public ActionResult TextMessage(int? id)
+        {
+            string sData = "Pickup Details";
+
+            Models.JobServicePickup svcpu;
+            Models.JobServices svc = db.JobServices.Find(id);
+            if (svc.JobServicePickups.FirstOrDefault() == null)
+            {
+                sData += "\nPickup: undefined ";
+            }
+            else
+            {
+                Decimal quote = (svc.QuotedAmt == null ? 0 : (decimal)svc.QuotedAmt);
+
+                svcpu = svc.JobServicePickups.FirstOrDefault();
+                sData += "\nDate:" + ((DateTime)svc.DtStart).ToString("dd MMM yyyy (ddd)");
+                sData += "\nTime&Location:" + svcpu.JsTime + " " + svcpu.JsLocation;
+                sData += "\nGuest:" + svcpu.ClientName + " #" + svcpu.ClientContact;
+                sData += "\nDriver:" + svcpu.ProviderName + " #" + svcpu.ProviderContact;
+                sData += "\nUnit:" + svc.SupplierItem.Description + " " + svc.SupplierItem.Remarks;
+                sData += "\nRate:P" + quote.ToString("##,###.00");
+                sData += "\nParticulars:" + svc.Particulars;
+                sData += "\n  " + svc.Remarks;
+                sData += "\n\nHave a safe trip,\nAJ88 Car Rental";
+            }
+
+            ViewBag.StrData = sData;
+            return View();
+
+        }
+
+
+        //web service call to send notification
+        public void Notification(int id)
+        {
+            SMSWebService ws = new SMSWebService();
+            ws.AddNotification(id);
+        }
+
         #endregion
 
         #region supplier

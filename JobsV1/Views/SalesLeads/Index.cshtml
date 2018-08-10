@@ -116,7 +116,7 @@
 
                             <span style="color:maroon;">@tmpAct.Particulars</span>
                             <span style="font:status-bar;color:maroon;"> @tmpAct.DtActivity.ToString("MMM-dd-yyyy")</span>
-                            @Html.ActionLink("Done |", "SalesActivityDone", new { id = tmpAct.Id })
+                            @Html.ActionLink("Done |", "SalesActivityDone", new { id = tmpAct.Id }, new { @id = "prevDefault", })
                             @Html.ActionLink(" [x]", "SalesActivityRemove", new { id = tmpAct.Id })
 
                             <br />
@@ -222,4 +222,10 @@
                 break;
         }
     }
+    
+        $("#prevDefault").click(function(event){
+          //  $(".prevDefault").css("background-color", "yellow"); 
+            event.preventDefault();
+        });
+
 </script>

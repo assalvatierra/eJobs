@@ -35,18 +35,19 @@ namespace JobsV1.Controllers
 
             switch (sortid) {
                 case 1://approved
-
                     salesLeads = db.SalesLeads.Include(s => s.Customer)
                                 .Include(s => s.SalesLeadCategories)
                                 .Include(s => s.SalesStatus).OrderByDescending(s => s.Date).Include(s => s.Customer.JobMains)
-                                .Where(s => s.SalesStatus.Where(ss => ss.SalesStatusCodeId == 5).FirstOrDefault().SalesLeadId == s.Id)
+                                .Where(s => s.SalesStatus.Where(ss => ss.SalesStatusCodeId > 4)
+                                .OrderByDescending(ss => ss.SalesStatusCodeId).FirstOrDefault().SalesStatusCodeId < 6) // Current
                                 .ToList();
                     break;
                 case 2:// closedb
                     salesLeads = db.SalesLeads.Include(s => s.Customer)
                                 .Include(s => s.SalesLeadCategories)
-                                .Include(s => s.SalesStatus).OrderByDescending(s => s.Date).Include(s => s.Customer.JobMains) 
-                                .Where(s => s.SalesStatus.Where(ss => ss.SalesStatusCodeId == 7).FirstOrDefault().SalesLeadId == s.Id)
+                                .Include(s => s.SalesStatus).OrderByDescending(s => s.Date).Include(s => s.Customer.JobMains)
+                                .Where(s => s.SalesStatus.Where(ss => ss.SalesStatusCodeId == 5)
+                                .OrderByDescending(ss => ss.SalesStatusCodeId).FirstOrDefault().SalesStatusCodeId == 5) // Current
                                 .ToList();
                     break;
 

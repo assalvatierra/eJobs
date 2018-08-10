@@ -51,6 +51,7 @@ namespace JobsV1.Models
         public int Day { get; set; }
         public DateTime Date { get; set; }
         public int status { get; set; }
+        public List<int> svcId { get; set; }
     }
 
     public class cItemSchedule
@@ -121,6 +122,13 @@ left outer join JobServices c on b.JobServicesId = c.Id
                     dsTmp.Day = i + 1;
                     dsTmp.status = 0;
 
+                    //Check if your Messages collection exists
+                    if (dsTmp.svcId == null)
+                    {
+                        //It's null - create it
+                        dsTmp.svcId = new List<int>();
+                    }
+
 
                     foreach (var jsTmp in JobServiceList)
                     {
@@ -130,6 +138,8 @@ left outer join JobServices c on b.JobServicesId = c.Id
                         if (istart >= 0 && iend <= 0)
                         {
                             dsTmp.status += 1;
+
+                            dsTmp.svcId.Add((int)jsTmp.ServiceId);  
                         }
                     }
 
@@ -153,9 +163,7 @@ left outer join JobServices c on b.JobServicesId = c.Id
 
                 dLabel.Add(dsTmp);
             }
-
-
-
+            
             getItemSchedReturn dReturn = new getItemSchedReturn();
             dReturn.dLabel = dLabel;
             dReturn.ItemSched = ItemSched;

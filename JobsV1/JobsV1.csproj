@@ -594,6 +594,7 @@
     <Content Include="Images\CarRental\Driver102.png" />
     <Content Include="Images\CarRental\FordEverest.jpg" />
     <Content Include="Images\CarRental\HondaCity.jpg" />
+    <Content Include="Images\CarRental\settings.png" />
     <Content Include="Images\CarRental\OffRoad101.jpg" />
     <Content Include="Images\CarRental\OffRoad102.jpg" />
     <Content Include="Images\CarRental\placeholder.png" />
@@ -1023,6 +1024,12 @@
     <Content Include="Views\Suppliers\InvItems.cshtml" />
     <Content Include="Views\Suppliers\AddInvItem.cshtml" />
     <Content Include="Views\JobOrder\JobServicePickup.cshtml" />
+    <Content Include="Views\JobOrder\JobServices.cshtml" />
+    <Content Include="Views\JobMains\JobQuickList.cshtml" />
+    <Content Include="Views\JobOrder\BookingDetails.cshtml" />
+    <Content Include="Views\JobOrder\Details_Invoice.cshtml" />
+    <Content Include="Views\JobOrder\Details_Quote.cshtml" />
+    <Content Include="Views\JobOrder\TextMessage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

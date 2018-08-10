@@ -34,18 +34,23 @@
     <!-- Add Pickup Details -->
     JobsV1.Models.JobServicePickup pickup = item.Service.JobServicePickups.FirstOrDefault();
         
-    <p>
-        @Html.ActionLink("Pickup Details", "InitServicePickup", new { id = item.Service.Id }) |
+    <p style="background-color:lightgray;padding:0.5em;font:normal 11px arial, verdana;">
+        @Html.ActionLink("Pickup Details", "InitServicePickup", new { id = item.Service.Id })
         @if (pickup != null)
                 {
-            <span style="font:normal 11px arial, verdana;">
-                
+            <span >
+                :
                 [ Time: @pickup.JsTime @pickup.JsLocation ]  &nbsp; &nbsp;
                 [ Contact: @pickup.ClientName / <a href="tel:@pickup.ClientContact">@pickup.ClientContact</a> ] &nbsp; &nbsp;
                 [ InCharge: @pickup.ProviderName / <a href="tel:@pickup.ProviderContact">@pickup.ProviderContact</a> ]
             </span>
         }
+        -
+        @Html.ActionLink("Text Form", "TextMessage", new { id = item.Id })  |
+        @Html.ActionLink("Send Notification", "Notification", new { id = item.Id })
     </p>
+
+
 
 }
 </div>
