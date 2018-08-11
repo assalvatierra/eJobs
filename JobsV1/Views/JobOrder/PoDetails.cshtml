@@ -151,7 +151,7 @@
 
 
 <p>
-    @Html.ActionLink("Back to List", "Index", "JobOrder", null, null)
+    @Html.ActionLink("Back to List", "Index", "JobOrder", new { sortid = (int)Session["FilterID"] }, null)
 </p>
 
 <br />

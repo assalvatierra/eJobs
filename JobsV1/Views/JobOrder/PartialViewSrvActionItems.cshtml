@@ -7,7 +7,7 @@
         {
             <span>&#187;</span>
             <span>
-                <a id="@item.Id" data_svcid="@SvcId" name="@item.Desc" href="?serviceId=@SvcId" class="clickitem">@item.Desc</a>
+                <a id="@item.Id" data_svcid="@SvcId" name="@item.Desc" href="?serviceId=@(SvcId)&sortid=@((int)Session["FilterID"])" class="clickitem">@item.Desc</a>
             </span>
         }
 </div>

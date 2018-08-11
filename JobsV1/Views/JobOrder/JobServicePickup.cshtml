@@ -87,7 +87,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index", new { sortid = 1, serviceId = @ViewBag.svcId }, null)
+    @Html.ActionLink("Back to List", "Index", new { sortid = (int)Session["FilterID"], serviceId = @ViewBag.svcId }, null)
 
 </div>
 
@@ -111,6 +111,7 @@
 
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
+        <script type="text/javascript" src="~/Scripts/Job/JobPickup.js"></script>
 
 
         <script>

@@ -233,7 +233,7 @@ order by x.jobid
 
             if (data.Name == "<< New Customer >>")
             {
-                return RedirectToAction("CreateCustomer", new { CreateCustJobId = jobid });
+                return RedirectToAction("CreateCustomer", new { CreateCustJobId = jobid } );
             }
 
             ViewBag.Status = new SelectList(StatusList, "value", "text", data.Status);
@@ -242,14 +242,25 @@ order by x.jobid
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CompanyDetail([Bind(Include = "Id,Name,Email,Contact1,Contact2,Remarks,Status")] Customer customer, int mainid)
+        public ActionResult CompanyDetail([Bind(Include = "Id,Name,Email,Contact1,Contact2,Remarks,Status")] Customer customer, int mainid, int? sortid)
         {
+
+            if (sortid != null)
+                Session["FilterID"] = (int)sortid;
+            else
+            {
+                if (Session["FilterID"] != null)
+                    sortid = (int)Session["FilterID"];
+            }
+
+            ViewBag.sortid = (int)Session["FilterID"];
+
             if (ModelState.IsValid)
             {
                 db.Entry(customer).State = EntityState.Modified;
                 db.SaveChanges();
 
-                return RedirectToAction("Index", new { sortd= 1, mainid = mainid});
+                return RedirectToAction("Index", new { sortid = (int)Session["FilterID"], mainid = mainid});
             }
             ViewBag.Status = new SelectList(StatusList, "value", "text", customer.Status);
 
@@ -273,8 +284,16 @@ order by x.jobid
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateCustomer([Bind(Include = "Id,Name,Email,Contact1,Contact2,Remarks,Status")] Customer customer)
+        public ActionResult CreateCustomer([Bind(Include = "Id,Name,Email,Contact1,Contact2,Remarks,Status")] Customer customer, int? sortid)
         {
+            if (sortid != null)
+                Session["FilterID"] = (int)sortid;
+            else
+            {
+                if (Session["FilterID"] != null)
+                    sortid = (int)Session["FilterID"];
+            }
+
             if (ModelState.IsValid)
             {
                 if (customer.Status == null || customer.Status.Trim() == "") customer.Status = "ACT";
@@ -287,7 +306,7 @@ order by x.jobid
                     Update JobMains set CustomerId=" + customer.Id + " where Id=" + JobId + ";"
                     );
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { sortid = sortid });
             }
 
             ViewBag.Status = new SelectList(StatusList, "value", "text", customer.Status);
@@ -325,7 +344,7 @@ order by x.jobid
                 db.Entry(jobMain).State = EntityState.Modified;
                 db.SaveChanges();
                 
-                return RedirectToAction("Index", new { sortd = 1, mainid = jobMain.Id });
+                return RedirectToAction("Index", new { sortd = (int)Session["FilterID"], mainid = jobMain.Id });
 
             }
 
@@ -388,7 +407,7 @@ order by x.jobid
                 //return RedirectToAction("Services", "JobServices", new { id = jobMain.Id });
                 //return RedirectToAction("JobTable", new { span = 30 });
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { sortid = (int)Session["FilterID"] });
 
             }
 
@@ -406,7 +425,7 @@ order by x.jobid
             db.Entry(jobMain).State = EntityState.Modified;
             db.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { mainid = jobMain.Id, sortid = (int)Session["FilterID"] });
         }
         #endregion
 
@@ -512,7 +531,7 @@ order by x.jobid
             ViewBag.ServicesId = new SelectList(db.Services, "Id", "Name", jobServices.ServicesId);
             ViewBag.SupplierItemId = new SelectList(db.SupplierItems, "Id", "Description", jobServices.SupplierItemId);
 
-            return RedirectToAction("Index", "JobOrder");
+            return RedirectToAction("Index", "JobOrder", new { sortid = (int)Session["FilterID"] });
         }
 
         // GET: JobServices/Edit/5
@@ -570,7 +589,7 @@ order by x.jobid
             ViewBag.ServicesId = new SelectList(db.Services, "Id", "Name", jobServices.ServicesId);
             ViewBag.SupplierItemId = new SelectList(db.SupplierItems, "Id", "Description", jobServices.SupplierItemId);
 
-            return RedirectToAction("Index", new { sortid = 1, serviceId = jobServices.Id });
+            return RedirectToAction("Index", new { sortid = (int)Session["FilterID"], serviceId = jobServices.Id });
 
         }
 
@@ -597,7 +616,7 @@ order by x.jobid
             int jId = jobServices.JobMainId;
             db.JobServices.Remove(jobServices);
             db.SaveChanges();
-            return RedirectToAction("Index", "JobOrder",null);
+            return RedirectToAction("Index", "JobOrder", new { mainid = jobServices.JobMainId, sortid = (int)Session["FilterID"] });
         }
 
         public ActionResult notify() {
@@ -665,7 +684,7 @@ order by x.jobid
 
                 int ij = db.JobServices.Find(jobServicePickup.JobServicesId).JobMainId;
 
-                return RedirectToAction("Index", new { sortd = 1, serviceid = jobServicePickup.JobServicesId });
+                return RedirectToAction("Index", new { sortd = (int)Session["FilterID"], serviceid = jobServicePickup.JobServicesId });
             }
             //ViewBag.JobServicesId = new SelectList(db.JobServices, "Id", "Particulars", jobServicePickup.JobServicesId);
 

@@ -43,11 +43,14 @@
                 [ Time: @pickup.JsTime @pickup.JsLocation ]  &nbsp; &nbsp;
                 [ Contact: @pickup.ClientName / <a href="tel:@pickup.ClientContact">@pickup.ClientContact</a> ] &nbsp; &nbsp;
                 [ InCharge: @pickup.ProviderName / <a href="tel:@pickup.ProviderContact">@pickup.ProviderContact</a> ]
+                -
             </span>
+            
+            @Html.ActionLink("Text Form", "TextMessage", new { id = item.Service.Id }) 
+            <span> | </span>
+            @Html.ActionLink("Send Notification", "Notification", new { id = item.Service.Id })
         }
-        -
-        @Html.ActionLink("Text Form", "TextMessage", new { id = item.Id })  |
-        @Html.ActionLink("Send Notification", "Notification", new { id = item.Id })
+        
     </p>
 
 

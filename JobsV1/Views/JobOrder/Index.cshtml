@@ -15,9 +15,9 @@
 
 <p>
     Filters:
-    @Html.ActionLink("OnGoing", "Index", new { sortid = 1 }, null) |
-    @Html.ActionLink("Previous", "Index", new { sortid = 2 }) |
-    @Html.ActionLink("Closed", "Index", new { sortid = 3 }) 
+    @Html.ActionLink("OnGoing", "Index", new { sortid = 1 }, new { @id = "ongoing" }) |
+    @Html.ActionLink("Previous", "Index", new { sortid = 2 }, new { @id = "previous"}) |
+    @Html.ActionLink("Closed", "Index", new { sortid = 3 }, new { @id = "closed" }) 
 </p>
 
 <table class="table">
@@ -130,10 +130,11 @@
 
 <p>
     Filters:
-    @Html.ActionLink("OnGoing", "Index", new { sortid = 1 },null) |
-    @Html.ActionLink("Previous", "Index", new { sortid = 2 }) |
-    @Html.ActionLink("Closed", "Index", new { sortid = 3 }) 
+    @Html.ActionLink("OnGoing", "Index", new { sortid = 1 }, new { @id = "ongoing-bot" }) |
+    @Html.ActionLink("Previous", "Index", new { sortid = 2 }, new { @id = "previous-bot" }) |
+    @Html.ActionLink("Closed", "Index", new { sortid = 3 }, new { @id = "closed-bot" })
 </p>
+
 
 
 @section scripts
@@ -143,10 +144,28 @@
             initialize();
 
             $('html, body').animate({
-                scrollTop: $("#main@(ViewBag.mainId)").offset().top - 50 
+                scrollTop: $("#main@(ViewBag.mainId)").offset().top - 50
             }, 500);
-        });
 
+        });
+        
+        switch(@((int)Session["FilterID"])){
+            case 1:
+                $("#ongoing").css("color","black")
+                $("#ongoing-bot").css("color","black")
+                break;
+            case 2:
+                $("#previous").css("color","black")
+                $("#previous-bot").css("color","black")
+                break;
+            case 3:
+                $("#closed").css("color","black")
+                $("#closed-bot").css("color","black")
+                break;
+            default:
+
+                break;
+        }
 
     </script>
 

@@ -108,8 +108,8 @@
             <br />[ Make/Model: @Html.DisplayFor(modelItem => item.SupplierItem.Description) ]
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            @Html.ActionLink("Edit", "JobServiceEdit", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "JobSvcDelete", new { id = item.Id })
             <br />
             @Html.ActionLink("Pickup", "InitServicePickup", new { id = item.Id }) |
             @Html.ActionLink("Itinerary", "JobItinerary", "JobItineraries", new { id = ViewBag.JobOrder.Id, SvcId = item.Id }, null) | 
@@ -159,9 +159,9 @@
 
 
 <p>
-    @Html.ActionLink("Create New", "Create", new { JobMainId = ViewBag.JobMainId })
+    @Html.ActionLink("Create New", "JobServiceAdd", new { JobMainId = ViewBag.JobMainId })
     <br />@Html.ActionLink("Add Template", "BrowseTemplate", new { JobMainId = ViewBag.JobMainId })
-    <br />    @Html.ActionLink("Go to Job List", "JobTable", "JobMains", null, null)
+    <br />    @Html.ActionLink("Go to JobOrder", "Index", "JobOrder", new { mainid = ViewBag.JobMainId, sortid = (int)Session["FilterID"] }, null)
     <br />@Html.ActionLink("Go to Sales Lead", "Index", "SalesLeads",null,null)
 </p>
 

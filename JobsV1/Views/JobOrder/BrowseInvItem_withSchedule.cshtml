@@ -119,5 +119,6 @@
 
 </table>
 
-
-
+<p>
+    @Html.ActionLink("Back to List", "Index", new { sortid = (int)Session["FilterID"], serviceId = @ViewBag.serviceId }, null)
+</p>
