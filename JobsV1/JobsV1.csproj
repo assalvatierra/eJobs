@@ -943,7 +943,7 @@
     <Content Include="Views\SalesActivities\Details.cshtml" />
     <Content Include="Views\SalesActivities\Edit.cshtml" />
     <Content Include="Views\SalesActivities\Index.cshtml" />
-    <Content Include="Views\SalesLeads\CreateCustomer.cshtml" />
+    <Content Include="Views\SalesLeads\CompanyEdit.cshtml" />
     <Content Include="Views\SalesLeads\CompanyDetail.cshtml" />
     <Content Include="Views\JobOrder\Index.cshtml" />
     <Content Include="Views\JobOrder\PartialViewService.cshtml" />
@@ -1031,6 +1031,7 @@
     <Content Include="Views\JobOrder\Details_Invoice.cshtml" />
     <Content Include="Views\JobOrder\Details_Quote.cshtml" />
     <Content Include="Views\JobOrder\TextMessage.cshtml" />
+    <Content Include="Views\SalesLeads\CreateCustomer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

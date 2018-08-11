@@ -113,7 +113,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", new { sortid = (int)Session["SLFilterID"] })
 </div>
 
 @section Scripts {

@@ -57,7 +57,7 @@ namespace JobsV1.Controllers
             ViewBag.Providers = providers;
 
             ViewBag.Itineraries = db.JobItineraries.Where(d => d.JobMainId == id).ToList();
-
+            
 
             return View( jobServices.OrderBy(d=>d.DtStart).ToList() );
 

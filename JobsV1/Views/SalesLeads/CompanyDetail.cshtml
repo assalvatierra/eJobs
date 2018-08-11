@@ -6,7 +6,7 @@
 
 <h2>CompanyDetail</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("CompanyDetail","SalesLeads",new { leadId = ViewBag.leadId },FormMethod.Post,null))
 {
     @Html.AntiForgeryToken()
     
@@ -73,5 +73,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", new { leadId = ViewBag.leadId , sortid = (int)Session["SLFilterID"] })
 </div>

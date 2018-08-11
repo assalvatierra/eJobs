@@ -25,7 +25,7 @@
         <h2>Sales Lead</h2>
         <p>
             Inquiries, Leads, Opportunities <br />
-            [ @Html.ActionLink("List", "Index", "SalesLeads") | 
+            [ @Html.ActionLink("List", "Index", "SalesLeads", new { sortid = 5 },null) | 
             @Html.ActionLink("Quotations", "JobLeads", "JobMains") ]
         </p>
         <p>@Html.ActionLink("Add New »", "Create", "SalesLeads", null, new { @class = "btn btn-default" }) </p>

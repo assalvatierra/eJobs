@@ -26,8 +26,22 @@ namespace JobsV1.Controllers
         private JobDBContainer db = new JobDBContainer();
         private DBClasses dbclasses = new DBClasses();
         // GET: SalesLeads
-        public ActionResult Index(int? sortid)
+        public ActionResult Index(int? sortid, int? leadId)
         {
+
+            if (sortid != null)
+                Session["SLFilterID"] = (int)sortid;
+            else
+            {
+                if (Session["SLFilterID"] != null)
+                    sortid = (int)Session["SLFilterID"];
+                else
+                {
+                    Session["SLFilterID"] = 5;
+
+                }
+            }
+
             var salesLeads = db.SalesLeads.Include(s => s.Customer)
                         .Include(s => s.SalesLeadCategories)
                         .Include(s => s.SalesStatus).OrderByDescending(s => s.Date)
@@ -68,6 +82,15 @@ namespace JobsV1.Controllers
                                 .OrderByDescending(ss => ss.SalesStatusCodeId).FirstOrDefault().SalesStatusCodeId < 5) // Current
                                 .ToList();
                     break;
+                case 5:
+                    // new Leads
+                    salesLeads = db.SalesLeads.Include(s => s.Customer)
+                                .Include(s => s.SalesLeadCategories)
+                                .Include(s => s.SalesStatus).OrderByDescending(s => s.Date).Include(s => s.Customer.JobMains)
+                                .Where(s => s.SalesStatus.Where(ss => ss.SalesStatusCodeId > 0)
+                                .OrderByDescending(ss => ss.SalesStatusCodeId).FirstOrDefault().SalesStatusCodeId < 3) // Current
+                                .ToList();
+                    break;
                 default:
                     // new Leads
                     salesLeads = db.SalesLeads.Include(s => s.Customer)
@@ -85,7 +108,7 @@ namespace JobsV1.Controllers
                     break;
             }
 
-
+            ViewBag.LeadId = leadId;
             ViewBag.CurrentFilter = sortid;
             ViewBag.StatusCodes = db.SalesStatusCodes.ToList();
 
@@ -146,7 +169,7 @@ namespace JobsV1.Controllers
                 db.SaveChanges();
 
                 AddSalesStatus(salesLead.Id, 1);    //NEW
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { sortid = (int)Session["SLFilterID"] });
             }
 
             ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name", salesLead.CustomerId);
@@ -170,6 +193,8 @@ namespace JobsV1.Controllers
             ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name", salesLead.CustomerId);
             ViewBag.AssignedTo = new SelectList(dbclasses.getUsers(), "UserName", "UserName", salesLead.AssignedTo);
             ViewBag.CustomerList = db.Customers.ToList();
+            ViewBag.leadId = id;
+
             return View(salesLead);
         }
 
@@ -184,7 +209,7 @@ namespace JobsV1.Controllers
             {
                 db.Entry(salesLead).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "SalesLeads", new { leadId = salesLead.Id, sortid = (int)Session["SLFilterID"] });
             }
             ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name", salesLead.CustomerId);
             ViewBag.AssignedTo = new SelectList(dbclasses.getUsers(), "UserName", "UserName", salesLead.AssignedTo);
@@ -214,7 +239,7 @@ namespace JobsV1.Controllers
             SalesLead salesLead = db.SalesLeads.Find(id);
             db.SalesLeads.Remove(salesLead);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { sortid = (int)Session["SLFilterID"] });
         }
 
         protected override void Dispose(bool disposing)
@@ -292,14 +317,34 @@ namespace JobsV1.Controllers
                 ");
 
                 strMsg = "Success";
+
+                switch (StatusId)
+                {
+                    case 1: //New Leads
+                    case 2:
+                        Session["SLFilterID"] = 5;
+                        break;
+                    case 3: //New Leads
+                    case 4:
+                        Session["SLFilterID"] = 4;
+                        break;
+                    case 5: //New Leads
+                    case 6:
+                        Session["SLFilterID"] = 1;
+                        break;
+                    case 7: //New Leads
+                        Session["SLFilterID"] = 2;
+                        break;
+                    default:
+                        break;  //SLFilterID = 3 (All)
+                }
             }
             catch(Exception Ex)
             {
                 strMsg = "Error:" + Ex.Message;
             }
-
             ViewBag.Message = strMsg;
-            return Redirect(Request.UrlReferrer.ToString());
+            return RedirectToAction("Index", new {leadId = slId, sortid= (int)Session["SLFilterID"] });
         }
         #endregion
 
@@ -325,6 +370,7 @@ namespace JobsV1.Controllers
             ViewBag.SalesActCodeId = new SelectList(db.SalesActCodes, "Id", "Name", ActCodeId);
             ViewBag.SalesLeadId = new SelectList(db.SalesLeads, "Id", "Details", slId);
             ViewBag.SalesActStatusId = new SelectList(db.SalesActStatus, "Id", "Name", data.SalesActStatusId);
+            ViewBag.sId = slId;
             return View(data);
         }
         [HttpPost]
@@ -335,7 +381,7 @@ namespace JobsV1.Controllers
             {
                 db.SalesActivities.Add(salesActivity);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { leadId = salesActivity.SalesLeadId, sortid = (int)Session["SLFilterID"] });
             }
 
             ViewBag.SalesActCodeId = new SelectList(db.SalesActCodes, "Id", "Name", salesActivity.SalesActCodeId);
@@ -347,13 +393,15 @@ namespace JobsV1.Controllers
         public ActionResult SalesActivityDone(int id)
         {
             db.Database.ExecuteSqlCommand("update SalesActivities set SalesActStatusId=2 where Id=" + id);
-            return RedirectToAction("Index");
+            var slid = db.SalesActivities.Where(s => s.Id == id).FirstOrDefault().SalesLeadId;
+            return RedirectToAction("Index", new { leadId = slid, sortid = (int)Session["SLFilterID"] });
         }
 
         public ActionResult SalesActivityRemove(int id)
         {
+            var slid = db.SalesActivities.Where(s => s.Id == id).FirstOrDefault().SalesLeadId;
             db.Database.ExecuteSqlCommand("DELETE FROM SalesActivities where Id=" + id);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { leadId = slid, sortid = (int)Session["SLFilterID"] });
         }
         #endregion
 
@@ -375,19 +423,19 @@ namespace JobsV1.Controllers
             }
 
             ViewBag.Status = new SelectList(StatusList, "value", "text", data.Status);
-
+            ViewBag.leadId = slid;
             return View(data);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CompanyDetail([Bind(Include = "Id,Name,Email,Contact1,Contact2,Remarks,Status")] Customer customer)
+        public ActionResult CompanyDetail([Bind(Include = "Id,Name,Email,Contact1,Contact2,Remarks,Status")] Customer customer, int? leadId)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(customer).State = EntityState.Modified;
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "SalesLeads",new {leadId = leadId, sortid = (int)Session["SLFilterID"] } );
             }
             ViewBag.Status = new SelectList(StatusList, "value", "text", customer.Status);
 

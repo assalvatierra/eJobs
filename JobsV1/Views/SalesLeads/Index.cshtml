@@ -7,6 +7,7 @@
 
 <h2>Sales Lead: List</h2>
 
+
 <p>
     @Html.ActionLink("Create New", "Create") |
     Sales Lead |
@@ -14,11 +15,11 @@
 </p>
 <p>
     Filters:
-    @Html.ActionLink("New Lead", "Index", null, null) |
-    @Html.ActionLink("OnGoing", "Index", new { sortid = 4 }) |
-    @Html.ActionLink("Accepted", "Index", new { sortid = 1 }, new { @id="Accepted-Filter", @onclick= "filter();" }) |
-    @Html.ActionLink("Closed", "Index", new { sortid = 2 }) |
-    @Html.ActionLink("All", "Index", new { sortid = 3 }, null)
+    @Html.ActionLink("New Lead", "Index", new { sortid = 5 }, new { @id = "newLead" }) |
+    @Html.ActionLink("OnGoing", "Index", new { sortid = 4 }, new { @id = "ongoing" }) |
+    @Html.ActionLink("Accepted", "Index", new { sortid = 1 }, new { @id="acceptedLead", @onclick= "filter();" }) |
+    @Html.ActionLink("Closed", "Index", new { sortid = 2 }, new { @id = "closedLead" }) |
+    @Html.ActionLink("All", "Index", new { sortid = 3 }, new { @id = "allLead" })
 </p>
 
 <table class="table">
@@ -26,23 +27,23 @@
 @foreach (var item in Model)
 {
     <tr>
-        <td>
+        <td id="lead@(item.Id)">
             <div style="background-color:lightgray;text-align:center;">
                 <span style="color:darkblue; font: bold 12px arial, verdana;">@item.Date.ToString("MMM-yyyy")</span>
                 <br /><span style="color:blue; font: bold 28px arial, verdana;">@item.Date.ToString("dd")</span>
                 <span style="color:blue; font: bold 12px arial, verdana;">(@item.Date.ToString("ddd"))</span>
                 <br /><br /><span style="color:red; font: normal 18px arial, verdana;">@item.Price.ToString("##,###")</span>
             </div>
-          
-                @{
+
+            @{
                 foreach (var status in item.SalesStatus)
                 {
                     if (@status.SalesStatusCodeId == 5)
                     {
-                        <img src="~/Images/Customers/Category/Active-30.png" alt="ACCEPTED"/>
+                        <img src="~/Images/Customers/Category/Active-30.png" alt="ACCEPTED" />
                     }
                 }
-               }
+            }
 
         </td>
         <td>
@@ -208,24 +209,45 @@
     @Html.ActionLink("All", "Index", new { sortid = 3 }, null)
 </p>
 
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('html, body').animate({
+                scrollTop: $("#lead@(ViewBag.LeadId)").offset().top - 50
+            }, 500);
 
-<script>
-    function filter(){
-        alert(@ViewBag.CurrentFilter);
-        switch( @ViewBag.CurrentFilter){
+        });
+        if(@((int)Session["SLFilterID"]) != null){
+
+        switch(@((int)Session["SLFilterID"])){
             case 1:
-                $("#Accepted-Filter").css("background-color","red");
+                $("#acceptedLead").css("color","black")
+                $("#previous-bot").css("color","black")
                 break;
             case 2:
+                $("#closedLead").css("color","black")
+                $("#previous-bot").css("color","black")
+                break;
+            case 3:
+                $("#allLead").css("color","black")
+                $("#closed-bot").css("color","black")
+                break;
+            case 4:
+                $("#ongoing").css("color","black")
+                $("#ongoing-bot").css("color","black")
+                break;
+            case 5:
+                $("#newLead").css("color","black")
+                $("#newLead-bot").css("color","black")
                 break;
             default:
+                $("#newLead").css("color","black")
+                $("#newLead-bot").css("color","black")
                 break;
         }
-    }
-    
-        $("#prevDefault").click(function(event){
-          //  $(".prevDefault").css("background-color", "yellow"); 
-            event.preventDefault();
-        });
 
-</script>
+        }
+    </script>
+
+}

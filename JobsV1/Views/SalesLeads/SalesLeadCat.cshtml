@@ -37,7 +37,7 @@
 {
 <div> @strMsg </div>
 }
-@Html.ActionLink("Back to Sales Lead", "Index")
+@Html.ActionLink("Back to Sales Lead", "Index" , new { sortid = (int)Session["SLFilterID"], leadId = ViewBag.SalesLeadId })
 <br />
 <br />
 
@@ -50,4 +50,4 @@
     <br />
 }
 <br />
-@Html.ActionLink("Back to Sales Lead", "Index")
+@Html.ActionLink("Back to Sales Lead", "Index", new { sortid = (int)Session["SLFilterID"], leadId = ViewBag.SalesLeadId })

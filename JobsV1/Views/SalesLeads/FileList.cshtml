@@ -35,5 +35,5 @@
 </table>
 
 <p>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to Sales Lead", "Index", new { sortid = (int)Session["SLFilterID"], leadId = ViewBag.SalesleadId })
 </p>
