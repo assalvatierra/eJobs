@@ -92,6 +92,8 @@ select  a.Id ItemId, c.JobMainId, c.Id ServiceId, c.Particulars, c.DtStart, c.Dt
 InvItems a
 left outer join JobServiceItems b on b.InvItemId = a.Id 
 left outer join JobServices c on b.JobServicesId = c.Id
+left outer join JobMains d on c.JobMainId = d.Id
+where d.JobStatusId < 4
 ;";
             List<cItemSchedule> itemJobs = db.Database.SqlQuery<cItemSchedule>(SqlStr).ToList();
 
