@@ -75,7 +75,7 @@ namespace JobsV1.Controllers
                 .Include(j => j.Branch)
                 .Include(j => j.JobStatus)
                 .Include(j => j.JobThru)
-                .OrderBy(d => d.JobDate);
+                .OrderByDescending(d => d.JobDate);
 
             switch (sortid) {
                 case 1: //OnGoing
@@ -85,13 +85,12 @@ namespace JobsV1.Controllers
                     break;
                 case 2: //Previous
                     jobMains = (IQueryable<Models.JobMain>)jobMains
-                        .Where(d => (d.JobStatusId == JOBRESERVATION || d.JobStatusId == JOBCONFIRMED)
-                        ).Where(p => DbFunctions.AddDays(p.JobDate, 60) > DateTime.Today && DbFunctions.AddDays(p.JobDate, 0) < DateTime.Today);
+                        .Where(d => (d.JobStatusId == JOBRESERVATION || d.JobStatusId == JOBCONFIRMED ) );
                     break;
                 case 3: //Closed (60 days below)
                     jobMains = (IQueryable<Models.JobMain>)jobMains
-                        .Where(d => (d.JobStatusId == JOBRESERVATION || d.JobStatusId == JOBCONFIRMED)
-                        ).Where(p => DbFunctions.AddDays(p.JobDate, 60) < DateTime.Today); ;
+                        .Where(d => (d.JobStatusId == JOBCLOSED || d.JobStatusId == JOBCANCELLED )
+                        ).Where(p => DbFunctions.AddDays(p.JobDate, 60) > DateTime.Today); ;
 
                     break;
                 default:
@@ -100,10 +99,7 @@ namespace JobsV1.Controllers
                         .Where(d => (d.JobStatusId == JOBRESERVATION || d.JobStatusId == JOBCONFIRMED));
                     break;
             }
-
-
             
-
             List<cjobCounter> jobActionCntr = getJobActionCount(jobMains.Select(d => d.Id).ToList());
             var data = new List<cJobOrder>();
 
