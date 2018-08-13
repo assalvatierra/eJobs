@@ -215,37 +215,38 @@
         $(document).ready(function () {
             $('html, body').animate({
                 scrollTop: $("#lead@(ViewBag.LeadId)").offset().top - 50
-            }, 500);
+            }, 750);
 
         });
+
         if(@((int)Session["SLFilterID"]) != null){
 
-        switch(@((int)Session["SLFilterID"])){
-            case 1:
-                $("#acceptedLead").css("color","black")
-                $("#previous-bot").css("color","black")
-                break;
-            case 2:
-                $("#closedLead").css("color","black")
-                $("#previous-bot").css("color","black")
-                break;
-            case 3:
-                $("#allLead").css("color","black")
-                $("#closed-bot").css("color","black")
-                break;
-            case 4:
-                $("#ongoing").css("color","black")
-                $("#ongoing-bot").css("color","black")
-                break;
-            case 5:
-                $("#newLead").css("color","black")
-                $("#newLead-bot").css("color","black")
-                break;
-            default:
-                $("#newLead").css("color","black")
-                $("#newLead-bot").css("color","black")
-                break;
-        }
+            switch(@((int)Session["SLFilterID"])){
+                case 1:
+                    $("#acceptedLead").css("color","black")
+                    $("#previous-bot").css("color","black")
+                    break;
+                case 2:
+                    $("#closedLead").css("color","black")
+                    $("#previous-bot").css("color","black")
+                    break;
+                case 3:
+                    $("#allLead").css("color","black")
+                    $("#closed-bot").css("color","black")
+                    break;
+                case 4:
+                    $("#ongoing").css("color","black")
+                    $("#ongoing-bot").css("color","black")
+                    break;
+                case 5:
+                    $("#newLead").css("color","black")
+                    $("#newLead-bot").css("color","black")
+                    break;
+                default:
+                    $("#newLead").css("color","black")
+                    $("#newLead-bot").css("color","black")
+                    break;
+            }
 
         }
     </script>

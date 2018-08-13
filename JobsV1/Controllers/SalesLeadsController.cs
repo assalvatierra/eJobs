@@ -169,7 +169,7 @@ namespace JobsV1.Controllers
                 db.SaveChanges();
 
                 AddSalesStatus(salesLead.Id, 1);    //NEW
-                return RedirectToAction("Index", new { sortid = (int)Session["SLFilterID"] });
+                return RedirectToAction("Index", new { sortid = 5 , leadid = salesLead.Id});
             }
 
             ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name", salesLead.CustomerId);
