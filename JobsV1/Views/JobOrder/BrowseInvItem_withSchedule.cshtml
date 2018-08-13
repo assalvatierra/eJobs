@@ -65,7 +65,9 @@
                 { sBgColor = "red"; }
 
                 <td style="border:1px solid red; font:300 8px arial; background-color:@sBgColor;" >
-                    <span>@Html.DisplayFor(modelItemday => dt.Day)</span>
+
+                    <span>@Html.DisplayFor(modelItemday => dt.Date.Day)</span>
+
 
                     <p>
                         @if (dt.status > 0)
@@ -94,10 +96,10 @@
                                                                 item.Item.JobServiceItems.Where(j => j.InvItemId == item.Item.Id)
                                                                 .Where(s => s.JobService.Id == svc2).FirstOrDefault().JobService.JobMainId) })" 
                                                            class="list-group-item">
-                                                                @Html.DisplayFor(modelItem => item.Item.JobServiceItems.Where(s=>s.JobServicesId == svc2).FirstOrDefault().JobService.JobMain.Description )
+                                                                @Html.DisplayFor(modelItem => item.Item.JobServiceItems.Where(s => s.JobServicesId == svc2).FirstOrDefault().JobService.JobMain.Customer.Name)
                                                                 -
-                                                                @Html.DisplayFor(modelItem => item.Item.JobServiceItems.Where(s => s.JobServicesId == svc2).FirstOrDefault().JobService.Particulars )
-                                                        </a>
+                                                                @Html.DisplayFor(modelItem => item.Item.JobServiceItems.Where(s => s.JobServicesId == svc2).FirstOrDefault().JobService.Particulars) 
+                                                         </a>
                                                       }
                                                 </div>
 

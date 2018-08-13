@@ -21,6 +21,7 @@ namespace JobsV1.Controllers
         public Models.JobMain Main { get; set; }
         public List<cJobService> Services { get; set; }
         public List<cjobCounter> ActionCounter { get; set; }
+        public decimal Payment { get; set; }
     }
 
     public class cJobService
@@ -75,22 +76,24 @@ namespace JobsV1.Controllers
                 .Include(j => j.Branch)
                 .Include(j => j.JobStatus)
                 .Include(j => j.JobThru)
-                .OrderByDescending(d => d.JobDate);
+                ;
 
             switch (sortid) {
                 case 1: //OnGoing
                     jobMains = (IQueryable<Models.JobMain>)jobMains
                         .Where(d => (d.JobStatusId == JOBRESERVATION || d.JobStatusId == JOBCONFIRMED)
-                        && (d.JobDate.CompareTo(DateTime.Today) >= 0));
+                        && (d.JobDate.CompareTo(DateTime.Today) >= 0))
+                        .OrderBy(d => d.JobDate);
                     break;
                 case 2: //Previous
                     jobMains = (IQueryable<Models.JobMain>)jobMains
-                        .Where(d => (d.JobStatusId == JOBRESERVATION || d.JobStatusId == JOBCONFIRMED ) );
+                        .Where(d => (d.JobStatusId == JOBRESERVATION || d.JobStatusId == JOBCONFIRMED ) )
+                        .Where(p => DbFunctions.AddDays(p.JobDate, 0) < DateTime.Today).OrderByDescending(d => d.JobDate);
                     break;
                 case 3: //Closed (60 days below)
                     jobMains = (IQueryable<Models.JobMain>)jobMains
                         .Where(d => (d.JobStatusId == JOBCLOSED || d.JobStatusId == JOBCANCELLED )
-                        ).Where(p => DbFunctions.AddDays(p.JobDate, 60) > DateTime.Today); ;
+                        ).Where(p => DbFunctions.AddDays(p.JobDate, 60) > DateTime.Today).OrderByDescending(d => d.JobDate);
 
                     break;
                 default:
@@ -109,6 +112,8 @@ namespace JobsV1.Controllers
                 cJobOrder joTmp = new cJobOrder();
                 joTmp.Main = main;
                 joTmp.Services = new List<cJobService>();
+                joTmp.Main.AgreedAmt = 0;
+                joTmp.Payment = 0;
 
                 List<Models.JobServices> joSvc = db.JobServices.Where(d => d.JobMainId == main.Id).ToList();
                 foreach( var svc in joSvc)
@@ -122,14 +127,22 @@ namespace JobsV1.Controllers
                     cjoTmp.Actions = db.JobActions.Where(d => d.JobServicesId == svc.Id).Include(d=>d.SrvActionItem);
                     cjoTmp.SvcItems = db.JobServiceItems.Where(d => d.JobServicesId == svc.Id).Include(d => d.InvItem);
                     cjoTmp.SupplierPos = db.SupplierPoDtls.Where(d => d.JobServicesId == svc.Id).Include(i => i.SupplierPoHdr);
-
+                    joTmp.Main.AgreedAmt += svc.ActualAmt;
                     joTmp.Services.Add(cjoTmp);
                 }
 
                 joTmp.ActionCounter = jobActionCntr.Where(d => d.JobId == joTmp.Main.Id).ToList();
+                
 
                 data.Add(joTmp);
-                
+
+                List<Models.JobPayment> jobPayment = db.JobPayments.Where(d => d.JobMainId == main.Id).ToList();
+                foreach (var payment in jobPayment)
+                {
+                    joTmp.Payment += payment.PaymentAmt;
+                }
+
+
             }
 
             List<Customer> customers = db.Customers.ToList();

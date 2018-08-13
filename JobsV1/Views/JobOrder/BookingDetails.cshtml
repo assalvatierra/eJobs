@@ -102,7 +102,7 @@
             Particulars
         </th>
         <th>
-            Supplier
+            Items
         </th>
         <th>Quoted</th>
     </tr>
@@ -133,8 +133,7 @@
 
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Supplier.Name)
-                <br />[ Item: @Html.DisplayFor(modelItem => item.SupplierItem.Description) ]
+                [ Item: @Html.DisplayFor(modelItem => item.SupplierItem.Description) ]
                 @*<br /><a href="~/Reports/TripVoucher/Viewer.aspx?SrvId=@item.Id&JobId=@item.JobMainId&file=@item.JobMain.Customer.Name">Trip Voucher</a>*@
             </td>
             <td>
@@ -164,13 +163,13 @@
             </td>
         </tr>
         <tr>
-            <td colspan="4" style="border-top:none">
+            <td colspan="4" style="border-top:none;background-color:gainsboro">
                 @if (pickup != null)
                 {
                     <span style="font:bold 12px arial, verdana;">
-                        [ Call Time: @pickup.JsTime @pickup.JsLocation ]  &nbsp; &nbsp;
-                        [ Contact: @pickup.ClientName / @pickup.ClientContact ]  &nbsp; &nbsp;
-                        [ InCharge: @pickup.ProviderName / @pickup.ProviderContact ]
+                        [ Call Time: @pickup.JsTime @pickup.JsLocation ]  &nbsp; &nbsp; <br />
+                        [ Contact: @pickup.ClientName / @pickup.ClientContact ]  &nbsp; &nbsp;<br />
+                        [ InCharge: @pickup.ProviderName / @pickup.ProviderContact ]<br />
                     </span>
                 }
             </td>
