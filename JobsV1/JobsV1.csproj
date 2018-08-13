@@ -1032,6 +1032,12 @@
     <Content Include="Views\JobOrder\Details_Quote.cshtml" />
     <Content Include="Views\JobOrder\TextMessage.cshtml" />
     <Content Include="Views\SalesLeads\CreateCustomer.cshtml" />
+    <Content Include="Views\JobOrder\PaymentIndex.cshtml" />
+    <Content Include="Views\JobOrder\PaymentAdvanceList.cshtml" />
+    <Content Include="Views\JobOrder\PaymentCreate.cshtml" />
+    <Content Include="Views\JobPayments\Delete - Copy.cshtml" />
+    <Content Include="Views\JobOrder\PaymentDetails.cshtml" />
+    <Content Include="Views\JobOrder\PaymentEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

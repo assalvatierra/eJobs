@@ -54,15 +54,17 @@ namespace JobsV1.Controllers
             return View(jobPayment);
         }
 
-        // GET: JobPayments/Create
-        public ActionResult Create(int? JobMainId)
+        // GET: JobPayments/Create , remarks = "Partial Payment" 
+        public ActionResult Create(int? JobMainId, string remarks)
         {
             Models.JobPayment jp = new JobPayment();
             jp.JobMainId = (int)JobMainId;
             jp.DtPayment = DateTime.Now;
+            jp.Remarks = remarks;
 
             ViewBag.JobMainId = new SelectList(db.JobMains, "Id", "Description");
             ViewBag.BankId = new SelectList(db.Banks, "Id", "BankName");
+
             return View(jp);
         }
 
