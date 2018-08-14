@@ -113,7 +113,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index", new { sortid  = (int)Session["FilterID"], mainid = @ViewBag.id }, null) 
+    @Html.ActionLink("Back to List", "Index", new { sortid  = Session["FilterID"] != null ? (int)Session["FilterID"] : 5, mainid = @ViewBag.id }, null) 
 </div>
 
 @section Scripts {

@@ -76,5 +76,5 @@
     <p>
         @ViewBag.sortid
     </p>
-    @Html.ActionLink("Back to List", "Index", new { mainid = @ViewBag.mainid, sortid = (int)Session["FilterID"] })
+    @Html.ActionLink("Back to List", "Index", new { mainid = @ViewBag.mainid, sortid = Session["FilterID"] != null ? (int)Session["FilterID"] : 5 })
 </div>

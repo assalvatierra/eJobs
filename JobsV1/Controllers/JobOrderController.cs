@@ -78,6 +78,7 @@ namespace JobsV1.Controllers
                 .Include(j => j.JobThru)
                 ;
 
+
             switch (sortid) {
                 case 1: //OnGoing
                     jobMains = (IQueryable<Models.JobMain>)jobMains
@@ -128,6 +129,26 @@ namespace JobsV1.Controllers
                     cjoTmp.SvcItems = db.JobServiceItems.Where(d => d.JobServicesId == svc.Id).Include(d => d.InvItem);
                     cjoTmp.SupplierPos = db.SupplierPoDtls.Where(d => d.JobServicesId == svc.Id).Include(i => i.SupplierPoHdr);
                     joTmp.Main.AgreedAmt += svc.ActualAmt;
+
+                    //get latest job date
+                    if (sortid == 1)
+                    {
+
+                        joTmp.Main.JobDate = DateTime.Compare((DateTime)svc.DtStart, DateTime.Today) >= 0 ? (DateTime)svc.DtStart : joTmp.Main.JobDate;
+
+                        if (DateTime.Compare((DateTime)svc.DtStart, DateTime.Today) <= 0
+                            && DateTime.Compare((DateTime)svc.DtEnd, DateTime.Today) >= 0)
+                        {
+                            joTmp.Main.JobDate = DateTime.Today;
+                        }
+
+
+                    }
+                    else if(sortid == 2){
+
+                        joTmp.Main.JobDate = DateTime.Compare((DateTime)svc.DtStart, DateTime.Today) < 0 ? (DateTime)svc.DtStart : joTmp.Main.JobDate;
+                    }
+
                     joTmp.Services.Add(cjoTmp);
                 }
 
@@ -153,8 +174,45 @@ namespace JobsV1.Controllers
             jobmainId = mainid != null ? (int)mainid : jobmainId;
             
             ViewBag.mainId = jobmainId;
-            
-            return View(data);
+
+            switch (sortid)
+            {
+                case 1: //OnGoing
+                    data = (List<cJobOrder>) data
+                        .Where(d => (d.Main.JobStatusId == JOBRESERVATION || d.Main.JobStatusId == JOBCONFIRMED)
+                        && (d.Main.JobDate.CompareTo(DateTime.Today) >= 0)).ToList();
+
+                    break;
+                case 2: //OnGoing
+                    data = (List<cJobOrder>)data
+                        .Where(d => (d.Main.JobStatusId == JOBRESERVATION || d.Main.JobStatusId == JOBCONFIRMED))
+                        .Where(p => DateTime.Compare(p.Main.JobDate, DateTime.Today) < 0).ToList();
+
+                    break;
+                case 3: //OnGoing
+                    data = (List<cJobOrder>)data
+                        .Where(d => (d.Main.JobStatusId == JOBCLOSED || d.Main.JobStatusId == JOBCANCELLED)
+                        ).Where(p => DbFunctions.AddDays(p.Main.JobDate, 60) > DateTime.Today).ToList();
+
+                    break;
+
+                default:
+
+                    data = (List<cJobOrder>)data.ToList();
+
+                    break;
+            }
+
+            if (sortid == 1)
+            {
+
+                return View(data.OrderBy(d => d.Main.JobDate));
+            }
+            else
+            {
+                return View(data.OrderByDescending(d => d.Main.JobDate));
+
+            }
         }
 
 

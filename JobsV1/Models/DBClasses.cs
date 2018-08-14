@@ -116,6 +116,8 @@ where d.JobStatusId < 4
                 ItemTmp.Item = tmpItem;
                 ItemTmp.dayStatus = new List<DayStatus>();
 
+                Console.WriteLine(ItemTmp.Item.Description);
+
                 var JobServiceList = itemJobs.Where(d => d.ItemId == tmpItem.Id);
                 for (int i = 0; i <= NoOfDays; i++)
                 {
@@ -143,6 +145,8 @@ where d.JobStatusId < 4
                             JobServices js = db.JobServices.Where(j => j.Id == jsTmp.ServiceId).FirstOrDefault();
                             dsTmp.svc.Add( js );  
                         }
+
+                        
                     }
 
                     ItemTmp.dayStatus.Add(dsTmp);

@@ -17,12 +17,12 @@ function InitDatePicker()
 
     $('input[name="DtStart"]').daterangepicker(
     {
-        timePicker: false,
+        timePicker: true,
         timePickerIncrement: 30,
         singleDatePicker: true,
         showDropdowns: true,
         locale: {
-            format: 'MM/DD/YYYY'
+            format: 'MM/DD/YYYY HH:mm:ss'
         }
     },
     function (start, end, label) {
@@ -34,12 +34,12 @@ function InitDatePicker()
 
     $('input[name="DtEnd"]').daterangepicker(
     {
-        timePicker: false,
+        timePicker: true,
         timePickerIncrement: 30,
         singleDatePicker: true,
         showDropdowns: true,
         locale: {
-            format: 'MM/DD/YYYY'
+            format: 'MM/DD/YYYY HH:mm:ss'
         }
     },
     function (start, end, label) {

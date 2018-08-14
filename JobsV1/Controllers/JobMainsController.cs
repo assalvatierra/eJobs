@@ -510,9 +510,12 @@ namespace JobsV1.Controllers
 
         public ActionResult JobTable(int? span = 30) //version: 2018
         {
-            System.DateTime dtNow = this.GetCurrentTime();
-            System.DateTime dtStart = new DateTime(dtNow.Year, dtNow.Month, dtNow.Day, 12, 0, 0);
+            // System.DateTime dtNow = this.GetCurrentTime();
+            System.DateTime dtNow = DateTime.Today;
+            System.DateTime dtStart = new DateTime(dtNow.Year, dtNow.Month, dtNow.Day, 0, 0, 0);
             System.DateTime dtUntil = System.DateTime.Now.AddDays((double)span);
+            
+
             dtUntil = new DateTime(dtUntil.Year, dtUntil.Month, dtUntil.Day, 23, 59, 59);
             //Column Date Labels
             System.Collections.ArrayList ColLabels = new System.Collections.ArrayList();
@@ -619,7 +622,7 @@ namespace JobsV1.Controllers
             ViewBag.ColLabels = ColLabels;
             ViewBag.ColValues = CustData;
 
-            return View(jobMains.ToList().Where(j=>j.JobDate.CompareTo(DateTime.Today) > 0));
+            return View(jobMains.ToList().Where(j=>j.JobDate.CompareTo(DateTime.Today) >= 0));
 
         }
 
