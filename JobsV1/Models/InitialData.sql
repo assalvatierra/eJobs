@@ -4,7 +4,9 @@ insert into JobStatus([Status]) values('INQUIRY'),('RESERVATION'),('CONFIRMED'),
 insert into JobThrus([Desc]) values('PHONE'),('EMAIL'),('WALKIN');
 
 
-insert into Banks([BankName],[BankBranch],[AccntName],[AccntNo]) values ('Cash','Davao','Cash','0'),('BDO','SM-Ecoland Davao','AJ88 Car Rental Services','00 086 072 9575'),('BPI','SM-Ecoland Davao','Abel S. Salvatierra','870 303 5125');
+insert into Banks([BankName],[BankBranch],[AccntName],[AccntNo]) values ('Cash','Davao','Cash','0'),('BDO','SM-Ecoland Davao','AJ88 Car Rental Services','00 086 072 9575'),
+('BPI','SM-Ecoland Davao','Abel S. Salvatierra','870 303 5125')
+,('Personal Guarantee','Realbreeze-Davao','Personal Guarantee','0');
 
 insert into Customers([Name],[Email],[Contact1],[Contact2],[Remarks],[Status]) values('<< New Customer >>','--','--',' ',' ','ACT');
 insert into Customers([Name],[Email],[Contact1],[Contact2],[Remarks],[Status]) values('RealBreeze-Davao','realbreezedavao@gmail.com','Elvie/0916-755-8473','','','ACT');
@@ -14,8 +16,7 @@ values
 ('Eden Nature Park','','1 '),
 ('Philippine Eagle','','1 '),
 ('Malagos Garden','','1 '),
-('Japanese Tunnel','','1 ')
-;
+('Japanese Tunnel','','1 ');
 
 -- ------------------------------------------------------------
 -- Sales Lead Configuration

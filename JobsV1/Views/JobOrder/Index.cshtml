@@ -31,8 +31,8 @@
                 <br /><span style="color:blue; font: bold 28px arial, verdana;">@item.Main.JobDate.ToString("dd")</span>
                 <span style="color:blue; font: bold 12px arial, verdana;">(@item.Main.JobDate.ToString("ddd"))</span>
                 <br /><br /><span style="color:red; font: normal 18px arial, verdana;">&nbsp;</span>
-                <span style="color:blue; font: bold 12px arial, verdana;">(@item.Main.AgreedAmt php)</span><br />
-                <span style="color:green; font: bold 10px arial, verdana;">(@item.Payment php)</span>
+                <span style="color:blue; font: bold 12px arial, verdana;">@item.Main.AgreedAmt php</span><br />
+                <span style="color:green; font: bold 10px arial, verdana;">@item.Payment php</span>
             </div>
         </td>
 
@@ -57,8 +57,8 @@
                 </span>
                 [
                 @Html.ActionLink("Customer Details", "CompanyDetail", new { jobid = item.Main.Id, custid = item.Main.CustomerId}) |
-                @Html.ActionLink("Job Details", "JobDetails", new { jobid = item.Main.Id }) |    
-                
+                @Html.ActionLink("Job Details", "JobDetails", new { jobid = item.Main.Id }) |     
+               
                 <!--
                 Html.ActionLink("Change Company", "ChangeCompany", "JobOrder",new { jobid = item.Main.Id }, new { data-toggle = "modal", data-target = "#SupplierPoItemsModal" })                
                 -->
@@ -130,10 +130,11 @@
 
                 <div class="modal-body" id="modal2-content">
                     <div class="list-group" id="categorylist">
-                                                
+
+                        <a href="@Url.Action("Payments", "JobOrder", new { id = item.Main.Id}, null)" class="list-group-item">  Payment Transaction</a>
                         <a href="@Url.Action("PaymentCreate", "JobOrder", new { JobMainId = item.Main.Id, remarks = "Partial Payment" }, null)" class="list-group-item"> Partial Payment</a>
                         <a href="@Url.Action("PaymentCreate", "JobOrder", new { JobMainId = item.Main.Id, remarks = "Full Payment" }, null)" class="list-group-item"> Full Payment</a>
-                        <a href="@Url.Action("PaymentCreate", "JobOrder", new { JobMainId = item.Main.Id, remarks = "Client Assurance" }, null)" class="list-group-item"> Client Assurance</a>
+                        <a href="@Url.Action("PaymentCreatePG", "JobOrder", new { JobMainId = item.Main.Id, remarks = "Personal Guarentee" }, null)" class="list-group-item"> Personal Guarantee</a>
                     </div>
                 </div>
                 <div class="modal-footer">

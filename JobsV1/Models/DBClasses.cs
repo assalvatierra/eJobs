@@ -27,7 +27,7 @@ namespace JobsV1.Models
         public int Id { get; set; }
         public string StatusCategory { get; set; }
         public DateTime dtTaken { get; set; }
-        public int refId { get; set; }
+        public int refId { get; set; }          
         public string Details { get; set; }
     }
 
@@ -51,7 +51,7 @@ namespace JobsV1.Models
         public int Day { get; set; }
         public DateTime Date { get; set; }
         public int status { get; set; }
-        public List<int> svcId { get; set; }
+        public List<JobServices> svc { get; set; }
     }
 
     public class cItemSchedule
@@ -125,10 +125,10 @@ where d.JobStatusId < 4
                     dsTmp.status = 0;
 
                     //Check if your Messages collection exists
-                    if (dsTmp.svcId == null)
+                    if (dsTmp.svc == null)
                     {
                         //It's null - create it
-                        dsTmp.svcId = new List<int>();
+                        dsTmp.svc = new List<JobServices>();
                     }
 
 
@@ -140,8 +140,8 @@ where d.JobStatusId < 4
                         if (istart >= 0 && iend <= 0)
                         {
                             dsTmp.status += 1;
-
-                            dsTmp.svcId.Add((int)jsTmp.ServiceId);  
+                            JobServices js = db.JobServices.Where(j => j.Id == jsTmp.ServiceId).FirstOrDefault();
+                            dsTmp.svc.Add( js );  
                         }
                     }
 

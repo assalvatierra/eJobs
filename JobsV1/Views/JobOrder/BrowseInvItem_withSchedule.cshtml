@@ -72,13 +72,13 @@
                     <p>
                         @if (dt.status > 0)
                         {
-                            <a href="" id="catbtn" data-toggle="modal" data-target="#@dt.Day" style="margin-bottom:10px;">
+                            <a href="" id="catbtn" data-toggle="modal" data-target="#@(dt.Day+item.ItemId)" style="margin-bottom:10px;">
                                 <img src="~/Images/CarRental/settings.png" width="20" height="20"/>
 
                             </a>
                             
                                 <!-- Modal -->
-                                <div class="modal fade" id="@dt.Day" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="@(dt.Day+item.ItemId)" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -89,16 +89,16 @@
                                             <div class="modal-body" id="modal2-content">
 
                                                 <div class="list-group" id="categorylist" style="font:500 14px arial, verdana;">
-                                                    @foreach (var svc2 in dt.svcId)
+                                                    @foreach (var svc2 in dt.svc)
                                                         {
                                                         <a href="@Url.Action("JobServices", "JobOrder", new {
                                                                 JobMainId = @Html.DisplayFor(modelItemday =>
                                                                 item.Item.JobServiceItems.Where(j => j.InvItemId == item.Item.Id)
-                                                                .Where(s => s.JobService.Id == svc2).FirstOrDefault().JobService.JobMainId) })" 
+                                                                .Where(s => s.JobService.Id == svc2.Id).FirstOrDefault().JobService.JobMainId) })" 
                                                            class="list-group-item">
-                                                                @Html.DisplayFor(modelItem => item.Item.JobServiceItems.Where(s => s.JobServicesId == svc2).FirstOrDefault().JobService.JobMain.Customer.Name)
+                                                                @Html.DisplayFor(modelItem => item.Item.JobServiceItems.Where(s => s.JobServicesId == svc2.Id).FirstOrDefault().JobService.JobMain.Customer.Name)
                                                                 -
-                                                                @Html.DisplayFor(modelItem => item.Item.JobServiceItems.Where(s => s.JobServicesId == svc2).FirstOrDefault().JobService.Particulars) 
+                                                                @Html.DisplayFor(modelItem => item.Item.JobServiceItems.Where(s => s.JobServicesId == svc2.Id).FirstOrDefault().JobService.Particulars) 
                                                          </a>
                                                       }
                                                 </div>

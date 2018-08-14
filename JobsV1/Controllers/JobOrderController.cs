@@ -1030,6 +1030,7 @@ order by x.jobid
 
             var Job = db.JobMains.Where(d => d.Id == id).FirstOrDefault();
             ViewBag.JobOrder = Job;
+            ViewBag.mainid = id;
 
             var jobPayments = db.JobPayments.Include(j => j.JobMain).Include(j => j.Bank).Where(d => d.JobMainId == id);
             return View("Paymentindex", jobPayments.ToList());
@@ -1061,8 +1062,34 @@ order by x.jobid
             ViewBag.BankId = new SelectList(db.Banks, "Id", "BankName");
 
             return View(jp);
+
+
         }
 
+        // GET: JobPayments/Create , remarks = "Partial Payment" 
+        public ActionResult PaymentCreatePG(int? JobMainId, string remarks)
+        {
+
+            JobPayment jobPayment = new JobPayment();
+            jobPayment.BankId = 4;
+            jobPayment.DtPayment = DateTime.Now;
+            jobPayment.JobMainId = (int)JobMainId;
+            jobPayment.PaymentAmt = 0;
+            jobPayment.Remarks = remarks;
+
+            db.JobPayments.Add(jobPayment);
+            db.SaveChanges();
+
+            ViewBag.JobMainId = JobMainId;
+
+            var Job = db.JobMains.Where(d => d.Id == JobMainId).FirstOrDefault();
+            ViewBag.JobOrder = Job;
+
+            var jobPayments = db.JobPayments.Include(j => j.JobMain).Include(j => j.Bank).Where(d => d.JobMainId == JobMainId);
+            return View("Paymentindex", jobPayments.ToList());
+        }
+
+        
         // POST: JobPayments/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -1133,7 +1160,7 @@ order by x.jobid
         }
 
         // POST: JobPayments/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("PaymentDelete")]
         [ValidateAntiForgeryToken]
         public ActionResult PaymentDeleteConfirmed(int id)
         {

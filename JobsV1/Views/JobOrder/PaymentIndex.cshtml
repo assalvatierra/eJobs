@@ -67,6 +67,9 @@
 </table>
 <p>
     @Html.ActionLink("New Payment", "PaymentCreate", new { JobMainId = ViewBag.JobMainId })
-    <br />@Html.ActionLink("Back to Job List", "Index", "JobMains")
+
+<p>
+    @Html.ActionLink("Back to List", "Index", new { sortid = Session["FilterID"]!=null ? (int)Session["FilterID"]:5, mainid = ViewBag.JobMainId }, null)
+</p>
 
 </p>

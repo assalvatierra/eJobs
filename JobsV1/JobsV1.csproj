@@ -1035,7 +1035,7 @@
     <Content Include="Views\JobOrder\PaymentIndex.cshtml" />
     <Content Include="Views\JobOrder\PaymentAdvanceList.cshtml" />
     <Content Include="Views\JobOrder\PaymentCreate.cshtml" />
-    <Content Include="Views\JobPayments\Delete - Copy.cshtml" />
+    <Content Include="Views\JobOrder\PaymentDelete.cshtml" />
     <Content Include="Views\JobOrder\PaymentDetails.cshtml" />
     <Content Include="Views\JobOrder\PaymentEdit.cshtml" />
   </ItemGroup>
