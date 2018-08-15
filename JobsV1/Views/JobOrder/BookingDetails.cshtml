@@ -193,6 +193,8 @@
                             
                             <img src=@Url.Content(@inv.InvItem.InvItemCategories.Where(s=>s.InvItemId == inv.InvItemId).FirstOrDefault().InvItemCat.ImgPath) width="20" height="20"/>
                             <span> &nbsp; </span>
+                            @inv.InvItem.ItemCode
+                            <span> &nbsp; </span>
                             @inv.InvItem.Description
 
                             <span> &nbsp; &nbsp; &nbsp; </span>
