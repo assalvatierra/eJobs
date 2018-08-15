@@ -166,46 +166,44 @@
 
             </td>
         </tr>
-    
+        
         <tr>
             <td colspan="4" style="border-bottom:70px solid white;margin:100px;padding:10px;background-color:gainsboro">
                 @if (pickup != null)
                 {
 
-                    <div style="font:bold 12px arial, verdana;"> 
+                    <div style="font:bold 12px arial, verdana;">
                         <div class="col-sm-4">
-                             Contact: @pickup.ClientName / @pickup.ClientContact  &nbsp; &nbsp;
+                            Contact: @pickup.ClientName / @pickup.ClientContact  &nbsp; &nbsp;
                         </div>
                         <div class="col-sm-4">
-                             Call Time: @pickup.JsTime @pickup.JsLocation   &nbsp; &nbsp;
+                            Call Time: @pickup.JsTime @pickup.JsLocation   &nbsp; &nbsp;
                         </div>
                         <div class="col-sm-4">
-                             InCharge: @pickup.ProviderName / @pickup.ProviderContact 
+                            InCharge: @pickup.ProviderName / @pickup.ProviderContact
                         </div>
                     </div>
                     <br />
                     <div style="font:bold 12px arial, verdana; padding-left:15px;">
-                      
-                            <spn>Items: </spn>
-                       
+
+                        <spn>Assigned: </spn>
+
                         @foreach (var inv in @item.JobServiceItems)
                         {
-                            foreach (var iconpath in @inv.InvItem.InvItemCategories)
-                            {
-                            <img src=@Url.Content(@iconpath.InvItemCat.ImgPath)
-                                 alt=@iconpath.InvItemCat.ImgPath height="21"
-                                 title=@iconpath.InvItemCat.ImgPath />
-                            }
+                            
+                            <img src=@Url.Content(@inv.InvItem.InvItemCategories.Where(s=>s.InvItemId == inv.InvItemId).FirstOrDefault().InvItemCat.ImgPath) width="20" height="20"/>
                             <span> &nbsp; </span>
                             @inv.InvItem.Description
-                       
+
+                            <span> &nbsp; &nbsp; &nbsp; </span>
                         }
                     </div>
-                    
-                    
                 }
             </td>
         </tr>
+
+
+
         <tr> &nbsp; &nbsp; </tr>
       }
 
@@ -237,7 +235,7 @@
 
     @foreach (var item in payments)
     {
-        dPaidAmt += item.PaymentAmt; 
+        dPaidAmt += item.PaymentAmt;
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.PaymentAmt)
