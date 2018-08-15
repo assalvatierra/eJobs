@@ -105,11 +105,12 @@
                                                                 .Where(s => s.JobService.Id == svc2.Id).FirstOrDefault().JobService.JobMainId) })"
                                                        class="list-group-item">
 
-                                                        @Html.DisplayFor(modelItem => svc2.JobMain.Customer.Name )
-                                                        -
                                                         @Html.DisplayFor(modelItem => item.Item.JobServiceItems.Where(s => s.JobServicesId == svc2.Id).FirstOrDefault().JobService.JobMain.Customer.Name)
                                                         -
+                                                        @Html.DisplayFor(modelItem => item.Item.JobServiceItems.Where(s => s.JobServicesId == svc2.Id).FirstOrDefault().JobService.JobMain.Description)
+                                                        -
                                                         @Html.DisplayFor(modelItem => item.Item.JobServiceItems.Where(s => s.JobServicesId == svc2.Id).FirstOrDefault().JobService.Particulars)
+                                                        
                                                     </a>
                                                 }
                                             </div>

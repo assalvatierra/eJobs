@@ -37,7 +37,7 @@ namespace JobsV1.Controllers
                     sortid = (int)Session["SLFilterID"];
                 else
                 {
-                    Session["SLFilterID"] = 5;
+                    Session["SLFilterID"] = 3;
 
                 }
             }
@@ -209,7 +209,7 @@ namespace JobsV1.Controllers
             {
                 db.Entry(salesLead).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index", "SalesLeads", new { leadId = salesLead.Id, sortid = (int)Session["SLFilterID"] });
+                return RedirectToAction("Index", "SalesLeads", new { leadId = salesLead.Id });
             }
             ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name", salesLead.CustomerId);
             ViewBag.AssignedTo = new SelectList(dbclasses.getUsers(), "UserName", "UserName", salesLead.AssignedTo);
@@ -381,7 +381,7 @@ namespace JobsV1.Controllers
             {
                 db.SalesActivities.Add(salesActivity);
                 db.SaveChanges();
-                return RedirectToAction("Index", new { leadId = salesActivity.SalesLeadId, sortid = (int)Session["SLFilterID"] });
+                return RedirectToAction("Index", new { leadId = salesActivity.SalesLeadId});
             }
 
             ViewBag.SalesActCodeId = new SelectList(db.SalesActCodes, "Id", "Name", salesActivity.SalesActCodeId);
@@ -394,14 +394,14 @@ namespace JobsV1.Controllers
         {
             db.Database.ExecuteSqlCommand("update SalesActivities set SalesActStatusId=2 where Id=" + id);
             var slid = db.SalesActivities.Where(s => s.Id == id).FirstOrDefault().SalesLeadId;
-            return RedirectToAction("Index", new { leadId = slid, sortid = (int)Session["SLFilterID"] });
+            return RedirectToAction("Index", new { leadId = slid});
         }
 
         public ActionResult SalesActivityRemove(int id)
         {
             var slid = db.SalesActivities.Where(s => s.Id == id).FirstOrDefault().SalesLeadId;
             db.Database.ExecuteSqlCommand("DELETE FROM SalesActivities where Id=" + id);
-            return RedirectToAction("Index", new { leadId = slid, sortid = (int)Session["SLFilterID"] });
+            return RedirectToAction("Index", new { leadId = slid});
         }
         #endregion
 
@@ -435,7 +435,7 @@ namespace JobsV1.Controllers
                 db.Entry(customer).State = EntityState.Modified;
                 db.SaveChanges();
 
-                return RedirectToAction("Index", "SalesLeads",new {leadId = leadId, sortid = (int)Session["SLFilterID"] } );
+                return RedirectToAction("Index", "SalesLeads",new {leadId = leadId} );
             }
             ViewBag.Status = new SelectList(StatusList, "value", "text", customer.Status);
 

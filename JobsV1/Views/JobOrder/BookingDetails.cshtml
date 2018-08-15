@@ -46,7 +46,7 @@
                 <br />@ViewBag.sLine3
                 <br />@ViewBag.sLine4
                 </span>
-</td>
+    </td>
     </tr>
 </table>
 <hr />
@@ -94,7 +94,7 @@
 
 <h3>Services</h3>
 <table class="table">
-    <tr>
+    <tr >
         <th>
             Type
         </th>
@@ -112,10 +112,11 @@
         dQuotedAmt += (item.SupplierAmt == null ? 0 : (decimal)item.QuotedAmt);
         JobsV1.Models.JobServicePickup pickup = item.JobServicePickups.FirstOrDefault(); 
 
-        <tr>
+        <tr >
             <td style="white-space:nowrap">
-                @Html.DisplayFor(modelItem => item.Service.Name)
-
+                <b>
+                    @Html.DisplayFor(modelItem => item.Service.Name)
+                </b>
                 @{ 
                     string sStart = ((DateTime)item.DtStart).ToString("MMM-dd-yyyy (ddd)");
                     string sEnd = ((DateTime)item.DtEnd).ToString("MMM-dd-yyyy (ddd)");
@@ -128,7 +129,9 @@
 
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Particulars)
+                <b>
+                    @Html.DisplayFor(modelItem => item.Particulars)
+                </b>
                 <br />[Remarks: @Html.DisplayFor(modelItem => item.Remarks)]
 
             </td>
@@ -140,8 +143,9 @@
                 @Html.DisplayFor(modelItem => item.QuotedAmt)
             </td>
         </tr>
-        <tr>
-            <td colspan="4" style="border-top:none">
+     
+        <tr style="margin:0;padding:0">
+            <td colspan="4" style="border:0">
                 @{string sIti = "";
                     foreach (var ititmp in itineraries)
                     {
@@ -162,19 +166,48 @@
 
             </td>
         </tr>
+    
         <tr>
-            <td colspan="4" style="border:0;padding:0;border-top:none;background-color:gainsboro">
+            <td colspan="4" style="border-bottom:70px solid white;margin:100px;padding:10px;background-color:gainsboro">
                 @if (pickup != null)
                 {
-                    <span style="font:bold 12px arial, verdana;">
-                        [ Call Time: @pickup.JsTime @pickup.JsLocation ]  &nbsp; &nbsp; <br />
-                        [ Contact: @pickup.ClientName / @pickup.ClientContact ]  &nbsp; &nbsp;<br />
-                        [ InCharge: @pickup.ProviderName / @pickup.ProviderContact ]<br />
-                    </span>
+
+                    <div style="font:bold 12px arial, verdana;"> 
+                        <div class="col-sm-4">
+                             Contact: @pickup.ClientName / @pickup.ClientContact  &nbsp; &nbsp;
+                        </div>
+                        <div class="col-sm-4">
+                             Call Time: @pickup.JsTime @pickup.JsLocation   &nbsp; &nbsp;
+                        </div>
+                        <div class="col-sm-4">
+                             InCharge: @pickup.ProviderName / @pickup.ProviderContact 
+                        </div>
+                    </div>
+                    <br />
+                    <div style="font:bold 12px arial, verdana; padding-left:15px;">
+                      
+                            <spn>Items: </spn>
+                       
+                        @foreach (var inv in @item.JobServiceItems)
+                        {
+                            foreach (var iconpath in @inv.InvItem.InvItemCategories)
+                            {
+                            <img src=@Url.Content(@iconpath.InvItemCat.ImgPath)
+                                 alt=@iconpath.InvItemCat.ImgPath height="21"
+                                 title=@iconpath.InvItemCat.ImgPath />
+                            }
+                            <span> &nbsp; </span>
+                            @inv.InvItem.Description
+                       
+                        }
+                    </div>
+                    
+                    
                 }
             </td>
         </tr>
-    }
+        <tr> &nbsp; &nbsp; </tr>
+      }
 
 </table>
 

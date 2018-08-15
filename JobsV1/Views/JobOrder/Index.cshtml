@@ -202,7 +202,7 @@
 
         });
         
-        switch(@((int)Session["FilterID"])){
+        switch(@(Session["FilterID"] != null? (int)Session["FilterID"]: 1 )){
             case 1:
                 $("#ongoing").css("color","black")
                 $("#ongoing-bot").css("color","black")

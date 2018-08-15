@@ -121,7 +121,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index", new { sortid = Session["FilterID"] != null ? (int)Session["FilterID"] : 5, serviceId = @ViewBag.svcId }, null)
+    @Html.ActionLink("Back to List", "Index", new {   serviceId = @ViewBag.svcId }, null)
 </div>
 
 @section Scripts {
