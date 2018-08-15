@@ -23,7 +23,8 @@
                 @Html.ActionLink("Delete", "JobSvcDelete", new { id = item.Service.Id })
             </span>
         </div>
-        @Html.Partial("PartialViewSrvActionItems", item.SvcActions, new ViewDataDictionary(this.ViewData) { { "svcId1", item.Service.Id } })
+       @*  @Html.Partial("PartialViewSrvActionItems", item.SvcActions, new ViewDataDictionary(this.ViewData) { { "svcId1", item.Service.Id } })
+            *@
 
         <div>
             @Html.Partial("PartialViewJobServiceItems", item.SvcItems, new ViewDataDictionary(this.ViewData) { { "svcId1", item.Service.Id } })
