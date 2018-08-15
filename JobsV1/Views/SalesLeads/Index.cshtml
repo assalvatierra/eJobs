@@ -157,8 +157,12 @@
 
                         @Html.ActionLink("Link Quotation ", "QuotationLink", new { id = item.Id }, null)
 
+                        <span>|</span>
+
+                        @Html.ActionLink("Link JobOrder ", "QuotationLink", new { id = item.Id , linkid  = 1}, null)
+
                     }
-                    else if(@item.SalesLeadLinks.Where(s => s.SalesLeadId == item.Id).FirstOrDefault().JobMain.JobStatusId == 3)
+                    else if (@item.SalesLeadLinks.Where(s => s.SalesLeadId == item.Id).FirstOrDefault().JobMain.JobStatusId == 3)
                     {
                        <img src="~/Images/Customers/Category/Active-30.png" width="15" height="15" alt="quotation approve"/>
 

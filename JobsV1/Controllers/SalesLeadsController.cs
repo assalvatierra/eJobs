@@ -733,17 +733,29 @@ namespace JobsV1.Controllers
         }
 
 
-        public ActionResult QuotationLink(int id)
+        public ActionResult QuotationLink(int id, int? linkid)
         {
             var links = db.SalesLeadLinks.ToList();
             var main = db.JobMains.Where(s=> s.SalesLeadLinks.Where(l=>l.JobMainId == s.Id).FirstOrDefault().JobMainId > 0).ToList();
             // Get all anotherHumans where the record does not exist in humans
             ViewBag.links = links;
             var jobMains2 = db.JobMains.Include(j => j.JobSuppliers).Include(j => j.Customer).Include(j => j.Branch).Include(j => j.JobStatus).Include(j => j.JobThru).Include(s=>s.SalesLeadLinks).OrderBy(d => d.JobDate);
-            var leads = jobMains2.ToList().Where(d => d.JobStatusId == JOBINQUIRY ).Except(main);
-            ViewBag.LeadId = id;
-            
 
+            IEnumerable<JobMain> leads = jobMains2.ToList();
+            if (linkid == 1)
+            {
+                //joborder
+                leads = jobMains2.ToList().Where(d => d.JobStatusId > 1).Except(main);
+
+            }
+            else 
+{
+                //quotation
+                leads = jobMains2.ToList().Where(d => d.JobStatusId == JOBINQUIRY).Except(main);
+
+            }
+
+            ViewBag.LeadId = id;
 
             return View(leads);
         }

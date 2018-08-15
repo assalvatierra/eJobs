@@ -704,7 +704,7 @@ namespace JobsV1.Controllers
         public ActionResult JobLeads()
         {
             var jobMains2 = db.JobMains.Include(j => j.JobSuppliers).Include(j => j.Customer).Include(j => j.Branch).Include(j => j.JobStatus).Include(j => j.JobThru).OrderBy(d => d.JobDate);
-            var leads = jobMains2.ToList().Where(d => d.JobStatusId == JOBINQUIRY);
+            var leads = jobMains2.ToList().Where(d => d.JobStatusId == JOBINQUIRY || d.JobStatusId == JOBRESERVATION);
 
             //var leads = jobMains2.ToList();
             //var t = leads.FirstOrDefault().JobSuppliers;

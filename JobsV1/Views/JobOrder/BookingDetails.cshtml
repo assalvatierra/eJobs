@@ -112,8 +112,8 @@
         dQuotedAmt += (item.SupplierAmt == null ? 0 : (decimal)item.QuotedAmt);
         JobsV1.Models.JobServicePickup pickup = item.JobServicePickups.FirstOrDefault(); 
 
-        <tr >
-            <td style="white-space:nowrap">
+        <tr  >
+            <td style="white-space:nowrap;margin-bottom:0;padding-bottom:0px">
                 <b>
                     @Html.DisplayFor(modelItem => item.Service.Name)
                 </b>
@@ -121,11 +121,12 @@
                     string sStart = ((DateTime)item.DtStart).ToString("MMM-dd-yyyy (ddd)");
                     string sEnd = ((DateTime)item.DtEnd).ToString("MMM-dd-yyyy (ddd)");
                 }
-                <p>
+                <span >
+                    <br />
                     Start: @sStart
                     <br />
                     End: @sEnd
-                </p>
+                </span>
 
             </td>
             <td>
@@ -145,7 +146,7 @@
         </tr>
      
         <tr style="margin:0;padding:0">
-            <td colspan="4" style="border:0">
+            <td colspan="5" style="margin:0;padding:0px">
                 @{string sIti = "";
                     foreach (var ititmp in itineraries)
                     {
