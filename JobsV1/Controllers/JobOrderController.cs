@@ -233,17 +233,21 @@ namespace JobsV1.Controllers
                
                 //get min date
                // minDate = (DateTime)svc.DtStart;
-                if (DateTime.Compare(minDate, (DateTime)svc.DtStart) > 0) {
+                if (DateTime.Compare(minDate, (DateTime)svc.DtStart) >= 0) {
                     minDate = (DateTime)svc.DtStart; //if minDate > Dtstart
                 }
 
-
-                if (DateTime.Compare(DateTime.Today, (DateTime)svc.DtStart) < 0 && DateTime.Compare(DateTime.Today, minDate) > 0)
+                if (DateTime.Compare(DateTime.Today, (DateTime)svc.DtStart) >= 0 && DateTime.Compare(DateTime.Today, (DateTime)svc.DtEnd) <= 0)
                 {
-                    minDate = (DateTime)svc.DtStart; //if Today > Dtstart
+                    minDate = DateTime.Today;
+                    //skip
+                } else {
+                    if (DateTime.Compare(DateTime.Today, (DateTime)svc.DtStart) < 0 && DateTime.Compare(DateTime.Today, minDate) > 0)
+                    {
+                        minDate = (DateTime)svc.DtStart; //if Today > Dtstart
+                    }
                 }
-
-
+                
                 //get max date
                 //maxDate = (DateTime)svc.DtStart;
                 if (DateTime.Compare(maxDate, (DateTime)svc.DtEnd) <= 0)
@@ -305,8 +309,8 @@ namespace JobsV1.Controllers
 
             }
 
-            return main.JobDate;
-            //return maxDate;
+            //return main.JobDate;
+            return minDate;
         }
 
 
