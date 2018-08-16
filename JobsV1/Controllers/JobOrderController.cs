@@ -946,6 +946,7 @@ order by x.jobid
             string sLine3 = "Email: ajdavao88@gmail.com; Website: http://www.AJDavaoCarRental.com/";
             string sLine4 = "TIN: 414-880-772-001 (non-Vat)";
             string sLogo = "LOGO_AJRENTACAR.jpg";
+            Bank bank = db.Banks.Find(5);
 
             if (jobMain.Branch.Name == "RealBreeze")
             {
@@ -955,7 +956,9 @@ order by x.jobid
                 sLine3 = "Email: RealBreezeDavao@gmail.com; Website: http://www.realbreezedavaotours.com//";
                 sLine4 = "TIN: 414-880-772-000 (non-Vat)";
                 sLogo = "RealBreezeLogo01.png";
+                bank = db.Banks.Find(6);
             }
+
             if (jobMain.Branch.Name == "AJ88")
             {
                 sCompany = "AJ88 Car Rental Services";
@@ -964,6 +967,7 @@ order by x.jobid
                 sLine3 = "Email: ajdavao88@gmail.com; Website: http://www.AJDavaoCarRental.com/";
                 sLine4 = "TIN: 414-880-772-001 (non-Vat)";
                 sLogo = "LOGO_AJRENTACAR.jpg";
+                bank = db.Banks.Find(5);
             }
 
             ViewBag.sCompany = sCompany;
@@ -973,6 +977,10 @@ order by x.jobid
             ViewBag.sLine4 = sLine4;
             ViewBag.sLogo = sLogo;
 
+            ViewBag.BankName = bank.BankName;
+            ViewBag.BankBranch = bank.BankBranch;
+            ViewBag.AccName = bank.AccntName;
+            ViewBag.AccNum = bank.AccntNo;
 
             if (jobMain.JobStatusId == 1) //quotation
                 return View("Details_Quote", jobMain);

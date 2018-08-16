@@ -161,32 +161,53 @@
 }
 
 
-<div class="jumbotron">
-        <h2>Summary</h2>
-        <p>
-            @*Expenses: @dContractAmt*@
-            <table>
-                <tr>
-                    <td>Total Due:</td>
-                    <td align="right">@dQuotedAmt.ToString("##,###.00")</td>
-                </tr>
-                @if (Model.JobStatusId == 2 || Model.JobStatusId == 3 || Model.JobStatusId == 4)
-                {
-                <tr>
-                    <td>Partial:</td>
-                    <td align="right">@dPaidAmt.ToString("##,###.00")</td>
-                </tr>
-                <tr>
-                    <td>Balance:</td>
-                    @{  Decimal dBalance = (dQuotedAmt - dPaidAmt); }
-                    <td align="right">@dBalance.ToString("##,###.00")</td>
-                </tr>
-                }
-            </table>
-        </p>
+<div class="jumbotron" >
+       
+    <table width="100%">
+        <tr>
+            <td>
+
+                <div >
+                    <h2>Summary</h2>
+                    @*Expenses: @dContractAmt*@
+                    <table>
+                        <tr>
+                            <td>Total Due:</td>
+                            <td align="right">@dQuotedAmt.ToString("##,###.00")</td>
+                        </tr>
+                        @if (Model.JobStatusId == 2 || Model.JobStatusId == 3 || Model.JobStatusId == 4)
+                            {
+                            <tr>
+                                <td>Partial:</td>
+                                <td align="right">@dPaidAmt.ToString("##,###.00")</td>
+                            </tr>
+                            <tr>
+                                <td>Balance:</td>
+                                @{  Decimal dBalance = (dQuotedAmt - dPaidAmt); }
+                                <td align="right">@dBalance.ToString("##,###.00")</td>
+                            </tr>
+                               }
+                    </table>
+                </div>
+            </td>
+
+            <td>
+                <div >
+                    <h2>Back Account</h2>
+                    <p>
+                        @ViewBag.BankName
+                        ( @ViewBag.BankBranch )
+                    </p>
+                    <p>Account: @ViewBag.AccName</p>
+                    <p>Account No.: @ViewBag.AccNum</p>
+
+                </div>
+            </td>
+        </tr>
+    </table>
 </div>
 
-<div>
+<div class="col-lg-12">
     <p>
         @*Expenses: @dContractAmt*@
         <table>
