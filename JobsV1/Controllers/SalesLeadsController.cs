@@ -239,7 +239,7 @@ namespace JobsV1.Controllers
             SalesLead salesLead = db.SalesLeads.Find(id);
             db.SalesLeads.Remove(salesLead);
             db.SaveChanges();
-            return RedirectToAction("Index", new { sortid = (int)Session["SLFilterID"] });
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
@@ -344,7 +344,7 @@ namespace JobsV1.Controllers
                 strMsg = "Error:" + Ex.Message;
             }
             ViewBag.Message = strMsg;
-            return RedirectToAction("Index", new {leadId = slId, sortid= (int)Session["SLFilterID"] });
+            return RedirectToAction("Index", new {leadId = slId });
         }
         #endregion
 
@@ -768,7 +768,18 @@ namespace JobsV1.Controllers
                 SalesLeadId = leadId
             });
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new {  leadId = leadId });
+        }
+
+
+        public ActionResult QuotationUnlink(int id)
+        {
+
+
+            SalesLeadLink salesLeadlinks = db.SalesLeadLinks.Where(s => s.SalesLeadId == id).FirstOrDefault(); ;
+            db.SalesLeadLinks.Remove(salesLeadlinks);
+            db.SaveChanges();
+            return RedirectToAction("Index" , new { leadId = id });
         }
         #endregion
     }

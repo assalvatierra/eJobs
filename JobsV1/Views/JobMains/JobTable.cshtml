@@ -38,7 +38,7 @@
             @if (item.JobStatusId == 3)
             {
                 <span class="userClient">
-                    @Html.ActionLink(item.Customer.Name, "Edit", "Customers",new { id = item.CustomerId },null)
+                    @Html.ActionLink(item.Customer.Name, "JobServices", "JobOrder", new { JobMainId = item.Id },null)
                 </span>
                 <br />
                 <span>

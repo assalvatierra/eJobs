@@ -166,21 +166,27 @@
                     {
                        <img src="~/Images/Customers/Category/Active-30.png" width="15" height="15" alt="quotation approve"/>
 
-                    @Html.ActionLink(" - View Quotation", "Services", "JobServices",
+                        @Html.ActionLink(" - View Quotation", "Services", "JobServices",
                                         new{ id = item.SalesLeadLinks.Where(s => s.SalesLeadId == item.Id)
                                             .FirstOrDefault().JobMainId }, null)
+                        <span>|</span>
+                        @Html.ActionLink(" Unlink ", "QuotationUnlink", "SalesLeads",
+                                        new { id = item.Id }, null)
                     }
                     else
                     {
-                        @Html.ActionLink("Approve Quotation |", "ConfirmJob", "SalesLeads" ,
+                        @Html.ActionLink("Approve Quotation ", "ConfirmJob", "SalesLeads" ,
                                         new { id = item.SalesLeadLinks.Where(s => s.SalesLeadId == item.Id)
                                         .FirstOrDefault().JobMainId }, null) 
-
-                        @Html.ActionLink(" View Quotation", "Services", "JobServices",
+                        <span>|</span>
+                        @Html.ActionLink(" View Quotation ", "Services", "JobServices",
                                         new { id = item.SalesLeadLinks.Where(s => s.SalesLeadId == item.Id)
                                         .FirstOrDefault().JobMainId }, null)
+                        <span>|</span>
+                        @Html.ActionLink(" Unlink ", "QuotationUnlink", "SalesLeads",
+                                        new{ id = item.Id }, null)
                     }
-                   
+
                 } ]
 
                 <br />

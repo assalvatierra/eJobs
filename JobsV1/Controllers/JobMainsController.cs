@@ -551,6 +551,12 @@ namespace JobsV1.Controllers
                         int istart = dtItem.CompareTo((DateTime)svcitem.DtStart);
                         int iend = dtItem.CompareTo((DateTime)svcitem.DtEnd);
 
+                        //update jobdate from service dates
+
+                        item.JobDate = (DateTime)svcitem.DtEnd;
+
+                        //
+
                         string sLabel = dtItem.ToString("dd") + "-" + dtItem.DayOfWeek.ToString();
                         if (dtItem.CompareTo((DateTime)svcitem.DtStart) >= 0 && dtItem.CompareTo((DateTime)svcitem.DtEnd) <= 0)
                         {
@@ -624,6 +630,35 @@ namespace JobsV1.Controllers
 
             return View(jobMains.ToList().Where(j=>j.JobDate.CompareTo(DateTime.Today) >= 0));
 
+        }
+
+
+        public void updateJobDate(int mainId)
+        {
+
+
+            //update jobdate
+            var main = db.JobMains.Where(j => mainId == j.Id).FirstOrDefault();
+
+            //loop though all jobservices in the jobmain
+            //to get the latest date
+            foreach (var svc in db.JobServices.Where(s => s.JobMainId == main.Id))
+            {
+                //assign latest basin on today
+
+                //get latest date
+                if (DateTime.Compare(DateTime.Today, (DateTime)svc.DtStart) > 0)   //if today is later than datestart, assign datestart to jobdate, 
+                {
+                    main.JobDate = (DateTime)svc.DtStart;
+                    db.Entry(main).State = EntityState.Modified;
+                }
+                else  //if today is later than datestart, assign datestart to jobdate, 
+                {
+                    main.JobDate = (DateTime)svc.DtStart;
+                    db.Entry(main).State = EntityState.Modified;
+                }
+                db.SaveChanges();
+            }
         }
 
 

@@ -80,7 +80,7 @@ namespace JobsV1.Controllers
                 .Include(j => j.JobThru)
                 ;
 
-
+            /*
             switch (sortid) {
                 case 1: //OnGoing
                     jobMains = (IQueryable<Models.JobMain>)jobMains
@@ -105,7 +105,7 @@ namespace JobsV1.Controllers
                         .Where(d => (d.JobStatusId == JOBRESERVATION || d.JobStatusId == JOBCONFIRMED));
                     break;
             }
-            
+            */
             List<cjobCounter> jobActionCntr = getJobActionCount(jobMains.Select(d => d.Id).ToList());
             var data = new List<cJobOrder>();
 
@@ -131,8 +131,8 @@ namespace JobsV1.Controllers
                     cjoTmp.SvcItems = db.JobServiceItems.Where(d => d.JobServicesId == svc.Id).Include(d => d.InvItem);
                     cjoTmp.SupplierPos = db.SupplierPoDtls.Where(d => d.JobServicesId == svc.Id).Include(i => i.SupplierPoHdr);
                     joTmp.Main.AgreedAmt += svc.ActualAmt;
-
                     //get latest job date
+                    /*
                     if (sortid == 1)
                     {
 
@@ -150,12 +150,13 @@ namespace JobsV1.Controllers
 
                         joTmp.Main.JobDate = DateTime.Compare((DateTime)svc.DtStart, DateTime.Today) < 0 ? (DateTime)svc.DtStart : joTmp.Main.JobDate;
                     }
-
+                    */
                     joTmp.Services.Add(cjoTmp);
                 }
 
                 joTmp.ActionCounter = jobActionCntr.Where(d => d.JobId == joTmp.Main.Id).ToList();
-                
+
+                joTmp.Main.JobDate = TempJobDate(joTmp.Main.Id);
 
                 data.Add(joTmp);
 
@@ -215,6 +216,97 @@ namespace JobsV1.Controllers
                 return View(data.OrderByDescending(d => d.Main.JobDate));
 
             }
+        }
+
+
+        public DateTime TempJobDate(int mainId)
+        {
+            //update jobdate
+            var main = db.JobMains.Where(j => mainId == j.Id).FirstOrDefault();
+            DateTime minDate = new DateTime(9999,12,30);
+            DateTime maxDate = new DateTime(1,1,1);
+
+            //loop though all jobservices in the jobmain
+            //to get the latest date
+            foreach (var svc in db.JobServices.Where(s => s.JobMainId == mainId))
+            {
+               
+                //get min date
+               // minDate = (DateTime)svc.DtStart;
+                if (DateTime.Compare(minDate, (DateTime)svc.DtStart) > 0) {
+                    minDate = (DateTime)svc.DtStart; //if minDate > Dtstart
+                }
+
+
+                if (DateTime.Compare(DateTime.Today, (DateTime)svc.DtStart) < 0 && DateTime.Compare(DateTime.Today, minDate) > 0)
+                {
+                    minDate = (DateTime)svc.DtStart; //if Today > Dtstart
+                }
+
+
+                //get max date
+                //maxDate = (DateTime)svc.DtStart;
+                if (DateTime.Compare(maxDate, (DateTime)svc.DtEnd) <= 0)
+                {
+                    maxDate = (DateTime)svc.DtEnd; //if minDate > Dtstart
+                }
+
+                
+                /*
+                //get least latest date
+                if (DateTime.Compare(DateTime.Today, (DateTime)svc.DtStart) >= 0)   //if today is later than datestart, assign datestart to jobdate, 
+                {
+
+                    main.JobDate = (DateTime)svc.DtStart;
+
+                    if (DateTime.Compare(DateTime.Today, (DateTime)svc.DtEnd) <= 0) //if today earlier than date end, assign jobdate today
+                    {
+                        //assign date today
+                       // main.JobDate = DateTime.Today;
+                     //   db.Entry(main).State = EntityState.Modified;
+                    }
+
+                }
+                else  //if today is earlier than datestart, assign datestart to jobdate, 
+                {
+                   // main.JobDate = (DateTime)svc.DtStart;
+                   // db.Entry(main).State = EntityState.Modified;
+                }
+                //db.SaveChanges();
+                */
+
+            }
+
+            if (DateTime.Compare(DateTime.Today, minDate) == 0)
+            {
+                main.JobDate = minDate;
+            }
+
+            if (DateTime.Compare(DateTime.Today, maxDate) == 0)
+            {
+                main.JobDate = maxDate;
+            }
+
+            if (DateTime.Compare(DateTime.Today, minDate) < 0) {
+                main.JobDate = minDate;
+            }
+
+            if (DateTime.Compare(DateTime.Today, minDate) > 0)
+            {
+                if (DateTime.Compare(DateTime.Today, maxDate) < 0)
+                {
+                    main.JobDate = DateTime.Today;
+                }
+
+                if (DateTime.Compare(DateTime.Today, maxDate) > 0)
+                {
+                    main.JobDate = minDate;
+                }
+
+            }
+
+            return main.JobDate;
+            //return maxDate;
         }
 
 
@@ -632,8 +724,12 @@ order by x.jobid
                     db.Entry(ititmp).State = EntityState.Modified;
                 }
 
+                //db.SaveChanges();
+                updateJobDate(jobServices.JobMainId);
                 db.SaveChanges();
+
             }
+
 
             ViewBag.JobMainId = new SelectList(db.JobMains, "Id", "Description", jobServices.JobMainId);
             ViewBag.SupplierId = new SelectList(db.Suppliers, "Id", "Name", jobServices.SupplierId);
@@ -642,6 +738,43 @@ order by x.jobid
 
             return RedirectToAction("Index", new { serviceId = jobServices.Id });
 
+        }
+
+        public void updateJobDate(int mainId) {
+
+
+            //update jobdate
+            var main = db.JobMains.Where(j => mainId == j.Id).FirstOrDefault();
+
+            //loop though all jobservices in the jobmain
+            //to get the latest date
+            foreach (var svc in db.JobServices.Where(s => s.JobMainId == main.Id))
+            {
+                //get least latest date
+                if (DateTime.Compare(DateTime.Today, (DateTime)svc.DtStart) >= 0)   //if today is later than datestart, assign datestart to jobdate, 
+                {
+
+                    if (DateTime.Compare(DateTime.Today, (DateTime)svc.DtEnd) <= 0) //if today earlier than date end, assign jobdate today
+                    {
+                        //assign date today
+                        main.JobDate = DateTime.Today;
+                        db.Entry(main).State = EntityState.Modified;
+                    }
+                    else
+                    {
+                        //assign latest basin on today
+                        main.JobDate = (DateTime)svc.DtStart;
+                        db.Entry(main).State = EntityState.Modified;
+                    }
+
+                }
+                else  //if today is earlier than datestart, assign datestart to jobdate, 
+                {
+                    //main.JobDate = (DateTime)svc.DtStart;
+                    //db.Entry(main).State = EntityState.Modified;
+                }
+                //db.SaveChanges();
+            }
         }
 
         // GET: JobServices/Details/5
