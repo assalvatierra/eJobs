@@ -91,3 +91,9 @@ textarea {
 .userTable {
     border-top: none;
 }
+
+.jobservice{
+    background-color:lightgray;
+}
+.jobservice :hover{
+}

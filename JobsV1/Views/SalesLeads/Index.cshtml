@@ -47,7 +47,7 @@
 
         </td>
         <td>
-            <div style="background-color:lightgray;">
+            <div style="background-color:lightgray;" >
                 @foreach (var salesstat in SalesStatCode)
                 {
                             if (item.SalesStatus.Select(s => s.SalesStatusCodeId).Contains(salesstat.Id))
@@ -64,7 +64,7 @@
                             }
                         }
             </div>
-            <div>
+            <div >
                 <span style="color:darkgreen;font:bold 16px arial, verdana;">
                     @Html.DisplayFor(modelItem => item.Customer.Name)
                 </span> |
