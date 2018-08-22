@@ -994,7 +994,7 @@ order by x.jobid
 
         public ActionResult TextMessage(int? id)
         {
-            string sData = "Pickup Details";
+            string sData = "Pickup Details2";
 
             Models.JobServicePickup svcpu;
             Models.JobServices svc = db.JobServices.Find(id);
@@ -1008,13 +1008,25 @@ order by x.jobid
 
                 svcpu = svc.JobServicePickups.FirstOrDefault();
                 sData += "\nDate:" + ((DateTime)svc.DtStart).ToString("dd MMM yyyy (ddd)");
-                sData += "\nTime&Location:" + svcpu.JsTime + " " + svcpu.JsLocation;
-                sData += "\nGuest:" + svcpu.ClientName + " #" + svcpu.ClientContact;
-                sData += "\nDriver:" + svcpu.ProviderName + " #" + svcpu.ProviderContact;
-                sData += "\nUnit:" + svc.SupplierItem.Description + " " + svc.SupplierItem.Remarks;
+                sData += "\nTime:" + svcpu.JsTime ;
+                sData += "\nLocation:"  + svcpu.JsLocation;
+
+                sData += "\n\nGuest:" + svcpu.ClientName ;
+                sData += "\nContact:" + svcpu.ClientContact;
+
+                sData += "\n  ";
+                sData += "\nAssigned:  ";
+
+                foreach (var svi in svc.JobServiceItems ) {
+                   sData += "\n" + svi.InvItem.Description + " (" + svi.InvItem.ItemCode + ") / " + svi.InvItem.ContactInfo;
+                }
+
+
+                sData += "\n  ";
                 sData += "\nRate:P" + quote.ToString("##,###.00");
                 sData += "\nParticulars:" + svc.Particulars;
                 sData += "\n  " + svc.Remarks;
+                sData += "\nNo.Pax:  " + svc.JobMain.NoOfPax;
                 sData += "\n\nHave a safe trip,\nAJ88 Car Rental";
             }
 

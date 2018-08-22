@@ -102,7 +102,7 @@
             Particulars
         </th>
         <th>
-            Items
+            Assigned
         </th>
         <th>Quoted</th>
     </tr>
@@ -135,8 +135,20 @@
                 </b>
                 <br />[Remarks: @Html.DisplayFor(modelItem => item.Remarks)]
                 <br /> [ Item: @Html.DisplayFor(modelItem => item.SupplierItem.Description) ]
-                <br /> Call Time: @pickup.JsTime @pickup.JsLocation
-                <br /> Contact: @pickup.ClientName / @pickup.ClientContact 
+                @if (pickup != null)
+                {
+                    <span>
+                        <br /> Call Time:
+                    </span> 
+                    @pickup.JsTime @pickup.JsLocation
+
+                    <span>
+                        <br />Contact:
+                    </span>
+                     @pickup.ClientName                    
+                    <span> /</span> 
+                    @pickup.ClientContact
+                 }
             </td>
             <td>
                 <!--
@@ -153,6 +165,8 @@
                         @inv.InvItem.ItemCode
                         <span>) </span>
                         @inv.InvItem.Description
+                        <span>/ </span>
+                        @inv.InvItem.ContactInfo
                         <br />
                     }
                     
@@ -166,6 +180,9 @@
                             @po.InvItem.ItemCode
                             <span>) </span>
                             @po.InvItem.Description
+                            <span>/ </span>
+
+                            @po.InvItem.ContactInfo
                             <br />
                         }
                     }
