@@ -946,7 +946,7 @@ order by x.jobid
             string sLine3 = "Email: ajdavao88@gmail.com; Website: http://www.AJDavaoCarRental.com/";
             string sLine4 = "TIN: 414-880-772-001 (non-Vat)";
             string sLogo = "LOGO_AJRENTACAR.jpg";
-            Bank bank = db.Banks.Find(5);
+            Bank bank = db.Banks.Find(2);
 
             if (jobMain.Branch.Name == "RealBreeze")
             {
@@ -956,7 +956,7 @@ order by x.jobid
                 sLine3 = "Email: RealBreezeDavao@gmail.com; Website: http://www.realbreezedavaotours.com//";
                 sLine4 = "TIN: 414-880-772-000 (non-Vat)";
                 sLogo = "RealBreezeLogo01.png";
-                bank = db.Banks.Find(6);
+                bank = db.Banks.Find(3);
             }
 
             if (jobMain.Branch.Name == "AJ88")
@@ -967,7 +967,7 @@ order by x.jobid
                 sLine3 = "Email: ajdavao88@gmail.com; Website: http://www.AJDavaoCarRental.com/";
                 sLine4 = "TIN: 414-880-772-001 (non-Vat)";
                 sLogo = "LOGO_AJRENTACAR.jpg";
-                bank = db.Banks.Find(5);
+                bank = db.Banks.Find(2);
             }
 
             ViewBag.sCompany = sCompany;
