@@ -28,6 +28,7 @@ namespace JobsV1.Models
         public string Description { get; set; }
         public string Remarks { get; set; }
         public string ImgPath { get; set; }
+        public string ContactInfo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InvItemCategory> InvItemCategories { get; set; }

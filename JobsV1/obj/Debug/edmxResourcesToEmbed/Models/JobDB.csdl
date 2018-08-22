@@ -1534,6 +1534,7 @@
     <NavigationProperty Name="JobServiceItems" Relationship="JobDB.InvItemJobServiceItem" FromRole="InvItem" ToRole="JobServiceItem" />
     <NavigationProperty Name="SupplierInvItems" Relationship="JobDB.InvItemSupplierInvItem" FromRole="InvItem" ToRole="SupplierInvItem" />
     <NavigationProperty Name="SupplierPoItems" Relationship="JobDB.InvItemSupplierPoItem" FromRole="InvItem" ToRole="SupplierPoItem" />
+    <Property Name="ContactInfo" Type="String" Nullable="true" MaxLength="50" />
   </EntityType>
   <EntityType Name="InvItemCat">
     <Key>

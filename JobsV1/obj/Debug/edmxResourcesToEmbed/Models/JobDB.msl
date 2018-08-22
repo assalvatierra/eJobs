@@ -598,6 +598,7 @@
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Remarks" ColumnName="Remarks" />
           <ScalarProperty Name="ImgPath" ColumnName="ImgPath" />
+          <ScalarProperty Name="ContactInfo" ColumnName="ContactInfo" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
