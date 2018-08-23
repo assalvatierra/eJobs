@@ -104,7 +104,6 @@
         <th>
             Assigned
         </th>
-        <th>Quoted</th>
     </tr>
     @foreach (var item in services)
     {
@@ -131,67 +130,77 @@
             </td>
             <td>
                 <b>
-                    @Html.DisplayFor(modelItem => item.Particulars)
+                    @Html.DisplayFor(modelItem => item.Particulars) - @Html.DisplayFor(modelItem => item.QuotedAmt)
                 </b>
                 <br />[Remarks: @Html.DisplayFor(modelItem => item.Remarks)]
                 <br /> [ Item: @Html.DisplayFor(modelItem => item.SupplierItem.Description) ]
                 @if (pickup != null)
                 {
-                    <span>
-                        <br /> Call Time:
-                    </span> 
-                    @pickup.JsTime @pickup.JsLocation
-
-                    <span>
-                        <br />Contact:
-                    </span>
-                     @pickup.ClientName                    
-                    <span> /</span> 
-                    @pickup.ClientContact
-                 }
+                    <b>
+                        <span>
+                            <br /> Pickup:
+                        </span>
+                        @pickup.JsTime
+                        <span> &nbsp;</span>
+                        @pickup.JsLocation
+                        <span>
+                            <br />Contact:
+                        </span>
+                        @pickup.ClientName
+                        <span> /</span>
+                        @pickup.ClientContact
+                    </b>
+                }
             </td>
             <td>
-                <!--
-                        
-                -->
-                @*<br /><a href="~/Reports/TripVoucher/Viewer.aspx?SrvId=@item.Id&JobId=@item.JobMainId&file=@item.JobMain.Customer.Name">Trip Voucher</a>*@
-                @if (pickup != null)
+                @foreach (var inv in @item.JobServiceItems)
                 {
+                    <img src=@Url.Content(@inv.InvItem.InvItemCategories.Where(s=>s.InvItemId == inv.InvItemId).FirstOrDefault().InvItemCat.ImgPath) width="20" height="20" />
+                    <span> (</span>
+                    @inv.InvItem.ItemCode
+                    <span>) </span>
+                    @inv.InvItem.Description
 
-                    foreach (var inv in @item.JobServiceItems)
+                    if (inv.InvItem.ContactInfo != "")
                     {
-                        <img src=@Url.Content(@inv.InvItem.InvItemCategories.Where(s=>s.InvItemId == inv.InvItemId).FirstOrDefault().InvItemCat.ImgPath) width="20" height="20" />
-                        <span> (</span>
-                        @inv.InvItem.ItemCode
-                        <span>) </span>
-                        @inv.InvItem.Description
-                        <span>/ </span>
-                        @inv.InvItem.ContactInfo
                         <br />
+                        <img src="~/Images/SalesLead/Phone103.png" width="20" height="20" />
+                        @inv.InvItem.ContactInfo
                     }
-                    
-                    foreach (var sup in @item.SupplierPoDtls)
-                    {
+                    <br />
+                }
 
-                        foreach (var po in @sup.SupplierPoItems)
+                @foreach (var sup in @item.SupplierPoDtls)
+                {
+                    foreach (var po in @sup.SupplierPoItems)
+                    {
+                        <img src=@Url.Content(@po.InvItem.InvItemCategories.Where(s=>s.InvItemId == po.InvItemId).FirstOrDefault().InvItemCat.ImgPath) width="20" height="20" />
+                        <span> (</span>
+                        @po.InvItem.ItemCode
+                        <span>) </span>
+                        @po.InvItem.Description
+
+                        if (po.InvItem.ContactInfo != "")
                         {
-                            <img src=@Url.Content(@po.InvItem.InvItemCategories.Where(s=>s.InvItemId == po.InvItemId).FirstOrDefault().InvItemCat.ImgPath) width="20" height="20" />
-                            <span> (</span>
-                            @po.InvItem.ItemCode
-                            <span>) </span>
-                            @po.InvItem.Description
-                            <span>/ </span>
+                            <br />
+                            <img src="~/Images/SalesLead/Phone103.png" width="20" height="20" />
 
                             @po.InvItem.ContactInfo
-                            <br />
                         }
+                        <br />
                     }
                 }
-                Office: @pickup.ProviderName / @pickup.ProviderContact
+
+                @*<br /><a href="~/Reports/TripVoucher/Viewer.aspx?SrvId=@item.Id&JobId=@item.JobMainId&file=@item.JobMain.Customer.Name">Trip Voucher</a>*@
+                
+                @if (pickup != null)
+                {
+                    <span>Office:</span> @pickup.ProviderContact
+                }
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.QuotedAmt)
-            </td>
+           
+               
+            
         </tr>
      
         <tr style="margin:0;padding:0">
