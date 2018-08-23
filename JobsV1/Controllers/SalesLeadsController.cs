@@ -44,14 +44,14 @@ namespace JobsV1.Controllers
 
             var salesLeads = db.SalesLeads.Include(s => s.Customer)
                         .Include(s => s.SalesLeadCategories)
-                        .Include(s => s.SalesStatus).OrderByDescending(s => s.Date)
+                        .Include(s => s.SalesStatus).OrderBy(s => s.Date)
                         .ToList();
 
             switch (sortid) {
                 case 1://approved
                     salesLeads = db.SalesLeads.Include(s => s.Customer)
                                 .Include(s => s.SalesLeadCategories)
-                                .Include(s => s.SalesStatus).OrderByDescending(s => s.Date).Include(s => s.Customer.JobMains)
+                                .Include(s => s.SalesStatus).OrderBy(s => s.Date).Include(s => s.Customer.JobMains)
                                 .Where(s => s.SalesStatus.Where(ss => ss.SalesStatusCodeId > 4)
                                 .OrderByDescending(ss => ss.SalesStatusCodeId).FirstOrDefault().SalesStatusCodeId < 6) // Current
                                 .ToList();
@@ -59,7 +59,7 @@ namespace JobsV1.Controllers
                 case 2:// closedb
                     salesLeads = db.SalesLeads.Include(s => s.Customer)
                                 .Include(s => s.SalesLeadCategories)
-                                .Include(s => s.SalesStatus).OrderByDescending(s => s.Date).Include(s => s.Customer.JobMains)
+                                .Include(s => s.SalesStatus).OrderBy(s => s.Date).Include(s => s.Customer.JobMains)
                                 .Where(s => s.SalesStatus.Where(ss => ss.SalesStatusCodeId == 5)
                                 .OrderByDescending(ss => ss.SalesStatusCodeId).FirstOrDefault().SalesStatusCodeId == 5) // Current
                                 .ToList();
@@ -69,7 +69,7 @@ namespace JobsV1.Controllers
                     // all
                     salesLeads = db.SalesLeads.Include(s => s.Customer)
                          .Include(s => s.SalesLeadCategories).Include(s => s.Customer.JobMains)
-                         .Include(s => s.SalesStatus).OrderByDescending(s => s.Date)
+                         .Include(s => s.SalesStatus).OrderBy(s => s.Date)
                          .ToList();
                     break;
 
@@ -77,7 +77,7 @@ namespace JobsV1.Controllers
                     // OnGiong
                     salesLeads = db.SalesLeads.Include(s => s.Customer)
                                 .Include(s => s.SalesLeadCategories)
-                                .Include(s => s.SalesStatus).OrderByDescending(s => s.Date).Include(s => s.Customer.JobMains)
+                                .Include(s => s.SalesStatus).OrderBy(s => s.Date).Include(s => s.Customer.JobMains)
                                 .Where(s => s.SalesStatus.Where(ss => ss.SalesStatusCodeId > 2)
                                 .OrderByDescending(ss => ss.SalesStatusCodeId).FirstOrDefault().SalesStatusCodeId < 5) // Current
                                 .ToList();
@@ -86,7 +86,7 @@ namespace JobsV1.Controllers
                     // new Leads
                     salesLeads = db.SalesLeads.Include(s => s.Customer)
                                 .Include(s => s.SalesLeadCategories)
-                                .Include(s => s.SalesStatus).OrderByDescending(s => s.Date).Include(s => s.Customer.JobMains)
+                                .Include(s => s.SalesStatus).OrderBy(s => s.Date).Include(s => s.Customer.JobMains)
                                 .Where(s => s.SalesStatus.Where(ss => ss.SalesStatusCodeId > 0)
                                 .OrderByDescending(ss => ss.SalesStatusCodeId).FirstOrDefault().SalesStatusCodeId < 3) // Current
                                 .ToList();
@@ -95,7 +95,7 @@ namespace JobsV1.Controllers
                     // new Leads
                     salesLeads = db.SalesLeads.Include(s => s.Customer)
                                 .Include(s => s.SalesLeadCategories)
-                                .Include(s => s.SalesStatus).OrderByDescending(s => s.Date).Include(s => s.Customer.JobMains)
+                                .Include(s => s.SalesStatus).OrderBy(s => s.Date).Include(s => s.Customer.JobMains)
                                 .Where(s => s.SalesStatus.Where(ss => ss.SalesStatusCodeId > 0)
                                 .OrderByDescending(ss => ss.SalesStatusCodeId).FirstOrDefault().SalesStatusCodeId < 3) // Current
                                 .ToList();

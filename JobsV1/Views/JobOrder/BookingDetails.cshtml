@@ -102,7 +102,7 @@
             Particulars
         </th>
         <th>
-            Items
+            Assigned
         </th>
         <th>Quoted</th>
     </tr>
@@ -134,11 +134,60 @@
                     @Html.DisplayFor(modelItem => item.Particulars)
                 </b>
                 <br />[Remarks: @Html.DisplayFor(modelItem => item.Remarks)]
+                <br /> [ Item: @Html.DisplayFor(modelItem => item.SupplierItem.Description) ]
+                @if (pickup != null)
+                {
+                    <span>
+                        <br /> Call Time:
+                    </span> 
+                    @pickup.JsTime @pickup.JsLocation
 
+                    <span>
+                        <br />Contact:
+                    </span>
+                     @pickup.ClientName                    
+                    <span> /</span> 
+                    @pickup.ClientContact
+                 }
             </td>
             <td>
-                [ Item: @Html.DisplayFor(modelItem => item.SupplierItem.Description) ]
+                <!--
+                        
+                -->
                 @*<br /><a href="~/Reports/TripVoucher/Viewer.aspx?SrvId=@item.Id&JobId=@item.JobMainId&file=@item.JobMain.Customer.Name">Trip Voucher</a>*@
+                @if (pickup != null)
+                {
+
+                    foreach (var inv in @item.JobServiceItems)
+                    {
+                        <img src=@Url.Content(@inv.InvItem.InvItemCategories.Where(s=>s.InvItemId == inv.InvItemId).FirstOrDefault().InvItemCat.ImgPath) width="20" height="20" />
+                        <span> (</span>
+                        @inv.InvItem.ItemCode
+                        <span>) </span>
+                        @inv.InvItem.Description
+                        <span>/ </span>
+                        @inv.InvItem.ContactInfo
+                        <br />
+                    }
+                    
+                    foreach (var sup in @item.SupplierPoDtls)
+                    {
+
+                        foreach (var po in @sup.SupplierPoItems)
+                        {
+                            <img src=@Url.Content(@po.InvItem.InvItemCategories.Where(s=>s.InvItemId == po.InvItemId).FirstOrDefault().InvItemCat.ImgPath) width="20" height="20" />
+                            <span> (</span>
+                            @po.InvItem.ItemCode
+                            <span>) </span>
+                            @po.InvItem.Description
+                            <span>/ </span>
+
+                            @po.InvItem.ContactInfo
+                            <br />
+                        }
+                    }
+                }
+                Office: @pickup.ProviderName / @pickup.ProviderContact
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.QuotedAmt)
@@ -168,44 +217,6 @@
             </td>
         </tr>
         
-        <tr>
-            <td colspan="4" style="border-bottom:70px solid white;margin:100px;padding:10px;background-color:gainsboro">
-                @if (pickup != null)
-                {
-
-                    <div style="font:bold 12px arial, verdana;">
-                        <div class="col-sm-4">
-                            Contact: @pickup.ClientName / @pickup.ClientContact  &nbsp; &nbsp;
-                        </div>
-                        <div class="col-sm-4">
-                            Call Time: @pickup.JsTime @pickup.JsLocation   &nbsp; &nbsp;
-                        </div>
-                        <div class="col-sm-4">
-                            InCharge: @pickup.ProviderName / @pickup.ProviderContact
-                        </div>
-                    </div>
-                    <br />
-                    <div style="font:bold 12px arial, verdana; padding-left:15px;">
-
-                        <spn>Assigned: </spn>
-
-                        @foreach (var inv in @item.JobServiceItems)
-                        {
-                            
-                            <img src=@Url.Content(@inv.InvItem.InvItemCategories.Where(s=>s.InvItemId == inv.InvItemId).FirstOrDefault().InvItemCat.ImgPath) width="20" height="20"/>
-                            <span> &nbsp; </span>
-                            @inv.InvItem.ItemCode
-                            <span> &nbsp; </span>
-                            @inv.InvItem.Description
-
-                            <span> &nbsp; &nbsp; &nbsp; </span>
-                        }
-                    </div>
-                }
-            </td>
-        </tr>
-
-
 
         <tr> &nbsp; &nbsp; </tr>
       }
@@ -256,28 +267,37 @@
 
 
 <div class="jumbotron">
-        <h2>Summary</h2>
-        <p>
-            @*Expenses: @dContractAmt*@
-            <table>
-                <tr>
-                    <td>Total Due:</td>
-                    <td align="right">@dQuotedAmt.ToString("##,###.00")</td>
-                </tr>
-                @if (Model.JobStatusId == 2 || Model.JobStatusId == 3 || Model.JobStatusId == 4)
-                {
-                <tr>
-                    <td>Partial:</td>
-                    <td align="right">@dPaidAmt.ToString("##,###.00")</td>
-                </tr>
-                <tr>
-                    <td>Balance:</td>
-                    @{  Decimal dBalance = (dQuotedAmt - dPaidAmt); }
-                    <td align="right">@dBalance.ToString("##,###.00")</td>
-                </tr>
-                }
-            </table>
-        </p>
+
+    <table >
+        <tr>
+            <td>
+
+                <div>
+                    <h2>Summary</h2>
+                    @*Expenses: @dContractAmt*@
+                    <table>
+                        <tr>
+                            <td>Total Due:</td>
+                            <td align="right">@dQuotedAmt.ToString("##,###.00")</td>
+                        </tr>
+                        @if (Model.JobStatusId == 2 || Model.JobStatusId == 3 || Model.JobStatusId == 4)
+                        {
+                            <tr>
+                                <td>Partial:</td>
+                                <td align="right">@dPaidAmt.ToString("##,###.00")</td>
+                            </tr>
+                            <tr>
+                                <td>Balance:</td>
+                                @{  Decimal dBalance = (dQuotedAmt - dPaidAmt); }
+                                <td align="right">@dBalance.ToString("##,###.00")</td>
+                            </tr>
+                                    }
+                    </table>
+                </div>
+            </td>
+
+        </tr>
+    </table>
 </div>
 
 
