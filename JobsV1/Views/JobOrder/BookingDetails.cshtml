@@ -130,7 +130,7 @@
             </td>
             <td>
                 <b>
-                    @Html.DisplayFor(modelItem => item.Particulars) - @Html.DisplayFor(modelItem => item.QuotedAmt)
+                  P @string.Format("{0:N}", item.QuotedAmt)  - @Html.DisplayFor(modelItem => item.Particulars) 
                 </b>
                 <br />[Remarks: @Html.DisplayFor(modelItem => item.Remarks)]
                 <br /> [ Item: @Html.DisplayFor(modelItem => item.SupplierItem.Description) ]
