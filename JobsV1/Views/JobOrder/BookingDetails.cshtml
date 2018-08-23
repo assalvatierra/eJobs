@@ -161,10 +161,11 @@
                     <span>) </span>
                     @inv.InvItem.Description
 
-                    if (inv.InvItem.ContactInfo != "")
+                    if (inv.InvItem.ContactInfo != "" && inv.InvItem.ContactInfo != null)
                     {
+                        
                         <br />
-                        <img src="~/Images/SalesLead/Phone103.png" width="20" height="20" />
+                        <img src="~/Images/Phone001.png" width="20" height="20" />
                         @inv.InvItem.ContactInfo
                     }
                     <br />
