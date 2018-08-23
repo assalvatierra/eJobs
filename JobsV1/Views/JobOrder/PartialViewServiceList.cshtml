@@ -6,12 +6,12 @@
     DateTime dtstart = (DateTime) item.Service.DtStart;
     DateTime dtend = (DateTime)item.Service.DtEnd;
 
-    <div>
+    <div >
         <div style="padding:0.5em;cursor:pointer" class="jobservice" 
              onMouseOver="$(this).css('background-color', '#bfbfbf')"
              onMouseOut="$(this).css('background-color', 'lightgray')"
-             data-toggle="collapse" href="#col@(item.Service.Id)"
-             
+             data-toggle="collapse" data-target="#col@(item.Service.Id)"
+          
              >
           
             <span style="font:bold 11px;color:darkblue;">
