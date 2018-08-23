@@ -11,7 +11,7 @@
              onMouseOver="$(this).css('background-color', '#bfbfbf')"
              onMouseOut="$(this).css('background-color', 'lightgray')"
              data-toggle="collapse" href="#col@(item.Service.Id)"
-             onClick="event.stopPropagation();"
+             
              >
           
             <span style="font:bold 11px;color:darkblue;">
@@ -27,12 +27,12 @@
                 @Html.ActionLink("Details", "JobServiceDetails", new { id = item.Service.Id }) |
                 @Html.ActionLink("Delete", "JobSvcDelete", new { id = item.Service.Id })
             </span>
-            @item.Id
+           
         </div>
        @*  @Html.Partial("PartialViewSrvActionItems", item.SvcActions, new ViewDataDictionary(this.ViewData) { { "svcId1", item.Service.Id } })
             *@
 
-        <div id="col@(item.Service.Id)" class="collapse" >
+        <div id="col@(item.Service.Id)" class="panel-collapse collapse" >
            
             @Html.Partial("PartialViewJobServiceItems", item.SvcItems, new ViewDataDictionary(this.ViewData) { { "svcId1", item.Service.Id } })
             @Html.Partial("PartialViewServiceSupPo", item.SupplierPos, new ViewDataDictionary(this.ViewData) { { "svcId1", item.Service.Id } })
