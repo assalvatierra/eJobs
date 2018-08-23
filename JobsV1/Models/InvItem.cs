@@ -17,6 +17,7 @@ namespace JobsV1.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public InvItem()
         {
+            this.OrderNo = 999;
             this.InvItemCategories = new HashSet<InvItemCategory>();
             this.JobServiceItems = new HashSet<JobServiceItem>();
             this.SupplierInvItems = new HashSet<SupplierInvItem>();
@@ -29,6 +30,8 @@ namespace JobsV1.Models
         public string Remarks { get; set; }
         public string ImgPath { get; set; }
         public string ContactInfo { get; set; }
+        public string ViewLabel { get; set; }
+        public Nullable<int> OrderNo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InvItemCategory> InvItemCategories { get; set; }

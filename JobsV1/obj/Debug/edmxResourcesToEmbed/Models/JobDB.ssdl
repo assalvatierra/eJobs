@@ -874,6 +874,8 @@
     <Property Name="Remarks" Type="nvarchar" Nullable="true" MaxLength="150" />
     <Property Name="ImgPath" Type="nvarchar" Nullable="true" MaxLength="80" />
     <Property Name="ContactInfo" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="ViewLabel" Type="nvarchar" Nullable="true" MaxLength="20" />
+    <Property Name="OrderNo" Type="int" Nullable="true" DefaultValue="999" />
   </EntityType>
   <EntityType Name="InvItemCats">
     <Key>

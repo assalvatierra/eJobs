@@ -11,11 +11,11 @@ values
 (2,1,2,'SUV Rental R1',2000,2000,2000,'Sample only. Disregard once seen on production',1,'08-27-2018','08-28-2018'),
 (2,1,2,'SUV Rental R2',1000,1000,1000,'Sample only. Disregard once seen on production',1,'08-29-2018','08-30-2018');
 
-insert into InvItems([ItemCode],[Description],[Remarks])
-values ('RNY301','Toyota Innova E M/T 2013 Dsl',''),
-('EOK873','Honda City A/T 2018 1.5E',''),
-('ADP2264','Ford Everest A/T 2016 2.2',''),
-('AbelS','Abel Salvatierra','');
+--insert into InvItems([ItemCode],[Description],[Remarks])
+--values ('RNY301','Toyota Innova E M/T 2013 Dsl',''),
+--('EOK873','Honda City A/T 2018 1.5E',''),
+--('ADP2264','Ford Everest A/T 2016 2.2',''),
+--('AbelS','Abel Salvatierra','');
 
 
 insert into InvItemCategories([InvItemId],[InvItemCatId])

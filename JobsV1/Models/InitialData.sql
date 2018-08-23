@@ -133,14 +133,16 @@ Values
 ('Others','Other Types','~/Images/CarRental/Repair101.png','OTHER');
 
 
-insert into InvItems ([ItemCode],[Description],[Remarks])
+insert into InvItems ([ItemCode],[Description],[Remarks],[ContactInfo],[ViewLabel],[OrderNo] )
 values
-('RNY301','Toyota Innova','M/T 2.5 Diesel 2013 Brown'),
-('AAF8980','Toyota Innova','M/T 2.5 Diesel 2013 Silver '),
-('NEO380','Toyota Fortuner','A/T 3.0 Diesel 2009 Gold'),
-('ADP22640','Ford Everest','A/T 2.2 Diesel 2016 White'),
-('EOK873','Honda City','A/T 1.5 Gasoline 2018 White'),
-('AOA5108','Toyota Super Grandia','A/T 2.5 Diesel 2015 White');
+('RNY301','Toyota Innova','M/T 2.5 Diesel 2013 Brown','','UNIT',100),
+('AAF8980','Toyota Innova','M/T 2.5 Diesel 2013 Silver','','UNIT',100),
+('NEO380','Toyota Fortuner','A/T 3.0 Diesel 2009 Gold','','UNIT',100),
+('ADP22640','Ford Everest','A/T 2.2 Diesel 2016 White','','UNIT',100),
+('EOK873','Honda City','A/T 1.5 Gasoline 2018 White','','UNIT',100),
+('Abel','Abel Salvatierra','','','DRIVER',200),
+('Aeron','Aeron James','','','DRIVER',200),
+('Rhean','Rhean Nicole','','','GUIDE',200);
 
 insert into InvItemCategories([InvItemId],[InvItemCatId])
 values
