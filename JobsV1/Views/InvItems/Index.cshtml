@@ -23,6 +23,12 @@
         <th>
             ContactInfo
         </th>
+        <th>
+            ViewInfo
+        </th>
+        <th>
+            Order No.
+        </th>
         <th></th>
     </tr>
 
@@ -61,7 +67,12 @@
 
         <td>
             @Html.DisplayFor(modelItem => item.ContactInfo)
-
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ViewLabel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderNo)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |         

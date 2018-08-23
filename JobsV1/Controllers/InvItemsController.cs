@@ -93,7 +93,7 @@ namespace JobsV1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ItemCode,Description,Remarks,ContactInfo,ImgPath")] InvItem invItem)
+        public ActionResult Create([Bind(Include = "Id,ItemCode,Description,Remarks,ContactInfo,ImgPath,ViewLabel,OrderNo")] InvItem invItem)
         {
             if (ModelState.IsValid)
             {
@@ -125,7 +125,7 @@ namespace JobsV1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ItemCode,Description,Remarks,ContactInfo,ImgPath")] InvItem invItem)
+        public ActionResult Edit([Bind(Include = "Id,ItemCode,Description,Remarks,ContactInfo,ImgPath,ViewLabel,OrderNo")] InvItem invItem)
         {
             if (ModelState.IsValid)
             {
