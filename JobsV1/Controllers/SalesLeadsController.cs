@@ -613,7 +613,7 @@ namespace JobsV1.Controllers
             job.Description = desc;
             job.JobRemarks = remarks;
             job.JobDate = leadDT;
-            
+
             ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name");
             ViewBag.JobStatusId = new SelectList(db.JobStatus, "Id", "Status",1);
             ViewBag.JobThruId = new SelectList(db.JobThrus, "Id", "Desc");
@@ -640,6 +640,7 @@ namespace JobsV1.Controllers
                     var cust = db.Customers.Find(jobMain.CustomerId);
                     jobMain.CustContactEmail = cust.Email;
                     jobMain.CustContactNumber = cust.Contact1;
+                    
                 }
 
                 db.JobMains.Add(jobMain);

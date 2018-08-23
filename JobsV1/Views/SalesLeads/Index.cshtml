@@ -151,7 +151,7 @@
                     if (@item.SalesLeadLinks.Count() == 0)
                     {
                         @Html.ActionLink("New Quotation ", "QuotationCreate", new { id = item.Id, custid = item.CustomerId, amount = item.Price,
-                       cusmail = item.CustEmail, contact = item.CustPhone, desc = item.Details, remarks = item.Remarks,
+                       cusmail = item.CustEmail, contact = item.CustPhone, desc = item.CustName, remarks = item.Remarks,
                        leadDT = item.Date }, null)
                         <span>|</span>
 
