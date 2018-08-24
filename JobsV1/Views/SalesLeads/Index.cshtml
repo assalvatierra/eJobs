@@ -40,7 +40,12 @@
                 {
                     if (@status.SalesStatusCodeId == 5)
                     {
-                        <img src="~/Images/Customers/Category/Active-30.png" alt="ACCEPTED" />
+                        <img src="~/Images/Customers/Category/Active-30.png"  height="20" alt="ACCEPTED" />
+                    }
+
+                    if (@status.SalesStatusCodeId == 7)
+                    {
+                        <img src="~/Images/SalesLead/close-icon.png" height="20" alt="ACCEPTED" />
                     }
                 }
             }
@@ -199,6 +204,7 @@
                     Assigned: @Html.DisplayFor(modelItem => item.AssignedTo)
                 </span>
             </div>
+
         </td>
     </tr>
 }
