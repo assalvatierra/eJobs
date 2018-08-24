@@ -30,8 +30,24 @@
                 <br /><span style="color:blue; font: bold 28px arial, verdana;">@item.Main.JobDate.ToString("dd")</span>
                 <span style="color:blue; font: bold 12px arial, verdana;">(@item.Main.JobDate.ToString("ddd"))</span>
                 <br /><br /><span style="color:red; font: normal 18px arial, verdana;">&nbsp;</span>
-                <span style="color:blue; font: bold 12px arial, verdana;">@item.Main.AgreedAmt php</span><br />
-                <span style="color:green; font: bold 10px arial, verdana;">@item.Payment php</span>
+                
+                @if (@item.Main.AgreedAmt != 0)
+                {
+                    <span style="color:blue; font: bold 12px arial, verdana;">
+                        @string.Format("{0:N}", @item.Main.AgreedAmt)
+                    </span>
+                    <br />
+
+                }
+
+                @if (@item.Payment != 0)
+                {
+                    <span style="color:green; font: bold 10px arial, verdana;">
+                        @string.Format("{0:N}", @item.Payment)
+                    </span>
+
+                }
+                    
             </div>
         </td>
 

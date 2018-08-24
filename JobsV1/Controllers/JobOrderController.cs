@@ -80,32 +80,7 @@ namespace JobsV1.Controllers
                 .Include(j => j.JobThru)
                 ;
 
-            /*
-            switch (sortid) {
-                case 1: //OnGoing
-                    jobMains = (IQueryable<Models.JobMain>)jobMains
-                        .Where(d => (d.JobStatusId == JOBRESERVATION || d.JobStatusId == JOBCONFIRMED)
-                        && (d.JobDate.CompareTo(DateTime.Today) >= 0))
-                        .OrderBy(d => d.JobDate);
-                    break;
-                case 2: //Previous
-                    jobMains = (IQueryable<Models.JobMain>)jobMains
-                        .Where(d => (d.JobStatusId == JOBRESERVATION || d.JobStatusId == JOBCONFIRMED ) )
-                        .Where(p => DbFunctions.AddDays(p.JobDate, 0) < DateTime.Today).OrderByDescending(d => d.JobDate);
-                    break;
-                case 3: //Closed (60 days below)
-                    jobMains = (IQueryable<Models.JobMain>)jobMains
-                        .Where(d => (d.JobStatusId == JOBCLOSED || d.JobStatusId == JOBCANCELLED )
-                        ).Where(p => DbFunctions.AddDays(p.JobDate, 60) > DateTime.Today).OrderByDescending(d => d.JobDate);
-
-                    break;
-                default:
-                
-                    jobMains = (IQueryable<Models.JobMain>)jobMains
-                        .Where(d => (d.JobStatusId == JOBRESERVATION || d.JobStatusId == JOBCONFIRMED));
-                    break;
-            }
-            */
+            
             List<cjobCounter> jobActionCntr = getJobActionCount(jobMains.Select(d => d.Id).ToList());
             var data = new List<cJobOrder>();
 
@@ -131,26 +106,7 @@ namespace JobsV1.Controllers
                     cjoTmp.SvcItems = db.JobServiceItems.Where(d => d.JobServicesId == svc.Id).Include(d => d.InvItem);
                     cjoTmp.SupplierPos = db.SupplierPoDtls.Where(d => d.JobServicesId == svc.Id).Include(i => i.SupplierPoHdr);
                     joTmp.Main.AgreedAmt += svc.ActualAmt;
-                    //get latest job date
-                    /*
-                    if (sortid == 1)
-                    {
-
-                        joTmp.Main.JobDate = DateTime.Compare((DateTime)svc.DtStart, DateTime.Today) >= 0 ? (DateTime)svc.DtStart : joTmp.Main.JobDate;
-
-                        if (DateTime.Compare((DateTime)svc.DtStart, DateTime.Today) <= 0
-                            && DateTime.Compare((DateTime)svc.DtEnd, DateTime.Today) >= 0)
-                        {
-                            joTmp.Main.JobDate = DateTime.Today;
-                        }
-
-
-                    }
-                    else if(sortid == 2){
-
-                        joTmp.Main.JobDate = DateTime.Compare((DateTime)svc.DtStart, DateTime.Today) < 0 ? (DateTime)svc.DtStart : joTmp.Main.JobDate;
-                    }
-                    */
+                   
                     joTmp.Services.Add(cjoTmp);
                 }
 
@@ -178,24 +134,27 @@ namespace JobsV1.Controllers
             
             ViewBag.mainId = jobmainId;
 
+            DateTime today = DateTime.Today;
+            today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Taipei Standard Time");
+
             switch (sortid)
             {
                 case 1: //OnGoing
                     data = (List<cJobOrder>) data
                         .Where(d => (d.Main.JobStatusId == JOBRESERVATION || d.Main.JobStatusId == JOBCONFIRMED)
-                        && (d.Main.JobDate.CompareTo(DateTime.Today) >= 0)).ToList();
+                        && (d.Main.JobDate.CompareTo(today) >= 0)).ToList();
 
                     break;
-                case 2: //OnGoing
+                case 2: //prev
                     data = (List<cJobOrder>)data
                         .Where(d => (d.Main.JobStatusId == JOBRESERVATION || d.Main.JobStatusId == JOBCONFIRMED))
-                        .Where(p => DateTime.Compare(p.Main.JobDate, DateTime.Today) < 0).ToList();
+                        .Where(p => DateTime.Compare(p.Main.JobDate, today) < 0).ToList();
 
                     break;
-                case 3: //OnGoing
+                case 3: //close
                     data = (List<cJobOrder>)data
                         .Where(d => (d.Main.JobStatusId == JOBCLOSED || d.Main.JobStatusId == JOBCANCELLED)
-                        ).Where(p => DbFunctions.AddDays(p.Main.JobDate, 60) > DateTime.Today).ToList();
+                        ).Where(p => p.Main.JobDate.AddDays(60) > today).ToList();
 
                     break;
 
@@ -226,6 +185,9 @@ namespace JobsV1.Controllers
             DateTime minDate = new DateTime(9999,12,30);
             DateTime maxDate = new DateTime(1,1,1);
 
+            DateTime today = DateTime.Today;
+            today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Taipei Standard Time");
+
             //loop though all jobservices in the jobmain
             //to get the latest date
             foreach (var svc in db.JobServices.Where(s => s.JobMainId == mainId))
@@ -237,72 +199,46 @@ namespace JobsV1.Controllers
                     minDate = (DateTime)svc.DtStart; //if minDate > Dtstart
                 }
 
-                if (DateTime.Compare(DateTime.Today, (DateTime)svc.DtStart) >= 0 && DateTime.Compare(DateTime.Today, (DateTime)svc.DtEnd) <= 0)
+                if (DateTime.Compare(today, (DateTime)svc.DtStart) >= 0 && DateTime.Compare(today, (DateTime)svc.DtEnd) <= 0)
                 {
-                    minDate = DateTime.Today;
+                    minDate = today;
                     //skip
                 } else {
-                    if (DateTime.Compare(DateTime.Today, (DateTime)svc.DtStart) < 0 && DateTime.Compare(DateTime.Today, minDate) > 0)
+                    if (DateTime.Compare(today, (DateTime)svc.DtStart) < 0 && DateTime.Compare(today, minDate) > 0)
                     {
                         minDate = (DateTime)svc.DtStart; //if Today > Dtstart
                     }
                 }
                 
                 //get max date
-                //maxDate = (DateTime)svc.DtStart;
                 if (DateTime.Compare(maxDate, (DateTime)svc.DtEnd) <= 0)
                 {
                     maxDate = (DateTime)svc.DtEnd; //if minDate > Dtstart
                 }
-
-                
-                /*
-                //get least latest date
-                if (DateTime.Compare(DateTime.Today, (DateTime)svc.DtStart) >= 0)   //if today is later than datestart, assign datestart to jobdate, 
-                {
-
-                    main.JobDate = (DateTime)svc.DtStart;
-
-                    if (DateTime.Compare(DateTime.Today, (DateTime)svc.DtEnd) <= 0) //if today earlier than date end, assign jobdate today
-                    {
-                        //assign date today
-                       // main.JobDate = DateTime.Today;
-                     //   db.Entry(main).State = EntityState.Modified;
-                    }
-
-                }
-                else  //if today is earlier than datestart, assign datestart to jobdate, 
-                {
-                   // main.JobDate = (DateTime)svc.DtStart;
-                   // db.Entry(main).State = EntityState.Modified;
-                }
-                //db.SaveChanges();
-                */
-
             }
 
-            if (DateTime.Compare(DateTime.Today, minDate) == 0)
+            if (DateTime.Compare(today, minDate) == 0)
             {
                 main.JobDate = minDate;
             }
 
-            if (DateTime.Compare(DateTime.Today, maxDate) == 0)
+            if (DateTime.Compare(today, maxDate) == 0)
             {
                 main.JobDate = maxDate;
             }
 
-            if (DateTime.Compare(DateTime.Today, minDate) < 0) {
+            if (DateTime.Compare(today, minDate) < 0) {
                 main.JobDate = minDate;
             }
 
-            if (DateTime.Compare(DateTime.Today, minDate) > 0)
+            if (DateTime.Compare(today, minDate) > 0)
             {
-                if (DateTime.Compare(DateTime.Today, maxDate) < 0)
+                if (DateTime.Compare(today, maxDate) < 0)
                 {
-                    main.JobDate = DateTime.Today;
+                    main.JobDate = today;
                 }
 
-                if (DateTime.Compare(DateTime.Today, maxDate) > 0)
+                if (DateTime.Compare(today, maxDate) > 0)
                 {
                     main.JobDate = minDate;
                 }
@@ -506,8 +442,12 @@ order by x.jobid
         // GET: JobMains/Create
         public ActionResult jobCreate(int? id)
         {
+
+            DateTime today = DateTime.Today;
+            today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Taipei Standard Time");
+
             JobMain job = new JobMain();
-            job.JobDate = System.DateTime.Today;
+            job.JobDate = today;
             job.NoOfDays = 1;
             job.NoOfPax = 1;
 
@@ -750,15 +690,19 @@ order by x.jobid
             //update jobdate
             var main = db.JobMains.Where(j => mainId == j.Id).FirstOrDefault();
 
+            DateTime today = DateTime.Today;
+            today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Taipei Standard Time");
+
             //loop though all jobservices in the jobmain
             //to get the latest date
             foreach (var svc in db.JobServices.Where(s => s.JobMainId == main.Id))
             {
+
                 //get least latest date
-                if (DateTime.Compare(DateTime.Today, (DateTime)svc.DtStart) >= 0)   //if today is later than datestart, assign datestart to jobdate, 
+                if (DateTime.Compare(today, (DateTime)svc.DtStart) >= 0)   //if today is later than datestart, assign datestart to jobdate, 
                 {
 
-                    if (DateTime.Compare(DateTime.Today, (DateTime)svc.DtEnd) <= 0) //if today earlier than date end, assign jobdate today
+                    if (DateTime.Compare(today, (DateTime)svc.DtEnd) <= 0) //if today earlier than date end, assign jobdate today
                     {
                         //assign date today
                         main.JobDate = DateTime.Today;

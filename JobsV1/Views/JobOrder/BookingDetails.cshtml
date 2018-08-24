@@ -111,7 +111,7 @@
         dQuotedAmt += (item.SupplierAmt == null ? 0 : (decimal)item.QuotedAmt);
         JobsV1.Models.JobServicePickup pickup = item.JobServicePickups.FirstOrDefault(); 
 
-        <tr  >
+        <tr >
             <td style="white-space:nowrap;margin-bottom:0;padding-bottom:0px">
                 <b>
                     @Html.DisplayFor(modelItem => item.Service.Name)

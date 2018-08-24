@@ -309,6 +309,9 @@ namespace JobsV1.Controllers
         public ActionResult AddSalesStatus(int slId, int StatusId)
         {
             string strMsg = "";
+
+            if (db.SalesStatus.Where(s => s.SalesLeadId == slId && s.SalesStatusCodeId == StatusId).FirstOrDefault() != null) {
+
             try
             {
                 db.Database.ExecuteSqlCommand(@"
@@ -344,6 +347,9 @@ namespace JobsV1.Controllers
                 strMsg = "Error:" + Ex.Message;
             }
             ViewBag.Message = strMsg;
+
+            }
+
             return RedirectToAction("Index", new {leadId = slId });
         }
         #endregion
