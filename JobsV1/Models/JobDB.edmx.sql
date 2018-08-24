@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 08/22/2018 10:31:36
+-- Date Created: 08/23/2018 09:01:45
 -- Generated from EDMX file: D:\Data\Real\Apps\GitHub\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
@@ -957,7 +957,9 @@ CREATE TABLE [dbo].[InvItems] (
     [Description] nvarchar(80)  NOT NULL,
     [Remarks] nvarchar(150)  NULL,
     [ImgPath] nvarchar(80)  NULL,
-    [ContactInfo] nvarchar(50)  NULL
+    [ContactInfo] nvarchar(50)  NULL,
+    [ViewLabel] nvarchar(20)  NULL,
+    [OrderNo] int  NULL
 );
 GO
 
