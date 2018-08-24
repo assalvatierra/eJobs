@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using JobsV1.Models;
+using System.Data.Entity.Core.Objects;
 
 namespace JobsV1.Controllers
 {
@@ -89,7 +90,7 @@ namespace JobsV1.Controllers
 
         }
 
-        public ActionResult ActiveJobs()
+        public ActionResult ActiveJobs(int? FilterId)
         {
             IQueryable<Models.JobMain> jobMains = db.JobMains.Include(j => j.Customer).Include(j => j.Branch).Include(j => j.JobStatus).Include(j => j.JobThru).OrderBy(d => d.JobDate);
             jobMains = (IQueryable<Models.JobMain>)jobMains.Where(d => d.JobStatusId == JOBRESERVATION || d.JobStatusId == JOBCONFIRMED);
@@ -97,10 +98,25 @@ namespace JobsV1.Controllers
             var p = jobMains.Select(s => s.Id);
 
             var data = db.JobServices.Where(w => p.Contains(w.JobMainId)).ToList().OrderBy(s=>s.DtStart);
+            DateTime today = DateTime.Today;
+            today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Taipei Standard Time");
 
+            switch (FilterId) {
+                case 1:
+                    data = db.JobServices.Where(w => p.Contains(w.JobMainId)).ToList().OrderBy(s => s.DtStart);
+                    break;
+                case 2:
+                    data = db.JobServices.Where(w => p.Contains(w.JobMainId) && DateTime.Compare((DateTime)w.DtStart, today) == 0).ToList().OrderBy(s => s.DtStart);
+                    break;
+                case 3:
+                    data = db.JobServices.Where(w => p.Contains(w.JobMainId) && DateTime.Compare((DateTime)w.DtStart, (DateTime)DbFunctions.AddDays(today, 1)) == 0).ToList().OrderBy(s => s.DtStart);
+                    break;
+                default:
+                    break;
+            }
 
             ViewBag.Current = this.GetCurrentTime().ToString("MMM-dd-yyyy (ddd)");
-
+            ViewBag.today = today;
             return View(data);
         }
 

@@ -6,6 +6,10 @@
 
 <h2>Active Jobs</h2>
 
+@Html.ActionLink("All", "ActiveJobs", new { FilterId = 1 }) |
+@Html.ActionLink("Today", "ActiveJobs", new { FilterId = 2 }) |
+@Html.ActionLink("Tomorrow", "ActiveJobs", new { FilterId = 3 })
+
 <table class="table">
     <tr>
         <th>Service</th>
