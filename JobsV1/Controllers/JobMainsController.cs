@@ -109,7 +109,7 @@ namespace JobsV1.Controllers
                     data = db.JobServices.Where(w => p.Contains(w.JobMainId) && DateTime.Compare((DateTime)w.DtStart, today) == 0).ToList().OrderBy(s => s.DtStart);
                     break;
                 case 3:
-                    data = db.JobServices.Where(w => p.Contains(w.JobMainId) && DateTime.Compare((DateTime)w.DtStart, (DateTime)DbFunctions.AddDays(today, 1)) == 0).ToList().OrderBy(s => s.DtStart);
+                    data = db.JobServices.Where(w => p.Contains(w.JobMainId) && DateTime.Compare((DateTime)w.DtStart, (DateTime)DbFunctions.AddDays(DateTime.Today, 1)) == 0).ToList().OrderBy(s => s.DtStart);
                     break;
                 default:
                     break;

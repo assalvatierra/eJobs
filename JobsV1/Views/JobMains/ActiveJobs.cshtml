@@ -5,7 +5,7 @@
 }
 
 <h2>Active Jobs</h2>
-
+<p>@ViewBag.today</p>
 @Html.ActionLink("All", "ActiveJobs", new { FilterId = 1 }) |
 @Html.ActionLink("Today", "ActiveJobs", new { FilterId = 2 }) |
 @Html.ActionLink("Tomorrow", "ActiveJobs", new { FilterId = 3 })
@@ -15,9 +15,6 @@
         <th>Service</th>
         <th>
             Name
-        </th>
-        <th>
-            &nbsp;
         </th>
         <th>
             Start
@@ -36,7 +33,7 @@
     string s1 = ((DateTime)item.DtStart).ToString("MMM-dd-yyyy (ddd)");
     string s2 = ((DateTime)item.DtEnd).ToString("MMM-dd-yyyy (ddd)");
     string sStyle1 = "";
-    if (ViewBag.Current == s1) { sStyle1 = "background-color:gray"; }
+    if (ViewBag.Current == s1) { sStyle1 = "background-color:lightgray"; }
 
     <tr style="@sStyle1" >
         <td>
@@ -46,6 +43,12 @@
             @Html.DisplayFor(modelItem => item.JobMain.Description)
             <br />
             @Html.DisplayFor(modelItem => item.Particulars)
+            <br />
+            @foreach (var items in item.JobServiceItems)
+            {
+                <span> - </span>
+                @Html.DisplayFor(modelItem => items.InvItem.Description)
+            }
         </td>
         <td>
             @s1
