@@ -169,6 +169,7 @@ namespace JobsV1.Controllers
                 db.SaveChanges();
 
                 AddSalesStatus(salesLead.Id, 1);    //NEW
+                
                 return RedirectToAction("Index", new { sortid = 5 , leadid = salesLead.Id});
             }
 
@@ -310,7 +311,7 @@ namespace JobsV1.Controllers
         {
             string strMsg = "";
 
-            if (db.SalesStatus.Where(s => s.SalesLeadId == slId && s.SalesStatusCodeId == StatusId).FirstOrDefault() != null) {
+            if (db.SalesStatus.Where(s => s.SalesLeadId == slId && s.SalesStatusCodeId == StatusId).FirstOrDefault() == null) {
 
             try
             {
@@ -318,6 +319,8 @@ namespace JobsV1.Controllers
                 Insert into SalesStatus([DtStatus],[SalesStatusCodeId],[SalesLeadId])
                 Values('" + DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + "','" + StatusId + "','" + slId.ToString() + @"');
                 ");
+
+                db.SaveChanges();
 
                 strMsg = "Success";
 
@@ -346,11 +349,12 @@ namespace JobsV1.Controllers
             {
                 strMsg = "Error:" + Ex.Message;
             }
+
             ViewBag.Message = strMsg;
 
             }
 
-            return RedirectToAction("Index", new {leadId = slId });
+            return RedirectToAction("Index", new { leadId = slId });
         }
         #endregion
 
