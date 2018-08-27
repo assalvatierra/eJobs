@@ -2,13 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
-<<<<<<< HEAD
--- Date Created: 08/23/2018 09:01:45
+-- Date Created: 08/27/2018 14:48:17
 -- Generated from EDMX file: D:\Data\Real\Apps\GitHub\eJobs\JobsV1\Models\JobDB.edmx
-=======
--- Date Created: 08/23/2018 09:47:05
--- Generated from EDMX file: C:\Users\Villosa\Documents\GitHub\eJobs\eJobs\JobsV1\Models\JobDB.edmx
->>>>>>> bd8120915542b706d6a00718f4b8614793fafd1a
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -1079,6 +1074,42 @@ CREATE TABLE [dbo].[SalesLeadLinks] (
 );
 GO
 
+-- Creating table 'InvCarRecords'
+CREATE TABLE [dbo].[InvCarRecords] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [InvItemId] int  NOT NULL,
+    [InvCarRecordTypeId] int  NOT NULL,
+    [Odometer] int  NOT NULL,
+    [dtDone] datetime  NOT NULL,
+    [NextOdometer] int  NOT NULL,
+    [NextSched] datetime  NOT NULL,
+    [Remarks] nvarchar(150)  NULL
+);
+GO
+
+-- Creating table 'InvCarRecordTypes'
+CREATE TABLE [dbo].[InvCarRecordTypes] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Description] nvarchar(150)  NOT NULL,
+    [SysCode] nvarchar(50)  NULL,
+    [OdoInterval] int  NOT NULL,
+    [DaysInterval] int  NOT NULL
+);
+GO
+
+-- Creating table 'InvCarGateControls'
+CREATE TABLE [dbo].[InvCarGateControls] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [InvItemId] int  NOT NULL,
+    [In_Out_flag] int  NOT NULL,
+    [Odometer] nvarchar(max)  NOT NULL,
+    [dtControl] datetime  NOT NULL,
+    [Remarks] nvarchar(250)  NULL,
+    [Driver] nvarchar(50)  NULL,
+    [Inspector] nvarchar(50)  NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -1458,6 +1489,24 @@ GO
 -- Creating primary key on [Id] in table 'SalesLeadLinks'
 ALTER TABLE [dbo].[SalesLeadLinks]
 ADD CONSTRAINT [PK_SalesLeadLinks]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'InvCarRecords'
+ALTER TABLE [dbo].[InvCarRecords]
+ADD CONSTRAINT [PK_InvCarRecords]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'InvCarRecordTypes'
+ALTER TABLE [dbo].[InvCarRecordTypes]
+ADD CONSTRAINT [PK_InvCarRecordTypes]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'InvCarGateControls'
+ALTER TABLE [dbo].[InvCarGateControls]
+ADD CONSTRAINT [PK_InvCarGateControls]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -2438,6 +2487,51 @@ GO
 CREATE INDEX [IX_FK_JobMainSalesLeadLink]
 ON [dbo].[SalesLeadLinks]
     ([JobMainId]);
+GO
+
+-- Creating foreign key on [InvCarRecordTypeId] in table 'InvCarRecords'
+ALTER TABLE [dbo].[InvCarRecords]
+ADD CONSTRAINT [FK_InvCarRecordTypeInvCarRecord]
+    FOREIGN KEY ([InvCarRecordTypeId])
+    REFERENCES [dbo].[InvCarRecordTypes]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_InvCarRecordTypeInvCarRecord'
+CREATE INDEX [IX_FK_InvCarRecordTypeInvCarRecord]
+ON [dbo].[InvCarRecords]
+    ([InvCarRecordTypeId]);
+GO
+
+-- Creating foreign key on [InvItemId] in table 'InvCarRecords'
+ALTER TABLE [dbo].[InvCarRecords]
+ADD CONSTRAINT [FK_InvItemInvCarRecord]
+    FOREIGN KEY ([InvItemId])
+    REFERENCES [dbo].[InvItems]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_InvItemInvCarRecord'
+CREATE INDEX [IX_FK_InvItemInvCarRecord]
+ON [dbo].[InvCarRecords]
+    ([InvItemId]);
+GO
+
+-- Creating foreign key on [InvItemId] in table 'InvCarGateControls'
+ALTER TABLE [dbo].[InvCarGateControls]
+ADD CONSTRAINT [FK_InvItemInvCarGateControl]
+    FOREIGN KEY ([InvItemId])
+    REFERENCES [dbo].[InvItems]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_InvItemInvCarGateControl'
+CREATE INDEX [IX_FK_InvItemInvCarGateControl]
+ON [dbo].[InvCarGateControls]
+    ([InvItemId]);
 GO
 
 -- --------------------------------------------------

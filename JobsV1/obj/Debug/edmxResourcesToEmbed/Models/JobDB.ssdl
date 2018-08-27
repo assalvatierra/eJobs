@@ -64,6 +64,9 @@
     <EntitySet Name="SupplierPoItems" EntityType="JobDB.Store.SupplierPoItems" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="CustFileRefs" EntityType="JobDB.Store.CustFileRefs" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SalesLeadLinks" EntityType="JobDB.Store.SalesLeadLinks" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="InvCarRecords" EntityType="JobDB.Store.InvCarRecords" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="InvCarRecordTypes" EntityType="JobDB.Store.InvCarRecordTypes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="InvCarGateControls" EntityType="JobDB.Store.InvCarGateControls" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="JobMainJobType" Association="JobDB.Store.JobMainJobType">
       <End Role="JobMain" EntitySet="JobMains" />
       <End Role="JobType" EntitySet="JobTypes" />
@@ -323,6 +326,18 @@
     <AssociationSet Name="JobMainSalesLeadLink" Association="JobDB.Store.JobMainSalesLeadLink">
       <End Role="JobMain" EntitySet="JobMains" />
       <End Role="SalesLeadLink" EntitySet="SalesLeadLinks" />
+    </AssociationSet>
+    <AssociationSet Name="InvCarRecordTypeInvCarRecord" Association="JobDB.Store.InvCarRecordTypeInvCarRecord">
+      <End Role="InvCarRecordType" EntitySet="InvCarRecordTypes" />
+      <End Role="InvCarRecord" EntitySet="InvCarRecords" />
+    </AssociationSet>
+    <AssociationSet Name="InvItemInvCarRecord" Association="JobDB.Store.InvItemInvCarRecord">
+      <End Role="InvItem" EntitySet="InvItems" />
+      <End Role="InvCarRecord" EntitySet="InvCarRecords" />
+    </AssociationSet>
+    <AssociationSet Name="InvItemInvCarGateControl" Association="JobDB.Store.InvItemInvCarGateControl">
+      <End Role="InvItem" EntitySet="InvItems" />
+      <End Role="InvCarGateControl" EntitySet="InvCarGateControls" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="JobMains">
@@ -987,6 +1002,42 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="SalesLeadId" Type="int" Nullable="false" />
     <Property Name="JobMainId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="InvCarRecords">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InvItemId" Type="int" Nullable="false" />
+    <Property Name="InvCarRecordTypeId" Type="int" Nullable="false" />
+    <Property Name="Odometer" Type="int" Nullable="false" />
+    <Property Name="dtDone" Type="datetime" Nullable="false" />
+    <Property Name="NextOdometer" Type="int" Nullable="false" />
+    <Property Name="NextSched" Type="datetime" Nullable="false" />
+    <Property Name="Remarks" Type="nvarchar" Nullable="true" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="InvCarRecordTypes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="SysCode" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="OdoInterval" Type="int" Nullable="false" />
+    <Property Name="DaysInterval" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="InvCarGateControls">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InvItemId" Type="int" Nullable="false" />
+    <Property Name="In_Out_flag" Type="int" Nullable="false" />
+    <Property Name="Odometer" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="dtControl" Type="datetime" Nullable="false" />
+    <Property Name="Remarks" Type="nvarchar" Nullable="true" MaxLength="250" />
+    <Property Name="Driver" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Inspector" Type="nvarchar" Nullable="true" MaxLength="50" />
   </EntityType>
   <Association Name="JobMainJobType">
     <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="1" />
@@ -1765,6 +1816,42 @@
       </Principal>
       <Dependent Role="SalesLeadLink">
         <PropertyRef Name="JobMainId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InvCarRecordTypeInvCarRecord">
+    <End Role="InvCarRecordType" Type="JobDB.Store.InvCarRecordTypes" Multiplicity="1" />
+    <End Role="InvCarRecord" Type="JobDB.Store.InvCarRecords" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InvCarRecordType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InvCarRecord">
+        <PropertyRef Name="InvCarRecordTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InvItemInvCarRecord">
+    <End Role="InvItem" Type="JobDB.Store.InvItems" Multiplicity="1" />
+    <End Role="InvCarRecord" Type="JobDB.Store.InvCarRecords" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InvItem">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InvCarRecord">
+        <PropertyRef Name="InvItemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InvItemInvCarGateControl">
+    <End Role="InvItem" Type="JobDB.Store.InvItems" Multiplicity="1" />
+    <End Role="InvCarGateControl" Type="JobDB.Store.InvCarGateControls" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InvItem">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InvCarGateControl">
+        <PropertyRef Name="InvItemId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

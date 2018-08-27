@@ -324,6 +324,21 @@
       <End Role="JobMain" EntitySet="JobMains" />
       <End Role="SalesLeadLink" EntitySet="SalesLeadLinks" />
     </AssociationSet>
+    <EntitySet Name="InvCarRecords" EntityType="JobDB.InvCarRecord" />
+    <EntitySet Name="InvCarRecordTypes" EntityType="JobDB.InvCarRecordType" />
+    <AssociationSet Name="InvCarRecordTypeInvCarRecord" Association="JobDB.InvCarRecordTypeInvCarRecord">
+      <End EntitySet="InvCarRecordTypes" Role="InvCarRecordType" />
+      <End EntitySet="InvCarRecords" Role="InvCarRecord" />
+    </AssociationSet>
+    <AssociationSet Name="InvItemInvCarRecord" Association="JobDB.InvItemInvCarRecord">
+      <End Role="InvItem" EntitySet="InvItems" />
+      <End Role="InvCarRecord" EntitySet="InvCarRecords" />
+    </AssociationSet>
+    <EntitySet Name="InvCarGateControls" EntityType="JobDB.InvCarGateControl" />
+    <AssociationSet Name="InvItemInvCarGateControl" Association="JobDB.InvItemInvCarGateControl">
+      <End Role="InvItem" EntitySet="InvItems" />
+      <End Role="InvCarGateControl" EntitySet="InvCarGateControls" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="JobMain">
     <Key>
@@ -1537,6 +1552,8 @@
     <Property Name="ContactInfo" Type="String" Nullable="true" MaxLength="50" />
     <Property Name="ViewLabel" Type="String" Nullable="true" MaxLength="20" />
     <Property Name="OrderNo" Type="Int32" Nullable="true" DefaultValue="999" />
+    <NavigationProperty Name="InvCarRecords" Relationship="JobDB.InvItemInvCarRecord" FromRole="InvItem" ToRole="InvCarRecord" />
+    <NavigationProperty Name="InvCarGateControls" Relationship="JobDB.InvItemInvCarGateControl" FromRole="InvItem" ToRole="InvCarGateControl" />
   </EntityType>
   <EntityType Name="InvItemCat">
     <Key>
@@ -1895,6 +1912,82 @@
       </Principal>
       <Dependent Role="SalesLeadLink">
         <PropertyRef Name="JobMainId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="InvCarRecord">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="InvCarRecordType" Relationship="JobDB.InvCarRecordTypeInvCarRecord" FromRole="InvCarRecord" ToRole="InvCarRecordType" />
+    <Property Name="InvItemId" Type="Int32" Nullable="false" />
+    <Property Name="InvCarRecordTypeId" Nullable="false" Type="Int32" />
+    <Property Name="Odometer" Type="Int32" Nullable="false" />
+    <Property Name="dtDone" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="InvItem" Relationship="JobDB.InvItemInvCarRecord" FromRole="InvCarRecord" ToRole="InvItem" />
+    <Property Name="NextOdometer" Type="Int32" Nullable="false" />
+    <Property Name="NextSched" Type="DateTime" Nullable="false" />
+    <Property Name="Remarks" Type="String" Nullable="true" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="InvCarRecordType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+    <Property Name="Description" Nullable="false" MaxLength="150" Type="String" />
+    <Property Name="SysCode" Nullable="true" MaxLength="50" Type="String" />
+    <NavigationProperty Name="InvCarRecords" Relationship="JobDB.InvCarRecordTypeInvCarRecord" FromRole="InvCarRecordType" ToRole="InvCarRecord" />
+    <Property Name="OdoInterval" Nullable="false" Type="Int32" />
+    <Property Name="DaysInterval" Nullable="false" Type="Int32" />
+  </EntityType>
+  <Association Name="InvCarRecordTypeInvCarRecord">
+    <End Type="JobDB.InvCarRecordType" Multiplicity="1" Role="InvCarRecordType" />
+    <End Type="JobDB.InvCarRecord" Multiplicity="*" Role="InvCarRecord" />
+    <ReferentialConstraint>
+      <Principal Role="InvCarRecordType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InvCarRecord">
+        <PropertyRef Name="InvCarRecordTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InvItemInvCarRecord">
+    <End Type="JobDB.InvItem" Role="InvItem" Multiplicity="1" />
+    <End Type="JobDB.InvCarRecord" Role="InvCarRecord" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InvItem">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InvCarRecord">
+        <PropertyRef Name="InvItemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="InvCarGateControl">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="InvItem" Relationship="JobDB.InvItemInvCarGateControl" FromRole="InvCarGateControl" ToRole="InvItem" />
+    <Property Name="InvItemId" Type="Int32" Nullable="false" />
+    <Property Name="In_Out_flag" Type="Int32" Nullable="false" />
+    <Property Name="Odometer" Type="String" Nullable="false" />
+    <Property Name="dtControl" Type="DateTime" Nullable="false" />
+    <Property Name="Remarks" Type="String" Nullable="true" MaxLength="250" />
+    <Property Name="Driver" Type="String" Nullable="true" MaxLength="50" />
+    <Property Name="Inspector" Type="String" Nullable="true" MaxLength="50" />
+  </EntityType>
+  <Association Name="InvItemInvCarGateControl">
+    <End Type="JobDB.InvItem" Role="InvItem" Multiplicity="1" />
+    <End Type="JobDB.InvCarGateControl" Role="InvCarGateControl" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InvItem">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InvCarGateControl">
+        <PropertyRef Name="InvItemId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

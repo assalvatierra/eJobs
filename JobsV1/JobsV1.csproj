@@ -360,6 +360,15 @@
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\InvCarGateControl.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InvCarRecord.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InvCarRecordType.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\InvItem.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
@@ -728,6 +737,7 @@
     <Content Include="Scripts\DateRangePicker\moment.js" />
     <Content Include="Scripts\DateRangePicker\moment.min.js" />
     <Content Include="Scripts\DateRangePicker\package.js" />
+    <None Include="Properties\PublishProfiles\LocalPath.D.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\Job\Itinerary.js" />
     <Content Include="Scripts\Job\PO.js" />

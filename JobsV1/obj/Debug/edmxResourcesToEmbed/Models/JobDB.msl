@@ -727,5 +727,44 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="InvCarRecords">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.InvCarRecord)">
+        <MappingFragment StoreEntitySet="InvCarRecords">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="InvItemId" ColumnName="InvItemId" />
+          <ScalarProperty Name="InvCarRecordTypeId" ColumnName="InvCarRecordTypeId" />
+          <ScalarProperty Name="Odometer" ColumnName="Odometer" />
+          <ScalarProperty Name="dtDone" ColumnName="dtDone" />
+          <ScalarProperty Name="NextOdometer" ColumnName="NextOdometer" />
+          <ScalarProperty Name="NextSched" ColumnName="NextSched" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InvCarRecordTypes">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.InvCarRecordType)">
+        <MappingFragment StoreEntitySet="InvCarRecordTypes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="SysCode" ColumnName="SysCode" />
+          <ScalarProperty Name="OdoInterval" ColumnName="OdoInterval" />
+          <ScalarProperty Name="DaysInterval" ColumnName="DaysInterval" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InvCarGateControls">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.InvCarGateControl)">
+        <MappingFragment StoreEntitySet="InvCarGateControls">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="InvItemId" ColumnName="InvItemId" />
+          <ScalarProperty Name="In_Out_flag" ColumnName="In_Out_flag" />
+          <ScalarProperty Name="Odometer" ColumnName="Odometer" />
+          <ScalarProperty Name="dtControl" ColumnName="dtControl" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="Driver" ColumnName="Driver" />
+          <ScalarProperty Name="Inspector" ColumnName="Inspector" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>
