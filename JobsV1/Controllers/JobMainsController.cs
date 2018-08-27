@@ -98,8 +98,8 @@ namespace JobsV1.Controllers
             var p = jobMains.Select(s => s.Id);
 
             var data = db.JobServices.Where(w => p.Contains(w.JobMainId)).ToList().OrderBy(s=>s.DtStart);
-            DateTime today = DateTime.Today;
-            today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Taipei Standard Time");
+            DateTime today = DateTime.Now;
+            today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Singapore Standard Time");
 
             switch (FilterId) {
                 case 1:
@@ -125,7 +125,7 @@ namespace JobsV1.Controllers
         protected DateTime GetCurrentTime()
         {
             DateTime serverTime = DateTime.Now;
-            DateTime _localTime = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(serverTime, TimeZoneInfo.Local.Id, "Taipei Standard Time");
+            DateTime _localTime = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(serverTime, TimeZoneInfo.Local.Id, "Singapore Standard Time");
             return _localTime;
         }
 
