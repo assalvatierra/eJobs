@@ -135,7 +135,7 @@ namespace JobsV1.Controllers
             ViewBag.mainId = jobmainId;
 
             DateTime today = DateTime.Today;
-            today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Taipei Standard Time");
+            today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Singapore Standard Time");
 
             switch (sortid)
             {
@@ -186,7 +186,7 @@ namespace JobsV1.Controllers
             DateTime maxDate = new DateTime(1,1,1);
 
             DateTime today = DateTime.Today;
-            today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Taipei Standard Time");
+            today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Singapore Standard Time");
 
             //loop though all jobservices in the jobmain
             //to get the latest date
@@ -444,7 +444,7 @@ order by x.jobid
         {
 
             DateTime today = DateTime.Today;
-            today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Taipei Standard Time");
+            today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Singapore Standard Time");
 
             JobMain job = new JobMain();
             job.JobDate = today;
@@ -691,7 +691,7 @@ order by x.jobid
             var main = db.JobMains.Where(j => mainId == j.Id).FirstOrDefault();
 
             DateTime today = DateTime.Today;
-            today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Taipei Standard Time");
+            today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Singapore Standard Time");
 
             //loop though all jobservices in the jobmain
             //to get the latest date
