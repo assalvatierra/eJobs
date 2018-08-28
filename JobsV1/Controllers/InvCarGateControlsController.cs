@@ -40,14 +40,28 @@ namespace JobsV1.Controllers
         public ActionResult Create(int? control)
         {
             InvCarGateControl invcar = new InvCarGateControl();
-            invcar.In_Out_flag = (int)control;
-            invcar.dtControl = DateTime.Now;
 
             if (control == null)
             {
                 invcar.In_Out_flag = 1;
             }
-            ViewBag.InvItemId = new SelectList(db.InvItems, "Id", "ItemCode");
+            else
+            {
+                invcar.In_Out_flag = (int)control;
+
+            }
+            
+            invcar.dtControl = DateTime.Now;
+
+            var invItems = db.InvItems.Where(s => s.ViewLabel == "UNIT").Select(
+                    s => new SelectListItem
+                    {
+                        Value = s.Id.ToString(),
+                        Text = s.ItemCode.ToString() + " - " + s.Description
+                    }
+                );
+            
+            ViewBag.InvItemId = new SelectList(invItems, "Value", "Text");
             return View(invcar);
         }
 

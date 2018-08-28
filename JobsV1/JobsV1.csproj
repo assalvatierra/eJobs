@@ -747,6 +747,8 @@
     <Content Include="Scripts\Job\Product.js" />
     <Content Include="Scripts\Job\SalesLead.js" />
     <Content Include="Scripts\Job\JobPickup.js" />
+    <Content Include="Scripts\Job\CarGateControl.js" />
+    <Content Include="Scripts\Job\CarMaintenance.js" />
     <Content Include="Scripts\Job\Services.js" />
     <Content Include="Scripts\Job\Main.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />

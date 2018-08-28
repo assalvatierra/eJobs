@@ -23,7 +23,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" style="display:none">
             @Html.LabelFor(model => model.In_Out_flag, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.In_Out_flag, new { htmlAttributes = new { @class = "form-control" } })
@@ -85,4 +85,5 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" src="~/Scripts/Job/CarGateControl.js"></script>
 }

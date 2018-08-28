@@ -17,6 +17,23 @@ namespace JobsV1.Controllers
         // GET: InvCarRecords
         public ActionResult Index()
         {
+            ViewBag.InvItemsList = db.InvItems.Where(s=>s.ViewLabel == "UNIT").ToList();
+            ViewBag.recordTypeList = db.InvCarRecordTypes.ToList();
+
+            //get records past their next odometer & schedule change
+            //odometer
+
+            List<InvCarRecord> priority = new List<InvCarRecord>();
+           
+           foreach (var carList in db.InvItems.Where(s => s.ViewLabel == "UNIT").ToList()) {
+
+                var priorityRecords = db.InvCarRecords.Include(i => i.InvCarRecordType).Include(i => i.InvItem)
+                    .Where(c=>c.InvItemId == carList.Id).OrderByDescending(s=>s.NextOdometer).FirstOrDefault();
+
+                    priority.Add(priorityRecords);
+            }
+           
+            ViewBag.priority = priority;
             var invCarRecords = db.InvCarRecords.Include(i => i.InvCarRecordType).Include(i => i.InvItem);
             return View(invCarRecords.ToList());
         }
@@ -37,12 +54,32 @@ namespace JobsV1.Controllers
         }
 
         // GET: InvCarRecords/Create
-        public ActionResult Create()
+        public ActionResult Create(int? carId)
         {
+            InvCarRecord record = new InvCarRecord();
+            if (carId != null)
+            {
+                record.InvCarRecordTypeId = 1;
+                record.InvItemId = 1;
+                record.dtDone = DateTime.Now;
+                if(db.InvCarGateControls.Where(s => s.InvItemId == (int)carId).OrderByDescending(s => s.dtControl).FirstOrDefault() != null)
+                    record.Odometer = int.Parse(db.InvCarGateControls.Where(s => s.InvItemId == (int)carId).OrderByDescending(s => s.dtControl).FirstOrDefault().Odometer);
+            }
+
+            var invItems = db.InvItems.Where(s => s.ViewLabel == "UNIT").Select(
+                        s => new SelectListItem
+                        {
+                            Value = s.Id.ToString(),
+                            Text = s.ItemCode.ToString() + " - " + s.Description
+                        }
+                 );
+           
+
             ViewBag.InvCarRecordTypeId = new SelectList(db.InvCarRecordTypes, "Id", "Description");
-            ViewBag.InvItemId = new SelectList(db.InvItems, "Id", "ItemCode");
-            return View();
+            ViewBag.InvItemId = new SelectList(invItems, "Value", "Text", carId);
+            return View(record);
         }
+        
 
         // POST: InvCarRecords/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -53,6 +90,15 @@ namespace JobsV1.Controllers
         {
             if (ModelState.IsValid)
             {
+                //get record type
+                InvCarRecordType recordType = db.InvCarRecordTypes.Where(r => r.Id == invCarRecord.InvCarRecordTypeId).FirstOrDefault();
+                int estOdo = recordType.OdoInterval;
+                int estDays = recordType.DaysInterval;
+
+                //add estimated odometer and next schedule
+                invCarRecord.NextOdometer = invCarRecord.Odometer +  estOdo;
+                invCarRecord.NextSched = invCarRecord.dtDone.AddDays(estDays);
+
                 db.InvCarRecords.Add(invCarRecord);
                 db.SaveChanges();
                 return RedirectToAction("Index");
