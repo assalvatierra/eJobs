@@ -496,6 +496,7 @@
     <Property Name="Tel1" Type="nvarchar(max)" Nullable="true" />
     <Property Name="Tel2" Type="nvarchar(max)" Nullable="true" />
     <Property Name="Tel3" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Status" Type="nvarchar" Nullable="true" MaxLength="3" />
   </EntityType>
   <EntityType Name="JobServicePickups">
     <Key>

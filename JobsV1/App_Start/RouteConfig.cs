@@ -15,11 +15,25 @@ namespace JobsV1
 
             routes.IgnoreRoute("{*x}", new { x = @".*\.asmx(/.*)?" });
 
+            /********************************
+            * Generic Default page
+            ********************************/
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "CarRental", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "MainGeneric", action = "Index", id = UrlParameter.Optional }
             );
+
+            /********************************
+            *AJ88 car rental default
+            ********************************/
+            //routes.MapRoute(
+            //    name: "Default",
+            //    url: "{controller}/{action}/{id}",
+            //    defaults: new { controller = "CarRental", action = "Index", id = UrlParameter.Optional }
+            //);
+
+
         }
     }
 }
