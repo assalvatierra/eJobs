@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 08/27/2018 14:48:17
+-- Date Created: 08/29/2018 15:06:19
 -- Generated from EDMX file: D:\Data\Real\Apps\GitHub\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
@@ -212,6 +212,15 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_JobMainSalesLeadLink]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[SalesLeadLinks] DROP CONSTRAINT [FK_JobMainSalesLeadLink];
 GO
+IF OBJECT_ID(N'[dbo].[FK_InvCarRecordTypeInvCarRecord]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[InvCarRecords] DROP CONSTRAINT [FK_InvCarRecordTypeInvCarRecord];
+GO
+IF OBJECT_ID(N'[dbo].[FK_InvItemInvCarRecord]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[InvCarRecords] DROP CONSTRAINT [FK_InvItemInvCarRecord];
+GO
+IF OBJECT_ID(N'[dbo].[FK_InvItemInvCarGateControl]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[InvCarGateControls] DROP CONSTRAINT [FK_InvItemInvCarGateControl];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -406,6 +415,15 @@ GO
 IF OBJECT_ID(N'[dbo].[SalesLeadLinks]', 'U') IS NOT NULL
     DROP TABLE [dbo].[SalesLeadLinks];
 GO
+IF OBJECT_ID(N'[dbo].[InvCarRecords]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[InvCarRecords];
+GO
+IF OBJECT_ID(N'[dbo].[InvCarRecordTypes]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[InvCarRecordTypes];
+GO
+IF OBJECT_ID(N'[dbo].[InvCarGateControls]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[InvCarGateControls];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -564,7 +582,8 @@ CREATE TABLE [dbo].[SupplierItems] (
     [InCharge] nvarchar(30)  NULL,
     [Tel1] nvarchar(max)  NULL,
     [Tel2] nvarchar(max)  NULL,
-    [Tel3] nvarchar(max)  NULL
+    [Tel3] nvarchar(max)  NULL,
+    [Status] nvarchar(3)  NULL
 );
 GO
 

@@ -501,6 +501,7 @@
     <Property Name="Tel1" Type="nvarchar(max)" Nullable="true" />
     <Property Name="Tel2" Type="nvarchar(max)" Nullable="true" />
     <Property Name="Tel3" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Status" Type="nvarchar" Nullable="true" MaxLength="3" />
   </EntityType>
   <EntityType Name="JobServicePickups">
     <Key>
@@ -2564,6 +2565,7 @@
           <Property Name="Tel1" Type="String" Nullable="true" />
           <Property Name="Tel2" Type="String" Nullable="true" />
           <Property Name="Tel3" Type="String" Nullable="true" />
+          <Property Name="Status" Type="String" Nullable="true" MaxLength="3" />
         </EntityType>
         <Association Name="SupplierSupplierItem">
           <End Type="JobDB.Supplier" Role="Supplier" Multiplicity="1" />
@@ -4028,6 +4030,7 @@
           <ScalarProperty Name="Tel1" ColumnName="Tel1" />
           <ScalarProperty Name="Tel2" ColumnName="Tel2" />
           <ScalarProperty Name="Tel3" ColumnName="Tel3" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
