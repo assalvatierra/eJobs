@@ -60,7 +60,7 @@
             @Html.ActionLink("Close", "CloseJobActive", new { id = item.JobMainId })
         </td>
     </tr>
-    <tr style="border:none">
+    <tr style="border-top:none">
         <td></td>
         <td  colspan="1">
             @foreach (var items in item.JobServiceItems)
@@ -77,11 +77,15 @@
                 var js = item.JobServicePickups.Where(s => s.JobServicesId == item.Id).FirstOrDefault();
                 try {
                     if (js.JsDate != null) {
-                    <span> DateTime:  </span>
+                    <b> DateTime:  </b>
                     @Html.DisplayFor(modelItem => js.JsDate)
                     }
+
+                    <span>&nbsp;</span>
+
+
                     if (js.JsLocation != null) {
-                    <span> Location:  </span>
+                    <b> Location:  </b>
                     @Html.DisplayFor(modelItem => js.JsLocation)
                     }
                 } catch (Exception e) {
@@ -91,6 +95,6 @@
         </td>
 
     </tr>
-                }
+    }
 
 </table>

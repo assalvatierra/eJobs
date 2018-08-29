@@ -16,8 +16,8 @@ function InitDatePicker()
 
     $('input[name="dtControl"]').daterangepicker(
     {
-        timePicker: false,
-        timePickerIncrement: 30,
+        timePicker: true,
+        timePickerIncrement: 1,
         singleDatePicker: true,
         showDropdowns: true,
         locale: {
@@ -25,7 +25,7 @@ function InitDatePicker()
         }
     },
     function (start, end, label) {
-        alert(start.format('YYYY-MM-DD h:mm A'));
+       // alert(start.format('YYYY-MM-DD h:mm A'));
         
     }
     );br

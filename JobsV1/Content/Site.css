@@ -97,3 +97,12 @@ textarea {
 }
 .jobservice :hover{
 }
+/*
+table tr .additemtable {
+    display:block;
+    width:100%;
+}
+table tr .additemtable :hover{
+    background-color:aqua;
+    color:red;
+}*/

@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Maintenance Records</h2>
 
 <p>
 
@@ -69,6 +69,12 @@
     </tr>
 }
 
+    <tr>
+        <td colspan="8" >
+            <a href="" id="catbtn" data-toggle="modal" data-target="#carlist">Add Record </a> 
+        </td>
+    </tr>
+
 </table>
     @foreach (var prio in ViewBag.priority as IEnumerable<JobsV1.Models.InvCarRecord>)
     {
@@ -108,7 +114,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Item List</h4>
+                <h4 class="modal-title">Unit List</h4>
             </div>
 
             <div class="modal-body" id="modal2-content">

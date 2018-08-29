@@ -21,7 +21,7 @@ function InitDatePicker()
         singleDatePicker: true,
         showDropdowns: true,
         locale: {
-            format: 'MM/DD/YYYY '
+            format: 'MM/DD/YYYY  h:mm:ss A '
         }
     },
     function (start, end, label) {
@@ -38,7 +38,7 @@ function InitDatePicker()
         singleDatePicker: true,
         showDropdowns: true,
         locale: {
-            format: 'MM/DD/YYYY '
+            format: 'MM/DD/YYYY  h:mm:ss A '
         }
     },
     function (start, end, label) {

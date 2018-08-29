@@ -17,7 +17,7 @@ namespace JobsV1.Controllers
         // GET: InvCarGateControls
         public ActionResult Index()
         {
-            var invCarGateControls = db.InvCarGateControls.Include(i => i.InvItem);
+            var invCarGateControls = db.InvCarGateControls.Include(i => i.InvItem).OrderByDescending(c=>c.dtControl);
             return View(invCarGateControls.ToList());
         }
 
@@ -43,12 +43,11 @@ namespace JobsV1.Controllers
 
             if (control == null)
             {
-                invcar.In_Out_flag = 1;
+                invcar.In_Out_flag = 1; //gate out
             }
             else
             {
                 invcar.In_Out_flag = (int)control;
-
             }
             
             invcar.dtControl = DateTime.Now;
@@ -60,7 +59,7 @@ namespace JobsV1.Controllers
                         Text = s.ItemCode.ToString() + " - " + s.Description
                     }
                 );
-            
+            ViewBag.recordType = invcar.In_Out_flag == 1 ? "Out" : "In";
             ViewBag.InvItemId = new SelectList(invItems, "Value", "Text");
             return View(invcar);
         }

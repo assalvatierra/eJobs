@@ -34,7 +34,7 @@ namespace JobsV1.Controllers
             }
            
             ViewBag.priority = priority;
-            var invCarRecords = db.InvCarRecords.Include(i => i.InvCarRecordType).Include(i => i.InvItem);
+            var invCarRecords = db.InvCarRecords.Include(i => i.InvCarRecordType).Include(i => i.InvItem).OrderByDescending(s=>s.dtDone);
             return View(invCarRecords.ToList());
         }
 
