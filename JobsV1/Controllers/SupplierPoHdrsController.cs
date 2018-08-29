@@ -13,11 +13,12 @@ namespace JobsV1.Controllers
     public class SupplierPoHdrsController : Controller
     {
         private JobDBContainer db = new JobDBContainer();
+        private DBClasses dbclasses = new DBClasses();
 
         // GET: SupplierPoHdrs
         public ActionResult Index()
         {
-            var supplierPoHdrs = db.SupplierPoHdrs.Include(s => s.Supplier).Include(s => s.SupplierPoStatu);
+            var supplierPoHdrs = db.SupplierPoHdrs.Include(s => s.Supplier).Include(s => s.SupplierPoStatu).OrderByDescending(s=>s.PoDate);
             return View(supplierPoHdrs.ToList());
         }
 
@@ -30,9 +31,14 @@ namespace JobsV1.Controllers
         // GET: SupplierPoHdrs/Create
         public ActionResult Create()
         {
+            SupplierPoHdr hdr = new SupplierPoHdr();
+            hdr.PoDate = DateTime.Now;
+            hdr.DtRequest = DateTime.Now;
+            hdr.RequestBy = HttpContext.User.Identity.Name;
+
             ViewBag.SupplierId = new SelectList(db.Suppliers, "Id", "Name");
             ViewBag.SupplierPoStatusId = new SelectList(db.SupplierPoStatus, "Id", "Status");
-            return View();
+            return View(hdr);
         }
 
         // POST: SupplierPoHdrs/Create

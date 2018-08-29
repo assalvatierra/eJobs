@@ -44,11 +44,7 @@
             <br />
             @Html.DisplayFor(modelItem => item.Particulars)
             <br />
-            @foreach (var items in item.JobServiceItems)
-            {
-                <span> - </span>
-                @Html.DisplayFor(modelItem => items.InvItem.Description)
-            }
+           
         </td>
         <td>
             @s1
@@ -64,6 +60,41 @@
             @Html.ActionLink("Close", "CloseJobActive", new { id = item.JobMainId })
         </td>
     </tr>
-}
+    <tr style="border-top:none">
+        <td></td>
+        <td  colspan="1">
+            @foreach (var items in item.JobServiceItems)
+            {
+                <span> - </span>
+                <span> ( </span>
+                @Html.DisplayFor(modelItem => items.InvItem.ItemCode)
+                <span> ) </span>
+                @Html.DisplayFor(modelItem => items.InvItem.Description)
+            }
+        </td>
+        <td colspan="4">
+            @{
+                var js = item.JobServicePickups.Where(s => s.JobServicesId == item.Id).FirstOrDefault();
+                try {
+                    if (js.JsDate != null) {
+                    <b> DateTime:  </b>
+                    @Html.DisplayFor(modelItem => js.JsDate)
+                    }
+
+                    <span>&nbsp;</span>
+
+
+                    if (js.JsLocation != null) {
+                    <b> Location:  </b>
+                    @Html.DisplayFor(modelItem => js.JsLocation)
+                    }
+                } catch (Exception e) {
+
+                }
+             }
+        </td>
+
+    </tr>
+    }
 
 </table>
