@@ -276,6 +276,7 @@
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\DestinationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Classes\IMainPage.cs" />
     <Compile Include="Controllers\InvItemsController.cs" />
     <Compile Include="Controllers\JobChecklistsController.cs" />
     <Compile Include="Controllers\JobContactsController.cs" />
@@ -286,6 +287,7 @@
     <Compile Include="Controllers\JobPickupsController.cs" />
     <Compile Include="Controllers\JobServicePickupsController.cs" />
     <Compile Include="Controllers\JobServicesController.cs" />
+    <Compile Include="Controllers\MainGenericController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MepuMainController.cs" />
     <Compile Include="Controllers\PreDefinedNotesController.cs" />
@@ -1048,6 +1050,7 @@
     <Content Include="Views\JobOrder\PaymentDelete.cshtml" />
     <Content Include="Views\JobOrder\PaymentDetails.cshtml" />
     <Content Include="Views\JobOrder\PaymentEdit.cshtml" />
+    <Content Include="Views\MainGeneric\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
