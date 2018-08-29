@@ -591,11 +591,24 @@ order by x.jobid
             js.DtStart = dtTmp;
             js.DtEnd = dtTmp.AddDays(job.NoOfDays - 1).AddHours(10);
             js.Remarks = "10hrs use per day P250 in excess, Driver and Fuel Included";
+
+            //modify SupplierItem
+            var supItems = db.SupplierItems.Where(s => s.Status == "ACT" || s.Status == null).Select(
+                        s => new SelectListItem
+                        {
+                            Value = s.Id.ToString(),
+                            Text = s.Description.ToString() + " - " + s.Status
+                        }
+                 );
+            
+            ViewBag.SupplierItemId = new SelectList(supItems, "Value", "Text");
+
+
             ViewBag.id = JobMainId;
             ViewBag.JobMainId = new SelectList(db.JobMains, "Id", "Description",job.Description);
             ViewBag.SupplierId = new SelectList(db.Suppliers, "Id", "Name");
             ViewBag.ServicesId = new SelectList(db.Services, "Id", "Name");
-            ViewBag.SupplierItemId = new SelectList(db.SupplierItems, "Id", "Description");
+            //ViewBag.SupplierItemId = new SelectList(db.SupplierItems, "Id", "Description");
             return View(js);
         }
 

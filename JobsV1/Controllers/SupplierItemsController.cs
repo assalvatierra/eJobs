@@ -39,8 +39,11 @@ namespace JobsV1.Controllers
         // GET: SupplierItems/Create
         public ActionResult Create()
         {
+            SupplierItem sup = new SupplierItem();
+            sup.Status = "ACT";
+
             ViewBag.SupplierId = new SelectList(db.Suppliers, "Id", "Name");
-            return View();
+            return View(sup);
         }
 
         // POST: SupplierItems/Create
@@ -48,7 +51,7 @@ namespace JobsV1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Description,Remarks,SupplierId,InCharge,Tel1,Tel2,Tel3")] SupplierItem supplierItem)
+        public ActionResult Create([Bind(Include = "Id,Description,Remarks,SupplierId,InCharge,Tel1,Tel2,Tel3,Status")] SupplierItem supplierItem)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +85,7 @@ namespace JobsV1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Description,Remarks,SupplierId,InCharge,Tel1,Tel2,Tel3")] SupplierItem supplierItem)
+        public ActionResult Edit([Bind(Include = "Id,Description,Remarks,SupplierId,InCharge,Tel1,Tel2,Tel3,Status")] SupplierItem supplierItem)
         {
             if (ModelState.IsValid)
             {
