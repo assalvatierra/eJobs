@@ -62,6 +62,31 @@ left join JobMains as m on m.Id = js.JobMainId
 left join Customers as cu on cu.Id = m.CustomerId 
 
 where datediff(day, getdate(),j.DtPerformed) > - 1
+
+union
+
+select 
+'Gate Activity' as StatusCategory,
+g.dtControl as dtTaken,
+g.Id as refId,
+'('+c.ItemCode +')'+c.Description +' - '+ g.Driver  as Details
+from 
+InvCarGateControls g 
+left join InvItems as c on c.Id = g.InvItemId 
+where datediff(day, getdate(),g.dtControl) > - 1
+
+union
+
+select 
+'Maintenance Activity' as StatusCategory,
+g.dtControl as dtTaken,
+g.Id as refId,
+'('+c.ItemCode +')'+c.Description +' - '+ g.Driver  as Details
+from 
+InvCarGateControls g 
+left join InvItems as c on c.Id = g.InvItemId 
+where datediff(day, getdate(),g.dtControl) > - 1
+
 Order by dtTaken
 ;
 
