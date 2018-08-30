@@ -73,7 +73,7 @@ namespace JobsV1.Controllers
             }
 
 
-            IQueryable<Models.JobMain> jobMains = db.JobMains
+            IEnumerable<Models.JobMain> jobMains = db.JobMains
                 .Include(j => j.Customer)
                 .Include(j => j.Branch)
                 .Include(j => j.JobStatus)
@@ -83,9 +83,40 @@ namespace JobsV1.Controllers
             
             List<cjobCounter> jobActionCntr = getJobActionCount(jobMains.Select(d => d.Id).ToList());
             var data = new List<cJobOrder>();
+            
 
-           
-            foreach(var main in jobMains)
+            DateTime today = DateTime.Today;
+            today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Singapore Standard Time");
+
+            switch (sortid)
+            {
+                case 1: //OnGoing
+                    jobMains = jobMains
+                        .Where(d => (d.JobStatusId == JOBRESERVATION || d.JobStatusId == JOBCONFIRMED))
+                        .Where(p => DateTime.Compare(p.JobDate, today.AddDays(-30)) >= 0).ToList();   //get 1 month before all entries
+
+                    break;
+                case 2: //prev
+                    jobMains = jobMains
+                        .Where(d => (d.JobStatusId == JOBRESERVATION || d.JobStatusId == JOBCONFIRMED))
+                        .Where(p => DateTime.Compare(p.JobDate, today) < 0).ToList(); //get 1 month before all entries
+
+                    break;
+                case 3: //close
+                    jobMains = jobMains
+                        .Where(d => (d.JobStatusId == JOBCLOSED || d.JobStatusId == JOBCANCELLED)
+                        ).Where(p => p.JobDate.AddDays(60) > today).ToList();
+
+                    break;
+
+                default:
+
+                    jobMains = jobMains.ToList();
+
+                    break;
+            }
+
+            foreach (var main in jobMains)
             {
                 cJobOrder joTmp = new cJobOrder();
                 joTmp.Main = main;
@@ -112,7 +143,7 @@ namespace JobsV1.Controllers
 
                 joTmp.ActionCounter = jobActionCntr.Where(d => d.JobId == joTmp.Main.Id).ToList();
 
-                joTmp.Main.JobDate = TempJobDate(joTmp.Main.Id);
+                joTmp.Main.JobDate = TempJobDate(joTmp.Main.Id).Year == 9999 ?  joTmp.Main.JobDate: TempJobDate(joTmp.Main.Id);
 
                 data.Add(joTmp);
 
@@ -121,26 +152,13 @@ namespace JobsV1.Controllers
                 {
                     joTmp.Payment += payment.PaymentAmt;
                 }
-
-
             }
-
-            List<Customer> customers = db.Customers.ToList();
-            ViewBag.companyList = customers;
-
-            var jobmainId = serviceId != null ? db.JobServices.Find(serviceId).JobMainId : 0;
-
-            jobmainId = mainid != null ? (int)mainid : jobmainId;
             
-            ViewBag.mainId = jobmainId;
-
-            DateTime today = DateTime.Today;
-            today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Singapore Standard Time");
 
             switch (sortid)
             {
                 case 1: //OnGoing
-                    data = (List<cJobOrder>) data
+                    data = (List<cJobOrder>)data
                         .Where(d => (d.Main.JobStatusId == JOBRESERVATION || d.Main.JobStatusId == JOBCONFIRMED)
                         && (d.Main.JobDate.CompareTo(today) >= 0)).ToList();
 
@@ -164,6 +182,15 @@ namespace JobsV1.Controllers
 
                     break;
             }
+           
+
+
+            List<Customer> customers = db.Customers.ToList();
+            ViewBag.companyList = customers;
+
+            var jobmainId = serviceId != null ? db.JobServices.Find(serviceId).JobMainId : 0;
+            jobmainId = mainid != null ? (int)mainid : jobmainId;
+            ViewBag.mainId = jobmainId;
 
             if (sortid == 1)
             {

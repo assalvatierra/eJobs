@@ -15,15 +15,14 @@ namespace JobsV1.Controllers
         private JobDBContainer db = new JobDBContainer();
 
         // GET: InvCarRecords
-        public ActionResult Index()
+        public ActionResult Index(int? carId)
         {
             ViewBag.InvItemsList = db.InvItems.Where(s=>s.ViewLabel == "UNIT").ToList();
             ViewBag.recordTypeList = db.InvCarRecordTypes.ToList();
 
             //get records past their next odometer & schedule change
             //odometer
-
-            List<InvCarRecord> priority = new List<InvCarRecord>();
+           List<InvCarRecord> priority = new List<InvCarRecord>();
            
            foreach (var carList in db.InvItems.Where(s => s.ViewLabel == "UNIT").ToList()) {
 
@@ -34,8 +33,18 @@ namespace JobsV1.Controllers
             }
            
             ViewBag.priority = priority;
+
             var invCarRecords = db.InvCarRecords.Include(i => i.InvCarRecordType).Include(i => i.InvItem).OrderByDescending(s=>s.dtDone);
-            return View(invCarRecords.ToList());
+
+            if (carId != null) {
+
+                return View(invCarRecords.Where(s=>s.InvItemId == carId).ToList());
+            }
+            else
+            {
+                return View(invCarRecords.ToList());
+
+            }
         }
 
         // GET: InvCarRecords/Details/5

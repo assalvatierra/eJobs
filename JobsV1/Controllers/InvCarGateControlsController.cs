@@ -18,6 +18,22 @@ namespace JobsV1.Controllers
         public ActionResult Index()
         {
             var invCarGateControls = db.InvCarGateControls.Include(i => i.InvItem).OrderByDescending(c=>c.dtControl);
+
+            //get records past their next odometer & schedule change
+            //odometer
+            List<InvCarRecord> priority = new List<InvCarRecord>();
+
+            foreach (var carList in db.InvItems.Where(s => s.ViewLabel == "UNIT").ToList())
+            {
+                //latest next odometer of the car
+                var priorityRecords = db.InvCarRecords.Include(i => i.InvCarRecordType).Include(i => i.InvItem)
+                    .Where(c => c.InvItemId == carList.Id).OrderByDescending(s => s.NextOdometer).FirstOrDefault();
+
+                priority.Add(priorityRecords);
+            }
+
+            ViewBag.priority = priority;
+            
             return View(invCarGateControls.ToList());
         }
 

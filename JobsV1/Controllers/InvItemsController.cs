@@ -47,9 +47,15 @@ namespace JobsV1.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.SupplierList = suppliers;
+            //get latest odo
             
-            return View(db.InvItems.Include(s=>s.SupplierInvItems).ToList());
+
+            ViewBag.SupplierList = suppliers;
+            var itemList = db.InvItems.Include(s => s.SupplierInvItems)
+                .Include(s => s.InvCarRecords)
+                .Include(s => s.InvCarGateControls);
+
+            return View(itemList.OrderBy(s => s.OrderNo).ToList());
         }
 
         public ActionResult ItemSchedules()

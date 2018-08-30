@@ -76,6 +76,7 @@
     </tr>
 
 </table>
+ 
     @foreach (var prio in ViewBag.priority as IEnumerable<JobsV1.Models.InvCarRecord>)
     {
         //Odometer filter
@@ -85,7 +86,7 @@
             if (currentOdo > prio.NextOdometer)
             {
             <script type="text/javascript">
-                alert('@prio.InvItem.Description is needed for @prio.InvCarRecordType.Description . @currentOdo of @prio.NextOdometer ');
+                alert('@prio.InvItem.ItemCode @prio.InvItem.Description is needed for @prio.InvCarRecordType.Description . @currentOdo of @prio.NextOdometer ');
             </script>
             }
         }
@@ -98,7 +99,7 @@
             if (DateTime.Compare(DateTime.Today,prio.NextSched) >= 0)
             {
                 <script type="text/javascript">
-                    alert('@prio.InvItem.Description is needed for @prio.InvCarRecordType.Description . Scheduled change: @prio.NextSched ');
+                    alert('@prio.InvItem.ItemCode @prio.InvItem.Description is needed for @prio.InvCarRecordType.Description . Scheduled change: @prio.NextSched ');
                 </script>
             }
         }

@@ -57,7 +57,7 @@ insert into SupplierTypes(Description) values
 ('Rent-a-car'),('Boat'),('Tour'),('Airline'),('Hotel');
 insert Into Suppliers([Name],[Contact1],[Details],[Email],[CityId],[SupplierTypeId]) values('<< New Supplier >>','--',' ', '--','1','1');
 insert Into Suppliers([Name],[Contact1],[Details],[Email],[CityId],[SupplierTypeId]) values('AJ Davao Car Rental','Abel / 0995-085-0158',' ', 'AJDavao88@gmail.com','1','1');
-insert into SupplierItems([Description],[SupplierId],[Remarks],[InCharge]) values ('Default','1','Item by supplier','Supplier');
+insert into SupplierItems([Description],[SupplierId],[Remarks],[InCharge],[Status]) values ('Default','1','Item by supplier','Supplier','ACT');
 
 insert into Services([Name],[Description]) 
 values
@@ -146,7 +146,7 @@ values
 
 insert into InvItemCategories([InvItemId],[InvItemCatId])
 values
-(1,7),(2,7),(3,10),(4,6),(5,11),(6,5);
+(1,7),(2,7),(3,10),(4,6),(5,11),(6,2),(7,2),(8,2);
 -- ----------------------------------------------
 -- Supplier PO Configuration
 -- ----------------------------------------------
