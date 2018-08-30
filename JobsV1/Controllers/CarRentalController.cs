@@ -15,13 +15,6 @@ namespace JobsV1.Controllers
         private JobDBContainer db = new JobDBContainer();
 
         // GET: CarRental
-        public ActionResult navHome()
-        {
-            //return RedirectToAction("index", "Default");
-            return RedirectToRoute("Default");
-
-        }
-
         public ActionResult Index()
         {
             return View("Index", db.CarUnits.Include(c => c.CarRates).ToList() );

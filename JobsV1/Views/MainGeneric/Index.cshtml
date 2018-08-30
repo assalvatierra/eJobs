@@ -5,5 +5,10 @@
 
 <h2>Welcome to Car Rental Management System</h2>
 
-go to @Html.ActionLink("Control Panel", "ApplicationPanel")
+@if (Request.IsAuthenticated)
+{
+    <p>
+        go to @Html.ActionLink("Control Panel", "Index", "Home")
+    </p>
+}
 

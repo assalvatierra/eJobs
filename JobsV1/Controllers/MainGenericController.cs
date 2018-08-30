@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace JobsV1.Controllers
 {
-    public class MainGenericController : Controller, IMainPage
+    public class MainGenericController : Controller 
     {
         public ActionResult Index()
         {
@@ -23,15 +23,6 @@ namespace JobsV1.Controllers
             return View();
         }
 
-        public ActionResult navHome()
-        {
-            return RedirectToAction("index","Default");
-        }
-
-        public ActionResult ApplicationPanel()
-        {
-            return RedirectToAction("Index", "CarRental");
-        }
 
     }
 

@@ -276,7 +276,9 @@
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\DestinationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Classes\IMainPage.cs" />
+    <Compile Include="Controllers\InvCarGateControlsController.cs" />
+    <Compile Include="Controllers\InvCarRecordsController.cs" />
+    <Compile Include="Controllers\InvCarRecordTypesController.cs" />
     <Compile Include="Controllers\InvItemsController.cs" />
     <Compile Include="Controllers\JobChecklistsController.cs" />
     <Compile Include="Controllers\JobContactsController.cs" />
@@ -741,6 +743,8 @@
     <Content Include="Scripts\DateRangePicker\package.js" />
     <None Include="Properties\PublishProfiles\LocalPath.D.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
+    <Content Include="Scripts\Job\CarGateControl.js" />
+    <Content Include="Scripts\Job\CarMaintenance.js" />
     <Content Include="Scripts\Job\Itinerary.js" />
     <Content Include="Scripts\Job\PO.js" />
     <Content Include="Scripts\Job\Product.js" />
@@ -1051,6 +1055,21 @@
     <Content Include="Views\JobOrder\PaymentDetails.cshtml" />
     <Content Include="Views\JobOrder\PaymentEdit.cshtml" />
     <Content Include="Views\MainGeneric\Index.cshtml" />
+    <Content Include="Views\InvCarGateControls\Create.cshtml" />
+    <Content Include="Views\InvCarGateControls\Delete.cshtml" />
+    <Content Include="Views\InvCarGateControls\Details.cshtml" />
+    <Content Include="Views\InvCarGateControls\Edit.cshtml" />
+    <Content Include="Views\InvCarGateControls\Index.cshtml" />
+    <Content Include="Views\InvCarRecords\Create.cshtml" />
+    <Content Include="Views\InvCarRecords\Delete.cshtml" />
+    <Content Include="Views\InvCarRecords\Details.cshtml" />
+    <Content Include="Views\InvCarRecords\Edit.cshtml" />
+    <Content Include="Views\InvCarRecords\Index.cshtml" />
+    <Content Include="Views\InvCarRecordTypes\Create.cshtml" />
+    <Content Include="Views\InvCarRecordTypes\Delete.cshtml" />
+    <Content Include="Views\InvCarRecordTypes\Details.cshtml" />
+    <Content Include="Views\InvCarRecordTypes\Edit.cshtml" />
+    <Content Include="Views\InvCarRecordTypes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
