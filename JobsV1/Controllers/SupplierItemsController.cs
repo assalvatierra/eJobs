@@ -88,7 +88,7 @@ namespace JobsV1.Controllers
         public ActionResult Edit([Bind(Include = "Id,Description,Remarks,SupplierId,InCharge,Tel1,Tel2,Tel3,Status")] SupplierItem supplierItem)
         {
             if (ModelState.IsValid)
-            {
+            {       
                 db.Entry(supplierItem).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

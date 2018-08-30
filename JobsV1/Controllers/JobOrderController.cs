@@ -93,7 +93,7 @@ namespace JobsV1.Controllers
                 joTmp.Main.AgreedAmt = 0;
                 joTmp.Payment = 0;
 
-                List<Models.JobServices> joSvc = db.JobServices.Where(d => d.JobMainId == main.Id).ToList();
+                List<Models.JobServices> joSvc = db.JobServices.Where(d => d.JobMainId == main.Id).OrderBy(s=>s.DtStart).ToList();
                 foreach( var svc in joSvc)
                 {
                     cJobService cjoTmp = new cJobService();
@@ -1056,7 +1056,7 @@ order by x.jobid
 
 
         #endregion
-
+    
         #region Action Items status update
         //Ajax Call
         public ActionResult MarkDone(int SvcId, int ActionId)

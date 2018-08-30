@@ -135,6 +135,7 @@ namespace JobsV1.Controllers
         {
             if (ModelState.IsValid)
             {
+                invCarRecord.NextSched = (DateTime)invCarRecord.NextSched;
                 db.Entry(invCarRecord).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
