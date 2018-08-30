@@ -69,7 +69,7 @@ select
 'Gate Activity' as StatusCategory,
 g.dtControl as dtTaken,
 g.Id as refId,
-'('+c.ItemCode +')'+c.Description +' - '+ g.Driver  as Details
+'('+c.ItemCode +')'+c.Description  as Details
 from 
 InvCarGateControls g 
 left join InvItems as c on c.Id = g.InvItemId 
@@ -81,7 +81,7 @@ select
 'Maintenance Activity' as StatusCategory,
 g.dtControl as dtTaken,
 g.Id as refId,
-'('+c.ItemCode +')'+c.Description +' - '+ g.Driver  as Details
+'('+c.ItemCode +')'+c.Description as Details
 from 
 InvCarGateControls g 
 left join InvItems as c on c.Id = g.InvItemId 
