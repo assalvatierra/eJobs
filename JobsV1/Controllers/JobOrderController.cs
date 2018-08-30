@@ -143,7 +143,7 @@ namespace JobsV1.Controllers
 
                 joTmp.ActionCounter = jobActionCntr.Where(d => d.JobId == joTmp.Main.Id).ToList();
 
-                joTmp.Main.JobDate = TempJobDate(joTmp.Main.Id).Year == 9999 ?  joTmp.Main.JobDate: TempJobDate(joTmp.Main.Id);
+                joTmp.Main.JobDate =  TempJobDate(joTmp.Main.Id);
 
                 data.Add(joTmp);
 
@@ -209,7 +209,7 @@ namespace JobsV1.Controllers
         {
             //update jobdate
             var main = db.JobMains.Where(j => mainId == j.Id).FirstOrDefault();
-            DateTime minDate = new DateTime(9999,12,30);
+            DateTime minDate = db.JobMains.Where(j => mainId == j.Id).FirstOrDefault().JobDate;
             DateTime maxDate = new DateTime(1,1,1);
 
             DateTime today = DateTime.Today;
@@ -272,6 +272,11 @@ namespace JobsV1.Controllers
 
             }
 
+            if (minDate == new DateTime(9999, 12, 30)) {
+
+                minDate = db.JobMains.Where(j => mainId == j.Id).FirstOrDefault().JobDate;
+                
+            }
             //return main.JobDate;
             return minDate;
         }
