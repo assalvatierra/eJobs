@@ -93,14 +93,12 @@
             <br />[Remarks: @Html.DisplayFor(modelItem => item.Remarks)]
         </td>
         <td>
-            @foreach (var supitem in item.Supplier.SupplierInvItems)
+            @foreach (var svc in item.JobServiceItems)
             {
-
-                @Html.DisplayFor(modelItem => supitem.InvItem.Description)
-                <br />
-                <span>[</span>
-                @Html.DisplayFor(modelItem => supitem.InvItem.Remarks)
-                <span>]</span>
+                <span> ( </span>
+                @Html.DisplayFor(modelItem => svc.InvItem.ItemCode)
+                <span> ) </span>
+                @Html.DisplayFor(modelItem => svc.InvItem.Description)
             }
         </td>
         <td>

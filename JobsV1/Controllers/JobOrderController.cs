@@ -116,7 +116,7 @@ namespace JobsV1.Controllers
                     break;
             }
 
-            foreach (var main in jobMains)
+            foreach (var main in jobMains.Take(30))
             {
                 cJobOrder joTmp = new cJobOrder();
                 joTmp.Main = main;
@@ -878,6 +878,7 @@ order by x.jobid
             ViewBag.JobOrder = Job;
 
             var jobServices = db.JobServices.Include(j => j.JobMain).Include(j => j.Supplier).Include(j => j.Service).Include(j => j.SupplierItem).Include(j => j.JobServicePickups).Where(d => d.JobMainId == JobMainId);
+
             System.Collections.ArrayList providers = new System.Collections.ArrayList();
             foreach (var item in jobServices)
             {
@@ -899,8 +900,9 @@ order by x.jobid
                     }
                 }
             }
+            
 
-          
+            ViewBag.JobItems = jobServices;
 
             ViewBag.Providers = providers;
 
