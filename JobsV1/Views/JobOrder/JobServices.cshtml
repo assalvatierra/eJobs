@@ -92,14 +92,18 @@
             <br />[Supplier: @Html.DisplayFor(modelItem => item.SupplierAmt)]
             <br />[Remarks: @Html.DisplayFor(modelItem => item.Remarks)]
         </td>
-        <td>
+        <td width="150">
             @foreach (var svc in item.JobServiceItems)
             {
-                <span> ( </span>
                 @Html.DisplayFor(modelItem => svc.InvItem.ItemCode)
-                <span> ) </span>
+                <br />
                 @Html.DisplayFor(modelItem => svc.InvItem.Description)
+                <span>&nbsp;</span>
+                @Html.ActionLink("[x]", "JsRemoveItem", new { ItemId = svc.InvItemId , serviceId = item.Id })
+                
+                <br />
             }
+            @Html.ActionLink("Add Item", "BrowseInvItem_withScheduleJS", new { JobServiceId = item.Id })
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Supplier.Name)

@@ -325,6 +325,20 @@ order by x.jobid
         {
             DBClasses dbclass = new DBClasses();
             Models.getItemSchedReturn gret = dbclass.ItemSchedules();
+            var mainId = db.JobServices.Find(JobServiceId).JobMainId;
+            ViewBag.mainId = mainId;
+            ViewBag.dtLabel = gret.dLabel;
+            ViewBag.serviceId = JobServiceId;
+            return View(gret.ItemSched);
+        }
+
+
+        public ActionResult BrowseInvItem_withScheduleJS(int JobServiceId)
+        {
+            DBClasses dbclass = new DBClasses();
+            Models.getItemSchedReturn gret = dbclass.ItemSchedules();
+            var mainId = db.JobServices.Find(JobServiceId).JobMainId;
+            ViewBag.mainId = mainId;
             ViewBag.dtLabel = gret.dLabel;
             ViewBag.serviceId = JobServiceId;
             return View(gret.ItemSched);
@@ -334,8 +348,16 @@ order by x.jobid
         {
             string sqlstr = "Insert Into JobServiceItems([JobServicesId],[InvItemId]) values(" + serviceId.ToString() + "," + itemId.ToString() + ")";
             db.Database.ExecuteSqlCommand(sqlstr);
-
+            var mainId = db.JobServices.Find(serviceId).JobMainId;
             return RedirectToAction("Index", new { serviceId = serviceId });
+
+        }
+        public ActionResult JSAddItem(int itemId, int serviceId)
+        {
+            string sqlstr = "Insert Into JobServiceItems([JobServicesId],[InvItemId]) values(" + serviceId.ToString() + "," + itemId.ToString() + ")";
+            db.Database.ExecuteSqlCommand(sqlstr);
+            var mainId = db.JobServices.Find(serviceId).JobMainId;
+            return RedirectToAction("JobServices", new { JobMainId = mainId });
 
         }
 
@@ -347,6 +369,17 @@ order by x.jobid
             db.Database.ExecuteSqlCommand(sqlstr);
 
             return RedirectToAction("InventoryItemList", new { serviceId = serviceId });
+        }
+
+        public ActionResult JsRemoveItem(int itemId, int serviceId)
+        {
+            string sqlstr = "Delete from JobServiceItems where JobServicesId = " + serviceId.ToString()
+                + " AND InvItemId = " + itemId.ToString();
+
+            db.Database.ExecuteSqlCommand(sqlstr);
+
+            var mainId = db.JobServices.Find(serviceId).JobMainId;
+            return RedirectToAction("JobServices", new { JobMainId = mainId });
         }
         #endregion
 
