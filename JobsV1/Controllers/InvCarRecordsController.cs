@@ -106,7 +106,7 @@ namespace JobsV1.Controllers
 
                 //add estimated odometer and next schedule
                 invCarRecord.NextOdometer = invCarRecord.Odometer +  estOdo;
-                invCarRecord.NextSched = invCarRecord.dtDone.AddDays(estDays);
+                invCarRecord.NextSched = (DateTime)invCarRecord.dtDone.AddDays(estDays);
 
                 db.InvCarRecords.Add(invCarRecord);
                 db.SaveChanges();
@@ -144,7 +144,7 @@ namespace JobsV1.Controllers
         {
             if (ModelState.IsValid)
             {
-                invCarRecord.NextSched = (DateTime)invCarRecord.NextSched;
+                
                 db.Entry(invCarRecord).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

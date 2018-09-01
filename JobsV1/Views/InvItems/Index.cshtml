@@ -87,8 +87,12 @@
             @Html.DisplayFor(modelItem => item.InvCarGateControls.OrderByDescending(s=>s.dtControl).FirstOrDefault().Odometer)
         </td>
         <td>
+            Odometer: 
             @Html.DisplayFor(modelItem => item.InvCarRecords.OrderByDescending(s => s.dtDone).FirstOrDefault().NextOdometer)
-            -
+            
+            <br />
+
+            Schedule: 
             <br />
             @if (@item.InvCarRecords.OrderByDescending(s => s.dtDone).FirstOrDefault() != null)
             {

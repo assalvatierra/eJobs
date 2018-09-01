@@ -16,12 +16,12 @@ function InitDatePicker()
 
     $('input[name="dtDone"]').daterangepicker(
     {
-        timePicker: false,
-        timePickerIncrement: 30,
+        timePicker: true,
+        timePickerIncrement: 1,
         singleDatePicker: true,
         showDropdowns: true,
         locale: {
-            format: 'MM/DD/YYYY'
+            format: 'MM/DD/YYYY hh:mm A'
         }
     },
     function (start, end, label) {
@@ -33,12 +33,12 @@ function InitDatePicker()
 
     $('input[name="NextSched"]').daterangepicker(
     {
-        timePicker: false,
-        timePickerIncrement: 30,
+        timePicker: true,
+        timePickerIncrement: 1,
         singleDatePicker: true,
         showDropdowns: true,
         locale: {
-            format: 'MM/DD/YYYY'
+            format: 'MM/DD/YYYY hh:mm A'
         }
     },
     function (start, end, label) {
@@ -48,7 +48,7 @@ function InitDatePicker()
     );
 
     $('input[name="dtDone"]').val(ddd1.substr(0, ddd1.indexOf(" ")));
-    $('input[name="NextSched"]').val(ddd2.substr(0, ddd1.indexOf(" ")));
+    $('input[name="NextSched"]').val(ddd2.substr(0, ddd2.indexOf(" ")));
 
 
 
