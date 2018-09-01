@@ -1070,6 +1070,7 @@
     <Content Include="Views\InvCarRecordTypes\Details.cshtml" />
     <Content Include="Views\InvCarRecordTypes\Edit.cshtml" />
     <Content Include="Views\InvCarRecordTypes\Index.cshtml" />
+    <Content Include="Views\JobOrder\BrowseInvItem_withScheduleJS.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

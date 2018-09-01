@@ -99,7 +99,8 @@ namespace JobsV1.Controllers
 
             var data = db.JobServices.Where(w => p.Contains(w.JobMainId)).ToList().OrderBy(s=>s.DtStart);
             DateTime today = GetCurrentTime();
-            today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Singapore Standard Time");
+            today = today.AddHours(-15).Date;
+            //today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Singapore Standard Time");
             DateTime tomorrow = today.AddDays(1);
             switch (FilterId) {
                 case 1:
@@ -116,7 +117,7 @@ namespace JobsV1.Controllers
             }
 
             ViewBag.Current = this.GetCurrentTime().ToString("MMM-dd-yyyy (ddd)");
-            ViewBag.today = today.Date;
+            ViewBag.today = GetCurrentTime();
             return View(data);
         }
 
