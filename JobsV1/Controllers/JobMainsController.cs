@@ -98,25 +98,25 @@ namespace JobsV1.Controllers
             var p = jobMains.Select(s => s.Id);
 
             var data = db.JobServices.Where(w => p.Contains(w.JobMainId)).ToList().OrderBy(s=>s.DtStart);
-            DateTime today = DateTime.Now;
+            DateTime today = GetCurrentTime();
             today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Singapore Standard Time");
-
+            DateTime tomorrow = today.AddDays(1);
             switch (FilterId) {
                 case 1:
                     data = db.JobServices.Where(w => p.Contains(w.JobMainId)).ToList().OrderBy(s => s.DtStart);
                     break;
                 case 2:
-                    data = db.JobServices.Where(w => p.Contains(w.JobMainId) && DateTime.Compare((DateTime)w.DtStart.Value.Date, (DateTime)DbFunctions.AddDays(today, 0).Value.Date) == 0).ToList().OrderBy(s => s.DtStart);
+                    data = db.JobServices.Where(w => p.Contains(w.JobMainId)).ToList().Where(w => DateTime.Compare(w.DtStart.Value.Date, today.Date) == 0).ToList().OrderBy(s => s.DtStart);
                     break;
                 case 3:
-                    data = db.JobServices.Where(w => p.Contains(w.JobMainId) && DateTime.Compare((DateTime)w.DtStart.Value.Date, (DateTime)DbFunctions.AddDays(today, 2).Value.Date) == 0).ToList().OrderBy(s => s.DtStart);
+                    data = db.JobServices.Where(w => p.Contains(w.JobMainId)).ToList().Where(w => DateTime.Compare(w.DtStart.Value.Date, tomorrow.Date) == 0).ToList().OrderBy(s => s.DtStart);
                     break;
                 default:
                     break;
             }
 
             ViewBag.Current = this.GetCurrentTime().ToString("MMM-dd-yyyy (ddd)");
-            ViewBag.today = today;
+            ViewBag.today = today.Date;
             return View(data);
         }
 

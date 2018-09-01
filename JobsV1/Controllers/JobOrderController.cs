@@ -92,20 +92,20 @@ namespace JobsV1.Controllers
             {
                 case 1: //OnGoing
                     jobMains = jobMains
-                        .Where(d => (d.JobStatusId == JOBRESERVATION || d.JobStatusId == JOBCONFIRMED))
-                        .Where(p => DateTime.Compare(p.JobDate, today.AddDays(-30)) >= 0).ToList();   //get 1 month before all entries
+                        .Where(d => (d.JobStatusId != JOBCLOSED || d.JobStatusId != JOBCANCELLED)).ToList()
+                        .Where(p => DateTime.Compare(p.JobDate.Date, today.Date.AddDays(-30)) >= 0).ToList();   //get 1 month before all entries
 
                     break;
                 case 2: //prev
                     jobMains = jobMains
-                        .Where(d => (d.JobStatusId == JOBRESERVATION || d.JobStatusId == JOBCONFIRMED))
-                        .Where(p => DateTime.Compare(p.JobDate, today) < 0).ToList(); //get 1 month before all entries
+                        .Where(d => (d.JobStatusId != JOBCLOSED || d.JobStatusId != JOBCANCELLED)).ToList()
+                        .Where(p => DateTime.Compare(p.JobDate.Date, today.Date) < 0).ToList(); //get 1 month before all entries
 
                     break;
                 case 3: //close
                     jobMains = jobMains
-                        .Where(d => (d.JobStatusId == JOBCLOSED || d.JobStatusId == JOBCANCELLED)
-                        ).Where(p => p.JobDate.AddDays(60) > today).ToList();
+                        .Where(d => (d.JobStatusId == JOBCLOSED || d.JobStatusId == JOBCANCELLED)).ToList()
+                        .Where(p => p.JobDate.Date.AddDays(60) > today.Date).ToList();
 
                     break;
 
@@ -116,7 +116,7 @@ namespace JobsV1.Controllers
                     break;
             }
 
-            foreach (var main in jobMains.Take(30))
+            foreach (var main in jobMains)
             {
                 cJobOrder joTmp = new cJobOrder();
                 joTmp.Main = main;
@@ -159,27 +159,24 @@ namespace JobsV1.Controllers
             {
                 case 1: //OnGoing
                     data = (List<cJobOrder>)data
-                        .Where(d => (d.Main.JobStatusId == JOBRESERVATION || d.Main.JobStatusId == JOBCONFIRMED)
-                        && (d.Main.JobDate.CompareTo(today) >= 0)).ToList();
+                        .Where(d => (d.Main.JobStatusId != JOBCLOSED || d.Main.JobStatusId != JOBCANCELLED)).ToList()
+                       .Where(d=> d.Main.JobDate.CompareTo(today.Date) >= 0).ToList();
 
                     break;
                 case 2: //prev
                     data = (List<cJobOrder>)data
-                        .Where(d => (d.Main.JobStatusId == JOBRESERVATION || d.Main.JobStatusId == JOBCONFIRMED))
-                        .Where(p => DateTime.Compare(p.Main.JobDate, today) < 0).ToList();
+                        .Where(d => (d.Main.JobStatusId != JOBCLOSED || d.Main.JobStatusId != JOBCANCELLED)).ToList()
+                        .Where(p => DateTime.Compare(p.Main.JobDate.Date, today.Date) < 0).ToList();
 
                     break;
                 case 3: //close
                     data = (List<cJobOrder>)data
-                        .Where(d => (d.Main.JobStatusId == JOBCLOSED || d.Main.JobStatusId == JOBCANCELLED)
-                        ).Where(p => p.Main.JobDate.AddDays(60) > today).ToList();
-
+                        .Where(d => (d.Main.JobStatusId == JOBCLOSED || d.Main.JobStatusId == JOBCANCELLED)).ToList()
+                        .Where(p => p.Main.JobDate.AddDays(60).Date > today.Date).ToList();
                     break;
 
                 default:
-
                     data = (List<cJobOrder>)data.ToList();
-
                     break;
             }
            
