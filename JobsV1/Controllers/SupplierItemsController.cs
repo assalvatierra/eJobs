@@ -13,6 +13,11 @@ namespace JobsV1.Controllers
     public class SupplierItemsController : Controller
     {
         private JobDBContainer db = new JobDBContainer();
+        private List<SelectListItem> itemStatus = new List<SelectListItem> {
+                new SelectListItem { Value = "ACT", Text = "Active" },
+                new SelectListItem { Value = "INC", Text = "Inactive" }
+                };
+
 
         // GET: SupplierItems
         public ActionResult Index()
@@ -40,9 +45,10 @@ namespace JobsV1.Controllers
         public ActionResult Create()
         {
             SupplierItem sup = new SupplierItem();
-            sup.Status = "ACT";
-
+            
             ViewBag.SupplierId = new SelectList(db.Suppliers, "Id", "Name");
+            ViewBag.Status = new SelectList(itemStatus, "value", "text", "ACT");
+
             return View(sup);
         }
 
@@ -61,6 +67,7 @@ namespace JobsV1.Controllers
             }
 
             ViewBag.SupplierId = new SelectList(db.Suppliers, "Id", "Name", supplierItem.SupplierId);
+            ViewBag.Status = new SelectList(itemStatus, "value", "text", supplierItem.Status);
             return View(supplierItem);
         }
 
@@ -77,6 +84,8 @@ namespace JobsV1.Controllers
                 return HttpNotFound();
             }
             ViewBag.SupplierId = new SelectList(db.Suppliers, "Id", "Name", supplierItem.SupplierId);
+            ViewBag.Status = new SelectList(itemStatus, "value", "text", supplierItem.Status);
+
             return View(supplierItem);
         }
 
@@ -94,6 +103,8 @@ namespace JobsV1.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.SupplierId = new SelectList(db.Suppliers, "Id", "Name", supplierItem.SupplierId);
+            ViewBag.Status = new SelectList(itemStatus, "value", "text", supplierItem.Status);
+
             return View(supplierItem);
         }
 
