@@ -56,7 +56,7 @@
         }
 
         <td>
-            @Html.DisplayFor(modelItem => item.Odometer)
+            @String.Format("{0:n0}", int.Parse( item.Odometer))
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Driver)

@@ -36,7 +36,7 @@
             @Html.DisplayFor(modelItem => item.SysCode)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.OdoInterval)
+            @String.Format("{0:n0}", item.OdoInterval)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.DaysInterval)

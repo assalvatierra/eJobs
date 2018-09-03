@@ -50,10 +50,10 @@
             @Html.DisplayFor(modelItem => item.InvItem.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Odometer)
+            @item.Odometer.ToString("N0")
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.NextOdometer)
+            @item.NextOdometer.ToString("N0")
         </td>
         <td>
             @item.NextSched.ToString("MMM dd,yyyy")
