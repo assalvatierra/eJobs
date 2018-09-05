@@ -527,6 +527,11 @@ namespace JobsV1.Controllers
             SMSWebService ws = new SMSWebService();
             ws.AddNotification(id);
         }
+
+        public ActionResult NotificationList() {
+
+            return View(db.JobNotificationRequests.ToList());
+        }
         
     }
 }

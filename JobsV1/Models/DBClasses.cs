@@ -197,6 +197,20 @@ where d.JobStatusId < 4
             });
             db.SaveChanges();
         }
+
+
+        public void addTestNotification()
+        {
+
+            db.JobNotificationRequests.Add(new JobNotificationRequest
+            {
+                ReqDt = DateTime.Parse(DateTime.Now.ToString("MMM dd yyyy HH:mm:ss")),
+                ServiceId = 4   //SMS service Id
+
+            });
+            db.SaveChanges();
+            
+        }
     }
 
 
