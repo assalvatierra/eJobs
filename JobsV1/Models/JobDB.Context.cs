@@ -91,5 +91,6 @@ namespace JobsV1.Models
         public virtual DbSet<InvCarRecord> InvCarRecords { get; set; }
         public virtual DbSet<InvCarRecordType> InvCarRecordTypes { get; set; }
         public virtual DbSet<InvCarGateControl> InvCarGateControls { get; set; }
+        public virtual DbSet<JobTrail> JobTrails { get; set; }
     }
 }

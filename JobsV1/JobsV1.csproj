@@ -439,6 +439,9 @@
     <Compile Include="Models\JobThru.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\JobTrail.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\JobType.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>

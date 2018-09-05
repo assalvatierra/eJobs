@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 09/01/2018 15:08:12
+-- Date Created: 09/05/2018 17:44:42
 -- Generated from EDMX file: D:\Data\Real\Apps\GitHub\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
@@ -458,7 +458,8 @@ CREATE TABLE [dbo].[Suppliers] (
     [Email] nvarchar(50)  NULL,
     [Details] nvarchar(80)  NULL,
     [CityId] int  NOT NULL,
-    [SupplierTypeId] int  NOT NULL
+    [SupplierTypeId] int  NOT NULL,
+    [Status] nvarchar(10)  NULL
 );
 GO
 
@@ -1129,6 +1130,17 @@ CREATE TABLE [dbo].[InvCarGateControls] (
 );
 GO
 
+-- Creating table 'JobTrails'
+CREATE TABLE [dbo].[JobTrails] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [RefTable] nvarchar(50)  NOT NULL,
+    [RefId] nvarchar(max)  NOT NULL,
+    [dtTrail] datetime  NOT NULL,
+    [user] nvarchar(50)  NOT NULL,
+    [Action] nvarchar(80)  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -1526,6 +1538,12 @@ GO
 -- Creating primary key on [Id] in table 'InvCarGateControls'
 ALTER TABLE [dbo].[InvCarGateControls]
 ADD CONSTRAINT [PK_InvCarGateControls]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'JobTrails'
+ALTER TABLE [dbo].[JobTrails]
+ADD CONSTRAINT [PK_JobTrails]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 

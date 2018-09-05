@@ -72,6 +72,7 @@
     <EntitySet Name="InvCarRecords" EntityType="JobDB.Store.InvCarRecords" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="InvCarRecordTypes" EntityType="JobDB.Store.InvCarRecordTypes" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="InvCarGateControls" EntityType="JobDB.Store.InvCarGateControls" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="JobTrails" EntityType="JobDB.Store.JobTrails" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="JobMainJobType" Association="JobDB.Store.JobMainJobType">
       <End Role="JobMain" EntitySet="JobMains" />
       <End Role="JobType" EntitySet="JobTypes" />
@@ -377,6 +378,7 @@
     <Property Name="Details" Type="nvarchar" Nullable="true" MaxLength="80" />
     <Property Name="CityId" Type="int" Nullable="false" />
     <Property Name="SupplierTypeId" Type="int" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" Nullable="true" MaxLength="10" />
   </EntityType>
   <EntityType Name="Customers">
     <Key>
@@ -1044,6 +1046,17 @@
     <Property Name="Remarks" Type="nvarchar" Nullable="true" MaxLength="250" />
     <Property Name="Driver" Type="nvarchar" Nullable="true" MaxLength="50" />
     <Property Name="Inspector" Type="nvarchar" Nullable="true" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="JobTrails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RefTable" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="RefId" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="dtTrail" Type="datetime" Nullable="false" />
+    <Property Name="user" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Action" Type="nvarchar" Nullable="false" MaxLength="80" />
   </EntityType>
   <Association Name="JobMainJobType">
     <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="1" />
@@ -2204,6 +2217,7 @@
             <End Role="InvItem" EntitySet="InvItems" />
             <End Role="InvCarGateControl" EntitySet="InvCarGateControls" />
           </AssociationSet>
+          <EntitySet Name="JobTrails" EntityType="JobDB.JobTrail" />
         </EntityContainer>
         <EntityType Name="JobMain">
           <Key>
@@ -2254,6 +2268,7 @@
           <NavigationProperty Name="SupplierItems" Relationship="JobDB.SupplierSupplierItem" FromRole="Supplier" ToRole="SupplierItem" />
           <NavigationProperty Name="SupplierInvItems" Relationship="JobDB.SupplierSupplierInvItem" FromRole="Supplier" ToRole="SupplierInvItem" />
           <NavigationProperty Name="SupplierPoHdrs" Relationship="JobDB.SupplierSupplierPoHdr" FromRole="Supplier" ToRole="SupplierPoHdr" />
+          <Property Name="Status" Type="String" Nullable="true" MaxLength="10" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -3857,6 +3872,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="JobTrail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RefTable" Type="String" Nullable="false" MaxLength="50" />
+          <Property Name="RefId" Type="String" Nullable="false" />
+          <Property Name="dtTrail" Type="DateTime" Nullable="false" />
+          <Property Name="user" Type="String" Nullable="false" MaxLength="50" />
+          <Property Name="Action" Type="String" Nullable="false" MaxLength="80" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3895,6 +3921,7 @@
           <ScalarProperty Name="Details" ColumnName="Details" />
           <ScalarProperty Name="CityId" ColumnName="CityId" />
           <ScalarProperty Name="SupplierTypeId" ColumnName="SupplierTypeId" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -4626,6 +4653,18 @@
           <ScalarProperty Name="Remarks" ColumnName="Remarks" />
           <ScalarProperty Name="Driver" ColumnName="Driver" />
           <ScalarProperty Name="Inspector" ColumnName="Inspector" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobTrails">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.JobTrail)">
+        <MappingFragment StoreEntitySet="JobTrails">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RefTable" ColumnName="RefTable" />
+          <ScalarProperty Name="RefId" ColumnName="RefId" />
+          <ScalarProperty Name="dtTrail" ColumnName="dtTrail" />
+          <ScalarProperty Name="user" ColumnName="user" />
+          <ScalarProperty Name="Action" ColumnName="Action" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

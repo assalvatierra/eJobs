@@ -32,6 +32,7 @@ namespace JobsV1.Models
         public string Details { get; set; }
         public int CityId { get; set; }
         public int SupplierTypeId { get; set; }
+        public string Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<JobServices> JobSuppliers { get; set; }
