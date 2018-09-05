@@ -1015,7 +1015,7 @@ order by x.jobid
 
         public ActionResult TextMessage(int? id)
         {
-            string sData = "Pickup Details2";
+            string sData = "Pickup Details";
 
             Models.JobServicePickup svcpu;
             Models.JobServices svc = db.JobServices.Find(id);

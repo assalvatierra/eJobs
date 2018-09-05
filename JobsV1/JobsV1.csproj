@@ -292,6 +292,7 @@
     <Compile Include="Controllers\MainGenericController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MepuMainController.cs" />
+    <Compile Include="Controllers\PaypalController.cs" />
     <Compile Include="Controllers\PreDefinedNotesController.cs" />
     <Compile Include="Controllers\ProductCategoriesController.cs" />
     <Compile Include="Controllers\ProductPricesController.cs" />
@@ -1074,6 +1075,7 @@
     <Content Include="Views\InvCarRecordTypes\Edit.cshtml" />
     <Content Include="Views\InvCarRecordTypes\Index.cshtml" />
     <Content Include="Views\JobOrder\BrowseInvItem_withScheduleJS.cshtml" />
+    <Content Include="Views\JobServices\NotificationList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -1089,7 +1091,9 @@
   <ItemGroup>
     <Content Include="Areas\Accounting\Scripts\Accounting.js" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Paypal\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
