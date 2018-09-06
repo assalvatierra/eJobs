@@ -55,8 +55,8 @@ values ('Priority','PRIORITY','~/Images/SalesLead/high-importance.png'),
 -- ----------------------------------------
 insert into SupplierTypes(Description) values
 ('Rent-a-car'),('Boat'),('Tour'),('Airline'),('Hotel');
-insert Into Suppliers([Name],[Contact1],[Details],[Email],[CityId],[SupplierTypeId]) values('<< New Supplier >>','--',' ', '--','1','1');
-insert Into Suppliers([Name],[Contact1],[Details],[Email],[CityId],[SupplierTypeId]) values('AJ Davao Car Rental','Abel / 0995-085-0158',' ', 'AJDavao88@gmail.com','1','1');
+insert Into Suppliers([Name],[Contact1],[Details],[Email],[CityId],[SupplierTypeId],[Status]) values('<< New Supplier >>','--',' ', '--','1','1','ACT');
+insert Into Suppliers([Name],[Contact1],[Details],[Email],[CityId],[SupplierTypeId],[Status]) values('AJ Davao Car Rental','Abel / 0995-085-0158',' ', 'AJDavao88@gmail.com','1','1','ACT');
 insert into SupplierItems([Description],[SupplierId],[Remarks],[InCharge],[Status]) values ('Default','1','Item by supplier','Supplier','ACT');
 
 insert into Services([Name],[Description]) 

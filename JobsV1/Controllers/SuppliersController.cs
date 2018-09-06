@@ -14,6 +14,12 @@ namespace JobsV1.Controllers
     {
         private JobDBContainer db = new JobDBContainer();
 
+        private List<SelectListItem> StatusList = new List<SelectListItem> {
+                new SelectListItem { Value = "ACT", Text = "Active" },
+                new SelectListItem { Value = "INC", Text = "Inactive" },
+                new SelectListItem { Value = "BAD", Text = "Bad Account" }
+                };
+
         // GET: Suppliers
         public ActionResult Index()
         {
@@ -41,6 +47,8 @@ namespace JobsV1.Controllers
         {
             ViewBag.CityId = new SelectList(db.Cities, "Id", "Name");
             ViewBag.SupplierTypeId = new SelectList(db.SupplierTypes, "Id", "Description");
+            ViewBag.Status = new SelectList(StatusList, "value", "text");
+
             return View();
         }
 
@@ -49,7 +57,7 @@ namespace JobsV1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Contact1,Contact2,Contact3,Email,Details,CityId,SupplierTypeId")] Supplier supplier)
+        public ActionResult Create([Bind(Include = "Id,Name,Contact1,Contact2,Contact3,Email,Details,CityId,SupplierTypeId,Status")] Supplier supplier)
         {
             if (ModelState.IsValid)
             {
@@ -79,6 +87,8 @@ namespace JobsV1.Controllers
             ViewBag.CityId = new SelectList(db.Cities, "Id", "Name", supplier.CityId);
             ViewBag.SupplierTypeId = new SelectList(db.SupplierTypes, "Id", "Description");
 
+            ViewBag.Status = new SelectList(StatusList, "value", "text", supplier.Status);
+
             return View(supplier);
         }
 
@@ -87,7 +97,7 @@ namespace JobsV1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Contact1,Contact2,Contact3,Email,Details,CityId,SupplierTypeId")] Supplier supplier)
+        public ActionResult Edit([Bind(Include = "Id,Name,Contact1,Contact2,Contact3,Email,Details,CityId,SupplierTypeId,Status")] Supplier supplier)
         {
             if (ModelState.IsValid)
             {
@@ -97,6 +107,7 @@ namespace JobsV1.Controllers
             }
             ViewBag.CityId = new SelectList(db.Cities, "Id", "Name", supplier.CityId);
             ViewBag.SupplierTypeId = new SelectList(db.SupplierTypes, "Id", "Description");
+            ViewBag.Status = new SelectList(StatusList, "value", "text", supplier.Status);
 
             return View(supplier);
         }

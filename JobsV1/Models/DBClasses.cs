@@ -211,6 +211,23 @@ where d.JobStatusId < 4
             db.SaveChanges();
             
         }
+
+        public void addEncoderRecord(string reftable, string refid, string user, string action) {
+
+            DateTime today = DateTime.Now;
+            today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Singapore Standard Time");
+
+
+            db.JobTrails.Add(new JobTrail {
+                RefTable = reftable,
+                RefId = refid,
+                user = user,
+                Action = action,
+                dtTrail = today
+            });
+
+            db.SaveChanges();
+        }
     }
 
 

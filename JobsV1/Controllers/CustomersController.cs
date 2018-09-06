@@ -215,6 +215,8 @@ namespace JobsV1.Controllers
         // GET: Customers/Create
         public ActionResult Create()
         {
+            ViewBag.Status = new SelectList(StatusList, "value", "text");
+
             return View();
         }
 

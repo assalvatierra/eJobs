@@ -24,6 +24,7 @@ namespace JobsV1.Controllers
         private int JOBTEMPLATE = 6;
 
         private JobDBContainer db = new JobDBContainer();
+        private DBClasses dbc = new DBClasses();
 
         // GET: JobMains
         public ActionResult Index(int? Param1 = 1, int? Param2 = 0)
@@ -99,7 +100,7 @@ namespace JobsV1.Controllers
 
             var data = db.JobServices.Where(w => p.Contains(w.JobMainId)).ToList().OrderBy(s=>s.DtStart);
             DateTime today = GetCurrentTime();
-            today = today.AddHours(-15).Date;
+            today = today.AddHours(-12).Date;
             //today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Singapore Standard Time");
             DateTime tomorrow = today.AddDays(1);
             switch (FilterId) {
@@ -286,11 +287,11 @@ namespace JobsV1.Controllers
 
             if (id == null)
             {
-                ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status == "ACT"), "Id", "Name", NewCustSysId);
+                ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status != "INC"), "Id", "Name", NewCustSysId);
             }
             else {
 
-                ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status == "ACT"), "Id", "Name", id);
+                ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status != "INC"), "Id", "Name", id);
             }
 
             ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name");
@@ -309,7 +310,7 @@ namespace JobsV1.Controllers
             job.NoOfDays = 1;
             job.NoOfPax = 1;
 
-            ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status == "ACT"), "Id", "Name", custid);
+            ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status != "INC"), "Id", "Name", custid);
             ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name");
             ViewBag.JobStatusId = new SelectList(db.JobStatus, "Id", "Status");
             ViewBag.JobThruId = new SelectList(db.JobThrus, "Id", "Desc");
@@ -336,6 +337,9 @@ namespace JobsV1.Controllers
                 db.JobMains.Add(jobMain);
                 db.SaveChanges();
 
+                dbc.addEncoderRecord("joborder", jobMain.Id.ToString(), HttpContext.User.Identity.Name, "Create New Job");
+
+
                 if (jobMain.CustomerId == NewCustSysId)
                     return RedirectToAction("CreateCustomer", new { jobid = jobMain.Id });
                 else
@@ -344,7 +348,7 @@ namespace JobsV1.Controllers
                 //return RedirectToAction("Index");
             }
 
-            ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status == "ACT"), "Id", "Name", jobMain.CustomerId);
+            ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status != "INC"), "Id", "Name", jobMain.CustomerId);
             ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name", jobMain.BranchId);
             ViewBag.JobStatusId = new SelectList(db.JobStatus, "Id", "Status", jobMain.JobStatusId);
             ViewBag.JobThruId = new SelectList(db.JobThrus, "Id", "Desc", jobMain.JobThruId);
@@ -402,7 +406,7 @@ namespace JobsV1.Controllers
                 //return RedirectToAction("Index");
 
             }
-            ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status == "ACT"), "Id", "Name", jobMain.CustomerId);
+            ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status != "INC"), "Id", "Name", jobMain.CustomerId);
             ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name", jobMain.BranchId);
             ViewBag.JobStatusId = new SelectList(db.JobStatus, "Id", "Status", jobMain.JobStatusId);
             ViewBag.JobThruId = new SelectList(db.JobThrus, "Id", "Desc", jobMain.JobThruId);

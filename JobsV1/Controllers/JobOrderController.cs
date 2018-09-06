@@ -11,6 +11,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Net;
 using System.Data.Entity.Core.Objects;
 
+
 namespace JobsV1.Controllers
 {
     #region support classes
@@ -58,6 +59,7 @@ namespace JobsV1.Controllers
         private int JOBTEMPLATE = 6;
 
         private JobDBContainer db = new JobDBContainer();
+        private DBClasses dbc = new DBClasses();
         // GET: JobOrder
         public ActionResult Index(int? sortid, int? serviceId, int? mainid)
         {
@@ -93,7 +95,7 @@ namespace JobsV1.Controllers
                 case 1: //OnGoing
                     jobMains = jobMains
                         .Where(d => (d.JobStatusId != JOBCLOSED || d.JobStatusId != JOBCANCELLED)).ToList()
-                        .Where(p => DateTime.Compare(p.JobDate.Date, today.Date.AddDays(-30)) >= 0).ToList();   //get 1 month before all entries
+                        .Where(p => DateTime.Compare(p.JobDate.Date, today.Date.AddDays(-60)) >= 0).ToList();   //get 1 month before all entries
 
                     break;
                 case 2: //prev
@@ -159,13 +161,13 @@ namespace JobsV1.Controllers
             {
                 case 1: //OnGoing
                     data = (List<cJobOrder>)data
-                        .Where(d => (d.Main.JobStatusId != JOBCLOSED || d.Main.JobStatusId != JOBCANCELLED)).ToList()
+                        .Where(d => (d.Main.JobStatusId == JOBINQUIRY || d.Main.JobStatusId == JOBRESERVATION || d.Main.JobStatusId == JOBCONFIRMED)).ToList()
                        .Where(d=> d.Main.JobDate.CompareTo(today.Date) >= 0).ToList();
 
                     break;
                 case 2: //prev
                     data = (List<cJobOrder>)data
-                        .Where(d => (d.Main.JobStatusId != JOBCLOSED || d.Main.JobStatusId != JOBCANCELLED)).ToList()
+                        .Where(d => (d.Main.JobStatusId == JOBINQUIRY || d.Main.JobStatusId == JOBRESERVATION || d.Main.JobStatusId == JOBCONFIRMED)).ToList()
                         .Where(p => DateTime.Compare(p.Main.JobDate.Date, today.Date) < 0).ToList();
 
                     break;
@@ -415,6 +417,7 @@ order by x.jobid
 
                 return RedirectToAction("Index", new { mainid = mainid});
             }
+
             ViewBag.Status = new SelectList(StatusList, "value", "text", customer.Status);
 
             return View(customer);
@@ -494,7 +497,7 @@ order by x.jobid
 
             }
 
-            ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status == "ACT"), "Id", "Name", jobMain.CustomerId);
+            ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status != "INC"), "Id", "Name", jobMain.CustomerId);
             ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name", jobMain.BranchId);
             ViewBag.JobStatusId = new SelectList(db.JobStatus, "Id", "Status", jobMain.JobStatusId);
             ViewBag.JobThruId = new SelectList(db.JobThrus, "Id", "Desc", jobMain.JobThruId);
@@ -515,17 +518,20 @@ order by x.jobid
 
             if (id == null)
             {
-                ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status == "ACT"), "Id", "Name", NewCustSysId);
+                ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status != "INC"), "Id", "Name", NewCustSysId);
             }
             else
             {
 
-                ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status == "ACT"), "Id", "Name", id);
+                ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status != "INC"), "Id", "Name", id);
             }
 
             ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name");
             ViewBag.JobStatusId = new SelectList(db.JobStatus, "Id", "Status", JOBCONFIRMED);
             ViewBag.JobThruId = new SelectList(db.JobThrus, "Id", "Desc");
+
+            
+
 
             return View(job);
         }
@@ -550,18 +556,13 @@ order by x.jobid
                 db.JobMains.Add(jobMain);
                 db.SaveChanges();
 
-                //if (jobMain.CustomerId == NewCustSysId)
-                //    return RedirectToAction("CreateCustomer",new { CreateCustJobId = jobMain.Id });
-                //else
-                //    return RedirectToAction("Index");
-                //return RedirectToAction("Services", "JobServices", new { id = jobMain.Id });
-                //return RedirectToAction("JobTable", new { span = 30 });
+                dbc.addEncoderRecord("joborder", jobMain.Id.ToString(), HttpContext.User.Identity.Name, "Create New Job");
 
                 return RedirectToAction("Index");
 
             }
 
-            ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status == "ACT"), "Id", "Name", jobMain.CustomerId);
+            ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status != "INC"), "Id", "Name", jobMain.CustomerId);
             ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name", jobMain.BranchId);
             ViewBag.JobStatusId = new SelectList(db.JobStatus, "Id", "Status", jobMain.JobStatusId);
             ViewBag.JobThruId = new SelectList(db.JobThrus, "Id", "Desc", jobMain.JobThruId);
@@ -655,20 +656,15 @@ order by x.jobid
             js.Remarks = "10hrs use per day P250 in excess, Driver and Fuel Included";
 
             //modify SupplierItem
-            var supItems = db.SupplierItems.Where(s => s.Status == "ACT" || s.Status == null).Select(
-                        s => new SelectListItem
-                        {
-                            Value = s.Id.ToString(),
-                            Text = s.Description.ToString() + " - " + s.Status
-                        }
-                 );
-            
-            ViewBag.SupplierItemId = new SelectList(supItems, "Value", "Text");
+            var supItemsActive = db.SupplierItems.Where(s => s.Status != "INC").ToList();
+            var SuppliersActive = db.Suppliers.Where(s => s.Status != "INC").ToList();
+
 
 
             ViewBag.id = JobMainId;
             ViewBag.JobMainId = new SelectList(db.JobMains, "Id", "Description",job.Description);
-            ViewBag.SupplierId = new SelectList(db.Suppliers, "Id", "Name");
+            ViewBag.SupplierId = new SelectList(SuppliersActive, "Id", "Name");
+            ViewBag.SupplierItemId = new SelectList(supItemsActive, "Id", "Description");
             ViewBag.ServicesId = new SelectList(db.Services, "Id", "Name");
             //ViewBag.SupplierItemId = new SelectList(db.SupplierItems, "Id", "Description");
             return View(js);
@@ -688,10 +684,16 @@ order by x.jobid
                 db.SaveChanges();
             }
 
+            var supItemsActive = db.SupplierItems.Where(s => s.Status != "INC").ToList();
+            var SuppliersActive = db.Suppliers.Where(s => s.Status != "INC").ToList();
+
+
             ViewBag.JobMainId = new SelectList(db.JobMains, "Id", "Description", jobServices.JobMainId);
-            ViewBag.SupplierId = new SelectList(db.Suppliers, "Id", "Name", jobServices.SupplierId);
+            ViewBag.SupplierId = new SelectList(SuppliersActive, "Id", "Name", jobServices.SupplierId);
             ViewBag.ServicesId = new SelectList(db.Services, "Id", "Name", jobServices.ServicesId);
-            ViewBag.SupplierItemId = new SelectList(db.SupplierItems, "Id", "Description", jobServices.SupplierItemId);
+            ViewBag.SupplierItemId = new SelectList(supItemsActive, "Id", "Description", jobServices.SupplierItemId);
+
+            dbc.addEncoderRecord("jobservice", jobServices.Id.ToString(), HttpContext.User.Identity.Name, "Create New Job Service");
 
             return RedirectToAction("Index", "JobOrder");
         }
@@ -708,11 +710,16 @@ order by x.jobid
             {
                 return HttpNotFound();
             }
+
+            var supItemsActive = db.SupplierItems.Where(s => s.Status != "INC").ToList();
+            var SuppliersActive = db.Suppliers.Where(s => s.Status != "INC").ToList();
+
             ViewBag.svcId = jobServices.Id;
+
             ViewBag.JobMainId = new SelectList(db.JobMains, "Id", "Description", jobServices.JobMainId);
-            ViewBag.SupplierId = new SelectList(db.Suppliers, "Id", "Name", jobServices.SupplierId);
+            ViewBag.SupplierId = new SelectList(SuppliersActive, "Id", "Name", jobServices.SupplierId);
             ViewBag.ServicesId = new SelectList(db.Services, "Id", "Name", jobServices.ServicesId);
-            ViewBag.SupplierItemId = new SelectList(db.SupplierItems, "Id", "Description", jobServices.SupplierItemId);
+            ViewBag.SupplierItemId = new SelectList(supItemsActive, "Id", "Description", jobServices.SupplierItemId);
             return View(jobServices);
         }
 
@@ -749,11 +756,14 @@ order by x.jobid
 
             }
 
+            var supItemsActive = db.SupplierItems.Where(s => s.Status != "INC").ToList();
+            var SuppliersActive = db.Suppliers.Where(s => s.Status != "INC").ToList();
+
 
             ViewBag.JobMainId = new SelectList(db.JobMains, "Id", "Description", jobServices.JobMainId);
-            ViewBag.SupplierId = new SelectList(db.Suppliers, "Id", "Name", jobServices.SupplierId);
+            ViewBag.SupplierId = new SelectList(SuppliersActive, "Id", "Name", jobServices.SupplierId);
             ViewBag.ServicesId = new SelectList(db.Services, "Id", "Name", jobServices.ServicesId);
-            ViewBag.SupplierItemId = new SelectList(db.SupplierItems, "Id", "Description", jobServices.SupplierItemId);
+            ViewBag.SupplierItemId = new SelectList(supItemsActive, "Id", "Description", jobServices.SupplierItemId);
 
             return RedirectToAction("Index", new { serviceId = jobServices.Id });
 
@@ -930,7 +940,14 @@ order by x.jobid
                     }
                 }
             }
-            
+
+            if (db.JobTrails.Where(s => s.RefTable == "joborder" && s.RefId == JobMainId.ToString()).FirstOrDefault() != null)
+            {
+                ViewBag.JobEncoder = db.JobTrails.Where(s => s.RefTable == "joborder" && s.RefId == JobMainId.ToString()).FirstOrDefault();
+            }
+            else {
+                ViewBag.JobEncoder = new JobTrail { Id = 0, Action = "Create", user = "none", dtTrail = DateTime.Now, RefId = "0", RefTable = "none" };
+            }
 
             ViewBag.JobItems = jobServices;
 
@@ -1424,6 +1441,23 @@ order by x.jobid
             }
             base.Dispose(disposing);
         }
+        #endregion
+
+        #region jobTrails
+
+        public ActionResult jobTrails() {
+
+            return View(db.JobTrails.ToList());
+        }
+
+        public ActionResult createTrailTest() {
+
+            dbc.addEncoderRecord("Test", "0", HttpContext.User.Identity.Name, "Test Btn");
+
+            return RedirectToAction("JobTrails");
+        }
+        
+
         #endregion
     }
 }
