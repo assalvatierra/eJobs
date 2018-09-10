@@ -100,7 +100,7 @@ namespace JobsV1.Controllers
 
             var data = db.JobServices.Where(w => p.Contains(w.JobMainId)).ToList().OrderBy(s=>s.DtStart);
             DateTime today = GetCurrentTime();
-            today = today.AddHours(-12).Date;
+            //today = today.AddHours(-12).Date;
             //today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Singapore Standard Time");
             DateTime tomorrow = today.AddDays(1);
             switch (FilterId) {
