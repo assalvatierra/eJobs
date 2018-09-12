@@ -208,7 +208,7 @@ namespace JobsV1.Controllers
         {
             //update jobdate
             var main = db.JobMains.Where(j => mainId == j.Id).FirstOrDefault();
-            DateTime minDate = db.JobMains.Where(j => mainId == j.Id).FirstOrDefault().JobDate;
+            DateTime minDate = db.JobMains.Where(j => mainId == j.Id).FirstOrDefault().JobDate.Date;
             DateTime maxDate = new DateTime(1,1,1);
 
             DateTime today = DateTime.Today;
@@ -218,28 +218,29 @@ namespace JobsV1.Controllers
             //to get the latest date
             foreach (var svc in db.JobServices.Where(s => s.JobMainId == mainId))
             {
-               
+                var svcDtStart = (DateTime)svc.DtStart;
+                var svcDtEnd = (DateTime)svc.DtEnd;
                 //get min date
-               // minDate = (DateTime)svc.DtStart;
-                if (DateTime.Compare(minDate, (DateTime)svc.DtStart) >= 0) {
-                    minDate = (DateTime)svc.DtStart; //if minDate > Dtstart
+                // minDate = (DateTime)svc.DtStart;
+                if (DateTime.Compare(minDate, svcDtStart.Date) >= 0) {
+                    minDate = svcDtStart.Date; //if minDate > Dtstart
                 }
 
-                if (DateTime.Compare(today, (DateTime)svc.DtStart) >= 0 && DateTime.Compare(today, (DateTime)svc.DtEnd) <= 0)
+                if (DateTime.Compare(today, svcDtStart.Date) >= 0 && DateTime.Compare(today, svcDtEnd.Date) <= 0)
                 {
                     minDate = today;
                     //skip
                 } else {
-                    if (DateTime.Compare(today, (DateTime)svc.DtStart) < 0 && DateTime.Compare(today, minDate) > 0)
+                    if (DateTime.Compare(today, svcDtStart.Date) < 0 && DateTime.Compare(today, minDate) > 0)
                     {
-                        minDate = (DateTime)svc.DtStart; //if Today > Dtstart
+                        minDate = svcDtStart.Date; //if Today > Dtstart
                     }
                 }
                 
                 //get max date
-                if (DateTime.Compare(maxDate, (DateTime)svc.DtEnd) <= 0)
+                if (DateTime.Compare(maxDate, svcDtEnd.Date) <= 0)
                 {
-                    maxDate = (DateTime)svc.DtEnd; //if minDate > Dtstart
+                    maxDate = svcDtEnd.Date; //if minDate > Dtstart
                 }
             }
 
