@@ -339,6 +339,12 @@
       <End Role="InvItem" EntitySet="InvItems" />
       <End Role="InvCarGateControl" EntitySet="InvCarGateControls" />
     </AssociationSet>
+    <EntitySet Name="JobTrails" EntityType="JobDB.JobTrail" />
+    <EntitySet Name="CarViewPages" EntityType="JobDB.CarViewPage" />
+    <AssociationSet Name="CarUnitCarViewPage" Association="JobDB.CarUnitCarViewPage">
+      <End Role="CarUnit" EntitySet="CarUnits" />
+      <End Role="CarViewPage" EntitySet="CarViewPages" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="JobMain">
     <Key>
@@ -389,6 +395,7 @@
     <NavigationProperty Name="SupplierItems" Relationship="JobDB.SupplierSupplierItem" FromRole="Supplier" ToRole="SupplierItem" />
     <NavigationProperty Name="SupplierInvItems" Relationship="JobDB.SupplierSupplierInvItem" FromRole="Supplier" ToRole="SupplierInvItem" />
     <NavigationProperty Name="SupplierPoHdrs" Relationship="JobDB.SupplierSupplierPoHdr" FromRole="Supplier" ToRole="SupplierPoHdr" />
+    <Property Name="Status" Type="String" Nullable="true" MaxLength="10" />
   </EntityType>
   <EntityType Name="Customer">
     <Key>
@@ -862,6 +869,7 @@
     <NavigationProperty Name="CarRates" Relationship="JobDB.CarUnitCarRate" FromRole="CarUnit" ToRole="CarRate" />
     <NavigationProperty Name="CarReservations" Relationship="JobDB.CarUnitCarReservation" FromRole="CarUnit" ToRole="CarReservation" />
     <NavigationProperty Name="CarImages" Relationship="JobDB.CarUnitCarImage" FromRole="CarUnit" ToRole="CarImage" />
+    <NavigationProperty Name="CarViewPages" Relationship="JobDB.CarUnitCarViewPage" FromRole="CarUnit" ToRole="CarViewPage" />
   </EntityType>
   <Association Name="CarCategoryCarUnit">
     <End Type="JobDB.CarCategory" Role="CarCategory" Multiplicity="1" />
@@ -1989,6 +1997,38 @@
       </Principal>
       <Dependent Role="InvCarGateControl">
         <PropertyRef Name="InvItemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="JobTrail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RefTable" Type="String" Nullable="false" MaxLength="50" />
+    <Property Name="RefId" Type="String" Nullable="false" />
+    <Property Name="dtTrail" Type="DateTime" Nullable="false" />
+    <Property Name="user" Type="String" Nullable="false" MaxLength="50" />
+    <Property Name="Action" Type="String" Nullable="false" MaxLength="80" />
+  </EntityType>
+  <EntityType Name="CarViewPage">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="CarUnit" Relationship="JobDB.CarUnitCarViewPage" FromRole="CarViewPage" ToRole="CarUnit" />
+    <Property Name="CarUnitId" Type="Int32" Nullable="false" />
+    <Property Name="Viewname" Type="String" Nullable="false" MaxLength="80" />
+  </EntityType>
+  <Association Name="CarUnitCarViewPage">
+    <End Type="JobDB.CarUnit" Role="CarUnit" Multiplicity="1" />
+    <End Type="JobDB.CarViewPage" Role="CarViewPage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarUnit">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CarViewPage">
+        <PropertyRef Name="CarUnitId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

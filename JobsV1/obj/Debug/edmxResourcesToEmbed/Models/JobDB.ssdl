@@ -67,6 +67,8 @@
     <EntitySet Name="InvCarRecords" EntityType="JobDB.Store.InvCarRecords" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="InvCarRecordTypes" EntityType="JobDB.Store.InvCarRecordTypes" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="InvCarGateControls" EntityType="JobDB.Store.InvCarGateControls" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="JobTrails" EntityType="JobDB.Store.JobTrails" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CarViewPages" EntityType="JobDB.Store.CarViewPages" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="JobMainJobType" Association="JobDB.Store.JobMainJobType">
       <End Role="JobMain" EntitySet="JobMains" />
       <End Role="JobType" EntitySet="JobTypes" />
@@ -339,6 +341,10 @@
       <End Role="InvItem" EntitySet="InvItems" />
       <End Role="InvCarGateControl" EntitySet="InvCarGateControls" />
     </AssociationSet>
+    <AssociationSet Name="CarUnitCarViewPage" Association="JobDB.Store.CarUnitCarViewPage">
+      <End Role="CarUnit" EntitySet="CarUnits" />
+      <End Role="CarViewPage" EntitySet="CarViewPages" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="JobMains">
     <Key>
@@ -372,6 +378,7 @@
     <Property Name="Details" Type="nvarchar" Nullable="true" MaxLength="80" />
     <Property Name="CityId" Type="int" Nullable="false" />
     <Property Name="SupplierTypeId" Type="int" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" Nullable="true" MaxLength="10" />
   </EntityType>
   <EntityType Name="Customers">
     <Key>
@@ -1039,6 +1046,25 @@
     <Property Name="Remarks" Type="nvarchar" Nullable="true" MaxLength="250" />
     <Property Name="Driver" Type="nvarchar" Nullable="true" MaxLength="50" />
     <Property Name="Inspector" Type="nvarchar" Nullable="true" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="JobTrails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RefTable" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="RefId" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="dtTrail" Type="datetime" Nullable="false" />
+    <Property Name="user" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Action" Type="nvarchar" Nullable="false" MaxLength="80" />
+  </EntityType>
+  <EntityType Name="CarViewPages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CarUnitId" Type="int" Nullable="false" />
+    <Property Name="Viewname" Type="nvarchar" Nullable="false" MaxLength="80" />
   </EntityType>
   <Association Name="JobMainJobType">
     <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="1" />
@@ -1853,6 +1879,18 @@
       </Principal>
       <Dependent Role="InvCarGateControl">
         <PropertyRef Name="InvItemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CarUnitCarViewPage">
+    <End Role="CarUnit" Type="JobDB.Store.CarUnits" Multiplicity="1" />
+    <End Role="CarViewPage" Type="JobDB.Store.CarViewPages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarUnit">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CarViewPage">
+        <PropertyRef Name="CarUnitId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

@@ -142,6 +142,8 @@
         <EntityTypeShape EntityType="JobDB.InvCarGateControl" Width="1.5" PointX="22.5" PointY="18.875" />
         <AssociationConnector Association="JobDB.InvItemInvCarGateControl" />
         <EntityTypeShape EntityType="JobDB.JobTrail" Width="1.5" PointX="12.875" PointY="12.875" />
+        <EntityTypeShape EntityType="JobDB.CarViewPage" Width="1.5" PointX="27.5" PointY="21.625" />
+        <AssociationConnector Association="JobDB.CarUnitCarViewPage" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

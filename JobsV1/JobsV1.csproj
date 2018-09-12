@@ -337,6 +337,9 @@
     <Compile Include="Models\CarUnit.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CarViewPage.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\City.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
@@ -617,6 +620,7 @@
     <Content Include="Images\CarRental\FordEverest.jpg" />
     <Content Include="Images\CarRental\HondaCity.jpg" />
     <Content Include="Images\CarRental\Driver102.png" />
+    <Content Include="Images\CarRental\OffRoad101.png" />
     <Content Include="Images\CarRental\settings.png" />
     <Content Include="Images\CarRental\OffRoad101.jpg" />
     <Content Include="Images\CarRental\OffRoad102.jpg" />
@@ -679,6 +683,7 @@
     <Content Include="Images\Signature-1.png" />
     <Content Include="Models\AddChecklist.SQL" />
     <Content Include="Models\AsExpenseDB.sql" />
+    <Content Include="Models\CarRentalInitial.sql" />
     <Content Include="Models\CustomerInitial.sql" />
     <Content Include="Models\DailyStatusUpdate.sql" />
     <Content Include="Models\InitialData.sql" />
@@ -1082,6 +1087,11 @@
     <Content Include="Views\JobOrder\BrowseInvItem_withScheduleJS.cshtml" />
     <Content Include="Views\JobServices\NotificationList.cshtml" />
     <Content Include="Views\JobOrder\jobTrails.cshtml" />
+<<<<<<< HEAD
+    <Content Include="Views\CarRental\CarHome.cshtml" />
+=======
+    <Content Include="Views\CarRental\CarDetail_temp.cshtml" />
+>>>>>>> origin/master
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
