@@ -20,6 +20,7 @@ namespace JobsV1.Models
             this.CarRates = new HashSet<CarRate>();
             this.CarReservations = new HashSet<CarReservation>();
             this.CarImages = new HashSet<CarImage>();
+            this.CarViewPages = new HashSet<CarViewPage>();
         }
     
         public int Id { get; set; }
@@ -34,5 +35,7 @@ namespace JobsV1.Models
         public virtual ICollection<CarReservation> CarReservations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CarImage> CarImages { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CarViewPage> CarViewPages { get; set; }
     }
 }

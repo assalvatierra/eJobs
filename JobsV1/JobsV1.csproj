@@ -337,6 +337,9 @@
     <Compile Include="Models\CarUnit.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CarViewPage.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\City.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
@@ -617,6 +620,7 @@
     <Content Include="Images\CarRental\FordEverest.jpg" />
     <Content Include="Images\CarRental\HondaCity.jpg" />
     <Content Include="Images\CarRental\Driver102.png" />
+    <Content Include="Images\CarRental\OffRoad101.png" />
     <Content Include="Images\CarRental\settings.png" />
     <Content Include="Images\CarRental\OffRoad101.jpg" />
     <Content Include="Images\CarRental\OffRoad102.jpg" />

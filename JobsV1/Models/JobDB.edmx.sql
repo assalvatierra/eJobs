@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 09/05/2018 17:44:42
+-- Date Created: 09/12/2018 14:22:54
 -- Generated from EDMX file: D:\Data\Real\Apps\GitHub\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
@@ -221,6 +221,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_InvItemInvCarGateControl]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[InvCarGateControls] DROP CONSTRAINT [FK_InvItemInvCarGateControl];
 GO
+IF OBJECT_ID(N'[dbo].[FK_CarUnitCarViewPage]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CarViewPages] DROP CONSTRAINT [FK_CarUnitCarViewPage];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -423,6 +426,12 @@ IF OBJECT_ID(N'[dbo].[InvCarRecordTypes]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[InvCarGateControls]', 'U') IS NOT NULL
     DROP TABLE [dbo].[InvCarGateControls];
+GO
+IF OBJECT_ID(N'[dbo].[JobTrails]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[JobTrails];
+GO
+IF OBJECT_ID(N'[dbo].[CarViewPages]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CarViewPages];
 GO
 
 -- --------------------------------------------------
@@ -1141,6 +1150,14 @@ CREATE TABLE [dbo].[JobTrails] (
 );
 GO
 
+-- Creating table 'CarViewPages'
+CREATE TABLE [dbo].[CarViewPages] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [CarUnitId] int  NOT NULL,
+    [Viewname] nvarchar(80)  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -1544,6 +1561,12 @@ GO
 -- Creating primary key on [Id] in table 'JobTrails'
 ALTER TABLE [dbo].[JobTrails]
 ADD CONSTRAINT [PK_JobTrails]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'CarViewPages'
+ALTER TABLE [dbo].[CarViewPages]
+ADD CONSTRAINT [PK_CarViewPages]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -2569,6 +2592,21 @@ GO
 CREATE INDEX [IX_FK_InvItemInvCarGateControl]
 ON [dbo].[InvCarGateControls]
     ([InvItemId]);
+GO
+
+-- Creating foreign key on [CarUnitId] in table 'CarViewPages'
+ALTER TABLE [dbo].[CarViewPages]
+ADD CONSTRAINT [FK_CarUnitCarViewPage]
+    FOREIGN KEY ([CarUnitId])
+    REFERENCES [dbo].[CarUnits]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CarUnitCarViewPage'
+CREATE INDEX [IX_FK_CarUnitCarViewPage]
+ON [dbo].[CarViewPages]
+    ([CarUnitId]);
 GO
 
 -- --------------------------------------------------

@@ -73,6 +73,7 @@
     <EntitySet Name="InvCarRecordTypes" EntityType="JobDB.Store.InvCarRecordTypes" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="InvCarGateControls" EntityType="JobDB.Store.InvCarGateControls" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="JobTrails" EntityType="JobDB.Store.JobTrails" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CarViewPages" EntityType="JobDB.Store.CarViewPages" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="JobMainJobType" Association="JobDB.Store.JobMainJobType">
       <End Role="JobMain" EntitySet="JobMains" />
       <End Role="JobType" EntitySet="JobTypes" />
@@ -344,6 +345,10 @@
     <AssociationSet Name="InvItemInvCarGateControl" Association="JobDB.Store.InvItemInvCarGateControl">
       <End Role="InvItem" EntitySet="InvItems" />
       <End Role="InvCarGateControl" EntitySet="InvCarGateControls" />
+    </AssociationSet>
+    <AssociationSet Name="CarUnitCarViewPage" Association="JobDB.Store.CarUnitCarViewPage">
+      <End Role="CarUnit" EntitySet="CarUnits" />
+      <End Role="CarViewPage" EntitySet="CarViewPages" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="JobMains">
@@ -1057,6 +1062,14 @@
     <Property Name="dtTrail" Type="datetime" Nullable="false" />
     <Property Name="user" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="Action" Type="nvarchar" Nullable="false" MaxLength="80" />
+  </EntityType>
+  <EntityType Name="CarViewPages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CarUnitId" Type="int" Nullable="false" />
+    <Property Name="Viewname" Type="nvarchar" Nullable="false" MaxLength="80" />
   </EntityType>
   <Association Name="JobMainJobType">
     <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="1" />
@@ -1874,6 +1887,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="CarUnitCarViewPage">
+    <End Role="CarUnit" Type="JobDB.Store.CarUnits" Multiplicity="1" />
+    <End Role="CarViewPage" Type="JobDB.Store.CarViewPages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarUnit">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CarViewPage">
+        <PropertyRef Name="CarUnitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -2218,6 +2243,11 @@
             <End Role="InvCarGateControl" EntitySet="InvCarGateControls" />
           </AssociationSet>
           <EntitySet Name="JobTrails" EntityType="JobDB.JobTrail" />
+          <EntitySet Name="CarViewPages" EntityType="JobDB.CarViewPage" />
+          <AssociationSet Name="CarUnitCarViewPage" Association="JobDB.CarUnitCarViewPage">
+            <End Role="CarUnit" EntitySet="CarUnits" />
+            <End Role="CarViewPage" EntitySet="CarViewPages" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="JobMain">
           <Key>
@@ -2742,6 +2772,7 @@
           <NavigationProperty Name="CarRates" Relationship="JobDB.CarUnitCarRate" FromRole="CarUnit" ToRole="CarRate" />
           <NavigationProperty Name="CarReservations" Relationship="JobDB.CarUnitCarReservation" FromRole="CarUnit" ToRole="CarReservation" />
           <NavigationProperty Name="CarImages" Relationship="JobDB.CarUnitCarImage" FromRole="CarUnit" ToRole="CarImage" />
+          <NavigationProperty Name="CarViewPages" Relationship="JobDB.CarUnitCarViewPage" FromRole="CarUnit" ToRole="CarViewPage" />
         </EntityType>
         <Association Name="CarCategoryCarUnit">
           <End Type="JobDB.CarCategory" Role="CarCategory" Multiplicity="1" />
@@ -3883,6 +3914,27 @@
           <Property Name="user" Type="String" Nullable="false" MaxLength="50" />
           <Property Name="Action" Type="String" Nullable="false" MaxLength="80" />
         </EntityType>
+        <EntityType Name="CarViewPage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="CarUnit" Relationship="JobDB.CarUnitCarViewPage" FromRole="CarViewPage" ToRole="CarUnit" />
+          <Property Name="CarUnitId" Type="Int32" Nullable="false" />
+          <Property Name="Viewname" Type="String" Nullable="false" MaxLength="80" />
+        </EntityType>
+        <Association Name="CarUnitCarViewPage">
+          <End Type="JobDB.CarUnit" Role="CarUnit" Multiplicity="1" />
+          <End Type="JobDB.CarViewPage" Role="CarViewPage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CarUnit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CarViewPage">
+              <PropertyRef Name="CarUnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4665,6 +4717,15 @@
           <ScalarProperty Name="dtTrail" ColumnName="dtTrail" />
           <ScalarProperty Name="user" ColumnName="user" />
           <ScalarProperty Name="Action" ColumnName="Action" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CarViewPages">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.CarViewPage)">
+        <MappingFragment StoreEntitySet="CarViewPages">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CarUnitId" ColumnName="CarUnitId" />
+          <ScalarProperty Name="Viewname" ColumnName="Viewname" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

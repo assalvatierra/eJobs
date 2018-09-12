@@ -33,6 +33,7 @@
           <ScalarProperty Name="Details" ColumnName="Details" />
           <ScalarProperty Name="CityId" ColumnName="CityId" />
           <ScalarProperty Name="SupplierTypeId" ColumnName="SupplierTypeId" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -764,6 +765,27 @@
           <ScalarProperty Name="Remarks" ColumnName="Remarks" />
           <ScalarProperty Name="Driver" ColumnName="Driver" />
           <ScalarProperty Name="Inspector" ColumnName="Inspector" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobTrails">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.JobTrail)">
+        <MappingFragment StoreEntitySet="JobTrails">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RefTable" ColumnName="RefTable" />
+          <ScalarProperty Name="RefId" ColumnName="RefId" />
+          <ScalarProperty Name="dtTrail" ColumnName="dtTrail" />
+          <ScalarProperty Name="user" ColumnName="user" />
+          <ScalarProperty Name="Action" ColumnName="Action" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CarViewPages">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.CarViewPage)">
+        <MappingFragment StoreEntitySet="CarViewPages">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CarUnitId" ColumnName="CarUnitId" />
+          <ScalarProperty Name="Viewname" ColumnName="Viewname" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
