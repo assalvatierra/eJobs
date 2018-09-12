@@ -114,5 +114,10 @@ namespace JobsV1.Controllers
             return PartialView("CarRate", db.CarRates.Where(d => d.CarUnitId == unitid));
         }
 
+        public ActionResult CarDetail(int? unitid)
+        {
+            return View("CarDetail_temp");
+        }
+
     }
 }
