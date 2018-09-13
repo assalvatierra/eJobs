@@ -11,8 +11,8 @@
     @Html.ActionLink("Contact Us", "ContactUs", "CarRental", null, new { @class = "btn btn-primary btn-lg" }) 
 </div>
 <div class="row">
-    <div class="col-md-4">
-        <h2>Van</h2>
+    <div class="col-md-4 car-primary">
+        <h2>Van 10 seater</h2>
         <div style="background-image:url('CarRental/MainImage/1');background-repeat:no-repeat;background-size:220px;height:150px;">
             <p>&nbsp</p>
         </div>
@@ -33,20 +33,19 @@
             </table>
         </p>
 
-        @Html.ActionLink("Detail", "CarDetail", "CarRental", new { unitid = 1 }, new { @class = "btn btn-primary" })
-
     </div>
-
-    <div class="col-md-4">
-        <h3>SUV</h3>
+     
+    <div class="col-md-4 car-primary">
+        <h2>Van 14 seater</h2>
         <div style="background-image:url('CarRental/MainImage/2');background-repeat:no-repeat;background-size:220px;height:150px;">
             <p>&nbsp</p>
         </div>
+
         <p>
             <table>
                 <tr>
                     <th>
-                        Ford Everest 2016 (All New) &nbsp;
+                        Nissan Premium  &nbsp;
                         @Html.ActionLink("Detail", "CarDetail", "CarRental", new { unitid = 2 }, new { @class = "btn btn-primary" })
                     </th>
                 </tr>
@@ -56,13 +55,11 @@
                     </td>
                 </tr>
             </table>
-
         </p>
 
     </div>
-
-    <div class="col-md-4">
-        <h2>MPV/AUV</h2>
+    <div class="col-md-4 car-primary">
+        <h3>SUV</h3>
         <div style="background-image:url('CarRental/MainImage/3');background-repeat:no-repeat;background-size:220px;height:150px;">
             <p>&nbsp</p>
         </div>
@@ -70,9 +67,8 @@
             <table>
                 <tr>
                     <th>
-                        Toyota Innova &nbsp;
+                        Ford Everest 2016 &nbsp;
                         @Html.ActionLink("Detail", "CarDetail", "CarRental", new { unitid = 3 }, new { @class = "btn btn-primary" })
-                    
                     </th>
                 </tr>
                 <tr>
@@ -81,12 +77,13 @@
                     </td>
                 </tr>
             </table>
+
         </p>
 
     </div>
 
-    <div class="col-md-4">
-        <h2>Sedans</h2>
+    <div class="col-md-4 car-primary">
+        <h2>MPV/AUV</h2>
         <div style="background-image:url('CarRental/MainImage/4');background-repeat:no-repeat;background-size:220px;height:150px;">
             <p>&nbsp</p>
         </div>
@@ -94,8 +91,9 @@
             <table>
                 <tr>
                     <th>
-                        Honda City &nbsp;
+                        Toyota Innova &nbsp;
                         @Html.ActionLink("Detail", "CarDetail", "CarRental", new { unitid = 4 }, new { @class = "btn btn-primary" })
+                    
                     </th>
                 </tr>
                 <tr>
@@ -105,11 +103,34 @@
                 </tr>
             </table>
         </p>
+
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-4 car-primary">
+        <h2>Sedans</h2>
+        <div style="background-image:url('CarRental/MainImage/5');background-repeat:no-repeat;background-size:200px;height:150px;">
+            <p>&nbsp</p>
+        </div>
+        <p>
+            <table>
+                <tr>
+                    <th>
+                        Honda City &nbsp;
+                        @Html.ActionLink("Detail", "CarDetail", "CarRental", new { unitid = 5 }, new { @class = "btn btn-primary" })
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.Action("CarRate", new { unitid = 5 })
+                    </td>
+                </tr>
+            </table>
+        </p>
+    </div>
+
+    <div class="col-md-4 car-primary">
             <h2>Pickups</h2>
-            <div style="background-image:url('CarRental/MainImage/5');background-repeat:no-repeat;background-size:220px;height:150px;">
+            <div style="background-image:url('CarRental/MainImage/6');background-repeat:no-repeat;background-size:320px;height:150px;">
                 <p>&nbsp</p>
             </div>
             <p>
@@ -117,12 +138,12 @@
                     <tr>
                         <th>
                             Pickups &nbsp;
-                            @Html.ActionLink("Detail", "CarDetail", "CarRental", new { unitid = 5 }, new { @class = "btn btn-primary" })
+                            @Html.ActionLink("Detail", "CarDetail", "CarRental", new { unitid = 6 }, new { @class = "btn btn-primary" })
                         </th>
                     </tr>
                     <tr>
                         <td>
-                            @Html.Action("CarRate", new { unitid = 5})
+                            @Html.Action("CarRate", new { unitid = 6 })
                         </td>
                     </tr>
                 </table>

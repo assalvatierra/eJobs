@@ -110,14 +110,14 @@ table tr .additemtable :hover{
 .car-primary {
  background-color:white;
  border:1px solid lightgray;
- margin:10px;
- width:350px;
- padd
-  -moz-border-radius: 8px;
-  -webkit-border-radius: 8px;
-  border-radius: 8px;
+  height:520px;
 }
 
 .car-img {
     width:100%;
 }
+
+#map {
+        height: 400px;  /* The height is 400 pixels */
+        width: 100%;  /* The width is the width of the web page */
+       }
