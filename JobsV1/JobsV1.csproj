@@ -664,6 +664,8 @@
     <Content Include="Images\Phone001.png" />
     <Content Include="Images\RealBreezeLogo01.png" />
     <Content Include="Images\SalesLead\3dots.jpg" />
+    <Content Include="Images\SalesLead\approve-icon.png" />
+    <Content Include="Images\SalesLead\close-icon.png" />
     <Content Include="Images\SalesLead\DoubleArrow.jpg" />
     <Content Include="Images\SalesLead\email101.png" />
     <Content Include="Images\SalesLead\Email102.jpg" />

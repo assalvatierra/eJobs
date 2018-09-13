@@ -119,5 +119,10 @@ namespace JobsV1.Controllers
             return View("CarDetail_temp");
         }
 
+        public ActionResult ContactUs()
+        {
+            return RedirectToAction("Contact", "Home");
+        }
+
     }
 }
