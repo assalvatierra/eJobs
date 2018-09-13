@@ -1087,11 +1087,10 @@
     <Content Include="Views\JobOrder\BrowseInvItem_withScheduleJS.cshtml" />
     <Content Include="Views\JobServices\NotificationList.cshtml" />
     <Content Include="Views\JobOrder\jobTrails.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\CarRental\CarHome.cshtml" />
-=======
     <Content Include="Views\CarRental\CarDetail_temp.cshtml" />
->>>>>>> origin/master
+    <Content Include="Views\CarRental\CarDetail_van.cshtml" />
+    <Content Include="Views\CarRental\CarDetail_sedan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
