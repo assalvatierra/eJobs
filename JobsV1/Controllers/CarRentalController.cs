@@ -141,7 +141,10 @@ namespace JobsV1.Controllers
         
         
 
-
+        public ActionResult ReservationRequest()
+        {
+            return View();
+        }
 
         public ActionResult ContactUs()
         {
