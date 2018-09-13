@@ -685,6 +685,7 @@
     <Content Include="Images\Signature-1.png" />
     <Content Include="Models\AddChecklist.SQL" />
     <Content Include="Models\AsExpenseDB.sql" />
+    <Content Include="Models\CarRentalInitial.sql" />
     <Content Include="Models\CustomerInitial.sql" />
     <Content Include="Models\DailyStatusUpdate.sql" />
     <Content Include="Models\InitialData.sql" />
@@ -707,6 +708,9 @@
     <Content Include="Models\ProductsDB.sql" />
     <Content Include="Models\SalesLead.sql" />
     <Content Include="Models\InitTestData.sql" />
+    <Content Include="Properties\PublishProfiles\ftp.myasp.net.pubxml.user" />
+    <Content Include="Properties\PublishProfiles\ftp.Somee.com.pubxml.user" />
+    <Content Include="Properties\PublishProfiles\LocalPath.C.pubxml.user" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -756,6 +760,7 @@
     <Content Include="Scripts\DateRangePicker\moment.js" />
     <Content Include="Scripts\DateRangePicker\moment.min.js" />
     <Content Include="Scripts\DateRangePicker\package.js" />
+    <None Include="Properties\PublishProfiles\LocalPath.C.pubxml" />
     <None Include="Properties\PublishProfiles\LocalPath.D.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\Job\CarGateControl.js" />
@@ -1088,6 +1093,12 @@
     <Content Include="Views\JobOrder\BrowseInvItem_withScheduleJS.cshtml" />
     <Content Include="Views\JobServices\NotificationList.cshtml" />
     <Content Include="Views\JobOrder\jobTrails.cshtml" />
+    <Content Include="Views\CarRental\CarHome.cshtml" />
+    <Content Include="Views\CarRental\CarDetail_van.cshtml" />
+    <Content Include="Views\CarRental\CarDetail_sedan.cshtml" />
+    <Content Include="Views\CarRental\CarDetail_suv.cshtml" />
+    <Content Include="Views\CarRental\CarDetail_mpv.cshtml" />
+    <Content Include="Views\CarRental\CarDetail_pickup.cshtml" />
     <Content Include="Views\CarRental\CarDetail_temp.cshtml" />
   </ItemGroup>
   <ItemGroup>

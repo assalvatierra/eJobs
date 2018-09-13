@@ -116,13 +116,38 @@ namespace JobsV1.Controllers
 
         public ActionResult CarDetail(int? unitid)
         {
-            return View("CarDetail_temp");
-        }
+            string view = "CarDetail_temp";
 
+            switch ((int)unitid) {
+                case 1:
+                    view = "CarDetail_van";
+                    break;
+                case 2:
+                    view = "CarDetail_suv";
+                    break;
+                case 3:
+                    view = "CarDetail_mpv";
+                    break;
+                case 4:
+                    view = "CarDetail_sedan";
+                    break;
+                case 5:
+                    view = "CarDetail_pickup";
+                    break;
+
+            }
+
+<<<<<<< HEAD
         public ActionResult ContactUs()
         {
             return RedirectToAction("Contact", "Home");
         }
 
+=======
+            return PartialView(view, db.CarUnits.Where(d => d.Id == unitid).FirstOrDefault());
+        }
+        
+        
+>>>>>>> f2f5034779f99b3dcc5dbd8dced510dec5fe1336
     }
 }
