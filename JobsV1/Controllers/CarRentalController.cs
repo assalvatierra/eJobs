@@ -136,18 +136,17 @@ namespace JobsV1.Controllers
                     break;
 
             }
+            return PartialView(view, db.CarUnits.Where(d => d.Id == unitid).FirstOrDefault());
+        }
+        
+        
 
-<<<<<<< HEAD
+
+
         public ActionResult ContactUs()
         {
             return RedirectToAction("Contact", "Home");
         }
 
-=======
-            return PartialView(view, db.CarUnits.Where(d => d.Id == unitid).FirstOrDefault());
-        }
-        
-        
->>>>>>> f2f5034779f99b3dcc5dbd8dced510dec5fe1336
     }
 }
