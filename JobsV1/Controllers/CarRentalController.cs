@@ -114,8 +114,6 @@ namespace JobsV1.Controllers
             return PartialView("CarRate", db.CarRates.Where(d => d.CarUnitId == unitid));
         }
 
-<<<<<<< HEAD
-
         public ActionResult CarDetail(int? unitid)
         {
             string view = "CarDetail_temp";
@@ -141,12 +139,7 @@ namespace JobsV1.Controllers
 
             return PartialView(view, db.CarUnits.Where(d => d.Id == unitid).FirstOrDefault());
         }
-=======
-        public ActionResult CarDetail(int? unitid)
-        {
-            return View("CarDetail_temp");
-        }
-
->>>>>>> origin/master
+        
+        
     }
 }
