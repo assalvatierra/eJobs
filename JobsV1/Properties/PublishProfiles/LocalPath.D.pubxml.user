@@ -82,10 +82,17 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
+<<<<<<< HEAD
       <publishTime>09/12/2018 10:13:40</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
       <publishTime>09/12/2018 10:13:40</publishTime>
+=======
+      <publishTime>09/13/2018 08:26:37</publishTime>
+    </File>
+    <File Include="bin/App_global.asax.dll">
+      <publishTime>09/13/2018 08:26:37</publishTime>
+>>>>>>> origin/master
     </File>
     <File Include="bin/de/Microsoft.SqlServer.Types.resources.dll">
       <publishTime>02/21/2014 06:26:06</publishTime>
@@ -109,7 +116,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/21/2014 06:25:22</publishTime>
     </File>
     <File Include="bin/JobsV1.dll">
+<<<<<<< HEAD
       <publishTime>09/12/2018 10:10:40</publishTime>
+=======
+      <publishTime>09/13/2018 08:26:18</publishTime>
+>>>>>>> origin/master
     </File>
     <File Include="bin/ko/Microsoft.SqlServer.Types.resources.dll">
       <publishTime>02/21/2014 06:27:16</publishTime>
@@ -634,10 +645,17 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
     <File Include="Models/JobDB.edmx.diagram">
+<<<<<<< HEAD
       <publishTime>09/05/2018 17:45:22</publishTime>
     </File>
     <File Include="Models/JobDB.edmx.sql">
       <publishTime>09/05/2018 17:44:46</publishTime>
+=======
+      <publishTime>09/12/2018 14:24:09</publishTime>
+    </File>
+    <File Include="Models/JobDB.edmx.sql">
+      <publishTime>09/12/2018 14:23:04</publishTime>
+>>>>>>> origin/master
     </File>
     <File Include="Models/JobNotes.sql">
       <publishTime>03/20/2017 11:30:34</publishTime>
@@ -661,7 +679,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/12/2018 08:52:41</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
+<<<<<<< HEAD
       <publishTime>09/12/2018 10:13:36</publishTime>
+=======
+      <publishTime>09/13/2018 08:26:30</publishTime>
+>>>>>>> origin/master
     </File>
     <File Include="Scripts/ai.0.15.0-build58334.js">
       <publishTime>02/22/2017 09:02:29</publishTime>
@@ -840,11 +862,14 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/CarRates/Index.cshtml">
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
+    <File Include="Views/CarRental/CarDetail_temp.cshtml">
+      <publishTime>09/12/2018 15:23:22</publishTime>
+    </File>
     <File Include="Views/CarRental/CarRate.cshtml">
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
     <File Include="Views/CarRental/Index.cshtml">
-      <publishTime>02/22/2017 09:02:29</publishTime>
+      <publishTime>09/12/2018 15:18:37</publishTime>
     </File>
     <File Include="Views/CarRental/Index2.cshtml">
       <publishTime>02/22/2017 09:02:29</publishTime>
@@ -1279,7 +1304,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/03/2018 10:23:19</publishTime>
     </File>
     <File Include="Views/JobOrder/PartialViewServiceList.cshtml">
-      <publishTime>08/24/2018 08:27:44</publishTime>
+      <publishTime>09/12/2018 14:37:11</publishTime>
     </File>
     <File Include="Views/JobOrder/PartialViewServiceSupPo.cshtml">
       <publishTime>07/26/2018 08:25:53</publishTime>
@@ -1657,7 +1682,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
     <File Include="Web.config">
+<<<<<<< HEAD
       <publishTime>09/12/2018 09:37:40</publishTime>
+=======
+      <publishTime>09/13/2018 08:26:26</publishTime>
+>>>>>>> origin/master
     </File>
   </ItemGroup>
 </Project>

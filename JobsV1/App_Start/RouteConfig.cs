@@ -19,37 +19,37 @@ namespace JobsV1
             /********************************
             * landing/home page
             ********************************/
-            routes.MapRoute(
-                name: "myHome",
-                url: "MainGeneric/Index/{id}",
-                defaults: new { controller = "MainGeneric", action = "Index", id = UrlParameter.Optional }
-            );
+            //routes.MapRoute(
+            //    name: "myHome",
+            //    url: "MainGeneric/Index/{id}",
+            //    defaults: new { controller = "MainGeneric", action = "Index", id = UrlParameter.Optional }
+            //);
 
             /********************************
             * Generic Default page
             ********************************/
-            routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "MainGeneric", action = "Index", id = UrlParameter.Optional }
-            );
+            //routes.MapRoute(
+            //    name: "Default",
+            //    url: "{controller}/{action}/{id}",
+            //    defaults: new { controller = "MainGeneric", action = "Index", id = UrlParameter.Optional }
+            //);
 
             /********************************
             * landing/home page
             ********************************/
-            //routes.MapRoute(
-            //    name: "myHome",
-            //    url: "CarRental/Index/{id}",
-            //    defaults: new { controller = "CarRental", action = "Index", id = UrlParameter.Optional }
-            //);
+            routes.MapRoute(
+                name: "myHome",
+                url: "CarRental/Index/{id}",
+                defaults: new { controller = "CarRental", action = "Index", id = UrlParameter.Optional }
+            );
             /********************************
             *AJ88 car rental default
             ********************************/
-            //routes.MapRoute(
-            //    name: "Default",
-            //    url: "{controller}/{action}/{id}",
-            //    defaults: new { controller = "CarRental", action = "Index", id = UrlParameter.Optional }
-            //);
+            routes.MapRoute(
+                name: "Default",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "CarRental", action = "Index", id = UrlParameter.Optional }
+            );
 
 
         }
