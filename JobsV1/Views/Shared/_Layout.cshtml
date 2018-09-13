@@ -3,7 +3,23 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title</title>
+
+    <meta name="description" content="@ViewBag.Description" />
+    <link rel="canonical" href="http://realwheelsdavao.com/" />
+    <link rel="next" href="http://realwheelsdavao.com/page/2/" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="@ViewBag.Title" />
+    <meta property="og:description" content="@ViewBag.Description" />
+    <meta property="og:url" content="http://realwheelsdavao.com/" />
+    <meta property="og:site_name" content="Real Wheels Car Rental Davao" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:description" content="@ViewBag.Description" />
+    <meta name="twitter:title" content="@ViewBag.Title" />
+
+
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render("~/Content/css/DateRangePicker")
