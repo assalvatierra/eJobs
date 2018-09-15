@@ -11,12 +11,12 @@ values ('Van (10 seater)','',1),
 	   ('Pickup','',1);
 
 insert into CarImages ( CarUnitId, ImgUrl, Remarks, SysCode)
-values (1,'toyotagrandia_primary.jpg','','MAIN'),
-       (2,'nissan_premium_primary.png','','MAIN'),
-       (3,'ToyotaFortuner_primary.png','','MAIN'),
-       (4,'toyotainnova_primary.jpg','','MAIN'),
-       (5,'hondacity_primary.jpg','','MAIN'),
-       (6,'strada_primary.jpg','','MAIN');
+values (1,'grandiaPrimary.png','','MAIN'),
+       (2,'NissanPremiumPrimary.png','','MAIN'),
+       (3,'FortunerPrimary.png','','MAIN'),
+       (4,'InnovaPrimary.png','','MAIN'),
+       (5,'HondaCityPrimary.png','','MAIN'),
+       (6,'PickupPrimary.png','','MAIN');
 	   
 insert into CarViewPages (CarUnitId, Viewname)
 values (1,'CarDetail_van'),
