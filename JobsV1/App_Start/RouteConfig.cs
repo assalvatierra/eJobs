@@ -27,6 +27,16 @@ namespace JobsV1
                 url: "carrental/suvpickup4x4-rental-rates",
                 defaults: new { controller = "CarRental", action = "CarDetail", unitid = 3 }
             );
+            routes.MapRoute(
+                name: "Sedan-rental",
+                url: "carrental/sedan-rental",
+                defaults: new { controller = "CarRental", action = "CarDetail", unitid = 5 }
+            );
+            routes.MapRoute(
+                name: "Pickup-rental",
+                url: "carrental/pickup-rental",
+                defaults: new { controller = "CarRental", action = "CarDetail", unitid = 6 }
+            );
 
             #endregion
 

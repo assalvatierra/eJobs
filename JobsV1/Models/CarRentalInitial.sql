@@ -23,8 +23,8 @@ values (1,'CarDetail_van'),
 	   (2,'CarDetail_van'),
 	   (3,'CarDetail_suv'),
 	   (4,'CarDetail_mpv'),
-	   (5,'CarDetail_pickup'),
-	   (6,'CarDetail_sedan');
+	   (5,'CarDetail_sedan'),
+	   (6,'CarDetail_pickup');
 
 insert into CarRates (Daily,Weekly,Monthly,KmFree,KmRate,CarUnitId,OtRate)
 values (3500,3000,2250,120,5,1,250),
