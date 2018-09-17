@@ -40,7 +40,10 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.CarUnitId)
         <div class="form-group">
-            <img src="../CarRental/UnitImage/@ViewBag.CarUnitId" />
+            <div style="col-md-6">
+                <img src="../CarRental/UnitImage/@ViewBag.CarUnitId" style="max-width: 500px; width: 100%" />
+            </div>
+            
             <br />
             <div class="col-md-6">
                 @Html.Partial("UnitRate", (JobsV1.Models.CarRate)ViewBag.objCarRate)

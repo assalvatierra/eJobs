@@ -40,10 +40,10 @@ namespace JobsV1.Controllers
         }
         public ActionResult UnitImage(int? id)
         {
-            var dir = Server.MapPath("/Images/CarRental");
+            var dir = Server.MapPath("~/Images/CarRental");
             var imgFileName = "PlaceHolder.png";
             var car = db.CarUnits.Find(id);
-            var carimg = car.CarImages.Where(d => d.SysCode == "UNIT").FirstOrDefault();
+            var carimg = car.CarImages.Where(d => d.SysCode == "MAIN").FirstOrDefault();
             if (carimg != null)
                 imgFileName = carimg.ImgUrl;
 
