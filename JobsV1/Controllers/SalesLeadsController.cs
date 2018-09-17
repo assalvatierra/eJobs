@@ -354,7 +354,7 @@ namespace JobsV1.Controllers
 
             }
 
-            return RedirectToAction("Index", new { leadId = slId });
+            return RedirectToAction("Index");
         }
         #endregion
 
