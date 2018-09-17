@@ -4,8 +4,8 @@
 }
 
 <div class="jumbotron">
-    <h2>Car Rental Services</h2>
-    <p class="lead">Davao City</p>
+    <h2>Welcome to Davao!</h2>
+    <p class="lead">Start your journey with us.</p>
 
     @*@Html.ActionLink("Book a Car", "Create", "JobMains", null, new { @class = "btn btn-primary btn-lg" })*@ 
     @Html.ActionLink("Contact us for Inquiries/Reservation", "ContactUs", "CarRental", null, new { @class = "btn btn-primary btn-lg" }) 
@@ -153,10 +153,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <h2>Davao Car rental</h2>
-        <p>
-            Real Wheels Davao – is Subsidiary company of Real Breeze Travel & Tours offering car rental services in Davao and thru out Mindanao. this is just a test dsaf fgfs sd thi is another test.
-        </p>
+       @{Html.RenderPartial("Partial_content_1");}
     </div>
 </div>
 <!--

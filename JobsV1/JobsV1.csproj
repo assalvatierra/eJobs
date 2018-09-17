@@ -1116,6 +1116,7 @@
     <Content Include="Views\CarRental\CarDetail_mpv.cshtml" />
     <Content Include="Views\CarRental\CarDetail_pickup.cshtml" />
     <Content Include="Views\CarRental\CarDetail_temp.cshtml" />
+    <Content Include="Views\CarRental\Partial_content_1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
