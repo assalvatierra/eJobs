@@ -7,8 +7,8 @@
     <h2>Car Rental Services</h2>
     <p class="lead">Davao City</p>
 
-    @Html.ActionLink("Book a Car", "Create", "JobMains", null, new { @class = "btn btn-primary btn-lg" }) 
-    @Html.ActionLink("Contact Us", "ContactUs", "CarRental", null, new { @class = "btn btn-primary btn-lg" }) 
+    @*@Html.ActionLink("Book a Car", "Create", "JobMains", null, new { @class = "btn btn-primary btn-lg" })*@ 
+    @Html.ActionLink("Contact us for Inquiries/Reservation", "ContactUs", "CarRental", null, new { @class = "btn btn-primary btn-lg" }) 
 </div>
 <div class="row">
     <div class="col-md-4 car-primary">
@@ -22,7 +22,6 @@
                 <tr>
                     <th>
                     Toyota Grandia GL  &nbsp;
-                    @Html.ActionLink("Detail", "CarDetail", "CarRental", new { unitid = 1 }, new { @class = "btn btn-primary" })
                     </th>
                 </tr>
             <tr>
@@ -31,6 +30,7 @@
                 </td>
             </tr>
             </table>
+            @Html.ActionLink("More Detail", "CarDetail", "CarRental", new { unitid = 1 }, new { @class = "btn btn-primary" })
         </p>
 
     </div>
@@ -46,7 +46,6 @@
                 <tr>
                     <th>
                         Nissan Premium  &nbsp;
-                        @Html.ActionLink("Detail", "CarDetail", "CarRental", new { unitid = 2 }, new { @class = "btn btn-primary" })
                     </th>
                 </tr>
                 <tr>
@@ -55,6 +54,7 @@
                     </td>
                 </tr>
             </table>
+            @Html.ActionLink("More Details", "CarDetail", "CarRental", new { unitid = 2 }, new { @class = "btn btn-primary" })
         </p>
 
     </div>
@@ -68,7 +68,6 @@
                 <tr>
                     <th>
                         Ford Everest 2016 &nbsp;
-                        @Html.ActionLink("Detail", "CarDetail", "CarRental", new { unitid = 3 }, new { @class = "btn btn-primary" })
                     </th>
                 </tr>
                 <tr>
@@ -77,6 +76,7 @@
                     </td>
                 </tr>
             </table>
+            @Html.ActionLink("More Details", "CarDetail", "CarRental", new { unitid = 3 }, new { @class = "btn btn-primary" })
 
         </p>
 
@@ -92,16 +92,15 @@
                 <tr>
                     <th>
                         Toyota Innova &nbsp;
-                        @Html.ActionLink("Detail", "CarDetail", "CarRental", new { unitid = 4 }, new { @class = "btn btn-primary" })
-                    
                     </th>
                 </tr>
                 <tr>
                     <td>
-                        @Html.Action("CarRate", new { unitid = 4 })
+                        @Html.Action("CarRate", new { unitid = 3 })
                     </td>
                 </tr>
             </table>
+            @Html.ActionLink("More Details", "CarDetail", "CarRental", new { unitid = 4 }, new { @class = "btn btn-primary" })
         </p>
 
     </div>
@@ -116,7 +115,6 @@
                 <tr>
                     <th>
                         Honda City &nbsp;
-                        @Html.ActionLink("Detail", "CarDetail", "CarRental", new { unitid = 5 }, new { @class = "btn btn-primary" })
                     </th>
                 </tr>
                 <tr>
@@ -125,6 +123,7 @@
                     </td>
                 </tr>
             </table>
+            @Html.ActionLink("More Details", "CarDetail", "CarRental", new { unitid = 5 }, new { @class = "btn btn-primary" })
         </p>
     </div>
 
@@ -138,7 +137,6 @@
                     <tr>
                         <th>
                             Pickups &nbsp;
-                            @Html.ActionLink("Detail", "CarDetail", "CarRental", new { unitid = 6 }, new { @class = "btn btn-primary" })
                         </th>
                     </tr>
                     <tr>
@@ -147,15 +145,25 @@
                         </td>
                     </tr>
                 </table>
+                @Html.ActionLink("More Details", "CarDetail", "CarRental", new { unitid = 6 }, new { @class = "btn btn-primary" })
             </p>
     </div>
 
 </div>
 
 <div class="row">
-    <h2>Settings</h2>
-    @Html.ActionLink("Car Rate", "Index", "CarUnits", null, new { @class = "btn btn-default" })
-    @Html.ActionLink("Distance Table", "Index", "CarDestinations", null, new { @class = "btn btn-default" })
+    <div class="col-md-12">
+        <h2>Davao Car rental</h2>
+        <p>
+            Real Wheels Davao – is Subsidiary company of Real Breeze Travel & Tours offering car rental services in Davao and thru out Mindanao. this is just a test dsaf fgfs sd thi is another test.
+        </p>
+    </div>
 </div>
-
+<!--
+<div class="row">
+    <h2>Settings</h2>
+   @* @Html.ActionLink("Car Rate", "Index", "CarUnits", null, new { @class = "btn btn-default" }) *@ 
+   @* @Html.ActionLink("Distance Table", "Index", "CarDestinations", null, new { @class = "btn btn-default" }) *@
+</div>
+-->
 

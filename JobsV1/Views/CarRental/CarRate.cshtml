@@ -29,24 +29,6 @@
     </tr>
 
     <tr>
-        <td  class="userLabel-lg1">Mileage</td>
-        <td colspan="2">
-            <span class="userRemarks">Daily Allowance</span>
-                <br />
-            <span class="userData">
-                @Html.DisplayFor(modelItem => item.KmFree) Kms
-            </span>
-        </td>
-        <td>
-            <span class="userRemarks">
-                Excess rate</span>
-            <br />
-            <span class="userData">
-                @item.KmRate.ToString("P##,###") per Km
-            </span>
-        </td>
-    </tr>
-    <tr>
         <td class="userLabel-lg1">Time</td>
         <td colspan="2">
             <span class="userRemarks">
@@ -64,11 +46,32 @@
             <span class="userData">
                 @item.OtRate.ToString("P##,###") per hr
             </span>
-</td>
+        </td>
+    </tr>
+    <tr>
+        <td class="userLabel-lg1">Fuel</td>
+        <td colspan="2">
+            <span class="userRemarks">
+                City Limits
+            </span>
+            <br />
+            <span class="userData">
+                Included
+            </span>
+        </td>
+        <td>
+            <span class="userRemarks">
+                Out of town
+            </span>
+            <br />
+            <span class="userData">
+                Renter's fuel
+            </span>
+        </td>
     </tr>
 
     <tr><td colspan="4">
-        @Html.ActionLink("Cost Estimate and Reservation", "Reservation", "CarRental", new { unitid = item.CarUnitId }, new { @class = "btn btn-primary" })
+        @*@Html.ActionLink("Cost Estimate and Reservation", "Reservation", "CarRental", new { unitid = item.CarUnitId }, new { @class = "btn btn-primary" })*@
     </td></tr>
 }
 </table>

@@ -16,6 +16,21 @@ namespace JobsV1
             routes.IgnoreRoute("{*x}", new { x = @".*\.asmx(/.*)?" });
 
 
+            #region wordpress links
+            routes.MapRoute(
+                name: "toyota-innova-for-rent",
+                url: "{controller}/toyota-innova-for-rent",
+                defaults: new { controller = "CarRental", action = "CarDetail", unitid = 4 }
+            );
+            routes.MapRoute(
+                name: "suvpickup4x4-rental-rates",
+                url: "carrental/suvpickup4x4-rental-rates",
+                defaults: new { controller = "CarRental", action = "CarDetail", unitid = 3 }
+            );
+
+            #endregion
+
+
             /********************************
             * landing/home page
             ********************************/
@@ -50,6 +65,9 @@ namespace JobsV1
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "CarRental", action = "Index", id = UrlParameter.Optional }
             );
+
+
+
 
 
         }

@@ -124,7 +124,7 @@ namespace JobsV1.Controllers
         public ActionResult CarDetail(int? unitid)
         {
             var carUnitView = db.CarViewPages.Where(s => s.CarUnitId == unitid).FirstOrDefault();
-            return PartialView(carUnitView.Viewname, db.CarUnits.Where(d => d.Id == unitid).FirstOrDefault());
+            return View(carUnitView.Viewname, db.CarUnits.Where(d => d.Id == unitid).FirstOrDefault());
         }
 
 
