@@ -619,7 +619,12 @@
     <Content Include="Images\CarRental\Driver102x.png" />
     <Content Include="Images\CarRental\FordEverest.jpg" />
     <Content Include="Images\CarRental\fordeverest_primary.jpg" />
+    <Content Include="Images\CarRental\FortunerPrimary.png" />
+    <Content Include="Images\CarRental\HondaCityPrimary.png" />
+    <Content Include="Images\CarRental\InnovaPrimary.png" />
+    <Content Include="Images\CarRental\NissanPremiumPrimary.png" />
     <Content Include="Images\CarRental\nissan_premium_primary.png" />
+    <Content Include="Images\CarRental\PickupPrimary.png" />
     <Content Include="Images\CarRental\toyotagrandia_primary.jpg" />
     <Content Include="Images\CarRental\HondaCity.jpg" />
     <Content Include="Images\CarRental\Driver102.png" />
@@ -642,6 +647,7 @@
     <Content Include="Images\CarRental\toyotainnova_primary.jpg" />
     <Content Include="Images\CarRental\Van101.jpg" />
     <Content Include="Images\CarRental\Van102.jpg" />
+    <Content Include="Images\CarRental\grandiaPrimary.png" />
     <Content Include="Images\CarRental\vios_primary.png" />
     <Content Include="Images\CustomerFiles\13\20180623_131024.jpg" />
     <Content Include="Images\CustomerFiles\13\tutorme.png" />

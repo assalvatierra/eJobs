@@ -121,3 +121,45 @@ table tr .additemtable :hover{
         height: 400px;  /* The height is 400 pixels */
         width: 100%;  /* The width is the width of the web page */
        }
+
+
+
+/*User Defined*/
+.navbar-fixed-bottom{
+ margin-left:-10px;
+ background-color: #212121;
+ color:white;
+ font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ font-size: 15px;
+ height:100px;
+}
+
+.navbar-fixed-bottom ul li{
+ float:left;
+ width:33%;
+}
+
+.navbar-fixed-bottom ul li a {
+    padding:20px;
+    color:white;
+    text-align:center;
+}
+
+.navbar-fixed-bottom ul li a:hover {
+    background-color: #111;
+    cursor:pointer;
+}
+
+.footer-img{
+    height:30px;
+    margin-bottom:-5px;
+    align-content:center;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+   
+}
+
+#mobile-footer{
+    display:none;
+}
