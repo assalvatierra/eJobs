@@ -108,8 +108,8 @@ table tr .additemtable :hover{
 }*/
 
 .car-primary {
- background-color:white;
- border:1px solid lightgray;
+  background-color:white;
+  border:1px solid lightgray;
   height:520px;
 }
 
@@ -162,4 +162,16 @@ table tr .additemtable :hover{
 
 #mobile-footer{
     display:none;
+}
+
+
+
+/*** Car Rental ***/
+
+.car-selection {
+  border:1px solid lightgray;
+}
+
+.car-selection :hover {
+
 }

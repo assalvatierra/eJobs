@@ -9,7 +9,7 @@
         <p class="lead">Start your journey with us.</p>
         @Html.ActionLink("Contact us for Inquiries/Reservation", "ContactUs", "CarRental", null, new { @class = "btn btn-primary btn-lg" })
 
-        <button href="" class="btn btn-primary" id="catbtn" data-toggle="modal" data-target="#ReserveCarList" style="margin-bottom:10px;"> Reservation </button>
+        <button href="" class="btn btn-primary" id="catbtn" data-toggle="modal" data-target="#ReserveCarList" style="margin-bottom:10px; font-size:18px; margin:1px;"> Reservation </button>
     </div>
 
     <div class="col-md-5"> 
@@ -29,34 +29,33 @@
 <div class="row">
     <div class="col-md-4 car-primary">
         <h2>Van 10 seater</h2>
-        <div style="background-image:url('CarRental/MainImage/1');background-repeat:no-repeat;background-size:200px;height:150px;">
+        <div style="background-image:url('CarRental/MainImage/1');background-repeat:no-repeat;background-size:200px;height:180px;">
             <p>&nbsp</p>
         </div>
 
-        <p>
+        <div>
             <table>
                 <tr>
                     <th>
-                    Toyota Grandia GL  &nbsp;
+                        Toyota Grandia GL  &nbsp;
                     </th>
                 </tr>
-            <tr>
-                <td>
-                    @Html.Action("CarRate", new { unitid = 1 })    
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        @Html.Action("CarRate", new { unitid = 1 })
+                    </td>
+                </tr>
             </table>
-            @Html.ActionLink("More Detail", "CarDetail", "CarRental", new { unitid = 1 }, new { @class = "btn btn-primary" })
-        </p>
+        </div>
     </div>
      
     <div class="col-md-4 car-primary">
         <h2>Van 14 seater</h2>
-        <div style="background-image:url('CarRental/MainImage/2');background-repeat:no-repeat;background-size:200px;height:150px;">
+        <div style="background-image:url('CarRental/MainImage/2');background-repeat:no-repeat;background-size:200px;height:180px;">
             <p>&nbsp</p>
         </div>
 
-        <p>
+        <div>
             <table>
                 <tr>
                     <th>
@@ -69,16 +68,15 @@
                     </td>
                 </tr>
             </table>
-            @Html.ActionLink("More Details", "CarDetail", "CarRental", new { unitid = 2 }, new { @class = "btn btn-primary" })
-        </p>
+        </div>
 
     </div>
     <div class="col-md-4 car-primary">
         <h2>SUV</h2>
-        <div style="background-image:url('CarRental/MainImage/3');background-repeat:no-repeat;background-size:200px;height:150px;">
+        <div style="background-image:url('CarRental/MainImage/3');background-repeat:no-repeat;background-size:200px;height:180px;">
             <p>&nbsp</p>
         </div>
-        <p>
+        <div>
             <table>
                 <tr>
                     <th>
@@ -91,18 +89,17 @@
                     </td>
                 </tr>
             </table>
-            @Html.ActionLink("More Details", "CarDetail", "CarRental", new { unitid = 3 }, new { @class = "btn btn-primary" })
 
-        </p>
+        </div>
 
     </div>
 
     <div class="col-md-4 car-primary">
         <h2>MPV/AUV</h2>
-        <div style="background-image:url('CarRental/MainImage/4');background-repeat:no-repeat;background-size:200px;height:150px;">
+        <div style="background-image:url('CarRental/MainImage/4');background-repeat:no-repeat;background-size:200px;height:180px;">
             <p>&nbsp</p>
         </div>
-        <p>
+        <div>
             <table>
                 <tr>
                     <th>
@@ -115,17 +112,16 @@
                     </td>
                 </tr>
             </table>
-            @Html.ActionLink("More Details", "CarDetail", "CarRental", new { unitid = 4 }, new { @class = "btn btn-primary" })
-        </p>
+        </div>
 
     </div>
 
     <div class="col-md-4 car-primary">
         <h2>Sedans</h2>
-        <div style="background-image:url('CarRental/MainImage/5');background-repeat:no-repeat;background-size:200px;height:150px;">
+        <div style="background-image:url('CarRental/MainImage/5');background-repeat:no-repeat;background-size:200px;height:180px;">
             <p>&nbsp</p>
         </div>
-        <p>
+        <div>
             <table>
                 <tr>
                     <th>
@@ -138,16 +134,15 @@
                     </td>
                 </tr>
             </table>
-            @Html.ActionLink("More Details", "CarDetail", "CarRental", new { unitid = 5 }, new { @class = "btn btn-primary" })
-        </p>
+        </div>
     </div>
 
     <div class="col-md-4 car-primary">
             <h2>Pickups</h2>
-            <div style="background-image:url('CarRental/MainImage/6');background-repeat:no-repeat;background-size:200px;height:150px;">
+            <div style="background-image:url('CarRental/MainImage/6');background-repeat:no-repeat;background-size:200px;height:180px;">
                 <p>&nbsp</p>
             </div>
-            <p>
+            <div>
                 <table>
                     <tr>
                         <th>
@@ -160,8 +155,7 @@
                         </td>
                     </tr>
                 </table>
-                @Html.ActionLink("More Details", "CarDetail", "CarRental", new { unitid = 6 }, new { @class = "btn btn-primary" })
-            </p>
+            </div>
     </div>
 
 </div>
@@ -185,51 +179,77 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Unit List</h4>
+                <h3 class="modal-title">Car Selection</h3>
             </div>
 
-            <div class="modal-body row" id="modal2-content">
+            <div class="modal-body row " id="modal2-content">
 
-                <div class="btn-group btn-group-justified" >
-                    <a href="#" class="btn btn-primary" id="selfdrive">Self Drive</a>
-                    <a href="#" class="btn btn-primary" id="withdrive">With Driver</a>
+                <div id="btn-rentalType" class="btn-group btn-group-justified">
+                    <label class="btn btn-primary">
+                        <input type="radio" name="options" id="optionTrue" value="Self Drive" />   Self Drive
+                    </label>
+
+                    <label class="btn btn-primary">
+                        <input type="radio" name="options" id="optionFalse" value="With Driver" /> With Driver
+                    </label>
                 </div>
-                <br />
 
+                <br />
+                <div class="btn-group" id="btn-rentalUnit" >
                     @foreach (var carList in ViewBag.CarUnitList as IEnumerable<JobsV1.Models.CarUnit>)
                     {
-
-                        <div class="col-md-4 car-primary" style="width:180px;height:200px;" >
-
+                        <label class="btn col-md-4 car-selection" id="car@(carList.Id)" style="width:180px;height:200px;">
                             <h5> <b>@carList.Description</b></h5>
-                            <a href="@Url.Action("Create", "CarReservations", new { id = carList.Id })" >
+                            
+                            <!--
+                            <a href="@Url.Action("Create", "CarReservations", new { id = carList.Id })">
                                 <img src="~/Images/CarRental/@carList.CarImages.Where(c=>c.CarUnitId == carList.Id).First().ImgUrl" width="100%" style="margin:10px;" />
+                                <input type="radio" name="cars" value="@carList.Description" />
                             </a>
-                       </div>
+                             -->
+
+                            <input type="radio" name="cars" value="@carList.Description" style="visibility:hidden;"/>
+
+                            <img src="~/Images/CarRental/@carList.CarImages.Where(c=>c.CarUnitId == carList.Id).First().ImgUrl" width="100%" style="margin-left:-30px;" />
+                            
+                        </label>
                     }
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Submit</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <div class="pull-left">
+                    <p id="modal-text-foot">hello</p>
+                </div>
+
+                <div class="pull-right">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Submit</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<div class="btn-group" id="btngrp" data-toggle="buttons">
-    <label class="btn btn-sm btn-primary success active">
-        <input type="radio" name="options" id="optionFalse" checked />false
-    </label>
-    <label class="btn btn-sm btn-primary danger">
-        <input type="radio" name="options" id="optionTrue" />true
-    </label>
-</div>
-
 <script src="~/Scripts/jquery-3.3.1.js"></script>
 
 <script>
-    $('#btngrp').click(function () {
-        console.log($('#optionTrue').is(':checked'));
-        console.log($('#optionFalse').is(':checked'));
+
+    $('#btn-rentalType').click(function () {
+        $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val());
+
+        if ($('input:radio[name=options]:checked').val() == "Self Drive") {
+            $('#car1').hide();
+            $('#car2').hide();
+        } else {
+            $('#car1').show();
+            $('#car2').show();
+        }
     });
+
+
+    $('#btn-rentalUnit').click(function () {
+        $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' +$('input:radio[name=cars]:checked').val());
+
+    });
+
 </script>
