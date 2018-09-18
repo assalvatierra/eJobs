@@ -23,6 +23,8 @@ namespace JobsV1.Controllers
  We offer daily, weekly, monthly rental and affordable rates for long term rentals.
  We also partnered to several car rentals in Davao for us to provide a reliable and quality service.
                ";
+
+            ViewBag.CarUnitList = db.CarUnits.ToList();
             return View("Index", db.CarUnits.Include(c => c.CarRates).ToList() );
 
         }
