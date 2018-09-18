@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 09/18/2018 13:27:02
--- Generated from EDMX file: D:\Data\Real\Apps\GitHub\eJobs\JobsV1\Models\JobDB.edmx
+-- Date Created: 09/18/2018 21:58:47
+-- Generated from EDMX file: C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -224,6 +224,18 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_CarUnitCarViewPage]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[CarViewPages] DROP CONSTRAINT [FK_CarUnitCarViewPage];
 GO
+IF OBJECT_ID(N'[dbo].[FK_CarRatePackageCarRateUnitPackage]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CarRateUnitPackages] DROP CONSTRAINT [FK_CarRatePackageCarRateUnitPackage];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CarUnitCarRateUnitPackage]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CarRateUnitPackages] DROP CONSTRAINT [FK_CarUnitCarRateUnitPackage];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CarRateUnitPackageCarResPackage]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CarResPackages] DROP CONSTRAINT [FK_CarRateUnitPackageCarResPackage];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CarReservationCarResPackage]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CarResPackages] DROP CONSTRAINT [FK_CarReservationCarResPackage];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -432,6 +444,15 @@ IF OBJECT_ID(N'[dbo].[JobTrails]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[CarViewPages]', 'U') IS NOT NULL
     DROP TABLE [dbo].[CarViewPages];
+GO
+IF OBJECT_ID(N'[dbo].[CarRatePackages]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CarRatePackages];
+GO
+IF OBJECT_ID(N'[dbo].[CarRateUnitPackages]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CarRateUnitPackages];
+GO
+IF OBJECT_ID(N'[dbo].[CarResPackages]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CarResPackages];
 GO
 
 -- --------------------------------------------------
@@ -1159,6 +1180,39 @@ CREATE TABLE [dbo].[CarViewPages] (
 );
 GO
 
+-- Creating table 'CarRatePackages'
+CREATE TABLE [dbo].[CarRatePackages] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Description] nvarchar(150)  NOT NULL,
+    [Remarks] nvarchar(250)  NULL,
+    [DailyMeals] decimal(18,0)  NOT NULL,
+    [DailyRoom] decimal(18,0)  NOT NULL,
+    [DaysMin] int  NOT NULL
+);
+GO
+
+-- Creating table 'CarRateUnitPackages'
+CREATE TABLE [dbo].[CarRateUnitPackages] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [CarRatePackageId] int  NOT NULL,
+    [CarUnitId] int  NOT NULL,
+    [DailyRate] decimal(18,0)  NOT NULL,
+    [FuelLonghaul] decimal(18,0)  NOT NULL,
+    [FuelDaily] decimal(18,0)  NOT NULL
+);
+GO
+
+-- Creating table 'CarResPackages'
+CREATE TABLE [dbo].[CarResPackages] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [CarRateUnitPackageId] int  NOT NULL,
+    [CarReservationId] int  NOT NULL,
+    [DrvMealByClient] int  NOT NULL,
+    [DrvRoomByClient] int  NOT NULL,
+    [FuelByClient] int  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -1568,6 +1622,24 @@ GO
 -- Creating primary key on [Id] in table 'CarViewPages'
 ALTER TABLE [dbo].[CarViewPages]
 ADD CONSTRAINT [PK_CarViewPages]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'CarRatePackages'
+ALTER TABLE [dbo].[CarRatePackages]
+ADD CONSTRAINT [PK_CarRatePackages]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'CarRateUnitPackages'
+ALTER TABLE [dbo].[CarRateUnitPackages]
+ADD CONSTRAINT [PK_CarRateUnitPackages]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'CarResPackages'
+ALTER TABLE [dbo].[CarResPackages]
+ADD CONSTRAINT [PK_CarResPackages]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -2608,6 +2680,66 @@ GO
 CREATE INDEX [IX_FK_CarUnitCarViewPage]
 ON [dbo].[CarViewPages]
     ([CarUnitId]);
+GO
+
+-- Creating foreign key on [CarRatePackageId] in table 'CarRateUnitPackages'
+ALTER TABLE [dbo].[CarRateUnitPackages]
+ADD CONSTRAINT [FK_CarRatePackageCarRateUnitPackage]
+    FOREIGN KEY ([CarRatePackageId])
+    REFERENCES [dbo].[CarRatePackages]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CarRatePackageCarRateUnitPackage'
+CREATE INDEX [IX_FK_CarRatePackageCarRateUnitPackage]
+ON [dbo].[CarRateUnitPackages]
+    ([CarRatePackageId]);
+GO
+
+-- Creating foreign key on [CarUnitId] in table 'CarRateUnitPackages'
+ALTER TABLE [dbo].[CarRateUnitPackages]
+ADD CONSTRAINT [FK_CarUnitCarRateUnitPackage]
+    FOREIGN KEY ([CarUnitId])
+    REFERENCES [dbo].[CarUnits]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CarUnitCarRateUnitPackage'
+CREATE INDEX [IX_FK_CarUnitCarRateUnitPackage]
+ON [dbo].[CarRateUnitPackages]
+    ([CarUnitId]);
+GO
+
+-- Creating foreign key on [CarRateUnitPackageId] in table 'CarResPackages'
+ALTER TABLE [dbo].[CarResPackages]
+ADD CONSTRAINT [FK_CarRateUnitPackageCarResPackage]
+    FOREIGN KEY ([CarRateUnitPackageId])
+    REFERENCES [dbo].[CarRateUnitPackages]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CarRateUnitPackageCarResPackage'
+CREATE INDEX [IX_FK_CarRateUnitPackageCarResPackage]
+ON [dbo].[CarResPackages]
+    ([CarRateUnitPackageId]);
+GO
+
+-- Creating foreign key on [CarReservationId] in table 'CarResPackages'
+ALTER TABLE [dbo].[CarResPackages]
+ADD CONSTRAINT [FK_CarReservationCarResPackage]
+    FOREIGN KEY ([CarReservationId])
+    REFERENCES [dbo].[CarReservations]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CarReservationCarResPackage'
+CREATE INDEX [IX_FK_CarReservationCarResPackage]
+ON [dbo].[CarResPackages]
+    ([CarReservationId]);
 GO
 
 -- --------------------------------------------------

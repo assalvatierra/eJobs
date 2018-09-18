@@ -243,6 +243,7 @@
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Remarks" ColumnName="Remarks" />
           <ScalarProperty Name="CarCategoryId" ColumnName="CarCategoryId" />
+          <ScalarProperty Name="SelfDrive" ColumnName="SelfDrive" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -786,6 +787,42 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="CarUnitId" ColumnName="CarUnitId" />
           <ScalarProperty Name="Viewname" ColumnName="Viewname" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CarRatePackages">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.CarRatePackage)">
+        <MappingFragment StoreEntitySet="CarRatePackages">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="DailyMeals" ColumnName="DailyMeals" />
+          <ScalarProperty Name="DailyRoom" ColumnName="DailyRoom" />
+          <ScalarProperty Name="DaysMin" ColumnName="DaysMin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CarRateUnitPackages">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.CarRateUnitPackage)">
+        <MappingFragment StoreEntitySet="CarRateUnitPackages">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CarRatePackageId" ColumnName="CarRatePackageId" />
+          <ScalarProperty Name="CarUnitId" ColumnName="CarUnitId" />
+          <ScalarProperty Name="DailyRate" ColumnName="DailyRate" />
+          <ScalarProperty Name="FuelLonghaul" ColumnName="FuelLonghaul" />
+          <ScalarProperty Name="FuelDaily" ColumnName="FuelDaily" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CarResPackages">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.CarResPackage)">
+        <MappingFragment StoreEntitySet="CarResPackages">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CarRateUnitPackageId" ColumnName="CarRateUnitPackageId" />
+          <ScalarProperty Name="CarReservationId" ColumnName="CarReservationId" />
+          <ScalarProperty Name="DrvMealByClient" ColumnName="DrvMealByClient" />
+          <ScalarProperty Name="DrvRoomByClient" ColumnName="DrvRoomByClient" />
+          <ScalarProperty Name="FuelByClient" ColumnName="FuelByClient" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

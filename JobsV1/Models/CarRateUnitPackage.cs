@@ -23,9 +23,9 @@ namespace JobsV1.Models
         public int Id { get; set; }
         public int CarRatePackageId { get; set; }
         public int CarUnitId { get; set; }
-        public string RentalRate { get; set; }
-        public string FuelLonghaul { get; set; }
-        public string FuelDaily { get; set; }
+        public decimal DailyRate { get; set; }
+        public decimal FuelLonghaul { get; set; }
+        public decimal FuelDaily { get; set; }
     
         public virtual CarRatePackage CarRatePackage { get; set; }
         public virtual CarUnit CarUnit { get; set; }

@@ -17,9 +17,9 @@ namespace JobsV1.Models
         public int Id { get; set; }
         public int CarRateUnitPackageId { get; set; }
         public int CarReservationId { get; set; }
-        public string DrvMealStatus { get; set; }
-        public string DrvRoomStatus { get; set; }
-        public string FuelStatus { get; set; }
+        public int DrvMealByClient { get; set; }
+        public int DrvRoomByClient { get; set; }
+        public int FuelByClient { get; set; }
     
         public virtual CarRateUnitPackage CarRateUnitPackage { get; set; }
         public virtual CarReservation CarReservation { get; set; }

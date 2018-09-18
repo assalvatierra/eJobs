@@ -74,6 +74,9 @@
     <EntitySet Name="InvCarGateControls" EntityType="JobDB.Store.InvCarGateControls" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="JobTrails" EntityType="JobDB.Store.JobTrails" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="CarViewPages" EntityType="JobDB.Store.CarViewPages" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CarRatePackages" EntityType="JobDB.Store.CarRatePackages" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CarRateUnitPackages" EntityType="JobDB.Store.CarRateUnitPackages" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CarResPackages" EntityType="JobDB.Store.CarResPackages" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="JobMainJobType" Association="JobDB.Store.JobMainJobType">
       <End Role="JobMain" EntitySet="JobMains" />
       <End Role="JobType" EntitySet="JobTypes" />
@@ -349,6 +352,22 @@
     <AssociationSet Name="CarUnitCarViewPage" Association="JobDB.Store.CarUnitCarViewPage">
       <End Role="CarUnit" EntitySet="CarUnits" />
       <End Role="CarViewPage" EntitySet="CarViewPages" />
+    </AssociationSet>
+    <AssociationSet Name="CarRatePackageCarRateUnitPackage" Association="JobDB.Store.CarRatePackageCarRateUnitPackage">
+      <End Role="CarRatePackage" EntitySet="CarRatePackages" />
+      <End Role="CarRateUnitPackage" EntitySet="CarRateUnitPackages" />
+    </AssociationSet>
+    <AssociationSet Name="CarUnitCarRateUnitPackage" Association="JobDB.Store.CarUnitCarRateUnitPackage">
+      <End Role="CarUnit" EntitySet="CarUnits" />
+      <End Role="CarRateUnitPackage" EntitySet="CarRateUnitPackages" />
+    </AssociationSet>
+    <AssociationSet Name="CarRateUnitPackageCarResPackage" Association="JobDB.Store.CarRateUnitPackageCarResPackage">
+      <End Role="CarRateUnitPackage" EntitySet="CarRateUnitPackages" />
+      <End Role="CarResPackage" EntitySet="CarResPackages" />
+    </AssociationSet>
+    <AssociationSet Name="CarReservationCarResPackage" Association="JobDB.Store.CarReservationCarResPackage">
+      <End Role="CarReservation" EntitySet="CarReservations" />
+      <End Role="CarResPackage" EntitySet="CarResPackages" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="JobMains">
@@ -1071,6 +1090,39 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CarUnitId" Type="int" Nullable="false" />
     <Property Name="Viewname" Type="nvarchar" Nullable="false" MaxLength="80" />
+  </EntityType>
+  <EntityType Name="CarRatePackages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="Remarks" Type="nvarchar" Nullable="true" MaxLength="250" />
+    <Property Name="DailyMeals" Type="decimal" Nullable="false" />
+    <Property Name="DailyRoom" Type="decimal" Nullable="false" />
+    <Property Name="DaysMin" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CarRateUnitPackages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CarRatePackageId" Type="int" Nullable="false" />
+    <Property Name="CarUnitId" Type="int" Nullable="false" />
+    <Property Name="DailyRate" Type="decimal" Nullable="false" />
+    <Property Name="FuelLonghaul" Type="decimal" Nullable="false" />
+    <Property Name="FuelDaily" Type="decimal" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CarResPackages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CarRateUnitPackageId" Type="int" Nullable="false" />
+    <Property Name="CarReservationId" Type="int" Nullable="false" />
+    <Property Name="DrvMealByClient" Type="int" Nullable="false" />
+    <Property Name="DrvRoomByClient" Type="int" Nullable="false" />
+    <Property Name="FuelByClient" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="JobMainJobType">
     <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="1" />
@@ -1897,6 +1949,54 @@
       </Principal>
       <Dependent Role="CarViewPage">
         <PropertyRef Name="CarUnitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CarRatePackageCarRateUnitPackage">
+    <End Role="CarRatePackage" Type="JobDB.Store.CarRatePackages" Multiplicity="1" />
+    <End Role="CarRateUnitPackage" Type="JobDB.Store.CarRateUnitPackages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarRatePackage">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CarRateUnitPackage">
+        <PropertyRef Name="CarRatePackageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CarUnitCarRateUnitPackage">
+    <End Role="CarUnit" Type="JobDB.Store.CarUnits" Multiplicity="1" />
+    <End Role="CarRateUnitPackage" Type="JobDB.Store.CarRateUnitPackages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarUnit">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CarRateUnitPackage">
+        <PropertyRef Name="CarUnitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CarRateUnitPackageCarResPackage">
+    <End Role="CarRateUnitPackage" Type="JobDB.Store.CarRateUnitPackages" Multiplicity="1" />
+    <End Role="CarResPackage" Type="JobDB.Store.CarResPackages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarRateUnitPackage">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CarResPackage">
+        <PropertyRef Name="CarRateUnitPackageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CarReservationCarResPackage">
+    <End Role="CarReservation" Type="JobDB.Store.CarReservations" Multiplicity="1" />
+    <End Role="CarResPackage" Type="JobDB.Store.CarResPackages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarReservation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CarResPackage">
+        <PropertyRef Name="CarReservationId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -3963,12 +4063,12 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Description" Type="String" Nullable="false" />
-          <Property Name="Remarks" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="150" />
+          <Property Name="Remarks" Type="String" Nullable="true" MaxLength="250" />
           <NavigationProperty Name="CarRateUnitPackages" Relationship="JobDB.CarRatePackageCarRateUnitPackage" FromRole="CarRatePackage" ToRole="CarRateUnitPackage" />
-          <Property Name="DailyMeals" Type="String" Nullable="false" />
-          <Property Name="DailyRoom" Type="String" Nullable="false" />
-          <Property Name="DaysMin" Type="String" Nullable="false" />
+          <Property Name="DailyMeals" Type="Decimal" Nullable="false" />
+          <Property Name="DailyRoom" Type="Decimal" Nullable="false" />
+          <Property Name="DaysMin" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="CarRateUnitPackage">
           <Key>
@@ -3979,9 +4079,9 @@
           <Property Name="CarRatePackageId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CarUnit" Relationship="JobDB.CarUnitCarRateUnitPackage" FromRole="CarRateUnitPackage" ToRole="CarUnit" />
           <Property Name="CarUnitId" Type="Int32" Nullable="false" />
-          <Property Name="RentalRate" Type="String" Nullable="false" />
-          <Property Name="FuelLonghaul" Type="String" Nullable="false" />
-          <Property Name="FuelDaily" Type="String" Nullable="false" />
+          <Property Name="DailyRate" Type="Decimal" Nullable="false" />
+          <Property Name="FuelLonghaul" Type="Decimal" Nullable="false" />
+          <Property Name="FuelDaily" Type="Decimal" Nullable="false" />
           <NavigationProperty Name="CarResPackages" Relationship="JobDB.CarRateUnitPackageCarResPackage" FromRole="CarRateUnitPackage" ToRole="CarResPackage" />
         </EntityType>
         <Association Name="CarRatePackageCarRateUnitPackage">
@@ -4017,9 +4117,9 @@
           <Property Name="CarRateUnitPackageId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CarReservation" Relationship="JobDB.CarReservationCarResPackage" FromRole="CarResPackage" ToRole="CarReservation" />
           <Property Name="CarReservationId" Type="Int32" Nullable="false" />
-          <Property Name="DrvMealStatus" Type="String" Nullable="false" />
-          <Property Name="DrvRoomStatus" Type="String" Nullable="false" />
-          <Property Name="FuelStatus" Type="String" Nullable="false" />
+          <Property Name="DrvMealByClient" Type="Int32" Nullable="false" />
+          <Property Name="DrvRoomByClient" Type="Int32" Nullable="false" />
+          <Property Name="FuelByClient" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="CarRateUnitPackageCarResPackage">
           <End Type="JobDB.CarRateUnitPackage" Role="CarRateUnitPackage" Multiplicity="1" />
@@ -4837,6 +4937,42 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="CarUnitId" ColumnName="CarUnitId" />
           <ScalarProperty Name="Viewname" ColumnName="Viewname" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CarRatePackages">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.CarRatePackage)">
+        <MappingFragment StoreEntitySet="CarRatePackages">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="DailyMeals" ColumnName="DailyMeals" />
+          <ScalarProperty Name="DailyRoom" ColumnName="DailyRoom" />
+          <ScalarProperty Name="DaysMin" ColumnName="DaysMin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CarRateUnitPackages">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.CarRateUnitPackage)">
+        <MappingFragment StoreEntitySet="CarRateUnitPackages">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CarRatePackageId" ColumnName="CarRatePackageId" />
+          <ScalarProperty Name="CarUnitId" ColumnName="CarUnitId" />
+          <ScalarProperty Name="DailyRate" ColumnName="DailyRate" />
+          <ScalarProperty Name="FuelLonghaul" ColumnName="FuelLonghaul" />
+          <ScalarProperty Name="FuelDaily" ColumnName="FuelDaily" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CarResPackages">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.CarResPackage)">
+        <MappingFragment StoreEntitySet="CarResPackages">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CarRateUnitPackageId" ColumnName="CarRateUnitPackageId" />
+          <ScalarProperty Name="CarReservationId" ColumnName="CarReservationId" />
+          <ScalarProperty Name="DrvMealByClient" ColumnName="DrvMealByClient" />
+          <ScalarProperty Name="DrvRoomByClient" ColumnName="DrvRoomByClient" />
+          <ScalarProperty Name="FuelByClient" ColumnName="FuelByClient" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -23,9 +23,9 @@ namespace JobsV1.Models
         public int Id { get; set; }
         public string Description { get; set; }
         public string Remarks { get; set; }
-        public string DailyMeals { get; set; }
-        public string DailyRoom { get; set; }
-        public string DaysMin { get; set; }
+        public decimal DailyMeals { get; set; }
+        public decimal DailyRoom { get; set; }
+        public int DaysMin { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CarRateUnitPackage> CarRateUnitPackages { get; set; }
