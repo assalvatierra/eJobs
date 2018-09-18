@@ -575,6 +575,7 @@
     <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
     <Property Name="Remarks" Type="nvarchar(max)" Nullable="true" />
     <Property Name="CarCategoryId" Type="int" Nullable="false" />
+    <Property Name="SelfDrive" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="CarDestinations">
     <Key>
@@ -2248,6 +2249,16 @@
             <End Role="CarUnit" EntitySet="CarUnits" />
             <End Role="CarViewPage" EntitySet="CarViewPages" />
           </AssociationSet>
+          <EntitySet Name="CarRatePackages" EntityType="JobDB.CarRatePackage" />
+          <EntitySet Name="CarRateUnitPackages" EntityType="JobDB.CarRateUnitPackage" />
+          <AssociationSet Name="CarRatePackageCarRateUnitPackage" Association="JobDB.CarRatePackageCarRateUnitPackage">
+            <End Role="CarRatePackage" EntitySet="CarRatePackages" />
+            <End Role="CarRateUnitPackage" EntitySet="CarRateUnitPackages" />
+          </AssociationSet>
+          <AssociationSet Name="CarUnitCarRateUnitPackage" Association="JobDB.CarUnitCarRateUnitPackage">
+            <End Role="CarUnit" EntitySet="CarUnits" />
+            <End Role="CarRateUnitPackage" EntitySet="CarRateUnitPackages" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="JobMain">
           <Key>
@@ -2774,6 +2785,7 @@
           <NavigationProperty Name="CarImages" Relationship="JobDB.CarUnitCarImage" FromRole="CarUnit" ToRole="CarImage" />
           <NavigationProperty Name="CarViewPages" Relationship="JobDB.CarUnitCarViewPage" FromRole="CarUnit" ToRole="CarViewPage" />
           <Property Name="SelfDrive" Type="Int32" Nullable="true" />
+          <NavigationProperty Name="CarRateUnitPackages" Relationship="JobDB.CarUnitCarRateUnitPackage" FromRole="CarUnit" ToRole="CarRateUnitPackage" />
         </EntityType>
         <Association Name="CarCategoryCarUnit">
           <End Type="JobDB.CarCategory" Role="CarCategory" Multiplicity="1" />
@@ -3936,6 +3948,55 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="CarRatePackage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="Remarks" Type="String" Nullable="false" />
+          <NavigationProperty Name="CarRateUnitPackages" Relationship="JobDB.CarRatePackageCarRateUnitPackage" FromRole="CarRatePackage" ToRole="CarRateUnitPackage" />
+          <Property Name="DailyMeals" Type="String" Nullable="false" />
+          <Property Name="DailyRoom" Type="String" Nullable="false" />
+          <Property Name="DaysMin" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CarRateUnitPackage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="CarRatePackage" Relationship="JobDB.CarRatePackageCarRateUnitPackage" FromRole="CarRateUnitPackage" ToRole="CarRatePackage" />
+          <Property Name="CarRatePackageId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CarUnit" Relationship="JobDB.CarUnitCarRateUnitPackage" FromRole="CarRateUnitPackage" ToRole="CarUnit" />
+          <Property Name="CarUnitId" Type="Int32" Nullable="false" />
+          <Property Name="RentalRate" Type="String" Nullable="false" />
+          <Property Name="FuelLonghaul" Type="String" Nullable="false" />
+          <Property Name="FuelDaily" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="CarRatePackageCarRateUnitPackage">
+          <End Type="JobDB.CarRatePackage" Role="CarRatePackage" Multiplicity="1" />
+          <End Type="JobDB.CarRateUnitPackage" Role="CarRateUnitPackage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CarRatePackage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CarRateUnitPackage">
+              <PropertyRef Name="CarRatePackageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CarUnitCarRateUnitPackage">
+          <End Type="JobDB.CarUnit" Role="CarUnit" Multiplicity="1" />
+          <End Type="JobDB.CarRateUnitPackage" Role="CarRateUnitPackage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CarUnit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CarRateUnitPackage">
+              <PropertyRef Name="CarUnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4184,6 +4245,7 @@
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Remarks" ColumnName="Remarks" />
           <ScalarProperty Name="CarCategoryId" ColumnName="CarCategoryId" />
+          <ScalarProperty Name="SelfDrive" ColumnName="SelfDrive" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

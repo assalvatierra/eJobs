@@ -93,5 +93,7 @@ namespace JobsV1.Models
         public virtual DbSet<InvCarGateControl> InvCarGateControls { get; set; }
         public virtual DbSet<JobTrail> JobTrails { get; set; }
         public virtual DbSet<CarViewPage> CarViewPages { get; set; }
+        public virtual DbSet<CarRatePackage> CarRatePackages { get; set; }
+        public virtual DbSet<CarRateUnitPackage> CarRateUnitPackages { get; set; }
     }
 }
