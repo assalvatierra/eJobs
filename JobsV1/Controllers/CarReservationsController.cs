@@ -37,9 +37,10 @@ namespace JobsV1.Controllers
         }
 
         // GET: CarReservations/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
-            ViewBag.CarUnitId = new SelectList(db.CarUnits, "Id", "Description");
+            
+            ViewBag.CarUnitId = new SelectList(db.CarUnits, "Id", "Description", id);
             return View();
         }
 
