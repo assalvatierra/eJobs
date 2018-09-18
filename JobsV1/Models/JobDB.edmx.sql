@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 09/15/2018 10:40:51
--- Generated from EDMX file: C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\Models\JobDB.edmx
+-- Date Created: 09/18/2018 13:27:02
+-- Generated from EDMX file: D:\Data\Real\Apps\GitHub\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -659,7 +659,8 @@ CREATE TABLE [dbo].[CarUnits] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Description] nvarchar(max)  NULL,
     [Remarks] nvarchar(max)  NULL,
-    [CarCategoryId] int  NOT NULL
+    [CarCategoryId] int  NOT NULL,
+    [SelfDrive] int  NULL
 );
 GO
 

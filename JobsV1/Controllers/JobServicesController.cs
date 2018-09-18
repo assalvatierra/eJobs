@@ -91,9 +91,9 @@ namespace JobsV1.Controllers
             js.Remarks = "10hrs use per day P250 in excess, Driver and Fuel Included";
 
             ViewBag.JobMainId = new SelectList(db.JobMains, "Id", "Description");
-            ViewBag.SupplierId = new SelectList(db.Suppliers, "Id", "Name");
+            ViewBag.SupplierId = new SelectList(db.Suppliers.Where(s=>s.Status == "ACT") , "Id", "Name");
             ViewBag.ServicesId = new SelectList(db.Services, "Id", "Name");
-            ViewBag.SupplierItemId = new SelectList(db.SupplierItems, "Id", "Description");
+            ViewBag.SupplierItemId = new SelectList(db.SupplierItems.Where(s => s.Status == "ACT"), "Id", "Description");
             return View(js);
         }
 
@@ -117,9 +117,9 @@ namespace JobsV1.Controllers
             }
 
             ViewBag.JobMainId = new SelectList(db.JobMains, "Id", "Description", jobServices.JobMainId);
-            ViewBag.SupplierId = new SelectList(db.Suppliers, "Id", "Name", jobServices.SupplierId);
+            ViewBag.SupplierId = new SelectList(db.Suppliers.Where(s => s.Status == "ACT"), "Id", "Name", jobServices.SupplierId);
             ViewBag.ServicesId = new SelectList(db.Services, "Id", "Name", jobServices.ServicesId);
-            ViewBag.SupplierItemId = new SelectList(db.SupplierItems, "Id", "Description", jobServices.SupplierItemId);
+            ViewBag.SupplierItemId = new SelectList(db.SupplierItems.Where(s => s.Status == "ACT"), "Id", "Description", jobServices.SupplierItemId);
             return View(jobServices);
         }
 
@@ -136,9 +136,9 @@ namespace JobsV1.Controllers
                 return HttpNotFound();
             }
             ViewBag.JobMainId = new SelectList(db.JobMains, "Id", "Description", jobServices.JobMainId);
-            ViewBag.SupplierId = new SelectList(db.Suppliers, "Id", "Name", jobServices.SupplierId);
+            ViewBag.SupplierId = new SelectList(db.Suppliers.Where(s => s.Status == "ACT"), "Id", "Name", jobServices.SupplierId);
             ViewBag.ServicesId = new SelectList(db.Services, "Id", "Name", jobServices.ServicesId);
-            ViewBag.SupplierItemId = new SelectList(db.SupplierItems, "Id", "Description", jobServices.SupplierItemId);
+            ViewBag.SupplierItemId = new SelectList(db.SupplierItems.Where(s => s.Status == "ACT"), "Id", "Description", jobServices.SupplierItemId);
             return View(jobServices);
         }
 
@@ -177,9 +177,9 @@ namespace JobsV1.Controllers
                     return RedirectToAction("Services", new { id = jobServices.JobMainId });
             }
             ViewBag.JobMainId = new SelectList(db.JobMains, "Id", "Description", jobServices.JobMainId);
-            ViewBag.SupplierId = new SelectList(db.Suppliers, "Id", "Name", jobServices.SupplierId);
+            ViewBag.SupplierId = new SelectList(db.Suppliers.Where(s => s.Status == "ACT"), "Id", "Name", jobServices.SupplierId);
             ViewBag.ServicesId = new SelectList(db.Services, "Id", "Name", jobServices.ServicesId);
-            ViewBag.SupplierItemId = new SelectList(db.SupplierItems, "Id", "Description", jobServices.SupplierItemId);
+            ViewBag.SupplierItemId = new SelectList(db.SupplierItems.Where(s => s.Status == "ACT"), "Id", "Description", jobServices.SupplierItemId);
             return View(jobServices);
         }
 

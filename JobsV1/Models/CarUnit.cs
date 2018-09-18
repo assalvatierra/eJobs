@@ -21,12 +21,14 @@ namespace JobsV1.Models
             this.CarReservations = new HashSet<CarReservation>();
             this.CarImages = new HashSet<CarImage>();
             this.CarViewPages = new HashSet<CarViewPage>();
+            this.CarRateUnitPackages = new HashSet<CarRateUnitPackage>();
         }
     
         public int Id { get; set; }
         public string Description { get; set; }
         public string Remarks { get; set; }
         public int CarCategoryId { get; set; }
+        public Nullable<int> SelfDrive { get; set; }
     
         public virtual CarCategory CarCategory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -37,5 +39,7 @@ namespace JobsV1.Models
         public virtual ICollection<CarImage> CarImages { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CarViewPage> CarViewPages { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CarRateUnitPackage> CarRateUnitPackages { get; set; }
     }
 }

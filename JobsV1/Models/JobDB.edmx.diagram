@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ef40c35eef7a48f9afcf5346ba52fb5c" Name="Diagram1" ZoomLevel="77" >
+      <Diagram DiagramId="ef40c35eef7a48f9afcf5346ba52fb5c" Name="Diagram1" ZoomLevel="86" >
         <EntityTypeShape EntityType="JobDB.JobMain" Width="1.5" PointX="11.25" PointY="4.75" />
         <EntityTypeShape EntityType="JobDB.Supplier" Width="1.5" PointX="18.875" PointY="4.125" />
         <EntityTypeShape EntityType="JobDB.Customer" Width="1.5" PointX="5" PointY="5.5" />
@@ -48,11 +48,11 @@
         <AssociationConnector Association="JobDB.CarCategoryCarUnit" />
         <EntityTypeShape EntityType="JobDB.CarDestination" Width="1.5" PointX="22.5" PointY="1.25" IsExpanded="true" />
         <AssociationConnector Association="JobDB.CityCarDestination" />
-        <EntityTypeShape EntityType="JobDB.CarRate" Width="1.5" PointX="32.375" PointY="20.375" />
+        <EntityTypeShape EntityType="JobDB.CarRate" Width="1.5" PointX="34.625" PointY="18.125" />
         <AssociationConnector Association="JobDB.CarUnitCarRate" />
-        <EntityTypeShape EntityType="JobDB.CarReservation" Width="1.5" PointX="32.375" PointY="23.625" />
+        <EntityTypeShape EntityType="JobDB.CarReservation" Width="1.5" PointX="30" PointY="25.75" />
         <AssociationConnector Association="JobDB.CarUnitCarReservation" />
-        <EntityTypeShape EntityType="JobDB.CarImage" Width="1.5" PointX="29.375" PointY="23.875" />
+        <EntityTypeShape EntityType="JobDB.CarImage" Width="1.5" PointX="28.125" PointY="23.625" />
         <AssociationConnector Association="JobDB.CarUnitCarImage" />
         <EntityTypeShape EntityType="JobDB.JobContact" Width="1.5" PointX="29.875" PointY="10.875" />
         <EntityTypeShape EntityType="JobDB.Product" Width="1.5" PointX="29.75" PointY="4" />
@@ -142,8 +142,15 @@
         <EntityTypeShape EntityType="JobDB.InvCarGateControl" Width="1.5" PointX="22.5" PointY="18.875" />
         <AssociationConnector Association="JobDB.InvItemInvCarGateControl" />
         <EntityTypeShape EntityType="JobDB.JobTrail" Width="1.5" PointX="12.875" PointY="12.875" />
-        <EntityTypeShape EntityType="JobDB.CarViewPage" Width="1.5" PointX="27.5" PointY="21.625" />
+        <EntityTypeShape EntityType="JobDB.CarViewPage" Width="1.5" PointX="27.375" PointY="21.25" />
         <AssociationConnector Association="JobDB.CarUnitCarViewPage" />
+        <EntityTypeShape EntityType="JobDB.CarRatePackage" Width="1.5" PointX="36.25" PointY="22.125" />
+        <EntityTypeShape EntityType="JobDB.CarRateUnitPackage" Width="1.5" PointX="34.125" PointY="22.125" />
+        <AssociationConnector Association="JobDB.CarRatePackageCarRateUnitPackage" />
+        <AssociationConnector Association="JobDB.CarUnitCarRateUnitPackage" />
+        <EntityTypeShape EntityType="JobDB.CarResPackage" Width="1.5" PointX="32.375" PointY="25.75" />
+        <AssociationConnector Association="JobDB.CarRateUnitPackageCarResPackage" />
+        <AssociationConnector Association="JobDB.CarReservationCarResPackage" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

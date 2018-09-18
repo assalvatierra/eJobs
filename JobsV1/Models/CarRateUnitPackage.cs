@@ -12,34 +12,22 @@ namespace JobsV1.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class CarReservation
+    public partial class CarRateUnitPackage
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CarReservation()
+        public CarRateUnitPackage()
         {
             this.CarResPackages = new HashSet<CarResPackage>();
         }
     
         public int Id { get; set; }
-        public System.DateTime DtTrx { get; set; }
+        public int CarRatePackageId { get; set; }
         public int CarUnitId { get; set; }
-        public string DtStart { get; set; }
-        public string LocStart { get; set; }
-        public string DtEnd { get; set; }
-        public string LocEnd { get; set; }
-        public string BaseRate { get; set; }
-        public string Destinations { get; set; }
-        public string UseFor { get; set; }
-        public string RenterName { get; set; }
-        public string RenterCompany { get; set; }
-        public string RenterEmail { get; set; }
-        public string RenterMobile { get; set; }
-        public string RenterAddress { get; set; }
-        public string RenterFbAccnt { get; set; }
-        public string RenterLinkedInAccnt { get; set; }
-        public Nullable<int> EstHrPerDay { get; set; }
-        public Nullable<int> EstKmTravel { get; set; }
+        public string RentalRate { get; set; }
+        public string FuelLonghaul { get; set; }
+        public string FuelDaily { get; set; }
     
+        public virtual CarRatePackage CarRatePackage { get; set; }
         public virtual CarUnit CarUnit { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CarResPackage> CarResPackages { get; set; }

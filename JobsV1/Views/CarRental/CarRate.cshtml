@@ -71,7 +71,8 @@
     </tr>
 
     <tr><td colspan="4">
-        @*@Html.ActionLink("Cost Estimate and Reservation", "Reservation", "CarRental", new { unitid = item.CarUnitId }, new { @class = "btn btn-primary" })*@
+                    @Html.ActionLink("Cost Estimate and Reservation", "Reservation", "CarRental", new { unitid = item.CarUnitId }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("More Detail", "CarDetail", "CarRental", new { unitid = item.CarUnitId }, new { @class = "btn btn-primary" })
     </td></tr>
 }
 </table>
