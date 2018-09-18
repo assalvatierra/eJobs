@@ -2259,6 +2259,15 @@
             <End Role="CarUnit" EntitySet="CarUnits" />
             <End Role="CarRateUnitPackage" EntitySet="CarRateUnitPackages" />
           </AssociationSet>
+          <EntitySet Name="CarResPackages" EntityType="JobDB.CarResPackage" />
+          <AssociationSet Name="CarRateUnitPackageCarResPackage" Association="JobDB.CarRateUnitPackageCarResPackage">
+            <End Role="CarRateUnitPackage" EntitySet="CarRateUnitPackages" />
+            <End Role="CarResPackage" EntitySet="CarResPackages" />
+          </AssociationSet>
+          <AssociationSet Name="CarReservationCarResPackage" Association="JobDB.CarReservationCarResPackage">
+            <End Role="CarReservation" EntitySet="CarReservations" />
+            <End Role="CarResPackage" EntitySet="CarResPackages" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="JobMain">
           <Key>
@@ -2871,6 +2880,7 @@
           <Property Name="RenterLinkedInAccnt" Type="String" Nullable="true" />
           <Property Name="EstHrPerDay" Type="Int32" Nullable="true" />
           <Property Name="EstKmTravel" Type="Int32" Nullable="true" />
+          <NavigationProperty Name="CarResPackages" Relationship="JobDB.CarReservationCarResPackage" FromRole="CarReservation" ToRole="CarResPackage" />
         </EntityType>
         <Association Name="CarUnitCarReservation">
           <End Type="JobDB.CarUnit" Role="CarUnit" Multiplicity="1" />
@@ -3972,6 +3982,7 @@
           <Property Name="RentalRate" Type="String" Nullable="false" />
           <Property Name="FuelLonghaul" Type="String" Nullable="false" />
           <Property Name="FuelDaily" Type="String" Nullable="false" />
+          <NavigationProperty Name="CarResPackages" Relationship="JobDB.CarRateUnitPackageCarResPackage" FromRole="CarRateUnitPackage" ToRole="CarResPackage" />
         </EntityType>
         <Association Name="CarRatePackageCarRateUnitPackage">
           <End Type="JobDB.CarRatePackage" Role="CarRatePackage" Multiplicity="1" />
@@ -3994,6 +4005,43 @@
             </Principal>
             <Dependent Role="CarRateUnitPackage">
               <PropertyRef Name="CarUnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CarResPackage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="CarRateUnitPackage" Relationship="JobDB.CarRateUnitPackageCarResPackage" FromRole="CarResPackage" ToRole="CarRateUnitPackage" />
+          <Property Name="CarRateUnitPackageId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CarReservation" Relationship="JobDB.CarReservationCarResPackage" FromRole="CarResPackage" ToRole="CarReservation" />
+          <Property Name="CarReservationId" Type="Int32" Nullable="false" />
+          <Property Name="DrvMealStatus" Type="String" Nullable="false" />
+          <Property Name="DrvRoomStatus" Type="String" Nullable="false" />
+          <Property Name="FuelStatus" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="CarRateUnitPackageCarResPackage">
+          <End Type="JobDB.CarRateUnitPackage" Role="CarRateUnitPackage" Multiplicity="1" />
+          <End Type="JobDB.CarResPackage" Role="CarResPackage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CarRateUnitPackage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CarResPackage">
+              <PropertyRef Name="CarRateUnitPackageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CarReservationCarResPackage">
+          <End Type="JobDB.CarReservation" Role="CarReservation" Multiplicity="1" />
+          <End Type="JobDB.CarResPackage" Role="CarResPackage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CarReservation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CarResPackage">
+              <PropertyRef Name="CarReservationId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

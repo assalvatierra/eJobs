@@ -52,7 +52,7 @@
         <AssociationConnector Association="JobDB.CarUnitCarRate" />
         <EntityTypeShape EntityType="JobDB.CarReservation" Width="1.5" PointX="30" PointY="25.75" />
         <AssociationConnector Association="JobDB.CarUnitCarReservation" />
-        <EntityTypeShape EntityType="JobDB.CarImage" Width="1.5" PointX="27.5" PointY="23.875" />
+        <EntityTypeShape EntityType="JobDB.CarImage" Width="1.5" PointX="28.125" PointY="23.625" />
         <AssociationConnector Association="JobDB.CarUnitCarImage" />
         <EntityTypeShape EntityType="JobDB.JobContact" Width="1.5" PointX="29.875" PointY="10.875" />
         <EntityTypeShape EntityType="JobDB.Product" Width="1.5" PointX="29.75" PointY="4" />
@@ -142,13 +142,13 @@
         <EntityTypeShape EntityType="JobDB.InvCarGateControl" Width="1.5" PointX="22.5" PointY="18.875" />
         <AssociationConnector Association="JobDB.InvItemInvCarGateControl" />
         <EntityTypeShape EntityType="JobDB.JobTrail" Width="1.5" PointX="12.875" PointY="12.875" />
-        <EntityTypeShape EntityType="JobDB.CarViewPage" Width="1.5" PointX="27.5" PointY="21.625" />
+        <EntityTypeShape EntityType="JobDB.CarViewPage" Width="1.5" PointX="27.375" PointY="21.25" />
         <AssociationConnector Association="JobDB.CarUnitCarViewPage" />
-        <EntityTypeShape EntityType="JobDB.CarRatePackage" Width="1.5" PointX="36.875" PointY="22.125" />
-        <EntityTypeShape EntityType="JobDB.CarRateUnitPackage" Width="1.5" PointX="34.75" PointY="22.125" />
+        <EntityTypeShape EntityType="JobDB.CarRatePackage" Width="1.5" PointX="36.25" PointY="22.125" />
+        <EntityTypeShape EntityType="JobDB.CarRateUnitPackage" Width="1.5" PointX="34.125" PointY="22.125" />
         <AssociationConnector Association="JobDB.CarRatePackageCarRateUnitPackage" />
         <AssociationConnector Association="JobDB.CarUnitCarRateUnitPackage" />
-        <EntityTypeShape EntityType="JobDB.CarResPackage" Width="1.5" PointX="32.25" PointY="25.75" />
+        <EntityTypeShape EntityType="JobDB.CarResPackage" Width="1.5" PointX="32.375" PointY="25.75" />
         <AssociationConnector Association="JobDB.CarRateUnitPackageCarResPackage" />
         <AssociationConnector Association="JobDB.CarReservationCarResPackage" />
       </Diagram>
