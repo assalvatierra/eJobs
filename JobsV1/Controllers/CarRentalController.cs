@@ -14,15 +14,25 @@ namespace JobsV1.Controllers
     {
         private JobDBContainer db = new JobDBContainer();
 
+        private List<SelectListItem> MealsAcc = new List<SelectListItem> {
+                new SelectListItem { Value = "1", Text = "Will Provide Meals and Accomodation" },
+                new SelectListItem { Value = "0", Text = "Included in the Package" }
+                };
+
+        private List<SelectListItem> Fuel = new List<SelectListItem> {
+                new SelectListItem { Value = "1", Text = "Will Provide Meals and Accomodation" },
+                new SelectListItem { Value = "0", Text = "Included in the Package" }
+                };
+
         // GET: CarRental
         public ActionResult Index()
         {
             ViewBag.Title = "Real Wheels Car Rental Davao - Start Your Journey With Us!";
             ViewBag.Description = @"Rent a Car company offering affordable selfdrive or with driver car rental service in Davao City.
- We offer -MPV / AUV and SUV for rent, Innova rentals, sedan rentals, 4x4 rentals, pickup rentals and van rentals in the City.
- We offer daily, weekly, monthly rental and affordable rates for long term rentals.
- We also partnered to several car rentals in Davao for us to provide a reliable and quality service.
-               ";
+                 We offer -MPV / AUV and SUV for rent, Innova rentals, sedan rentals, 4x4 rentals, pickup rentals and van rentals in the City.
+                 We offer daily, weekly, monthly rental and affordable rates for long term rentals.
+                 We also partnered to several car rentals in Davao for us to provide a reliable and quality service.
+                 ";
 
             ViewBag.CarUnitList = db.CarUnits.ToList();
             return View("Index", db.CarUnits.Include(c => c.CarRates).ToList() );
@@ -121,6 +131,29 @@ namespace JobsV1.Controllers
         public PartialViewResult CarRate(int? unitid)
         {
             return PartialView("CarRate", db.CarRates.Where(d => d.CarUnitId == unitid));
+        }
+
+        public PartialViewResult CarReserve()
+        {
+
+            ViewBag.CarUnitList = db.CarUnits.ToList();
+            return PartialView("CarReserve");
+        }
+
+
+        public PartialViewResult FormReservation()
+        {
+            ViewBag.CarUnitId = new SelectList(db.CarUnits, "Id", "Description");
+            ViewBag.MealsAcc = new SelectList(MealsAcc, "Value", "Text");
+            ViewBag.Fuel = new SelectList(Fuel, "Value", "Text");
+            return PartialView("FormReservation");
+        }
+
+        public PartialViewResult FormPackages() {
+
+            ViewBag.CarUnitId = new SelectList(db.CarUnits, "Id", "Description");
+            ViewBag.Packages = db.CarRatePackages.ToList();
+            return PartialView("FormPackages");
         }
 
         public ActionResult CarDetail(int? unitid)

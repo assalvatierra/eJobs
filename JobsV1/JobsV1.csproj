@@ -1130,6 +1130,9 @@
     <Content Include="Views\CarRental\CarDetail_pickup.cshtml" />
     <Content Include="Views\CarRental\CarDetail_temp.cshtml" />
     <Content Include="Views\CarRental\Partial_content_1.cshtml" />
+    <Content Include="Views\CarRental\CarReserve.cshtml" />
+    <Content Include="Views\CarRental\FormReservation.cshtml" />
+    <Content Include="Views\CarRental\FormPackages.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

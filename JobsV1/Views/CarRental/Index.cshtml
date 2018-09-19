@@ -179,50 +179,17 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3 class="modal-title">Car Selection</h3>
+                <h3 class="modal-title">Car Reservation </h3>
+                <a href="#" onclick="backtoMain()"> back to main </a>
             </div>
-
-            <div class="modal-body row " id="modal2-content">
-
-                <div id="btn-rentalType" class="btn-group btn-group-justified">
-                    <label class="btn btn-primary">
-                        <input type="radio" name="options" id="optionTrue" value="Self Drive" />   Self Drive
-                    </label>
-
-                    <label class="btn btn-primary">
-                        <input type="radio" name="options" id="optionFalse" value="With Driver" /> With Driver
-                    </label>
-                </div>
-
-                <br />
-                <div class="btn-group" id="btn-rentalUnit" >
-                    @foreach (var carList in ViewBag.CarUnitList as IEnumerable<JobsV1.Models.CarUnit>)
-                    {
-                        <label class="btn col-md-4 car-selection" id="car@(carList.Id)" style="width:180px;height:200px;">
-                            <h5> <b>@carList.Description</b></h5>
-                            
-                            <!--
-                            <a href="@Url.Action("Create", "CarReservations", new { id = carList.Id })">
-                                <img src="~/Images/CarRental/@carList.CarImages.Where(c=>c.CarUnitId == carList.Id).First().ImgUrl" width="100%" style="margin:10px;" />
-                                <input type="radio" name="cars" value="@carList.Description" />
-                            </a>
-                             -->
-
-                            <input type="radio" name="cars" value="@carList.Description" style="visibility:hidden;"/>
-
-                            <img src="~/Images/CarRental/@carList.CarImages.Where(c=>c.CarUnitId == carList.Id).First().ImgUrl" width="100%" style="margin-left:-30px;" />
-                            
-                        </label>
-                    }
-                </div>
-            </div>
+                    @Html.Action("CarReserve")
             <div class="modal-footer">
                 <div class="pull-left">
-                    <p id="modal-text-foot">hello</p>
+                    <h5 id="modal-text-foot">-</h5>
                 </div>
 
                 <div class="pull-right">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Submit</button>
+                    <button type="button" class="btn btn-default" id="ReserveProceed" onclick="showForm()">Proceed</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -230,26 +197,76 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+    
 <script src="~/Scripts/jquery-3.3.1.js"></script>
 
 <script>
+    //globals
+    var currentForm = "Modal";
+    var selectedCar = "";
+    var RentalType = "With Driver";
+    var NoDays = 0;
+    var MealsAcc = "0";
+    var Fuel = "0";
+
+
 
     $('#btn-rentalType').click(function () {
         $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val());
 
         if ($('input:radio[name=options]:checked').val() == "Self Drive") {
-            $('#car1').hide();
-            $('#car2').hide();
+            $('.isSelfDrive1').hide();
         } else {
-            $('#car1').show();
-            $('#car2').show();
+            $('.isSelfDrive1').show();
         }
     });
 
-
     $('#btn-rentalUnit').click(function () {
-        $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' +$('input:radio[name=cars]:checked').val());
+        $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val());
+
+        $('#1').css('border', '1px solid lightgray');
+        $('#2').css('border', '1px solid lightgray');
+        $('#3').css('border', '1px solid lightgray');
+        $('#4').css('border', '1px solid lightgray');
+        $('#5').css('border', '1px solid lightgray');
+        $('#6').css('border', '1px solid lightgray');
+
+        $('#' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
 
     });
 
+    function showForm() {
+
+        switch (currentForm){
+            case "Modal": //next FormReservation
+                currentForm = "FormReserve";
+                $('#modal2-content').css('display', 'none');
+                $('#formPackages').css('display', 'none');
+                $('#formReserve').css('display', 'block');
+                break;
+            case "FormReserve": //next FormPackages
+                currentForm = "FormPackages";
+                $('#modal2-content').css('display', 'none');
+                $('#formPackages').css('display', 'block');
+                $('#formReserve').css('display', 'none');
+                break;
+            case "FormPackages":  //next back to main
+                currentForm = "Modal";
+                $('#modal2-content').css('display', 'block');
+                $('#formPackages').css('display', 'none');
+                $('#formReserve').css('display', 'none');
+                $('#FormPackages_carid').val($('input:radio[name=cars]:checked').attr("id"));
+                break;
+        }
+    }
+
+    function backtoMain() {
+        currentForm = "Modal";
+        $('#modal2-content').css('display', 'block');
+        $('#formPackages').css('display', 'none');
+        $('#formReserve').css('display', 'none');
+
+    }
+
 </script>
+    

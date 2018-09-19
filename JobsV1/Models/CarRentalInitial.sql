@@ -2,13 +2,13 @@
 insert into CarCategories (Description, Remarks)
 values ('Rental','');
 
-insert into CarUnits ( Description, Remarks, CarCategoryId ) 
-values ('Van (10 seater)','',1),
-	   ('Van (14 seater)','',1),
-	   ('SUV','Sports Utility Vehicle',1),
-	   ('MPV/AUV/MiniVan','Multi-Purpose Vehicle',1),
-	   ('Sedan','Van',1),
-	   ('Pickup','',1);
+insert into CarUnits ( Description, Remarks, CarCategoryId , SelfDrive) 
+values ('Van (10 seater)','',1,1),
+	   ('Van (14 seater)','',1,1),
+	   ('SUV','Sports Utility Vehicle',1,0),
+	   ('MPV/AUV/MiniVan','Multi-Purpose Vehicle',1,0),
+	   ('Sedan','Van',1,0),
+	   ('Pickup','',1,0);
 
 insert into CarImages ( CarUnitId, ImgUrl, Remarks, SysCode)
 values (1,'grandiaPrimary.png','','MAIN'),
@@ -33,3 +33,9 @@ values (3500,3000,2250,120,5,1,250),
 	   (2500,3500,3000,100,5,4,250),
 	   (2500,2000,1500,100,5,5,250),
 	   (3500,3000,2500,100,5,6,250);
+
+insert into CarRatePackages (Description, Remarks, DailyMeals, DailyRoom, DaysMin)
+values ('City Tour', 'With Driver', 200,300, 1),
+	   ('Countryside Tour', 'With Driver', 200,300, 1),
+	   ('Samal Tour', 'With Driver', 200,300, 1);
+
