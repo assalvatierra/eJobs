@@ -164,7 +164,7 @@ namespace JobsV1.Controllers
         public ActionResult CarDetail(int? unitid)
         {
             //add title and description 
-            ViewBag.Title = db.CarUnitMetas.Where(c=>c.CarUnitId == unitid).FirstOrDefault().PageTitle;
+            ViewBag.Title = "thisisatest"; // db.CarUnitMetas.Where(c=>c.CarUnitId == unitid).FirstOrDefault().PageTitle;
             ViewBag.Description = db.CarUnitMetas.Where(c => c.CarUnitId == unitid).FirstOrDefault().MetaDesc;
 
             var carUnitView = db.CarViewPages.Where(s => s.CarUnitId == unitid).FirstOrDefault();
