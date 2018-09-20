@@ -15,13 +15,13 @@ namespace JobsV1.Controllers
         private JobDBContainer db = new JobDBContainer();
 
         private List<SelectListItem> MealsAcc = new List<SelectListItem> {
-                new SelectListItem { Value = "1", Text = "Will Provide Meals and Accomodation" },
-                new SelectListItem { Value = "0", Text = "Included in the Package" }
+                new SelectListItem { Value = "1", Text = "Included in the Package" },
+                new SelectListItem { Value = "0", Text =  "Will Provide Meals and Accomodation" }
                 };
 
         private List<SelectListItem> Fuel = new List<SelectListItem> {
-                new SelectListItem { Value = "1", Text = "Will Provide Meals and Accomodation" },
-                new SelectListItem { Value = "0", Text = "Included in the Package" }
+                new SelectListItem { Value = "1", Text = "Included in the Package" },
+                new SelectListItem { Value = "0", Text = "Will Provide Fuel"  }
                 };
 
         // GET: CarRental
@@ -35,6 +35,8 @@ namespace JobsV1.Controllers
                  ";
 
             ViewBag.CarUnitList = db.CarUnits.ToList();
+            ViewBag.CarRates = db.CarRates.ToList();
+            ViewBag.Packages = db.CarRatePackages.ToList();
             return View("Index", db.CarUnits.Include(c => c.CarRates).ToList() );
 
         }
@@ -135,7 +137,6 @@ namespace JobsV1.Controllers
 
         public PartialViewResult CarReserve()
         {
-
             ViewBag.CarUnitList = db.CarUnits.ToList();
             return PartialView("CarReserve");
         }
@@ -156,8 +157,20 @@ namespace JobsV1.Controllers
             return PartialView("FormPackages");
         }
 
+        public PartialViewResult FormSummary()
+        {
+            return PartialView("FormSummary");
+        }
         public ActionResult CarDetail(int? unitid)
         {
+            //add title and description 
+            ViewBag.Title = "Real Wheels Car Rental Davao - Start Your Journey With Us!";
+            ViewBag.Description = @"Rent a Car company offering affordable selfdrive or with driver car rental service in Davao City.
+                 We offer -MPV / AUV and SUV for rent, Innova rentals, sedan rentals, 4x4 rentals, pickup rentals and van rentals in the City.
+                 We offer daily, weekly, monthly rental and affordable rates for long term rentals.
+                 We also partnered to several car rentals in Davao for us to provide a reliable and quality service.
+                 ";
+
             var carUnitView = db.CarViewPages.Where(s => s.CarUnitId == unitid).FirstOrDefault();
             return View(carUnitView.Viewname, db.CarUnits.Where(d => d.Id == unitid).FirstOrDefault());
         }

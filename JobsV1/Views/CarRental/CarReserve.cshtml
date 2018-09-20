@@ -6,11 +6,11 @@
 
     <div id="btn-rentalType" class="btn-group btn-group-justified">
         <label class="btn btn-primary">
-            <input type="radio" name="options" id="optionTrue" value="Self Drive" />   Self Drive
+            <input type="radio" name="options" id="selfdrive" value="Self Drive" />   Self Drive
         </label>
 
         <label class="btn btn-primary">
-            <input type="radio" name="options" id="optionFalse" value="With Driver" /> With Driver
+            <input type="radio" name="options" id="withdriver" value="With Driver" /> With Driver
         </label>
     </div>
     <br />
@@ -18,11 +18,12 @@
     <div class="btn-group" id="btn-rentalUnit">
         @foreach (var carList in ViewBag.CarUnitList as IEnumerable<JobsV1.Models.CarUnit>)
             {
-            <label class="btn col-md-4 car-selection isSelfDrive@(carList.SelfDrive)" id="@(carList.Id)" style="width:180px;height:200px;">
+            <label class="btn col-md-4 car-selection isSelfDrive@(carList.SelfDrive)" id="car@(carList.Id)" style="width:180px;height:200px;">
                 <h5><b>@carList.Description</b></h5>
                 <input type="radio" name="cars" value="@carList.Description" id="@carList.Id" style="visibility:hidden;" />
                 <img src="~/Images/CarRental/@carList.CarImages.Where(c=>c.CarUnitId == carList.Id).First().ImgUrl" width="100%" style="margin-left:-30px;" />
             </label>
+        
             }
     </div>
 </div>
@@ -35,4 +36,8 @@
 
     <div class="modal-body row" id="formReserve" style="display:none;">
         @Html.Action("FormReservation")
+    </div>
+
+    <div class="modal-body row" id="formSummary" style="display:none;">
+        @Html.Action("FormSummary")
     </div>

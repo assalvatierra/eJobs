@@ -164,8 +164,6 @@ table tr .additemtable :hover{
     display:none;
 }
 
-
-
 /*** Car Rental ***/
 
 .car-selection {
@@ -173,3 +171,6 @@ table tr .additemtable :hover{
   margin: 0px 1px;
 }
 
+#pkg-table .active{
+  border: 3px solid dodgerblue;
+}
