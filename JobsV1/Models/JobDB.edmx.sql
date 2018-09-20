@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 09/18/2018 21:58:47
--- Generated from EDMX file: C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\Models\JobDB.edmx
+-- Date Created: 09/20/2018 10:02:42
+-- Generated from EDMX file: D:\Data\Real\Apps\GitHub\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -1213,6 +1213,15 @@ CREATE TABLE [dbo].[CarResPackages] (
 );
 GO
 
+-- Creating table 'CarUnitMetas'
+CREATE TABLE [dbo].[CarUnitMetas] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [CarUnitId] int  NOT NULL,
+    [PageTitle] nvarchar(120)  NOT NULL,
+    [MetaDesc] nvarchar(300)  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -1640,6 +1649,12 @@ GO
 -- Creating primary key on [Id] in table 'CarResPackages'
 ALTER TABLE [dbo].[CarResPackages]
 ADD CONSTRAINT [PK_CarResPackages]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'CarUnitMetas'
+ALTER TABLE [dbo].[CarUnitMetas]
+ADD CONSTRAINT [PK_CarUnitMetas]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -2740,6 +2755,21 @@ GO
 CREATE INDEX [IX_FK_CarReservationCarResPackage]
 ON [dbo].[CarResPackages]
     ([CarReservationId]);
+GO
+
+-- Creating foreign key on [CarUnitId] in table 'CarUnitMetas'
+ALTER TABLE [dbo].[CarUnitMetas]
+ADD CONSTRAINT [FK_CarUnitCarUnitMeta]
+    FOREIGN KEY ([CarUnitId])
+    REFERENCES [dbo].[CarUnits]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CarUnitCarUnitMeta'
+CREATE INDEX [IX_FK_CarUnitCarUnitMeta]
+ON [dbo].[CarUnitMetas]
+    ([CarUnitId]);
 GO
 
 -- --------------------------------------------------

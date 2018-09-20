@@ -77,6 +77,7 @@
     <EntitySet Name="CarRatePackages" EntityType="JobDB.Store.CarRatePackages" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="CarRateUnitPackages" EntityType="JobDB.Store.CarRateUnitPackages" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="CarResPackages" EntityType="JobDB.Store.CarResPackages" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CarUnitMetas" EntityType="JobDB.Store.CarUnitMetas" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="JobMainJobType" Association="JobDB.Store.JobMainJobType">
       <End Role="JobMain" EntitySet="JobMains" />
       <End Role="JobType" EntitySet="JobTypes" />
@@ -368,6 +369,10 @@
     <AssociationSet Name="CarReservationCarResPackage" Association="JobDB.Store.CarReservationCarResPackage">
       <End Role="CarReservation" EntitySet="CarReservations" />
       <End Role="CarResPackage" EntitySet="CarResPackages" />
+    </AssociationSet>
+    <AssociationSet Name="CarUnitCarUnitMeta" Association="JobDB.Store.CarUnitCarUnitMeta">
+      <End Role="CarUnit" EntitySet="CarUnits" />
+      <End Role="CarUnitMeta" EntitySet="CarUnitMetas" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="JobMains">
@@ -1123,6 +1128,15 @@
     <Property Name="DrvMealByClient" Type="int" Nullable="false" />
     <Property Name="DrvRoomByClient" Type="int" Nullable="false" />
     <Property Name="FuelByClient" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CarUnitMetas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CarUnitId" Type="int" Nullable="false" />
+    <Property Name="PageTitle" Type="nvarchar" Nullable="false" MaxLength="120" />
+    <Property Name="MetaDesc" Type="nvarchar" Nullable="false" MaxLength="300" />
   </EntityType>
   <Association Name="JobMainJobType">
     <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="1" />
@@ -2000,6 +2014,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="CarUnitCarUnitMeta">
+    <End Role="CarUnit" Type="JobDB.Store.CarUnits" Multiplicity="1" />
+    <End Role="CarUnitMeta" Type="JobDB.Store.CarUnitMetas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarUnit">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CarUnitMeta">
+        <PropertyRef Name="CarUnitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -2367,6 +2393,11 @@
           <AssociationSet Name="CarReservationCarResPackage" Association="JobDB.CarReservationCarResPackage">
             <End Role="CarReservation" EntitySet="CarReservations" />
             <End Role="CarResPackage" EntitySet="CarResPackages" />
+          </AssociationSet>
+          <EntitySet Name="CarUnitMetas" EntityType="JobDB.CarUnitMeta" />
+          <AssociationSet Name="CarUnitCarUnitMeta" Association="JobDB.CarUnitCarUnitMeta">
+            <End Role="CarUnit" EntitySet="CarUnits" />
+            <End Role="CarUnitMeta" EntitySet="CarUnitMetas" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="JobMain">
@@ -2895,6 +2926,7 @@
           <NavigationProperty Name="CarViewPages" Relationship="JobDB.CarUnitCarViewPage" FromRole="CarUnit" ToRole="CarViewPage" />
           <Property Name="SelfDrive" Type="Int32" Nullable="true" />
           <NavigationProperty Name="CarRateUnitPackages" Relationship="JobDB.CarUnitCarRateUnitPackage" FromRole="CarUnit" ToRole="CarRateUnitPackage" />
+          <NavigationProperty Name="CarUnitMetas" Relationship="JobDB.CarUnitCarUnitMeta" FromRole="CarUnit" ToRole="CarUnitMeta" />
         </EntityType>
         <Association Name="CarCategoryCarUnit">
           <End Type="JobDB.CarCategory" Role="CarCategory" Multiplicity="1" />
@@ -4145,6 +4177,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="CarUnitMeta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="CarUnit" Relationship="JobDB.CarUnitCarUnitMeta" FromRole="CarUnitMeta" ToRole="CarUnit" />
+          <Property Name="CarUnitId" Type="Int32" Nullable="false" />
+          <Property Name="PageTitle" Type="String" Nullable="false" MaxLength="120" />
+          <Property Name="MetaDesc" Type="String" Nullable="false" MaxLength="300" />
+        </EntityType>
+        <Association Name="CarUnitCarUnitMeta">
+          <End Type="JobDB.CarUnit" Role="CarUnit" Multiplicity="1" />
+          <End Type="JobDB.CarUnitMeta" Role="CarUnitMeta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CarUnit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CarUnitMeta">
+              <PropertyRef Name="CarUnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4973,6 +5027,16 @@
           <ScalarProperty Name="DrvMealByClient" ColumnName="DrvMealByClient" />
           <ScalarProperty Name="DrvRoomByClient" ColumnName="DrvRoomByClient" />
           <ScalarProperty Name="FuelByClient" ColumnName="FuelByClient" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CarUnitMetas">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.CarUnitMeta)">
+        <MappingFragment StoreEntitySet="CarUnitMetas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CarUnitId" ColumnName="CarUnitId" />
+          <ScalarProperty Name="PageTitle" ColumnName="PageTitle" />
+          <ScalarProperty Name="MetaDesc" ColumnName="MetaDesc" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

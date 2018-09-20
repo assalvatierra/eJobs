@@ -151,6 +151,8 @@
         <EntityTypeShape EntityType="JobDB.CarResPackage" Width="1.5" PointX="32.375" PointY="25.75" />
         <AssociationConnector Association="JobDB.CarRateUnitPackageCarResPackage" />
         <AssociationConnector Association="JobDB.CarReservationCarResPackage" />
+        <EntityTypeShape EntityType="JobDB.CarUnitMeta" Width="1.5" PointX="24.625" PointY="22.875" />
+        <AssociationConnector Association="JobDB.CarUnitCarUnitMeta" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
