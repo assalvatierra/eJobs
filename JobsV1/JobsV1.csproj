@@ -346,6 +346,9 @@
     <Compile Include="Models\CarUnit.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CarUnitMeta.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CarViewPage.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
@@ -715,6 +718,7 @@
     <Content Include="Models\AddChecklist.SQL" />
     <Content Include="Models\AsExpenseDB.sql" />
     <Content Include="Models\CarRentalInitial.sql" />
+    <Content Include="Models\CarRentalInitial_meta.sql" />
     <Content Include="Models\CustomerInitial.sql" />
     <Content Include="Models\DailyStatusUpdate.sql" />
     <Content Include="Models\InitialData.sql" />
@@ -1133,6 +1137,7 @@
     <Content Include="Views\CarRental\CarReserve.cshtml" />
     <Content Include="Views\CarRental\FormReservation.cshtml" />
     <Content Include="Views\CarRental\FormPackages.cshtml" />
+    <Content Include="Views\CarRental\FormSummary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

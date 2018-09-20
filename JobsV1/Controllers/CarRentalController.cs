@@ -164,12 +164,8 @@ namespace JobsV1.Controllers
         public ActionResult CarDetail(int? unitid)
         {
             //add title and description 
-            ViewBag.Title = "Real Wheels Car Rental Davao - Start Your Journey With Us!";
-            ViewBag.Description = @"Rent a Car company offering affordable selfdrive or with driver car rental service in Davao City.
-                 We offer -MPV / AUV and SUV for rent, Innova rentals, sedan rentals, 4x4 rentals, pickup rentals and van rentals in the City.
-                 We offer daily, weekly, monthly rental and affordable rates for long term rentals.
-                 We also partnered to several car rentals in Davao for us to provide a reliable and quality service.
-                 ";
+            ViewBag.Title = db.CarUnitMetas.Where(c=>c.CarUnitId == unitid).FirstOrDefault().PageTitle;
+            ViewBag.Description = db.CarUnitMetas.Where(c => c.CarUnitId == unitid).FirstOrDefault().MetaDesc;
 
             var carUnitView = db.CarViewPages.Where(s => s.CarUnitId == unitid).FirstOrDefault();
             return View(carUnitView.Viewname, db.CarUnits.Where(d => d.Id == unitid).FirstOrDefault());
