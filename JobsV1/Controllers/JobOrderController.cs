@@ -696,7 +696,7 @@ order by x.jobid
 
             dbc.addEncoderRecord("jobservice", jobServices.Id.ToString(), HttpContext.User.Identity.Name, "Create New Job Service");
 
-            return RedirectToAction("Index", "JobOrder");
+            return RedirectToAction("JobServices", "JobOrder", new { JobMainId = jobServices.JobMainId });
         }
 
         // GET: JobServices/Edit/5
@@ -766,7 +766,7 @@ order by x.jobid
             ViewBag.ServicesId = new SelectList(db.Services, "Id", "Name", jobServices.ServicesId);
             ViewBag.SupplierItemId = new SelectList(supItemsActive, "Id", "Description", jobServices.SupplierItemId);
 
-            return RedirectToAction("Index", new { serviceId = jobServices.Id });
+            return RedirectToAction("JobServices", "JobOrder", new { JobMainId = jobServices.JobMainId });
 
         }
 
@@ -832,8 +832,27 @@ order by x.jobid
 
             JobServices jobServices = db.JobServices.Find(id);
             int jId = jobServices.JobMainId;
+
+            //remove jobservice pickup on job service pickups
+            JobServicePickup jobpickup = db.JobServicePickups.Where(j => j.JobServicesId == id).FirstOrDefault();
+
+            if (jobpickup != null) {
+                db.JobServicePickups.Remove(jobpickup);
+                db.SaveChanges();
+            }
+
+
+            //remove jobservice items
+            var jobitems = db.JobServiceItems.Where(i => i.JobServicesId == id).ToList();
+            if (jobitems != null) {
+                db.JobServiceItems.RemoveRange(jobitems);
+                db.SaveChanges();
+            }
+
+
             db.JobServices.Remove(jobServices);
             db.SaveChanges();
+
             return RedirectToAction("Index", "JobOrder", new { mainid = jobServices.JobMainId});
         }
 

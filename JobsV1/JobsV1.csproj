@@ -799,6 +799,7 @@
     <Content Include="Scripts\Job\CarGateControl.js" />
     <Content Include="Scripts\Job\CarMaintenance.js" />
     <Content Include="Scripts\Job\Itinerary.js" />
+    <Content Include="Scripts\Job\FormRenter.js" />
     <Content Include="Scripts\Job\PO.js" />
     <Content Include="Scripts\Job\Product.js" />
     <Content Include="Scripts\Job\SalesLead.js" />
@@ -1138,6 +1139,8 @@
     <Content Include="Views\CarRental\FormReservation.cshtml" />
     <Content Include="Views\CarRental\FormPackages.cshtml" />
     <Content Include="Views\CarRental\FormSummary.cshtml" />
+    <Content Include="Views\CarRental\FormRenter.cshtml" />
+    <Content Include="Views\CarRental\FormThankYou.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
