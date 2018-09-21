@@ -161,6 +161,43 @@ namespace JobsV1.Controllers
         {
             return PartialView("FormSummary");
         }
+        
+        public ActionResult FormThankYou() {
+            return View();
+        }
+
+
+        // GET: CarReservations/Create
+        public ActionResult FormRenter(int? id)
+        {
+            CarReservation reservation = new CarReservation();
+            reservation.DtTrx = DateTime.Today;
+            reservation.DtStart = DateTime.Today.ToString();
+            reservation.DtEnd = DateTime.Today.AddDays(2).ToString();
+            
+            ViewBag.CarUnitId = new SelectList(db.CarUnits, "Id", "Description", id);
+            
+            return View(reservation);
+        }
+
+        // POST: CarReservations/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult FormRenter([Bind(Include = "Id,DtTrx,CarUnitId,DtStart,LocStart,DtEnd,LocEnd,BaseRate,Destinations,UseFor,RenterName,RenterCompany,RenterEmail,RenterMobile,RenterAddress,RenterFbAccnt,RenterLinkedInAccnt,EstHrPerDay,EstKmTravel")] CarReservation carReservation)
+        {
+            if (ModelState.IsValid)
+            {
+                db.CarReservations.Add(carReservation);
+                db.SaveChanges();
+            }
+
+            ViewBag.CarUnitId = new SelectList(db.CarUnits, "Id", "Description", carReservation.CarUnitId);
+            return View(carReservation);
+        }
+
+
         public ActionResult CarDetail(int? unitid)
         {
             //add title and description 

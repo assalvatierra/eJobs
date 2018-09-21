@@ -18,9 +18,7 @@
     
     </div>
 
-
     <div class="col-md-2">
-
 
     </div>
     @*@Html.ActionLink("Book a Car", "Create", "JobMains", null, new { @class = "btn btn-primary btn-lg" })*@ 
@@ -183,7 +181,7 @@
                 <a href="#" onclick="backtoMain()"> back to main </a> 
             </div>
                     @Html.Action("CarReserve")
-            <div class="modal-footer">
+            <div class="modal-footer" id="rsv-footer" style="display:block;">
                 <div class="pull-left">
                     <h5 id="modal-text-foot">-</h5>
                 </div>
@@ -251,20 +249,27 @@
         MealsAcc = $('#rsv-meal').val();
         Fuel = $('#rsv-fuel').val();
 
+
         switch (currentForm) {
             case "Modal": //next FormReservation
                 currentForm = "FormReserve";
                 $('#modal2-content').css('display', 'none');
-                $('#formPackages').css('display', 'none');
                 $('#formReserve').css('display', 'block');
+                $('#formPackages').css('display', 'none');
                 $('#formSummary').css('display', 'none');
+                $('#formRenter').css('display', 'none');
+                $('#formFinish').css('display', 'none');
+                $('#rsv-footer').css('display','block');
                 break;
             case "FormReserve": //next FormPackages
                 currentForm = "FormPackages";
                 $('#modal2-content').css('display', 'none');
-                $('#formPackages').css('display', 'block');
                 $('#formReserve').css('display', 'none');
+                $('#formPackages').css('display', 'block');
                 $('#formSummary').css('display', 'none');
+                $('#formRenter').css('display', 'none');
+                $('#formFinish').css('display', 'none');
+                $('#rsv-footer').css('display','block');
                 displayPackages();
                 break;
             case "FormPackages": //next formSummary
@@ -273,14 +278,30 @@
                 $('#formPackages').css('display', 'none');
                 $('#formReserve').css('display', 'none');
                 $('#formSummary').css('display', 'block');
+                $('#formRenter').css('display', 'none');
+                $('#formFinish').css('display', 'none');
+                $('#rsv-footer').css('display','block');
                 displaySummary();
                 break;
-            case "formSummary":  //next back to main
-                currentForm = "Modal";
+            case "formSummary":  //next formRenter
+                currentForm = "formRenter";
                 $('#modal2-content').css('display', 'none');
                 $('#formPackages').css('display', 'none');
                 $('#formReserve').css('display', 'none');
-                $('#formSummary').css('display', 'block');
+                $('#formSummary').css('display', 'none');
+                $('#formRenter').css('display', 'block');
+                $('#formFinish').css('display', 'none');
+                $('#rsv-footer').css('display','none');
+                break;
+            case "formRenter":  //next formThankyou
+                currentForm = "formThankyou";
+                $('#modal2-content').css('display', 'none');
+                $('#formPackages').css('display', 'none');
+                $('#formReserve').css('display', 'none');
+                $('#formSummary').css('display', 'none');
+                $('#formRenter').css('display', 'none');
+                $('#formFinish').css('display', 'block');
+                $('#rsv-footer').css('display','none');
                 break;
         }
 
@@ -290,8 +311,12 @@
     function backtoMain() {
         currentForm = "Modal";
         $('#modal2-content').css('display', 'block');
-        $('#formPackages').css('display', 'none');
         $('#formReserve').css('display', 'none');
+        $('#formPackages').css('display', 'none');
+        $('#formSummary').css('display', 'none');
+        $('#formRenter').css('display', 'none');
+        $('#formFinish').css('display', 'none');
+        $('#rsv-footer').css('display','block');
 
     }
 
@@ -304,6 +329,7 @@
                 $('#formReserve').css('display', 'none');
                 $('#formPackages').css('display', 'none');
                 $('#formSummary').css('display', 'none');
+                $('#formRenter').css('display', 'none');
                 break;
             case "FormReserve": //prev Modal
                 currentForm = "Modal";
@@ -311,6 +337,7 @@
                 $('#formReserve').css('display', 'none');
                 $('#formPackages').css('display', 'none');
                 $('#formSummary').css('display', 'none');
+                $('#formRenter').css('display', 'none');
                 break;
             case "FormPackages":  //next form summary
                 currentForm = "FormReserve";
@@ -318,6 +345,7 @@
                 $('#formReserve').css('display', 'block');
                 $('#formPackages').css('display', 'none');
                 $('#formSummary').css('display', 'none');
+                $('#formRenter').css('display', 'none');
                 break;
             case "formSummary":  //next back to main
                 currentForm = "FormPackages";
@@ -325,6 +353,16 @@
                 $('#formReserve').css('display', 'none');
                 $('#formPackages').css('display', 'block');
                 $('#formSummary').css('display', 'none');
+                $('#formRenter').css('display', 'none');
+                break;
+            case "formRenter":  //next summary
+                currentForm = "formSummary";
+                $('#modal2-content').css('display', 'none');
+                $('#formPackages').css('display', 'none');
+                $('#formReserve').css('display', 'none');
+                $('#formSummary').css('display', 'block');
+                $('#formRenter').css('display', 'none');
+                sleep(5000);
                 break;
         }
     }
@@ -393,8 +431,10 @@
         MealsAcc = $('#rsv-meal').val();
         Fuel = $('#rsv-fuel').val();
 
-        //display
+        //display days
         $('#smry-rdays').text(NoDays);
+
+        //display days
         $('#smry-rType').text(RentalType);
 
 
@@ -403,6 +443,8 @@
             <text>
             if(@package.Id == selectedTour.substring(4, 5)){ // get id of the tour
                 $('#smry-itour').text('@package.Description');
+                $('#rnt-destination').val('@package.Description'); //for reservation details
+                $('#rnt-usedfor').val('@package.Description'); //for reservation details
             }
 
             //meals and accomodation
@@ -421,12 +463,14 @@
             }
             </text>
 
+            //get car rate
             foreach (var carlist in ViewBag.CarUnitList as IEnumerable<JobsV1.Models.CarUnit>)
             {
 
                 <text>
-                if(@carlist.Id == selectedTour.substring(4, 5)){ // get id of the tour
-                    $('#smry-iVehicle').text('@carlist.Description');
+                if(@carlist.Id == selectedCar){ // get id of the car
+                    $('#smry-rVehicle').text('@carlist.Description');
+                    $('#rnt-carUnit').val(selectedCar);  // (id) for reservation details
                 }
                 </text>
             }
@@ -437,8 +481,8 @@
             {
 
                 <text>
-                if(@rates.CarUnitId == selectedTour.substring(4, 5)){ // get id of the tour
-                    $('#smry-rVehicle').text('@rates.Daily');
+                if(@rates.CarUnitId == selectedCar){ // get id of the car
+                    $('#smry-rVehicleRate').text('@rates.Daily');
                 }
 
                 var rentalType;
@@ -462,7 +506,7 @@
 
                 //total rate
                 var totalRate =rate + fuelRate + mealsRate;
-
+                $('#rnt-baseRate').val(totalRate);
                 if(selectedCar == '@rates.CarUnitId' ){
                     $('#smry-rtotal').text('r:' + rate  +' + m:'+ mealsRate +' + f:'+ fuelRate +' = '+  totalRate);
                 }
@@ -472,6 +516,28 @@
         }//end foreach packages
 
     }//end foreach function
+
+
+    function submitRenter(){
+        function getPreviewText() {
+            s
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("PreviewWiki")',
+            dataType: 'html',
+            data: JSON.stringify(data),
+            success: function (result) {
+                $('#previewMode').html(result);
+            }
+        });
+    };
+    }
+
+    function redirect(){
+           window.location.href = '/CarRental/FormThankYou' ;
+    }
+
 
     $('#pkg-table').on('click', '.clickable-row', function(event) {
         $(this).addClass('active').siblings().removeClass('active');

@@ -2,7 +2,7 @@
 
 
 
-<div class="modal-body row " id="modal2-content">
+<div class="modal-body row" id="modal2-content">
 
     <div id="btn-rentalType" class="btn-group btn-group-justified">
         <label class="btn btn-primary">
@@ -41,3 +41,17 @@
     <div class="modal-body row" id="formSummary" style="display:none;">
         @Html.Action("FormSummary")
     </div>
+
+    <div class="modal-body row" id="formRenter" style="display:none;padding:0px;">
+        @Html.Action("FormRenter")
+    </div>
+
+    <div class="modal-body row" id="formFinish" style="display:none;">
+       <img src="~/Images/LOGO_AJRENTACAR.jpg" width="200" />
+
+        <h2>Thank you for the Reservation. </h2>
+        <p>We will contact you through provided email and mobile number.</p>
+
+        <button class="btn btn-primary">Close</button>
+    </div>
+
