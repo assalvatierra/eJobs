@@ -3,7 +3,6 @@
 
 <div class="modal-content">
     <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h3 class="modal-title">Car Reservation </h3>
         <a href="#" onclick="backtoMain()"> back to main </a>
     </div>
@@ -18,7 +17,8 @@
         <div class="pull-right">
             <button type="button" class="btn btn-default" id="ReservePrev" onclick="backtoPrev()">Previous</button>
             <button type="button" class="btn btn-default" id="ReserveProceed" onclick="showForm()">Proceed</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            @Html.ActionLink("Cancel", "Index", "CarRental", null , new { @class = "btn btn-default" })
+
         </div>
     </div>
 </div>
@@ -250,7 +250,7 @@
         NoDays = $('#rsv-days').val();
         MealsAcc = $('#rsv-meal').val();
         Fuel = $('#rsv-fuel').val();
-        
+
         //self drive
         if ($('input:radio[name=options]:checked').val() == "Self Drive") {
             selfDrive($('input:radio[name=cars]:checked').attr("id"));
@@ -609,6 +609,35 @@
             dataType: "json",
             success: successFunc(),
             error: errorFunc()
+        });
+    }
+
+    function testajax(){
+
+        alert('submit');
+
+        var serviceURL = '/CarRental/test';
+
+        $.ajax({
+            type: "POST",
+            url: serviceURL,
+            data: JSON.stringify({ id : '1'}),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(){
+                alert('success');
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert('An error occurred... Look at the console (F12 or Ctrl+Shift+I, Console tab) for more information!');
+
+                $('#result').html('<p>status code: '+jqXHR.status+'</p><p>errorThrown: ' + errorThrown + '</p><p>jqXHR.responseText:</p><div>'+jqXHR.responseText + '</div>');
+                console.log('jqXHR:');
+                console.log(jqXHR);
+                console.log('textStatus:');
+                console.log(textStatus);
+                console.log('errorThrown:');
+                console.log(errorThrown);
+            }
         });
     }
 

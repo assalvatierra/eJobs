@@ -28,26 +28,15 @@
             </td>
     </tr>
 
-    <tr>
-        <td class="userLabel-lg1">Time</td>
-        <td colspan="2">
-            <span class="userRemarks">
-                Daily Usage</span>
-                <br />
-            <span class="userData">
-                10 hours
+    <tr >
+        <td class="userRemarks" colspan="4" >
+
+            <span class="userRemarks" >
+                @Html.DisplayFor(model => item.CarUnit.CarUnitMetas.Where(s => s.CarUnitId == item.CarUnitId).FirstOrDefault().MetaDesc).ToString().Substring(0, 120)..
             </span>
         </td>
-        <td>
-            <span class="userRemarks">
-                Overtime rate
-            </span>
-            <br />
-            <span class="userData">
-                @item.OtRate.ToString("P##,###") per hr
-            </span>
-        </td>
-    </tr>
+
+</tr>
     <tr>
         <td class="userLabel-lg1">Fuel</td>
         <td colspan="2">
