@@ -208,7 +208,7 @@ namespace JobsV1.Controllers
         public ActionResult CarDetail(int? unitid)
         {
             //add title and description 
-            ViewBag.Title = "thisisatest"; // db.CarUnitMetas.Where(c=>c.CarUnitId == unitid).FirstOrDefault().PageTitle;
+            ViewBag.Title =  db.CarUnitMetas.Where(c=>c.CarUnitId == unitid).FirstOrDefault().PageTitle;
             ViewBag.Description = db.CarUnitMetas.Where(c => c.CarUnitId == unitid).FirstOrDefault().MetaDesc;
 
             var carUnitView = db.CarViewPages.Where(s => s.CarUnitId == unitid).FirstOrDefault();
@@ -223,6 +223,18 @@ namespace JobsV1.Controllers
 
         public ActionResult ContactUs()
         {
+            return RedirectToAction("Contact", "Home");
+        }
+
+        [HttpPost]
+        public ActionResult test(int? id)
+        {
+            CarCategory cat = new CarCategory();
+            cat.Description = "test"+ id;
+            cat.Remarks = "test";
+            db.CarCategories.Add(cat);
+            db.SaveChanges();
+
             return RedirectToAction("Contact", "Home");
         }
 
