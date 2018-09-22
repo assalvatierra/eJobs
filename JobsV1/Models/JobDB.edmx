@@ -1137,6 +1137,7 @@
     <Property Name="CarUnitId" Type="int" Nullable="false" />
     <Property Name="PageTitle" Type="nvarchar" Nullable="false" MaxLength="120" />
     <Property Name="MetaDesc" Type="nvarchar" Nullable="false" MaxLength="300" />
+    <Property Name="HomeDesc" Type="nvarchar" Nullable="true" MaxLength="300" />
   </EntityType>
   <Association Name="JobMainJobType">
     <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="1" />
@@ -4186,6 +4187,7 @@
           <Property Name="CarUnitId" Type="Int32" Nullable="false" />
           <Property Name="PageTitle" Type="String" Nullable="false" MaxLength="120" />
           <Property Name="MetaDesc" Type="String" Nullable="false" MaxLength="300" />
+          <Property Name="HomeDesc" Type="String" Nullable="true" MaxLength="300" />
         </EntityType>
         <Association Name="CarUnitCarUnitMeta">
           <End Type="JobDB.CarUnit" Role="CarUnit" Multiplicity="1" />
@@ -5037,6 +5039,7 @@
           <ScalarProperty Name="CarUnitId" ColumnName="CarUnitId" />
           <ScalarProperty Name="PageTitle" ColumnName="PageTitle" />
           <ScalarProperty Name="MetaDesc" ColumnName="MetaDesc" />
+          <ScalarProperty Name="HomeDesc" ColumnName="HomeDesc" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

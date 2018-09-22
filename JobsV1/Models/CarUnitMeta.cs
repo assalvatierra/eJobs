@@ -18,6 +18,7 @@ namespace JobsV1.Models
         public int CarUnitId { get; set; }
         public string PageTitle { get; set; }
         public string MetaDesc { get; set; }
+        public string HomeDesc { get; set; }
     
         public virtual CarUnit CarUnit { get; set; }
     }

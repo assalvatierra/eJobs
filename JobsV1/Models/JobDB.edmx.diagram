@@ -48,7 +48,7 @@
         <AssociationConnector Association="JobDB.CarCategoryCarUnit" />
         <EntityTypeShape EntityType="JobDB.CarDestination" Width="1.5" PointX="22.5" PointY="1.25" IsExpanded="true" />
         <AssociationConnector Association="JobDB.CityCarDestination" />
-        <EntityTypeShape EntityType="JobDB.CarRate" Width="1.5" PointX="34.625" PointY="18.125" />
+        <EntityTypeShape EntityType="JobDB.CarRate" Width="1.5" PointX="34.125" PointY="18.625" />
         <AssociationConnector Association="JobDB.CarUnitCarRate" />
         <EntityTypeShape EntityType="JobDB.CarReservation" Width="1.5" PointX="30" PointY="25.75" />
         <AssociationConnector Association="JobDB.CarUnitCarReservation" />
@@ -151,7 +151,7 @@
         <EntityTypeShape EntityType="JobDB.CarResPackage" Width="1.5" PointX="32.375" PointY="25.75" />
         <AssociationConnector Association="JobDB.CarRateUnitPackageCarResPackage" />
         <AssociationConnector Association="JobDB.CarReservationCarResPackage" />
-        <EntityTypeShape EntityType="JobDB.CarUnitMeta" Width="1.5" PointX="24.625" PointY="22.875" />
+        <EntityTypeShape EntityType="JobDB.CarUnitMeta" Width="1.5" PointX="25.5" PointY="22.875" />
         <AssociationConnector Association="JobDB.CarUnitCarUnitMeta" />
       </Diagram>
     </edmx:Diagrams>

@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 09/20/2018 10:02:42
+-- Date Created: 09/22/2018 14:35:01
 -- Generated from EDMX file: D:\Data\Real\Apps\GitHub\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
@@ -236,6 +236,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_CarReservationCarResPackage]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[CarResPackages] DROP CONSTRAINT [FK_CarReservationCarResPackage];
 GO
+IF OBJECT_ID(N'[dbo].[FK_CarUnitCarUnitMeta]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CarUnitMetas] DROP CONSTRAINT [FK_CarUnitCarUnitMeta];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -453,6 +456,9 @@ IF OBJECT_ID(N'[dbo].[CarRateUnitPackages]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[CarResPackages]', 'U') IS NOT NULL
     DROP TABLE [dbo].[CarResPackages];
+GO
+IF OBJECT_ID(N'[dbo].[CarUnitMetas]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CarUnitMetas];
 GO
 
 -- --------------------------------------------------
@@ -1218,7 +1224,8 @@ CREATE TABLE [dbo].[CarUnitMetas] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [CarUnitId] int  NOT NULL,
     [PageTitle] nvarchar(120)  NOT NULL,
-    [MetaDesc] nvarchar(300)  NOT NULL
+    [MetaDesc] nvarchar(300)  NOT NULL,
+    [HomeDesc] nvarchar(300)  NULL
 );
 GO
 

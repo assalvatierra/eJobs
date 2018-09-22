@@ -3,11 +3,11 @@ insert into CarCategories (Description, Remarks)
 values ('Rental','');
 
 insert into CarUnits ( Description, Remarks, CarCategoryId , SelfDrive) 
-values ('Van (10 seater)','',1,1),
-	   ('Van (14 seater)','',1,1),
+values ('Van (10 seater)','Van',1,1),
+	   ('Van (14 seater)','Van',1,1),
 	   ('SUV','Sports Utility Vehicle',1,0),
 	   ('MPV/AUV/MiniVan','Multi-Purpose Vehicle',1,0),
-	   ('Sedan','Van',1,0),
+	   ('Sedan','',1,0),
 	   ('Pickup','',1,0);
 
 insert into CarImages ( CarUnitId, ImgUrl, Remarks, SysCode)
