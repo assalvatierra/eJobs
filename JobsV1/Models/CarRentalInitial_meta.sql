@@ -1,4 +1,4 @@
-﻿insert into CarUnitMetas(carUnitId,PageTitle,MetaTitle,HomeDesc)
+﻿insert into CarUnitMetas(carUnitId,PageTitle,MetaDesc,HomeDesc)
 values
 -- Van -- 
 (1, 'Vehicle (Toyota Grandia GL) for Rent in Davao City, Reliable car rental company in Davao',
