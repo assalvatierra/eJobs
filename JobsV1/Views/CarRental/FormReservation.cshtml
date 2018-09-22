@@ -3,8 +3,12 @@
 
         <div class="form-group">
             <label class="control-label col-md-4"> Days </label>
-            <div class="col-md-8">
-                <input type="number" value="0" class="form-control" id="rsv-days"/>
+            <div class="col-md-3">
+                <input type="number" value="1" class="form-control" id="rsv-days"/>
+            </div>
+            <div class="col-md-5">
+                <button class="btn btn-default " id="days-add"> + </button>
+                <button class="btn btn-default " id="days-sub"> - </button>
             </div>
         </div>
 
@@ -23,3 +27,16 @@
         </div>
 
     </div>
+
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script>
+    $('#days-add').click(function () {
+        $('#rsv-days').val( +$('#rsv-days').val() + 1);
+    });
+    $('#days-sub').click(function () {
+        if ($('#rsv-days').val() > 1 ) {
+            $('#rsv-days').val(+$('#rsv-days').val() - 1);
+        }
+    });
+</script>

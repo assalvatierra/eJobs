@@ -162,7 +162,8 @@ namespace JobsV1.Controllers
             return PartialView("FormSummary");
         }
         
-        public ActionResult FormThankYou() {
+        public ActionResult FormThankYou(int rsvId) {
+            ViewBag.rsvId = rsvId;
             return View();
         }
 
@@ -176,7 +177,12 @@ namespace JobsV1.Controllers
             reservation.DtEnd = DateTime.Today.AddDays(2).ToString();
             
             ViewBag.CarUnitId = new SelectList(db.CarUnits, "Id", "Description", id);
-            
+            ViewBag.id = id;
+
+            ViewBag.carRatesPackages = db.CarRateUnitPackages.ToList();
+            ViewBag.CarUnitList = db.CarUnits.ToList();
+            ViewBag.CarRates = db.CarRates.ToList();
+            ViewBag.Packages = db.CarRatePackages.ToList();
             return View(reservation);
         }
 
@@ -191,6 +197,7 @@ namespace JobsV1.Controllers
             {
                 db.CarReservations.Add(carReservation);
                 db.SaveChanges();
+                return RedirectToAction("FormThankYou", new { rsvId = carReservation.Id });
             }
 
             ViewBag.CarUnitId = new SelectList(db.CarUnits, "Id", "Description", carReservation.CarUnitId);
@@ -219,5 +226,36 @@ namespace JobsV1.Controllers
             return RedirectToAction("Contact", "Home");
         }
 
+
+        [HttpPost]
+        public ActionResult FormRenterPOST(string DtTrx, string CarUnitId, string DtStart, string LocStart,
+            string DtEnd, string LocEnd, string BaseRate, string Destinations, string UseFor,
+            string RenterName, string RenterCompany, string RenterEmail, string RenterMobile,
+            string RenterAddress, string RenterFbAccnt, string RenterLinkedInAccnt, string EstHrPerDay,
+            string EstKmTravel)
+        {
+            CarReservation carReservation = new CarReservation();
+            carReservation.DtTrx = DateTime.Parse(DtTrx);
+            carReservation.CarUnitId = int.Parse(CarUnitId);
+            carReservation.DtStart = DtStart;
+            carReservation.LocStart = LocStart;
+            carReservation.DtEnd = DtEnd;
+            carReservation.LocEnd = LocEnd;
+            carReservation.BaseRate = BaseRate;
+            carReservation.Destinations = Destinations;
+            carReservation.UseFor = UseFor;
+            carReservation.RenterName = RenterName;
+            carReservation.RenterEmail = RenterEmail;
+            carReservation.RenterMobile = RenterMobile;
+            carReservation.RenterAddress = RenterAddress;
+            carReservation.RenterFbAccnt = RenterFbAccnt;
+            carReservation.RenterLinkedInAccnt = RenterLinkedInAccnt;
+            carReservation.EstHrPerDay = int.Parse(EstHrPerDay);
+            carReservation.EstKmTravel = int.Parse(EstKmTravel);
+            db.CarReservations.Add(carReservation);
+            db.SaveChanges();
+
+            return RedirectToAction("Contact", "Home");
+        }
     }
 }

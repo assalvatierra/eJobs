@@ -126,8 +126,39 @@ namespace JobsV1
             InvItemCategory cat = db.InvItemCategories.Find(Id);
             db.InvItemCategories.Remove(cat);
             db.SaveChanges();
-            
+
         }
+
+        [WebMethod]
+        public void FormRenter( string DtTrx, string CarUnitId, string DtStart, string LocStart,
+            string DtEnd, string LocEnd, string BaseRate, string Destinations, string UseFor,
+            string RenterName, string RenterCompany, string RenterEmail, string RenterMobile,
+            string RenterAddress, string RenterFbAccnt, string RenterLinkedInAccnt, string EstHrPerDay,
+            string EstKmTravel)
+        {
+            CarReservation carReservation = new CarReservation();
+            carReservation.DtTrx = DateTime.Parse( DtTrx);
+            carReservation.CarUnitId = int.Parse( CarUnitId);
+            carReservation.DtStart = DtStart;
+            carReservation.LocStart = LocStart;
+            carReservation.DtEnd = DtEnd;
+            carReservation.LocEnd = LocEnd;
+            carReservation.BaseRate = BaseRate;
+            carReservation.Destinations = Destinations;
+            carReservation.UseFor = UseFor;
+            carReservation.RenterName = RenterName;
+            carReservation.RenterEmail = RenterEmail;
+            carReservation.RenterMobile = RenterMobile;
+            carReservation.RenterAddress = RenterAddress;
+            carReservation.RenterFbAccnt = RenterFbAccnt;
+            carReservation.RenterLinkedInAccnt = RenterLinkedInAccnt;
+            carReservation.EstHrPerDay = int.Parse( EstHrPerDay);
+            carReservation.EstKmTravel = int.Parse( EstKmTravel);
+                db.CarReservations.Add(carReservation);
+                db.SaveChanges();
+         
+        }
+
     }
 
 }

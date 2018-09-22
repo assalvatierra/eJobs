@@ -20,15 +20,13 @@
             {
             <label class="btn col-md-4 car-selection isSelfDrive@(carList.SelfDrive)" id="car@(carList.Id)" style="width:180px;height:200px;">
                 <h5><b>@carList.Description</b></h5>
-                <input type="radio" name="cars" value="@carList.Description" id="@carList.Id" style="visibility:hidden;" />
+                <input type="radio" name="cars" value="@carList.Description" id="@(carList.Id)" style="visibility:hidden;" />
                 <img src="~/Images/CarRental/@carList.CarImages.Where(c=>c.CarUnitId == carList.Id).First().ImgUrl" width="100%" style="margin-left:-30px;" />
             </label>
         
             }
     </div>
 </div>
-
-
 
     <div class="modal-body row" id="formPackages" style="display:none;">
         @Html.Action("FormPackages")
@@ -42,9 +40,6 @@
         @Html.Action("FormSummary")
     </div>
 
-    <div class="modal-body row" id="formRenter" style="display:none;padding:0px;">
-        @Html.Action("FormRenter")
-    </div>
 
     <div class="modal-body row" id="formFinish" style="display:none;">
        <img src="~/Images/LOGO_AJRENTACAR.jpg" width="200" />
