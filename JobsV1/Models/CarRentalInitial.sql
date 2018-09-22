@@ -34,10 +34,38 @@ values (3500,3000,2250,120,5,1,250),
 	   (2500,2000,1500,100,5,5,250),
 	   (3500,3000,2500,100,5,6,250);
 
+
 insert into CarRatePackages (Description, Remarks, DailyMeals, DailyRoom, DaysMin)
 values ('City Tour', 'With Driver', 200,300, 1),
 	   ('Countryside Tour', 'With Driver', 200,300, 1),
 	   ('Samal Tour', 'With Driver', 200,300, 1);
+
+insert into CarRateUnitPackages (CarRatePackageId, CarUnitId, DailyRate, FuelLonghaul, FuelDaily)
+		-- Van -- 
+values (1, 1, 3500, 0, 500),   -- city tour -- 
+	   (2, 1, 3500, 500, 500), -- Countryside tour --  
+	   (3, 1, 3500, 500, 500), -- samal tour --  
+	   -- Van Nissan Premium -- 
+	   (1, 2, 3500, 0, 500),   -- city tour -- 
+	   (2, 2, 3500, 500, 500), -- Countryside tour --  
+	   (3, 2, 3500, 500, 500), -- samal tour --   
+	   -- SUV -- 
+	   (1, 3, 2500, 0, 500),   -- city tour -- 
+	   (2, 3, 2500, 500, 500), -- Countryside tour --  
+	   (3, 3, 2500, 500, 500), -- samal tour --   
+	   -- MPV -- 
+	   (1, 4, 3500, 0, 500),   -- city tour -- 
+	   (2, 4, 3500, 500, 500), -- Countryside tour --  
+	   (3, 4, 3500, 500, 500), -- samal tour --   
+	   -- Sedan -- 
+	   (1, 5, 2000, 0, 500),   -- city tour -- 
+	   (2, 5, 2000, 500, 500), -- Countryside tour --  
+	   (3, 5, 2000, 500, 500), -- samal tour --  
+	   -- Van -- 
+	   (1, 6, 3000, 0, 500),   -- city tour -- 
+	   (2, 6, 3000, 500, 500), -- Countryside tour --  
+	   (3, 6, 3000, 500, 500)  -- samal tour --  
+	   ;
 
 insert into CarUnitMetas(carUnitId,PageTitle,MetaDesc)
 values
