@@ -106,7 +106,6 @@ namespace JobsV1.Controllers
                 db.Entry(unitrate).State = EntityState.Added;
                 db.SaveChanges();
             }
-
             ViewBag.Unit = db.CarUnits.Find(unitid);
             return View(unitrate);
         }
@@ -210,7 +209,12 @@ namespace JobsV1.Controllers
             //add title and description 
             ViewBag.Title =  db.CarUnitMetas.Where(c=>c.CarUnitId == unitid).FirstOrDefault().PageTitle;
             ViewBag.Description = db.CarUnitMetas.Where(c => c.CarUnitId == unitid).FirstOrDefault().MetaDesc;
-
+            ViewBag.ImgSrc = db.CarImages.Where(c => c.CarUnitId == unitid).FirstOrDefault().ImgUrl;
+            ViewBag.Id = unitid;
+            var car = db.CarRates.Where(c => c.CarUnitId == unitid).FirstOrDefault();
+            ViewBag.dailyRate = car.Daily;
+            ViewBag.weeklyRate = car.Weekly;
+            ViewBag.monthlyRate = car.Monthly;
             var carUnitView = db.CarViewPages.Where(s => s.CarUnitId == unitid).FirstOrDefault();
             return View(carUnitView.Viewname, db.CarUnits.Where(d => d.Id == unitid).FirstOrDefault());
         }

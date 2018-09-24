@@ -32,33 +32,11 @@
         <td class="userRemarks" colspan="4" >
 
             <span class="userRemarks" >
-                @Html.DisplayFor(model => item.CarUnit.CarUnitMetas.Where(s => s.CarUnitId == item.CarUnitId).FirstOrDefault().MetaDesc).ToString().Substring(0, 120)..
+                @Html.DisplayFor(model => item.CarUnit.CarUnitMetas.Where(s => s.CarUnitId == item.CarUnitId).FirstOrDefault().MetaDesc).ToString()..
             </span>
         </td>
 
 </tr>
-    <tr>
-        <td class="userLabel-lg1">Fuel</td>
-        <td colspan="2">
-            <span class="userRemarks">
-                City Limits
-            </span>
-            <br />
-            <span class="userData">
-                Included
-            </span>
-        </td>
-        <td>
-            <span class="userRemarks">
-                Out of town
-            </span>
-            <br />
-            <span class="userData">
-                Renter's fuel
-            </span>
-        </td>
-    </tr>
-
     <tr><td colspan="4">
 
             @Html.ActionLink("Cost Estimate and Reservation", "FormRenter", "CarRental", new { id = item.CarUnitId }, new { @class = "btn btn-primary" })

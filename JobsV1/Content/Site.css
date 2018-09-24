@@ -174,3 +174,23 @@ table tr .additemtable :hover{
 #pkg-table .active{
   border: 3px solid dodgerblue;
 }
+
+
+.details-container {
+    margin: 30px;
+    padding: 20px;
+    border: 1px solid lightgray;
+    box-shadow: 0px 0px 5px lightgray;
+    font-size:16px;
+}
+
+.dtls-services {
+    margin: 2px;
+}
+
+
+.details-container-list {
+    padding: 15px;
+    border: 1px solid lightgray;
+    text-align:center;
+}

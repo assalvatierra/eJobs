@@ -4,68 +4,188 @@
     
 }
 
-<h2>VAN</h2>
-&nbsp;
+<div class="container ">
 
-<a href="http://RealWheelsDavao.com/van-for-rent">VAN</a> is the most popular vehicle transporting people for both company and family use. It can
+    <div class="col-sm-12" style="margin: 30px 20px;">
 
-comfortably accommodate 10-14 pax with enough luggage.
+        <div class="col-lg-8">
+            <h2>Van Rental </h2>
+        </div>
+    </div>
 
-&nbsp;
-<br />
+    <div class="col-lg-8">
 
-<h2>Rent-A-Car</h2>
-<a href="http://RealWheelsDavao.com/van-for-rent">VAN</a> is top choice for rent-a-car business for conventions, city tours and all types of
+        <div class="col-lg-12 details-container">
+            <img src="~/Images/CarRental/@(ViewBag.ImgSrc)" class="center-block img-responsive" style="width:60%;margin:auto;" />
 
-occasions. Top models use by rent-a-car companies are:
+            <h2 >VAN</h2>
+            &nbsp;
 
-<a href="http://RealWheelsDavao.com/van-for-rent">Toyota Grandia GL</a> is a 10-12 seater van and as of this time, top choice due to
+            <a href="http://RealWheelsDavao.com/van-for-rent">VAN</a> is the most popular vehicle transporting people for both company and family use. It can
 
-its known reliability and toughness. This model is the all-time favorite in
+            comfortably accommodate 10-14 pax with enough luggage.
 
-rent-a-car business because it can accommodate most of the client needs.
+            &nbsp;
+            <br />
 
-<a href="http://RealWheelsDavao.com/van-for-rent">Toyota Super Grandia</a> is a 10 seater executive van that built for comfort. You
+            <h2>Rent-A-Car</h2>
+            <a href="http://RealWheelsDavao.com/van-for-rent">VAN</a> is top choice for rent-a-car business for conventions, city tours and all types of
 
-expect 2 captain seats and other well padded leather seats at the back. Commonly
+            occasions. Top models use by rent-a-car companies are:
 
-used to VIP and hire profile guests of rent-a-car company.
+            <a href="http://RealWheelsDavao.com/van-for-rent">Toyota Grandia GL</a> is a 10-12 seater van and as of this time, top choice due to
 
-<a href="http://RealWheelsDavao.com/van-for-rent">Nissan Urvan Premium</a> is another contender for van rentals (rent-a-car) due to its
+            its known reliability and toughness. This model is the all-time favorite in
 
-capacity which accommodates up to 14 pax and still got extra room for luggages.
+            rent-a-car business because it can accommodate most of the client needs.
 
-It's a highroof van that makes it even bigger and have extra head space that
+            <a href="http://RealWheelsDavao.com/van-for-rent">Toyota Super Grandia</a> is a 10 seater executive van that built for comfort. You
 
-makes the van more ventilated and refreshing compared to other regular vans.
+            expect 2 captain seats and other well padded leather seats at the back. Commonly
 
-&nbsp;
-<br />
-<h2>VAN rental</h2>
-<a href="http://RealWheelsDavao.com/van-for-rent">Vans</a> are offered as with driver car rental/van rental. It can cater all types of family
+            used to VIP and hire profile guests of rent-a-car company.
 
-occasions and any kind of business trips. VIP guests are welcome with special
+            <a href="http://RealWheelsDavao.com/van-for-rent">Nissan Urvan Premium</a> is another contender for van rentals (rent-a-car) due to its
 
-attention from the company. Short term and Long term van rental with special
+            capacity which accommodates up to 14 pax and still got extra room for luggages.
 
-arrangements, terms and rates are open for negotiation.
+            It's a highroof van that makes it even bigger and have extra head space that
 
-&nbsp;
-<br /><br />
+            makes the van more ventilated and refreshing compared to other regular vans.
 
-Available Vans for rent:
-<br /><strong>Nissan Urvan Premium</strong>
-<br />2.5 Diesel - 5 speed Automatic Transmission
-<br />Driver + 14 persons + 3-6 trolleys
-<br />
-<br /><strong>Toyota Super Grandia</strong>
-<br />2.5/3.0 Diesel - 5 speed Manual/Automatic Transmission
-<br />Driver + 10-12 persons + 2-4 trolleys
-<br />
-<br /><strong>Toyota Grandia GL</strong>
-<br />2.5/3.0 Diesel - 5 speed Manual/Automatic Transmission
-<br />Driver + 10-12 persons + 2-4 trolleys
+            &nbsp;
+            <br />
+            <h2>VAN rental</h2>
+            <a href="http://RealWheelsDavao.com/van-for-rent">Vans</a> are offered as with driver car rental/van rental. It can cater all types of family
+
+            occasions and any kind of business trips. VIP guests are welcome with special
+
+            attention from the company. Short term and Long term van rental with special
+
+            arrangements, terms and rates are open for negotiation.
+
+            &nbsp;
+            <br /><br />
+
+        </div>
+
+        <div class="col-lg-12 details-container">
+            <h3 class="text-primary">Base Rate</h3>
+            <table class="table">
+                <tr>
+                    <td>1-6 Days</td>
+                    <td>@ViewBag.dailyRate.ToString("N0") php</td>
+                </tr>
+                <tr>
+                    <td>7-21 Days</td>
+                    <td>@ViewBag.weeklyRate.ToString("N0") php</td>
+                </tr>
+                <tr>
+                    <td>22 and Above</td>
+                    <td>@ViewBag.monthlyRate.ToString("N0") php</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="col-lg-12 details-container">
+            <h3 class="text-primary">  Available Vans for rent:</h3>
+            <table class="table">
+                <tr>
+                    <td><strong>Nissan Urvan Premium</strong></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        2.5 Diesel
+                        <br /> 5 speed Automatic Transmission
+                    </td>
+                    <td>
+                        Driver + 14 persons
+                        <br /> 3-6 trolleys
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><strong>Toyota Super Grandia</strong></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>2.5/3.0 Diesel 
+                    <br /> 5 speed Manual/Automatic Transmission</td>
+                    <td>Driver + 10-12 persons
+                    <br /> 2-4 trolleys</td>
+                </tr>
+
+                <tr>
+                    <td><strong>Toyota Grandia GL</strong></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>2.5/3.0 Diesel 
+                    <br /> 5 speed Manual/Automatic Transmission</td>
+                    <td>Driver + 10-12 persons 
+                    <br />  2-4 trolleys</td>
+                </tr>
+
+            </table>
+
+        </div>
+
+        <div class="col-lg-12 details-container">
+            <h3 class="text-primary"> Services </h3>
+            <button class="btn btn-primary dtls-services"> With Driver </button>
+            <button class="btn btn-primary dtls-services"> Airport Pickup / Drop-off </button>
+            <button class="btn btn-primary dtls-services"> Hotel Pickup / Drop-off </button>
+            <button class="btn btn-primary dtls-services"> City Tour </button>
+            <button class="btn btn-primary dtls-services"> Out of town tour</button>
+        </div>
+
+        <div class="col-lg-12 details-container">
+            <h1 class="text-primary">Pictures</h1>
+            <a href="~/Images/CarRental/glgrandia/glgrandia_frontview.jpg" target="_blank"><img class="img-thumbnail" src="~/Images/CarRental/glgrandia/glgrandia_frontview.jpg" style="width:30%" /></a>
+            <a href="~/Images/CarRental/glgrandia/glgrandia_sideview.jpg" target="_blank"><img class="img-thumbnail" src="~/Images/CarRental/glgrandia/glgrandia_sideview.jpg" style="width:30%" /></a>
+            <a href="~/Images/CarRental/glgrandia/glgrandia_interior.jpg" target="_blank"><img class="img-thumbnail" src="~/Images/CarRental/glgrandia/glgrandia_interior.jpg" style="width:30%" /></a>
+        </div>
+
+        <div class="col-lg-12 details-container">
+            <h1 class="text-primary text-center">Book Now! </h1>
+            @Html.ActionLink("Cost Estimate and Reservation", "FormRenter", "CarRental", new { id = @ViewBag.Id }, new { @class = "btn btn-primary col-lg-12" })
+            <p class="text-info text-center" style="font-size:12px;color:gray;">Note: availability of the vehicle is not guaranteed on the date of reservation. </p>
+        </div>
+    </div>
+
+    <div class="col-sm-3" style="margin:30px;">
+        <a href="@Url.Action("CarDetail", "CarRental",new { unitid = 1 },null)" class="list-group-item  details-container-list active">  Van (10 seater)   </a>
+        <a href="@Url.Action("CarDetail", "CarRental", new { unitid = 2 },null)" class="list-group-item  details-container-list">  Van (14 seater)   </a>
+        <a href="@Url.Action("CarDetail", "CarRental", new { unitid = 3 },null)" class="list-group-item  details-container-list">  SUV   </a>
+        <a href="@Url.Action("CarDetail", "CarRental", new { unitid = 4 },null)" class="list-group-item  details-container-list">  MPV   </a>
+        <a href="@Url.Action("CarDetail", "CarRental", new { unitid = 5 },null)" class="list-group-item  details-container-list">  Sedan   </a>
+        <a href="@Url.Action("CarDetail", "CarRental", new { unitid = 6 },null)" class="list-group-item  details-container-list">  Pickup   </a>
+    </div>
 
 
+    <div class="col-sm-3" style="margin:30px;">
+        <label></label>
+    </div>
+</div>
 
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
 
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <p>Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
