@@ -18,14 +18,24 @@ namespace JobsV1
 
             #region wordpress links
             routes.MapRoute(
-                name: "toyota-innova-for-rent",
-                url: "{controller}/toyota-innova-for-rent",
-                defaults: new { controller = "CarRental", action = "CarDetail", unitid = 4 }
+                name: "van-for-rent",
+                url: "{controller}/van-for-rent",
+                defaults: new { controller = "CarRental", action = "CarDetail", unitid = 1 }
+            );
+            routes.MapRoute(
+                name: "NissanUrvanPremium-for-rent",
+                url: "{controller}/NissanUrvanPremium-for-rent",
+                defaults: new { controller = "CarRental", action = "CarDetail", unitid = 2 }
             );
             routes.MapRoute(
                 name: "suvpickup4x4-rental-rates",
                 url: "carrental/suvpickup4x4-rental-rates",
                 defaults: new { controller = "CarRental", action = "CarDetail", unitid = 3 }
+            );
+            routes.MapRoute(
+                name: "toyota-innova-for-rent",
+                url: "{controller}/toyota-innova-for-rent",
+                defaults: new { controller = "CarRental", action = "CarDetail", unitid = 4 }
             );
             routes.MapRoute(
                 name: "Sedan-rental",
