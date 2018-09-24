@@ -58,27 +58,6 @@
         </td>
 
 </tr>
-    <tr>
-        <td class="userLabel-lg1">Fuel</td>
-        <td colspan="2">
-            <span class="userRemarks">
-                City Limits
-            </span>
-            <br />
-            <span class="userData">
-                Included
-            </span>
-        </td>
-        <td>
-            <span class="userRemarks">
-                Out of town
-            </span>
-            <br />
-            <span class="userData">
-                Renter's fuel
-            </span>
-        </td>
-    </tr>
 
     <tr><td colspan="4">
 
@@ -88,5 +67,10 @@
             -->
             @Html.ActionLink("More Detail", "CarDetail", "CarRental", new { unitid = item.CarUnitId }, new { @class = "btn btn-primary" })
     </td></tr>
-}
+
+    <tr>
+        <td class="userLabel-lg1" colspan="4"></td>
+    </tr>
+
+                    }
 </table>
