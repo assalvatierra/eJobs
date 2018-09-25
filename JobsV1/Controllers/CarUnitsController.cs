@@ -17,6 +17,7 @@ namespace JobsV1.Controllers
         // GET: CarUnits
         public ActionResult Index()
         {
+
             var carUnits = db.CarUnits.Include(c => c.CarCategory).Include(r=>r.CarRates);
             return View(carUnits.ToList());
         }
