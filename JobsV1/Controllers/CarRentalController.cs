@@ -37,7 +37,7 @@ namespace JobsV1.Controllers
             ViewBag.CarUnitList = db.CarUnits.ToList();
             ViewBag.CarRates = db.CarRates.ToList();
             ViewBag.Packages = db.CarRatePackages.ToList();
-            return View("Index", db.CarUnits.Include(c => c.CarRates).ToList() );
+            return View("Index", db.CarUnits.Include(c => c.CarRates).Include(m=>m.CarUnitMetas).ToList() );
 
         }
         public ActionResult MainImage(int? id)
@@ -174,10 +174,14 @@ namespace JobsV1.Controllers
             reservation.DtTrx = DateTime.Today;
             reservation.DtStart = DateTime.Today.ToString();
             reservation.DtEnd = DateTime.Today.AddDays(2).ToString();
+
+            //get previous id
+            CarReservation lastId = db.CarReservations.ToList().OrderByDescending(c => c.Id).Last();
+
+            ViewBag.RsvId = lastId.Id + 1;
             
             ViewBag.CarUnitId = new SelectList(db.CarUnits, "Id", "Description", id);
             ViewBag.id = id;
-
             ViewBag.carRatesPackages = db.CarRateUnitPackages.ToList();
             ViewBag.CarUnitList = db.CarUnits.ToList();
             ViewBag.CarRates = db.CarRates.ToList();
@@ -190,12 +194,14 @@ namespace JobsV1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult FormRenter([Bind(Include = "Id,DtTrx,CarUnitId,DtStart,LocStart,DtEnd,LocEnd,BaseRate,Destinations,UseFor,RenterName,RenterCompany,RenterEmail,RenterMobile,RenterAddress,RenterFbAccnt,RenterLinkedInAccnt,EstHrPerDay,EstKmTravel")] CarReservation carReservation)
+        public ActionResult FormRenter([Bind(Include = "Id,DtTrx,CarUnitId,DtStart,LocStart,DtEnd,LocEnd,BaseRate,Destinations,UseFor,RenterName,RenterCompany,RenterEmail,RenterMobile,RenterAddress,RenterFbAccnt,RenterLinkedInAccnt,EstHrPerDay,EstKmTravel")] CarReservation carReservation, int packageid, int mealAcc, int fuel)
         {
             if (ModelState.IsValid)
             {
                 db.CarReservations.Add(carReservation);
                 db.SaveChanges();
+
+                addCarResPackage(carReservation.Id, packageid, mealAcc, fuel);
                 return RedirectToAction("FormThankYou", new { rsvId = carReservation.Id });
             }
 
@@ -229,17 +235,18 @@ namespace JobsV1.Controllers
         {
             return RedirectToAction("Contact", "Home");
         }
-
-        [HttpPost]
-        public ActionResult test(int? id)
+        
+        public void addCarResPackage(int CarReservationId, int packageid, int mealsAcc, int fuel)
         {
-            CarCategory cat = new CarCategory();
-            cat.Description = "test"+ id;
-            cat.Remarks = "test";
-            db.CarCategories.Add(cat);
+            CarResPackage packages = new CarResPackage();
+            packages.CarRateUnitPackageId = packageid;
+            packages.CarReservationId = CarReservationId;
+            packages.DrvMealByClient = mealsAcc;
+            packages.FuelByClient = fuel;
+            packages.DrvRoomByClient = mealsAcc;
+            db.CarResPackages.Add(packages);
             db.SaveChanges();
-
-            return RedirectToAction("Contact", "Home");
+            
         }
 
 

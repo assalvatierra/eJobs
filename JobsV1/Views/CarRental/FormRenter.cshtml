@@ -125,6 +125,7 @@
             </div>
 
             <h3>Renter Details</h3>
+            <p>Fields with * are required.</p><p style="color:tomato;display:block" id="dtls-warning"> Please Fill out the Name, Email and Mobile Fields </p>
             <hr />
             <div class="form-group"  oninput="checkRenterDetails()" >
                 <label class="control-label col-md-2"> Name* </label>
@@ -182,9 +183,19 @@
                 </div>
             </div>
 
+            <!--
+            Hidden
+            -->
+            <div style="display:none;">
+                <input type="text" name="packageid" id="dtls-packageId" value="1" />
+                <input type="text" name="mealAcc" id="dtls-mealsAcc" value="1" />
+                <input type="text" name="fuel" id="dtls-fuel" value="1" />
+            </div>
+            <br />
+
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10"  >
-                    <input value="Submit" class="btn btn-default disabled" id="submit-btn" />
+                    <input type="submit" value="Submit" class="btn btn-default disabled" id="submit-btn" />
                 </div>
             </div>
         </div>
@@ -195,201 +206,34 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript" src="~/Scripts/Job/FormRenter.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script type="text/javascript"  src="~/Scripts/CarRental/Reservation_wDriver.js"></script>
+
 }
 
 
-<script src="~/Scripts/jquery-3.3.1.js"></script>
-
 <script>
-    //globals
-    var currentForm = "Modal";
-    var selectedCar = "";
-    var RentalType = "With Driver";
-    var NoDays = 0;
-    var MealsAcc = 0;
-    var Fuel = 0;
-    var selectedTour = 0;
-
-    //initial-default
-    $('#withdriver').attr('checked', true);
-    $('#' +@(ViewBag.id)).attr('checked', true);
-    $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
-    $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val());
-    $('#pkg-1').attr('checked', true);
-    $('#pkg-1').addClass('active').siblings().removeClass('active');
-    selectedTour =  $('#pkg-1').attr('id');
-
-    $('#btn-rentalType').click(function () {
-        $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val());
-
-        if ($('input:radio[name=options]:checked').val() == "Self Drive") {
-            $('.isSelfDrive1').hide();
-        } else {
-            $('.isSelfDrive1').show();
-        }
-    });
-
-    $('#btn-rentalUnit').click(function () {
-        $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val());
-
-        $('#car1').css('border', '1px solid lightgray');
-        $('#car2').css('border', '1px solid lightgray');
-        $('#car3').css('border', '1px solid lightgray');
-        $('#car4').css('border', '1px solid lightgray');
-        $('#car5').css('border', '1px solid lightgray');
-        $('#car6').css('border', '1px solid lightgray');
-
-        $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
-
-    });
-
-    function showForm() {
-
-        RentalType = $('input:radio[name=options]:checked').val();
-        selectedCar = $('input:radio[name=cars]:checked').attr("id");
-        NoDays = $('#rsv-days').val();
-        MealsAcc = $('#rsv-meal').val();
-        Fuel = $('#rsv-fuel').val();
-
-        //self drive
-        if ($('input:radio[name=options]:checked').val() == "Self Drive") {
-            selfDrive($('input:radio[name=cars]:checked').attr("id"));
-        }
-
-        switch (currentForm) {
-            case "Modal": //next FormReservation
-                currentForm = "FormReserve";
-                $('#modal2-content').css('display', 'none');
-                $('#formReserve').css('display', 'block');
-                $('#formPackages').css('display', 'none');
-                $('#formSummary').css('display', 'none');
-                $('#formRenter').css('display', 'none');
-                $('#formFinish').css('display', 'none');
-                $('#rsv-footer').css('display','block');
-                break;
-            case "FormReserve": //next FormPackages
-                currentForm = "FormPackages";
-                $('#modal2-content').css('display', 'none');
-                $('#formReserve').css('display', 'none');
-                $('#formPackages').css('display', 'block');
-                $('#formSummary').css('display', 'none');
-                $('#formRenter').css('display', 'none');
-                $('#formFinish').css('display', 'none');
-                $('#rsv-footer').css('display','block');
-                displayPackages();
-                break;
-            case "FormPackages": //next formSummary
-                currentForm = "formSummary";
-                $('#modal2-content').css('display', 'none');
-                $('#formPackages').css('display', 'none');
-                $('#formReserve').css('display', 'none');
-                $('#formSummary').css('display', 'block');
-                $('#formRenter').css('display', 'none');
-                $('#formFinish').css('display', 'none');
-                $('#rsv-footer').css('display','block');
-                displaySummary();
-                break;
-            case "formSummary":  //next formRenter
-                currentForm = "formRenter";
-                $('#modal2-content').css('display', 'none');
-                $('#formPackages').css('display', 'none');
-                $('#formReserve').css('display', 'none');
-                $('#formSummary').css('display', 'none');
-                $('#formRenter').css('display', 'block');
-                $('#formFinish').css('display', 'none');
-                $('#rsv-footer').css('display','none');
-                break;
-            case "formRenter":  //next formThankyou
-                currentForm = "formThankyou";
-                $('#modal2-content').css('display', 'none');
-                $('#formPackages').css('display', 'none');
-                $('#formReserve').css('display', 'none');
-                $('#formSummary').css('display', 'none');
-                $('#formRenter').css('display', 'none');
-                $('#formFinish').css('display', 'block');
-                $('#rsv-footer').css('display','none');
-                break;
-        }
-
-        $('#FormPackages_carid').val($('input:radio[name=cars]:checked').attr("id"));
-    }
-
-    function backtoMain() {
-        currentForm = "Modal";
-        $('#modal2-content').css('display', 'block');
-        $('#formReserve').css('display', 'none');
-        $('#formPackages').css('display', 'none');
-        $('#formSummary').css('display', 'none');
-        $('#formRenter').css('display', 'none');
-        $('#formFinish').css('display', 'none');
-        $('#rsv-footer').css('display','block');
-
-    }
-
-    function backtoPrev() {
-
-        switch (currentForm) {
-            case "Modal": //prev none
-                currentForm = "Modal";
-                $('#modal2-content').css('display', 'block');
-                $('#formReserve').css('display', 'none');
-                $('#formPackages').css('display', 'none');
-                $('#formSummary').css('display', 'none');
-                $('#formRenter').css('display', 'none');
-                break;
-            case "FormReserve": //prev Modal
-                currentForm = "Modal";
-                $('#modal2-content').css('display', 'block');
-                $('#formReserve').css('display', 'none');
-                $('#formPackages').css('display', 'none');
-                $('#formSummary').css('display', 'none');
-                $('#formRenter').css('display', 'none');
-                break;
-            case "FormPackages":  //next form summary
-                currentForm = "FormReserve";
-                $('#modal2-content').css('display', 'none');
-                $('#formReserve').css('display', 'block');
-                $('#formPackages').css('display', 'none');
-                $('#formSummary').css('display', 'none');
-                $('#formRenter').css('display', 'none');
-                break;
-            case "formSummary":  //next back to main
-                currentForm = "FormPackages";
-                $('#modal2-content').css('display', 'none');
-                $('#formReserve').css('display', 'none');
-                $('#formPackages').css('display', 'block');
-                $('#formSummary').css('display', 'none');
-                $('#formRenter').css('display', 'none');
-                break;
-            case "formRenter":  //next summary
-                currentForm = "formSummary";
-                $('#modal2-content').css('display', 'none');
-                $('#formPackages').css('display', 'none');
-                $('#formReserve').css('display', 'none');
-                $('#formSummary').css('display', 'block');
-                $('#formRenter').css('display', 'none');
-                sleep(5000);
-                break;
-        }
-    }
+    
+    //initial
+    $('#@(ViewBag.id)').attr('checked', true);
+    reservationNum =  @(ViewBag.RsvId);
 
     function displayPackages() {
         @foreach (var package in ViewBag.Packages as IEnumerable<JobsV1.Models.CarRatePackage>)
         {
             var carRate_longhaulrate = 0;
             var carRate_fuel = 0;
+
             //carRatesPackages
             foreach (var carRatesPackages in ViewBag.carRatesPackages as IEnumerable<JobsV1.Models.CarRateUnitPackage>)
             {
-
                 if (@carRatesPackages.CarRatePackageId == @package.Id)
                 {
-                <text>
-                if(@(carRatesPackages.CarUnitId) == selectedCar )
-                {
+                    <text>
+                    if(@(carRatesPackages.CarUnitId) == selectedCar )
+                    {
                         carRate_longhaulrate = @carRatesPackages.FuelLonghaul;
                         carRate_fuel =  @carRatesPackages.FuelDaily;
-
 
                         //fuel
                         if ($('#rsv-fuel').val() == '0') {
@@ -400,12 +244,11 @@
                         }
 
                     }
-                </text>
+                    </text>
                 }
             }
 
-
-             <text>
+            <text>
             $('#pkg-days@(package.Id)').text($('#rsv-days').val());
 
             //meals and accomodation
@@ -421,35 +264,33 @@
             //rate
             foreach (var rates in ViewBag.CarRates as IEnumerable<JobsV1.Models.CarRate>)
             {
-            <text>
-            var rentalType;
-            if(RentalType == "With Driver" ){
-                rentalType = 1;
-            }else{
-                rentalType = 0
-            }
+                <text>
+                var rentalType;
+                if(RentalType == "With Driver" ){
+                    rentalType = 1;
+                }else{
+                    rentalType = 0
+                }
 
-            var days =  $('#rsv-days').val();
+                var days =  $('#rsv-days').val();
 
-            var rate = @rates.Daily * days;
+                var rate = @rates.Daily * days;
 
-            //Fuel
-            var fuelRate = (Fuel * carRate_fuel * days ) + carRate_longhaulrate;
+                //Fuel
+                var fuelRate = (Fuel * carRate_fuel * days ) + carRate_longhaulrate;
 
-            //MealsAcc
-            var mealsperDay = @package.DailyMeals +  @package.DailyRoom;
-            var mealsRate = (MealsAcc * mealsperDay ) * (days - 1) * rentalType;
+                //MealsAcc
+                var mealsperDay = @package.DailyMeals +  @package.DailyRoom;
+                var mealsRate = (MealsAcc * mealsperDay ) * (days - 1) * rentalType;
 
-            //total rate
-            var totalRate =rate + fuelRate + mealsRate;
+                //total rate
+                var totalRate =rate + fuelRate + mealsRate;
 
-            if(selectedCar == '@rates.CarUnitId' ){
-                $('#pkg-rate@(package.Id)').text('r:' + rate  +' + m:'+ mealsRate +' + f:'+ fuelRate  +' T:'+ totalRate);
-            }
-            </text>
-        }
-
-
+                if(selectedCar == '@rates.CarUnitId' ){
+                    $('#pkg-rate@(package.Id)').text('r:' + rate  +' + m:'+ mealsRate +' + f:'+ fuelRate  +' T:'+ totalRate);
+                }
+                </text>
+             }
         }
     }
 
@@ -475,12 +316,11 @@
             //carRatesPackages
             foreach (var carRatesPackages in ViewBag.carRatesPackages as IEnumerable<JobsV1.Models.CarRateUnitPackage>)
             {
-
                 <text>
                 if (@carRatesPackages.CarRatePackageId == selectedTour.substring(4, 5))
                 {
-                if(@(carRatesPackages.CarUnitId) == selectedCar )
-                {
+                    if(@(carRatesPackages.CarUnitId) == selectedCar )
+                    {
                         carRate_longhaulrate = @carRatesPackages.FuelLonghaul;
                         carRate_fuel =  @carRatesPackages.FuelDaily;
 
@@ -494,164 +334,82 @@
                 }
                 </text>
             }
-
-
-
+    
             <text>
-        if(@package.Id == selectedTour.substring(4, 5)){ // get id of the tour
-            $('#smry-itour').text('@package.Description');
-            $('#rnt-destination').val('@package.Description'); //for reservation details
-            $('#rnt-usedfor').val('@package.Description'); //for reservation details
-        }
+            if(@package.Id == selectedTour.substring(4, 5)){ // get id of the tour
+                $('#smry-itour').text('@package.Description');
+                $('#rnt-destination').val('@package.Description'); //for reservation details
+                $('#rnt-usedfor').val('@package.Description'); //for reservation details
+            }
 
-        //meals and accomodation
-        if ($('#rsv-meal').val() == '0') {
-            $('#smry-rMeal').text('by renter ');
-        } else {
+            //meals and accomodation
+            if ($('#rsv-meal').val() == '0') {
+                $('#smry-rMeal').text('by renter ');
+            } else {
 
-            $('#smry-rMeal').text('Included : ' + @package.DailyMeals +' + ' + @package.DailyRoom);
-        }
+                $('#smry-rMeal').text('Included : ' + @package.DailyMeals +' + ' + @package.DailyRoom);
+            }
 
-        //fuel
-        if ($('#rsv-fuel').val() == '0') {
-            $('#smry-rFuel').text('by renter');
-        } else {
-            $('#smry-rFuel').text('Included : f:' + carRate_fuel + ' + lh:' + carRate_longhaulrate);
-        }
-        </text>
+            //fuel
+            if ($('#rsv-fuel').val() == '0') {
+                $('#smry-rFuel').text('by renter');
+            } else {
+                $('#smry-rFuel').text('Included : f:' + carRate_fuel + ' + lh:' + carRate_longhaulrate);
+            }
+            </text>
 
             //get car rate
             foreach (var carlist in ViewBag.CarUnitList as IEnumerable<JobsV1.Models.CarUnit>)
             {
 
-                <text>
-        if(@carlist.Id == selectedCar){ // get id of the car
-            $('#smry-rVehicle').text('@carlist.Description');
-            $('#rnt-carUnit').val(selectedCar);  // (id) for reservation details
-        }
-        </text>
+            <text>
+            if(@carlist.Id == selectedCar){ // get id of the car
+                $('#smry-rVehicle').text('@carlist.Description');
+                $('#rnt-carUnit').val(selectedCar);  // (id) for reservation details
+            }
+            </text>
             }
 
             //rate
-        foreach (var rates in ViewBag.CarRates as IEnumerable<JobsV1.Models.CarRate>)
-        {
+            foreach (var rates in ViewBag.CarRates as IEnumerable<JobsV1.Models.CarRate>)
+            {
 
-        <text>
-        if(@rates.CarUnitId == selectedCar){ // get id of the car
-            $('#smry-rVehicleRate').text('@rates.Daily');
-        }
+                <text>
+                if(@rates.CarUnitId == selectedCar){ // get id of the car
+                    $('#smry-rVehicleRate').text('@rates.Daily');
+                }
 
-        var rentalType;
-        if(RentalType == "With Driver" ){
-            rentalType = 1;
-        }else{
-            rentalType = 0
-        }
+                var rentalType;
+                if(RentalType == "With Driver" ){
+                    rentalType = 1;
+                }else{
+                    rentalType = 0
+                }
 
-        var days =  $('#rsv-days').val();
+                var days =  $('#rsv-days').val();
 
-        var rate = @rates.Daily * days;
+                var rate = @rates.Daily * days;
 
-        //Fuel
-        var fuelRate = (Fuel * carRate_fuel * days) + carRate_longhaulrate;
+                //Fuel
+                var fuelRate = (Fuel * carRate_fuel * days) + carRate_longhaulrate;
 
-        //MealsAcc
-        var mealsperDay = @package.DailyMeals +  @package.DailyRoom;
-        var mealsRate = (MealsAcc * mealsperDay ) * (days - 1) * rentalType;
+                //MealsAcc
+                var mealsperDay = @package.DailyMeals +  @package.DailyRoom;
+                var mealsRate = (MealsAcc * mealsperDay ) * (days - 1) * rentalType;
 
-        //total rate
-        var totalRate =rate + fuelRate + mealsRate;
-        $('#rnt-baseRate').val(totalRate);
-        if(selectedCar == '@rates.CarUnitId' ){
-            $('#smry-rtotal').text('r:' + rate  +' + m:'+ mealsRate +' + f:'+ fuelRate +' = '+  totalRate);
-        }
-        </text>
-             }//end foreach rates
+                //total rate
+                var totalRate =rate + fuelRate + mealsRate;
+                $('#rnt-baseRate').val(totalRate);
+                if(selectedCar == '@rates.CarUnitId' ){
+                    $('#smry-rtotal').text('r:' + rate  +' + m:'+ mealsRate +' + f:'+ fuelRate +' = '+  totalRate);
+                }
+                </text>
+            }//end foreach rates
 
         }//end foreach packages
 
     }//end foreach function
 
-
-    function submitRenter(){
-
-        alert('submit');
-        data = {
-            Id : 0,
-            DtTrx : '9/22/2018',
-            CarUnitId : '1',
-            DtStart : '9/22/2018',
-            LocStart : 'somewhere',
-            DtEnd : '9/22/2018',
-            LocEnd : 'somewhere',
-            BaseRate : '2000',
-            Destinations : 'Samal Tour',
-            UseFor : 'somewhere',
-            RenterName : 'somewhere',
-            RenterCompany : 'somewhere',
-            RenterEmail : 'somewhere@gmail.com',
-            RenterMobile : '09123456',
-            RenterAddress : '',
-            RenterFbAccnt : '',
-            RenterLinkedInAccnt : '',
-            EstHrPerDay : '',
-            EstKmTravel : ''
-        }
-
-
-        var serviceURL = '/CarRental/FormRenterPOST';
-
-        $.ajax({
-            type: "POST",
-            url: serviceURL,
-            data: data,
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: successFunc(),
-            error: errorFunc()
-        });
-    }
-
-    function testajax(){
-
-        alert('submit');
-
-        var serviceURL = '/CarRental/test';
-
-        $.ajax({
-            type: "POST",
-            url: serviceURL,
-            data: JSON.stringify({ id : '1'}),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function(){
-                alert('success');
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                alert('An error occurred... Look at the console (F12 or Ctrl+Shift+I, Console tab) for more information!');
-
-                $('#result').html('<p>status code: '+jqXHR.status+'</p><p>errorThrown: ' + errorThrown + '</p><p>jqXHR.responseText:</p><div>'+jqXHR.responseText + '</div>');
-                console.log('jqXHR:');
-                console.log(jqXHR);
-                console.log('textStatus:');
-                console.log(textStatus);
-                console.log('errorThrown:');
-                console.log(errorThrown);
-            }
-        });
-    }
-
-    function selfDrive(id){
-        window.location.href = '/CarRental/Reservation?unitid='+id ;
-    }
-
-    
-
-
-    $('#pkg-table').on('click', '.clickable-row', function(event) {
-        $(this).addClass('active').siblings().removeClass('active');
-        selectedTour =  $(this).attr('id');
-    });
 </script>
 
 <script>
@@ -667,10 +425,12 @@
 
         if(name != null && email != null && mobile != null){
             $('#submit-btn').removeClass('disabled');
+            $('#dtls-warning').css('display','none');
         }
 
         if(name == '' || name == null || email == '' || email == null || mobile == '' || mobile == null){
             $('#submit-btn').addClass('disabled');
+            $('#dtls-warning').css('display','block');
         }
     }
 

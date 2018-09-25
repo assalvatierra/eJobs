@@ -129,6 +129,21 @@ namespace JobsV1
 
         }
 
+        
+        [WebMethod]
+        public void reservationPkg(int reservationid, int pacakgeId, int mealAcc, int fuel)
+        {
+            CarResPackage packages = new CarResPackage();
+            packages.CarRateUnitPackageId = pacakgeId;
+            packages.CarReservationId = reservationid;
+            packages.DrvMealByClient = mealAcc;
+            packages.DrvRoomByClient = mealAcc;
+            packages.FuelByClient = fuel;
+
+            db.CarResPackages.Add(packages);
+            db.SaveChanges();
+        }
+
         [WebMethod]
         public void FormRenter( string DtTrx, string CarUnitId, string DtStart, string LocStart,
             string DtEnd, string LocEnd, string BaseRate, string Destinations, string UseFor,
@@ -154,8 +169,9 @@ namespace JobsV1
             carReservation.RenterLinkedInAccnt = RenterLinkedInAccnt;
             carReservation.EstHrPerDay = int.Parse( EstHrPerDay);
             carReservation.EstKmTravel = int.Parse( EstKmTravel);
-                db.CarReservations.Add(carReservation);
-                db.SaveChanges();
+
+            db.CarReservations.Add(carReservation);
+            db.SaveChanges();
          
         }
 

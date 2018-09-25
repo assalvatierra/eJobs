@@ -194,3 +194,7 @@ table tr .additemtable :hover{
     border: 1px solid lightgray;
     text-align:center;
 }
+
+.dtls-gallery > a > img {
+    width:32%;
+}
