@@ -4,130 +4,104 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<style>
+    .cust-rsvr-date {
+        background-color: dodgerblue;
+        color:white;
+        font-size:20px;
+        width:10px;
+    }
+
+    .cust-rsvr-rdate {
+        font-size:14px;
+        color:dodgerblue;
+    }
+
+    .cust-rsvr-item {
+        border-radius: 15px;
+        box-shadow: 0px 0px 10px lightgray;
+        padding:5px;
+    }
+    
+
+</style>
+
+<h2>Rental Reservation List</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<p>
+    Filter by: 
+</p>
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.DtTrx)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DtStart)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LocStart)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DtEnd)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LocEnd)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BaseRate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Destinations)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UseFor)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RenterName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RenterCompany)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RenterEmail)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RenterMobile)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RenterAddress)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RenterFbAccnt)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RenterLinkedInAccnt)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EstHrPerDay)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EstKmTravel)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CarUnit.Description)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
+
+    <tr class="cust-rsvr-item">
+        <td class="col-sm-2 cust-rsvr-date ">
+            <center>@item.DtTrx.ToShortDateString()</center>
+            <br />
+            <p>
+                @int.Parse(item.BaseRate).ToString("N0")php
+            </p>
+        </td>
+
+        <td class="col-sm-4">
+            <p><label class="cust-rsvr-rdate" >
+                 @Html.DisplayFor(modelItem => item.DtStart) - @Html.DisplayFor(modelItem => item.DtEnd) 
+            </label></p>
+            <p> <span style="color:gray;"> Destination: </span> @Html.DisplayFor(modelItem => item.Destinations) - @Html.DisplayFor(modelItem => item.UseFor) </p>
+            <p> <span style="color:gray;"> Vehicle: </span>@Html.DisplayFor(modelItem => item.CarUnit.Description) - @Html.DisplayFor(modelItem => item.CarUnit.CarRateUnitPackages.Where(c=>c.CarUnitId ==item.CarUnitId).FirstOrDefault().CarRatePackage.Remarks)  </p>
+
+            <p>
+                <span style="color:gray;"> Meals & Accomodation: </span>
+                @if (@Html.DisplayFor(modelItem => item.CarResPackages.Where(s => s.CarReservationId == item.Id).FirstOrDefault().DrvMealByClient).ToString() == "1")
+                {
+                    <span> By Renter</span>
+                }
+                else
+                {
+                    <span>Included in the Package</span>
+                }
+            </p>
+            <p>
+                <span style="color:gray;"> Fuel: </span>
+                @if (@Html.DisplayFor(modelItem => item.CarResPackages.Where(s => s.CarReservationId == item.Id).FirstOrDefault().DrvMealByClient).ToString() == "1")
+                {
+                    <span> By Renter</span>
+                }
+                else
+                {
+                    <span>Included in the Package</span>
+                }
+            </p>
+        </td>
+
+
+        <td class="col-sm-4">
+            <p>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </p>
+            <p> <span style="color:gray;"> Name: </span> @Html.DisplayFor(modelItem => item.RenterName) </p>
+            <p> <span style="color:gray;"> Company: </span> @Html.DisplayFor(modelItem => item.RenterCompany) </p>
+            <p> <span style="color:gray;"> Contact Info: </span> @Html.DisplayFor(modelItem => item.RenterEmail) / @Html.DisplayFor(modelItem => item.RenterMobile) </p>
+           
+        </td>
+        <td class="col-sm-3">
+            <p></p>
+
+            <p> <span style="color:black;"> Job Details: </span></p>
+            <buton class="btn btn-default"> Create Quotation</buton>
+            <buton class="btn btn-default"> Link Quotation</buton>
+        </td>
+    </tr>
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.DtTrx)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DtStart)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LocStart)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DtEnd)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LocEnd)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BaseRate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Destinations)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UseFor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RenterName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RenterCompany)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RenterEmail)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RenterMobile)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RenterAddress)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RenterFbAccnt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RenterLinkedInAccnt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EstHrPerDay)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EstKmTravel)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CarUnit.Description)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+           
         </td>
     </tr>
 }

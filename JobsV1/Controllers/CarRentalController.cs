@@ -88,7 +88,7 @@ namespace JobsV1.Controllers
                 return RedirectToAction("ReservationNotification");
             }
 
-            return View("carReservation", new { unitid = carReservation.CarUnitId } );
+            return View("Reservation", new { unitid = carReservation.CarUnitId } );
         }
 
         public ActionResult ReservationNotification()
@@ -171,9 +171,9 @@ namespace JobsV1.Controllers
         public ActionResult FormRenter(int? id)
         {
             CarReservation reservation = new CarReservation();
-            reservation.DtTrx = DateTime.Today;
-            reservation.DtStart = DateTime.Today.ToString();
-            reservation.DtEnd = DateTime.Today.AddDays(2).ToString();
+            reservation.DtTrx = DateTime.Now;
+            reservation.DtStart = DateTime.Now.ToString();
+            reservation.DtEnd = DateTime.Now.AddDays(2).ToString();
 
             //get previous id
             CarReservation lastId = db.CarReservations.ToList().OrderByDescending(c => c.Id).Last();
