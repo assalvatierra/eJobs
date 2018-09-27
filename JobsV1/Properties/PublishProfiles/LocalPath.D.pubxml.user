@@ -82,10 +82,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>09/24/2018 11:51:38</publishTime>
+      <publishTime>09/27/2018 16:38:51</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>09/24/2018 11:51:38</publishTime>
+      <publishTime>09/27/2018 16:38:51</publishTime>
     </File>
     <File Include="bin/de/Microsoft.SqlServer.Types.resources.dll">
       <publishTime>02/21/2014 06:26:06</publishTime>
@@ -109,7 +109,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/21/2014 06:25:22</publishTime>
     </File>
     <File Include="bin/JobsV1.dll">
-      <publishTime>09/24/2018 11:51:26</publishTime>
+      <publishTime>09/27/2018 16:38:33</publishTime>
     </File>
     <File Include="bin/ko/Microsoft.SqlServer.Types.resources.dll">
       <publishTime>02/21/2014 06:27:16</publishTime>
@@ -265,7 +265,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/21/2018 12:46:50</publishTime>
     </File>
     <File Include="Content/Site.css">
-      <publishTime>09/22/2018 10:46:32</publishTime>
+      <publishTime>09/27/2018 15:40:07</publishTime>
     </File>
     <File Include="Content/themes/base/accordion.css">
       <publishTime>02/22/2017 09:02:29</publishTime>
@@ -426,20 +426,59 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Images/CarRental/Driver102x.png">
       <publishTime>08/24/2018 08:27:44</publishTime>
     </File>
+    <File Include="Images/CarRental/ford/fordeverest_front side view.jpg">
+      <publishTime>09/27/2018 15:40:07</publishTime>
+    </File>
+    <File Include="Images/CarRental/ford/fordeverest_interior.jpg">
+      <publishTime>09/27/2018 15:40:07</publishTime>
+    </File>
+    <File Include="Images/CarRental/ford/frod_sideview.jpg">
+      <publishTime>09/27/2018 15:40:07</publishTime>
+    </File>
     <File Include="Images/CarRental/FordEverest.jpg">
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
     <File Include="Images/CarRental/fordeverest_primary.jpg">
-      <publishTime>09/13/2018 19:54:30</publishTime>
+      <publishTime>09/27/2018 15:40:07</publishTime>
+    </File>
+    <File Include="Images/CarRental/fortuner/fortuner_frontview.jpg">
+      <publishTime>09/27/2018 15:40:07</publishTime>
+    </File>
+    <File Include="Images/CarRental/fortuner/fortuner_interior.jpg">
+      <publishTime>09/27/2018 15:40:07</publishTime>
+    </File>
+    <File Include="Images/CarRental/fortuner/fortuner_sideview.jpg">
+      <publishTime>09/27/2018 15:40:07</publishTime>
+    </File>
+    <File Include="Images/CarRental/fortuner/toyotafortuner_rearview.jpg">
+      <publishTime>09/27/2018 15:40:07</publishTime>
     </File>
     <File Include="Images/CarRental/FortunerPrimary.png">
       <publishTime>09/18/2018 09:46:59</publishTime>
+    </File>
+    <File Include="Images/CarRental/glgrandia/glgrandia_frontview.jpg">
+      <publishTime>09/27/2018 15:40:07</publishTime>
+    </File>
+    <File Include="Images/CarRental/glgrandia/glgrandia_interior.jpg">
+      <publishTime>09/27/2018 15:40:07</publishTime>
+    </File>
+    <File Include="Images/CarRental/glgrandia/glgrandia_sideview.jpg">
+      <publishTime>09/27/2018 15:40:07</publishTime>
     </File>
     <File Include="Images/CarRental/grandiaPrimary.png">
       <publishTime>09/18/2018 09:46:59</publishTime>
     </File>
     <File Include="Images/CarRental/HondaCity.jpg">
       <publishTime>02/22/2017 09:02:29</publishTime>
+    </File>
+    <File Include="Images/CarRental/hondacity/hondaCity_frontview.jpg">
+      <publishTime>09/27/2018 15:40:07</publishTime>
+    </File>
+    <File Include="Images/CarRental/hondacity/hondacity_interior.jpg">
+      <publishTime>09/27/2018 15:40:07</publishTime>
+    </File>
+    <File Include="Images/CarRental/hondacity/hondacity_rearview.jpg">
+      <publishTime>09/27/2018 15:40:07</publishTime>
     </File>
     <File Include="Images/CarRental/HondaCityPrimary.png">
       <publishTime>09/18/2018 09:46:59</publishTime>
@@ -450,8 +489,26 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Images/CarRental/hondacity_primary.jpg">
       <publishTime>09/13/2018 19:54:30</publishTime>
     </File>
+    <File Include="Images/CarRental/innova/toyotainnova_front.jpg">
+      <publishTime>09/27/2018 15:40:07</publishTime>
+    </File>
+    <File Include="Images/CarRental/innova/toyotainnova_interior.jpg">
+      <publishTime>09/27/2018 15:40:07</publishTime>
+    </File>
+    <File Include="Images/CarRental/innova/ToyotaInnova_SideView.jpg">
+      <publishTime>09/27/2018 15:40:07</publishTime>
+    </File>
     <File Include="Images/CarRental/InnovaPrimary.png">
       <publishTime>09/18/2018 09:46:59</publishTime>
+    </File>
+    <File Include="Images/CarRental/nissanPremium/nissanpremium_frontview.jpg">
+      <publishTime>09/27/2018 15:40:07</publishTime>
+    </File>
+    <File Include="Images/CarRental/nissanPremium/nissanpremium_interior.jpg">
+      <publishTime>09/27/2018 15:40:07</publishTime>
+    </File>
+    <File Include="Images/CarRental/nissanPremium/nissanpremium_sideview.jpg">
+      <publishTime>09/27/2018 15:40:07</publishTime>
     </File>
     <File Include="Images/CarRental/NissanPremiumPrimary.png">
       <publishTime>09/18/2018 09:46:59</publishTime>
@@ -470,6 +527,15 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Images/CarRental/OffRoad102.jpg">
       <publishTime>07/31/2018 14:34:01</publishTime>
+    </File>
+    <File Include="Images/CarRental/pickup/pickup_front.jpg">
+      <publishTime>09/27/2018 15:40:07</publishTime>
+    </File>
+    <File Include="Images/CarRental/pickup/pickup_interior.jpg">
+      <publishTime>09/27/2018 15:40:07</publishTime>
+    </File>
+    <File Include="Images/CarRental/pickup/pickup_sideview.jpg">
+      <publishTime>09/27/2018 15:40:07</publishTime>
     </File>
     <File Include="Images/CarRental/PickupPrimary.png">
       <publishTime>09/18/2018 09:46:59</publishTime>
@@ -518,6 +584,15 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Images/CarRental/Van102.jpg">
       <publishTime>07/31/2018 14:40:36</publishTime>
+    </File>
+    <File Include="Images/CarRental/vios/toyotavios_backsideview.jpg">
+      <publishTime>09/27/2018 15:40:07</publishTime>
+    </File>
+    <File Include="Images/CarRental/vios/toyotavios_frontview.jpg">
+      <publishTime>09/27/2018 15:40:07</publishTime>
+    </File>
+    <File Include="Images/CarRental/vios/toyotavios_interior.jpg">
+      <publishTime>09/27/2018 15:40:07</publishTime>
     </File>
     <File Include="Images/CarRental/vios_primary.png">
       <publishTime>09/13/2018 19:54:30</publishTime>
@@ -685,7 +760,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
     <File Include="Models/CarRentalInitial.sql">
-      <publishTime>09/22/2018 15:04:53</publishTime>
+      <publishTime>09/27/2018 16:11:48</publishTime>
     </File>
     <File Include="Models/CarRentalInitial_meta.sql">
       <publishTime>09/22/2018 14:43:05</publishTime>
@@ -709,7 +784,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/22/2018 14:36:17</publishTime>
     </File>
     <File Include="Models/JobDB.edmx.sql">
-      <publishTime>09/22/2018 16:42:33</publishTime>
+      <publishTime>09/27/2018 15:56:43</publishTime>
     </File>
     <File Include="Models/JobNotes.sql">
       <publishTime>03/20/2017 11:30:34</publishTime>
@@ -733,7 +808,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/12/2018 08:52:41</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>09/24/2018 11:51:32</publishTime>
+      <publishTime>09/27/2018 16:38:45</publishTime>
     </File>
     <File Include="Properties/PublishProfiles/ftp.myasp.net.pubxml.user">
       <publishTime>03/28/2018 17:48:28</publishTime>
@@ -757,7 +832,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
     <File Include="Scripts/CarRental/Reservation.js">
-      <publishTime>02/22/2017 09:02:29</publishTime>
+      <publishTime>09/27/2018 16:11:48</publishTime>
+    </File>
+    <File Include="Scripts/CarRental/Reservation_wDriver.js">
+      <publishTime>09/27/2018 15:40:07</publishTime>
     </File>
     <File Include="Scripts/DateRangePicker/bower.json">
       <publishTime>02/22/2017 09:02:29</publishTime>
@@ -853,7 +931,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
     <File Include="Scripts/_references.js">
-      <publishTime>09/22/2018 10:46:32</publishTime>
+      <publishTime>09/27/2018 15:40:07</publishTime>
     </File>
     <File Include="SMSWebService.asmx">
       <publishTime>07/03/2018 11:12:23</publishTime>
@@ -925,7 +1003,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
     <File Include="Views/CarRental/CarDetail_mpv.cshtml">
-      <publishTime>09/22/2018 14:32:55</publishTime>
+      <publishTime>09/27/2018 15:40:07</publishTime>
     </File>
     <File Include="Views/CarRental/CarDetail_pickup.cshtml">
       <publishTime>09/22/2018 10:46:32</publishTime>
@@ -934,19 +1012,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/22/2018 10:46:32</publishTime>
     </File>
     <File Include="Views/CarRental/CarDetail_suv.cshtml">
-      <publishTime>09/24/2018 11:22:25</publishTime>
+      <publishTime>09/27/2018 15:40:07</publishTime>
     </File>
     <File Include="Views/CarRental/CarDetail_temp.cshtml">
-      <publishTime>09/22/2018 10:46:32</publishTime>
+      <publishTime>09/27/2018 15:40:07</publishTime>
     </File>
     <File Include="Views/CarRental/CarDetail_van.cshtml">
-      <publishTime>09/24/2018 11:30:49</publishTime>
+      <publishTime>09/27/2018 15:44:16</publishTime>
     </File>
     <File Include="Views/CarRental/CarHome.cshtml">
       <publishTime>09/13/2018 09:47:27</publishTime>
     </File>
     <File Include="Views/CarRental/CarRate.cshtml">
-      <publishTime>09/24/2018 09:58:19</publishTime>
+      <publishTime>09/27/2018 15:40:07</publishTime>
     </File>
     <File Include="Views/CarRental/CarReserve.cshtml">
       <publishTime>09/22/2018 15:04:53</publishTime>
@@ -955,7 +1033,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/22/2018 15:04:53</publishTime>
     </File>
     <File Include="Views/CarRental/FormRenter.cshtml">
-      <publishTime>09/24/2018 09:58:19</publishTime>
+      <publishTime>09/27/2018 16:11:48</publishTime>
     </File>
     <File Include="Views/CarRental/FormReservation.cshtml">
       <publishTime>09/22/2018 15:04:53</publishTime>
@@ -964,10 +1042,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/22/2018 15:04:53</publishTime>
     </File>
     <File Include="Views/CarRental/FormThankYou.cshtml">
-      <publishTime>09/22/2018 15:04:53</publishTime>
+      <publishTime>09/27/2018 16:11:48</publishTime>
     </File>
     <File Include="Views/CarRental/Index.cshtml">
-      <publishTime>09/24/2018 09:58:19</publishTime>
+      <publishTime>09/27/2018 15:40:07</publishTime>
     </File>
     <File Include="Views/CarRental/Index2.cshtml">
       <publishTime>02/22/2017 09:02:29</publishTime>
@@ -988,7 +1066,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
     <File Include="Views/CarRental/Reservation.cshtml">
-      <publishTime>09/18/2018 09:46:59</publishTime>
+      <publishTime>09/27/2018 16:11:48</publishTime>
     </File>
     <File Include="Views/CarRental/ReservationNotification.cshtml">
       <publishTime>02/22/2017 09:02:29</publishTime>
@@ -1009,7 +1087,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
     <File Include="Views/CarReservations/Index.cshtml">
-      <publishTime>02/22/2017 09:02:29</publishTime>
+      <publishTime>09/27/2018 16:11:48</publishTime>
     </File>
     <File Include="Views/CarUnits/Create.cshtml">
       <publishTime>02/22/2017 09:02:29</publishTime>
@@ -1165,7 +1243,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/18/2018 09:46:59</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>08/29/2018 15:25:05</publishTime>
+      <publishTime>09/27/2018 15:40:07</publishTime>
     </File>
     <File Include="Views/InvCarGateControls/Create.cshtml">
       <publishTime>08/29/2018 15:25:05</publishTime>
@@ -1783,7 +1861,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>09/24/2018 11:51:29</publishTime>
+      <publishTime>09/27/2018 16:38:40</publishTime>
     </File>
   </ItemGroup>
 </Project>

@@ -743,6 +743,7 @@
     <Content Include="Models\AddChecklist.SQL" />
     <Content Include="Models\AsExpenseDB.sql" />
     <Content Include="Models\CarRentalInitial.sql" />
+    <Content Include="Models\CarRentalInitial_RatePackage.sql" />
     <Content Include="Models\CarRentalInitial_meta.sql" />
     <Content Include="Models\CustomerInitial.sql" />
     <Content Include="Models\DailyStatusUpdate.sql" />
