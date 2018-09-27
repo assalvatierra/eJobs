@@ -100,6 +100,7 @@ function showForm() {
             $('#formFinish').css('display', 'none');
             $('#rsv-footer').css('display', 'none');
             setReferenceIds(selectedTour.substring(4, 5), MealsAcc, Fuel);
+            checkRenterDetails();
             break;
         case "formRenter":  //next formThankyou
             currentForm = "formThankyou";
@@ -263,3 +264,67 @@ $('#pkg-table').on('click', '.clickable-row', function(event) {
     $(this).addClass('active').siblings().removeClass('active');
     selectedTour =  $(this).attr('id');
 });
+
+function checkRenterDetails() {
+    var name, email, mobile, startdate, enddate;
+    name = $('#rnt-name').val();
+    email = $('#rnt-email').val();
+    mobile = $('#rnt-mobile').val();
+    startdate = $('#rnt-startdate').val();
+    enddate = $('#rnt-enddate').val();
+
+    if (name != null && email != null && mobile != null) {
+        $('#submit-btn').removeClass('disabled');
+        $('#dtls-warning').css('display', 'none');
+    }
+
+    if (name == '' || name == null || email == '' || email == null || mobile == '' || mobile == null) {
+        $('#submit-btn').addClass('disabled');
+        $('#dtls-warning').css('display', 'block');
+    }
+
+    if (validateInputEmail()) {
+        $('#submit-btn').removeClass('disabled');
+        $('#dtls-warning').css('display', 'none');
+    } else {
+        $('#submit-btn').addClass('disabled');
+        $('#dtls-warning').css('display', 'block');
+    }
+
+    if (validateInputPhone()) {
+        $('#submit-btn').removeClass('disabled');
+        $('#dtls-warning').css('display', 'none');
+    } else {
+        $('#submit-btn').addClass('disabled');
+        $('#dtls-warning').css('display', 'block');
+    }
+
+}
+
+
+function  validateInputEmail() {
+    var fieldValue = document.getElementById("rnt-email").value;
+
+    var mailValidation = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    if (fieldValue.match(mailValidation)) {
+        // correct mail format
+        return true;
+    } else {
+        // incorrect structure
+        return false;
+    }
+}
+
+function validateInputPhone() {
+    var fieldValue = document.getElementById("rnt-mobile").value;
+
+    var phoneValidation = /^([\s\(\)\-]*\d[\s\(\)\-]*){11}$/;
+    if (fieldValue.match(phoneValidation)) {
+        // correct phone structure
+        return true;
+    } else {
+        // incorrect structure
+        return false;
+    }
+}

@@ -25,7 +25,8 @@
         <p>
             Inquiries, Leads, Opportunities <br />
             [ @Html.ActionLink("List", "Index", "SalesLeads", new { sortid = 5 },null) | 
-            @Html.ActionLink("Quotations", "JobLeads", "JobMains") ]
+            @Html.ActionLink("Quotations", "JobLeads", "JobMains") |
+            @Html.ActionLink("Reservations", "Index", "CarReservations") ]
         </p>
         <p>@Html.ActionLink("Add New »", "Create", "SalesLeads", null, new { @class = "btn btn-default" }) </p>
 
@@ -54,7 +55,7 @@
     <div class="col-md-4">
         <h2>Customers</h2>
         <p>Regular Clients, Guests, Companies, Corporate Accounts.
-            @Html.ActionLink("List", "Index", "Customers")
+            @Html.ActionLink("List", "Index", "Customers") 
            
         </p>
         <p>@Html.ActionLink("Add New »", "Create", "Customers", null, new { @class = "btn btn-default" }) </p>

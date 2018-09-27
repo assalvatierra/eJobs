@@ -17,7 +17,7 @@ namespace JobsV1.Controllers
         // GET: CarReservations
         public ActionResult Index()
         {
-            var carReservations = db.CarReservations.Include(c => c.CarUnit);
+            var carReservations = db.CarReservations.Include(c => c.CarUnit).Include(c=>c.CarUni);
             return View(carReservations.ToList());
         }
 

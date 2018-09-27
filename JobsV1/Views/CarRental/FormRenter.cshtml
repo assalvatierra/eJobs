@@ -412,26 +412,3 @@
 
 </script>
 
-<script>
-    
-    function checkRenterDetails(){
-        var name, email, mobile, startdate, enddate;
-
-        name = $('#rnt-name').val();
-        email = $('#rnt-email').val();
-        mobile = $('#rnt-mobile').val();
-        startdate = $('#rnt-startdate').val();
-        enddate = $('#rnt-enddate').val();
-
-        if(name != null && email != null && mobile != null){
-            $('#submit-btn').removeClass('disabled');
-            $('#dtls-warning').css('display','none');
-        }
-
-        if(name == '' || name == null || email == '' || email == null || mobile == '' || mobile == null){
-            $('#submit-btn').addClass('disabled');
-            $('#dtls-warning').css('display','block');
-        }
-    }
-
-</script>
