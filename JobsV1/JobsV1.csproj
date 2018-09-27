@@ -269,7 +269,9 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CarDestinationsController.cs" />
+    <Compile Include="Controllers\CarRatePackagesController.cs" />
     <Compile Include="Controllers\CarRatesController.cs" />
+    <Compile Include="Controllers\CarRateUnitPackagesController.cs" />
     <Compile Include="Controllers\CarRentalController.cs" />
     <Compile Include="Controllers\CarReservationsController.cs" />
     <Compile Include="Controllers\CarUnitsController.cs" />
@@ -1167,6 +1169,16 @@
     <Content Include="Views\CarRental\FormSummary.cshtml" />
     <Content Include="Views\CarRental\FormRenter.cshtml" />
     <Content Include="Views\CarRental\FormThankYou.cshtml" />
+    <Content Include="Views\CarRatePackages\Create.cshtml" />
+    <Content Include="Views\CarRatePackages\Delete.cshtml" />
+    <Content Include="Views\CarRatePackages\Details.cshtml" />
+    <Content Include="Views\CarRatePackages\Edit.cshtml" />
+    <Content Include="Views\CarRatePackages\Index.cshtml" />
+    <Content Include="Views\CarRateUnitPackages\Create.cshtml" />
+    <Content Include="Views\CarRateUnitPackages\Delete.cshtml" />
+    <Content Include="Views\CarRateUnitPackages\Details.cshtml" />
+    <Content Include="Views\CarRateUnitPackages\Edit.cshtml" />
+    <Content Include="Views\CarRateUnitPackages\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -21,10 +21,24 @@ $('#btn-rentalType').click(function () {
     $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val());
 
     if ($('input:radio[name=options]:checked').val() == "Self Drive") {
+
+        $('#3').attr('checked', true);
+        $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
+
+        $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val());
+
         $('.isSelfDrive1').hide();
     } else {
+
+        $('#1').attr('checked', true);
+        $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
+
+        $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val());
+
         $('.isSelfDrive1').show();
     }
+
+    alert($('input:radio[name=cars]:checked').attr("id"));
 });
 
 //
@@ -38,9 +52,21 @@ $('#btn-rentalUnit').click(function () {
     $('#car5').css('border', '1px solid lightgray');
     $('#car6').css('border', '1px solid lightgray');
 
-    $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
-
 });
+
+function rentalReset() {
+    $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - Please select a vehicle');
+
+    $('#car1').css('border', '1px solid lightgray');
+    $('#car2').css('border', '1px solid lightgray');
+    $('#car3').css('border', '1px solid lightgray');
+    $('#car4').css('border', '1px solid lightgray');
+    $('#car5').css('border', '1px solid lightgray');
+    $('#car6').css('border', '1px solid lightgray');
+
+    var selectedCar = "";
+
+}
 
 //controls the flow of reservation forms
 //display the next form

@@ -15,7 +15,7 @@
     </div>
     <br />
 
-    <div class="btn-group" id="btn-rentalUnit">
+    <div class="btn-group carent" id="btn-rentalUnit">
         @foreach (var carList in ViewBag.CarUnitList as IEnumerable<JobsV1.Models.CarUnit>)
             {
             <label class="btn col-md-4 car-selection isSelfDrive@(carList.SelfDrive)" id="car@(carList.Id)" style="width:180px;height:200px;">
