@@ -17,7 +17,8 @@ namespace JobsV1.Controllers
         // GET: CarReservations
         public ActionResult Index()
         {
-            var carReservations = db.CarReservations.Include(c => c.CarUnit).Include(c=>c.CarUni);
+            ViewBag.PackageList = db.CarRateUnitPackages.ToList(); 
+            var carReservations = db.CarReservations.Include(c => c.CarUnit).Include(c=>c.CarResPackages);
             return View(carReservations.ToList());
         }
 
@@ -117,6 +118,7 @@ namespace JobsV1.Controllers
         {
             CarReservation carReservation = db.CarReservations.Find(id);
             db.CarReservations.Remove(carReservation);
+            DeleteCarResPackages(carReservation.Id);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -128,6 +130,12 @@ namespace JobsV1.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public void DeleteCarResPackages(int ReservationId) {
+            CarResPackage carResReservation = db.CarResPackages.Where(c=>c.CarReservationId == ReservationId).FirstOrDefault();
+            db.CarResPackages.Remove(carResReservation);
+            db.SaveChanges();
         }
     }
 }

@@ -47,6 +47,22 @@ function InitDatePicker()
     }
     );
 
+    $('input[name="DtTrx"]').daterangepicker(
+    {
+        timePicker: true,
+        timePickerIncrement: 30,
+        singleDatePicker: true,
+        showDropdowns: true,
+        locale: {
+            format: 'MM/DD/YYYY h:mm A'
+        }
+    },
+    function (start, end, label) {
+        //alert(start.format('YYYY-MM-DD h:mm A'));
+        computeCost();
+    }
+    );
+
 
     /*
     $('input[name="DtRange"]').daterangepicker(
@@ -68,8 +84,8 @@ function InitDatePicker()
 }
 
 function InitEditChange() {
-    $('input[name="EstHrPerDay"]').change(function () { computeCost(); });
-    $('input[name="EstKmTravel"]').change(function () { computeCost(); });
+    $('input[name="EstHrPerDay"]').onchange(function () { computeCost(); });
+    $('input[name="EstKmTravel"]').onchange(function () { computeCost(); });
 }
 
 function OpenLookup() {
@@ -130,22 +146,25 @@ function computeCost()
         "<span class='userRemarks'>" +
         "Daily Rate:" + addCommas(carrate) + " per day</span></br>" +
         "Rental Charges:<span class='userData'>" + addCommas(carrental) + "</span></br></br>" +
+
         "<span class='userRemarks'>" +
         "Daily Usage:" + HrPerDay + " Hrs</br>" +
         "Daily Allowance:" + _DAILY_USAGE_HOURS + " Hrs</br>" +
         "Daily Overtime:" + DailyOTHrs + " </br></span>" +
         "Overtime Charges:<span class='userData'>" + addCommas(estOvertime) + "</span></br></br>" +
-        "<span class='userRemarks'>" +
-        "Estimated Mileage:" + KmTravel + " Kms</br>" +
-        "Mileage Allowance:" + KmAllowance + " Kms</br>" +
-        "Excess Mileage :" + KmExcess + " Kms</span></br>" +
-        "Mileage Charges:<span class='userData'>" + addCommas(estKmCharges) + "</span></br>" +
+        
+        //"<span class='userRemarks'>" +
+        //"Estimated Mileage:" + KmTravel + " Kms</br>" +
+        //"Mileage Allowance:" + KmAllowance + " Kms</br>" +
+        //"Excess Mileage :" + KmExcess + " Kms</span></br>" +
+        //"Mileage Charges:<span class='userData'>" + addCommas(estKmCharges) + "</span></br>" +
         "------------------------------------------" + "</br>" +
         "<span class='userLabel-sm1'>Total Estimated Cost:</span><span class='userData'>" + addCommas(estCost) + "</span></br></br>"
         );
 
     $('#aftercalc').show();
     $('#ReservationDetails').show();
+    $('#baseRate').val(estCost);
 }
 
 var _MS_PER_DAY = 1000 * 60 * 60 * 24;

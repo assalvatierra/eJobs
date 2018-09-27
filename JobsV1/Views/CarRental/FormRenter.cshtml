@@ -216,6 +216,11 @@
     
     //initial
     $('#@(ViewBag.id)').attr('checked', true);
+
+    $('#pkg-1').addClass('active').siblings().removeClass('active');
+
+    selectedTour =  $('#pkg-1').attr('id');
+
     reservationNum =  @(ViewBag.RsvId);
 
     function displayPackages() {

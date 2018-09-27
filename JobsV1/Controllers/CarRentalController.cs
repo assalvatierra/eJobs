@@ -67,6 +67,14 @@ namespace JobsV1.Controllers
 
         public ActionResult Reservation(int unitid)
         {
+
+            CarReservation reservation = new CarReservation();
+            reservation.DtTrx = DateTime.Now;
+            reservation.DtStart = DateTime.Now.ToString();
+            reservation.DtEnd = DateTime.Now.AddDays(2).ToString();
+            reservation.EstHrPerDay = 0;
+            reservation.EstKmTravel = 0;
+
             ViewBag.CarUnitId = new SelectList(db.CarUnits, "Id", "Description", unitid);
 
             var carrate = db.CarRates.Where(d => d.CarUnitId == unitid).FirstOrDefault();
@@ -74,8 +82,8 @@ namespace JobsV1.Controllers
             ViewBag.objCarRate = carrate; // db.CarRates.Where(d => d.CarUnitId == unitid);
 
             ViewBag.Destinations = db.CarDestinations.Where(d => d.CityId == 1).OrderBy(d => d.Kms).ToList();
-            ViewBag.CarUnitId = unitid;
-            return View();
+            ViewBag.UnitId = unitid;
+            return View(reservation);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -85,12 +93,15 @@ namespace JobsV1.Controllers
             {
                 db.CarReservations.Add(carReservation);
                 db.SaveChanges();
+
+                addCarResPackage(carReservation.Id, 1, 0, 0);
                 return RedirectToAction("ReservationNotification");
             }
 
             return View("Reservation", new { unitid = carReservation.CarUnitId } );
         }
 
+        
         public ActionResult ReservationNotification()
         {
             return View();
@@ -152,7 +163,7 @@ namespace JobsV1.Controllers
         public PartialViewResult FormPackages() {
 
             ViewBag.CarUnitId = new SelectList(db.CarUnits, "Id", "Description");
-            ViewBag.Packages = db.CarRatePackages.ToList();
+            ViewBag.Packages = db.CarRatePackages.Where(c => c.Id != 1).ToList();
             return PartialView("FormPackages");
         }
 
@@ -176,16 +187,19 @@ namespace JobsV1.Controllers
             reservation.DtEnd = DateTime.Now.AddDays(2).ToString();
 
             //get previous id
-            CarReservation lastId = db.CarReservations.ToList().OrderByDescending(c => c.Id).Last();
+            CarReservation lastId = db.CarReservations.ToList().OrderByDescending(c => c.Id).LastOrDefault();
 
-            ViewBag.RsvId = lastId.Id + 1;
+            CarRatePackage selfDrive = db.CarRatePackages.Find(1);
+            
+            ViewBag.RsvId = lastId != null ?  lastId.Id + 1 : 1 ;
             
             ViewBag.CarUnitId = new SelectList(db.CarUnits, "Id", "Description", id);
             ViewBag.id = id;
             ViewBag.carRatesPackages = db.CarRateUnitPackages.ToList();
             ViewBag.CarUnitList = db.CarUnits.ToList();
             ViewBag.CarRates = db.CarRates.ToList();
-            ViewBag.Packages = db.CarRatePackages.ToList();
+            //except self drive package
+            ViewBag.Packages = db.CarRatePackages.Where(c=> c.Id != 1).ToList();
             return View(reservation);
         }
 

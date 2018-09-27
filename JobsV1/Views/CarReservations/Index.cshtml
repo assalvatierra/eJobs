@@ -53,11 +53,15 @@
                  @Html.DisplayFor(modelItem => item.DtStart) - @Html.DisplayFor(modelItem => item.DtEnd) 
             </label></p>
             <p> <span style="color:gray;"> Destination: </span> @Html.DisplayFor(modelItem => item.Destinations) - @Html.DisplayFor(modelItem => item.UseFor) </p>
-            <p> <span style="color:gray;"> Vehicle: </span>@Html.DisplayFor(modelItem => item.CarUnit.Description) - @Html.DisplayFor(modelItem => item.CarUnit.CarRateUnitPackages.Where(c=>c.CarUnitId ==item.CarUnitId).FirstOrDefault().CarRatePackage.Remarks)  </p>
+            <p> <span style="color:gray;"> Vehicle: </span>@Html.DisplayFor(modelItem => item.CarUnit.Description) -
+            @foreach (var packages in ViewBag.PackageList as IEnumerable<JobsV1.Models.CarRateUnitPackage>) {
+            
+             @Html.DisplayFor(modelItem => item.CarResPackages.Where(c=>c.CarRateUnitPackageId == packages.Id).FirstOrDefault().CarRateUnitPackage.CarRatePackage.Remarks)
 
+            }
             <p>
                 <span style="color:gray;"> Meals & Accomodation: </span>
-                @if (@Html.DisplayFor(modelItem => item.CarResPackages.Where(s => s.CarReservationId == item.Id).FirstOrDefault().DrvMealByClient).ToString() == "1")
+                @if (@Html.DisplayFor(modelItem => item.CarResPackages.Where(s => s.CarReservationId == item.Id).FirstOrDefault().DrvMealByClient).ToString() == "0")
                 {
                     <span> By Renter</span>
                 }
@@ -68,7 +72,7 @@
             </p>
             <p>
                 <span style="color:gray;"> Fuel: </span>
-                @if (@Html.DisplayFor(modelItem => item.CarResPackages.Where(s => s.CarReservationId == item.Id).FirstOrDefault().DrvMealByClient).ToString() == "1")
+                @if (@Html.DisplayFor(modelItem => item.CarResPackages.Where(s => s.CarReservationId == item.Id).FirstOrDefault().FuelByClient).ToString() == "0")
                 {
                     <span> By Renter</span>
                 }
