@@ -272,33 +272,39 @@ function checkRenterDetails() {
     mobile = $('#rnt-mobile').val();
     startdate = $('#rnt-startdate').val();
     enddate = $('#rnt-enddate').val();
+    var flag = true;
 
     if (name != null && email != null && mobile != null) {
-        $('#submit-btn').removeClass('disabled');
-        $('#dtls-warning').css('display', 'none');
+        $('#dtls-warning').text("Please enter your Name, Email and Mobile.");
     }
 
     if (name == '' || name == null || email == '' || email == null || mobile == '' || mobile == null) {
+        flag = false;
         $('#submit-btn').addClass('disabled');
         $('#dtls-warning').css('display', 'block');
     }
 
+
     if (validateInputEmail()) {
-        $('#submit-btn').removeClass('disabled');
-        $('#dtls-warning').css('display', 'none');
     } else {
-        $('#submit-btn').addClass('disabled');
-        $('#dtls-warning').css('display', 'block');
+        flag = false;
+        $('#dtls-warning').text("Email is not valid.");
     }
 
     if (validateInputPhone()) {
+    } else {
+        flag = false;
+        $('#dtls-warning').text("Phone number is not valid.");
+    }
+
+
+    if (flag == true) {
         $('#submit-btn').removeClass('disabled');
         $('#dtls-warning').css('display', 'none');
     } else {
         $('#submit-btn').addClass('disabled');
         $('#dtls-warning').css('display', 'block');
     }
-
 }
 
 
