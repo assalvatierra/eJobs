@@ -21,10 +21,24 @@ $('#btn-rentalType').click(function () {
     $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val());
 
     if ($('input:radio[name=options]:checked').val() == "Self Drive") {
+
+        $('#3').attr('checked', true);
+        $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
+
+        $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val());
+
         $('.isSelfDrive1').hide();
     } else {
+
+        $('#1').attr('checked', true);
+        $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
+
+        $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val());
+
         $('.isSelfDrive1').show();
     }
+
+    alert($('input:radio[name=cars]:checked').attr("id"));
 });
 
 //
@@ -37,10 +51,24 @@ $('#btn-rentalUnit').click(function () {
     $('#car4').css('border', '1px solid lightgray');
     $('#car5').css('border', '1px solid lightgray');
     $('#car6').css('border', '1px solid lightgray');
-
-    $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
+    
+        $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
 
 });
+
+function rentalReset() {
+    $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - Please select a vehicle');
+
+    $('#car1').css('border', '1px solid lightgray');
+    $('#car2').css('border', '1px solid lightgray');
+    $('#car3').css('border', '1px solid lightgray');
+    $('#car4').css('border', '1px solid lightgray');
+    $('#car5').css('border', '1px solid lightgray');
+    $('#car6').css('border', '1px solid lightgray');
+
+    var selectedCar = "";
+
+}
 
 //controls the flow of reservation forms
 //display the next form
@@ -272,33 +300,39 @@ function checkRenterDetails() {
     mobile = $('#rnt-mobile').val();
     startdate = $('#rnt-startdate').val();
     enddate = $('#rnt-enddate').val();
+    var flag = true;
 
     if (name != null && email != null && mobile != null) {
-        $('#submit-btn').removeClass('disabled');
-        $('#dtls-warning').css('display', 'none');
+        $('#dtls-warning').text("Please enter your Name, Email and Mobile.");
     }
 
     if (name == '' || name == null || email == '' || email == null || mobile == '' || mobile == null) {
+        flag = false;
         $('#submit-btn').addClass('disabled');
         $('#dtls-warning').css('display', 'block');
     }
 
+
     if (validateInputEmail()) {
-        $('#submit-btn').removeClass('disabled');
-        $('#dtls-warning').css('display', 'none');
     } else {
-        $('#submit-btn').addClass('disabled');
-        $('#dtls-warning').css('display', 'block');
+        flag = false;
+        $('#dtls-warning').text("Email is not valid.");
     }
 
     if (validateInputPhone()) {
+    } else {
+        flag = false;
+        $('#dtls-warning').text("Phone number is not valid.");
+    }
+
+
+    if (flag == true) {
         $('#submit-btn').removeClass('disabled');
         $('#dtls-warning').css('display', 'none');
     } else {
         $('#submit-btn').addClass('disabled');
         $('#dtls-warning').css('display', 'block');
     }
-
 }
 
 

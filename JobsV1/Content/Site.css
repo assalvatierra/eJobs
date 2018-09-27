@@ -198,3 +198,7 @@ table tr .additemtable :hover{
 .dtls-gallery > a > img {
     width:32%;
 }
+
+.dtls-gallery-img {
+    width:32%;
+}

@@ -190,4 +190,87 @@ function addCommas(nStr) {
 
 
 
+function checkRenterDetails(){
+    var name, email, mobile, startdate, enddate, dest;
+    name = $('#s-rnt-name').val();
+    email = $('#s-rnt-email').val();
+    mobile = $('#s-rnt-mobile').val();
+    startdate = $('#s-rnt-startdate').val();
+    enddate = $('#s-rnt-enddate').val();
+    dest = $('#s-rnt-dest').val();
+    purpose = $('#s-rnt-purpose').val();
+    var flag = true;
+
+    if (name != null && email != null && mobile != null) {
+        $('#s-dtls-warning').text("Please enter your Name, Email and Mobile.");
+    } 
+
+    if (name == '' || name == null || email == '' || email == null || mobile == '' || mobile == null) {
+        flag = false;
+        $('#s-submit-btn').addClass('disabled');
+        $('#s-dtls-warning').css('display', 'block');
+    } 
+
+    if (dest == '' || dest == null) {
+        flag = false;
+        $('#s-dtls-warning').text("destination field is empty.");
+    }
+
+    if (purpose == '' || purpose == null) {
+        flag = false;
+        $('#s-dtls-warning').text("Purpose field is empty.");
+    }
+
+    if (validateInputEmail()) {
+    } else {
+        flag = false;
+        $('#s-dtls-warning').text("Email is not valid.");
+    }
+
+    if (validateInputPhone()) {
+    } else {
+        flag = false;
+        $('#s-dtls-warning').text("Phone number is not valid.");
+    }
+
+
+    if (flag == true) {
+        $('#s-submit-btn').removeClass('disabled');
+        $('#s-dtls-warning').css('display', 'none');
+    } else {
+        $('#s-submit-btn').addClass('disabled');
+        $('#s-dtls-warning').css('display', 'block');
+    }
+}
+
+
+function validateInputEmail() {
+    var fieldValue = document.getElementById("s-rnt-email").value;
+
+    var mailValidation = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    if (fieldValue.match(mailValidation)) {
+        // correct mail format
+        return true;
+    } else {
+        // incorrect structure
+        return false;
+    }
+}
+
+function validateInputPhone() {
+    var fieldValue = document.getElementById("s-rnt-mobile").value;
+
+    var phoneValidation = /^([\s\(\)\-]*\d[\s\(\)\-]*){11}$/;
+    if (fieldValue.match(phoneValidation)) {
+        // correct phone structure
+        return true;
+    } else {
+        // incorrect structure
+        return false;
+    }
+}
+
+
+
 
