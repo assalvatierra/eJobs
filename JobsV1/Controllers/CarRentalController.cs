@@ -163,7 +163,7 @@ namespace JobsV1.Controllers
         public PartialViewResult FormPackages() {
 
             ViewBag.CarUnitId = new SelectList(db.CarUnits, "Id", "Description");
-            ViewBag.Packages = db.CarRatePackages.Where(c => c.Id != 1).ToList();
+            ViewBag.Packages = db.CarRatePackages.Where(c => c.Description != "SELFDRIVE").ToList();
             return PartialView("FormPackages");
         }
 

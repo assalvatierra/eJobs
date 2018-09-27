@@ -51,6 +51,8 @@ $('#btn-rentalUnit').click(function () {
     $('#car4').css('border', '1px solid lightgray');
     $('#car5').css('border', '1px solid lightgray');
     $('#car6').css('border', '1px solid lightgray');
+    
+        $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
 
 });
 
