@@ -13,9 +13,9 @@ var reservationNum = 0;
 $('#withdriver').attr('checked', true);
 $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
 $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val());
-$('#pkg-1').attr('checked', true);
-$('#pkg-1').addClass('active').siblings().removeClass('active');
-selectedTour =  $('#pkg-1').attr('id');
+$('#pkg-2').attr('checked', true);
+$('#pkg-2').addClass('active').siblings().removeClass('active');
+selectedTour =  $('#pkg-2').attr('title');
 
 $('#btn-rentalType').click(function () {
     $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val());
@@ -127,7 +127,7 @@ function showForm() {
             $('#formRenter').css('display', 'block');
             $('#formFinish').css('display', 'none');
             $('#rsv-footer').css('display', 'none');
-            setReferenceIds(selectedTour.substring(4, 5), MealsAcc, Fuel);
+            setReferenceIds(selectedTour, MealsAcc, Fuel);
             checkRenterDetails();
             break;
         case "formRenter":  //next formThankyou
@@ -290,7 +290,7 @@ function setReferenceIds(RntrSelectedTour, RntrMealsAcc, RntrFuel) {
 
 $('#pkg-table').on('click', '.clickable-row', function(event) {
     $(this).addClass('active').siblings().removeClass('active');
-    selectedTour =  $(this).attr('id');
+    selectedTour = $(this).attr('title');
 });
 
 function checkRenterDetails() {

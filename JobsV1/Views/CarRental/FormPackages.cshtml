@@ -4,7 +4,7 @@
             <h4>Please Select a Package</h4>
         </div>
         <div class="col-md-12" id="pkg-table">
-            <table class="table table-bordered  table-hover" style="width:100%">
+            <table class="table table-bordered table-hover" id="table-packages" style="width:100%;">
                 <tr>
                     <th>Package</th>
                     <th>Driver Accomodation/Meals</th>
@@ -15,8 +15,7 @@
 
                     @foreach (var package in ViewBag.Packages as IEnumerable<JobsV1.Models.CarRatePackage>)
                     {
-
-                        <tr class="clickable-row" id="pkg-@(package.Id)">
+                        <tr class="clickable-row" id="pkg-@(package.Id)" title="@(package.Id)">
                             <td id="pkg-desc" >@package.Description</td>
                             <td id="pkg-meal@(package.Id)">N/A</td>
                             <td id="pkg-fuel@(package.Id)">N/A</td>
@@ -27,7 +26,6 @@
                                 </script>
                             </td>
                         </tr>
-
                     }
             </table>
         </div>

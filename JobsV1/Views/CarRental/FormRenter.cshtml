@@ -221,30 +221,31 @@
 
 
 <script>
-    
+
     //initial
     $('#@(ViewBag.id)').attr('checked', true);
 
-    $('#pkg-1').addClass('active').siblings().removeClass('active');
-
-    selectedTour =  $('#pkg-1').attr('id');
-
     reservationNum =  @(ViewBag.RsvId);
 
-    function displayPackages() {
+    function displayPackages(){
+        var ratePackageCount = 1;
+        
         @foreach (var package in ViewBag.Packages as IEnumerable<JobsV1.Models.CarRatePackage>)
         {
+            <text>
             var carRate_longhaulrate = 0;
             var carRate_fuel = 0;
-
+            </text>
             //carRatesPackages
             foreach (var carRatesPackages in ViewBag.carRatesPackages as IEnumerable<JobsV1.Models.CarRateUnitPackage>)
             {
+
                 if (@carRatesPackages.CarRatePackageId == @package.Id)
                 {
                     <text>
                     if(@(carRatesPackages.CarUnitId) == selectedCar )
                     {
+                        ratePackageCount += 1;
                         carRate_longhaulrate = @carRatesPackages.FuelLonghaul;
                         carRate_fuel =  @carRatesPackages.FuelDaily;
 
@@ -259,8 +260,8 @@
                     }
                     </text>
                 }
-            }
 
+            }
             <text>
             $('#pkg-days@(package.Id)').text($('#rsv-days').val());
 
@@ -268,8 +269,11 @@
             if ($('#rsv-meal').val() == '0') {
                 $('#pkg-meal@(package.Id)').text('by renter ')
             } else {
-
-                $('#pkg-meal@(package.Id)').text('Included - ' + @package.DailyMeals +' + ' + @package.DailyRoom)
+                if($('#rsv-days').val() == 1){
+                    $('#pkg-meal@(package.Id)').text('Included - m:' + @package.DailyMeals)
+                }else{
+                    $('#pkg-meal@(package.Id)').text('Included - ( m:' + @package.DailyMeals +' + r:' + @package.DailyRoom +' per day ) + m:' + @package.DailyMeals)
+                }
             }
 
             </text>
@@ -294,7 +298,7 @@
 
                 //MealsAcc
                 var mealsperDay = @package.DailyMeals +  @package.DailyRoom;
-                var mealsRate = (MealsAcc * mealsperDay ) * (days - 1) * rentalType;
+                var mealsRate = ((mealsperDay) * (days - 1) + @package.DailyMeals ) * rentalType;
 
                 //total rate
                 var totalRate =rate + fuelRate + mealsRate;
@@ -303,8 +307,11 @@
                     $('#pkg-rate@(package.Id)').text('r:' + rate  +' + m:'+ mealsRate +' + f:'+ fuelRate  +' T:'+ totalRate);
                 }
                 </text>
-             }
+
+            }
         }
+        alert(ratePackageCount);
+        $("#table-packages > tbody > tr").hide().slice(0, ratePackageCount).show();
     }
 
     function displaySummary() {
@@ -323,52 +330,51 @@
         //display days
         $('#smry-rType').text(RentalType);
 
+        
         @foreach (var package in ViewBag.Packages as IEnumerable<JobsV1.Models.CarRatePackage>)
         {
-
             //carRatesPackages
             foreach (var carRatesPackages in ViewBag.carRatesPackages as IEnumerable<JobsV1.Models.CarRateUnitPackage>)
             {
                 <text>
-                if (@carRatesPackages.CarRatePackageId == selectedTour.substring(4, 5))
+                if (@carRatesPackages.CarRatePackageId == selectedTour)
                 {
                     if(@(carRatesPackages.CarUnitId) == selectedCar )
                     {
                         carRate_longhaulrate = @carRatesPackages.FuelLonghaul;
                         carRate_fuel =  @carRatesPackages.FuelDaily;
 
-
                         //fuel
                         if ($('#rsv-fuel').val() == '0') {
                             carRate_longhaulrate = 0;
+                            $('#smry-rFuel').text('by renter');
                         } else {
+                            $('#smry-rFuel').text('Included : f:' + carRate_fuel + ' + lh:' + carRate_longhaulrate);
                         }
                     }
                 }
                 </text>
             }
-    
+
             <text>
-            if(@package.Id == selectedTour.substring(4, 5)){ // get id of the tour
+            if(@package.Id == selectedTour){ // get id of the tour
                 $('#smry-itour').text('@package.Description');
                 $('#rnt-destination').val('@package.Description'); //for reservation details
                 $('#rnt-usedfor').val('@package.Description'); //for reservation details
-            }
 
-            //meals and accomodation
+            }
+                //meals and accomodation
             if ($('#rsv-meal').val() == '0') {
                 $('#smry-rMeal').text('by renter ');
             } else {
 
-                $('#smry-rMeal').text('Included : ' + @package.DailyMeals +' + ' + @package.DailyRoom);
+                if($('#rsv-days').val() == 1){
+                    $('#smry-rMeal').text('Included - m:' + @package.DailyMeals)
+                }else{
+                    $('#smry-rMeal').text('Included - ( m:' + @package.DailyMeals +' + r:' + @package.DailyRoom + ' per day ) + m:' + @package.DailyMeals)
+                }
             }
 
-            //fuel
-            if ($('#rsv-fuel').val() == '0') {
-                $('#smry-rFuel').text('by renter');
-            } else {
-                $('#smry-rFuel').text('Included : f:' + carRate_fuel + ' + lh:' + carRate_longhaulrate);
-            }
             </text>
 
             //get car rate
@@ -408,7 +414,7 @@
 
                 //MealsAcc
                 var mealsperDay = @package.DailyMeals +  @package.DailyRoom;
-                var mealsRate = (MealsAcc * mealsperDay ) * (days - 1) * rentalType;
+                var mealsRate = ((mealsperDay ) * (days - 1)) * rentalType  + @package.DailyMeals ;
 
                 //total rate
                 var totalRate =rate + fuelRate + mealsRate;
@@ -423,5 +429,13 @@
 
     }//end foreach function
 
+
+    function clearTable(){
+        alert('clear table');
+
+        var new_tbody = document.createElement('table-packages');
+        populate_with_new_rows(new_tbody);
+        old_tbody.parentNode.replaceChild(new_tbody, old_tbody)
+    }
 </script>
 
