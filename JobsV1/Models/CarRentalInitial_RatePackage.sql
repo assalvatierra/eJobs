@@ -14,7 +14,17 @@ values
 ('Agusan Del Sur','One round trip',300,400,1), 
 ('Agusan Del Norte','One round trip',300,400,1), 
 ('Surigao Del Sur','One round trip',300,400,1), 
-('Surigao Del Norte','One round trip',300,400,1);
+('Surigao Del Norte','One round trip',300,400,1),
+('Marilog', 'One round trip', 0,0,0 ),
+('Buda', 'Seagull', 0,0,0 ),
+('Valencia', 'One round trip', 0,0,0 ),
+('Malaybalay', 'One round trip', 0,0,0 ),
+('Manolo fortich', 'One round trip', 0,0,0 ),
+('Cagayan De Oro', 'One round trip', 0,0,0 ),
+('Misamis Oriental', 'One round trip', 0,0,0 ),
+('Iligan', 'One round trip', 0,0,0 );
+
+
 
 Insert into CarRateUnitPackages (CarUnitId,CarRatePackageId,DailyRate,FuelLonghaul,FuelDaily)
 values

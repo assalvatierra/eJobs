@@ -82,10 +82,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>09/27/2018 16:38:51</publishTime>
+      <publishTime>09/28/2018 13:59:59</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>09/27/2018 16:38:51</publishTime>
+      <publishTime>09/28/2018 13:59:59</publishTime>
     </File>
     <File Include="bin/de/Microsoft.SqlServer.Types.resources.dll">
       <publishTime>02/21/2014 06:26:06</publishTime>
@@ -109,7 +109,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/21/2014 06:25:22</publishTime>
     </File>
     <File Include="bin/JobsV1.dll">
-      <publishTime>09/27/2018 16:38:33</publishTime>
+      <publishTime>09/28/2018 13:59:46</publishTime>
     </File>
     <File Include="bin/ko/Microsoft.SqlServer.Types.resources.dll">
       <publishTime>02/21/2014 06:27:16</publishTime>
@@ -265,7 +265,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/21/2018 12:46:50</publishTime>
     </File>
     <File Include="Content/Site.css">
-      <publishTime>09/27/2018 15:40:07</publishTime>
+      <publishTime>09/27/2018 18:26:39</publishTime>
     </File>
     <File Include="Content/themes/base/accordion.css">
       <publishTime>02/22/2017 09:02:29</publishTime>
@@ -760,10 +760,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
     <File Include="Models/CarRentalInitial.sql">
-      <publishTime>09/27/2018 16:11:48</publishTime>
+      <publishTime>09/27/2018 18:10:33</publishTime>
     </File>
     <File Include="Models/CarRentalInitial_meta.sql">
       <publishTime>09/22/2018 14:43:05</publishTime>
+    </File>
+    <File Include="Models/CarRentalInitial_RatePackage.sql">
+      <publishTime>09/27/2018 18:09:54</publishTime>
     </File>
     <File Include="Models/CustomerInitial.sql">
       <publishTime>07/31/2018 08:14:44</publishTime>
@@ -808,7 +811,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/12/2018 08:52:41</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>09/27/2018 16:38:45</publishTime>
+      <publishTime>09/28/2018 13:59:52</publishTime>
     </File>
     <File Include="Properties/PublishProfiles/ftp.myasp.net.pubxml.user">
       <publishTime>03/28/2018 17:48:28</publishTime>
@@ -832,10 +835,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
     <File Include="Scripts/CarRental/Reservation.js">
-      <publishTime>09/27/2018 16:11:48</publishTime>
+      <publishTime>09/27/2018 18:26:39</publishTime>
     </File>
     <File Include="Scripts/CarRental/Reservation_wDriver.js">
-      <publishTime>09/27/2018 15:40:07</publishTime>
+      <publishTime>09/27/2018 18:26:39</publishTime>
     </File>
     <File Include="Scripts/DateRangePicker/bower.json">
       <publishTime>02/22/2017 09:02:29</publishTime>
@@ -987,6 +990,21 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/CarDestinations/Index.cshtml">
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
+    <File Include="Views/CarRatePackages/Create.cshtml">
+      <publishTime>09/27/2018 18:26:39</publishTime>
+    </File>
+    <File Include="Views/CarRatePackages/Delete.cshtml">
+      <publishTime>09/27/2018 18:26:39</publishTime>
+    </File>
+    <File Include="Views/CarRatePackages/Details.cshtml">
+      <publishTime>09/27/2018 18:26:39</publishTime>
+    </File>
+    <File Include="Views/CarRatePackages/Edit.cshtml">
+      <publishTime>09/27/2018 18:26:39</publishTime>
+    </File>
+    <File Include="Views/CarRatePackages/Index.cshtml">
+      <publishTime>09/27/2018 18:26:39</publishTime>
+    </File>
     <File Include="Views/CarRates/Create.cshtml">
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
@@ -1002,14 +1020,29 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/CarRates/Index.cshtml">
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
+    <File Include="Views/CarRateUnitPackages/Create.cshtml">
+      <publishTime>09/27/2018 18:26:39</publishTime>
+    </File>
+    <File Include="Views/CarRateUnitPackages/Delete.cshtml">
+      <publishTime>09/27/2018 18:26:39</publishTime>
+    </File>
+    <File Include="Views/CarRateUnitPackages/Details.cshtml">
+      <publishTime>09/27/2018 18:26:39</publishTime>
+    </File>
+    <File Include="Views/CarRateUnitPackages/Edit.cshtml">
+      <publishTime>09/27/2018 18:26:39</publishTime>
+    </File>
+    <File Include="Views/CarRateUnitPackages/Index.cshtml">
+      <publishTime>09/27/2018 18:26:39</publishTime>
+    </File>
     <File Include="Views/CarRental/CarDetail_mpv.cshtml">
       <publishTime>09/27/2018 15:40:07</publishTime>
     </File>
     <File Include="Views/CarRental/CarDetail_pickup.cshtml">
-      <publishTime>09/22/2018 10:46:32</publishTime>
+      <publishTime>09/28/2018 13:28:49</publishTime>
     </File>
     <File Include="Views/CarRental/CarDetail_sedan.cshtml">
-      <publishTime>09/22/2018 10:46:32</publishTime>
+      <publishTime>09/28/2018 13:25:18</publishTime>
     </File>
     <File Include="Views/CarRental/CarDetail_suv.cshtml">
       <publishTime>09/27/2018 15:40:07</publishTime>
@@ -1018,7 +1051,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/27/2018 15:40:07</publishTime>
     </File>
     <File Include="Views/CarRental/CarDetail_van.cshtml">
-      <publishTime>09/27/2018 15:44:16</publishTime>
+      <publishTime>09/27/2018 18:26:39</publishTime>
     </File>
     <File Include="Views/CarRental/CarHome.cshtml">
       <publishTime>09/13/2018 09:47:27</publishTime>
@@ -1027,13 +1060,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/27/2018 15:40:07</publishTime>
     </File>
     <File Include="Views/CarRental/CarReserve.cshtml">
-      <publishTime>09/22/2018 15:04:53</publishTime>
+      <publishTime>09/27/2018 18:26:39</publishTime>
     </File>
     <File Include="Views/CarRental/FormPackages.cshtml">
       <publishTime>09/22/2018 15:04:53</publishTime>
     </File>
     <File Include="Views/CarRental/FormRenter.cshtml">
-      <publishTime>09/27/2018 16:11:48</publishTime>
+      <publishTime>09/27/2018 18:26:39</publishTime>
     </File>
     <File Include="Views/CarRental/FormReservation.cshtml">
       <publishTime>09/22/2018 15:04:53</publishTime>
@@ -1042,7 +1075,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/22/2018 15:04:53</publishTime>
     </File>
     <File Include="Views/CarRental/FormThankYou.cshtml">
-      <publishTime>09/27/2018 16:11:48</publishTime>
+      <publishTime>09/27/2018 18:26:39</publishTime>
     </File>
     <File Include="Views/CarRental/Index.cshtml">
       <publishTime>09/27/2018 15:40:07</publishTime>
@@ -1066,7 +1099,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
     <File Include="Views/CarRental/Reservation.cshtml">
-      <publishTime>09/27/2018 16:11:48</publishTime>
+      <publishTime>09/27/2018 18:26:39</publishTime>
     </File>
     <File Include="Views/CarRental/ReservationNotification.cshtml">
       <publishTime>02/22/2017 09:02:29</publishTime>
@@ -1243,7 +1276,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/18/2018 09:46:59</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>09/27/2018 15:40:07</publishTime>
+      <publishTime>09/27/2018 18:26:39</publishTime>
     </File>
     <File Include="Views/InvCarGateControls/Create.cshtml">
       <publishTime>08/29/2018 15:25:05</publishTime>
@@ -1861,7 +1894,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2017 09:02:29</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>09/27/2018 16:38:40</publishTime>
+      <publishTime>09/28/2018 13:59:48</publishTime>
     </File>
   </ItemGroup>
 </Project>
