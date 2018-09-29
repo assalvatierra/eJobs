@@ -16,19 +16,34 @@
         @Html.ActionLink("Package", "Index", new { sortby = 2 })
 </p>
 
-<table class="table">
+<table class="table table-striped table-bordered">
     <tr>
         <th>
             Tour Package
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DailyRate)
+            Daily Rate
+        </th>
+        <th>
+            Weekly Rate
+        </th>
+        <th>
+            Monthly Rate
+        </th>
+        <th>
+           Add-on Rate
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FuelLonghaul)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FuelDaily)
+        </th>
+        <th>
+            Driver Meals
+        </th>
+        <th>
+            Driver Accomodation
         </th>
         <th>
            Unit
@@ -42,13 +57,28 @@
             @Html.DisplayFor(modelItem => item.CarRatePackage.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DailyRate)
+            @item.CarUnit.CarRates.Where(c=>c.CarUnitId == item.CarUnitId).FirstOrDefault().Daily.ToString("N0")
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FuelLonghaul)
+            @item.CarUnit.CarRates.Where(c => c.CarUnitId == item.CarUnitId).FirstOrDefault().Weekly.ToString("N0")
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FuelDaily)
+            @item.CarUnit.CarRates.Where(c => c.CarUnitId == item.CarUnitId).FirstOrDefault().Monthly.ToString("N0")
+        </td>
+        <td>
+            @item.DailyRate.ToString("N0")
+        </td>
+        <td>
+            @item.FuelLonghaul.ToString("N0")
+        </td>
+        <td>
+            @item.FuelDaily.ToString("N0")
+        </td>
+        <td>
+            @item.CarRatePackage.DailyMeals
+        </td>
+        <td>
+            @item.CarRatePackage.DailyRoom
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CarUnit.Description)

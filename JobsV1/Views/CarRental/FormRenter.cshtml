@@ -278,12 +278,39 @@
                 }
             }
 
-            </text>
+        </text>
 
             //rate
             foreach (var rates in ViewBag.CarRates as IEnumerable<JobsV1.Models.CarRate>)
             {
                 <text>
+
+
+                var rate = 0;
+
+                var rateText = 0;
+                //check if weekly, monthly or daily
+                var days =  $('#rsv-days').val();
+                if(days > 21){
+                    rate = @rates.Monthly;
+                    rate = rate * days;
+                    rateText = '(@rates.Monthly / day) '+ rate +'';
+                }
+
+                if(days > 6 ){
+                    if(22 > days){
+                        rate = @rates.Weekly;
+                        rate = rate * days;
+                        rateText = '(@rates.Weekly / day) '+ rate +'';
+                    }
+                }
+
+                if(6 > days){
+                    rate = @rates.Daily;
+                    rate = rate * days;
+                    rateText = '(@rates.Daily / day )'+ rate +'';
+                }
+
                 var rentalType;
                 if(RentalType == "With Driver" ){
                     rentalType = 1;
@@ -293,7 +320,6 @@
 
                 var days =  $('#rsv-days').val();
 
-                var rate = @rates.Daily * days;
 
                 //Fuel
                 var fuelRate = (Fuel * carRate_fuel * days ) + carRate_longhaulrate;
@@ -307,7 +333,7 @@
 
                 if(selectedCar == '@rates.CarUnitId' ){
 
-                    $('#pkg-rate@(package.Id)').text('r:' + rate  +' + m:'+ mealsRate +' + f:'+ fuelRate  +' + a:'+ carRateAdditional +' = T:'+ totalRate);
+                    $('#pkg-rate@(package.Id)').text('r:' + rateText   +' + m:'+ mealsRate +' + f:'+ fuelRate  +' + a:'+ carRateAdditional +' = T:'+ totalRate);
 
                 }
         </text>
@@ -325,6 +351,7 @@
         var carRateAdditional = 0;
         var meal = 0;
         var driveracc = 0;
+        var rate= 0;
         RentalType = $('input:radio[name=options]:checked').val();
         selectedCar = $('input:radio[name=cars]:checked').attr("id");
         NoDays = $('#rsv-days').val();
@@ -404,8 +431,30 @@
             {
 
                 <text>
+                var rate;
                 if(@rates.CarUnitId == selectedCar){ // get id of the car
                     $('#smry-rVehicleRate').text('@rates.Daily');
+                }
+                //check if weekly, monthly or daily
+                var days =  $('#rsv-days').val();
+                if(days > 21){
+                    rate = @rates.Monthly;
+                    rate = rate * days;
+                    $('#smry-rVehicleRate').text('(@rates.Monthly daily )'+ rate +'');
+                }
+
+                if(days > 6 ){
+                    if(22 > days){
+                        rate = @rates.Weekly;
+                        rate = rate * days;
+                        $('#smry-rVehicleRate').text('(@rates.Weekly daily )'+ rate +'');
+                    }
+                }
+
+                if(6 > days){
+                    rate = @rates.Daily;
+                    rate = rate * days;
+                    $('#smry-rVehicleRate').text('(@rates.Daily daily )'+ rate +'');
                 }
 
                 var rentalType;
@@ -415,9 +464,7 @@
                     rentalType = 0
                 }
 
-                var days =  $('#rsv-days').val();
 
-                var rate = @rates.Daily * days;
 
                 //Fuel
                 var fuelRate = (Fuel * carRate_fuel * days) + carRate_longhaulrate;
