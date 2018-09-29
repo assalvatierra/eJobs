@@ -36,7 +36,7 @@ namespace JobsV1.Controllers
 
             ViewBag.CarUnitList = db.CarUnits.ToList();
             ViewBag.CarRates = db.CarRates.ToList();
-            ViewBag.Packages = db.CarRatePackages.ToList();
+            ViewBag.Packages = db.CarRatePackages.Where(c => c.Description != "SELFDRIVE").ToList();
             return View("Index", db.CarUnits.Include(c => c.CarRates).Include(m=>m.CarUnitMetas).ToList() );
 
         }
@@ -162,6 +162,8 @@ namespace JobsV1.Controllers
 
         public PartialViewResult FormPackages() {
 
+            ViewBag.CarUnitList = db.CarUnits.ToList();
+            ViewBag.CarRates = db.CarRates.ToList();
             ViewBag.CarUnitId = new SelectList(db.CarUnits, "Id", "Description");
             ViewBag.Packages = db.CarRatePackages.Where(c => c.Description != "SELFDRIVE").ToList();
             return PartialView("FormPackages");
@@ -169,6 +171,10 @@ namespace JobsV1.Controllers
 
         public PartialViewResult FormSummary()
         {
+            ViewBag.CarUnitList = db.CarUnits.ToList();
+            ViewBag.CarRates = db.CarRates.ToList();
+            ViewBag.CarUnitId = new SelectList(db.CarUnits, "Id", "Description");
+            ViewBag.Packages = db.CarRatePackages.Where(c => c.Description != "SELFDRIVE").ToList();
             return PartialView("FormSummary");
         }
         
@@ -199,7 +205,7 @@ namespace JobsV1.Controllers
             ViewBag.CarUnitList = db.CarUnits.ToList();
             ViewBag.CarRates = db.CarRates.ToList();
             //except self drive package
-            ViewBag.Packages = db.CarRatePackages.Where(c=> c.Id != 1).ToList();
+            ViewBag.Packages = db.CarRatePackages.Where(c => c.Description != "SELFDRIVE").ToList();
             return View(reservation);
         }
 
@@ -220,6 +226,13 @@ namespace JobsV1.Controllers
             }
 
             ViewBag.CarUnitId = new SelectList(db.CarUnits, "Id", "Description", carReservation.CarUnitId);
+            
+            ViewBag.id = carReservation.CarUnitId;
+            ViewBag.carRatesPackages = db.CarRateUnitPackages.ToList();
+            ViewBag.CarUnitList = db.CarUnits.ToList();
+            ViewBag.CarRates = db.CarRates.ToList();
+            //except self drive package
+            ViewBag.Packages = db.CarRatePackages.Where(c => c.Description != "SELFDRIVE").ToList();
             return View(carReservation);
         }
 

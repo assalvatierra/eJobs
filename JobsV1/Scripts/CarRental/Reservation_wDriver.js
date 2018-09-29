@@ -17,12 +17,48 @@ $('#pkg-2').attr('checked', true);
 $('#pkg-2').addClass('active').siblings().removeClass('active');
 selectedTour =  $('#pkg-2').attr('title');
 
+
+function rentalTypeChange() {
+    $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val());
+
+
+    //alert(  $('input:radio[name=cars]:checked').attr("id"));
+    if ($('input:radio[name=options]:checked').val() == "Self Drive") {
+        if ($('input:radio[name=cars]:checked').attr("id") == 1 || $('input:radio[name=cars]:checked').attr("id") == 2) {
+            radiobtn = document.getElementById("3");
+            radiobtn.checked = true;
+            $('#car1').css('border', '1px solid lightgray');
+            $('#car2').css('border', '1px solid lightgray');
+            $('#car4').css('border', '1px solid lightgray');
+            $('#car5').css('border', '1px solid lightgray');
+            $('#car6').css('border', '1px solid lightgray');
+        }
+
+        $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
+
+        $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val());
+
+        $('.isSelfDrive1').hide();
+    } else {
+
+        $('#1').attr('checked', true);
+        $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
+
+        $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val());
+
+        $('.isSelfDrive1').show();
+    }
+}
+
 $('#btn-rentalType').click(function () {
     $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val());
 
+    $('#3').attr('checked', true);
+    //alert(  $('input:radio[name=cars]:checked').attr("id"));
     if ($('input:radio[name=options]:checked').val() == "Self Drive") {
-
-        $('#3').attr('checked', true);
+        if ($('input:radio[name=cars]:checked').attr("id") == 1) {
+            $('#3').attr('checked', true);
+        }
         $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
 
         $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val());
@@ -38,7 +74,6 @@ $('#btn-rentalType').click(function () {
         $('.isSelfDrive1').show();
     }
 
-    alert($('input:radio[name=cars]:checked').attr("id"));
 });
 
 //
@@ -52,7 +87,7 @@ $('#btn-rentalUnit').click(function () {
     $('#car5').css('border', '1px solid lightgray');
     $('#car6').css('border', '1px solid lightgray');
     
-        $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
+    $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
 
 });
 
