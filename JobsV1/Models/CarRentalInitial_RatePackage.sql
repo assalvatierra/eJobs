@@ -40,89 +40,94 @@ values
 Insert into CarRateUnitPackages (CarUnitId,CarRatePackageId,DailyRate,FuelLonghaul,FuelDaily)
 values
 -- regular van ( Grandia GL )
-( 1, 1, 3000, 0,0 ), --city
-( 1, 2, 3800, 0,0 ), -- Cuntryside
-( 1, 3, 3800, 0,0 ), -- Samal
-( 1, 4, 3000, 500, 500 ), --panabo
-( 1, 5, 3000, 800,500 ), --tagum
-( 1, 6, 3500, 800,700 ), --davao del norte
-( 1, 7, 3500, 1000,700 ), --comval
-( 1, 8, 3500, 1500,500 ), --govgen
-( 1, 9, 3500, 1500,500 ), --Mati
-( 1, 10, 4000, 2000,800 ), --Davao Oriental
-( 1, 11, 4000, 2000,800 ), --Agusan del sur
-( 1, 12, 4500, 3000,800 ), --Agusan del Norte
-( 1, 13, 4000, 2500,800 ), --Surigao del sur
-( 1, 14, 5000, 3000,800 ), --Surigao del Norte
+( 1, 1, 3000, 0,0 ), --selfdrive
+( 1, 2, 3000, 0,0 ), --city
+( 1, 3, 3800, 0,0 ), -- Cuntryside
+( 1, 4, 3800, 0,0 ), -- Samal
+( 1, 5, 3000, 500, 500 ), --panabo
+( 1, 6, 3000, 800,500 ), --tagum
+( 1, 7, 3500, 800,700 ), --davao del norte
+( 1, 8, 3500, 1000,700 ), --comval
+( 1, 9, 3500, 1500,500 ), --govgen
+( 1, 10, 3500, 1500,500 ), --Mati
+( 1, 11, 4000, 2000,800 ), --Davao Oriental
+( 1, 12, 4000, 2000,800 ), --Agusan del sur
+( 1, 13, 4500, 3000,800 ), --Agusan del Norte
+( 1, 14, 4000, 2500,800 ), --Surigao del sur
+( 1, 15, 5000, 3000,800 ), --Surigao del Norte
 
 -- big van ( Nissan Premium)
-( 2, 1, 3500, 0,0 ), --city
-( 2, 2, 4000, 0,0 ), -- Cuntryside
-( 2, 3, 4000, 0,0 ), -- Samal
-( 2, 4, 3500, 500, 500 ), --panabo
-( 2, 5, 3500, 800,500 ), --tagum
-( 2, 6, 4000, 800,700 ), --davao del norte
-( 2, 7, 4000, 1000,700 ), --comval
-( 2, 8, 4000, 1500,500 ), --govgen
-( 2, 9, 4000, 1500,500 ), --Mati
-( 2, 10, 4500, 2000,800 ), --Davao Oriental
-( 2, 11, 4500, 2000,800 ), --Agusan del sur
-( 2, 12, 5000, 3000,800 ), --Agusan del Norte
-( 2, 13, 4500, 2500,800 ), --Surigao del sur
-( 2, 14, 6000, 3000,800 ), --Surigao del Norte
+( 2, 1, 3000, 0,0 ), --selfdrive
+( 2, 2, 3500, 0,0 ), --city
+( 2, 3, 4000, 0,0 ), -- Cuntryside
+( 2, 4, 4000, 0,0 ), -- Samal
+( 2, 5, 3500, 500, 500 ), --panabo
+( 2, 6, 3500, 800,500 ), --tagum
+( 2, 7, 4000, 800,700 ), --davao del norte
+( 2, 8, 4000, 1000,700 ), --comval
+( 2, 9, 4000, 1500,500 ), --govgen
+( 2, 10,4000, 1500,500 ), --Mati
+( 2, 11, 4500, 2000,800 ), --Davao Oriental
+( 2, 12, 4500, 2000,800 ), --Agusan del sur
+( 2, 13, 5000, 3000,800 ), --Agusan del Norte
+( 2, 14, 4500, 2500,800 ), --Surigao del sur
+( 2, 15, 6000, 3000,800 ), --Surigao del Norte
 
 -- SUV ( Ford Everest / fortuner )
-( 3, 1, 3000, 0,0 ), --city
-( 3, 2, 3800, 0,0 ), -- Cuntryside
-( 3, 3, 3800, 0,0 ), -- Samal
-( 3, 4, 3000, 500, 500 ), --panabo
-( 3, 5, 3000, 800,500 ), --tagum
-( 3, 6, 3500, 800,700 ), --davao del norte
-( 3, 7, 3500, 1000,700 ), --comval
-( 3, 8, 3500, 1500,500 ), --govgen
-( 3, 9, 3500, 1500,500 ), --Mati
-( 3, 10, 4000, 2000,800 ), --Davao Oriental
-( 3, 11, 4000, 2000,800 ), --Agusan del sur
-( 3, 12, 4500, 3000,800 ), --Agusan del Norte
-( 3, 13, 4000, 2500,800 ), --Surigao del sur
-( 3, 14, 5000, 3000,800 ), --Surigao del Norte
+( 3, 1, 3000, 0,0 ), --selfdrive
+( 3, 2, 3000, 0,0 ), --city
+( 3, 3, 3800, 0,0 ), -- Cuntryside
+( 3, 4, 3800, 0,0 ), -- Samal
+( 3, 5, 3000, 500, 500 ), --panabo
+( 3, 6, 3000, 800,500 ), --tagum
+( 3, 7, 3500, 800,700 ), --davao del norte
+( 3, 8, 3500, 1000,700 ), --comval
+( 3, 9, 3500, 1500,500 ), --govgen
+( 3,10, 3500, 1500,500 ), --Mati
+( 3, 11, 4000, 2000,800 ), --Davao Oriental
+( 3, 12, 4000, 2000,800 ), --Agusan del sur
+( 3, 13, 4500, 3000,800 ), --Agusan del Norte
+( 3, 14, 4000, 2500,800 ), --Surigao del sur
+( 3, 15, 5000, 3000,800 ), --Surigao del Norte
 
 -- MPV ( Innova )
-( 4, 1, 2500, 0,0 ), --city
-( 4, 2, 3200, 0,0 ), -- Cuntryside
-( 4, 3, 3200, 0,0 ), -- Samal
-( 4, 4, 3000, 500, 500 ), --panabo
-( 4, 5, 3000, 800,500 ), --tagum
-( 4, 6, 3000, 800,700 ), --davao del norte
-( 4, 7, 3000, 1000,700 ), --comval
-( 4, 8, 3000, 1500,500 ), --govgen
-( 4, 9, 3000, 1500,500 ), --Mati
-( 4, 10, 3500, 2000,800 ), --Davao Oriental
-( 4, 11, 3500, 2000,800 ), --Agusan del sur
-( 4, 12, 4000, 3000,800 ), --Agusan del Norte
-( 4, 13, 3500, 2500,800 ), --Surigao del sur
-( 4, 14, 5000, 3000,800 ), --Surigao del Norte
+( 4, 1, 3000, 0,0 ), --selfdrive
+( 4, 2, 2500, 0,0 ), --city
+( 4, 3, 3200, 0,0 ), -- Cuntryside
+( 4, 4, 3200, 0,0 ), -- Samal
+( 4, 5, 3000, 500, 500 ), --panabo
+( 4, 6, 3000, 800,500 ), --tagum
+( 4, 7, 3000, 800,700 ), --davao del norte
+( 4, 8, 3000, 1000,700 ), --comval
+( 4, 9, 3000, 1500,500 ), --govgen
+( 4,10, 3000, 1500,500 ), --Mati
+( 4, 11, 3500, 2000,800 ), --Davao Oriental
+( 4, 12, 3500, 2000,800 ), --Agusan del sur
+( 4, 13, 4000, 3000,800 ), --Agusan del Norte
+( 4, 14, 3500, 2500,800 ), --Surigao del sur
+( 4, 15, 5000, 3000,800 ), --Surigao del Norte
 
-
--- MPV ( Innova )
-( 5, 1, 2500, 0,0 ), --city
-( 5, 2, 3000, 0,0 ), -- Cuntryside
-( 5, 3, 3000, 0,0 ), -- Samal
-( 5, 4, 3000, 500, 500 ), --panabo
-( 5, 5, 3000, 800,500 ), --tagum
+-- Sedan ( Honda City )
+( 5, 1, 3000, 0,0 ), --selfdrive
+( 5, 2, 2500, 0,0 ), --city
+( 5, 3, 3000, 0,0 ), -- Cuntryside
+( 5, 4, 3000, 0,0 ), -- Samal
+( 5, 5, 3000, 500, 500 ), --panabo
+( 5, 6, 3000, 800,500 ), --tagum
 
 -- Pickup ( strada / hilux )
-( 6, 1, 3000, 0,0 ), --city
-( 6, 2, 3800, 0,0 ), -- Cuntryside
-( 6, 3, 3800, 0,0 ), -- Samal
-( 6, 4, 3000, 500, 500 ), --panabo
-( 6, 5, 3000, 800,500 ), --tagum
-( 6, 6, 3500, 800,700 ), --davao del norte
-( 6, 7, 3500, 1000,700 ), --comval
-( 6, 8, 3500, 1500,500 ), --govgen
-( 6, 9, 3500, 1500,500 ), --Mati
-( 6, 10, 4000, 2000,800 ), --Davao Oriental
-( 6, 11, 4000, 2000,800 ), --Agusan del sur
-( 6, 12, 4500, 3000,800 ), --Agusan del Norte
-( 6, 13, 4000, 2500,800 ), --Surigao del sur
-( 6, 14, 5000, 3000,800 ); --Surigao del Norte
+( 6, 1, 3000, 0,0 ), --selfdrive
+( 6, 2, 3000, 0,0 ), --city
+( 6, 3, 3800, 0,0 ), -- Cuntryside
+( 6, 4, 3800, 0,0 ), -- Samal
+( 6, 5, 3000, 500, 500 ), --panabo
+( 6, 6, 3000, 800,500 ), --tagum
+( 6, 7, 3500, 800,700 ), --davao del norte
+( 6, 8, 3500, 1000,700 ), --comval
+( 6, 9, 3500, 1500,500 ), --govgen
+( 6,10, 3500, 1500,500 ), --Mati
+( 6, 11, 4000, 2000,800 ), --Davao Oriental
+( 6, 12, 4000, 2000,800 ), --Agusan del sur
+( 6, 13, 4500, 3000,800 ), --Agusan del Norte
+( 6, 14, 4000, 2500,800 ), --Surigao del sur
+( 6, 15, 5000, 3000,800 ); --Surigao del Norte
