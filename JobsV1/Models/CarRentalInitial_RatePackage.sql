@@ -22,7 +22,18 @@ values
 ('Manolo fortich', 'One round trip', 0,0,0 ),
 ('Cagayan De Oro', 'One round trip', 0,0,0 ),
 ('Misamis Oriental', 'One round trip', 0,0,0 ),
-('Iligan', 'One round trip', 0,0,0 );
+('Iligan', 'One round trip', 0,0,0 ),
+
+('Santa Cruz', 'Davao Del Sur. One round trip', 0,0,0 ),
+('Digos', 'Davao Del Sur. One round trip', 0,0,0 ),
+('Davao Del Sur', 'One round trip', 0,0,0 ),
+('Malita', 'One round trip', 0,0,0 ),
+('Don Marcelino', 'One round trip', 0,0,0 ),
+('General Santos', 'One round trip', 0,0,0 ),
+('Sarangani', 'One round trip', 0,0,0 ),
+('Koronadal', 'One round trip', 0,0,0 ),
+('Isulan', 'One round trip', 0,0,0 ),
+('Sultan Kudarat', 'One round trip', 0,0,0 );
 
 
 
