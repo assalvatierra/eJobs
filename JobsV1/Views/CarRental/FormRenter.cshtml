@@ -328,7 +328,7 @@
                 fuelRate *= fuelFlag;
                 //MealsAcc
                 var mealsperDay = @package.DailyMeals +  @package.DailyRoom;
-                var mealsRate = ((mealsperDay) * (days - 1) + @package.DailyMeals ) * rentalType;
+                var mealsRate = ((mealsperDay) * (days) + @package.DailyMeals ) * rentalType;
                 mealsRate *= mealFlag;
 
                 //total rate
@@ -479,7 +479,7 @@
 
                 //MealsAcc
                 var mealsperDay = meal +  driveracc;
-                var mealsRate = ((mealsperDay ) * (days - 1)) * rentalType  + meal;
+                var mealsRate = ((mealsperDay ) * (days)) * rentalType  + meal;
                 mealsRate *= mealFlag;
 
                 //total rate
