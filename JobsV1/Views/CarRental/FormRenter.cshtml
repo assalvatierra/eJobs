@@ -258,7 +258,6 @@
                         } else {
                             $('#pkg-fuel@(package.Id)').text('Included : f:'  + carRate_fuel +' lh:' + carRate_longhaulrate + ' a:' + carRateAdditional);
                         }
-
                     }
                     </text>
                 }
@@ -308,7 +307,7 @@
                 if(6 > days){
                     rate = @rates.Daily;
                     rate = rate * days;
-                    rateText = '(@rates.Daily / day )'+ rate +'';
+                    rateText = '(@rates.Daily / day ) = '+ rate +' ';
                 }
 
                 var rentalType;
@@ -392,7 +391,7 @@
 
             <text>
             if(@package.Id == selectedTour){ // get id of the tour
-                $('#smry-itour').text('@package.Description');
+                $('#smry-rtour').text('@package.Description');
                 $('#rnt-destination').val('@package.Description'); //for reservation details
                 $('#rnt-usedfor').val('@package.Description'); //for reservation details
                 meal = @package.DailyMeals;
@@ -434,27 +433,28 @@
                 var rate;
                 if(@rates.CarUnitId == selectedCar){ // get id of the car
                     $('#smry-rVehicleRate').text('@rates.Daily');
-                }
-                //check if weekly, monthly or daily
-                var days =  $('#rsv-days').val();
-                if(days > 21){
-                    rate = @rates.Monthly;
-                    rate = rate * days;
-                    $('#smry-rVehicleRate').text('(@rates.Monthly daily )'+ rate +'');
-                }
-
-                if(days > 6 ){
-                    if(22 > days){
-                        rate = @rates.Weekly;
+          
+                    //check if weekly, monthly or daily
+                    var days =  $('#rsv-days').val();
+                    if(days > 21){
+                        rate = @rates.Monthly;
                         rate = rate * days;
-                        $('#smry-rVehicleRate').text('(@rates.Weekly daily )'+ rate +'');
+                        $('#smry-rVehicleRate').text('(@rates.Monthly  per day ) * '+ days +'  ='+ rate +'');
                     }
-                }
 
-                if(6 > days){
-                    rate = @rates.Daily;
-                    rate = rate * days;
-                    $('#smry-rVehicleRate').text('(@rates.Daily daily )'+ rate +'');
+                    if(days > 6 ){
+                        if(22 > days){
+                            rate = @rates.Weekly;
+                            rate = rate * days;
+                            $('#smry-rVehicleRate').text('(@rates.Weekly per day )  * '+ days +'  ='+ rate +'');
+                        }
+                    }
+
+                    if(6 > days){
+                        rate = @rates.Daily;
+                        rate = rate * days;
+                        $('#smry-rVehicleRate').text('(@rates.Daily  per day )  * '+ days +'  ='+ rate +'');
+                    }
                 }
 
                 var rentalType;
@@ -463,8 +463,8 @@
                 }else{
                     rentalType = 0
                 }
-
-
+                
+                
 
                 //Fuel
                 var fuelRate = (Fuel * carRate_fuel * days) + carRate_longhaulrate;
