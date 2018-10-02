@@ -17,8 +17,15 @@
     <div class="col-lg-8">
 
         <div class="col-lg-12 details-container">
-            <img src="~/Images/CarRental/@(ViewBag.ImgSrc)" class="center-block img-responsive" style="width:60%;margin:auto;" />
+            @if (ViewBag.Id == 1)
+            {
+                <img src="~/Images/CarRental/glgrandia/glgrandia_frontview.jpg" class="center-block img-responsive" style="width:60%;margin:auto;" />
+            }
+            else if (ViewBag.Id == 2)
+            {
+                <img src="~/Images/CarRental/nissan_premium_primary.png" class="center-block img-responsive" style="width:60%;margin:auto;" />
 
+            }
             <h2 >VAN</h2>
             &nbsp;
 
@@ -160,52 +167,52 @@
 
         <div class="col-lg-12 details-container">
             <h1 class="text-primary text-center">Book Now! </h1>
-            @Html.ActionLink("Cost Estimate and Reservation", "FormRenter", "CarRental", new { id = @ViewBag.Id }, new { @class = "btn btn-primary col-lg-12" })
+            @Html.ActionLink("Cost Estimate and Reservation", "FormRenter", "CarRental", new { id = @ViewBag.Id }, new { @class = "btn btn-primary col-lg-12 rsvr-btn" })
             <p class="text-info text-center" style="font-size:12px;color:gray;">
             Note: availability of the vehicle will depend on the date of reservation. </p>
         </div>
     </div>
 
-    <div class="col-sm-3" style="margin:30px;">
-        @if (ViewBag.Id == 1)
-        {
-            <a href="@Url.Action("CarDetail", "CarRental", new { unitid = 1 }, null)" class="list-group-item  details-container-list active">  Van (10 seater)   </a>
-            <a href="@Url.Action("CarDetail", "CarRental", new { unitid = 2 }, null)" class="list-group-item  details-container-list">  Van (14 seater)   </a>
-        }
-        else if (ViewBag.Id == 2)
-        {
-            <a href="@Url.Action("CarDetail", "CarRental", new { unitid = 1 }, null)" class="list-group-item  details-container-list ">  Van (10 seater)   </a>
-            <a href="@Url.Action("CarDetail", "CarRental", new { unitid = 2 }, null)" class="list-group-item  details-container-list active">  Van (14 seater)   </a>
-        }
-        <a href="@Url.Action("CarDetail", "CarRental", new { unitid = 3 },null)" class="list-group-item  details-container-list">  SUV   </a>
-        <a href="@Url.Action("CarDetail", "CarRental", new { unitid = 4 },null)" class="list-group-item  details-container-list">  MPV   </a>
-        <a href="@Url.Action("CarDetail", "CarRental", new { unitid = 5 },null)" class="list-group-item  details-container-list">  Sedan   </a>
-        <a href="@Url.Action("CarDetail", "CarRental", new { unitid = 6 },null)" class="list-group-item  details-container-list">  Pickup   </a>
-    </div>
-
-
-    <div class="col-sm-3" style="margin:30px;">
-        <label></label>
-    </div>
-</div>
-
-<!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Modal Header</h4>
-            </div>
-            <div class="modal-body">
-                <p>Some text in the modal.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
+        <div class="col-lg-3" style="margin:30px;">
+            @if (ViewBag.Id == 1)
+            {
+                <a href="@Url.Action("CarDetail", "CarRental", new { unitid = 1 }, null)" class="list-group-item  details-container-list active">  Van (10 seater)   </a>
+                <a href="@Url.Action("CarDetail", "CarRental", new { unitid = 2 }, null)" class="list-group-item  details-container-list">  Van (14 seater)          </a>
+            }
+            else if (ViewBag.Id == 2)
+            {
+                <a href="@Url.Action("CarDetail", "CarRental", new { unitid = 1 }, null)" class="list-group-item  details-container-list ">  Van (10 seater)         </a>
+                <a href="@Url.Action("CarDetail", "CarRental", new { unitid = 2 }, null)" class="list-group-item  details-container-list active">  Van (14 seater)   </a>
+            }
+            <a href="@Url.Action("CarDetail", "CarRental", new { unitid = 3 },null)" class="list-group-item  details-container-list">  SUV      </a>
+            <a href="@Url.Action("CarDetail", "CarRental", new { unitid = 4 },null)" class="list-group-item  details-container-list">  MPV      </a>
+            <a href="@Url.Action("CarDetail", "CarRental", new { unitid = 5 },null)" class="list-group-item  details-container-list">  Sedan    </a>
+            <a href="@Url.Action("CarDetail", "CarRental", new { unitid = 6 },null)" class="list-group-item  details-container-list">  Pickup   </a>
         </div>
 
     </div>
-</div>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Some text in the modal.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+<p>
+    @Html.ActionLink("Back to Home", "Index")
+</p>

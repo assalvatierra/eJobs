@@ -17,7 +17,7 @@
     <div class="col-lg-8">
 
         <div class="col-lg-12 details-container">
-            <img src="~/Images/CarRental/@(ViewBag.ImgSrc)" class="center-block img-responsive" style="width:60%;margin:auto;" />
+            <img src="~/Images/CarRental/innova/toyotainnova_front.jpg" class="center-block img-responsive" style="width:60%;margin:auto;" />
 
             <h2>Toyota Innova</h2>
             <p>
@@ -148,13 +148,13 @@
 
         <div class="col-lg-12 details-container">
             <h1 class="text-primary text-center">Book Now! </h1>
-            @Html.ActionLink("Cost Estimate and Reservation", "FormRenter", "CarRental", new { id = @ViewBag.Id }, new { @class = "btn btn-primary col-lg-12" })
+            @Html.ActionLink("Cost Estimate and Reservation", "FormRenter", "CarRental", new { id = @ViewBag.Id }, new { @class = "btn btn-primary col-lg-12 rsvr-btn" })
             <p class="text-info text-center" style="font-size:12px;color:gray;">
             Note: availability of the vehicle will depend on the date of reservation. </p>
         </div>
     </div>
 
-    <div class="col-sm-3" style="margin:30px;">
+    <div class="col-lg-3" style="margin:30px;">
         <a href="@Url.Action("CarDetail", "CarRental",new { unitid = 1 },null)" class="list-group-item  details-container-list">  Van (10 seater)   </a>
         <a href="@Url.Action("CarDetail", "CarRental", new { unitid = 2 },null)" class="list-group-item  details-container-list">  Van (14 seater)   </a>
         <a href="@Url.Action("CarDetail", "CarRental", new { unitid = 3 },null)" class="list-group-item  details-container-list ">  SUV   </a>
@@ -188,3 +188,7 @@
 
     </div>
 </div>
+
+<p>
+    @Html.ActionLink("Back to Home", "Index")
+</p>
