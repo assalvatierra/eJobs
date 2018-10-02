@@ -15,6 +15,7 @@ values
 ('Agusan Del Norte','One round trip',300,400,1), 
 ('Surigao Del Sur','One round trip',300,400,1), 
 ('Surigao Del Norte','One round trip',300,400,1),
+
 ('Marilog', 'One round trip', 0,0,0 ),
 ('Buda', 'Seagull', 0,0,0 ),
 ('Valencia', 'One round trip', 0,0,0 ),
