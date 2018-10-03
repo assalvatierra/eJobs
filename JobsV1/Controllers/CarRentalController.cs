@@ -13,6 +13,7 @@ namespace JobsV1.Controllers
     public class CarRentalController : Controller
     {
         private JobDBContainer db = new JobDBContainer();
+     
 
         private List<SelectListItem> MealsAcc = new List<SelectListItem> {
                 new SelectListItem { Value = "1", Text = "Included in the Package" },
@@ -275,6 +276,7 @@ namespace JobsV1.Controllers
             
         }
 
-        
+
+
     }
 }

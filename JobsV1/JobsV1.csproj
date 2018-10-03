@@ -520,6 +520,7 @@
     <Compile Include="Models\Services.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sitemap.cs" />
     <Compile Include="Models\SrvActionCode.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
