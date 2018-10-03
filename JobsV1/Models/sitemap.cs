@@ -103,12 +103,12 @@ namespace JobsV1.Models
         public List<string> GetCarList()
         {
             List<string> items = new List<string>();
-            items.Add("TourPackages/van-for-rent");
-            items.Add("TourPackages/NissanUrvanPremium-for-rent");
-            items.Add("TourPackages/suvpickup4x4-rental-rates");
-            items.Add("TourPackages/toyota-innova-for-rent");
-            items.Add("TourPackages/sedan-rental");
-            items.Add("TourPackages/pickup-rental");
+            items.Add("CarRental/van-for-rent");
+            items.Add("CarRental/NissanUrvanPremium-for-rent");
+            items.Add("CarRental/suvpickup4x4-rental-rates");
+            items.Add("CarRental/toyota-innova-for-rent");
+            items.Add("CarRental/sedan-rental");
+            items.Add("CarRental/pickup-rental");
 
             return items;
 
