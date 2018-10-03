@@ -87,9 +87,11 @@ namespace JobsV1
             );
 
 
-
-
-
+            routes.MapRoute(
+                name: "Sitemapxml",
+                url: "Sitemap.xml",
+                defaults: new { controller = "Home", action = "SitemapXml" }
+                );
         }
     }
 }
