@@ -230,9 +230,11 @@
     function displayPackages(){
         var ratePackageCount = 1;
         var carRateAdditional = 0;
+        var packageDailyAddon = 0;
         var mealFlag = 0;
         var fuelFlag = 0;
         RentalType = $('input:radio[name=options]:checked').val();
+        var days =  $('#rsv-days').val();
         @foreach (var package in ViewBag.Packages as IEnumerable<JobsV1.Models.CarRatePackage>)
         {
             <text>
@@ -251,15 +253,16 @@
                         ratePackageCount += 1;
                         carRate_longhaulrate = @carRatesPackages.FuelLonghaul;
                         carRate_fuel =  @carRatesPackages.FuelDaily;
-                        carRateAdditional = 0;
-
+                        carRateAdditional = @carRatesPackages.DailyRate;
+                        packageDailyAddon = @carRatesPackages.DailyAddon;
+                        packageDailyAddon *= days;
                         //fuel
                         if ($('#rsv-fuel').val() == '0') {
-                            $('#pkg-fuel@(package.Id)').text('by renter');
+                            $('#pkg-fuel@(package.Id)').text('by renter + ' + ' dr:' + carRateAdditional + ' da:' + packageDailyAddon);
                             carRate_longhaulrate = 0;
                             fuelFlag = 0;
                         } else {
-                            $('#pkg-fuel@(package.Id)').text('Included : f:'  + carRate_fuel +' lh:' + carRate_longhaulrate + ' a:' + carRateAdditional);
+                            $('#pkg-fuel@(package.Id)').text('Included : f:'  + carRate_fuel +' lh:' + carRate_longhaulrate + ' dr:' + carRateAdditional + ' da:' + packageDailyAddon );
                             fuelFlag = 1;
                         }
                     }
@@ -320,7 +323,7 @@
                 }else{
                     rentalType = 0
                 }
-                
+
                 var days =  $('#rsv-days').val();
                 var adjDays = (days-1);
 
@@ -333,13 +336,14 @@
                 var mealsRate = ((mealsperDay)  + @package.DailyMeals ) * rentalType;
                 mealsRate *= mealFlag;
 
+                var addedRates = carRateAdditional + packageDailyAddon;
                // alert('mealsRate = mf:' + (adjDays) +' + mpd:'+ mealsperDay)
                 //total rate
-                var totalRate =rate + fuelRate + mealsRate + carRateAdditional;
+                var totalRate =rate + fuelRate + mealsRate + carRateAdditional + packageDailyAddon;
 
                 if(selectedCar == '@rates.CarUnitId' ){
 
-                    $('#pkg-rate@(package.Id)').text('r:' + rateText   +' + m:'+ mealsRate +' + f:'+ fuelRate  +' = T:'+ totalRate);
+                    $('#pkg-rate@(package.Id)').text('r:' + rateText   +' + m:'+ mealsRate +' + f:'+ fuelRate  +' + a:'+ addedRates  +' = T:'+ totalRate);
 
                 }
         </text>
@@ -355,6 +359,7 @@
         var carRate_longhaulrate = 0;
         var carRate_fuel = 0;
         var carRateAdditional = 0;
+        var packageDailyAddon = 0;
         var meal = 0;
         var driveracc = 0;
         var rate= 0;
@@ -386,15 +391,18 @@
                     {
                         carRate_longhaulrate = @carRatesPackages.FuelLonghaul;
                         carRate_fuel =  @carRatesPackages.FuelDaily;
-                        carRateAdditional =0;
+                        carRateAdditional = @carRatesPackages.DailyRate;
+                        packageDailyAddon = @carRatesPackages.DailyAddon;
+                        packageDailyAddon *= NoDays;
                         //fuel
                         if ($('#rsv-fuel').val() == '0') {
                             carRate_longhaulrate = 0;
                             fuelFlag = 0;
-                            $('#smry-rFuel').text('by renter');
+                            $('#smry-rFuel').text('by renter' +   ' + dailyRate:' + carRateAdditional + ' + dailyAddon:' + packageDailyAddon);
                         } else {
                             fuelFlag = 1;
-                            $('#smry-rFuel').text('Included : f:' + carRate_fuel + ' + lh:' + carRate_longhaulrate);
+                            $('#smry-rFuel').text('Included : f:' + carRate_fuel + ' + lh:' + carRate_longhaulrate +
+                                ' + dailyRate:' + carRateAdditional + ' + dailyAddon:' + packageDailyAddon);
                         }
                     }
                 }
@@ -410,7 +418,7 @@
                 driveracc = @package.DailyRoom;
 
             }
-            
+
             //meals and accomodation
             if ($('#rsv-meal').val() == '0') {
                 $('#smry-rMeal').text('by renter ');
@@ -446,7 +454,7 @@
                 var rate;
                 if(@rates.CarUnitId == selectedCar){ // get id of the car
                     $('#smry-rVehicleRate').text('@rates.Daily');
-          
+
                     //check if weekly, monthly or daily
                     var days =  $('#rsv-days').val();
                     if(days > 21){
@@ -471,7 +479,7 @@
                 }
 
                 if(@package.Id == selectedTour){ // get id of the tour
-                    
+
                     var rentalType ;
                     if(RentalType == "With Driver" ){
                         rentalType = 1;
@@ -491,15 +499,15 @@
                     // var mealsRate = (mealsperDay * rentalType)  + (meal * rentalType);
 
                     var mealsRate = (mealsperDay + meal)  * (rentalType);
-                    
+                    var addedRate = packageDailyAddon + carRateAdditional;
                     mealsRate *= mealFlag;
                     //total rate
-                    var totalRate =rate + fuelRate + mealsRate  + carRateAdditional;
+                    var totalRate =rate + fuelRate + mealsRate  + addedRate;
 
                     $('#rnt-baseRate').val(totalRate);
                     if(selectedCar == '@rates.CarUnitId' ){
-                        $('#smry-rtotal').text('r:' + rate  +' + m:'+ mealsRate +' + f:'+ fuelRate +' = '+  totalRate );
-               
+                        $('#smry-rtotal').text('r:' + rate  +' + m:'+ mealsRate +' + f:'+ fuelRate  +' + a:'+ addedRate +' = '+  totalRate );
+
                     }
                 }
 
