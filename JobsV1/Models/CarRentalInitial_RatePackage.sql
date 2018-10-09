@@ -34,28 +34,70 @@ values
 ('Sarangani', 'One round trip', 0,0,0 ),
 ('Koronadal', 'One round trip', 0,0,0 ),
 ('Isulan', 'One round trip', 0,0,0 ),
-('Sultan Kudarat', 'One round trip', 0,0,0 );
+('Sultan Kudarat', 'One round trip', 0,0,0 ),
+
+('Kidapawan', 'Kidapawan. One round trip', 0,0,0 ),
+('Ilomavis', 'Ilomavis. One round trip', 0,0,0 ),
+('Kabacan', 'Kabacan. One round trip', 0,0,0 ),
+('Arakan', 'Arakan. One round trip', 0,0,0 ),
+('Midsayap', 'Midsayap. One round trip', 0,0,0 ),
+('Cotabato City', 'Cotabato City. One round trip', 0,0,0 ),
+('North Cotabato', 'Kidapawan. One round trip', 0,0,0 )
+;
+
+
+--insert into CarRates (Daily,Weekly,Monthly,KmFree,KmRate,CarUnitId,OtRate)
+--values (2500,2500,2250,100,5,1,300), --grandia
+--	   (2700,2500,2250,100,5,2,300), --premium
+--	   (2500,2500,2250,100,5,3,300), --everest
+--	   (2000,1800,1500,100,5,4,300), --innova
+--	   (2000,1800,1500,100,5,5,300), --honda
+--	   (2500,2500,2250,100,5,6,300); --pickup
 
 
 
 Insert into CarRateUnitPackages (CarUnitId,CarRatePackageId,DailyRate,FuelLonghaul,FuelDaily)
 values
 -- regular van ( Grandia GL )
-( 1, 1, 3000, 0,0 ), --selfdrive
-( 1, 2, 3000, 0,0 ), --city
-( 1, 3, 3800, 0,0 ), -- Cuntryside
-( 1, 4, 3800, 0,0 ), -- Samal
-( 1, 5, 3000, 500, 500 ), --panabo
-( 1, 6, 3000, 800,500 ), --tagum
-( 1, 7, 3500, 800,700 ), --davao del norte
-( 1, 8, 3500, 1000,700 ), --comval
-( 1, 9, 3500, 1500,500 ), --govgen
-( 1, 10, 3500, 1500,500 ), --Mati
-( 1, 11, 4000, 2000,800 ), --Davao Oriental
-( 1, 12, 4000, 2000,800 ), --Agusan del sur
-( 1, 13, 4500, 3000,800 ), --Agusan del Norte
-( 1, 14, 4000, 2500,800 ), --Surigao del sur
-( 1, 15, 5000, 3000,800 ), --Surigao del Norte
+( 1, 1, 0, 0, 0 ), --selfdrive
+( 1, 2, 0, 0, 500 ), --city
+( 1, 3, 300, 500, 500 ), -- Cuntryside
+( 1, 4, 300, 500, 500 ), -- Samal
+( 1, 5, 500, 500, 500 ), --panabo
+( 1, 6, 1000, 500,500 ), --tagum
+( 1, 7, 1000, 800,700 ), --davao del norte
+( 1, 8, 1000, 800,700 ), --comval
+( 1, 9, 1000, 1000,500 ), --govgen
+( 1, 10, 1000, 1000,500 ), --Mati
+( 1, 11, 1500, 1500,700 ), --Davao Oriental
+( 1, 12, 1500, 3000,700 ), --Agusan del sur
+( 1, 13, 2000, 3500,700 ), --Agusan del Norte
+( 1, 14, 1500, 3000,700 ), --Surigao del sur
+( 1, 15, 2500, 4500,700 ), --Surigao del Norte
+
+( 1, 16, 4000, 2000,800 ), --Marilog
+( 1, 17, 4000, 2000,800 ), --Buda
+( 1, 18, 4500, 3000,800 ), --Valencia
+( 1, 19, 4000, 2500,800 ), --Malaybalay
+( 1, 20, 5000, 3000,800 ), --Manolo fortich
+( 1, 21, 4000, 2500,800 ), --Cagayan
+( 1, 22, 4000, 2500,800 ), --Misamis
+( 1, 23, 4000, 2500,800 ), --Iligan
+( 1, 24, 4000, 2500,800 ), --Santa Cruz, davao del sur
+( 1, 25, 4000, 2500,800 ), --Malita
+( 1, 26, 4000, 2500,800 ), --Don Marcelino
+( 1, 27, 4000, 2500,800 ), --General Santos
+( 1, 28, 4000, 2500,800 ), --Saranggani
+( 1, 29, 4000, 2500,800 ), --Koronadal
+( 1, 30, 4000, 2500,800 ), --Isulan
+( 1, 31, 4000, 2500,800 ), --Sultan Kudarat
+( 1, 32, 4000, 2500,800 ), --Kidapawan
+( 1, 33, 4000, 2500,800 ), --Ilomavis
+( 1, 34, 4000, 2500,800 ), --Kabacan
+( 1, 35, 4000, 2500,800 ), --Arakan
+( 1, 36, 4000, 2500,800 ), --Midsayap
+( 1, 37, 4000, 2500,800 ), --Cotabato City
+( 1, 38, 4000, 2500,800 ), --North Cotabato
 
 -- big van ( Nissan Premium)
 ( 2, 1, 3000, 0,0 ), --selfdrive
@@ -73,6 +115,29 @@ values
 ( 2, 13, 5000, 3000,800 ), --Agusan del Norte
 ( 2, 14, 4500, 2500,800 ), --Surigao del sur
 ( 2, 15, 6000, 3000,800 ), --Surigao del Norte
+( 2, 16, 4000, 2000,800 ), --Marilog
+( 2, 17, 4000, 2000,800 ), --Buda
+( 2, 18, 4500, 3000,800 ), --Valencia
+( 2, 19, 4000, 2500,800 ), --Malaybalay
+( 2, 20, 5000, 3000,800 ), --Manolo fortich
+( 2, 21, 4000, 2500,800 ), --Cagayan
+( 2, 22, 4000, 2500,800 ), --Misamis
+( 2, 23, 4000, 2500,800 ), --Iligan
+( 2, 24, 4000, 2500,800 ), --Santa Cruz, davao del sur
+( 2, 25, 4000, 2500,800 ), --Malita
+( 2, 26, 4000, 2500,800 ), --Don Marcelino
+( 2, 27, 4000, 2500,800 ), --General Santos
+( 2, 28, 4000, 2500,800 ), --Saranggani
+( 2, 29, 4000, 2500,800 ), --Koronadal
+( 2, 30, 4000, 2500,800 ), --Isulan
+( 2, 31, 4000, 2500,800 ), --Sultan Kudarat
+( 2, 32, 4000, 2500,800 ), --Kidapawan
+( 2, 33, 4000, 2500,800 ), --Ilomavis
+( 2, 34, 4000, 2500,800 ), --Kabacan
+( 2, 35, 4000, 2500,800 ), --Arakan
+( 2, 36, 4000, 2500,800 ), --Midsayap
+( 2, 37, 4000, 2500,800 ), --Cotabato City
+( 2, 38, 4000, 2500,800 ), --North Cotabato
 
 -- SUV ( Ford Everest / fortuner )
 ( 3, 1, 3000, 0,0 ), --selfdrive
@@ -90,6 +155,29 @@ values
 ( 3, 13, 4500, 3000,800 ), --Agusan del Norte
 ( 3, 14, 4000, 2500,800 ), --Surigao del sur
 ( 3, 15, 5000, 3000,800 ), --Surigao del Norte
+( 3, 16, 4000, 2000,800 ), --Marilog
+( 3, 17, 4000, 2000,800 ), --Buda
+( 3, 18, 4500, 3000,800 ), --Valencia
+( 3, 19, 4000, 2500,800 ), --Malaybalay
+( 3, 20, 5000, 3000,800 ), --Manolo fortich
+( 3, 21, 4000, 2500,800 ), --Cagayan
+( 3, 22, 4000, 2500,800 ), --Misamis
+( 3, 23, 4000, 2500,800 ), --Iligan
+( 3, 24, 4000, 2500,800 ), --Santa Cruz, davao del sur
+( 3, 25, 4000, 2500,800 ), --Malita
+( 3, 26, 4000, 2500,800 ), --Don Marcelino
+( 3, 27, 4000, 2500,800 ), --General Santos
+( 3, 28, 4000, 2500,800 ), --Saranggani
+( 3, 29, 4000, 2500,800 ), --Koronadal
+( 3, 30, 4000, 2500,800 ), --Isulan
+( 3, 31, 4000, 2500,800 ), --Sultan Kudarat
+( 3, 32, 4000, 2500,800 ), --Kidapawan
+( 3, 33, 4000, 2500,800 ), --Ilomavis
+( 3, 34, 4000, 2500,800 ), --Kabacan
+( 3, 35, 4000, 2500,800 ), --Arakan
+( 3, 36, 4000, 2500,800 ), --Midsayap
+( 3, 37, 4000, 2500,800 ), --Cotabato City
+( 3, 38, 4000, 2500,800 ), --North Cotabato
 
 -- MPV ( Innova )
 ( 4, 1, 3000, 0,0 ), --selfdrive
@@ -107,6 +195,29 @@ values
 ( 4, 13, 4000, 3000,800 ), --Agusan del Norte
 ( 4, 14, 3500, 2500,800 ), --Surigao del sur
 ( 4, 15, 5000, 3000,800 ), --Surigao del Norte
+( 4, 16, 4000, 2000,800 ), --Marilog
+( 4, 17, 4000, 2000,800 ), --Buda
+( 4, 18, 4500, 3000,800 ), --Valencia
+( 4, 19, 4000, 2500,800 ), --Malaybalay
+( 4, 20, 5000, 3000,800 ), --Manolo fortich
+( 4, 21, 4000, 2500,800 ), --Cagayan
+( 4, 22, 4000, 2500,800 ), --Misamis
+( 4, 23, 4000, 2500,800 ), --Iligan
+( 4, 24, 4000, 2500,800 ), --Santa Cruz, davao del sur
+( 4, 25, 4000, 2500,800 ), --Malita
+( 4, 26, 4000, 2500,800 ), --Don Marcelino
+( 4, 27, 4000, 2500,800 ), --General Santos
+( 4, 28, 4000, 2500,800 ), --Saranggani
+( 4, 29, 4000, 2500,800 ), --Koronadal
+( 4, 30, 4000, 2500,800 ), --Isulan
+( 4, 31, 4000, 2500,800 ), --Sultan Kudarat
+( 4, 32, 4000, 2500,800 ), --Kidapawan
+( 4, 33, 4000, 2500,800 ), --Ilomavis
+( 4, 34, 4000, 2500,800 ), --Kabacan
+( 4, 35, 4000, 2500,800 ), --Arakan
+( 4, 36, 4000, 2500,800 ), --Midsayap
+( 4, 37, 4000, 2500,800 ), --Cotabato City
+( 4, 38, 4000, 2500,800 ), --North Cotabato
 
 -- Sedan ( Honda City )
 ( 5, 1, 3000, 0,0 ), --selfdrive
@@ -115,6 +226,38 @@ values
 ( 5, 4, 3000, 0,0 ), -- Samal
 ( 5, 5, 3000, 500, 500 ), --panabo
 ( 5, 6, 3000, 800,500 ), --tagum
+( 5, 7, 3500, 800,700 ), --davao del norte
+( 5, 8, 3500, 1000,700 ), --comval
+( 5, 9, 3500, 1500,500 ), --govgen
+( 5, 10, 3500, 1500,500 ), --Mati
+( 5, 11, 4000, 2000,800 ), --Davao Oriental
+( 5, 12, 4000, 2000,800 ), --Agusan del sur
+( 5, 13, 4500, 3000,800 ), --Agusan del Norte
+( 5, 14, 4000, 2500,800 ), --Surigao del sur
+( 5, 15, 5000, 3000,800 ), --Surigao del Norte
+( 5, 16, 4000, 2000,800 ), --Marilog
+( 5, 17, 4000, 2000,800 ), --Buda
+( 5, 18, 4500, 3000,800 ), --Valencia
+( 5, 19, 4000, 2500,800 ), --Malaybalay
+( 5, 20, 5000, 3000,800 ), --Manolo fortich
+( 5, 21, 4000, 2500,800 ), --Cagayan
+( 5, 22, 4000, 2500,800 ), --Misamis
+( 5, 23, 4000, 2500,800 ), --Iligan
+( 5, 24, 4000, 2500,800 ), --Santa Cruz, davao del sur
+( 5, 25, 4000, 2500,800 ), --Malita
+( 5, 26, 4000, 2500,800 ), --Don Marcelino
+( 5, 27, 4000, 2500,800 ), --General Santos
+( 5, 28, 4000, 2500,800 ), --Saranggani
+( 5, 29, 4000, 2500,800 ), --Koronadal
+( 5, 30, 4000, 2500,800 ), --Isulan
+( 5, 31, 4000, 2500,800 ), --Sultan Kudarat
+( 5, 32, 4000, 2500,800 ), --Kidapawan
+( 5, 33, 4000, 2500,800 ), --Ilomavis
+( 5, 34, 4000, 2500,800 ), --Kabacan
+( 5, 35, 4000, 2500,800 ), --Arakan
+( 5, 36, 4000, 2500,800 ), --Midsayap
+( 5, 37, 4000, 2500,800 ), --Cotabato City
+( 5, 38, 4000, 2500,800 ), --North Cotabato
 
 -- Pickup ( strada / hilux )
 ( 6, 1, 3000, 0,0 ), --selfdrive
@@ -126,9 +269,32 @@ values
 ( 6, 7, 3500, 800,700 ), --davao del norte
 ( 6, 8, 3500, 1000,700 ), --comval
 ( 6, 9, 3500, 1500,500 ), --govgen
-( 6,10, 3500, 1500,500 ), --Mati
+( 6, 10, 3500, 1500,500 ), --Mati
 ( 6, 11, 4000, 2000,800 ), --Davao Oriental
 ( 6, 12, 4000, 2000,800 ), --Agusan del sur
 ( 6, 13, 4500, 3000,800 ), --Agusan del Norte
 ( 6, 14, 4000, 2500,800 ), --Surigao del sur
-( 6, 15, 5000, 3000,800 ); --Surigao del Norte
+( 6, 15, 5000, 3000,800 ), --Surigao del Norte
+( 6, 16, 4000, 2000,800 ), --Marilog
+( 6, 17, 4000, 2000,800 ), --Buda
+( 6, 18, 4500, 3000,800 ), --Valencia
+( 6, 19, 4000, 2500,800 ), --Malaybalay
+( 6, 20, 5000, 3000,800 ), --Manolo fortich
+( 6, 21, 4000, 2500,800 ), --Cagayan
+( 6, 22, 4000, 2500,800 ), --Misamis
+( 6, 23, 4000, 2500,800 ), --Iligan
+( 6, 24, 4000, 2500,800 ), --Santa Cruz, davao del sur
+( 6, 25, 4000, 2500,800 ), --Malita
+( 6, 26, 4000, 2500,800 ), --Don Marcelino
+( 6, 27, 4000, 2500,800 ), --General Santos
+( 6, 28, 4000, 2500,800 ), --Saranggani
+( 6, 29, 4000, 2500,800 ), --Koronadal
+( 6, 30, 4000, 2500,800 ), --Isulan
+( 6, 31, 4000, 2500,800 ), --Sultan Kudarat
+( 6, 32, 4000, 2500,800 ), --Kidapawan
+( 6, 33, 4000, 2500,800 ), --Ilomavis
+( 6, 34, 4000, 2500,800 ), --Kabacan
+( 6, 35, 4000, 2500,800 ), --Arakan
+( 6, 36, 4000, 2500,800 ), --Midsayap
+( 6, 37, 4000, 2500,800 ), --Cotabato City
+( 6, 38, 4000, 2500,800 ); --North Cotabato
