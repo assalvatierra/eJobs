@@ -91,7 +91,7 @@ values
 	('Surigao Del Sur','One round trip',300,400,1), 
 	('Surigao Del Norte','One round trip',300,400,1);
 
-Insert into CarRateUnitPackages (CarUnitId,CarRatePackageId,DailyRate,FuelLonghaul,FuelDaily)
+Insert into CarRateUnitPackages (CarUnitId,CarRatePackageId,DailyRate,FuelLonghaul,FuelDaily, DailyAddon)
 values
 	-- regular van ( Grandia GL )
 	( 1, 1, 3000, 0,0 ), --selfdrive

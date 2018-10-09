@@ -1117,6 +1117,7 @@
     <Property Name="DailyRate" Type="decimal" Nullable="false" />
     <Property Name="FuelLonghaul" Type="decimal" Nullable="false" />
     <Property Name="FuelDaily" Type="decimal" Nullable="false" />
+    <Property Name="DailyAddon" Type="decimal" Nullable="true" />
   </EntityType>
   <EntityType Name="CarResPackages">
     <Key>
@@ -4116,6 +4117,7 @@
           <Property Name="FuelLonghaul" Type="Decimal" Nullable="false" />
           <Property Name="FuelDaily" Type="Decimal" Nullable="false" />
           <NavigationProperty Name="CarResPackages" Relationship="JobDB.CarRateUnitPackageCarResPackage" FromRole="CarRateUnitPackage" ToRole="CarResPackage" />
+          <Property Name="DailyAddon" Type="Decimal" Nullable="true" />
         </EntityType>
         <Association Name="CarRatePackageCarRateUnitPackage">
           <End Type="JobDB.CarRatePackage" Role="CarRatePackage" Multiplicity="1" />
@@ -5017,6 +5019,7 @@
           <ScalarProperty Name="DailyRate" ColumnName="DailyRate" />
           <ScalarProperty Name="FuelLonghaul" ColumnName="FuelLonghaul" />
           <ScalarProperty Name="FuelDaily" ColumnName="FuelDaily" />
+          <ScalarProperty Name="DailyAddon" ColumnName="DailyAddon" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 09/26/2018 15:07:53
+-- Date Created: 10/09/2018 15:48:39
 -- Generated from EDMX file: C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
@@ -1204,7 +1204,8 @@ CREATE TABLE [dbo].[CarRateUnitPackages] (
     [CarUnitId] int  NOT NULL,
     [DailyRate] decimal(18,0)  NOT NULL,
     [FuelLonghaul] decimal(18,0)  NOT NULL,
-    [FuelDaily] decimal(18,0)  NOT NULL
+    [FuelDaily] decimal(18,0)  NOT NULL,
+    [DailyAddon] decimal(18,0)  NULL
 );
 GO
 
