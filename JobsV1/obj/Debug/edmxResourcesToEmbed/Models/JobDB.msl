@@ -826,5 +826,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="CarUnitMetas">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.CarUnitMeta)">
+        <MappingFragment StoreEntitySet="CarUnitMetas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CarUnitId" ColumnName="CarUnitId" />
+          <ScalarProperty Name="PageTitle" ColumnName="PageTitle" />
+          <ScalarProperty Name="MetaDesc" ColumnName="MetaDesc" />
+          <ScalarProperty Name="HomeDesc" ColumnName="HomeDesc" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

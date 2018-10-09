@@ -364,6 +364,11 @@
       <End Role="CarReservation" EntitySet="CarReservations" />
       <End Role="CarResPackage" EntitySet="CarResPackages" />
     </AssociationSet>
+    <EntitySet Name="CarUnitMetas" EntityType="JobDB.CarUnitMeta" />
+    <AssociationSet Name="CarUnitCarUnitMeta" Association="JobDB.CarUnitCarUnitMeta">
+      <End Role="CarUnit" EntitySet="CarUnits" />
+      <End Role="CarUnitMeta" EntitySet="CarUnitMetas" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="JobMain">
     <Key>
@@ -891,6 +896,7 @@
     <NavigationProperty Name="CarViewPages" Relationship="JobDB.CarUnitCarViewPage" FromRole="CarUnit" ToRole="CarViewPage" />
     <Property Name="SelfDrive" Type="Int32" Nullable="true" />
     <NavigationProperty Name="CarRateUnitPackages" Relationship="JobDB.CarUnitCarRateUnitPackage" FromRole="CarUnit" ToRole="CarRateUnitPackage" />
+    <NavigationProperty Name="CarUnitMetas" Relationship="JobDB.CarUnitCarUnitMeta" FromRole="CarUnit" ToRole="CarUnitMeta" />
   </EntityType>
   <Association Name="CarCategoryCarUnit">
     <End Type="JobDB.CarCategory" Role="CarCategory" Multiplicity="1" />
@@ -2138,6 +2144,29 @@
       </Principal>
       <Dependent Role="CarResPackage">
         <PropertyRef Name="CarReservationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="CarUnitMeta">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="CarUnit" Relationship="JobDB.CarUnitCarUnitMeta" FromRole="CarUnitMeta" ToRole="CarUnit" />
+    <Property Name="CarUnitId" Type="Int32" Nullable="false" />
+    <Property Name="PageTitle" Type="String" Nullable="false" MaxLength="120" />
+    <Property Name="MetaDesc" Type="String" Nullable="false" MaxLength="300" />
+    <Property Name="HomeDesc" Type="String" Nullable="true" MaxLength="300" />
+  </EntityType>
+  <Association Name="CarUnitCarUnitMeta">
+    <End Type="JobDB.CarUnit" Role="CarUnit" Multiplicity="1" />
+    <End Type="JobDB.CarUnitMeta" Role="CarUnitMeta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarUnit">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CarUnitMeta">
+        <PropertyRef Name="CarUnitId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

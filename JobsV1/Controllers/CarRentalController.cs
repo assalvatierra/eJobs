@@ -41,6 +41,16 @@ namespace JobsV1.Controllers
             return View("Index", db.CarUnits.Include(c => c.CarRates).Include(m=>m.CarUnitMetas).ToList() );
 
         }
+
+        public ActionResult Contact()
+        {
+            return View();
+        }
+        public ActionResult About()
+        {
+            return View();
+        }
+
         public ActionResult MainImage(int? id)
         {
             var dir = Server.MapPath("~/Images/CarRental");
@@ -258,11 +268,7 @@ namespace JobsV1.Controllers
             return View();
         }
 
-        public ActionResult ContactUs()
-        {
-            return RedirectToAction("Contact", "Home");
-        }
-        
+       
         public void addCarResPackage(int CarReservationId, int packageid, int mealsAcc, int fuel)
         {
             CarResPackage packages = new CarResPackage();
