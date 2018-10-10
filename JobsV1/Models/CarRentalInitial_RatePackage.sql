@@ -59,15 +59,17 @@ values
 Insert into CarRateUnitPackages (CarUnitId,CarRatePackageId,DailyRate,FuelLonghaul,FuelDaily,DailyAddon)
 values
 -- regular van ( Grandia GL )
-( 1, 1,     0,    0,   0,   0 ), --selfdrive
-( 1, 2,     0,    0, 500, 300 ), --city
-( 1, 3,   300,  500, 500, 300 ), -- Cuntryside
-( 1, 4,   300,  500, 500, 300 ), -- Samal
-( 1, 5,   500,  500, 500, 300 ), --panabo
-( 1, 6,  1000,  500, 500, 300 ), --tagum
-( 1, 7,  1000,  800, 700, 300 ), --davao del norte
-( 1, 8,  1000,  800, 700, 300 ), --comval
-( 1, 9,  1000, 1000, 500, 300 ), --govgen
+( 1, 1, 0,  0,   0, 300 ), --+ selfdrive
+( 1, 2, 0,  0, 500,   0 ), --+ city
+( 1, 3, 0,  0, 800, 300 ), --+ Cuntryside
+( 1, 4, 0,  0, 800, 300 ), --+ Samal
+
+( 1, 5,	 500,  200, 500, 500 ), --panabo
+( 1, 6,  500,  500, 500, 500 ), --tagum
+( 1, 7,  500,  800, 600, 500 ), --davao del norte
+( 1, 8,  500,  800, 600, 500 ), --comval
+( 1, 9,  500,  900, 600, 500 ), --govgen
+
 ( 1, 10, 1000, 1000, 500, 300 ), --Mati
 ( 1, 11, 1500, 1500, 700, 300 ), --Davao Oriental
 ( 1, 12, 1500, 3000, 700, 300 ), --Agusan del sur
@@ -100,10 +102,11 @@ values
 ( 1, 38, 4000, 2500, 800,300 ), --North Cotabato
 
 -- big van ( Nissan Premium)
-( 2, 1,  3000, 0,0,0 ), --selfdrive
-( 2, 2,  3500, 0,0,300 ), --city
-( 2, 3,  4000, 0,0,300 ), -- Cuntryside
-( 2, 4,  4000, 0,0,300 ), -- Samal
+( 2, 1, 0,  0,   0, 500 ), --+ selfdrive
+( 2, 2, 0,  0, 600,   0 ), --+ city
+( 2, 3, 0,  0, 800, 500 ), --+ Cuntryside
+( 2, 4, 0,  0, 800, 500 ), --+ Samal
+
 ( 2, 5,  3500, 500,500,300 ), --panabo
 ( 2, 6,  3500, 800,500,300 ), --tagum
 ( 2, 7,  4000, 800,700,300 ), --davao del norte
