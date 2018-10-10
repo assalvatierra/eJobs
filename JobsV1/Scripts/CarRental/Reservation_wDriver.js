@@ -9,20 +9,19 @@ var Fuel = 0;
 var selectedTour = 0;
 var reservationNum = 0;
 
+
 //initial-default
+$('#1').attr('checked', true);
 $('#withdriver').attr('checked', true);
 $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
 $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val());
 $('#pkg-2').attr('checked', true);
 $('#pkg-2').addClass('active').siblings().removeClass('active');
-selectedTour =  $('#pkg-2').attr('title');
-
+selectedTour = $('#pkg-2').attr('title');
 
 function rentalTypeChange() {
     $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val());
 
-
-    //alert(  $('input:radio[name=cars]:checked').attr("id"));
     if ($('input:radio[name=options]:checked').val() == "Self Drive") {
         if ($('input:radio[name=cars]:checked').attr("id") == 1 || $('input:radio[name=cars]:checked').attr("id") == 2) {
             radiobtn = document.getElementById("3");
@@ -52,44 +51,54 @@ function rentalTypeChange() {
 
 $('#btn-rentalType').click(function () {
     $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val());
-
+    rentalReset();
     $('#3').attr('checked', true);
-    //alert(  $('input:radio[name=cars]:checked').attr("id"));
+
     if ($('input:radio[name=options]:checked').val() == "Self Drive") {
         if ($('input:radio[name=cars]:checked').attr("id") == 1) {
             $('#3').attr('checked', true);
         }
+
+        $('#rental-type-sdrive').addClass('active').siblings().removeClass('active');
+
         $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
 
         $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val());
 
         $('.isSelfDrive1').hide();
+
     } else {
 
+        $('#rental-type-wdriver').addClass('active').siblings().removeClass('active');
+
         $('#1').attr('checked', true);
+
         $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
 
         $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val());
 
         $('.isSelfDrive1').show();
     }
-
 });
 
 //
 $('#btn-rentalUnit').click(function () {
     $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val());
-
     $('#car1').css('border', '1px solid lightgray');
     $('#car2').css('border', '1px solid lightgray');
     $('#car3').css('border', '1px solid lightgray');
     $('#car4').css('border', '1px solid lightgray');
     $('#car5').css('border', '1px solid lightgray');
     $('#car6').css('border', '1px solid lightgray');
-    
     $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
-
 });
+
+
+$('#pkg-table').on('click', '.clickable-row', function (event) {
+    $(this).addClass('active').siblings().removeClass('active');
+    selectedTour = $(this).attr('title');
+});
+
 
 function rentalReset() {
     $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - Please select a vehicle');
@@ -121,17 +130,7 @@ function showForm() {
     }
 
     switch (currentForm) {
-        case "Modal": //next FormReservation
-            currentForm = "FormReserve";
-            $('#modal2-content').css('display', 'none');
-            $('#formReserve').css('display', 'block');
-            $('#formPackages').css('display', 'none');
-            $('#formSummary').css('display', 'none');
-            $('#formRenter').css('display', 'none');
-            $('#formFinish').css('display', 'none');
-            $('#rsv-footer').css('display','block');
-            break;
-        case "FormReserve": //next FormPackages
+        case "Modal": //next FormPackages
             currentForm = "FormPackages";
             $('#modal2-content').css('display', 'none');
             $('#formReserve').css('display', 'none');
@@ -205,18 +204,10 @@ function backtoPrev() {
             $('#formSummary').css('display', 'none');
             $('#formRenter').css('display', 'none');
             break;
-        case "FormReserve": //prev Modal
+        case "FormPackages": //prev Modal
             currentForm = "Modal";
             $('#modal2-content').css('display', 'block');
             $('#formReserve').css('display', 'none');
-            $('#formPackages').css('display', 'none');
-            $('#formSummary').css('display', 'none');
-            $('#formRenter').css('display', 'none');
-            break;
-        case "FormPackages":  //next form summary
-            currentForm = "FormReserve";
-            $('#modal2-content').css('display', 'none');
-            $('#formReserve').css('display', 'block');
             $('#formPackages').css('display', 'none');
             $('#formSummary').css('display', 'none');
             $('#formRenter').css('display', 'none');
@@ -228,6 +219,7 @@ function backtoPrev() {
             $('#formPackages').css('display', 'block');
             $('#formSummary').css('display', 'none');
             $('#formRenter').css('display', 'none');
+            displayPackages();
             break;
         case "formRenter":  //next summary
             currentForm = "formSummary";
@@ -243,7 +235,6 @@ function backtoPrev() {
 
 function submitRenter(){
 
-    alert('submit');
     data = {
         Id : 0,
         DtTrx : '9/22/2018',
@@ -322,12 +313,6 @@ function setReferenceIds(RntrSelectedTour, RntrMealsAcc, RntrFuel) {
     $('#dtls-fuel').val(RntrFuel);
 }
 
-
-$('#pkg-table').on('click', '.clickable-row', function(event) {
-    $(this).addClass('active').siblings().removeClass('active');
-    selectedTour = $(this).attr('title');
-});
-
 function checkRenterDetails() {
     var name, email, mobile, startdate, enddate;
     name = $('#rnt-name').val();
@@ -396,4 +381,28 @@ function validateInputPhone() {
         // incorrect structure
         return false;
     }
+}
+
+//handle the count of number of days 
+$('#days-add').click(function () {
+    $('#rsv-days').val(+$('#rsv-days').val() + 1);
+});
+$('#days-sub').click(function () {
+    if ($('#rsv-days').val() > 1) {
+        $('#rsv-days').val(+$('#rsv-days').val() - 1);
+    }
+});
+
+function dayschange() {
+    if ($('#rsv-days').val() < 1) {
+        $('#rsv-days').val(1);
+    }
+}
+
+
+//long term rental
+function longtermRental() {
+    currentForm = "FormPackages";
+    selectedTour = $('#pkg-1').attr('title');
+    showForm();
 }
