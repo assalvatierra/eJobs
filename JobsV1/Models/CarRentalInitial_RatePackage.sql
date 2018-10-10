@@ -1,6 +1,6 @@
 ﻿Insert into CarRatePackages (Description,Remarks,DailyMeals,DailyRoom,DaysMin)
 values 
-('SELFDRIVE', 'Fuel by renter', 0,0,0 ),
+('SELFDRIVE / LONGTERM', 'Fuel by renter', 0,0,0 ),
 ('Davao City Tour', 'Car Rental for City (Downtown) Tour Package', 0,0,0 ),
 ('Davao CountrySide Tour', 'Eden Nature Park, Philipine Eagle, Malagos, Japanese Tunnel, Shrine, Jacks Ridge', 0,0,0),
 ('Samal Tour', 'Bat cave, Hagimit falls, Maxima Aquafun, Penaplata', 0,0,0 ),
@@ -59,7 +59,7 @@ values
 Insert into CarRateUnitPackages (CarUnitId,CarRatePackageId,DailyRate,FuelLonghaul,FuelDaily,DailyAddon)
 values
 -- regular van ( Grandia GL )
-( 1, 1,     0,    0,   0, 300 ), --selfdrive
+( 1, 1,     0,    0,   0,   0 ), --selfdrive
 ( 1, 2,     0,    0, 500, 300 ), --city
 ( 1, 3,   300,  500, 500, 300 ), -- Cuntryside
 ( 1, 4,   300,  500, 500, 300 ), -- Samal
@@ -75,7 +75,7 @@ values
 ( 1, 14, 1500, 3000, 700, 300 ), --Surigao del sur
 ( 1, 15, 2500, 4500, 700, 300 ), --Surigao del Norte
 
-( 1, 16, 4000, 2000, 800,300 ), --Marilog
+( 1, 16, 4000, 2000, 800,  0 ), --Marilog
 ( 1, 17, 4000, 2000, 800,300 ), --Buda
 ( 1, 18, 4500, 3000, 800,300 ), --Valencia
 ( 1, 19, 4000, 2500, 800,300 ), --Malaybalay
@@ -100,7 +100,7 @@ values
 ( 1, 38, 4000, 2500, 800,300 ), --North Cotabato
 
 -- big van ( Nissan Premium)
-( 2, 1,  3000, 0,0,300 ), --selfdrive
+( 2, 1,  3000, 0,0,0 ), --selfdrive
 ( 2, 2,  3500, 0,0,300 ), --city
 ( 2, 3,  4000, 0,0,300 ), -- Cuntryside
 ( 2, 4,  4000, 0,0,300 ), -- Samal
@@ -140,7 +140,7 @@ values
 ( 2, 38, 4000, 2500,800,300 ), --North Cotabato
 
 -- SUV ( Ford Everest / fortuner )
-( 3, 1,  3000, 0,0,300 ), --selfdrive
+( 3, 1,  3000, 0,0,0 ), --selfdrive
 ( 3, 2,  3000, 0,0,300 ), --city
 ( 3, 3,  3800, 0,0,300 ), -- Cuntryside
 ( 3, 4,  3800, 0,0,300 ), -- Samal
@@ -180,7 +180,7 @@ values
 ( 3, 38, 4000, 2500,800,300 ), --North Cotabato
 
 -- MPV ( Innova )
-( 4, 1,  3000, 0,0,300 ), --selfdrive
+( 4, 1,  3000, 0,0,0 ), --selfdrive
 ( 4, 2,  2500, 0,0,300 ), --city
 ( 4, 3,  3200, 0,0,300 ), -- Cuntryside
 ( 4, 4,  3200, 0,0,300 ), -- Samal
@@ -220,7 +220,7 @@ values
 ( 4, 38, 4000, 2500,800,300 ), --North Cotabato
 
 -- Sedan ( Honda City )
-( 5, 1,  3000, 0,0,300 ), --selfdrive
+( 5, 1,  3000, 0,0,0 ), --selfdrive
 ( 5, 2,  2500, 0,0,300 ), --city
 ( 5, 3,  3000, 0,0,300 ), -- Cuntryside
 ( 5, 4,  3000, 0,0,300 ), -- Samal
@@ -260,7 +260,7 @@ values
 ( 5, 38, 4000, 2500,800,300 ), --North Cotabato
 
 -- Pickup ( strada / hilux )
-( 6, 1,  3000, 0,0,300 ), --selfdrive
+( 6, 1,  3000, 0,0,0 ), --selfdrive
 ( 6, 2,  3000, 0,0,300 ), --city
 ( 6, 3,  3800, 0,0,300 ), -- Cuntryside
 ( 6, 4,  3800, 0,0,300 ), -- Samal

@@ -16,12 +16,12 @@ namespace JobsV1.Controllers
      
 
         private List<SelectListItem> MealsAcc = new List<SelectListItem> {
-                new SelectListItem { Value = "1", Text = "Included in the Package" },
+                new SelectListItem { Value = "1", Text =  "Driver Meals and Accomodation included" },
                 new SelectListItem { Value = "0", Text =  "Will Provide Meals and Accomodation" }
                 };
 
         private List<SelectListItem> Fuel = new List<SelectListItem> {
-                new SelectListItem { Value = "1", Text = "Included in the Package" },
+                new SelectListItem { Value = "1", Text = "Fuel Included in the Package" },
                 new SelectListItem { Value = "0", Text = "Will Provide Fuel"  }
                 };
 
@@ -37,7 +37,7 @@ namespace JobsV1.Controllers
 
             ViewBag.CarUnitList = db.CarUnits.ToList();
             ViewBag.CarRates = db.CarRates.ToList();
-            ViewBag.Packages = db.CarRatePackages.Where(c => c.Description != "SELFDRIVE").ToList();
+            ViewBag.Packages = db.CarRatePackages.ToList();
             return View("Index", db.CarUnits.Include(c => c.CarRates).Include(m=>m.CarUnitMetas).ToList() );
 
         }
@@ -158,6 +158,9 @@ namespace JobsV1.Controllers
 
         public PartialViewResult CarReserve()
         {
+            ViewBag.CarUnitId = new SelectList(db.CarUnits, "Id", "Description");
+            ViewBag.MealsAcc = new SelectList(MealsAcc, "Value", "Text");
+            ViewBag.Fuel = new SelectList(Fuel, "Value", "Text");
             ViewBag.CarUnitList = db.CarUnits.ToList();
             return PartialView("CarReserve");
         }
@@ -176,7 +179,7 @@ namespace JobsV1.Controllers
             ViewBag.CarUnitList = db.CarUnits.ToList();
             ViewBag.CarRates = db.CarRates.ToList();
             ViewBag.CarUnitId = new SelectList(db.CarUnits, "Id", "Description");
-            ViewBag.Packages = db.CarRatePackages.Where(c => c.Description != "SELFDRIVE").ToList();
+            ViewBag.Packages = db.CarRatePackages.ToList();
             return PartialView("FormPackages");
         }
 
@@ -185,7 +188,7 @@ namespace JobsV1.Controllers
             ViewBag.CarUnitList = db.CarUnits.ToList();
             ViewBag.CarRates = db.CarRates.ToList();
             ViewBag.CarUnitId = new SelectList(db.CarUnits, "Id", "Description");
-            ViewBag.Packages = db.CarRatePackages.Where(c => c.Description != "SELFDRIVE").ToList();
+            ViewBag.Packages = db.CarRatePackages.ToList();
             return PartialView("FormSummary");
         }
         
@@ -193,7 +196,6 @@ namespace JobsV1.Controllers
             ViewBag.rsvId = rsvId;
             return View();
         }
-
 
         // GET: CarReservations/Create
         public ActionResult FormRenter(int? id)
@@ -215,8 +217,9 @@ namespace JobsV1.Controllers
             ViewBag.carRatesPackages = db.CarRateUnitPackages.ToList();
             ViewBag.CarUnitList = db.CarUnits.ToList();
             ViewBag.CarRates = db.CarRates.ToList();
+
             //except self drive package
-            ViewBag.Packages = db.CarRatePackages.Where(c => c.Description != "SELFDRIVE").ToList();
+            ViewBag.Packages = db.CarRatePackages.ToList();
             return View(reservation);
         }
 
@@ -243,7 +246,7 @@ namespace JobsV1.Controllers
             ViewBag.CarUnitList = db.CarUnits.ToList();
             ViewBag.CarRates = db.CarRates.ToList();
             //except self drive package
-            ViewBag.Packages = db.CarRatePackages.Where(c => c.Description != "SELFDRIVE").ToList();
+            ViewBag.Packages = db.CarRatePackages.ToList();
             return View(carReservation);
         }
 

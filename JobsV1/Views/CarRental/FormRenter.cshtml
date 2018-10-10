@@ -213,15 +213,14 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    <script type="text/javascript" src="~/Scripts/Job/FormRenter.js"></script>
-    <script src="~/Scripts/jquery-3.3.1.js"></script>
-    <script type="text/javascript"  src="~/Scripts/CarRental/Reservation_wDriver.js"></script>
-
 }
+
+<script type="text/javascript" src="~/Scripts/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="~/Scripts/Job/FormRenter.js"></script>
+<script type="text/javascript" src="~/Scripts/CarRental/Reservation_wDriver.js"></script>
 
 
 <script>
-
     //initial
     $('#@(ViewBag.id)').attr('checked', true);
 
@@ -241,6 +240,7 @@
             var carRate_longhaulrate = 0;
             var carRate_fuel = 0;
             </text>
+
             //carRatesPackages
             foreach (var carRatesPackages in ViewBag.carRatesPackages as IEnumerable<JobsV1.Models.CarRateUnitPackage>)
             {
@@ -256,13 +256,21 @@
                         carRateAdditional = @carRatesPackages.DailyRate;
                         packageDailyAddon = @carRatesPackages.DailyAddon;
                         packageDailyAddon *= days;
+
+                        //handle self drive selected tour
+                        if(selectedTour == 1){
+                            packageDailyAddon = 0;
+                            carRateAdditional = 0;
+                        }
+
                         //fuel
                         if ($('#rsv-fuel').val() == '0') {
-                            $('#pkg-fuel@(package.Id)').text('by renter + ' + ' dr:' + carRateAdditional + ' da:' + packageDailyAddon);
+                            $('#pkg-fuel@(package.Id)').text('by renter + ' + ' dr:' + carRateAdditional.toLocaleString() + ' da:' + packageDailyAddon.toLocaleString());
                             carRate_longhaulrate = 0;
                             fuelFlag = 0;
                         } else {
-                            $('#pkg-fuel@(package.Id)').text('Included : f:'  + carRate_fuel +' lh:' + carRate_longhaulrate + ' dr:' + carRateAdditional + ' da:' + packageDailyAddon );
+                            $('#pkg-fuel@(package.Id)').text('Included : f:'  + carRate_fuel.toLocaleString() +' lh:' +
+                                carRate_longhaulrate.toLocaleString() + ' dr:' + carRateAdditional.toLocaleString() + ' da:' + packageDailyAddon.toLocaleString() );
                             fuelFlag = 1;
                         }
                     }
@@ -300,21 +308,21 @@
                 if(days > 21){
                     rate = @rates.Monthly;
                     rate = rate * days;
-                    rateText = '(@rates.Monthly / day) '+ rate +'';
+                    rateText = '(@rates.Monthly / day) '+ rate.toLocaleString() +'';
                 }
 
                 if(days > 6 ){
                     if(22 > days){
                         rate = @rates.Weekly;
                         rate = rate * days;
-                        rateText = '(@rates.Weekly / day) '+ rate +'';
+                        rateText = '(@rates.Weekly / day) '+ rate.toLocaleString() +'';
                     }
                 }
 
                 if(6 > days){
                     rate = @rates.Daily;
                     rate = rate * days;
-                    rateText = '(@rates.Daily / day ) = '+ rate +' ';
+                    rateText = '(@rates.Daily / day ) = '+ rate.toLocaleString() +' ';
                 }
 
                 var rentalType;
@@ -337,13 +345,19 @@
                 mealsRate *= mealFlag;
 
                 var addedRates = carRateAdditional + packageDailyAddon;
-               // alert('mealsRate = mf:' + (adjDays) +' + mpd:'+ mealsperDay)
+        
+
+                //handle self drive selected tour
+                if(selectedTour == 1){
+                    addedRates = 0;
+                }
+
                 //total rate
                 var totalRate =rate + fuelRate + mealsRate + carRateAdditional + packageDailyAddon;
 
                 if(selectedCar == '@rates.CarUnitId' ){
 
-                    $('#pkg-rate@(package.Id)').text('r:' + rateText   +' + m:'+ mealsRate +' + f:'+ fuelRate  +' + a:'+ addedRates  +' = T:'+ totalRate);
+                    $('#pkg-rate@(package.Id)').text('r:' + rateText   +' + m:'+ mealsRate.toLocaleString() +' + f:'+ fuelRate.toLocaleString()  +' + a:'+ addedRates.toLocaleString()  +' = T:'+ totalRate.toLocaleString());
 
                 }
         </text>
@@ -365,6 +379,11 @@
         var rate= 0;
         var mealFlag = 0;
         var fuelFlag = 0;
+        
+        //handle self drive selected tour
+        if(selectedTour == 1){
+            $('#rsv-days').val(30);
+        }
 
         RentalType = $('input:radio[name=options]:checked').val();
         selectedCar = $('input:radio[name=cars]:checked').attr("id");
@@ -377,7 +396,7 @@
 
         //display days
         $('#smry-rType').text(RentalType);
-
+         
 
         @foreach (var package in ViewBag.Packages as IEnumerable<JobsV1.Models.CarRatePackage>)
         {
@@ -394,15 +413,22 @@
                         carRateAdditional = @carRatesPackages.DailyRate;
                         packageDailyAddon = @carRatesPackages.DailyAddon;
                         packageDailyAddon *= NoDays;
+                        
+                        //handle self drive selected tour
+                        if(selectedTour == 1){
+                            packageDailyAddon = 0;
+                            carRateAdditional = 0;
+                        }
+
                         //fuel
                         if ($('#rsv-fuel').val() == '0') {
                             carRate_longhaulrate = 0;
                             fuelFlag = 0;
-                            $('#smry-rFuel').text('by renter' +   ' + dailyRate:' + carRateAdditional + ' + dailyAddon:' + packageDailyAddon);
+                            $('#smry-rFuel').text('by renter' +   ' + dailyRate:' + carRateAdditional.toLocaleString() + ' + dailyAddon:' + packageDailyAddon.toLocaleString());
                         } else {
                             fuelFlag = 1;
-                            $('#smry-rFuel').text('Included : f:' + carRate_fuel + ' + lh:' + carRate_longhaulrate +
-                                ' + dailyRate:' + carRateAdditional + ' + dailyAddon:' + packageDailyAddon);
+                            $('#smry-rFuel').text('Included : f:' + carRate_fuel.toLocaleString() + ' + lh:' + carRate_longhaulrate.toLocaleString() +
+                                ' + dailyRate:' + carRateAdditional.toLocaleString() + ' + dailyAddon:' + packageDailyAddon.toLocaleString());
                         }
                     }
                 }
@@ -428,7 +454,7 @@
                 if($('#rsv-days').val() == 1){
                     $('#smry-rMeal').text('Included - m:' + meal)
                 }else{
-                    $('#smry-rMeal').text('Included - ( m:' + meal +' + r:' + driveracc + ' per day ) + m:' + meal)
+                    $('#smry-rMeal').text('Included - ( m:' + meal +' + r:' + driveracc + ' per day ) + m:' + meal.toLocaleString())
                 }
                 mealFlag = 1;
             }
@@ -452,30 +478,32 @@
 
                 <text>
                 var rate;
+                var days;
                 if(@rates.CarUnitId == selectedCar){ // get id of the car
                     $('#smry-rVehicleRate').text('@rates.Daily');
 
                     //check if weekly, monthly or daily
-                    var days =  $('#rsv-days').val();
+                    days =  $('#rsv-days').val();
                     if(days > 21){
                         rate = @rates.Monthly;
                         rate = rate * days;
-                        $('#smry-rVehicleRate').text('(@rates.Monthly  per day ) * '+ days +'  ='+ rate +'');
+                        $('#smry-rVehicleRate').text('(@rates.Monthly  per day ) * '+ days +'  ='+ rate.toLocaleString() +'');
                     }
 
                     if(days > 6 ){
                         if(22 > days){
                             rate = @rates.Weekly;
                             rate = rate * days;
-                            $('#smry-rVehicleRate').text('(@rates.Weekly per day )  * '+ days +'  ='+ rate +'');
+                            $('#smry-rVehicleRate').text('(@rates.Weekly per day )  * '+ days +'  ='+ rate.toLocaleString() +'');
                         }
                     }
 
                     if(6 > days){
                         rate = @rates.Daily;
                         rate = rate * days;
-                        $('#smry-rVehicleRate').text('(@rates.Daily  per day )  * '+ days +'  ='+ rate +'');
+                        $('#smry-rVehicleRate').text('(@rates.Daily  per day )  * '+ days +'  ='+ rate.toLocaleString() +'');
                     }
+                    
                 }
 
                 if(@package.Id == selectedTour){ // get id of the tour
@@ -483,7 +511,7 @@
                     var rentalType ;
                     if(RentalType == "With Driver" ){
                         rentalType = 1;
-                      //  alert("driver");
+
                     }else{
                         rentalType = 0
                     }
@@ -493,20 +521,27 @@
                     //Fuel
                     var fuelRate = (Fuel * carRate_fuel * days) + carRate_longhaulrate;
                     fuelRate *= fuelFlag;
-
+                            
                     //MealsAcc
                     var mealsperDay = ( meal +  driveracc ) * (adjDays);
-                    // var mealsRate = (mealsperDay * rentalType)  + (meal * rentalType);
 
                     var mealsRate = (mealsperDay + meal)  * (rentalType);
+                    
+                    //handle added rate
                     var addedRate = packageDailyAddon + carRateAdditional;
+
+                    //handle self drive selected tour
+                    if(selectedTour == 1){
+                        addedRate = 0;
+                    }
+
                     mealsRate *= mealFlag;
                     //total rate
                     var totalRate =rate + fuelRate + mealsRate  + addedRate;
 
                     $('#rnt-baseRate').val(totalRate);
                     if(selectedCar == '@rates.CarUnitId' ){
-                        $('#smry-rtotal').text('r:' + rate  +' + m:'+ mealsRate +' + f:'+ fuelRate  +' + a:'+ addedRate +' = '+  totalRate );
+                        $('#smry-rtotal').text('r:' + rate.toLocaleString()  +' + m:'+ mealsRate.toLocaleString() +' + f:'+ fuelRate.toLocaleString()  +' + a:'+ addedRate.toLocaleString() +' = '+  totalRate.toLocaleString() );
 
                     }
                 }
@@ -520,7 +555,7 @@
 
 
     function clearTable(){
-        alert('clear table');
+        //alert('clear table');
 
         var new_tbody = document.createElement('table-packages');
         populate_with_new_rows(new_tbody);
@@ -532,7 +567,7 @@
         $('#btn-rentalUnit > #car3 > #3').attr('checked', true);
         radiobtn = document.getElementById("3");
         radiobtn.checked = true;
-        alert(3);
+        
     }
 </script>
 
