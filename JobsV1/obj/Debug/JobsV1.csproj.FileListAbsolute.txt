@@ -526,3 +526,6 @@ D:\Data\Real\Apps\GitHub\eJobs\JobsV1\obj\Debug\JobsV1.pdb
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\PayPal.dll
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\PayPal.xml
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\obj\Debug\JobsV1.csprojResolveAssemblyReference.cache
+C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\PayPal.dll
+C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\PayPal.xml
+C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\obj\Debug\JobsV1.csprojResolveAssemblyReference.cache
