@@ -51,11 +51,11 @@ namespace JobsV1.Controllers
                     break;
                 case "PAYMENT.CAPTURE.DENIED":
                     // Handle payment denied
-
-
+                    DB.addTestNotification();
                     break;
                 // Handle other webhooks
                 default:
+                    DB.addTestNotification();
                     break;
             }
 
