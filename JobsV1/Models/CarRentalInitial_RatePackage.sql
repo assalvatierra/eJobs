@@ -1,6 +1,6 @@
 ﻿Insert into CarRatePackages (Description,Remarks,DailyMeals,DailyRoom,DaysMin)
 values 
-('SELFDRIVE', 'Fuel by renter', 0,0,0 ),
+('Custom', 'Fuel by renter', 0,0,0 ),
 ('Davao City Tour', 'Car Rental for City (Downtown) Tour Package', 0,0,0 ),
 ('Davao CountrySide Tour', 'Eden Nature Park, Philipine Eagle, Malagos, Japanese Tunnel, Shrine, Jacks Ridge', 0,0,0),
 ('Samal Tour', 'Bat cave, Hagimit falls, Maxima Aquafun, Penaplata', 0,0,0 ),
