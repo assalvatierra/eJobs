@@ -1189,6 +1189,8 @@
     <Content Include="Views\CarRateUnitPackages\Index.cshtml" />
     <Content Include="Views\CarRental\Contact.cshtml" />
     <Content Include="Views\CarRental\About.cshtml" />
+    <Content Include="Views\Home\MobileModalView.cshtml" />
+    <Content Include="Views\CarRental\MobileModalView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

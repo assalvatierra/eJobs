@@ -28,6 +28,10 @@ namespace JobsV1.Controllers
             return View();
         }
 
+        public PartialViewResult MobileModalView()
+        {
+            return PartialView("MobileModalView");
+        }
 
         #region Dynamic SiteMap 
         //[Route("sitemap.xml")]

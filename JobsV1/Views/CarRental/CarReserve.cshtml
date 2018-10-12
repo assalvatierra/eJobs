@@ -22,6 +22,12 @@
             </span>
         </label>
 
+        <label class="btn btn-primary" id="rental-type-sdrive">
+            <input type="radio" name="options" id="longterm" value="longterm" class="rental-type"  onclick="longtermRental()" />
+            <span>
+                Long Term Rental
+            </span>
+        </label>
     </div>
     <br />
     
@@ -63,11 +69,6 @@
     </div>
 
     <br />
-    <div class="col-sm-8" style="margin:10px 0px;">
-        <button class="btn btn-primary" onclick="longtermRental()" >
-            Long Term Rental
-        </button>
-    </div>
 
 </div>
 
@@ -77,7 +78,7 @@
     
     <!--
     <div class="modal-body row" id="formReserve" style="display:none;">
-        @Html.Action("FormReservation")
+        Html.Action("FormReservation")
     </div>
     -->
 

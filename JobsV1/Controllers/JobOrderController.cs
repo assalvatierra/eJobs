@@ -11,7 +11,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Net;
 using System.Data.Entity.Core.Objects;
 
-
 namespace JobsV1.Controllers
 {
     #region support classes

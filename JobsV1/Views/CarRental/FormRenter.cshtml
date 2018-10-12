@@ -1,7 +1,7 @@
 ﻿@model JobsV1.Models.CarReservation
 
 
-<div class="modal-content">
+<div class="modal-content" style="min-width:600px;">
     <div class="modal-header">
         <h3 class="modal-title">Car Reservation </h3>
         <a href="#" onclick="backtoMain()"> back to main </a>
@@ -129,13 +129,13 @@
                 <label style="color:orangered;display:block" id="dtls-warning"></label>
             </p>
             <hr />
-            <div class="form-group" oninput="checkRenterDetails()">
+            <div class="form-group" onchange="checkRenterDetails()">
                 <label class="control-label col-md-2"> </label>
                 <div class="col-md-10">
                 </div>
             </div>
 
-            <div class="form-group"  oninput="checkRenterDetails()" >
+            <div class="form-group"  onchange="checkRenterDetails()" >
                 <label class="control-label col-md-2"> Name* </label>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.RenterName, new { htmlAttributes = new { @class = "form-control" , @id = "rnt-name" } })
@@ -151,7 +151,7 @@
                 </div>
             </div>
 
-            <div class="form-group" oninput="checkRenterDetails()" >
+            <div class="form-group" onchange="checkRenterDetails()" >
                 <label class="control-label col-md-2"> Email* </label>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.RenterEmail, new { htmlAttributes = new { @class = "form-control", @id = "rnt-email" } })
@@ -159,7 +159,7 @@
                 </div>
             </div>
 
-            <div class="form-group" oninput="checkRenterDetails()" onemptied="checkRenterDetails()" >
+            <div class="form-group" onchange="checkRenterDetails()" onemptied="checkRenterDetails()" >
                 <label class="control-label col-md-2"> Mobile* </label>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.RenterMobile, new { htmlAttributes = new { @class = "form-control", @id = "rnt-mobile" } })
@@ -213,11 +213,10 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-}
 
-<script type="text/javascript" src="~/Scripts/jquery-3.3.1.js"></script>
-<script type="text/javascript" src="~/Scripts/Job/FormRenter.js"></script>
-<script type="text/javascript" src="~/Scripts/CarRental/Reservation_wDriver.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="~/Scripts/Job/FormRenter.js"></script>
+    <script type="text/javascript" src="~/Scripts/CarRental/Reservation_wDriver.js"></script>
 
 
 <script>
@@ -234,6 +233,10 @@
         var fuelFlag = 0;
         RentalType = $('input:radio[name=options]:checked').val();
         var days =  $('#rsv-days').val();
+        var fuelAuthText = "";
+        var MealAuthText = "";
+        var TotalAuthText = "";
+        var isAuthorized = '@ViewBag.isAuthorize';
         @foreach (var package in ViewBag.Packages as IEnumerable<JobsV1.Models.CarRatePackage>)
         {
             <text>
@@ -265,12 +268,31 @@
 
                         //fuel
                         if ($('#rsv-fuel').val() == '0') {
-                            $('#pkg-fuel@(package.Id)').text('by renter + ' + ' dr:' + carRateAdditional.toLocaleString() + ' da:' + packageDailyAddon.toLocaleString());
+
+                            //hides the calculation if not login
+                            if(isAuthorized == '1'){
+                                fuelAuthText = ': f:'  + carRate_fuel.toLocaleString() +' lh:' + carRate_longhaulrate.toLocaleString() + ' dr:' + carRateAdditional.toLocaleString() + ' da:' + packageDailyAddon.toLocaleString();
+                            }else{
+                                fuelAuthText = "";
+                            }
+
+                            //display
+                            $('#pkg-fuel@(package.Id)').text('by renter + ' + fuelAuthText);
+
+                            //reset values
                             carRate_longhaulrate = 0;
                             fuelFlag = 0;
+
                         } else {
-                            $('#pkg-fuel@(package.Id)').text('Included : f:'  + carRate_fuel.toLocaleString() +' lh:' +
-                                carRate_longhaulrate.toLocaleString() + ' dr:' + carRateAdditional.toLocaleString() + ' da:' + packageDailyAddon.toLocaleString() );
+
+                            //hides the calculation if not login
+                            if(isAuthorized == '1'){
+                                fuelAuthText = ' dr:' + carRateAdditional.toLocaleString() + ' da:' + packageDailyAddon.toLocaleString() ;
+                            }else{
+                                fuelAuthText = "";
+                            }
+
+                            $('#pkg-fuel@(package.Id)').text('Included in the Package ' + fuelAuthText);
                             fuelFlag = 1;
                         }
                     }
@@ -286,12 +308,21 @@
                 $('#pkg-meal@(package.Id)').text('by renter ')
                 mealFlag = 0;
             } else {
-                if($('#rsv-days').val() == 1){
-                    $('#pkg-meal@(package.Id)').text('Included - m:' + @package.DailyMeals)
-                }else{
-                    $('#pkg-meal@(package.Id)').text('Included - ( m:' + @package.DailyMeals +' + r:' + @package.DailyRoom +' per day ) + m:' + @package.DailyMeals)
-                }
-                mealFlag = 1;
+                    //hides the calculation if not login
+                    if(isAuthorized == '1'){
+
+                        //check reservation date if one day or more
+                        if($('#rsv-days').val() == 1){
+                            MealAuthText =' - m:' + @package.DailyMeals;
+                        }else{
+                            MealAuthText =' - ( m:' + @package.DailyMeals +' + r:' + @package.DailyRoom +' per day ) + m:' + @package.DailyMeals;
+                        }
+                    }else{
+                        MealAuthText = "in the Package";
+                    }
+
+                    $('#pkg-meal@(package.Id)').text('Included ' + MealAuthText)
+                    mealFlag = 1;
             }
             </text>
 
@@ -345,7 +376,7 @@
                 mealsRate *= mealFlag;
 
                 var addedRates = carRateAdditional + packageDailyAddon;
-        
+
 
                 //handle self drive selected tour
                 if(selectedTour == 1){
@@ -357,7 +388,16 @@
 
                 if(selectedCar == '@rates.CarUnitId' ){
 
-                    $('#pkg-rate@(package.Id)').text('r:' + rateText   +' + m:'+ mealsRate.toLocaleString() +' + f:'+ fuelRate.toLocaleString()  +' + a:'+ addedRates.toLocaleString()  +' = T:'+ totalRate.toLocaleString());
+                    //hides the calculation if not login
+                    if(isAuthorized == '1'){
+                        TotalAuthText = 'r:' + rateText   +' + m:'+ mealsRate.toLocaleString() +' + f:'+ fuelRate.toLocaleString()  +' + a:'+ addedRates.toLocaleString()  +' = T:' ;
+                    }else{
+                        TotalAuthText = "";
+                    }
+
+                    $('#pkg-rate@(package.Id)').text( TotalAuthText + ' ' );
+
+                    $('#pkg-total@(package.Id)').text( totalRate.toLocaleString());
 
                 }
         </text>
@@ -379,7 +419,12 @@
         var rate= 0;
         var mealFlag = 0;
         var fuelFlag = 0;
-        
+
+        var fuelAuthText = "";
+        var MealAuthText = "";
+        var TotalAuthText = "";
+        var isAuthorized = '@ViewBag.isAuthorize';
+
         //handle self drive selected tour
         if(selectedTour == 1){
             $('#rsv-days').val(30);
@@ -396,7 +441,7 @@
 
         //display days
         $('#smry-rType').text(RentalType);
-         
+
 
         @foreach (var package in ViewBag.Packages as IEnumerable<JobsV1.Models.CarRatePackage>)
         {
@@ -413,7 +458,7 @@
                         carRateAdditional = @carRatesPackages.DailyRate;
                         packageDailyAddon = @carRatesPackages.DailyAddon;
                         packageDailyAddon *= NoDays;
-                        
+
                         //handle self drive selected tour
                         if(selectedTour == 1){
                             packageDailyAddon = 0;
@@ -422,14 +467,31 @@
 
                         //fuel
                         if ($('#rsv-fuel').val() == '0') {
+                            //fuel by renter
                             carRate_longhaulrate = 0;
                             fuelFlag = 0;
-                            $('#smry-rFuel').text('by renter' +   ' + dailyRate:' + carRateAdditional.toLocaleString() + ' + dailyAddon:' + packageDailyAddon.toLocaleString());
+
+                            //hides the calculation if not login
+                            if(isAuthorized == '1'){
+                                fuelAuthText = 'by renter' +   ' + dailyRate:' + carRateAdditional.toLocaleString() + ' + dailyAddon:' + packageDailyAddon.toLocaleString();
+                            }else{
+                                fuelAuthText = 'by renter';
+                            }
                         } else {
+                            //fuel included in the package
                             fuelFlag = 1;
-                            $('#smry-rFuel').text('Included : f:' + carRate_fuel.toLocaleString() + ' + lh:' + carRate_longhaulrate.toLocaleString() +
-                                ' + dailyRate:' + carRateAdditional.toLocaleString() + ' + dailyAddon:' + packageDailyAddon.toLocaleString());
+
+                            //hides the calculation if not login
+                            if(isAuthorized == '1'){
+                                fuelAuthText = 'Included : f:' + carRate_fuel.toLocaleString() + ' + lh:' + carRate_longhaulrate.toLocaleString() +
+                                ' + dailyRate:' + carRateAdditional.toLocaleString() + ' + dailyAddon:' + packageDailyAddon.toLocaleString();
+                            }else{
+                                fuelAuthText = 'Fuel Included in the Package';
+                            }
+
                         }
+
+                        $('#smry-rFuel').text(fuelAuthText);
                     }
                 }
                 </text>
@@ -450,12 +512,27 @@
                 $('#smry-rMeal').text('by renter ');
                 mealFlag = 0;
             } else {
-
+                //reservation day is 1
                 if($('#rsv-days').val() == 1){
-                    $('#smry-rMeal').text('Included - m:' + meal)
+
+                    //hides the calculation if not login
+                    if(isAuthorized == '1'){
+                        MealAuthText = 'Included - m:' + meal;  //authorized
+                    }else{
+                        MealAuthText = 'Driver Meals/Accomodation included in the package'; //guest
+                    }
+
                 }else{
-                    $('#smry-rMeal').text('Included - ( m:' + meal +' + r:' + driveracc + ' per day ) + m:' + meal.toLocaleString())
+                    //reservation day greater than 1
+                    //hides the calculation if not login
+                    if(isAuthorized == '1'){
+                        MealAuthText = 'Included - ( m:' + meal +' + r:' + driveracc + ' per day ) + m:' + meal.toLocaleString();  //authorized
+                    }else{
+                        MealAuthText = 'Driver Meals/Accomodation included in the package'; //guest
+                    }
                 }
+                //display
+                $('#smry-rMeal').text(MealAuthText);
                 mealFlag = 1;
             }
             </text>
@@ -463,19 +540,17 @@
             //get car rate
             foreach (var carlist in ViewBag.CarUnitList as IEnumerable<JobsV1.Models.CarUnit>)
             {
-
-            <text>
-            if(@carlist.Id == selectedCar){ // get id of the car
-                $('#smry-rVehicle').text('@carlist.Description');
-                $('#rnt-carUnit').val(selectedCar);  // (id) for reservation details
-            }
-            </text>
+                <text>
+                if(@carlist.Id == selectedCar){ // get id of the car
+                    $('#smry-rVehicle').text('@carlist.Description');
+                    $('#rnt-carUnit').val(selectedCar);  // (id) for reservation details
+                }
+                </text>
             }
 
             //rate
             foreach (var rates in ViewBag.CarRates as IEnumerable<JobsV1.Models.CarRate>)
             {
-
                 <text>
                 var rate;
                 var days;
@@ -503,7 +578,7 @@
                         rate = rate * days;
                         $('#smry-rVehicleRate').text('(@rates.Daily  per day )  * '+ days +'  ='+ rate.toLocaleString() +'');
                     }
-                    
+
                 }
 
                 if(@package.Id == selectedTour){ // get id of the tour
@@ -521,12 +596,12 @@
                     //Fuel
                     var fuelRate = (Fuel * carRate_fuel * days) + carRate_longhaulrate;
                     fuelRate *= fuelFlag;
-                            
+
                     //MealsAcc
                     var mealsperDay = ( meal +  driveracc ) * (adjDays);
 
                     var mealsRate = (mealsperDay + meal)  * (rentalType);
-                    
+
                     //handle added rate
                     var addedRate = packageDailyAddon + carRateAdditional;
 
@@ -541,7 +616,16 @@
 
                     $('#rnt-baseRate').val(totalRate);
                     if(selectedCar == '@rates.CarUnitId' ){
-                        $('#smry-rtotal').text('r:' + rate.toLocaleString()  +' + m:'+ mealsRate.toLocaleString() +' + f:'+ fuelRate.toLocaleString()  +' + a:'+ addedRate.toLocaleString() +' = '+  totalRate.toLocaleString() );
+
+                        //hides the calculation if not login
+                        if(isAuthorized == '1'){
+                            TotalAuthText = 'r:' + rate.toLocaleString()  +' + m:'+ mealsRate.toLocaleString() +' + f:'+
+                                fuelRate.toLocaleString()  +' + a:'+ addedRate.toLocaleString() +' = '+  totalRate.toLocaleString();  //authorized
+                        }else{
+                            TotalAuthText = totalRate.toLocaleString(); //guest
+                        }
+
+                        $('#smry-rtotal').text(TotalAuthText);
 
                     }
                 }
@@ -567,7 +651,9 @@
         $('#btn-rentalUnit > #car3 > #3').attr('checked', true);
         radiobtn = document.getElementById("3");
         radiobtn.checked = true;
-        
+
     }
 </script>
+
+}
 

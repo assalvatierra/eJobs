@@ -197,6 +197,11 @@ namespace JobsV1.Controllers
             return View();
         }
 
+        public PartialViewResult MobileModalView()
+        {
+            return PartialView("MobileModalView");
+        }
+
         // GET: CarReservations/Create
         public ActionResult FormRenter(int? id)
         {
@@ -217,7 +222,7 @@ namespace JobsV1.Controllers
             ViewBag.carRatesPackages = db.CarRateUnitPackages.ToList();
             ViewBag.CarUnitList = db.CarUnits.ToList();
             ViewBag.CarRates = db.CarRates.ToList();
-
+            ViewBag.isAuthorize = HttpContext.User.Identity.Name == ""  ? 0 : 1;
             //except self drive package
             ViewBag.Packages = db.CarRatePackages.ToList();
             return View(reservation);
