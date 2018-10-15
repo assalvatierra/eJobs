@@ -126,6 +126,7 @@ function showForm() {
 
     //self drive
     if ($('input:radio[name=options]:checked').val() == "Self Drive") {
+   
         selfDrive($('input:radio[name=cars]:checked').attr("id"));
     }
 

@@ -5,14 +5,14 @@
     <div class="modal-header">
         <h3 class="modal-title">Car Reservation </h3>
         <a href="#" onclick="backtoMain()"> back to main </a>
+      
+        <h5 id="modal-text-foot">-</h5>
+        
     </div>
 
     @Html.Action("CarReserve")
 
     <div class="modal-footer" id="rsv-footer" style="display:block;">
-        <div class="pull-left">
-            <h5 id="modal-text-foot">-</h5>
-        </div>
 
         <div class="pull-right">
             <button type="button" class="btn btn-default" id="ReservePrev" onclick="backtoPrev()">Previous</button>
@@ -214,10 +214,11 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
-    <script type="text/javascript" src="~/Scripts/jquery-3.3.1.js"></script>
-    <script type="text/javascript" src="~/Scripts/Job/FormRenter.js"></script>
-    <script type="text/javascript" src="~/Scripts/CarRental/Reservation_wDriver.js"></script>
+}
 
+<script type="text/javascript" src="~/Scripts/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="~/Scripts/Job/FormRenter.js"></script>
+<script type="text/javascript" src="~/Scripts/CarRental/Reservation_wDriver.js"></script>
 
 <script>
     //initial
@@ -654,6 +655,4 @@
 
     }
 </script>
-
-}
 

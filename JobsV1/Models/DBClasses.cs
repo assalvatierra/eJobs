@@ -205,8 +205,8 @@ where d.JobStatusId < 4
             db.JobNotificationRequests.Add(new JobNotificationRequest
             {
                 ReqDt = DateTime.Parse(DateTime.Now.ToString("MMM dd yyyy HH:mm:ss")),
-                ServiceId = 4   //SMS service Id
-
+                ServiceId = 4,   //SMS service Id
+                RefId = "0"
             });
             db.SaveChanges();
             
