@@ -7,9 +7,11 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using JobsV1.Models;
+using System.Web.Http.Cors;
 
 namespace JobsV1.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class PaypalController : Controller
     {
         DBClasses DB = new DBClasses();
@@ -44,20 +46,21 @@ namespace JobsV1.Controllers
             // Note: at least on Sandbox environment this returns false.
             // var isValid = WebhookEvent.ValidateReceivedEvent(apiContext, ToNameValueCollection(requestheaders), requestBody, webhookId);
 
-            DB.addTestNotification();
+            //DB.addTestNotification();
             switch (ev.event_type)
             {
                 case "PAYMENT.CAPTURE.COMPLETED":
                     // Handle payment completed
-                    DB.addTestNotification();
+                    DB.addTestNotification(5,webhookId);
                     break;
                 case "PAYMENT.CAPTURE.DENIED":
                     // Handle payment denied
-                    DB.addTestNotification();
+                    DB.addTestNotification(4, webhookId);
                     break;
                 // Handle other webhooks
                 default:
-                    DB.addTestNotification();
+                    // Handle payment denied
+                    DB.addTestNotification(3, webhookId);
                     break;
             }
 

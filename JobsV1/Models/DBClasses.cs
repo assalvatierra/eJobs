@@ -199,14 +199,14 @@ where d.JobStatusId < 4
         }
 
 
-        public void addTestNotification()
+        public void addTestNotification(int transId,string webhookId)
         {
 
             db.JobNotificationRequests.Add(new JobNotificationRequest
             {
                 ReqDt = DateTime.Parse(DateTime.Now.ToString("MMM dd yyyy HH:mm:ss")),
-                ServiceId = 4,   //SMS service Id
-                RefId = "0"
+                ServiceId = transId,   //SMS service Id
+                RefId = webhookId.ToString()
             });
             db.SaveChanges();
             

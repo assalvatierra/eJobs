@@ -193,7 +193,13 @@ namespace JobsV1.Controllers
         }
         
         public ActionResult FormThankYou(int rsvId) {
+
+            var carRsvr = db.CarReservations.Find(rsvId);
             ViewBag.rsvId = rsvId;
+            ViewBag.CarDesc = carRsvr.CarUnit.Description;
+            ViewBag.ReservationType = carRsvr.Destinations;
+            ViewBag.Amount = carRsvr.BaseRate;
+
             return View();
         }
 
@@ -241,7 +247,7 @@ namespace JobsV1.Controllers
                 db.SaveChanges();
 
                 addCarResPackage(carReservation.Id, packageid, mealAcc, fuel);
-                return RedirectToAction("FormThankYou", new { rsvId = carReservation.Id });
+                return RedirectToAction("FormThankYou", new { rsvId = carReservation.Id});
             }
 
             ViewBag.CarUnitId = new SelectList(db.CarUnits, "Id", "Description", carReservation.CarUnitId);
