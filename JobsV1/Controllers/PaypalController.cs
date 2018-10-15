@@ -19,7 +19,8 @@ namespace JobsV1.Controllers
         {
             return View();
         }
-        
+
+        [System.Web.Http.HttpPost]
         public ActionResult Webhook()
         {
             // The APIContext object can contain an optional override for the trusted certificate.
@@ -43,6 +44,7 @@ namespace JobsV1.Controllers
             // Note: at least on Sandbox environment this returns false.
             // var isValid = WebhookEvent.ValidateReceivedEvent(apiContext, ToNameValueCollection(requestheaders), requestBody, webhookId);
 
+            DB.addTestNotification();
             switch (ev.event_type)
             {
                 case "PAYMENT.CAPTURE.COMPLETED":
