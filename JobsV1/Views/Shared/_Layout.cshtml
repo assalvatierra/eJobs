@@ -25,7 +25,7 @@
     @Styles.Render("~/Content/css/DateRangePicker")
 
 </head>
-<body>
+<body onresize="toggleScreen()" onload="toggleScreen()">
 
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -73,6 +73,7 @@
 
     @RenderSection("scripts", required: false)
 
+    <script type="text/javascript" src="https://cdn.ywxi.net/js/1.js" async></script>
     <script type="text/javascript" src="https://cdn.ywxi.net/js/1.js" async></script>
 </body>
 </html>
