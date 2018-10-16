@@ -396,6 +396,7 @@
     <Compile Include="Models\Destination.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EMailHandler.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\InvCarGateControl.cs">
       <DependentUpon>JobDB.tt</DependentUpon>

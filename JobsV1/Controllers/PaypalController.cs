@@ -46,21 +46,21 @@ namespace JobsV1.Controllers
             // Note: at least on Sandbox environment this returns false.
             // var isValid = WebhookEvent.ValidateReceivedEvent(apiContext, ToNameValueCollection(requestheaders), requestBody, webhookId);
 
-            //DB.addTestNotification();
+            DB.addTestNotification(5, "1");
             switch (ev.event_type)
             {
                 case "PAYMENT.CAPTURE.COMPLETED":
                     // Handle payment completed
-                    DB.addTestNotification(5,webhookId);
+                    DB.addTestNotification(5, "1");
                     break;
                 case "PAYMENT.CAPTURE.DENIED":
                     // Handle payment denied
-                    DB.addTestNotification(4, webhookId);
+                    DB.addTestNotification(4, "1");
                     break;
                 // Handle other webhooks
                 default:
                     // Handle payment denied
-                    DB.addTestNotification(3, webhookId);
+                    DB.addTestNotification(3, "1");
                     break;
             }
 

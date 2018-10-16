@@ -296,7 +296,10 @@ namespace JobsV1.Controllers
             
         }
 
-
+        public string sendMailTest() {
+            EMailHandler mail = new EMailHandler();
+            return mail.SendMail();
+        }
 
     }
 }
