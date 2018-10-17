@@ -78,7 +78,7 @@ namespace JobsV1.Controllers
 
         public ActionResult Reservation(int unitid)
         {
-
+            //defaults
             CarReservation reservation = new CarReservation();
             reservation.DtTrx = DateTime.Now;
             reservation.DtStart = DateTime.Now.ToString();
@@ -91,9 +91,9 @@ namespace JobsV1.Controllers
             var carrate = db.CarRates.Where(d => d.CarUnitId == unitid).FirstOrDefault();
             ViewBag.CarRate = carrate.Daily;
             ViewBag.objCarRate = carrate; // db.CarRates.Where(d => d.CarUnitId == unitid);
-
             ViewBag.Destinations = db.CarDestinations.Where(d => d.CityId == 1).OrderBy(d => d.Kms).ToList();
             ViewBag.UnitId = unitid;
+
             return View(reservation);
         }
         [HttpPost]
@@ -105,6 +105,7 @@ namespace JobsV1.Controllers
                 db.CarReservations.Add(carReservation);
                 db.SaveChanges();
 
+                //self drive reservation
                 addCarResPackage(carReservation.Id, 1, 0, 0);
                 return RedirectToAction("ReservationNotification");
             }
@@ -221,6 +222,7 @@ namespace JobsV1.Controllers
 
             CarRatePackage selfDrive = db.CarRatePackages.Find(1);
             
+            //get last reservation id
             ViewBag.RsvId = lastId != null ?  lastId.Id + 1 : 1 ;
             
             ViewBag.CarUnitId = new SelectList(db.CarUnits, "Id", "Description", id);
@@ -229,6 +231,7 @@ namespace JobsV1.Controllers
             ViewBag.CarUnitList = db.CarUnits.ToList();
             ViewBag.CarRates = db.CarRates.ToList();
             ViewBag.isAuthorize = HttpContext.User.Identity.Name == ""  ? 0 : 1;
+
             //except self drive package
             ViewBag.Packages = db.CarRatePackages.ToList();
             return View(reservation);
@@ -245,34 +248,42 @@ namespace JobsV1.Controllers
             {
                 db.CarReservations.Add(carReservation);
                 db.SaveChanges();
-
+                
+                //add reservation package
                 addCarResPackage(carReservation.Id, packageid, mealAcc, fuel);
+
+                //sent email to the user
+                //sendMail(jobid ,RenterEmail);
+                sendMail(2,"jahdielsvillosa@gmail.com");
+
                 return RedirectToAction("FormThankYou", new { rsvId = carReservation.Id});
             }
 
             ViewBag.CarUnitId = new SelectList(db.CarUnits, "Id", "Description", carReservation.CarUnitId);
-            
             ViewBag.id = carReservation.CarUnitId;
             ViewBag.carRatesPackages = db.CarRateUnitPackages.ToList();
             ViewBag.CarUnitList = db.CarUnits.ToList();
             ViewBag.CarRates = db.CarRates.ToList();
-            //except self drive package
             ViewBag.Packages = db.CarRatePackages.ToList();
+
             return View(carReservation);
         }
 
 
         public ActionResult CarDetail(int? unitid)
         {
-            //add title and description 
+            //car details
             ViewBag.Title =  db.CarUnitMetas.Where(c=>c.CarUnitId == unitid).FirstOrDefault().PageTitle;
             ViewBag.Description = db.CarUnitMetas.Where(c => c.CarUnitId == unitid).FirstOrDefault().MetaDesc;
             ViewBag.ImgSrc = db.CarImages.Where(c => c.CarUnitId == unitid).FirstOrDefault().ImgUrl;
             ViewBag.Id = unitid;
+
+            //car rates
             var car = db.CarRates.Where(c => c.CarUnitId == unitid).FirstOrDefault();
             ViewBag.dailyRate = car.Daily;
             ViewBag.weeklyRate = car.Weekly;
             ViewBag.monthlyRate = car.Monthly;
+
             var carUnitView = db.CarViewPages.Where(s => s.CarUnitId == unitid).FirstOrDefault();
             return View(carUnitView.Viewname, db.CarUnits.Where(d => d.Id == unitid).FirstOrDefault());
         }
@@ -295,10 +306,12 @@ namespace JobsV1.Controllers
             db.SaveChanges();
             
         }
+        
 
-        public string sendMailTest() {
+        public string sendMail(int jobId,string renterEmail)
+        {
             EMailHandler mail = new EMailHandler();
-            return mail.SendMail();
+            return mail.SendMail(jobId, renterEmail);
         }
 
     }

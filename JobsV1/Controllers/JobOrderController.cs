@@ -1039,11 +1039,17 @@ order by x.jobid
             ViewBag.AccName = bank.AccntName;
             ViewBag.AccNum = bank.AccntNo;
 
+            ViewBag.rsvId = 1;
+            ViewBag.CarDesc = "Test Unit";
+            ViewBag.ReservationType = "Rental";
+            ViewBag.Amount = 1000;
+
             if (jobMain.JobStatusId == 1) //quotation
                 return View("Details_Quote", jobMain);
 
             if (iType != null && (int)iType == 1) //Invoice
                 return View("Details_Invoice", jobMain);
+
 
             return View(jobMain);
         }

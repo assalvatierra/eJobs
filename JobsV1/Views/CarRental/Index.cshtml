@@ -199,6 +199,6 @@
         
 
     
-    @Html.ActionLink("Send Email", "sendMailTest", "CarRental", null , new { @class = "btn btn-primary" })
+    @Html.ActionLink("Send Email", "sendMail", "CarRental", new { jobId = 2,  renterEmail = "jahdielsvillosa@gmail.com"} , new { @class = "btn btn-primary" })
 
     @Html.Action("MobileModalView")

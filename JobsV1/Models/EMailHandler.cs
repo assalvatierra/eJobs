@@ -11,23 +11,16 @@ namespace JobsV1.Models
     public class EMailHandler
     {
 
-        public string SendMail() {
+        public string SendMail(int jobId, string renterMail) {
             try
             {
                 MailMessage mail = new MailMessage();
-                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
-
-               // mail.From = new MailAddress("reservation.realwheels@gmail.com");
-               // mail.To.Add("jahdielsvillosa@gmail.com");
-               // mail.Subject = "Test Mail";
-               // mail.IsBodyHtml = true;
-               // mail.Body = "<h1>HEADING TEST</h1>"+
-                //     "<p> This is for testing SMTP mail from GMAIL using IMAP </p>";
-
+                SmtpClient SmtpServer = new SmtpClient("mail.realwheelsdavao.com"); //smtp server
+                
                 MailDefinition md = new MailDefinition();
-                md.From = "reservation.realwheels@gmail.com";
-                md.IsBodyHtml = true;
-                md.Subject = "Test of Mail Definition";
+                md.From = "admin@realwheelsdavao.com";      //sender mail
+                md.IsBodyHtml = true;                       //set true to enable use of html tags 
+                md.Subject = "Test of Mail Notification";   //mail title
 
                 ListDictionary replacements = new ListDictionary();
                 replacements.Add("{name}", "Martin");
@@ -37,19 +30,24 @@ namespace JobsV1.Models
                 replacements.Add("{days}", "2");
                 replacements.Add("{total}", "5500");
 
+                //mail content
                 string body = 
-                    " <h1> Car Rental Reservation </h1>" +
-                    " <p>Hello {name}, You have booked a {tour} and  {unit} {type} for {days} day(s). The total cost of the package is {total}. </p>" +
-                    " <p>Please follow the link for the invoice and payment. <a href='https://realwheelsdavao.com/CarRental/FormThankYou?rsvId=1'>Click here </a> </p>" +
-                    " ";
+                    "" +
+                    // " <p>Hello {name}, You have booked a {tour} and  {unit} {type} for {days} day(s). The total cost of the package is {total}. </p>" +
+                    " <div style='background-color:#f4f4f4;padding:50px' align='center'>"+
+                    " <div style='background-color:white;margin:50px;padding:50px;text-align:center;color:#555555;font:normal 300 16px/21px 'Helvetica Neue',Arial'>  <h1> Car Rental Reservation </h1>" +
+                    " Please follow the link for the invoice and payment. <a href='https://realwheelsdavao.com/JobOrder/BookingDetails/" + jobId.ToString() + "?iType=1' "+
+                    " style='display:block;background-color:dodgerblue;margin:20px;padding:20px;text-decoration:none;font-weight:bolder;font-size:300;color:white;border-radius:3px;'> Click here </a> " +
+                    " </div></div>" +
+                    ""; 
 
-                MailMessage msg = md.CreateMailMessage("jahdielsvillosa@gmail.com", replacements, body, new System.Web.UI.Control());
+                MailMessage msg = md.CreateMailMessage(renterMail, replacements, body, new System.Web.UI.Control());
 
-                SmtpServer.Port = 587;
-                SmtpServer.Credentials = new System.Net.NetworkCredential("reservation.realwheels@gmail.com", "realwheels123!");
-                SmtpServer.EnableSsl = true;
+                SmtpServer.Port = 587;          //default smtp port
+                SmtpServer.Credentials = new System.Net.NetworkCredential("admin@realwheelsdavao.com", "Real123!");
+                SmtpServer.EnableSsl = false;   //enable for gmail smtp server
                 System.Net.ServicePointManager.Expect100Continue = false;
-                SmtpServer.Send(msg);
+                SmtpServer.Send(msg);           //send message
                 return "success";
             }
             catch (Exception ex)

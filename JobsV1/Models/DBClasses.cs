@@ -212,6 +212,7 @@ where d.JobStatusId < 4
             
         }
 
+        //record encoder info 
         public void addEncoderRecord(string reftable, string refid, string user, string action) {
 
             DateTime today = DateTime.Now;
@@ -228,9 +229,5 @@ where d.JobStatusId < 4
 
             db.SaveChanges();
         }
-
-        
     }
-
-
 }
