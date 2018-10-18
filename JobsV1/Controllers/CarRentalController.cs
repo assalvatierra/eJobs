@@ -254,7 +254,11 @@ namespace JobsV1.Controllers
 
                 //sent email to the user
                 //sendMail(jobid ,RenterEmail);
-                sendMail(2,"jahdielsvillosa@gmail.com");
+                var adminEmail = "travel.realbreze@Gmail.com";
+                sendMail(carReservation.Id, adminEmail, "ADMIN");
+
+                 adminEmail = "AJDavao88@gmail.com";
+                sendMail(carReservation.Id, adminEmail, "ADMIN");
 
                 return RedirectToAction("FormThankYou", new { rsvId = carReservation.Id});
             }
@@ -308,10 +312,10 @@ namespace JobsV1.Controllers
         }
         
 
-        public string sendMail(int jobId,string renterEmail)
+        public string sendMail(int jobId,string renterEmail,string mailType)
         {
             EMailHandler mail = new EMailHandler();
-            return mail.SendMail(jobId, renterEmail);
+            return mail.SendMail(jobId, renterEmail, mailType);
         }
 
     }

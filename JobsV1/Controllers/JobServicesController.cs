@@ -532,6 +532,23 @@ namespace JobsV1.Controllers
 
             return View(db.JobNotificationRequests.ToList());
         }
-        
+
+
+        public ActionResult NotificationDelete(int id) {
+
+            JobNotificationRequest jobRequest = db.JobNotificationRequests.Find(id);
+            db.JobNotificationRequests.Remove(jobRequest);
+            db.SaveChanges();
+            return View(db.JobNotificationRequests.ToList());
+        }
+
+
+        public string sendMail(int jobId, string renterEmail, string mailType)
+        {
+            EMailHandler mail = new EMailHandler();
+            return mail.SendMail(jobId, renterEmail, mailType);
+        }
+
+
     }
 }

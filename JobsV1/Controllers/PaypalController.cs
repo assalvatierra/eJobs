@@ -40,13 +40,19 @@ namespace JobsV1.Controllers
 
             dynamic jsonBody = JObject.Parse(requestBody);
             string webhookId = jsonBody.id;
+            string paypalID = jsonBody.resource.id;
+            int jobId = (int)jsonBody.resource.invoice_number;
             var ev = WebhookEvent.Get(apiContext, webhookId);
 
             // We have all the information the SDK needs, so perform the validation.
             // Note: at least on Sandbox environment this returns false.
             // var isValid = WebhookEvent.ValidateReceivedEvent(apiContext, ToNameValueCollection(requestheaders), requestBody, webhookId);
 
-            DB.addTestNotification(5, "1");
+            DB.addTestNotification(jobId, paypalID);
+            //send mail
+            EMailHandler mail = new EMailHandler();
+            mail.SendMail(jobId, "jahdielsvillosa@gmail.com", "PAYMENT");
+
             switch (ev.event_type)
             {
                 case "PAYMENT.CAPTURE.COMPLETED":

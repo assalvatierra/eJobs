@@ -1106,6 +1106,31 @@ order by x.jobid
             ws.AddNotification(id);
         }
 
+
+
+        public string SendEmail(int jobId, string mailType)
+        {
+            JobMain jobOrder =db.JobMains.Find(jobId);
+
+            string renterEmail = "jahdielsvillosa@gmail.com"; //testing
+
+            EMailHandler mail = new EMailHandler();
+            return mail.SendMail(jobId, renterEmail, mailType);
+
+            /*
+            if (mail.SendMail(jobId, renterEmail, "CLIENT") == "success") {
+
+                return RedirectToAction("Index", "JobOrder", new { JobMainId = jobId });
+
+            }
+            else {
+
+                return RedirectToAction("Index", "JobOrder", new { JobMainId = jobId });
+
+            }
+            */
+        }
+
         #endregion
 
         #region supplier

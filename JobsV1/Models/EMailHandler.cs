@@ -11,7 +11,7 @@ namespace JobsV1.Models
     public class EMailHandler
     {
 
-        public string SendMail(int jobId, string renterMail) {
+        public string SendMail(int jobId, string renterMail, string mailType) {
             try
             {
                 MailMessage mail = new MailMessage();
@@ -20,7 +20,7 @@ namespace JobsV1.Models
                 MailDefinition md = new MailDefinition();
                 md.From = "admin@realwheelsdavao.com";      //sender mail
                 md.IsBodyHtml = true;                       //set true to enable use of html tags 
-                md.Subject = "Test of Mail Notification";   //mail title
+                md.Subject = "RealWheels Reservation";   //mail title
 
                 ListDictionary replacements = new ListDictionary();
                 replacements.Add("{name}", "Martin");
@@ -29,18 +29,50 @@ namespace JobsV1.Models
                 replacements.Add("{type}", "w/ Driver");
                 replacements.Add("{days}", "2");
                 replacements.Add("{total}", "5500");
+                string body;
+                if (mailType == "ADMIN")
+                {
+                    //mail content
+                    body =
+                        "" +
+                        // " <p>Hello {name}, You have booked a {tour} and  {unit} {type} for {days} day(s). The total cost of the package is {total}. </p>" +
+                        " <div style='background-color:#f4f4f4;padding:50px' align='center'>" +
+                        " <div style='background-color:white;margin:50px;padding:50px;text-align:center;color:#555555;font:normal 300 16px/21px 'Helvetica Neue',Arial'>  <h1> RealWheels Car Reservation </h1>" +
+                        "  A NEW Reservation Inquiry has been made. Please follow the link for the invoice and payment. <a href='https://realwheelsdavao.com/CarReservations/Details/" + jobId.ToString() + "' " +
+                        " style='display:block;background-color:dodgerblue;margin:20px;padding:20px;text-decoration:none;font-weight:bolder;font-size:300;color:white;border-radius:3px;'> Click here </a> " +
+                        " </div></div>" +
+                        "";
+                }
+                else if(mailType == "PAYMENT")
+                {
+                    md.Subject = "Reservation Payment";   //mail title
 
-                //mail content
-                string body = 
-                    "" +
-                    // " <p>Hello {name}, You have booked a {tour} and  {unit} {type} for {days} day(s). The total cost of the package is {total}. </p>" +
-                    " <div style='background-color:#f4f4f4;padding:50px' align='center'>"+
-                    " <div style='background-color:white;margin:50px;padding:50px;text-align:center;color:#555555;font:normal 300 16px/21px 'Helvetica Neue',Arial'>  <h1> Car Rental Reservation </h1>" +
-                    " Please follow the link for the invoice and payment. <a href='https://realwheelsdavao.com/JobOrder/BookingDetails/" + jobId.ToString() + "?iType=1' "+
-                    " style='display:block;background-color:dodgerblue;margin:20px;padding:20px;text-decoration:none;font-weight:bolder;font-size:300;color:white;border-radius:3px;'> Click here </a> " +
-                    " </div></div>" +
-                    ""; 
+                    //mail content
+                    body =
+                        "" +
+                        // " <p>Hello {name}, You have booked a {tour} and  {unit} {type} for {days} day(s). The total cost of the package is {total}. </p>" +
+                        " <div style='background-color:#f4f4f4;padding:50px' align='center'>" +
+                        " <div style='background-color:white;margin:50px;padding:50px;text-align:center;color:#555555;font:normal 300 16px/21px 'Helvetica Neue',Arial'>  <h1> RealWheels Car Payment </h1>" +
+                        " Paypal payment has been submitted. Please follow the link for the Reservation Details. <a href='https://realwheelsdavao.com/JobOrder/BookingDetails/" + jobId.ToString() + "?iType=1' " +
+                        " style='display:block;background-color:dodgerblue;margin:20px;padding:20px;text-decoration:none;font-weight:bolder;font-size:300;color:white;border-radius:3px;'> Click here </a> " +
+                        " </div></div>" +
+                        "";
 
+                }
+                else
+                {
+                    //mail content
+                    body =
+                        "" +
+                        // " <p>Hello {name}, You have booked a {tour} and  {unit} {type} for {days} day(s). The total cost of the package is {total}. </p>" +
+                        " <div style='background-color:#f4f4f4;padding:50px' align='center'>" +
+                        " <div style='background-color:white;margin:50px;padding:50px;text-align:center;color:#555555;font:normal 300 16px/21px 'Helvetica Neue',Arial'>  <h1> RealWheels Car Reservation </h1>" +
+                        " We have processed your inquiry. Please follow the link for the Reservation Details. <a href='https://realwheelsdavao.com/JobOrder/BookingDetails/" + jobId.ToString() + "?iType=1' " +
+                        " style='display:block;background-color:dodgerblue;margin:20px;padding:20px;text-decoration:none;font-weight:bolder;font-size:300;color:white;border-radius:3px;'> Click here </a> " +
+                        " </div></div>" +
+                        "";
+
+                }
                 MailMessage msg = md.CreateMailMessage(renterMail, replacements, body, new System.Web.UI.Control());
 
                 SmtpServer.Port = 587;          //default smtp port
