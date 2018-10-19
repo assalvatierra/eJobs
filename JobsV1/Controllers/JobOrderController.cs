@@ -1112,23 +1112,11 @@ order by x.jobid
         {
             JobMain jobOrder =db.JobMains.Find(jobId);
 
-            string renterEmail = "jahdielsvillosa@gmail.com"; //testing
-
+            string renterEmail = "reservation.realwheels@gmail.com"; //testing
             EMailHandler mail = new EMailHandler();
-            return mail.SendMail(jobId, renterEmail, mailType);
-
-            /*
-            if (mail.SendMail(jobId, renterEmail, "CLIENT") == "success") {
-
-                return RedirectToAction("Index", "JobOrder", new { JobMainId = jobId });
-
-            }
-            else {
-
-                return RedirectToAction("Index", "JobOrder", new { JobMainId = jobId });
-
-            }
-            */
+            mail.SendMail(jobId, renterEmail, mailType);                    //reservation gmail
+            mail.SendMail(jobId, jobOrder.CustContactEmail, mailType);      //customer email
+            return mail.SendMail(jobId, jobOrder.Customer.Email, mailType); //booking job customer email
         }
 
         #endregion

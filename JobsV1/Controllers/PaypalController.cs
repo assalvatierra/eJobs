@@ -16,6 +16,8 @@ namespace JobsV1.Controllers
     {
         DBClasses DB = new DBClasses();
 
+        JobDBContainer db = new JobDBContainer();
+
         // GET: Paypal
         public ActionResult Index()
         {
@@ -41,6 +43,7 @@ namespace JobsV1.Controllers
             dynamic jsonBody = JObject.Parse(requestBody);
             string webhookId = jsonBody.id;
             string paypalID = jsonBody.resource.id;
+            decimal Totalamount = (decimal)jsonBody.resource.amount.total;
             int jobId = (int)jsonBody.resource.invoice_number;
             var ev = WebhookEvent.Get(apiContext, webhookId);
 
@@ -48,25 +51,39 @@ namespace JobsV1.Controllers
             // Note: at least on Sandbox environment this returns false.
             // var isValid = WebhookEvent.ValidateReceivedEvent(apiContext, ToNameValueCollection(requestheaders), requestBody, webhookId);
 
-            DB.addTestNotification(jobId, paypalID);
-            //send mail
-            EMailHandler mail = new EMailHandler();
-            mail.SendMail(jobId, "jahdielsvillosa@gmail.com", "PAYMENT");
+            // DB.addTestNotification(jobId, paypalID);
 
+            EMailHandler mail = new EMailHandler();
             switch (ev.event_type)
             {
-                case "PAYMENT.CAPTURE.COMPLETED":
+                case "PAYMENT.cAPTURE.COMPLETED":
+                case "PAYMENT.SALE.COMPLETED":
                     // Handle payment completed
-                    DB.addTestNotification(5, "1");
+                    DB.addTestNotification(jobId, paypalID);
+                    AddPaymentRecord(jobId, Totalamount);
+
+                    //send mail
+                    mail.SendMail(jobId, "jahdielsvillosa@gmail.com", "PAYMENT-SUCCESS");
+                    //mail.SendMail(jobId, "aj88davao@gmail.com", "PAYMENT-PENDING");
+                    //mail.SendMail(jobId, "travel.realbreze@gmail.com", "PAYMENT-PENDING");
                     break;
+                case "PAYMENT.SALE.DENIED":
                 case "PAYMENT.CAPTURE.DENIED":
                     // Handle payment denied
-                    DB.addTestNotification(4, "1");
+                    DB.addTestNotification(jobId, paypalID);
+                    //send mail
+                    mail.SendMail(jobId, "jahdielsvillosa@gmail.com", "PAYMENT-DENIED");
+                    //mail.SendMail(jobId, "aj88davao@gmail.com", "PAYMENT-PENDING");
+                    //mail.SendMail(jobId, "travel.realbreze@gmail.com", "PAYMENT-PENDING");
                     break;
                 // Handle other webhooks
                 default:
                     // Handle payment denied
-                    DB.addTestNotification(3, "1");
+                    DB.addTestNotification(jobId, paypalID);
+                    //send mail
+                    mail.SendMail(jobId, "jahdielsvillosa@gmail.com", "PAYMENT-PENDING");
+                    //mail.SendMail(jobId, "aj88davao@gmail.com", "PAYMENT-PENDING");
+                    //mail.SendMail(jobId, "travel.realbreze@gmail.com", "PAYMENT-PENDING");
                     break;
             }
 
@@ -122,6 +139,20 @@ namespace JobsV1.Controllers
 
                 return apiContext;
             }
+        }
+
+        //add paypal payment to job payment (full/partial) 
+        private void AddPaymentRecord(int JobMainId, decimal amount ) {
+            string remarks = "PayPal Payment";
+            JobPayment jobPayment = new JobPayment();
+            jobPayment.BankId = 4;                      //personal guarantee, need to add (5) paypal
+            jobPayment.DtPayment = DateTime.Now;
+            jobPayment.JobMainId = (int)JobMainId;
+            jobPayment.PaymentAmt = amount;
+            jobPayment.Remarks = remarks;
+
+            db.JobPayments.Add(jobPayment);
+            db.SaveChanges();
         }
     }
 }

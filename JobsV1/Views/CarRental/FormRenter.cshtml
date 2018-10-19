@@ -51,7 +51,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group"  onchange="startDate()" >
                 <label class="control-label col-md-2"> Start Date* </label>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.DtStart, new { htmlAttributes = new { @class = "form-control", @id = "rnt-startdate" } })
@@ -653,6 +653,25 @@
         radiobtn = document.getElementById("3");
         radiobtn.checked = true;
 
+    }
+
+    function startDate(){
+        var sdate = $('input[name="DtStart"]').val().toString("MMMM dd yyyy");
+        var today = new Date();
+        //reset time
+        //today.setHours(0,0,0,0);
+        //sdate.setHours(0,0,0,0);
+
+        today.setDate(today.getDate()+1);
+        today = today.toDateString("MMMM dd yyyy")
+        if(sdate > today)
+        {
+            console.log(sdate > today);
+            console.log("SDATE: "+ sdate +" > TODAY: "+ today);
+        }else{
+            console.log(sdate < today);
+            console.log("SDATE: "+ sdate +" < TODAY: "+ today);
+        }
     }
 </script>
 

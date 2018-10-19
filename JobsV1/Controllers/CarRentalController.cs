@@ -252,13 +252,21 @@ namespace JobsV1.Controllers
                 //add reservation package
                 addCarResPackage(carReservation.Id, packageid, mealAcc, fuel);
 
+                //apply payment to the job
+
+
                 //sent email to the user
                 //sendMail(jobid ,RenterEmail);
-                var adminEmail = "travel.realbreze@Gmail.com";
+                var adminEmail = "travel.realbreze@gmail.com";
                 sendMail(carReservation.Id, adminEmail, "ADMIN");
 
-                 adminEmail = "AJDavao88@gmail.com";
+                //adminEmail = "AJDavao88@gmail.com";
+                adminEmail = "reservation.realwheels@gmail.com";
                 sendMail(carReservation.Id, adminEmail, "ADMIN");
+
+                //adminEmail = "AJDavao88@gmail.com";
+                adminEmail = "reservation.realwheels@gmail.com";
+                sendMail(carReservation.Id, carReservation.RenterEmail, "CLIENT-PENDING");
 
                 return RedirectToAction("FormThankYou", new { rsvId = carReservation.Id});
             }
