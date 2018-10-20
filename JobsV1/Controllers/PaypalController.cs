@@ -52,38 +52,51 @@ namespace JobsV1.Controllers
             // var isValid = WebhookEvent.ValidateReceivedEvent(apiContext, ToNameValueCollection(requestheaders), requestBody, webhookId);
 
             // DB.addTestNotification(jobId, paypalID);
+            //get job description
+            JobMain jobOrder = db.JobMains.Find(jobId);
+            string clientName = jobOrder.Description;
 
             EMailHandler mail = new EMailHandler();
+
             switch (ev.event_type)
             {
                 case "PAYMENT.cAPTURE.COMPLETED":
                 case "PAYMENT.SALE.COMPLETED":
                     // Handle payment completed
+
+                    //add to log
                     DB.addTestNotification(jobId, paypalID);
+
+                    //record payment
                     AddPaymentRecord(jobId, Totalamount);
 
                     //send mail
-                    mail.SendMail(jobId, "jahdielsvillosa@gmail.com", "PAYMENT-SUCCESS");
-                    //mail.SendMail(jobId, "aj88davao@gmail.com", "PAYMENT-PENDING");
-                    //mail.SendMail(jobId, "travel.realbreze@gmail.com", "PAYMENT-PENDING");
+                    mail.SendMail(jobId, "reservation.realwheels@gmail.com", "PAYMENT-SUCCESS", clientName);
+                    mail.SendMail(jobId, "aj88davao@gmail.com", "PAYMENT-PENDING", clientName);
+                    mail.SendMail(jobId, "travel.realbreze@gmail.com", "PAYMENT-PENDING", clientName);
                     break;
                 case "PAYMENT.SALE.DENIED":
                 case "PAYMENT.CAPTURE.DENIED":
                     // Handle payment denied
+
+                    //add to log
                     DB.addTestNotification(jobId, paypalID);
+
                     //send mail
-                    mail.SendMail(jobId, "jahdielsvillosa@gmail.com", "PAYMENT-DENIED");
-                    //mail.SendMail(jobId, "aj88davao@gmail.com", "PAYMENT-PENDING");
-                    //mail.SendMail(jobId, "travel.realbreze@gmail.com", "PAYMENT-PENDING");
+                    mail.SendMail(jobId, "jahdielsvillosa@gmail.com", "PAYMENT-DENIED", clientName);
+                    mail.SendMail(jobId, "aj88davao@gmail.com", "PAYMENT-PENDING", clientName);
+                    mail.SendMail(jobId, "travel.realbreze@gmail.com", "PAYMENT-PENDING", clientName);
                     break;
                 // Handle other webhooks
-                default:
-                    // Handle payment denied
+                default: // Handle payment denied
+                    
+                    //add to log
                     DB.addTestNotification(jobId, paypalID);
+
                     //send mail
-                    mail.SendMail(jobId, "jahdielsvillosa@gmail.com", "PAYMENT-PENDING");
-                    //mail.SendMail(jobId, "aj88davao@gmail.com", "PAYMENT-PENDING");
-                    //mail.SendMail(jobId, "travel.realbreze@gmail.com", "PAYMENT-PENDING");
+                    mail.SendMail(jobId, "jahdielsvillosa@gmail.com", "PAYMENT-PENDING", clientName);
+                    mail.SendMail(jobId, "aj88davao@gmail.com", "PAYMENT-PENDING", clientName);
+                    mail.SendMail(jobId, "travel.realbreze@gmail.com", "PAYMENT-PENDING", clientName);
                     break;
             }
 

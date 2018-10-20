@@ -437,6 +437,8 @@
         MealsAcc = $('#rsv-meal').val();
         Fuel = $('#rsv-fuel').val();
 
+        startDate();
+
         //display days
         $('#smry-rdays').text(NoDays);
 
@@ -656,22 +658,56 @@
     }
 
     function startDate(){
-        var sdate = $('input[name="DtStart"]').val().toString("MMMM dd yyyy");
+        var sdate = Date.parse($('input[name="DtStart"]').val());
+        var edate = Date.parse($('input[name="DtEnd"]').val());
         var today = new Date();
+        
+        today.setDate(today.getDate()+2);
+
         //reset time
         //today.setHours(0,0,0,0);
         //sdate.setHours(0,0,0,0);
+        var Ssdate = getDateFormat(new Date(sdate));
+        var Sedate = getDateFormat(new Date(edate));
+        var Stoday = getDateFormat(today);
 
-        today.setDate(today.getDate()+1);
-        today = today.toDateString("MMMM dd yyyy")
-        if(sdate > today)
+        //today = today.toDateString("MMMM dd yyyy")
+        if(Date.parse(Ssdate) >= Date.parse(Stoday))
         {
-            console.log(sdate > today);
-            console.log("SDATE: "+ sdate +" > TODAY: "+ today);
-        }else{
-            console.log(sdate < today);
-            console.log("SDATE: "+ sdate +" < TODAY: "+ today);
+            console.log(Ssdate > Stoday);
+            console.log("OK - SDATE: "+ Ssdate +" >= TODAY: "+ Stoday);
+
+
+        }else if(Date.parse(Ssdate) < Date.parse(Stoday)){
+            
+            $('input[name="DtStart"]').val(Stoday);
+
+
+            console.log(Ssdate <= today); //do not accept payment
+            console.log("INVALID - SDATE: "+ Ssdate +" < TODAY: "+ Stoday);
         }
+        
+        if(Ssdate >= Sedate){
+            console.log(Ssdate);
+            var endt = new Date(Ssdate);
+            console.log(endt);
+            endt.setDate(endt.getDate()+2);
+            
+            var Edate = getDateFormat(endt);
+
+            $('input[name="DtEnd"]').val(getDateFormat(endt));
+            console.log("INVALID - Ssdate: "+ Ssdate +" > Sedate: "+ Sedate);
+        }
+    }
+
+    function getDateFormat(currentDt){
+        
+        var mm = currentDt.getMonth() + 1;
+        var dd = currentDt.getDate();
+        var yyyy = currentDt.getFullYear();
+        var fDate = mm + '/' + dd + '/' + yyyy + " 9:00 AM";
+
+        return fDate;
     }
 </script>
 

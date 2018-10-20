@@ -322,8 +322,10 @@
             .then(function (response) {
                 // Show a confirmation message to the buyer
                 window.alert('Thank you for your purchase! ' + response["cart"] );
+
                 console.log(data);
                 console.log(response);
+                window.location.href = '@Url.Action("SendEmail", "JobOrder", new{ jobId = Model.Id, mailType = "PAYMENT-PENDING" })'
             });
         }
     }, '#paypal-button');

@@ -14,13 +14,15 @@ var reservationNum = 0;
 $('#1').attr('checked', true);
 $('#withdriver').attr('checked', true);
 $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
-$('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val());
+$('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked' +
+        ' - ' + $('#rsv-days').val() + ' Days').val());
 $('#pkg-2').attr('checked', true);
 $('#pkg-2').addClass('active').siblings().removeClass('active');
 selectedTour = $('#pkg-2').attr('title');
 
 function rentalTypeChange() {
-    $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val());
+    $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val() +
+        ' - ' + $('#rsv-days').val() + ' Days');
 
     if ($('input:radio[name=options]:checked').val() == "Self Drive") {
         if ($('input:radio[name=cars]:checked').attr("id") == 1 || $('input:radio[name=cars]:checked').attr("id") == 2) {
@@ -35,7 +37,8 @@ function rentalTypeChange() {
 
         $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
 
-        $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val());
+        $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val() +
+        ' - ' + $('#rsv-days').val() + ' Days');
 
         $('.isSelfDrive1').hide();
     } else {
@@ -50,7 +53,7 @@ function rentalTypeChange() {
 }
 
 $('#btn-rentalType').click(function () {
-    $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val());
+    updateTransaction();
     rentalReset();
     $('#3').attr('checked', true);
 
@@ -63,8 +66,7 @@ $('#btn-rentalType').click(function () {
 
         $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
 
-        $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val());
-
+        updateTransaction();
         $('.isSelfDrive1').hide();
 
     } else {
@@ -74,16 +76,14 @@ $('#btn-rentalType').click(function () {
         $('#1').attr('checked', true);
 
         $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
-
-        $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val());
-
+        updateTransaction();
         $('.isSelfDrive1').show();
     }
 });
 
 //
 $('#btn-rentalUnit').click(function () {
-    $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val());
+    updateTransaction();
     $('#car1').css('border', '1px solid lightgray');
     $('#car2').css('border', '1px solid lightgray');
     $('#car3').css('border', '1px solid lightgray');
@@ -98,6 +98,13 @@ $('#pkg-table').on('click', '.clickable-row', function (event) {
     $(this).addClass('active').siblings().removeClass('active');
     selectedTour = $(this).attr('title');
 });
+
+function updateTransaction() { 
+
+    $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val() +
+    ' - ' + $('#rsv-days').val() + ' Days');
+
+}
 
 
 function rentalReset() {
@@ -398,9 +405,14 @@ $('#days-sub').click(function () {
 });
 
 function dayschange() {
+
+    $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked' +
+        ' - ' + $('#rsv-days').val() + ' Days').val());
+
     if ($('#rsv-days').val() < 1) {
         $('#rsv-days').val(1);
     }
+
 }
 
 

@@ -10,8 +10,8 @@ namespace JobsV1.Models
 {
     public class EMailHandler
     {
-
-        public string SendMail(int jobId, string renterMail, string mailType) {
+       
+        public string SendMail(int jobId, string renterMail, string mailType, string renterName) {
             try
             {
                 MailMessage mail = new MailMessage();
@@ -31,43 +31,53 @@ namespace JobsV1.Models
                 replacements.Add("{total}", "5500");
 
                 string body,message;
+
+                md.Subject = renterName + ": Paypal Reservation";   //mail title
+
                 if (mailType == "ADMIN")
                 {
                     //mail content for admin
-                    message = "A NEW Reservation Inquiry has been made. Please follow the link for the invoice and payment. <a href='https://realwheelsdavao.com/CarReservations/Details/" + jobId.ToString() + "' ";
+                    message = "A NEW Reservation Inquiry has been made. Please follow the link for the reservation details. <a href='https://realwheelsdavao.com/CarReservations/Details/" + jobId.ToString() + "' " +
+                    " style='display:block;background-color:dodgerblue;margin:20px;padding:20px;text-decoration:none;font-weight:bolder;font-size:300;color:white;border-radius:3px;'> Reservation Details  </a> ";
                 }
                 else if(mailType == "PAYMENT-SUCCESS")
                 {
-                    md.Subject = "Reservation Payment SUCCESS";   //mail title
+                    md.Subject = renterName + ": Paypal Reservation SUCCESS";   //mail title
 
                     //mail content for successful payment
-                    message = "Paypal Payment is SUCCESS. Please follow the link for the invoice and payment. <a href='https://realwheelsdavao.com/CarReservations/Details/" + jobId.ToString() + "' ";
+                    message = "Paypal Payment is SUCCESS. Please follow the link for the reservation details. <a href='https://realwheelsdavao.com/CarReservations/Details/" + jobId.ToString() + "' " +
+                    " style='display:block;background-color:dodgerblue;margin:20px;padding:20px;text-decoration:none;font-weight:bolder;font-size:300;color:white;border-radius:3px;'> Reservation Details </a> ";
                 }
                 else if (mailType == "PAYMENT-DENIED")
                 {
-                    md.Subject = "Reservation Payment DENIED";   //mail title
+                    md.Subject = renterName + ": Paypal Reservation DENIED";   //mail title
 
                     //mail content for denied payment
-                    message = "Paypal Payment have been DENIED. Please follow the link for the invoice and payment. <a href='https://realwheelsdavao.com/CarReservations/Details/" + jobId.ToString() + "' ";
+                    message = "Paypal Payment have been DENIED. Please follow the link for the reservation details. <a href='https://realwheelsdavao.com/CarReservations/Details/" + jobId.ToString() + "' " +
+                    " style='display:block;background-color:dodgerblue;margin:20px;padding:20px;text-decoration:none;font-weight:bolder;font-size:300;color:white;border-radius:3px;'> Reservation Details </a> ";
                 }
                 else if (mailType == "PAYMENT-PENDING")
                 {
-                    md.Subject = "Reservation Payment PENDING";   //mail title
+                    md.Subject = renterName + ": Paypal Reservation PENDING";   //mail title
 
                     //mail content for pending payment
-                    message = "Paypal Payment is still PENDING. Please follow the link for the invoice and payment. <a href='https://realwheelsdavao.com/CarReservations/Details/" + jobId.ToString() + "' ";
+                    message = "Paypal Payment has been sent. Please follow the link for the reservation details. <a href='https://realwheelsdavao.com/CarReservations/Details/" + jobId.ToString() + "' " +
+                    " style='display:block;background-color:dodgerblue;margin:20px;padding:20px;text-decoration:none;font-weight:bolder;font-size:300;color:white;border-radius:3px;'> Reservation Details </a> ";
                 }
                 else if (mailType == "CLIENT-PENDING")
                 {
-                    md.Subject = "Reservation Payment PENDING";   //mail title
+                    md.Subject = "Realwheels Reservation";   //mail title
 
                     //mail content for pending payment
-                    message = "We are happy to recieved your inquiry. We will contact you after we have processed your reservation. Thank you. <a   ";
+                    message = "We are happy to recieved your inquiry. We will contact you after we have processed your reservation. Thank you.  " ;
                 }
                 else
                 {
+                    md.Subject = "Realwheels Reservation";   //mail title
+
                     //mail content for client inquiries
-                    message = " Your inquiry have been processed to confirm your reservation, please follow the link for the invoice and payment. <a href='https://realwheelsdavao.com/JobOrder/BookingDetails/" + jobId.ToString() + "?iType=1' ";
+                    message = " Your inquiry have been processed to confirm your reservation, please follow the link for the invoice and payment. <a href='https://realwheelsdavao.com/JobOrder/BookingDetails/" + jobId.ToString() + "?iType=1' " +
+                    " style='display:block;background-color:dodgerblue;margin:20px;padding:20px;text-decoration:none;font-weight:bolder;font-size:300;color:white;border-radius:3px;'> View Booking Details </a> ";
                 }
 
                 body =
@@ -76,7 +86,7 @@ namespace JobsV1.Models
                     " <div style='background-color:#f4f4f4;padding:50px' align='center'>" +
                     " <div style='background-color:white;margin:50px;padding:50px;text-align:center;color:#555555;font:normal 300 16px/21px 'Helvetica Neue',Arial'>  <h1> RealWheels Car Reservation </h1>" +
                     message +
-                    " style='display:block;background-color:dodgerblue;margin:20px;padding:20px;text-decoration:none;font-weight:bolder;font-size:300;color:white;border-radius:3px;'> Click here </a> " +
+                    " <p> This is an auto-generated email. DO NOT REPLY TO THIS MESSAGE </p> " +
                     " </div></div>" +
                     "";
 

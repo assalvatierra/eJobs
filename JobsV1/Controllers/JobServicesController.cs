@@ -543,10 +543,11 @@ namespace JobsV1.Controllers
         }
 
 
-        public string sendMail(int jobId, string renterEmail, string mailType)
+        public string sendMail(int jobId, string email, string mailType)
         {
+            JobMain jobOrder = db.JobMains.Find(jobId);
             EMailHandler mail = new EMailHandler();
-            return mail.SendMail(jobId, renterEmail, mailType);
+            return mail.SendMail(jobId, email, mailType, jobOrder.Description);
         }
     }
 }
