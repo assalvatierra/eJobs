@@ -265,7 +265,7 @@ namespace JobsV1.Controllers
                 sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
 
                 //adminEmail = "AJDavao88@gmail.com";
-                adminEmail = "AJDavao88@gmail.com";
+                adminEmail = "ajdavao88@gmail.com";
                 sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
 
                 sendMail(carReservation.Id, carReservation.RenterEmail, "CLIENT-PENDING", carReservation.RenterName);

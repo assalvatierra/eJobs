@@ -1133,7 +1133,7 @@ order by x.jobid
             string clientName = jobOrder.Description;
 
             mail.SendMail(jobId, "reservation.realwheels@gmail.com", mailType, clientName);                    //reservation gmail
-            mail.SendMail(jobId, "aj88davao@gmail.com", mailType, clientName);      //customer email
+            mail.SendMail(jobId, "AJDavao88@gmail.com", mailType, clientName);      //customer email
         }
 
         #endregion

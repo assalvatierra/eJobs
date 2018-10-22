@@ -4,7 +4,10 @@
 <div class="modal-content" style="min-width:600px;">
     <div class="modal-header">
         <h3 class="modal-title">Car Reservation </h3>
-        <a href="#" onclick="backtoMain()"> back to main </a>
+
+        <a href="#" onclick="backtoMain()"> Back to Main  </a>&bull;
+        <a href="#" onclick="backtoPrev()"> Previous      </a>&bull;
+        <a href="#" onclick="showForm()"  > Proceed       </a>
       
         <h5 id="modal-text-foot">-</h5>
         
@@ -642,8 +645,6 @@
 
 
     function clearTable(){
-        //alert('clear table');
-
         var new_tbody = document.createElement('table-packages');
         populate_with_new_rows(new_tbody);
         old_tbody.parentNode.replaceChild(new_tbody, old_tbody)
@@ -657,6 +658,13 @@
 
     }
 
+    /**
+    * Handles Start Date of Reservation
+    * start date must be 2 days from today
+    * and end date must be 1 day from start date by default
+    * 
+    */
+
     function startDate(){
         var sdate = Date.parse($('input[name="DtStart"]').val());
         var edate = Date.parse($('input[name="DtEnd"]').val());
@@ -665,32 +673,29 @@
         today.setDate(today.getDate()+2);
 
         //reset time
-        //today.setHours(0,0,0,0);
-        //sdate.setHours(0,0,0,0);
         var Ssdate = getDateFormat(new Date(sdate));
         var Sedate = getDateFormat(new Date(edate));
         var Stoday = getDateFormat(today);
 
-        //today = today.toDateString("MMMM dd yyyy")
+        //start date is greater than or equal to today
         if(Date.parse(Ssdate) >= Date.parse(Stoday))
         {
             console.log(Ssdate > Stoday);
             console.log("OK - SDATE: "+ Ssdate +" >= TODAY: "+ Stoday);
-
-
+            
+        //start date is less than today
         }else if(Date.parse(Ssdate) < Date.parse(Stoday)){
             
             $('input[name="DtStart"]').val(Stoday);
-
 
             console.log(Ssdate <= today); //do not accept payment
             console.log("INVALID - SDATE: "+ Ssdate +" < TODAY: "+ Stoday);
         }
         
+        //handles end date, add 1 day from start date
         if(Ssdate >= Sedate){
-            console.log(Ssdate);
             var endt = new Date(Ssdate);
-            console.log(endt);
+
             endt.setDate(endt.getDate()+2);
             
             var Edate = getDateFormat(endt);
@@ -699,6 +704,13 @@
             console.log("INVALID - Ssdate: "+ Ssdate +" > Sedate: "+ Sedate);
         }
     }
+    
+    /**
+    * Handles Start Date of Reservation
+    * start date must be 2 days from today
+    * and end date must be 1 day from start date by default
+    * 
+    */
 
     function getDateFormat(currentDt){
         

@@ -205,3 +205,20 @@ textarea {
 rental-type-wdriver {
     font-weight:bold;
 }
+
+
+/*Daily Update 
+    JobOrder/DailyUpdate
+*/
+    .daily-update-row {
+        border: 1px solid lightgray;
+        border-radius: 15px;
+    }
+
+    .daily-update-data-date {
+        color: gray;
+    }
+
+    .daily-update-data-status {
+        font-weight: bold;
+    }
