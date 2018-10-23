@@ -39,6 +39,8 @@ namespace JobsV1.Models
         public string RenterLinkedInAccnt { get; set; }
         public Nullable<int> EstHrPerDay { get; set; }
         public Nullable<int> EstKmTravel { get; set; }
+        public Nullable<int> JobRefNo { get; set; }
+        public Nullable<int> SelfDrive { get; set; }
     
         public virtual CarUnit CarUnit { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

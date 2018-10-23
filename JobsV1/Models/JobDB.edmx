@@ -646,6 +646,8 @@
     <Property Name="RenterLinkedInAccnt" Type="nvarchar(max)" Nullable="true" />
     <Property Name="EstHrPerDay" Type="int" Nullable="true" />
     <Property Name="EstKmTravel" Type="int" Nullable="true" />
+    <Property Name="JobRefNo" Type="int" Nullable="true" />
+    <Property Name="SelfDrive" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="CarImages">
     <Key>
@@ -3015,6 +3017,8 @@
           <Property Name="EstHrPerDay" Type="Int32" Nullable="true" />
           <Property Name="EstKmTravel" Type="Int32" Nullable="true" />
           <NavigationProperty Name="CarResPackages" Relationship="JobDB.CarReservationCarResPackage" FromRole="CarReservation" ToRole="CarResPackage" />
+          <Property Name="JobRefNo" Type="Int32" Nullable="true" />
+          <Property Name="SelfDrive" Type="Int32" Nullable="true" />
         </EntityType>
         <Association Name="CarUnitCarReservation">
           <End Type="JobDB.CarUnit" Role="CarUnit" Multiplicity="1" />
@@ -4501,6 +4505,8 @@
           <ScalarProperty Name="RenterLinkedInAccnt" ColumnName="RenterLinkedInAccnt" />
           <ScalarProperty Name="EstHrPerDay" ColumnName="EstHrPerDay" />
           <ScalarProperty Name="EstKmTravel" ColumnName="EstKmTravel" />
+          <ScalarProperty Name="JobRefNo" ColumnName="JobRefNo" />
+          <ScalarProperty Name="SelfDrive" ColumnName="SelfDrive" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
