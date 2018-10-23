@@ -45,7 +45,14 @@
                     <span style="color:green; font: bold 10px arial, verdana;">
                         @string.Format("{0:N}", @item.Payment)
                     </span>
-
+                    if (item.Main.JobPayments.Where(s => s.JobMainId == item.Main.Id).FirstOrDefault().BankId == 5)
+                    {
+                        <br />
+                        <span>
+                            Paid in
+                            <img src="~/Images/paypal.png" width="20" height="20" alt="Paid through paypal" />
+                        </span>
+                    }
                 }
                     
             </div>

@@ -80,25 +80,28 @@ namespace JobsV1.Controllers
         {
             //defaults
             CarReservation reservation = new CarReservation();
-            reservation.DtTrx = DateTime.Now;
-            reservation.DtStart = DateTime.Now.ToString();
-            reservation.DtEnd = DateTime.Now.AddDays(2).ToString();
-            reservation.EstHrPerDay = 0;
-            reservation.EstKmTravel = 0;
+            reservation.DtTrx          = DateTime.Now;
+            reservation.DtStart        = DateTime.Now.ToString();
+            reservation.DtEnd          = DateTime.Now.AddDays(2).ToString();
+            reservation.EstHrPerDay    = 0;
+            reservation.EstKmTravel    = 0;
+            reservation.JobRefNo       = 0;
+            reservation.SelfDrive      = 1;  //with driver = 0, self drive = 1;
 
             ViewBag.CarUnitId = new SelectList(db.CarUnits, "Id", "Description", unitid);
 
-            var carrate = db.CarRates.Where(d => d.CarUnitId == unitid).FirstOrDefault();
-            ViewBag.CarRate = carrate.Daily;
-            ViewBag.objCarRate = carrate; // db.CarRates.Where(d => d.CarUnitId == unitid);
+            var carrate          = db.CarRates.Where(d => d.CarUnitId == unitid).FirstOrDefault();
+            ViewBag.CarRate      = carrate.Daily;
+            ViewBag.objCarRate   = carrate; // db.CarRates.Where(d => d.CarUnitId == unitid);
             ViewBag.Destinations = db.CarDestinations.Where(d => d.CityId == 1).OrderBy(d => d.Kms).ToList();
-            ViewBag.UnitId = unitid;
+            ViewBag.UnitId       = unitid;
 
             return View(reservation);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Reservation([Bind(Include = "Id,DtTrx,CarUnitId,DtStart,LocStart,DtEnd,LocEnd,BaseRate,Destinations,UseFor,RenterName,RenterCompany,RenterEmail,RenterMobile,RenterAddress,RenterFbAccnt,RenterLinkedInAccnt,EstHrPerDay,EstKmTravel")] CarReservation carReservation)
+        public ActionResult Reservation([Bind(Include = "Id,DtTrx,CarUnitId,DtStart,LocStart,DtEnd,LocEnd,BaseRate,Destinations,UseFor,RenterName,RenterCompany,RenterEmail,RenterMobile,RenterAddress,RenterFbAccnt,RenterLinkedInAccnt,EstHrPerDay,EstKmTravel,JobRefNo,SelfDrive")] CarReservation carReservation)
         {
             if (ModelState.IsValid)
             {
@@ -107,7 +110,26 @@ namespace JobsV1.Controllers
 
                 //self drive reservation
                 addCarResPackage(carReservation.Id, 1, 0, 0);
-                return RedirectToAction("ReservationNotification");
+
+
+                //sendMail(jobid ,RenterEmail);
+                //sent email to the user
+                var adminEmail = "travel.realbreze@gmail.com";
+                sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
+
+                //adminEmail = "AJDavao88@gmail.com";
+                adminEmail = "reservation.realwheels@gmail.com";
+                sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
+
+                //adminEmail = "AJDavao88@gmail.com";
+                adminEmail = "ajdavao88@gmail.com";
+                sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
+
+                //Client Email
+                sendMail(carReservation.Id, carReservation.RenterEmail, "CLIENT-PENDING", carReservation.RenterName);
+
+                return RedirectToAction("FormThankYou", new { rsvId = carReservation.Id });
+               // return RedirectToAction("ReservationNotification");
             }
 
             return View("Reservation", new { unitid = carReservation.CarUnitId } );
@@ -216,7 +238,8 @@ namespace JobsV1.Controllers
             reservation.DtTrx = DateTime.Now;
             reservation.DtStart = DateTime.Now.ToString();
             reservation.DtEnd = DateTime.Now.AddDays(2).ToString();
-
+            reservation.JobRefNo = 0;
+            reservation.SelfDrive = 0;  //with driver = 0, self drive = 1;
             //get previous id
             CarReservation lastId = db.CarReservations.ToList().OrderByDescending(c => c.Id).LastOrDefault();
 
@@ -242,7 +265,7 @@ namespace JobsV1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult FormRenter([Bind(Include = "Id,DtTrx,CarUnitId,DtStart,LocStart,DtEnd,LocEnd,BaseRate,Destinations,UseFor,RenterName,RenterCompany,RenterEmail,RenterMobile,RenterAddress,RenterFbAccnt,RenterLinkedInAccnt,EstHrPerDay,EstKmTravel")] CarReservation carReservation, int packageid, int mealAcc, int fuel)
+        public ActionResult FormRenter([Bind(Include = "Id,DtTrx,CarUnitId,DtStart,LocStart,DtEnd,LocEnd,BaseRate,Destinations,UseFor,RenterName,RenterCompany,RenterEmail,RenterMobile,RenterAddress,RenterFbAccnt,RenterLinkedInAccnt,EstHrPerDay,EstKmTravel,JobRefNo,SelfDrive")] CarReservation carReservation, int packageid, int mealAcc, int fuel)
         {
             if (ModelState.IsValid)
             {
@@ -254,9 +277,8 @@ namespace JobsV1.Controllers
 
                 //apply payment to the job
 
-
-                //sent email to the user
                 //sendMail(jobid ,RenterEmail);
+                //sent email to travel.realbreze@gmail.com
                 var adminEmail = "travel.realbreze@gmail.com";
                 sendMail(carReservation.Id, adminEmail, "ADMIN" ,carReservation.RenterName);
 
@@ -268,6 +290,7 @@ namespace JobsV1.Controllers
                 adminEmail = "ajdavao88@gmail.com";
                 sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
 
+                //client email
                 sendMail(carReservation.Id, carReservation.RenterEmail, "CLIENT-PENDING", carReservation.RenterName);
 
                 return RedirectToAction("FormThankYou", new { rsvId = carReservation.Id});

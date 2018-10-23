@@ -153,7 +153,7 @@ namespace JobsV1.Controllers
         private void AddPaymentRecord(int JobMainId, decimal amount ) {
             string remarks = "PayPal Payment";
             JobPayment jobPayment = new JobPayment();
-            jobPayment.BankId = 4;                      //personal guarantee, need to add (5) paypal
+            jobPayment.BankId = 5;                      //personal guarantee, need to add (5) paypal
             jobPayment.DtPayment = DateTime.Now;
             jobPayment.JobMainId = (int)JobMainId;
             jobPayment.PaymentAmt = amount;

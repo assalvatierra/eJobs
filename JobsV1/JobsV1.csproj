@@ -733,6 +733,7 @@
     <Content Include="Images\Customers\Company\small-business-40.png" />
     <Content Include="Images\Envelop001.png" />
     <Content Include="Images\googleMaps_office.png" />
+    <Content Include="Images\paypal.png" />
     <Content Include="Images\LOGO_AJRENTACAR.jpg" />
     <Content Include="Images\Mail.png" />
     <Content Include="Images\Mepu\Logo.jpg" />
@@ -1202,6 +1203,7 @@
     <Content Include="Views\CarRental\About.cshtml" />
     <Content Include="Views\Home\MobileModalView.cshtml" />
     <Content Include="Views\CarRental\MobileModalView.cshtml" />
+    <Content Include="Views\CarReservations\CreateQuotation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
