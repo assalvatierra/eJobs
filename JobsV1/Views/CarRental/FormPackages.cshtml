@@ -4,7 +4,7 @@
             <h4>Please Select a Package</h4>
         </div>
         <div class="col-md-12" id="pkg-table">
-            <table class="table table-bordered table-hover" id="table-packages" style="width:100%;" >
+            <table class="table table-bordered table-hover" id="table-packages" style="width:96%;margin-right:50px" >
                 <tr>
                     <th>Package</th>
                     <th>Driver Accomodation/Meals</th>
@@ -17,6 +17,7 @@
                     {
                         if (package.Id == 1)
                         {
+                            //hide self drive option
                             <tr class="clickable-row" id="pkg-@(package.Id)" title="@(package.Id)" style="visibility:collapse">
                                 <td id="pkg-desc">@package.Description</td>
                                 <td id="pkg-meal@(package.Id)">N/A</td>
@@ -28,15 +29,19 @@
                         }
                         else
                         {
-                            <tr class="clickable-row" id="pkg-@(package.Id)" title="@(package.Id)">
+                            <tr class="clickable-row" id="pkg-@(package.Id)" title="@(package.Id)"  data-toggle="popover">
                                 <td id="pkg-desc">@package.Description</td>
                                 <td id="pkg-meal@(package.Id)">N/A</td>
                                 <td id="pkg-fuel@(package.Id)">N/A</td>
                                 <td id="pkg-days@(package.Id)">-</td>
-                                <td ><span id="pkg-rate@(package.Id)"> </span>  <b id="pkg-total@(package.Id)">total</b></td>
+                                <td ><span id="pkg-rate@(package.Id)"> </span>  <b id="pkg-total@(package.Id)">total</b>
+
+                                </td>
+
                             </tr>
                         }
                     }
             </table>
         </div>
     </div>
+

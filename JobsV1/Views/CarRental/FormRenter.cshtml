@@ -10,7 +10,6 @@
         <a href="#" onclick="showForm()"  > Proceed       </a>
       
         <h5 id="modal-text-foot">-</h5>
-        
     </div>
 
     @Html.Action("CarReserve")
@@ -111,18 +110,18 @@
             </div>
 
 
-            <div class="form-group">
+            <div class="form-group" disabled>
                 @Html.LabelFor(model => model.EstHrPerDay, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.EstHrPerDay, new { htmlAttributes = new { @class = "form-control" } })
+                <div class="col-md-10" disabled="disabled">
+                    @Html.EditorFor(model => model.EstHrPerDay, new { htmlAttributes = new { @class = "form-control" , @readonly = "readonly" } })
                     @Html.ValidationMessageFor(model => model.EstHrPerDay, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" disabled>
                 @Html.LabelFor(model => model.EstKmTravel, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.EstKmTravel, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.EstKmTravel, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                     @Html.ValidationMessageFor(model => model.EstKmTravel, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -195,6 +194,12 @@
             </div>
 
             <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Submit" class="btn btn-default disabled" id="submit-btn" />
+                </div>
+            </div>
+
+            <div class="form-group" style="visibility:hidden;height:0px;">
                 <label class="control-label col-md-2">JobRefNo</label>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.JobRefNo, new { htmlAttributes = new { @class = "form-control" } })
@@ -202,7 +207,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="visibility:hidden;height:0px;">
                 <label class="control-label col-md-2">SelfDrive</label>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.SelfDrive, new { htmlAttributes = new { @class = "form-control" } })
@@ -220,11 +225,6 @@
             </div>
             <br />
 
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10"  >
-                    <input type="submit" value="Submit" class="btn btn-default disabled" id="submit-btn" />
-                </div>
-            </div>
         </div>
     }
 
@@ -277,7 +277,7 @@
                         carRate_longhaulrate = @carRatesPackages.FuelLonghaul;
                         carRate_fuel =  @carRatesPackages.FuelDaily;
                         carRateAdditional = @carRatesPackages.DailyRate;
-                        packageDailyAddon = @carRatesPackages.DailyAddon;
+                        packageDailyAddon = (@carRatesPackages.DailyAddon == null ? 0 : @carRatesPackages.DailyAddon );
                         packageDailyAddon *= days;
 
                         //handle self drive selected tour
@@ -737,5 +737,20 @@
 
         return fDate;
     }
+    
+    //next popup on formpackages package list
+    $(document).ready(function(){
+        $('[data-toggle="popover"]').popover({
+            placement: 'right',
+            html: 'true',
+            content :  '<button class="btn btn-primary" onclick="showForm();">Proceed</button>'
+        });   
+        
+
+        $('[data-toggle="popover"]').on('click', function (e) {
+            $('[data-toggle="popover"]').not(this).popover('hide');
+           
+        });
+    });
 </script>
 

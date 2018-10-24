@@ -240,6 +240,9 @@ namespace JobsV1.Controllers
             reservation.DtEnd = DateTime.Now.AddDays(2).ToString();
             reservation.JobRefNo = 0;
             reservation.SelfDrive = 0;  //with driver = 0, self drive = 1;
+            reservation.EstHrPerDay = 10;
+            reservation.EstKmTravel = 100;
+
             //get previous id
             CarReservation lastId = db.CarReservations.ToList().OrderByDescending(c => c.Id).LastOrDefault();
 

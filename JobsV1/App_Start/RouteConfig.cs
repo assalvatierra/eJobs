@@ -70,6 +70,15 @@ namespace JobsV1
             //);
 
             /********************************
+            * sitemap
+            ********************************/
+            routes.MapRoute(
+                name: "Sitemapxml",
+                url: "Sitemap.xml",
+                defaults: new { controller = "Home", action = "SitemapXml" }
+                );
+
+            /********************************
             * landing/home page
             ********************************/
             routes.MapRoute(
@@ -86,12 +95,6 @@ namespace JobsV1
                 defaults: new { controller = "CarRental", action = "Index", id = UrlParameter.Optional }
             );
 
-
-            routes.MapRoute(
-                name: "Sitemapxml",
-                url: "Sitemap.xml",
-                defaults: new { controller = "Home", action = "SitemapXml" }
-                );
         }
     }
 }

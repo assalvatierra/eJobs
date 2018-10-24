@@ -15,10 +15,33 @@ namespace JobsV1.Controllers
         private JobDBContainer db = new JobDBContainer();
 
         // GET: CarReservations
-        public ActionResult Index()
+        public ActionResult Index(int? filter)
         {
+
             ViewBag.PackageList = db.CarRateUnitPackages.ToList(); 
             var carReservations = db.CarReservations.Include(c => c.CarUnit).Include(c=>c.CarResPackages);
+            var DateNow = DateTime.Now;
+            var DateToday = DateNow.Date;
+
+
+            DateTime today = DateTime.Today;
+            today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Singapore Standard Time");
+            
+            switch (filter)
+            {
+                case 1: //OnGoing
+                    carReservations = carReservations.Where(c => DateTime.Compare(c.DtTrx, today) >= 0);   //get 1 month before all entries
+
+                    break;
+                case 2: //prev
+                    carReservations = carReservations.Where(c => DateTime.Compare(c.DtTrx, today) < 0);
+
+                    break;
+                default:
+                    carReservations = carReservations.Where(c => DateTime.Compare(c.DtTrx, today) >= 0);   //get 1 month before all entries
+                    break;
+            }
+            
             return View(carReservations.ToList());
         }
 

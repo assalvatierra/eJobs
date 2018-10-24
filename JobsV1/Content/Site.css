@@ -206,6 +206,10 @@ rental-type-wdriver {
     font-weight:bold;
 }
 
+.popover-title {
+     display: none; 
+}
+
 
 /*Daily Update 
     JobOrder/DailyUpdate

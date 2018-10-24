@@ -16,7 +16,7 @@ $('#withdriver').attr('checked', true);
 $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
 $('#pkg-2').attr('checked', true);
 $('#pkg-2').addClass('active').siblings().removeClass('active');
-selectedTour = $('#pkg-2').attr('title');
+selectedTour = $('#pkg-2').attr('id').substring(4, 5);
 updateTransaction();
 
 function rentalTypeChange() {
@@ -99,7 +99,8 @@ $('#btn-rentalUnit').click(function () {
 
 $('#pkg-table').on('click', '.clickable-row', function (event) {
     $(this).addClass('active').siblings().removeClass('active');
-    selectedTour = $(this).attr('title');
+    selectedTour = $(this).attr('id').substring(4,6);
+    console.log(selectedTour);
 });
 
 function updateTransaction() {
@@ -121,13 +122,12 @@ function rentalReset() {
     $('#car6').css('border', '1px solid lightgray');
 
     var selectedCar = "";
-
 }
 
 //controls the flow of reservation forms
 //display the next form
 function showForm() {
-
+    console.log(selectedTour);
     RentalType = $('input:radio[name=options]:checked').val();
     selectedCar = $('input:radio[name=cars]:checked').attr("id");
     NoDays = $('#rsv-days').val();
@@ -205,7 +205,7 @@ function backtoMain() {
 
 //display the previous form
 function backtoPrev() {
-
+    $('#rsv-footer').show();
     switch (currentForm) {
         case "Modal": //prev none
             currentForm = "Modal";
@@ -230,6 +230,7 @@ function backtoPrev() {
             $('#formPackages').css('display', 'block');
             $('#formSummary').css('display', 'none');
             $('#formRenter').css('display', 'none');
+            displaySummary();
             displayPackages();
             break;
         case "formRenter":  //next summary
@@ -422,6 +423,6 @@ function dayschange() {
 //long term rental
 function longtermRental() {
     currentForm = "FormPackages";
-    selectedTour = $('#pkg-1').attr('title');
+    selectedTour = $('#pkg-1').attr('id').substring(4, 5);;
     showForm();
 }
