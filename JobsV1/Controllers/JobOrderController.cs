@@ -977,6 +977,91 @@ order by x.jobid
             return View(jobServices.OrderBy(d => d.DtStart).ToList());
 
         }
+
+        public ActionResult BookingRedirect(int id,string month, string day, string year,string rName) {
+            String DateBook = month + "/" + day + "/" + year;
+            DateTime booking = DateTime.Parse(DateBook);
+            int iMonth = int.Parse(month);
+            int iday = int.Parse(day);
+            int iyear = int.Parse(year);
+
+            JobMain job = db.JobMains.Where(j => j.Id == id).
+                //Where(j=> j.JobDate.Month == iMonth && j.JobDate.Day == iday && j.JobDate.Year == iyear).FirstOrDefault();
+                Where(j => j.JobDate.Month == iMonth).
+                Where(j => j.JobDate.Day == iday).
+                Where(j => j.JobDate.Year == iyear).
+                Where(j => j.Description == rName).
+                FirstOrDefault();
+
+            //return RedirectToAction("BookingDetails", new { id = job.Id , iType = 1});
+              
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var jobMain = job;
+            if (jobMain == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.Services = db.JobServices.Include(j => j.JobServicePickups).Where(j => j.JobMainId == jobMain.Id).OrderBy(s => s.DtStart);
+            ViewBag.Itinerary = db.JobItineraries.Include(j => j.Destination).Where(j => j.JobMainId == jobMain.Id);
+            ViewBag.Payments = db.JobPayments.Where(j => j.JobMainId == jobMain.Id);
+            ViewBag.jNotes = db.JobNotes.Where(d => d.JobMainId == jobMain.Id).OrderBy(s => s.Sort);
+
+            //Default form
+            string sCompany = "AJ88 Car Rental Services";
+            string sLine1 = "2nd Floor J. Sulit Bldg. Mac Arthur Highway, Matina Davao City ";
+            string sLine2 = "Tel# (+63)822971831; (+63)9167558473; (+63)9330895358 ";
+            string sLine3 = "Email: ajdavao88@gmail.com; Website: http://www.AJDavaoCarRental.com/";
+            string sLine4 = "TIN: 414-880-772-001 (non-Vat)";
+            string sLogo = "LOGO_AJRENTACAR.jpg";
+            Bank bank = db.Banks.Find(2);
+
+            if (jobMain.Branch.Name == "RealBreeze")
+            {
+                sCompany = "Real Breeze Travel & Tours - Davao City";
+                sLine1 = "2nd Floor J. Sulit Bldg. Mac Arthur Highway, Matina Davao City ";
+                sLine2 = "Tel# (+63)822971831; (+63)916-755-8473; (+63)933-089-5358 ";
+                sLine3 = "Email: RealBreezeDavao@gmail.com; Website: http://www.realbreezedavaotours.com//";
+                sLine4 = "TIN: 414-880-772-000 (non-Vat)";
+                sLogo = "RealBreezeLogo01.png";
+                bank = db.Banks.Find(3);
+            }
+
+            if (jobMain.Branch.Name == "AJ88")
+            {
+                sCompany = "AJ88 Car Rental Services";
+                sLine1 = "2nd Floor J. Sulit Bldg. Mac Arthur Highway, Matina Davao City ";
+                sLine2 = "Tel# (+63)822971831; (+63)9167558473; (+63)9330895358 ";
+                sLine3 = "Email: ajdavao88@gmail.com; Website: http://www.AJDavaoCarRental.com/";
+                sLine4 = "TIN: 414-880-772-001 (non-Vat)";
+                sLogo = "LOGO_AJRENTACAR.jpg";
+                bank = db.Banks.Find(2);
+            }
+
+            ViewBag.sCompany = sCompany;
+            ViewBag.sLine1 = sLine1;
+            ViewBag.sLine2 = sLine2;
+            ViewBag.sLine3 = sLine3;
+            ViewBag.sLine4 = sLine4;
+            ViewBag.sLogo = sLogo;
+
+            ViewBag.BankName = bank.BankName;
+            ViewBag.BankBranch = bank.BankBranch;
+            ViewBag.AccName = bank.AccntName;
+            ViewBag.AccNum = bank.AccntNo;
+
+            ViewBag.rsvId = id;
+            ViewBag.CarDesc = "Test Unit";
+            ViewBag.ReservationType = "Rental";
+            ViewBag.Amount = 1000;
+
+            ViewBag.isPaymentValid = (jobMain.JobDate.Date == DateTime.Today.Date) || (jobMain.JobDate.Date == DateTime.Today.AddDays(1).Date) ? "True" : "False";
+             
+            return View("Details_Invoice", jobMain);
+        }
         
         // GET: JobMains/Details/5
         public ActionResult BookingDetails(int? id, int? iType)
@@ -1044,6 +1129,8 @@ order by x.jobid
             ViewBag.ReservationType = "Rental";
             ViewBag.Amount = 1000;
 
+            ViewBag.isPaymentValid = jobMain.JobDate.Date == DateTime.Today.Date ? "True" : "False" ;
+
             if (jobMain.JobStatusId == 1) //quotation
                 return View("Details_Quote", jobMain);
 
@@ -1108,20 +1195,20 @@ order by x.jobid
 
 
 
-        public ActionResult SendEmail(int jobId, string mailType)
+        public string SendEmail(int jobId, string mailType)
         {
             JobMain jobOrder = db.JobMains.Find(jobId);
             EMailHandler mail = new EMailHandler();
 
-            string clientName = jobOrder.Description; 
+            string clientName  = jobOrder.Description; 
             string renterEmail = "reservation.realwheels@gmail.com"; //testing
-            string mailResult = "success";
+            string mailResult  = "success";
             mailResult = mail.SendMail(jobId, renterEmail, mailType, clientName);                    //reservation gmail
             mailResult = mail.SendMail(jobId, jobOrder.CustContactEmail, mailType, clientName);      //customer email
             mailResult = mail.SendMail(jobId, jobOrder.Customer.Email, mailType, clientName); //booking job customer email
 
-            return RedirectToAction("Index", new { mainid = jobId });
-
+           // return RedirectToAction("Index", new { mainid = jobId });
+            return mailResult;
         }
     
 

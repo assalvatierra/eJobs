@@ -69,6 +69,56 @@ namespace JobsV1
             //    defaults: new { controller = "MainGeneric", action = "Index", id = UrlParameter.Optional }
             //);
 
+            /*******************************
+             * Custom from ajdavaocarrental
+             ********************************/
+            routes.MapRoute(
+              name: "ads-honda-city-automatic",
+              url: "ads/honda-city-automatic/",
+              defaults: new { controller = "CarRental", action = "CarView", carDesc = "honda-city" }
+            );
+
+            routes.MapRoute(
+              name: "rent-a-car-suv-for-rent-davao-city",
+              url: "ads/rent-a-car-suv-for-rent-davao-city/",
+              defaults: new { controller = "CarRental", action = "CarView", carDesc = "ford-everest" }
+            );
+
+            routes.MapRoute(
+              name: "ads/toyota-hiace-gl-grandia/",
+              url: "ads/toyota-hiace-gl-grandia/",
+              defaults: new { controller = "CarRental", action = "CarView", carDesc = "toyota-glgrandia" }
+            );
+
+
+            /*******************************
+             * Custom from ajdavaocarrental / listing
+             ********************************/
+            routes.MapRoute(
+              name: "/ad-category/sedans/",
+              url: "ad-category/sedans/",
+              defaults: new { controller = "CarRental", action = "CarView", carDesc = "sedan-listing" }
+            );
+            
+
+            /********************************
+            * invoice
+            ********************************/
+            routes.MapRoute(
+                name: "JobOrderInvoice",
+                url: "invoice/{id}/{month}/{day}/{year}/{rName}",
+                defaults: new { controller = "JobOrder", action = "BookingRedirect", id="id" , month="month", day="day", year="year", rName = "rName"  }
+            );
+
+            /********************************
+            * Car Rental Reservation
+            ********************************/
+            routes.MapRoute(
+                name: "Reservation",
+                url: "reservation/{id}/{month}/{day}/{year}/{rName}",
+                defaults: new { controller = "CarReservations", action = "ReservationRedirect", id = "id", month = "month", day = "day", year = "year", rName = "rName" }
+            );
+
             /********************************
             * sitemap
             ********************************/
@@ -87,7 +137,7 @@ namespace JobsV1
                 defaults: new { controller = "CarRental", action = "Index", id = UrlParameter.Optional }
             );
             /********************************
-            *AJ88 car rental default
+            * AJ88 car rental default
             ********************************/
             routes.MapRoute(
                 name: "Default",

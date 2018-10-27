@@ -20,10 +20,7 @@ namespace JobsV1.Controllers
 
             ViewBag.PackageList = db.CarRateUnitPackages.ToList(); 
             var carReservations = db.CarReservations.Include(c => c.CarUnit).Include(c=>c.CarResPackages);
-            var DateNow = DateTime.Now;
-            var DateToday = DateNow.Date;
-
-
+            
             DateTime today = DateTime.Today;
             today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Singapore Standard Time");
             
@@ -52,12 +49,23 @@ namespace JobsV1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CarReservation carReservation = db.CarReservations.Find(id);
-            if (carReservation == null)
+            CarReservation cr = db.CarReservations.Find(id);
+            if (cr == null)
             {
                 return HttpNotFound();
             }
-            return View(carReservation);
+
+
+            //fillout empty
+            cr.LocStart = cr.LocStart == null ? "N/A" : cr.LocStart;
+            cr.LocEnd = cr.LocEnd == null ? "N/A" : cr.LocEnd;
+            cr.RenterCompany = cr.RenterCompany == null ? "N/A" : cr.RenterCompany;
+            cr.RenterAddress = cr.RenterAddress == null ? "N/A" : cr.RenterAddress;
+            cr.RenterFbAccnt = cr.RenterFbAccnt == null ? "N/A" : cr.RenterFbAccnt;
+            cr.RenterLinkedInAccnt = cr.RenterLinkedInAccnt == null ? "N/A" : cr.RenterLinkedInAccnt;
+
+
+            return View(cr);
         }
 
         // GET: CarReservations/Create
@@ -159,6 +167,33 @@ namespace JobsV1.Controllers
             CarResPackage carResReservation = db.CarResPackages.Where(c=>c.CarReservationId == ReservationId).FirstOrDefault();
             db.CarResPackages.Remove(carResReservation);
             db.SaveChanges();
+        }
+
+
+        public ActionResult ReservationRedirect(int id, string month, string day, string year, string rName)
+        {
+            String DateBook = month + "/" + day + "/" + year;
+            DateTime booking = DateTime.Parse(DateBook);
+            int iMonth = int.Parse(month);
+            int iday = int.Parse(day);
+            int iyear = int.Parse(year);
+
+            CarReservation job = db.CarReservations.
+                Where(j => j.Id == id).Where(j => j.DtTrx.Month == iMonth && j.DtTrx.Day == iday && j.DtTrx.Year == iyear).
+                Where(j=>j.RenterName == rName).
+                FirstOrDefault();
+
+            //fillout empty
+            job.LocStart      = job.LocStart      == null ? "N/A" : job.LocStart;
+            job.LocEnd        = job.LocEnd        == null ? "N/A" : job.LocEnd;
+            job.RenterCompany = job.RenterCompany == null ? "N/A" : job.RenterCompany;
+            job.RenterAddress = job.RenterAddress == null ? "N/A" : job.RenterAddress;
+            job.RenterFbAccnt = job.RenterFbAccnt == null ? "N/A" : job.RenterFbAccnt;
+            job.RenterLinkedInAccnt = job.RenterLinkedInAccnt == null ? "N/A" : job.RenterLinkedInAccnt;
+
+            ViewBag.rentalType = job.SelfDrive == 1 || job.SelfDrive == null ? "Self Drive" : "With Driver";
+
+            return View("Details", job);
         }
     }
 }

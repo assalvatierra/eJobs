@@ -78,11 +78,14 @@ namespace JobsV1.Controllers
 
         public ActionResult Reservation(int unitid)
         {
+            DateTime today = DateTime.Now;
+            today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Singapore Standard Time");
+
             //defaults
             CarReservation reservation = new CarReservation();
-            reservation.DtTrx          = DateTime.Now;
-            reservation.DtStart        = DateTime.Now.ToString();
-            reservation.DtEnd          = DateTime.Now.AddDays(2).ToString();
+            reservation.DtTrx          = today;
+            reservation.DtStart        = today.AddDays(2).ToString();
+            reservation.DtEnd          = today.AddDays(3).ToString();
             reservation.EstHrPerDay    = 0;
             reservation.EstKmTravel    = 0;
             reservation.JobRefNo       = 0;
@@ -110,7 +113,6 @@ namespace JobsV1.Controllers
 
                 //self drive reservation
                 addCarResPackage(carReservation.Id, 1, 0, 0);
-
 
                 //sendMail(jobid ,RenterEmail);
                 //sent email to the user
@@ -234,12 +236,15 @@ namespace JobsV1.Controllers
         // GET: CarReservations/Create
         public ActionResult FormRenter(int? id)
         {
+            DateTime today = DateTime.Now;
+            today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Singapore Standard Time");
+
             CarReservation reservation = new CarReservation();
-            reservation.DtTrx = DateTime.Now;
-            reservation.DtStart = DateTime.Now.ToString();
-            reservation.DtEnd = DateTime.Now.AddDays(2).ToString();
-            reservation.JobRefNo = 0;
-            reservation.SelfDrive = 0;  //with driver = 0, self drive = 1;
+            reservation.DtTrx       = today;
+            reservation.DtStart     = today.AddDays(2).ToString();
+            reservation.DtEnd       = today.AddDays(3).ToString();
+            reservation.JobRefNo    = 0;
+            reservation.SelfDrive   = 0;  //with driver = 0, self drive = 1;
             reservation.EstHrPerDay = 10;
             reservation.EstKmTravel = 100;
 
@@ -347,12 +352,29 @@ namespace JobsV1.Controllers
             
         }
         
-
         public string sendMail(int jobId, string renterEmail, string mailType, string recipientName )
         {
             EMailHandler mail = new EMailHandler();
             return mail.SendMail(jobId, renterEmail, mailType, recipientName);
         }
 
+
+
+        public ActionResult CarView(string carDesc)
+        {
+            switch (carDesc)
+            {
+                case "honda-city":
+                    return View("~/Views/CarRental/CarViews/HondaCity.cshtml");
+                case "ford-everest":
+                    return View("~/Views/CarRental/CarViews/FordEverest.cshtml");
+                case "toyota-glgrandia":
+                    return View("~/Views/CarRental/CarViews/ToyotaGLGrandia.cshtml");
+                case "sedan-listing":
+                    return View("~/Views/CarRental/CarViews/SedanListing.cshtml");
+                default:
+                    return View("~/Views/CarRental/CarViews/HondaCity.cshtml");
+            }
+        }
     }
 }

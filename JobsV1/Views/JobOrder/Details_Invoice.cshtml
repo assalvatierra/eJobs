@@ -238,95 +238,106 @@
 
 <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 <script>
-    var count = 0;
-    paypal.Button.render({
-        // Configure environment
-        env: 'sandbox',
-        client: {
-            sandbox: 'AeKvfmAZjDaTJ4bH4PFGurLMvFZOl9OeHaK6xUlSCB0Ny8RU2WEeijZLTeRGvz0GjQXrX1SuaYvf53-H',
-            production: 'demo_production_client_id'
-        },
-        // Customize button (optional)
-        locale: 'en_US',
-        style: {
-            label: 'pay',
-            size: 'medium',
-            color: 'blue',
-            shape: 'pill',
-        },
 
-        // Set up a payment
-        payment: function (data, actions) {
-            return actions.payment.create({
-                transactions: [{
-                    amount: {
-                        total: '@dQuotedAmt.ToString("##,###.00")',
-                        currency: 'PHP',
-                        details: {
-                            subtotal: '@dQuotedAmt.ToString("##,###.00")',
-                            tax: '0.00'
-                            //shipping: '0.01',
-                            //handling_fee: '1.00',
-                            //shipping_discount: '0.00',
-                            //insurance: '0.00'
-                        }
+    var today = new Date().toLocaleString();
 
-                    },
-                    description: 'RealWheels Car Rental.',
-                    custom: @ViewBag.rsvId,// Insert a unique invoice number
-                    invoice_number: @ViewBag.rsvId,// Insert a unique invoice number
-                    payment_options: {
-                        allowed_payment_method: 'INSTANT_FUNDING_SOURCE'
-                    },
-                    soft_descriptor: 'Reservation: @ViewBag.rsvId',
-                    item_list: {
+    if("@ViewBag.isPaymentValid" == "True" ) {
+    
+        alert("Notice, online payment has been disable. For Payment transactions, please call (+63)9330895358  or (+63)9167558473");
+    
+    }else{
 
-                        //item list
-                        items: [
-                            @foreach (var item in services)
-                            {
-                                if (services.Last().Id != item.Id)
-                                {
-                                    <text>
-                                    {
-                                        name: '@item.Particulars',
-                                        description: 'Unit: @item.SupplierItem.Description',
-                                        quantity: '1',
-                                        price: '@item.QuotedAmt.00',
-                                        tax: '0.00',
-                                        currency: 'PHP'
-                                    },
-                                    </text>
-                                }else {   //last item
-                                    <text>
-                                    {
-                                        name: '@item.Particulars',
-                                        description: 'Unit: @item.SupplierItem.Description',
-                                        quantity: '1',
-                                        price: '@item.QuotedAmt.00',
-                                        tax: '0.00',
-                                        currency: 'PHP'
-                                    }
-                                    </text>
+        var count = 0;
+        paypal.Button.render({
+            // Configure environment
+            env: 'sandbox',
+            client: {
+                sandbox: 'AeKvfmAZjDaTJ4bH4PFGurLMvFZOl9OeHaK6xUlSCB0Ny8RU2WEeijZLTeRGvz0GjQXrX1SuaYvf53-H',
+                production: 'demo_production_client_id'
+            },
+            // Customize button (optional)
+            locale: 'en_US',
+            style: {
+                label: 'pay',
+                size: 'medium',
+                color: 'blue',
+                shape: 'pill',
+            },
 
-                                }
+            // Set up a payment
+            payment: function (data, actions) {
+                return actions.payment.create({
+                    transactions: [{
+                        amount: {
+                            total: '@dQuotedAmt.ToString("##,###.00")',
+                            currency: 'PHP',
+                            details: {
+                                subtotal: '@dQuotedAmt.ToString("##,###.00")',
+                                tax: '0.00'
+                                //shipping: '0.01',
+                                //handling_fee: '1.00',
+                                //shipping_discount: '0.00',
+                                //insurance: '0.00'
                             }
-                        ]
-                    }
-                }]
-            });
-        },
-        // Execute the payment
-        onAuthorize: function (data, actions) {
-            return actions.payment.execute()
-            .then(function (response) {
-                // Show a confirmation message to the buyer
-                window.alert('Thank you for your purchase! ' + response["cart"] );
+                        },
+                        description: 'RealWheels Car Rental.',
+                        custom: @Model.Id,// Insert a unique invoice number
+                        invoice_number: @Model.Id,// Insert a unique invoice number
+                        payment_options: {
+                            allowed_payment_method: 'INSTANT_FUNDING_SOURCE'
+                        },
+                        soft_descriptor: 'Reservation Job Id: @Model.Id',
+                        item_list: {
 
-                console.log(data);
-                console.log(response);
-                window.location.href = '@Url.Action("SendEmail", "JobOrder", new{ jobId = Model.Id, mailType = "PAYMENT-PENDING" })'
-            });
-        }
-    }, '#paypal-button');
+                            //item list
+                            items: [
+                                @foreach (var item in services)
+                                {
+                                    if (services.Last().Id != item.Id)
+                                    {
+                                        <text>
+                                        {
+                                            name: '@item.Particulars',
+                                            description: 'Unit: @item.SupplierItem.Description',
+                                            quantity: '1',
+                                            price: '@item.QuotedAmt.00',
+                                            tax: '0.00',
+                                            currency: 'PHP'
+                                        },
+                                        </text>
+                                    }else {   //last item
+                                        <text>
+                                        {
+                                            name: '@item.Particulars',
+                                            description: 'Unit: @item.SupplierItem.Description',
+                                            quantity: '1',
+                                            price: '@item.QuotedAmt.00',
+                                            tax: '0.00',
+                                            currency: 'PHP'
+                                        }
+                                        </text>
+
+                                    }
+                                }
+                            ]
+                        }
+                    }]
+                });
+            },
+            // Execute the payment
+            onAuthorize: function (data, actions) {
+                return actions.payment.execute()
+                .then(function (response) {
+                    // Show a confirmation message to the buyer
+                    window.alert('Thank you for your purchase! ' + response["cart"] );
+
+                    console.log(data);
+                    console.log(response);
+                    window.location.href = '@Url.Action("SendEmail", "JobOrder", new{ jobId = Model.Id, mailType = "PAYMENT-PENDING" })'
+                });
+            }
+        }, '#paypal-button');
+    
+    }//end of else
+      
 </script>

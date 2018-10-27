@@ -10,7 +10,9 @@ namespace JobsV1.Models
 {
     public class EMailHandler
     {
-       
+
+        private JobDBContainer db = new JobDBContainer();
+
         public string SendMail(int jobId, string renterMail, string mailType, string renterName) {
             try
             {
@@ -32,51 +34,76 @@ namespace JobsV1.Models
 
                 string body,message;
 
-                md.Subject = renterName + ": Paypal Reservation";   //mail title
+                //get job details
+
+                md.Subject = renterName + ": NEW RealWheels Reservation";   //mail title
 
                 if (mailType == "ADMIN")
                 {
                     //mail content for admin
-                    message = "A NEW Reservation Inquiry has been made. Please follow the link for the reservation details. <a href='https://realwheelsdavao.com/CarReservations/Details/" + jobId.ToString() + "' " +
+                    //id = carReservation Id
+
+                    CarReservation reserve = db.CarReservations.Find(jobId);
+
+                    message = "A NEW Reservation Inquiry has been made. Please follow the link for the reservation details. <a href='http://localhost:50382/reservation/" + jobId + "/" + reserve.DtTrx.Month + "/" + reserve.DtTrx.Day + "/" + reserve.DtTrx.Year + "/" + reserve.RenterName + "' " +
                     " style='display:block;background-color:dodgerblue;margin:20px;padding:20px;text-decoration:none;font-weight:bolder;font-size:300;color:white;border-radius:3px;'> Reservation Details  </a> ";
                 }
                 else if(mailType == "PAYMENT-SUCCESS")
                 {
                     md.Subject = renterName + ": Paypal Reservation SUCCESS";   //mail title
 
+                    CarReservation reserve = db.CarReservations.Find(jobId);
+
                     //mail content for successful payment
-                    message = "Paypal Payment is SUCCESS. Please follow the link for the reservation details. <a href='https://realwheelsdavao.com/CarReservations/Details/" + jobId.ToString() + "' " +
+                    //id = carReservation Id
+                    message = "Paypal Payment is SUCCESS. Please follow the link for the reservation details. <a href='https://realwheelsdavao.com/reservation/" + jobId + "/" + reserve.DtTrx.Month + "/" + reserve.DtTrx.Day + "/" + reserve.DtTrx.Year + "/" + reserve.RenterName + "' " +
                     " style='display:block;background-color:dodgerblue;margin:20px;padding:20px;text-decoration:none;font-weight:bolder;font-size:300;color:white;border-radius:3px;'> Reservation Details </a> ";
                 }
                 else if (mailType == "PAYMENT-DENIED")
                 {
                     md.Subject = renterName + ": Paypal Reservation DENIED";   //mail title
 
+                    CarReservation reserve = db.CarReservations.Find(jobId);
+
                     //mail content for denied payment
-                    message = "Paypal Payment have been DENIED. Please follow the link for the reservation details. <a href='https://realwheelsdavao.com/CarReservations/Details/" + jobId.ToString() + "' " +
+                    //id = carReservation Id
+                    message = "Paypal Payment have been DENIED. Please follow the link for the reservation details. <a href='https://realwheelsdavao.com/reservation/" + jobId + "/" + reserve.DtTrx.Month + "/" + reserve.DtTrx.Day + "/" + reserve.DtTrx.Year + "/" + reserve.RenterName + "' " +
                     " style='display:block;background-color:dodgerblue;margin:20px;padding:20px;text-decoration:none;font-weight:bolder;font-size:300;color:white;border-radius:3px;'> Reservation Details </a> ";
                 }
                 else if (mailType == "PAYMENT-PENDING")
                 {
                     md.Subject = renterName + ": Paypal Reservation PENDING";   //mail title
 
+                    CarReservation reserve = db.CarReservations.Find(jobId);
+
                     //mail content for pending payment
-                    message = "Paypal Payment has been sent. Please follow the link for the reservation details. <a href='https://realwheelsdavao.com/CarReservations/Details/" + jobId.ToString() + "' " +
+                    //id = carReservation Id
+                    message = "Paypal Payment has been sent. Please follow the link for the reservation details. <a href='http://localhost:50382/reservation/" + jobId + "/" + reserve.DtTrx.Month + "/" + reserve.DtTrx.Day + "/" + reserve.DtTrx.Year + "/" + reserve.RenterName + "' " +
                     " style='display:block;background-color:dodgerblue;margin:20px;padding:20px;text-decoration:none;font-weight:bolder;font-size:300;color:white;border-radius:3px;'> Reservation Details </a> ";
                 }
                 else if (mailType == "CLIENT-PENDING")
                 {
                     md.Subject = "Realwheels Reservation";   //mail title
 
+                    CarReservation reserve = db.CarReservations.Find(jobId);
+
                     //mail content for pending payment
-                    message = "We are happy to recieved your inquiry. We will contact you after we have processed your reservation. Thank you.  " ;
+                    message = "We are happy to recieved your inquiry. We will contact you after we have processed your reservation. Please click the link below for your reservation details, Thank you. <a href='https://realwheelsdavao.com/reservation/" + jobId + "/" + reserve.DtTrx.Month + "/" + reserve.DtTrx.Day + "/" + reserve.DtTrx.Year + "/" + reserve.RenterName + "' " +
+                    " style='display:block;background-color:dodgerblue;margin:20px;padding:20px;text-decoration:none;font-weight:bolder;font-size:300;color:white;border-radius:3px;'> View Booking Details </a> ";
                 }
                 else
                 {
+                    //send email in /joborder
+                    //id = jobMain Id
+
+                    JobMain job = db.JobMains.Find(jobId);
+
                     md.Subject = "Realwheels Reservation";   //mail title
 
                     //mail content for client inquiries
-                    message = " Your inquiry have been processed to confirm your reservation, please follow the link for the invoice and payment. <a href='https://realwheelsdavao.com/JobOrder/BookingDetails/" + jobId.ToString() + "?iType=1' " +
+                    //message = " Your inquiry have been processed to confirm your reservation, please follow the link for the invoice and payment. <a href='https://realwheelsdavao.com/JobOrder/BookingDetails/" + jobId.ToString() + "?iType=1' " +
+                    //" style='display:block;background-color:dodgerblue;margin:20px;padding:20px;text-decoration:none;font-weight:bolder;font-size:300;color:white;border-radius:3px;'> View Booking Details </a> ";
+                    message = " Your inquiry have been processed to confirm your reservation, please follow the link for the invoice and payment. <a href='https://realwheelsdavao.com/invoice/" + jobId + "/" + job.JobDate.Month + "/" + job.JobDate.Day + "/" + job.JobDate.Year + "/" + job.Description + "' " +
                     " style='display:block;background-color:dodgerblue;margin:20px;padding:20px;text-decoration:none;font-weight:bolder;font-size:300;color:white;border-radius:3px;'> View Booking Details </a> ";
                 }
 

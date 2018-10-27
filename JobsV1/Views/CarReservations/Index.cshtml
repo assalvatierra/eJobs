@@ -34,7 +34,7 @@
 <p>
     Filter by: 
         @Html.ActionLink("OnGoing", "Index",new { filter = 1 }) |
-        @Html.ActionLink("Previous", "Index", new { filter = 1 })
+        @Html.ActionLink("Previous", "Index", new { filter = 2 })
 
 </p>
 <table class="table">
@@ -55,6 +55,8 @@
             <p><label class="cust-rsvr-rdate" >
                  @Html.DisplayFor(modelItem => item.DtStart) - @Html.DisplayFor(modelItem => item.DtEnd) 
             </label></p>
+            <p> <span style="color:gray;"> Reservation No: </span> @Html.DisplayFor(modelItem => item.Id) </p>
+
             <p> <span style="color:gray;"> Destination: </span> @Html.DisplayFor(modelItem => item.Destinations) - @Html.DisplayFor(modelItem => item.UseFor) </p>
 
             <p> <span style="color:gray;"> Vehicle: </span>@Html.DisplayFor(modelItem => item.CarUnit.Description) -
@@ -103,7 +105,7 @@
            
         </td>
         <td class="col-sm-3">
-            <p> <span style="color:black;"> Job Details: @item.JobRefNo </span></p>
+            <p> <span style="color:black;"> Job Details: </span></p>
             @if (item.JobRefNo != 0 && item.JobRefNo != null)
             {
                 @Html.ActionLink("View Quotation", "JobServices", "JobOrder", new { JobMainId = item.JobRefNo }, new { @class = "btn btn-primary" })

@@ -1204,6 +1204,10 @@
     <Content Include="Views\Home\MobileModalView.cshtml" />
     <Content Include="Views\CarRental\MobileModalView.cshtml" />
     <Content Include="Views\CarReservations\CreateQuotation.cshtml" />
+    <Content Include="Views\CarRental\CarViews\HondaCity.cshtml" />
+    <Content Include="Views\CarRental\CarViews\FordEverest.cshtml" />
+    <Content Include="Views\CarRental\CarViews\ToyotaGLGrandia.cshtml" />
+    <Content Include="Views\CarRental\CarViews\SedanListing.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

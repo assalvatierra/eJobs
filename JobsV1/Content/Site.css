@@ -226,3 +226,122 @@ rental-type-wdriver {
     .daily-update-data-status {
         font-weight: bold;
     }
+
+
+/*
+    Reservation Details
+*/
+
+    .reservation{
+        margin:20px;
+        padding:25px;
+    }
+
+    .reservation-container{
+        border:1px solid lightgray;
+        margin:20px;
+        padding:10px;
+        border-radius:10px;
+        box-shadow:0px 0px 3px 1px gray;
+        min-width:400px;
+    }
+    
+    .reservation-container > h2{
+        margin-left:30px;
+    }
+
+    .reservation-right{
+        border-right:1px solid lightgray;
+        margin-right:100px;
+        min-width:350px;
+    }
+
+    .reservation > p{
+        font-size:26px;
+        margin-top:-8px;
+        text-wrap:normal;
+    }
+    .reservation > label{
+        color: dodgerblue;
+    }
+
+    /**
+    *
+    **/
+    
+    .ads-desc-box{
+        margin-right:20px;
+        margin-bottom:30px;
+        padding:20px 40px;
+        max-width:700px;
+        min-width:400px;
+        border:1px solid lightgray; 
+        box-shadow: 0px 0px 3px 1px lightgray; 
+        border-radius:10px;
+    }
+    .ads-desc-img-box{
+        border:1px solid lightgray; 
+        border-radius:10px;
+    }
+    
+    .ads-desc-img-box :hover{
+       box-shadow: 0px 0px 5px 1px dodgerblue;
+       transition-duration: 0.5s;
+       cursor:pointer;
+    }
+
+    .ads-tech-details{
+         margin-right:20px;
+         margin-bottom:10px;
+         border-radius:10px;
+         padding:20px 40px;
+         max-width:600px;
+         min-width:300px;
+         border:1px solid lightgray;
+         box-shadow: 0px 0px 3px 1px lightgray;
+    }
+    .ads-tech-details > hr{
+         margin-top:10px;
+         margin-bottom:10px;
+    }
+    
+    .ads-link{
+         margin-right:20px;
+         margin-bottom:10px;
+         border-radius:10px;
+         padding:10px 40px;
+         max-width:600px;
+         min-width:300px;
+         border:1px solid lightgray;
+         box-shadow: 0px 0px 3px 1px lightgray;
+    }
+    
+    .ads-link > hr{
+         margin-top:10px;
+         margin-bottom:10px;
+    }
+
+    .ads-desc-carDesc{
+        float: left;
+        font-weight:bold;
+    }
+    .ads-desc-carPrice{
+         float:right;
+         font-size:22px;
+         margin-bottom:5px;
+    }
+
+    .ads-desc-img-primary{
+        width:100%;
+        max-width:500px;
+        min-width:250px;
+    }
+
+
+    .ads-desc-img-box-gallery{
+        width:23%;max-width:200px;min-width:100px;
+    }
+
+    .ads-desc-tags > a {
+        margin-bottom:3px;
+    }

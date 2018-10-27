@@ -44,7 +44,7 @@ namespace JobsV1.Controllers
             string webhookId = jsonBody.id;
             string paypalID = jsonBody.resource.id;
             decimal Totalamount = (decimal)jsonBody.resource.amount.total;
-            int jobId = (int)jsonBody.resource.invoice_number;
+            int jobId = (int)jsonBody.resource.invoice_number; // bookingid
             var ev = WebhookEvent.Get(apiContext, webhookId);
 
             // We have all the information the SDK needs, so perform the validation.
@@ -55,16 +55,12 @@ namespace JobsV1.Controllers
             //get job description
             JobMain jobOrder = db.JobMains.Find(jobId);
             string clientName = jobOrder.Description;
-
             EMailHandler mail = new EMailHandler();
 
             switch (ev.event_type)
             {
-                case "PAYMENT.cAPTURE.COMPLETED":
+                case "PAYMENT.CAPTURE.COMPLETED":
                 case "PAYMENT.SALE.COMPLETED": // Handle payment completed
-                    //add to log
-                    DB.addTestNotification(jobId, paypalID);
-
                     //record payment
                     AddPaymentRecord(jobId, Totalamount);
 
@@ -72,26 +68,31 @@ namespace JobsV1.Controllers
                     mail.SendMail(jobId, "reservation.realwheels@gmail.com", "PAYMENT-SUCCESS", clientName);
                     mail.SendMail(jobId, "ajdavao88@gmail.com", "PAYMENT-SUCCESS", clientName);
                     mail.SendMail(jobId, "travel.realbreze@gmail.com", "PAYMENT-SUCCESS", clientName);
+
+                    //add to log
+                    DB.addTestNotification(jobId, paypalID);
                     break;
                 case "PAYMENT.SALE.DENIED":
                 case "PAYMENT.CAPTURE.DENIED": // Handle payment denied
-                    //add to log
-                    DB.addTestNotification(jobId, paypalID);
 
                     //send mail
-                    mail.SendMail(jobId, "jahdielsvillosa@gmail.com", "PAYMENT-DENIED", clientName);
+                    mail.SendMail(jobId, "reservation.realwheels@gmail.com", "PAYMENT-DENIED", clientName);
                     mail.SendMail(jobId, "ajdavao88@gmail.com", "PAYMENT-DENIED", clientName);
                     mail.SendMail(jobId, "travel.realbreze@gmail.com", "PAYMENT-DENIED", clientName);
+
+                    //add to log
+                    DB.addTestNotification(jobId, paypalID);
                     break;
                 // Handle other webhooks
                 default: // Handle payment denied
+                    //send mail
+                    mail.SendMail(jobId, "reservation.realwheels@gmail.com", "PAYMENT-PENDING", clientName);
+                    mail.SendMail(jobId, "ajdavao88@gmail.com", "PAYMENT-PENDING", clientName);
+                    mail.SendMail(jobId, "travel.realbreze@gmail.com", "PAYMENT-PENDING", clientName);
+
                     //add to log
                     DB.addTestNotification(jobId, paypalID);
 
-                    //send mail
-                    mail.SendMail(jobId, "jahdielsvillosa@gmail.com", "PAYMENT-PENDING", clientName);
-                    mail.SendMail(jobId, "ajdavao88@gmail.com", "PAYMENT-PENDING", clientName);
-                    mail.SendMail(jobId, "travel.realbreze@gmail.com", "PAYMENT-PENDING", clientName);
                     break;
             }
 
@@ -116,9 +117,9 @@ namespace JobsV1.Controllers
             {
                 // ConfigManager.Instance.GetProperties(); // it doesn't work on ASPNET 5
                 return new Dictionary<string, string>() {
-                { "clientId", "AeKvfmAZjDaTJ4bH4PFGurLMvFZOl9OeHaK6xUlSCB0Ny8RU2WEeijZLTeRGvz0GjQXrX1SuaYvf53-H" },
-                { "clientSecret", "EASK4ghccZuqU3VDsEwA9WzEbNWqqtWPJQWXkd1UAcKflTQ1CX1dAvj2ZyKcE_nILs2ewK0rQkJ85hAX" }
-            };
+                    { "clientId", "AeKvfmAZjDaTJ4bH4PFGurLMvFZOl9OeHaK6xUlSCB0Ny8RU2WEeijZLTeRGvz0GjQXrX1SuaYvf53-H" },
+                    { "clientSecret", "EASK4ghccZuqU3VDsEwA9WzEbNWqqtWPJQWXkd1UAcKflTQ1CX1dAvj2ZyKcE_nILs2ewK0rQkJ85hAX" }
+                };
             }
 
             // Create accessToken
@@ -151,10 +152,14 @@ namespace JobsV1.Controllers
 
         //add paypal payment to job payment (full/partial) 
         private void AddPaymentRecord(int JobMainId, decimal amount ) {
+
+            DateTime today = DateTime.Now;
+            today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Singapore Standard Time");
+
             string remarks = "PayPal Payment";
             JobPayment jobPayment = new JobPayment();
             jobPayment.BankId = 5;                      //personal guarantee, need to add (5) paypal
-            jobPayment.DtPayment = DateTime.Now;
+            jobPayment.DtPayment = today;
             jobPayment.JobMainId = (int)JobMainId;
             jobPayment.PaymentAmt = amount;
             jobPayment.Remarks = remarks;
