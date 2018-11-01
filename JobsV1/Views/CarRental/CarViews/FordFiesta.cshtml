@@ -1,15 +1,15 @@
 ﻿
 @{
-    ViewBag.Title = "Toyota HiAce – GL Grandia";
+    ViewBag.Title = "Ford Fiesta 1.6L - Sedan 2012 ";
 }
 
 <div class="jumbotron">
 
     <h2>Real Wheels Rent a Car</h2>  
     <p>
-        <a href="/ads/">Listing</a> >
-        <a href="/ad-category/vans/">Van</a>
-        <a href="">Toyota GL Grandia</a> <!--Vehicle-->
+        <a href="/ads/page/2/">Listing</a> >
+        <a href="/ad-category/mpv/">MPV</a> >
+        <a href="">Ford Fiesta</a>
     </p>  
 
 </div>
@@ -18,21 +18,20 @@
     <div class="col-lg-8 ads-desc-box" >
 
         <div class="col-lg-12">
-            <h3 class="text-left ads-desc-carDesc">Toyota HiAce – GL Grandia</h3>
-            <h3 class="label label-success ads-desc-carPrice" >PHP 2,500</h3>
+            <h3 class="text-left ads-desc-carDesc"> Ford Fiesta 1.6L-Sedan 2012 </h3>
+            <h3 class="label label-success text-right ads-desc-carPrice">PHP 2,500</h3>
             <br />
             <br />
             <hr />
         </div>
 
         <div class="col-lg-12 ">
-            <img src="~/Images/CarRental/CarViews/ToyotaGrandia/Toyota-GL-Grandia.jpg" alt="realwheelsdavao toyota-gl-grandia" class="img-thumbnail ads-desc-img-primary" />
+            <img src="~/Images/CarRental/CarViews/FordEverest/Ford-Fiesta.jpg" alt="realwheelsdavao ford-fiesta" class="img-thumbnail ads-desc-img-primary" />
+        
         </div>
-
+       
         <div class="col-lg-12 ads-desc-img-box" >
-            <img src="~/Images/CarRental/CarViews/ToyotaGrandia/Toyota-GL-Grandia.jpg" alt="realwheelsdavao toyota-gl-grandia" class="img-thumbnail ads-desc-img-box-gallery"/>
-            <img src="~/Images/CarRental/CarViews/ToyotaGrandia/Toyota-GL-Grandia-rear.jpg" alt="realwheelsdavao toyota-gl-grandia" class="img-thumbnail ads-desc-img-box-gallery" />
-            <img src="~/Images/CarRental/CarViews/ToyotaGrandia/Toyota-GL-Grandia-interior.jpg" alt="realwheelsdavao toyota-gl-grandia" class="img-thumbnail ads-desc-img-box-gallery" />
+            <img src="~/Images/CarRental/CarViews/FordEverest/Ford-Fiesta.jpg" alt="realwheelsdavao ford-fiesta" class="img-thumbnail ads-desc-img-box-gallery"/>
         </div>
 
         <div class="col-lg-12">
@@ -45,9 +44,6 @@
                 <br />2. Special Events Package (Weddings, Blessing & Others)
                 <br />3. Company Service (Monthly or yearly Contract Basis)
                 <br />4. Davao Tour Service Package
-                <br />5. Out of Town
-                <br />( Digos, Kidapawan, General Santos City, Bukidnon, CDO,
-                <br />Tagum City, COMVAL, Mati, Surigao, etc. )
             </p>
             <hr />
             <p>
@@ -60,8 +56,8 @@
             <p>CHECK OUR PACKAGE TOURS <a href="http://realbreezedavaotours.com/"> HERE</a></p>
             </p>
         </div>
-        @{Html.RenderPartial("CarViews/TagsView");}
 
+        @{Html.RenderPartial("CarViews/TagsView");}
     </div>
 
 
@@ -70,16 +66,18 @@
             Technical Details
         </h3>
         <p>
-            <br /> Manufacturer:       <b>Toyota</b>
-            <hr /><br /> Model:        <b>GL Grandia </b>
-            <hr /><br /> Year:         <b>2013 </b>
+            <br /> Manufacturer:       <b>Ford</b>
+            <hr /><br /> Model:        <b>Fiesta </b>
+            <hr /><br /> Year:         <b>2012 </b>
             <hr /><br /> Color:        <b>White </b>
-            <hr /><br /> Transmission: <b>Manual </b>
+            <hr /><br /> Transmission: <b>Automatic </b>
             <hr /><br /> Fuel Type:    <b>N/A </b>
-            <hr /><br /> Seats:        <b>10 </b>
-            <hr /><br /> Milage:       <b>2000</b>
+            <hr /><br /> Seats:        <b>4 </b>
+            <hr /><br /> Milage:       <b>10000</b>
         </p>
 
     </div>
+
+
     @{Html.RenderPartial("CarViews/PopularAdsView");}
 </div>

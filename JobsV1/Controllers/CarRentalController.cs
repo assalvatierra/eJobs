@@ -366,14 +366,66 @@ namespace JobsV1.Controllers
             {
                 case "honda-city":
                     return View("~/Views/CarRental/CarViews/HondaCity.cshtml");
+                case "honda-city-2012":
+                    return View("~/Views/CarRental/CarViews/HondaCity2012.cshtml");
                 case "ford-everest":
                     return View("~/Views/CarRental/CarViews/FordEverest.cshtml");
                 case "toyota-glgrandia":
                     return View("~/Views/CarRental/CarViews/ToyotaGLGrandia.cshtml");
+                case "toyota-innova":
+                    return View("~/Views/CarRental/CarViews/ToyotaInnova.cshtml");
+                case "self-drive":
+                    return View("~/Views/CarRental/CarViews/HondaCity2012-SelfDrive.cshtml");
+                case "minivan-sedan":
+                    return View("~/Views/CarRental/CarViews/MiniVanSedan.cshtml");
+                case "rent-a-car":
+                    return View("~/Views/CarRental/CarViews/DavaoRentaCar.cshtml");
+                case "toyota-avanza":
+                    return View("~/Views/CarRental/CarViews/ToyotaAvanza.cshtml");
+                case "van-rental":
+                    return View("~/Views/CarRental/CarViews/VanRental.cshtml");
+
+                    //Page 2 start
+                case "p2-innova-rental":
+                    return View("~/Views/CarRental/CarViews/ToyotaInnovaCarForRent.cshtml");
+                case "innova-self-drive":
+                    return View("~/Views/CarRental/CarViews/RentCarSelfDrive.cshtml");
+                case "ford-fiesta":
+                    return View("~/Views/CarRental/CarViews/FordFiesta.cshtml");
+                case "honda-self-drive":
+                    return View("~/Views/CarRental/CarViews/HondaCityRental.cshtml");
+                case "toyota-fortuner":
+                    return View("~/Views/CarRental/CarViews/ToyotaFortuner.cshtml");
+                case "pickup":
+                    return View("~/Views/CarRental/CarViews/Pickup4x4.cshtml");
+
+                //ads tag start
+                case "tag-car-rental-davao":
+                    return View("~/Views/CarRental/CarViews/Tags/car-rental-davao.cshtml");
+                case "tag-davao-rent-a-car":
+                    return View("~/Views/CarRental/CarViews/Tags/davao-rent-A-car.cshtml");
+                case "rent-a-car-davao-city":
+                    return View("~/Views/CarRental/CarViews/Tags/rent-a-car-davao-city.cshtml");
+                case "van-for-rent-davao-city":
+                    return View("~/Views/CarRental/CarViews/Tags/van-for-rent-davao-city.cshtml");
+
+                //listing start
                 case "sedan-listing":
-                    return View("~/Views/CarRental/CarViews/SedanListing.cshtml");
+                    return View("~/Views/CarRental/CarViews/ListingSedan.cshtml");
+                case "ads-listing":
+                    return View("~/Views/CarRental/CarViews/ListingAds.cshtml");
+                case "ads-listing-others":
+                    return View("~/Views/CarRental/CarViews/ListingSUV.cshtml");
+                case "ads-listing-vans":
+                    return View("~/Views/CarRental/CarViews/ListingVan.cshtml");
+                case "ads-listing-mpv":
+                    return View("~/Views/CarRental/CarViews/ListingMPV.cshtml");
+                case "ads-listing-pickup":
+                    return View("~/Views/CarRental/CarViews/ListingPickup.cshtml");
+                case "ads-listing-page-2":
+                    return View("~/Views/CarRental/CarViews/ListingAds2.cshtml");
                 default:
-                    return View("~/Views/CarRental/CarViews/HondaCity.cshtml");
+                    return View("~/Views/CarRental/CarViews/ListingAds.cshtml");
             }
         }
     }

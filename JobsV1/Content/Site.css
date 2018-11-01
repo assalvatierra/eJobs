@@ -266,13 +266,13 @@ rental-type-wdriver {
     }
 
     /**
-    *
+    * ads description
     **/
     
     .ads-desc-box{
         margin-right:20px;
         margin-bottom:30px;
-        padding:20px 40px;
+        padding:20px 20px;
         max-width:700px;
         min-width:400px;
         border:1px solid lightgray; 
@@ -280,7 +280,6 @@ rental-type-wdriver {
         border-radius:10px;
     }
     .ads-desc-img-box{
-        border:1px solid lightgray; 
         border-radius:10px;
     }
     
@@ -335,13 +334,59 @@ rental-type-wdriver {
         width:100%;
         max-width:500px;
         min-width:250px;
+        margin-bottom:10px;
     }
 
 
     .ads-desc-img-box-gallery{
-        width:23%;max-width:200px;min-width:100px;
+        width:23%;max-width:150px;min-width:100px;
     }
 
     .ads-desc-tags > a {
         margin-bottom:3px;
     }
+
+    /*Listing*/
+
+    
+    .ads-listing-container{
+        min-width:500px;margin-right:10px;border:1px solid white;
+    }
+
+    .ads-listing-title-bar{
+        padding:5px 20px; border:1px solid lightgray;margin:5px;box-shadow: 0px 0px 3px 1px lightgray;border-radius:5px;
+    }
+    
+    .ads-listing-item{
+        border:1px solid lightgray;
+        margin:10px;
+        padding:10px;
+        box-shadow: 0px 0px 3px 1px lightgray;
+        border-radius:10px;
+        min-width:300px;
+    }
+   
+    .ads-listing-img{
+        width:120px;height:100px;float:left;margin:10px;
+        object-fit: fill;
+    }
+    .ads-listing-price{
+        float:right;font-weight:bold;
+    }
+    
+    .ads-listing-tech-details{
+        border:1px solid lightgray;padding:20px 20px;margin-bottom:5px;box-shadow: 0px 0px 3px 1px lightgray;border-radius:10px;
+    }
+    
+    .ads-listing-side{
+        min-width:315px;
+    }
+
+    ads-listing-item-hr{
+        margin: 5px;
+    }
+    
+    ads-listing-item > h4 > a{
+        font-weight:bold;
+    }
+    
