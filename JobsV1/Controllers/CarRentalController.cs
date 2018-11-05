@@ -35,6 +35,7 @@ namespace JobsV1.Controllers
                  We also partnered to several car rentals in Davao for us to provide a reliable and quality service.
                  ";
 
+            ViewBag.isAuthorize = HttpContext.User.Identity.Name == "" ? 0 : 1;
             ViewBag.CarUnitList = db.CarUnits.ToList();
             ViewBag.CarRates = db.CarRates.ToList();
             ViewBag.Packages = db.CarRatePackages.ToList();
@@ -178,6 +179,8 @@ namespace JobsV1.Controllers
 
         public PartialViewResult CarRate(int? unitid)
         {
+            ViewBag.isAuthorize = HttpContext.User.Identity.Name == "" ? 0 : 1;
+            ViewBag.data = 1;
             return PartialView("CarRate", db.CarRates.Where(d => d.CarUnitId == unitid));
         }
 

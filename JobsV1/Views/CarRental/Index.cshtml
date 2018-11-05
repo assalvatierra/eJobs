@@ -2,6 +2,7 @@
 
 @{
     //ViewBag.Title = "Car Rental Davao";
+    ViewBag.data = 1;
 }
 
 <div class="jumbotron row">
@@ -12,8 +13,10 @@
         <!--
         <button href="" class="btn btn-primary" id="catbtn" data-toggle="modal" data-target="#ReserveCarList" style="margin-bottom:10px; font-size:18px; margin:1px;"> Reservation </button>      
         --> 
-        @Html.ActionLink("Reservation", "FormRenter", "CarRental", new { id = 1 }, new { @class = "btn btn-primary btn-lg" })
-    
+        @if (ViewBag.isAuthorize == 1)
+        {
+            @Html.ActionLink("Reservation", "FormRenter", "CarRental", new { id = 1 }, new { @class = "btn btn-primary btn-lg" })
+        }
      </div>
 
     <div class="col-md-5"> 
