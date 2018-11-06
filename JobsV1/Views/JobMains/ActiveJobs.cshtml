@@ -48,6 +48,7 @@
         </td>
         <td>
             @s1
+
         </td>
         <td>
             @s2
@@ -78,7 +79,9 @@
                 try {
                     if (js.JsDate != null) {
                     <b> DateTime:  </b>
-                    @Html.DisplayFor(modelItem => js.JsDate)
+                        @js.JsDate.ToShortDateString()  
+                        <span> </span>
+                        @js.JsTime
                     }
 
                     <span>&nbsp;</span>
