@@ -215,7 +215,7 @@ namespace JobsV1.Controllers
 
             //loop though all jobservices in the jobmain
             //to get the latest date
-            foreach (var svc in db.JobServices.Where(s => s.JobMainId == mainId))
+            foreach (var svc in db.JobServices.Where(s => s.JobMainId == mainId).OrderBy(s=>s.DtStart))
             {
                 var svcDtStart = (DateTime)svc.DtStart;
                 var svcDtEnd = (DateTime)svc.DtEnd;
@@ -239,7 +239,7 @@ namespace JobsV1.Controllers
                 //get max date
                 if (DateTime.Compare(maxDate, svcDtEnd.Date) <= 0)
                 {
-                    maxDate = svcDtEnd.Date; //if minDate > Dtstart
+                    maxDate = svcDtEnd.Date; 
                 }
             }
 
