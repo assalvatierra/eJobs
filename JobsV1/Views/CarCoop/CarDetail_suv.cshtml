@@ -141,21 +141,21 @@
             <a href="~/Images/CarRental/ford/fordeverest_interior.jpg" target="_blank"><img class="img-thumbnail" src="~/Images/CarRental/ford/fordeverest_interior.jpg"  alt="ford-everest-car-rental-davao"/></a>
         </div>
 
-        <div class="col-lg-12 details-container">
+        <div class="col-lg-12 details-container" >
             <h1 class="text-primary text-center">Book Now! </h1>
-            @Html.ActionLink("Cost Estimate and Reservation", "FormRenter", "CarRental", new { id = @ViewBag.Id }, new { @class = "btn btn-primary col-lg-12 rsvr-btn" })
+            @Html.ActionLink("Cost Estimate and Reservation", "FormRenter", "CarCoop", new { id = @ViewBag.Id }, new { @class = "btn btn-primary col-lg-12 rsvr-btn" })
             <p class="text-info text-center" style="font-size:12px;color:gray;">
             Note: availability of the vehicle will depend on the date of reservation. </p>
         </div>
     </div>
 
     <div class="col-lg-3" style="margin:30px;">
-        <a href="@Url.Action("CarDetail", "CarRental",new { unitid = 1 },null)" class="list-group-item  details-container-list">  Van (10 seater)   </a>
-        <a href="@Url.Action("CarDetail", "CarRental", new { unitid = 2 },null)" class="list-group-item  details-container-list">  Van (14 seater)   </a>
-        <a href="@Url.Action("CarDetail", "CarRental", new { unitid = 3 },null)" class="list-group-item  details-container-list active">  SUV   </a>
-        <a href="@Url.Action("CarDetail", "CarRental", new { unitid = 4 },null)" class="list-group-item  details-container-list">  MPV   </a>
-        <a href="@Url.Action("CarDetail", "CarRental", new { unitid = 5 },null)" class="list-group-item  details-container-list">  Sedan   </a>
-        <a href="@Url.Action("CarDetail", "CarRental", new { unitid = 6 },null)" class="list-group-item  details-container-list">  Pickup   </a>
+        <a href="@Url.Action("CarDetail", "CarCoop",new { unitid = 1 },null)" class="list-group-item  details-container-list">  Van (10 seater)   </a>
+        <a href="@Url.Action("CarDetail", "CarCoop", new { unitid = 2 },null)" class="list-group-item  details-container-list">  Van (14 seater)   </a>
+        <a href="@Url.Action("CarDetail", "CarCoop", new { unitid = 3 },null)" class="list-group-item  details-container-list active">  SUV   </a>
+        <a href="@Url.Action("CarDetail", "CarCoop", new { unitid = 4 },null)" class="list-group-item  details-container-list">  MPV   </a>
+        <a href="@Url.Action("CarDetail", "CarCoop", new { unitid = 5 },null)" class="list-group-item  details-container-list">  Sedan   </a>
+        <a href="@Url.Action("CarDetail", "CarCoop", new { unitid = 6 },null)" class="list-group-item  details-container-list">  Pickup   </a>
     </div>
 
 

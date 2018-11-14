@@ -29,17 +29,21 @@ namespace JobsV1.Controllers
         // GET: CarRental
         public ActionResult Index()
         {
-            ViewBag.Title = "Davao Car Rental | Van, SUV/AUV/MPV, Sedan Rentals | Real Wheels Rent A Car Davao | Start Your Journey With Us! ";
-            ViewBag.Description = @"Rent a Car company offering affordable selfdrive or with driver car rental service in Davao City, Philippines.
+            ViewBag.Title = "POTTMPC | Van, SUV/AUV/MPV, Sedan Rentals | Start Your Journey With Us! ";
+            ViewBag.Description = @"Rent a Car company offering affordable selfdrive or with driver car rental service in Palawan, Philippines.
                  We offer -Grandia/Super/Premium, MPV / AUV and SUV for rent, Innova rentals, sedan rentals, 4x4 rentals, pickup rentals and van rentals in the City.
                  We offer daily, weekly, monthly rental and affordable rates for long term rentals.
-                 We also partnered to several car rentals in Davao for us to provide a reliable and quality service.
+                 We also partnered to several car rentals in Palawan for us to provide a reliable and quality service.
                  ";
 
             ViewBag.isAuthorize = HttpContext.User.Identity.Name == "" ? 0 : 1;
             ViewBag.CarUnitList = db.CarUnits.ToList();
             ViewBag.CarRates = db.CarRates.ToList();
             ViewBag.Packages = db.CarRatePackages.ToList();
+
+            ViewBag.NavBarTitle = "POTTMPC";
+            ViewBag.Copyright = "RealBreeze Travel & Tours, Davao Philippines 8000";
+
             return View("Index", db.CarUnits.Include(c => c.CarRates).Include(m => m.CarUnitMetas).ToList());
 
         }
