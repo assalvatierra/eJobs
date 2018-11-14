@@ -78,6 +78,8 @@
     <EntitySet Name="CarRateUnitPackages" EntityType="JobDB.Store.CarRateUnitPackages" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="CarResPackages" EntityType="JobDB.Store.CarResPackages" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="CarUnitMetas" EntityType="JobDB.Store.CarUnitMetas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CoopMembers" EntityType="JobDB.Store.CoopMembers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CoopMemberItems" EntityType="JobDB.Store.CoopMemberItems" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="JobMainJobType" Association="JobDB.Store.JobMainJobType">
       <End Role="JobMain" EntitySet="JobMains" />
       <End Role="JobType" EntitySet="JobTypes" />
@@ -373,6 +375,14 @@
     <AssociationSet Name="CarUnitCarUnitMeta" Association="JobDB.Store.CarUnitCarUnitMeta">
       <End Role="CarUnit" EntitySet="CarUnits" />
       <End Role="CarUnitMeta" EntitySet="CarUnitMetas" />
+    </AssociationSet>
+    <AssociationSet Name="CoopMemberCoopMemberItem" Association="JobDB.Store.CoopMemberCoopMemberItem">
+      <End Role="CoopMember" EntitySet="CoopMembers" />
+      <End Role="CoopMemberItem" EntitySet="CoopMemberItems" />
+    </AssociationSet>
+    <AssociationSet Name="InvItemCoopMemberItem" Association="JobDB.Store.InvItemCoopMemberItem">
+      <End Role="InvItem" EntitySet="InvItems" />
+      <End Role="CoopMemberItem" EntitySet="CoopMemberItems" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="JobMains">
@@ -1141,6 +1151,27 @@
     <Property Name="PageTitle" Type="nvarchar" Nullable="false" MaxLength="120" />
     <Property Name="MetaDesc" Type="nvarchar" Nullable="false" MaxLength="300" />
     <Property Name="HomeDesc" Type="nvarchar" Nullable="true" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="CoopMembers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Contact1" Type="nvarchar" Nullable="true" MaxLength="20" />
+    <Property Name="Contact2" Type="nvarchar" Nullable="true" MaxLength="20" />
+    <Property Name="Contact3" Type="nvarchar" Nullable="true" MaxLength="20" />
+    <Property Name="Email" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Details" Type="nvarchar" Nullable="true" MaxLength="80" />
+    <Property Name="Status" Type="nvarchar" Nullable="true" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="CoopMemberItems">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CoopMemberId" Type="int" Nullable="false" />
+    <Property Name="InvItemId" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="JobMainJobType">
     <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="1" />
@@ -2030,6 +2061,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="CoopMemberCoopMemberItem">
+    <End Role="CoopMember" Type="JobDB.Store.CoopMembers" Multiplicity="1" />
+    <End Role="CoopMemberItem" Type="JobDB.Store.CoopMemberItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CoopMember">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CoopMemberItem">
+        <PropertyRef Name="CoopMemberId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InvItemCoopMemberItem">
+    <End Role="InvItem" Type="JobDB.Store.InvItems" Multiplicity="1" />
+    <End Role="CoopMemberItem" Type="JobDB.Store.CoopMemberItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InvItem">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CoopMemberItem">
+        <PropertyRef Name="InvItemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -2402,6 +2457,16 @@
           <AssociationSet Name="CarUnitCarUnitMeta" Association="JobDB.CarUnitCarUnitMeta">
             <End Role="CarUnit" EntitySet="CarUnits" />
             <End Role="CarUnitMeta" EntitySet="CarUnitMetas" />
+          </AssociationSet>
+          <EntitySet Name="CoopMembers" EntityType="JobDB.CoopMember" />
+          <EntitySet Name="CoopMemberItems" EntityType="JobDB.CoopMemberItem" />
+          <AssociationSet Name="CoopMemberCoopMemberItem" Association="JobDB.CoopMemberCoopMemberItem">
+            <End Role="CoopMember" EntitySet="CoopMembers" />
+            <End Role="CoopMemberItem" EntitySet="CoopMemberItems" />
+          </AssociationSet>
+          <AssociationSet Name="InvItemCoopMemberItem" Association="JobDB.InvItemCoopMemberItem">
+            <End Role="InvItem" EntitySet="InvItems" />
+            <End Role="CoopMemberItem" EntitySet="CoopMemberItems" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="JobMain">
@@ -3627,6 +3692,7 @@
           <Property Name="OrderNo" Type="Int32" Nullable="true" DefaultValue="999" />
           <NavigationProperty Name="InvCarRecords" Relationship="JobDB.InvItemInvCarRecord" FromRole="InvItem" ToRole="InvCarRecord" />
           <NavigationProperty Name="InvCarGateControls" Relationship="JobDB.InvItemInvCarGateControl" FromRole="InvItem" ToRole="InvCarGateControl" />
+          <NavigationProperty Name="CoopMemberItems" Relationship="JobDB.InvItemCoopMemberItem" FromRole="InvItem" ToRole="CoopMemberItem" />
         </EntityType>
         <EntityType Name="InvItemCat">
           <Key>
@@ -4204,6 +4270,54 @@
             </Principal>
             <Dependent Role="CarUnitMeta">
               <PropertyRef Name="CarUnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CoopMember">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" />
+          <Property Name="Contact1" Type="String" Nullable="true" MaxLength="20" />
+          <Property Name="Contact2" Type="String" Nullable="true" MaxLength="20" />
+          <Property Name="Contact3" Type="String" Nullable="true" MaxLength="20" />
+          <Property Name="Email" Type="String" Nullable="true" MaxLength="50" />
+          <Property Name="Details" Type="String" Nullable="true" MaxLength="80" />
+          <Property Name="Status" Type="String" Nullable="true" MaxLength="10" />
+          <NavigationProperty Name="CoopMemberItems" Relationship="JobDB.CoopMemberCoopMemberItem" FromRole="CoopMember" ToRole="CoopMemberItem" />
+        </EntityType>
+        <EntityType Name="CoopMemberItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="CoopMember" Relationship="JobDB.CoopMemberCoopMemberItem" FromRole="CoopMemberItem" ToRole="CoopMember" />
+          <Property Name="CoopMemberId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="InvItem" Relationship="JobDB.InvItemCoopMemberItem" FromRole="CoopMemberItem" ToRole="InvItem" />
+          <Property Name="InvItemId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="CoopMemberCoopMemberItem">
+          <End Type="JobDB.CoopMember" Role="CoopMember" Multiplicity="1" />
+          <End Type="JobDB.CoopMemberItem" Role="CoopMemberItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CoopMember">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CoopMemberItem">
+              <PropertyRef Name="CoopMemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="InvItemCoopMemberItem">
+          <End Type="JobDB.InvItem" Role="InvItem" Multiplicity="1" />
+          <End Type="JobDB.CoopMemberItem" Role="CoopMemberItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InvItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CoopMemberItem">
+              <PropertyRef Name="InvItemId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5049,6 +5163,29 @@
           <ScalarProperty Name="PageTitle" ColumnName="PageTitle" />
           <ScalarProperty Name="MetaDesc" ColumnName="MetaDesc" />
           <ScalarProperty Name="HomeDesc" ColumnName="HomeDesc" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CoopMembers">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.CoopMember)">
+        <MappingFragment StoreEntitySet="CoopMembers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Contact1" ColumnName="Contact1" />
+          <ScalarProperty Name="Contact2" ColumnName="Contact2" />
+          <ScalarProperty Name="Contact3" ColumnName="Contact3" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CoopMemberItems">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.CoopMemberItem)">
+        <MappingFragment StoreEntitySet="CoopMemberItems">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CoopMemberId" ColumnName="CoopMemberId" />
+          <ScalarProperty Name="InvItemId" ColumnName="InvItemId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

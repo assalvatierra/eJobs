@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/23/2018 14:41:23
+-- Date Created: 11/14/2018 17:25:32
 -- Generated from EDMX file: D:\Data\Real\Apps\GitHub\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
@@ -1232,6 +1232,27 @@ CREATE TABLE [dbo].[CarUnitMetas] (
 );
 GO
 
+-- Creating table 'CoopMembers'
+CREATE TABLE [dbo].[CoopMembers] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(50)  NOT NULL,
+    [Contact1] nvarchar(20)  NULL,
+    [Contact2] nvarchar(20)  NULL,
+    [Contact3] nvarchar(20)  NULL,
+    [Email] nvarchar(50)  NULL,
+    [Details] nvarchar(80)  NULL,
+    [Status] nvarchar(10)  NULL
+);
+GO
+
+-- Creating table 'CoopMemberItems'
+CREATE TABLE [dbo].[CoopMemberItems] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [CoopMemberId] int  NOT NULL,
+    [InvItemId] int  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -1665,6 +1686,18 @@ GO
 -- Creating primary key on [Id] in table 'CarUnitMetas'
 ALTER TABLE [dbo].[CarUnitMetas]
 ADD CONSTRAINT [PK_CarUnitMetas]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'CoopMembers'
+ALTER TABLE [dbo].[CoopMembers]
+ADD CONSTRAINT [PK_CoopMembers]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'CoopMemberItems'
+ALTER TABLE [dbo].[CoopMemberItems]
+ADD CONSTRAINT [PK_CoopMemberItems]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -2780,6 +2813,36 @@ GO
 CREATE INDEX [IX_FK_CarUnitCarUnitMeta]
 ON [dbo].[CarUnitMetas]
     ([CarUnitId]);
+GO
+
+-- Creating foreign key on [CoopMemberId] in table 'CoopMemberItems'
+ALTER TABLE [dbo].[CoopMemberItems]
+ADD CONSTRAINT [FK_CoopMemberCoopMemberItem]
+    FOREIGN KEY ([CoopMemberId])
+    REFERENCES [dbo].[CoopMembers]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CoopMemberCoopMemberItem'
+CREATE INDEX [IX_FK_CoopMemberCoopMemberItem]
+ON [dbo].[CoopMemberItems]
+    ([CoopMemberId]);
+GO
+
+-- Creating foreign key on [InvItemId] in table 'CoopMemberItems'
+ALTER TABLE [dbo].[CoopMemberItems]
+ADD CONSTRAINT [FK_InvItemCoopMemberItem]
+    FOREIGN KEY ([InvItemId])
+    REFERENCES [dbo].[InvItems]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_InvItemCoopMemberItem'
+CREATE INDEX [IX_FK_InvItemCoopMemberItem]
+ON [dbo].[CoopMemberItems]
+    ([InvItemId]);
 GO
 
 -- --------------------------------------------------

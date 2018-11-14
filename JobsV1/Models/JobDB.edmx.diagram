@@ -9,7 +9,7 @@
         <EntityTypeShape EntityType="JobDB.Supplier" Width="1.5" PointX="18.875" PointY="4.125" />
         <EntityTypeShape EntityType="JobDB.Customer" Width="1.5" PointX="5" PointY="5.5" />
         <EntityTypeShape EntityType="JobDB.JobType" Width="1.5" PointX="10.375" PointY="1.25" />
-        <EntityTypeShape EntityType="JobDB.Services" Width="1.5" PointX="17.875" PointY="20.125" />
+        <EntityTypeShape EntityType="JobDB.Services" Width="1.5" PointX="17.875" PointY="24.25" />
         <AssociationConnector Association="JobDB.JobMainJobType" />
         <EntityTypeShape EntityType="JobDB.JobServices" Width="1.5" PointX="15.75" PointY="9.75" />
         <AssociationConnector Association="JobDB.JobMainJobSupplier" />
@@ -97,9 +97,9 @@
         <AssociationConnector Association="JobDB.CustomerCustSalesCategory" />
         <AssociationConnector Association="JobDB.SalesStatusCodeSalesStatus" />
         <AssociationConnector Association="JobDB.SalesLeadSalesStatus" />
-        <EntityTypeShape EntityType="JobDB.SrvActionCode" Width="1.5" PointX="19.875" PointY="19.125" />
-        <EntityTypeShape EntityType="JobDB.SrvActionItem" Width="1.5" PointX="19.875" PointY="21.25" />
-        <EntityTypeShape EntityType="JobDB.JobAction" Width="1.5" PointX="17.875" PointY="22.375" />
+        <EntityTypeShape EntityType="JobDB.SrvActionCode" Width="1.5" PointX="19.875" PointY="23.25" />
+        <EntityTypeShape EntityType="JobDB.SrvActionItem" Width="1.5" PointX="19.875" PointY="25.375" />
+        <EntityTypeShape EntityType="JobDB.JobAction" Width="1.5" PointX="17.875" PointY="26.5" />
         <AssociationConnector Association="JobDB.JobServicesJobAction" />
         <EntityTypeShape EntityType="JobDB.InvItem" Width="1.5" PointX="20.125" PointY="15.25" />
         <EntityTypeShape EntityType="JobDB.InvItemCat" Width="1.5" PointX="24.5" PointY="15.375" />
@@ -153,6 +153,10 @@
         <AssociationConnector Association="JobDB.CarReservationCarResPackage" />
         <EntityTypeShape EntityType="JobDB.CarUnitMeta" Width="1.5" PointX="25.5" PointY="22.875" />
         <AssociationConnector Association="JobDB.CarUnitCarUnitMeta" />
+        <EntityTypeShape EntityType="JobDB.CoopMember" Width="1.5" PointX="17.375" PointY="17" />
+        <EntityTypeShape EntityType="JobDB.CoopMemberItem" Width="1.5" PointX="18.5" PointY="20.5" />
+        <AssociationConnector Association="JobDB.CoopMemberCoopMemberItem" />
+        <AssociationConnector Association="JobDB.InvItemCoopMemberItem" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

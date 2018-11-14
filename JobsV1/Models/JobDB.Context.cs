@@ -97,5 +97,7 @@ namespace JobsV1.Models
         public virtual DbSet<CarRateUnitPackage> CarRateUnitPackages { get; set; }
         public virtual DbSet<CarResPackage> CarResPackages { get; set; }
         public virtual DbSet<CarUnitMeta> CarUnitMetas { get; set; }
+        public virtual DbSet<CoopMember> CoopMembers { get; set; }
+        public virtual DbSet<CoopMemberItem> CoopMemberItems { get; set; }
     }
 }
