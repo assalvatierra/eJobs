@@ -368,6 +368,12 @@
     <Compile Include="Models\City.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CoopMember.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CoopMemberItem.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CostumerViewModel.cs" />
     <Compile Include="Models\CustCat.cs">
       <DependentUpon>JobDB.tt</DependentUpon>

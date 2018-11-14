@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/14/2018 17:25:32
+-- Date Created: 11/14/2018 17:27:21
 -- Generated from EDMX file: D:\Data\Real\Apps\GitHub\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
@@ -239,6 +239,12 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_CarUnitCarUnitMeta]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[CarUnitMetas] DROP CONSTRAINT [FK_CarUnitCarUnitMeta];
 GO
+IF OBJECT_ID(N'[dbo].[FK_CoopMemberCoopMemberItem]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CoopMemberItems] DROP CONSTRAINT [FK_CoopMemberCoopMemberItem];
+GO
+IF OBJECT_ID(N'[dbo].[FK_InvItemCoopMemberItem]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CoopMemberItems] DROP CONSTRAINT [FK_InvItemCoopMemberItem];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -459,6 +465,12 @@ IF OBJECT_ID(N'[dbo].[CarResPackages]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[CarUnitMetas]', 'U') IS NOT NULL
     DROP TABLE [dbo].[CarUnitMetas];
+GO
+IF OBJECT_ID(N'[dbo].[CoopMembers]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CoopMembers];
+GO
+IF OBJECT_ID(N'[dbo].[CoopMemberItems]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CoopMemberItems];
 GO
 
 -- --------------------------------------------------
