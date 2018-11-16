@@ -89,9 +89,7 @@ namespace JobsV1.Controllers
             
             //
             DateTime today = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time"));
-
-            DateTime Now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time"));
-
+            today = today.Date;
             ViewBag.today = today;
 
             switch (sortid)
@@ -215,9 +213,8 @@ namespace JobsV1.Controllers
             DateTime minDate = db.JobMains.Where(j => mainId == j.Id).FirstOrDefault().JobDate.Date;
             DateTime maxDate = new DateTime(1,1,1);
 
-            DateTime today = DateTime.Today;
-            today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Singapore Standard Time");
-
+            DateTime today = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time"));
+            today = today.Date;
             //loop though all jobservices in the jobmain
             //to get the latest date
             foreach (var svc in db.JobServices.Where(s => s.JobMainId == mainId).OrderBy(s=>s.DtStart))
@@ -780,8 +777,8 @@ order by x.jobid
             //update jobdate
             var main = db.JobMains.Where(j => mainId == j.Id).FirstOrDefault();
 
-            DateTime today = DateTime.Today;
-            today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Singapore Standard Time");
+            DateTime today = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time"));
+            today = today.Date;
 
             //loop though all jobservices in the jobmain
             //to get the latest date
@@ -1063,7 +1060,10 @@ order by x.jobid
             ViewBag.ReservationType = "Rental";
             ViewBag.Amount = 1000;
 
-            ViewBag.isPaymentValid = (jobMain.JobDate.Date == DateTime.Today.Date) || (jobMain.JobDate.Date == DateTime.Today.AddDays(1).Date) ? "True" : "False";
+            DateTime today = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time"));
+            today = today.Date;
+
+            ViewBag.isPaymentValid = (jobMain.JobDate.Date == today) || (jobMain.JobDate.Date == today.AddDays(1).Date) ? "True" : "False";
              
             return View("Details_Invoice", jobMain);
         }
@@ -1134,7 +1134,10 @@ order by x.jobid
             ViewBag.ReservationType = "Rental";
             ViewBag.Amount = 1000;
 
-            ViewBag.isPaymentValid = jobMain.JobDate.Date == DateTime.Today.Date ? "True" : "False" ;
+            DateTime today = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time"));
+            today = today.Date;
+
+            ViewBag.isPaymentValid = jobMain.JobDate.Date == today ? "True" : "False" ;
 
             if (jobMain.JobStatusId == 1) //quotation
                 return View("Details_Quote", jobMain);
