@@ -55,6 +55,7 @@ namespace JobsV1.Controllers
             //        0: Today 
             //        1: 7 days
             //        2: next 7 days
+
             DateTime dt1 = System.DateTime.Now.AddDays(-1);
             DateTime dt2 = System.DateTime.Now.AddDays(1);
 
@@ -99,6 +100,7 @@ namespace JobsV1.Controllers
             var p = jobMains.Select(s => s.Id);
 
             var data = db.JobServices.Where(w => p.Contains(w.JobMainId)).ToList().OrderBy(s=>s.DtStart);
+
             DateTime today = GetCurrentTime();
             //today = today.AddHours(-12).Date;
             //today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Singapore Standard Time");
@@ -126,8 +128,9 @@ namespace JobsV1.Controllers
 
         protected DateTime GetCurrentTime()
         {
-            DateTime serverTime = DateTime.Now;
-            DateTime _localTime = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(serverTime, TimeZoneInfo.Local.Id, "Singapore Standard Time");
+            DateTime _localTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time"));
+            _localTime = _localTime.Date;
+
             return _localTime;
         }
 
@@ -299,7 +302,11 @@ namespace JobsV1.Controllers
         public ActionResult Create2(int? custid)
         {
             JobMain job = new JobMain();
-            job.JobDate = System.DateTime.Today;
+
+            DateTime today = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time"));
+            today = today.Date;
+
+            job.JobDate = today;
             job.NoOfDays = 1;
             job.NoOfPax = 1;
 
@@ -525,7 +532,10 @@ namespace JobsV1.Controllers
         public ActionResult JobTable(int? span = 30) //version: 2018
         {
             // System.DateTime dtNow = this.GetCurrentTime();
-            System.DateTime dtNow = DateTime.Today;
+            DateTime today = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time"));
+            today = today.Date;
+
+            System.DateTime dtNow = today;
             System.DateTime dtStart = new DateTime(dtNow.Year, dtNow.Month, dtNow.Day, 0, 0, 0);
             System.DateTime dtUntil = System.DateTime.Now.AddDays((double)span);
             
@@ -651,6 +661,8 @@ namespace JobsV1.Controllers
         {
 
 
+            DateTime today = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time"));
+            today = today.Date;
             //update jobdate
             var main = db.JobMains.Where(j => mainId == j.Id).FirstOrDefault();
 
@@ -661,7 +673,7 @@ namespace JobsV1.Controllers
                 //assign latest basin on today
 
                 //get latest date
-                if (DateTime.Compare(DateTime.Today, (DateTime)svc.DtStart) > 0)   //if today is later than datestart, assign datestart to jobdate, 
+                if (DateTime.Compare(today, (DateTime)svc.DtStart) > 0)   //if today is later than datestart, assign datestart to jobdate, 
                 {
                     main.JobDate = (DateTime)svc.DtStart;
                     db.Entry(main).State = EntityState.Modified;
@@ -844,8 +856,12 @@ namespace JobsV1.Controllers
         #region  JobQuickList
         public ActionResult JobQuickList()
         {
+
+            DateTime today = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time"));
+            today = today.Date;
+
             IQueryable<Models.JobMain> jobMains = db.JobMains.Include(j => j.Customer).Include(j => j.Branch).Include(j => j.JobStatus).Include(j => j.JobThru).OrderBy(d => d.JobDate);
-            jobMains = (IQueryable<Models.JobMain>)jobMains.Where(d => (d.JobStatusId == JOBRESERVATION || d.JobStatusId == JOBCONFIRMED) && d.JobDate.CompareTo(DateTime.Today) < 0  );
+            jobMains = (IQueryable<Models.JobMain>)jobMains.Where(d => (d.JobStatusId == JOBRESERVATION || d.JobStatusId == JOBCONFIRMED) && d.JobDate.CompareTo(today) < 0  );
 
             var p = jobMains.Select(s => s.Id);
 
