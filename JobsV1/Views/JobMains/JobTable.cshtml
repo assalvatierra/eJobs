@@ -68,8 +68,8 @@
                 }
                 <br />
                 [ @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Services", "Services", "JobServices", new { id = item.Id }, null) |
+                @Html.ActionLink("Details", "BookingDetails", "JobOrder", new { id = item.Id }, null) |
+                @Html.ActionLink("Services", "JobServices", "JobOrder", new { JobMainId = item.Id }, null) |
                 @Html.ActionLink("Payments", "Payments", "JobPayments", new { id = item.Id }, null) |
                 @Html.ActionLink("Itinerary", "JobItinerary", "JobItineraries", new { id = item.Id }, null)
                 ]
