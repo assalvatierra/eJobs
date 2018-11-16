@@ -286,6 +286,7 @@
     <Compile Include="Controllers\CarRentalController.cs" />
     <Compile Include="Controllers\CarReservationsController.cs" />
     <Compile Include="Controllers\CarUnitsController.cs" />
+    <Compile Include="Controllers\CoopMembersController.cs" />
     <Compile Include="Controllers\CustCategoriesController.cs" />
     <Compile Include="Controllers\CustCatsController.cs" />
     <Compile Include="Controllers\CustEntitiesController.cs" />
@@ -772,8 +773,14 @@
     <Content Include="Images\Mepu\Logo.jpg" />
     <Content Include="Images\Mepu\Logo2.png" />
     <Content Include="Images\Phone001.png" />
+    <Content Include="Images\POTTMPC\icons\icons8-airplane-take-off-100.png" />
+    <Content Include="Images\POTTMPC\icons\icons8-car-rental-100.png" />
+    <Content Include="Images\POTTMPC\icons\icons8-hotel-100.png" />
+    <Content Include="Images\POTTMPC\icons\icons8-tourist-guide-100.png" />
+    <Content Include="Images\POTTMPC\icons\icons8-van-100.png" />
     <Content Include="Images\POTTMPC\org chart.jpg" />
     <Content Include="Images\POTTMPC\POTTMPCBanner2.png" />
+    <Content Include="Images\POTTMPC\POTTMPC_logo.png" />
     <Content Include="Images\RealBreezeLogo01.png" />
     <Content Include="Images\SalesLead\3dots.jpg" />
     <Content Include="Images\SalesLead\approve-icon.png" />
@@ -1320,12 +1327,19 @@
     <Content Include="Views\CarCoop\LookupDestination.cshtml" />
     <Content Include="Views\CarCoop\LookupDestinationPartialView.cshtml" />
     <Content Include="Views\CarCoop\MobileModalView.cshtml" />
-    <Content Include="Views\CarCoop\Partial_content_1.cshtml" />
+    <Content Include="Views\CarCoop\Partial_content_1-old.cshtml" />
     <Content Include="Views\CarCoop\RateConfig.cshtml" />
     <Content Include="Views\CarCoop\RateDetails.cshtml" />
     <Content Include="Views\CarCoop\Reservation.cshtml" />
     <Content Include="Views\CarCoop\ReservationNotification.cshtml" />
     <Content Include="Views\CarCoop\UnitRate.cshtml" />
+    <Content Include="Views\CoopMembers\Create.cshtml" />
+    <Content Include="Views\CoopMembers\Delete.cshtml" />
+    <Content Include="Views\CoopMembers\Details.cshtml" />
+    <Content Include="Views\CoopMembers\Edit.cshtml" />
+    <Content Include="Views\CoopMembers\Index.cshtml" />
+    <Content Include="Views\CarCoop\Index - Copy.cshtml" />
+    <Content Include="Views\CarCoop\Partial_content_1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
