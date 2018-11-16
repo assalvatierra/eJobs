@@ -20,6 +20,10 @@
     @Html.ActionLink("Closed", "Index", new { sortid = 3 }, new { @id = "closed" }) 
 </p>
 
+<p>
+    @ViewBag.today
+</p>
+
 <table class="table">
 
 @foreach (var item in Model) {

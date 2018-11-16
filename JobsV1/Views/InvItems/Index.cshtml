@@ -36,7 +36,7 @@
             Maintenance
         </th>
         <th>
-            Records
+            Owner
         </th>
         <th></th>
     </tr>
@@ -90,7 +90,7 @@
 
             }
         </td>
-        <td width="180">
+        <td width="100">
 
             @if (item.InvCarRecords.OrderByDescending(s => s.dtDone).FirstOrDefault() != null)
             {
@@ -107,6 +107,22 @@
                 <span>Schedule:</span>
                 @item.InvCarRecords.OrderByDescending(s => s.dtDone).FirstOrDefault().NextSched.ToString("MM/dd/yyyy")
             }
+        </td>
+        <td>
+            <!--List for Inv Item Categories-->
+            @foreach (var coop in item.CoopMemberItems as IEnumerable<JobsV1.Models.CoopMemberItem>)
+            {
+
+                 <span>
+                     @Html.DisplayFor(modelItem => coop.CoopMember.Name )
+                     @Html.ActionLink(" [ x ]", "CoopRemove", "InvItems", new { id = coop.Id }, null) 
+                 </span>
+
+            }
+            <p>
+                <a id="catbtn" data-toggle="modal" data-target="@("#coop"+@item.Id)" style="margin-bottom:10px;cursor:pointer">Add </a>
+            </p>
+
         </td>
         <td>
             @Html.ActionLink("Records", "Index", "InvCarRecords", new { carId = item.Id }, null) |
@@ -170,10 +186,35 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
+    <!-- Modal -->
+    <div class="modal fade" id="@("coop"+@item.Id)" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Supplier List</h4>
+                </div>
+
+                <div class="modal-body" id="modal2-content">
+
+                    <div class="list-group" id="categorylist">
+                        @foreach (var member in ViewBag.coopList as IEnumerable<JobsV1.Models.CoopMember>)
+                        {
+                            <a href="@Url.Action("LinkCoopMember", "InvItems", new { id = @item.Id, memberid = member.Id })" class="list-group-item"> @member.Name </a>
+
+                        }
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
 }
 
 </table>
-
 
 
 <script type="text/javascript" src="~/Scripts/jquery-3.3.1.js"></script>

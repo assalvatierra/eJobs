@@ -47,13 +47,14 @@ namespace JobsV1.Controllers
                 return RedirectToAction("Index");
             }
 
-            //get latest odo
+            ViewBag.coopList = db.CoopMembers.Where(c=>c.Status == "ACT").ToList();
             
-
+            //include latest odo, coopMembers list
             ViewBag.SupplierList = suppliers;
             var itemList = db.InvItems.Include(s => s.SupplierInvItems)
                 .Include(s => s.InvCarRecords)
-                .Include(s => s.InvCarGateControls);
+                .Include(s => s.InvCarGateControls)
+                .Include(s => s.CoopMemberItems);
 
             return View(itemList.OrderBy(s => s.OrderNo).ToList());
         }
@@ -234,6 +235,25 @@ namespace JobsV1.Controllers
 
             SupplierInvItem supInv = db.SupplierInvItems.Find(id);
             db.SupplierInvItems.Remove(supInv);
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "InvItems", null);
+        }
+
+        //CoopMember link
+        public ActionResult LinkCoopMember(int id, int memberid)
+        {
+            CoopMemberItem coopMemItem = new CoopMemberItem();
+            coopMemItem.InvItemId = id;
+            coopMemItem.CoopMemberId = memberid;
+            db.CoopMemberItems.Add(coopMemItem);
+            db.SaveChanges();
+            return RedirectToAction("Index", "InvItems", null);
+        }
+        public ActionResult CoopRemove(int id)
+        {
+            CoopMemberItem coopMemberItem = db.CoopMemberItems.Find(id);
+            db.CoopMemberItems.Remove(coopMemberItem);
             db.SaveChanges();
 
             return RedirectToAction("Index", "InvItems", null);
