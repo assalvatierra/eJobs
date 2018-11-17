@@ -4,13 +4,28 @@
     //ViewBag.Title = "Car Rental Davao";
     ViewBag.data = 1;
 }
-
-<style>
+<!--
     .bg-gradient-3 {
+        
         background: linear-gradient(90deg, #dc3545 0%, #fd7e14 100%);
-        background: linear-gradient(90deg, #3bcfff 0%, #0366e0 100%);
+        background: linear-gradient(90deg, #053b86 0%, #0b87cf 100%);
         width:110%;
         margin-left:-60px;
+    }
+    .bg-gradient-3 {
+        background-color: dodgerblue;
+        width:110%;
+        margin-left:-60px;
+
+    }
+-->
+<style>
+    .bg-gradient-3 {
+        background-color: dodgerblue;
+        width:110%;
+        margin-left:-60px;
+
+
     }
     .height-lg-60 {
        min-height: 60vh;
@@ -23,8 +38,6 @@
         background-size:100%;
         height:450px;
         min-width:400px;
-        width:110%;
-        margin-left:-60px;
     }
 
     
@@ -89,10 +102,49 @@
         @{Html.RenderPartial("Partial_content_1");}
 </div>
 
-<section class="bg-gradient-3" style="margin-bottom:-20px;">
-    <div>
-        .
+<section class="row bg-gradient-3" style="margin-bottom:-20px;padding:80px;">
+    <div class="row">
+        <div class="col-lg-4" style="color:white;">
+            <h3>Main Office:</h3>
+            <div class="row">
+                <div class="col-lg-2">
+                    <img src="~/Images/POTTMPC/icons/marker-100.png" width="60" style="margin-top:10px;" />
+                </div>
+                <div class="col-lg-6">
+                    <h4>
+                        3rd floor right wing
+                        City Colliseum
+                        Puerto Princesa City
+                    </h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4" style="color:white;font-size:15px;">
+            
+            <ul style="list-style:none;color:lightgray;"> 
+                <li style="color:white;">
+                    <h3> Company</h3>
+                </li>
+                <li>
+                    <h4> <a href="../CarCoop/About" style="color:lightgray"> About </a></h4>
+                </li>
+                <li>
+                    <h4> <a href="../CarCoop/Services" style="color:lightgray"> Services </a></h4>
+                </li>
+                <li>
+                    <h4> <a href="../CarCoop/Contact" style="color:lightgray"> Contact </a></h4>
+                </li>
+            </ul>
+        </div>
+        <div class="col-lg-4" style="margin-top:70px;">
+            <a href="https://web.facebook.com/" target="_blank" style="padding-right:10px;"><img src="~/Images/POTTMPC/icons/facebook-f-48.png" width="40" /> </a>
+            <a href="https://twitter.com/?lang=en" target="_blank" style="padding:10px;"><img src="~/Images/POTTMPC/icons/twitter-48.png" width="40" /> </a>
+            <a href="https://mail.google.com/mail/u/0/" target="_blank" style="padding:10px;"><img src="~/Images/POTTMPC/icons/gmail-48.png" width="40" /> </a>
+            <a href="https://plus.google.com/" target="_blank" style="padding:10px;"><img src="~/Images/POTTMPC/icons/google-plus-48.png" width="40" /> </a>
+        </div>
     </div>
+
 </section>
 
 @Html.Action("MobileModalView")

@@ -37,9 +37,9 @@
         <br />Encoder: @ViewBag.JobEncoder.user - @ViewBag.JobEncoder.dtTrail 
 
         <br />@Html.ActionLink("Edit", "Edit", "JobMains", new { id = ViewBag.JobOrder.Id }, null)
-        | @Html.ActionLink("Client", "Details", "JobMains", new { id = ViewBag.JobOrder.Id }, null) 
+        | @Html.ActionLink("Booking", "BookingDetails", "JobOrder", new { id = ViewBag.JobOrder.Id }, null) 
         | <a href="" id="aContractorLink">Contractors</a>
-        | @Html.ActionLink("Invoice", "Details", "JobMains", new { id = ViewBag.JobOrder.Id, iType = 1 }, null)
+        | @Html.ActionLink("Invoice", "BookingDetails", "JobOrder", new { id = ViewBag.JobOrder.Id, iType = 1 }, null)
 
     </p>
     <p>

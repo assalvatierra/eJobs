@@ -89,8 +89,9 @@ namespace JobsV1.Controllers
             
             //
             DateTime today = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time"));
-            today = today.Date;
+
             ViewBag.today = today;
+            today = today.Date;
 
             switch (sortid)
             {
