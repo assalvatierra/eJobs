@@ -773,11 +773,16 @@
     <Content Include="Images\Mepu\Logo.jpg" />
     <Content Include="Images\Mepu\Logo2.png" />
     <Content Include="Images\Phone001.png" />
+    <Content Include="Images\POTTMPC\icons\facebook-f-48.png" />
+    <Content Include="Images\POTTMPC\icons\gmail-48.png" />
+    <Content Include="Images\POTTMPC\icons\google-plus-48.png" />
     <Content Include="Images\POTTMPC\icons\icons8-airplane-take-off-100.png" />
     <Content Include="Images\POTTMPC\icons\icons8-car-rental-100.png" />
     <Content Include="Images\POTTMPC\icons\icons8-hotel-100.png" />
     <Content Include="Images\POTTMPC\icons\icons8-tourist-guide-100.png" />
     <Content Include="Images\POTTMPC\icons\icons8-van-100.png" />
+    <Content Include="Images\POTTMPC\icons\marker-100.png" />
+    <Content Include="Images\POTTMPC\icons\twitter-48.png" />
     <Content Include="Images\POTTMPC\org chart.jpg" />
     <Content Include="Images\POTTMPC\POTTMPCBanner2.png" />
     <Content Include="Images\POTTMPC\POTTMPC_logo.png" />
