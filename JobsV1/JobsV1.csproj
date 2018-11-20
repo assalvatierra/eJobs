@@ -784,6 +784,7 @@
     <Content Include="Images\POTTMPC\icons\marker-100.png" />
     <Content Include="Images\POTTMPC\icons\twitter-48.png" />
     <Content Include="Images\POTTMPC\org chart.jpg" />
+    <Content Include="Images\POTTMPC\Palawan_map.jpg" />
     <Content Include="Images\POTTMPC\POTTMPCBanner2.png" />
     <Content Include="Images\POTTMPC\POTTMPC_logo.png" />
     <Content Include="Images\RealBreezeLogo01.png" />
@@ -810,6 +811,7 @@
     <Content Include="Images\SMS.png" />
     <Content Include="Models\AddChecklist.SQL" />
     <Content Include="Models\AsExpenseDB.sql" />
+    <Content Include="Models\CarCoop\CarRentalInitial.sql" />
     <Content Include="Models\CarRentalInitial.sql" />
     <Content Include="Models\CarRentalInitial_RatePackage.sql" />
     <Content Include="Models\CarRentalInitial_meta.sql" />

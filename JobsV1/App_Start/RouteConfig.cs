@@ -277,23 +277,21 @@ namespace JobsV1
                 );
 
             /********************************
+             * 
             * CarCoop landing/home page
+            routes.MapRoute(
+                name: "POTTMPC/Home",
+                url: "CarCoop/Index/{id}",
+                defaults: new { controller = "CarCoop", action = "Index", id = UrlParameter.Optional }
+            );
+            
+            routes.MapRoute(
+                name: "POTTMPC/Default",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "CarCoop", action = "Index", id = UrlParameter.Optional }
+            );
+            
             ********************************/
-            //routes.MapRoute(
-            //    name: "POTTMPC/Home",
-            //    url: "CarCoop/Index/{id}",
-            //    defaults: new { controller = "CarCoop", action = "Index", id = UrlParameter.Optional }
-           // );
-
-            /********************************
-            * AJ88 car rental default
-            ********************************/
-            //routes.MapRoute(
-            //    name: "POTTMPC/Default",
-            //    url: "{controller}/{action}/{id}",
-            //    defaults: new { controller = "CarCoop", action = "Index", id = UrlParameter.Optional }
-            //);
-
 
             /********************************
             * landing/home page
