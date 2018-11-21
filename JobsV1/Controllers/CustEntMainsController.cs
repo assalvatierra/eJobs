@@ -54,7 +54,15 @@ namespace JobsV1.Controllers
                 db.CustEntMains.Add(custEntMain);
                 db.SaveChanges();
 
-                return RedirectToAction("Create", "CustEntities", new { id = id, companyId = custEntMain.Id });
+                //save new company to customer
+                CustEntity company = new CustEntity();
+                company.CustEntMainId = custEntMain.Id;
+                company.CustomerId = (int)id;
+                db.CustEntities.Add(company);
+                db.SaveChanges();
+
+                return RedirectToAction("Details", "Customers", new { id = id });
+                // return RedirectToAction("Create", "CustEntities", new { id = id, companyId = custEntMain.Id });
             }
 
             return View(custEntMain);

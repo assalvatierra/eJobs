@@ -1347,6 +1347,7 @@
     <Content Include="Views\CoopMembers\Index.cshtml" />
     <Content Include="Views\CarCoop\Index - Copy.cshtml" />
     <Content Include="Views\CarCoop\Partial_content_1.cshtml" />
+    <Content Include="Views\JobOrder\JobListing.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

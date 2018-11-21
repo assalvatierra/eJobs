@@ -10,6 +10,19 @@
 @Html.ActionLink("Today", "ActiveJobs", new { FilterId = 2 }) |
 @Html.ActionLink("Tomorrow", "ActiveJobs", new { FilterId = 3 })
 
+
+<div class="container">
+
+
+    @foreach (var item in Model)
+    {
+        <div style="border:1px solid gray">
+
+        </div>
+    }
+
+</div>
+
 <table class="table">
     <tr>
         <th>Service</th>
@@ -33,8 +46,8 @@
     string s1 = ((DateTime)item.DtStart).ToString("MMM-dd-yyyy (ddd)");
     string s2 = ((DateTime)item.DtEnd).ToString("MMM-dd-yyyy (ddd)");
     string sStyle1 = "";
-    if (ViewBag.Current == s1) { sStyle1 = "background-color:lightgray"; }
-
+    if (ViewBag.Current == s1) { sStyle1 = "background-color:#e8e8e8e8"; }
+  
     <tr style="@sStyle1" >
         <td>
             @Html.DisplayFor(modelItem => item.Service.Name)
@@ -48,7 +61,6 @@
         </td>
         <td>
             @s1
-
         </td>
         <td>
             @s2
@@ -61,7 +73,7 @@
             @Html.ActionLink("Close", "CloseJobActive", new { id = item.JobMainId })
         </td>
     </tr>
-    <tr style="border-top:none">
+    <tr style="border-top:none;@sStyle1;">
         <td></td>
         <td  colspan="1">
             @foreach (var items in item.JobServiceItems)
@@ -96,8 +108,13 @@
                 }
              }
         </td>
-
     </tr>
-    }
+    <tr></tr>
+
+  }
 
 </table>
+<!--
+    -->
+
+

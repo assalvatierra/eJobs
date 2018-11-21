@@ -317,6 +317,147 @@ order by x.jobid
             return jobcntr;
         }
 
+
+        public ActionResult JobListing(int? sortid, int? serviceId, int? mainid)
+        {
+
+            if (sortid != null)
+                Session["FilterID"] = (int)sortid;
+            else
+            {
+                if (Session["FilterID"] != null)
+                    sortid = (int)Session["FilterID"];
+                else
+                    sortid = 1;
+            }
+
+
+            IEnumerable<Models.JobMain> jobMains = db.JobMains
+                .Include(j => j.Customer)
+                .Include(j => j.Branch)
+                .Include(j => j.JobStatus)
+                .Include(j => j.JobThru)
+                ;
+
+            List<cjobCounter> jobActionCntr = getJobActionCount(jobMains.Select(d => d.Id).ToList());
+            var data = new List<cJobOrder>();
+            
+            DateTime today = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time"));
+
+            ViewBag.today = today;
+            today = today.Date;
+
+            switch (sortid)
+            {
+                case 1: //OnGoing
+                    jobMains = jobMains
+                        .Where(d => (d.JobStatusId != JOBCLOSED || d.JobStatusId != JOBCANCELLED)).ToList()
+                        .Where(p => DateTime.Compare(p.JobDate.Date, today.Date.AddDays(-60)) >= 0).ToList();   //get 1 month before all entries
+
+                    break;
+                case 2: //prev
+                    jobMains = jobMains
+                        .Where(d => (d.JobStatusId != JOBCLOSED || d.JobStatusId != JOBCANCELLED)).ToList()
+                        .Where(p => DateTime.Compare(p.JobDate.Date, today.Date) < 0).ToList(); //get 1 month before all entries
+
+                    break;
+                case 3: //close
+                    jobMains = jobMains
+                        .Where(d => (d.JobStatusId == JOBCLOSED || d.JobStatusId == JOBCANCELLED)).ToList()
+                        .Where(p => p.JobDate.Date.AddDays(60) > today.Date).ToList();
+
+                    break;
+
+                default:
+
+                    jobMains = jobMains.ToList();
+
+                    break;
+            }
+
+            foreach (var main in jobMains)
+            {
+                cJobOrder joTmp = new cJobOrder();
+                joTmp.Main = main;
+                joTmp.Services = new List<cJobService>();
+                joTmp.Main.AgreedAmt = 0;
+                joTmp.Payment = 0;
+
+                List<Models.JobServices> joSvc = db.JobServices.Where(d => d.JobMainId == main.Id).OrderBy(s => s.DtStart).ToList();
+                foreach (var svc in joSvc)
+                {
+                    cJobService cjoTmp = new cJobService();
+                    cjoTmp.Service = svc;
+
+                    var ActionDone = db.JobActions.Where(d => d.JobServicesId == svc.Id).Select(s => s.SrvActionItemId);
+
+                    cjoTmp.SvcActions = db.SrvActionItems.Where(d => d.ServicesId == svc.ServicesId && !ActionDone.Contains(d.Id)).Include(d => d.SrvActionCode);
+                    cjoTmp.Actions = db.JobActions.Where(d => d.JobServicesId == svc.Id).Include(d => d.SrvActionItem);
+                    cjoTmp.SvcItems = db.JobServiceItems.Where(d => d.JobServicesId == svc.Id).Include(d => d.InvItem);
+                    cjoTmp.SupplierPos = db.SupplierPoDtls.Where(d => d.JobServicesId == svc.Id).Include(i => i.SupplierPoHdr);
+                    joTmp.Main.AgreedAmt += svc.ActualAmt;
+
+                    joTmp.Services.Add(cjoTmp);
+                }
+
+                joTmp.ActionCounter = jobActionCntr.Where(d => d.JobId == joTmp.Main.Id).ToList();
+
+                joTmp.Main.JobDate = TempJobDate(joTmp.Main.Id);
+
+                data.Add(joTmp);
+
+                List<Models.JobPayment> jobPayment = db.JobPayments.Where(d => d.JobMainId == main.Id).ToList();
+                foreach (var payment in jobPayment)
+                {
+                    joTmp.Payment += payment.PaymentAmt;
+                }
+            }
+
+
+            switch (sortid)
+            {
+                case 1: //OnGoing
+                    data = (List<cJobOrder>)data
+                        .Where(d => (d.Main.JobStatusId == JOBINQUIRY || d.Main.JobStatusId == JOBRESERVATION || d.Main.JobStatusId == JOBCONFIRMED)).ToList()
+                       .Where(d => d.Main.JobDate.CompareTo(today.Date) >= 0).ToList();
+
+                    break;
+                case 2: //prev
+                    data = (List<cJobOrder>)data
+                        .Where(d => (d.Main.JobStatusId == JOBINQUIRY || d.Main.JobStatusId == JOBRESERVATION || d.Main.JobStatusId == JOBCONFIRMED)).ToList()
+                        .Where(p => DateTime.Compare(p.Main.JobDate.Date, today.Date) < 0).ToList();
+
+                    break;
+                case 3: //close
+                    data = (List<cJobOrder>)data
+                        .Where(d => (d.Main.JobStatusId == JOBCLOSED || d.Main.JobStatusId == JOBCANCELLED)).ToList()
+                        .Where(p => p.Main.JobDate.AddDays(60).Date > today.Date).ToList();
+                    break;
+
+                default:
+                    data = (List<cJobOrder>)data.ToList();
+                    break;
+            }
+            
+            List<Customer> customers = db.Customers.ToList();
+            ViewBag.companyList = customers;
+
+            var jobmainId = serviceId != null ? db.JobServices.Find(serviceId).JobMainId : 0;
+            jobmainId = mainid != null ? (int)mainid : jobmainId;
+            ViewBag.mainId = jobmainId;
+
+            if (sortid == 1)
+            {
+
+                return View(data.OrderBy(d => d.Main.JobDate));
+            }
+            else
+            {
+                return View(data.OrderByDescending(d => d.Main.JobDate));
+
+            }
+        }
+
         #region Inventory Items
         public ActionResult InventoryItemList(int serviceId)
         {

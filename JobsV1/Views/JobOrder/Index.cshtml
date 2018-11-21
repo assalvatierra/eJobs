@@ -8,7 +8,8 @@
 
 <p>
     @Html.ActionLink("Create New", "jobCreate",null,null) 
-    | Work In Progress 
+    | Work In Progress     
+    | @Html.ActionLink("Listing", "JobListing", "JobOrder", new { span = 30 }, null)
     | @Html.ActionLink("Job Table", "JobTable", "JobMains", new { span = 30 }, null) 
     | @Html.ActionLink("Availability", "Availability", "InvItems")
 </p>
@@ -58,27 +59,10 @@
                         </span>
                     }
                 }
-                    
             </div>
         </td>
 
         <td>
-            @*
-            <div style="background-color:lightgray;">
-                @foreach (var cntrTmp in item.ActionCounter)
-                {
-                    if (cntrTmp.CodeId != null)
-                    {
-                        string fColor = (cntrTmp.CntItem <= cntrTmp.CntDone ? "darkorange" : "gray");
-                    <span style="color:darkorange">&#187;</span>
-                    <span style="font-weight:500; color: @fColor">
-                        @cntrTmp.CodeDesc
-                    </span>  
-                    }
-                }
-            </div>
-            *@
-
             <div>
                 <span style="color:darkgreen;font:bold 16px arial, verdana;">
                     @item.Main.Customer.Name
@@ -86,10 +70,6 @@
                 [
                 @Html.ActionLink("Customer Details", "CompanyDetail", new { jobid = item.Main.Id, custid = item.Main.CustomerId}) |
                 @Html.ActionLink("Edit Job", "JobDetails", new { jobid = item.Main.Id }) |     
-               
-                <!--
-                Html.ActionLink("Change Company", "ChangeCompany", "JobOrder",new { jobid = item.Main.Id }, new { data-toggle = "modal", data-target = "#SupplierPoItemsModal" })                
-                -->
 
                 <a href="#" id="catbtn" data-toggle="modal" data-target="#@item.Main.Id" style="margin-bottom:10px;">Change Company</a>
                 ]
@@ -182,6 +162,7 @@
 <p>
     @Html.ActionLink("Create New", "jobCreate", null, null)
     | Work In Progress
+    | @Html.ActionLink("Listing", "JobListing", "JobOrder", new { span = 30 }, null)
     | @Html.ActionLink("Job Table", "JobTable", "JobMains", new { span = 30 }, null)
     | @Html.ActionLink("Availability", "Availability", "InvItems")
 </p>
