@@ -57,7 +57,8 @@
     <div class="col-md-4">
         <h2>Customers</h2>
         <p>Regular Clients, Guests, Companies, Corporate Accounts.
-            @Html.ActionLink("List", "Index", "Customers") 
+            @Html.ActionLink("Customers", "Index", "Customers") | 
+            @Html.ActionLink("Companies", "Index", "CustEntMains")
            
         </p>
         <p>@Html.ActionLink("Add New »", "Create", "Customers", null, new { @class = "btn btn-default" }) </p>
