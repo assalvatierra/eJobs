@@ -63,17 +63,21 @@
                     {
 
                         string s3 = ((DateTime)js.JsDate).ToString("MMM-dd (ddd)");
-                        <b> DateTime:  </b>
-                        @s3
-                        <span> </span>
-                        @js.JsTime
+                        <span>DateTime:</span>
+                        <span style="font-weight:bold;">
+                            @s3
+
+                            @js.JsTime
+                        </span>
                     }
 
                     <span>&nbsp;</span>
                     if (js.JsLocation != null)
                     {
-                        <b> Location:  </b>
+                        <span>Location: </span>
+                        <span style="font-weight:bold;">
                         @Html.DisplayFor(modelItem => js.JsLocation)
+                        </span>
                     }
                 }
                 catch (Exception e)
