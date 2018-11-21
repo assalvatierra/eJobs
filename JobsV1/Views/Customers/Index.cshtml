@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Customer List</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -12,10 +12,13 @@
 <table class="table">
     <tr>
         <th>
-           Status
+           Customer
         </th>
         <th>
-           Customer
+            Contact
+        </th>
+        <th>
+            Email
         </th>
         <th>
            Category
@@ -36,19 +39,24 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
                 <h4>@Html.DisplayFor(modelItem => item.Name)</h4>
                 <p>
-                    <a href="mailto:@item.Email">@Html.DisplayFor(modelItem => item.Email)</a>
-                </p>
-                <p>
-                    <a href="tel:@item.Contact1">@Html.DisplayFor(modelItem => item.Contact1)</a> |
-                    <a href="tel:@item.Contact2">@Html.DisplayFor(modelItem => item.Contact2)</a>
-                </p>
-                <p>
                     @Html.DisplayFor(modelItem => item.Remarks)
+                </p>
+            </td>
+            <td>
+                <p>
+                    <a href="tel:@item.Contact1">@Html.DisplayFor(modelItem => item.Contact1)</a>
+                    @if (item.Contact2 != null && item.Contact2.Trim().Length > 0)
+                    {
+                        <a href="tel:@item.Contact2">@Html.DisplayFor(modelItem => item.Contact2)</a>
+                    }
+
+                </p>
+            </td>
+            <td>
+                <p>
+                    <a href="mailto:@item.Email">@Html.DisplayFor(modelItem => item.Email)</a>
                 </p>
             </td>
             <td>
