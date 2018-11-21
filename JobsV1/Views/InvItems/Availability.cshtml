@@ -10,6 +10,7 @@
 
 @Html.ActionLink("Create New", "jobCreate", "JobOrder", null, null)
 | @Html.ActionLink("Work In Progress", "Index", "JobOrder")
+| @Html.ActionLink("Listing", "JobListing", "JobOrder", new { span = 30 }, null)
 | @Html.ActionLink("Job Table", "JobTable", "JobMains", new { span = 30 }, null)
 | Availability
 
@@ -130,3 +131,9 @@
     }
 
 </table>
+
+@Html.ActionLink("List", "Index", "SupplierItems") |
+@Html.ActionLink("Items", "Index", "InvItems") |
+Availability |
+@Html.ActionLink("Gate Control", "Index", "InvCarGateControls") |
+@Html.ActionLink("Maintenance", "Index", "InvCarRecords")

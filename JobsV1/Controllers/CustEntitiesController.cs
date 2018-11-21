@@ -162,10 +162,7 @@ namespace JobsV1.Controllers
             db.SaveChanges();
             return RedirectToAction("Details", "Customers", new { id = custid });
         }
-
-
-
-
+        
         public ActionResult addCategory(int companyId, int userid)
         {
             if (companyId > 1)
@@ -187,8 +184,5 @@ namespace JobsV1.Controllers
             }
 
         }
-
-
-
     }
 }

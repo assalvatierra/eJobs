@@ -239,6 +239,38 @@ namespace JobsV1.Controllers
             return View(customer);
         }
 
+        // GET: Customers/CompanyCreate
+        public ActionResult CompanyCreate()
+        {
+            return View();
+        }
+
+        // POST: Customers/CompanyCreate
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CompanyCreate([Bind(Include = "Id,Name,Address,Contact1,Contact2,iconPath")] CustEntMain custEntMain, int? id)
+        {
+            if (ModelState.IsValid)
+            {
+
+                db.CustEntMains.Add(custEntMain);
+                db.SaveChanges();
+
+                //save new company to customer
+                CustEntity company = new CustEntity();
+                company.CustEntMainId = custEntMain.Id;
+                company.CustomerId = (int)id;
+                db.CustEntities.Add(company);
+                db.SaveChanges();
+
+                return RedirectToAction("Details", "Customers", new { id = id });
+            }
+
+            return View(custEntMain);
+        }
+
         // GET: Customers/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -492,6 +524,26 @@ namespace JobsV1.Controllers
             }
             ViewBag.fileList = FilesList;
             
+        }
+
+        public ActionResult addCompanyCat(int companyId, int userid)
+        {
+            if (companyId > 1)
+            {
+                db.CustEntities.Add(new CustEntity
+                {
+                    CustEntMainId = companyId,
+                    CustomerId = userid
+                });
+
+                db.SaveChanges();
+                return RedirectToAction("Details", "Customers", new { id = userid });
+            }
+            else
+            {   //create new company
+                return RedirectToAction("CompanyCreate", "Customers", new { id = userid });
+            }
+
         }
 
     }

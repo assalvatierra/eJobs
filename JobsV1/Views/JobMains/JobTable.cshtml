@@ -8,7 +8,8 @@
 <h2>Schedules</h2>
 
 @Html.ActionLink("Create New", "jobCreate", "JobOrder", null, null) 
-| @Html.ActionLink("Work In Progress", "Index", "JobOrder") 
+| @Html.ActionLink("Work In Progress", "Index", "JobOrder")    
+| @Html.ActionLink("Listing", "JobListing", "JobOrder", new { span = 30 }, null)
 | Job Table
 | @Html.ActionLink("Availability", "Availability", "InvItems")
 

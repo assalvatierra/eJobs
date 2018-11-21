@@ -32,7 +32,7 @@
         <dd>
             <a href='tel:@Html.DisplayFor(modelItem => item.Contact1)'>  @Html.DisplayFor(modelItem => item.Contact1) </a> |
             <a href='tel:@Html.DisplayFor(modelItem => item.Contact1)'> @Html.DisplayFor(modelItem => item.Contact2) </a>
-</dd>
+        </dd>
         <dd>
             @Html.ActionLink("Details", "Details", "CustEntMains",new { id = item.Id }, null) |
             @Html.ActionLink("Remove", "Remove", "CustEntities", new { comid = item.Id, custid = customerid }, null) 
@@ -60,7 +60,7 @@
 
                     @foreach (var item in ViewData["companies"] as IEnumerable<JobsV1.Models.CustEntMain>)
                     {
-                        <a href="@Url.Action("addCategory", "CustEntities", new { companyId = item.Id, userid = @customerid })" class="list-group-item"> @item.Name </a>
+                        <a href="@Url.Action("addCompanyCat", "Customers", new { companyId = item.Id, userid = @customerid })" class="list-group-item"> @item.Name </a>
                         
                     }
                 </div>
