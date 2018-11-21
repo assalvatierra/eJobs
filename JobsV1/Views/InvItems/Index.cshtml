@@ -95,8 +95,21 @@
             @if (item.InvCarRecords.OrderByDescending(s => s.dtDone).FirstOrDefault() != null)
             {
 
+                int high, high2;
+                int currentOdo = int.Parse(item.InvCarGateControls.OrderByDescending(s => s.dtControl).FirstOrDefault().Odometer);
+                int nextOdo = 0 ;
+
+                foreach (var odo in item.InvCarRecords.OrderBy(s=>s.NextOdometer))
+                {
+                    if ( odo.NextOdometer > currentOdo)
+                    {
+                        nextOdo =  odo.NextOdometer ;
+                        break;
+                    }
+                }
+
                 <span>Odometer:</span>
-                @String.Format("{0:n0}",item.InvCarRecords.OrderByDescending(s => s.dtDone).FirstOrDefault().NextOdometer)
+                @String.Format("{0:n0}", nextOdo )
 
             }
             <br />
