@@ -364,9 +364,7 @@ namespace JobsV1.Controllers
             EMailHandler mail = new EMailHandler();
             return mail.SendMail(jobId, renterEmail, mailType, recipientName);
         }
-
-
-
+        
         public ActionResult CarView(string carDesc)
         {
             switch (carDesc)
