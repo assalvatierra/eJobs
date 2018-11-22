@@ -138,7 +138,9 @@
                 </div>
 
                 <div class="modal-body" id="modal2-content">
-                    <h4>Payment History</h4>
+                    <h4>
+                        Payment History
+                    </h4>
 
                     @if (item.Main.JobPayments.Count() != 0)
                     {
@@ -153,11 +155,16 @@
                                 @pDate
                              </p>
                         }
-
+                        
+                        <span style="color:green;">
+                            @string.Format("{0:N}", @item.Payment)
+                            <span>-</span>
+                            <span>Total</span>
+                        </span>
                     }
                     else
                     {
-                        <p>No previous payments</p>
+                        <p>No previous payment</p>
                     }
 
                     <hr /><h4> Create New Payment </h4>
