@@ -128,7 +128,7 @@
     </div><!-- /.modal -->
 
 
-    <!-- Modal -->
+    <!-- Modal Payment -->
     <div class="modal fade" id="Payment@(item.Main.Id)" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -138,8 +138,30 @@
                 </div>
 
                 <div class="modal-body" id="modal2-content">
-                    <div class="list-group" id="categorylist">
+                    <h4>Payment History</h4>
 
+                    @if (item.Main.JobPayments.Count() != 0)
+                    {
+
+                        foreach (var payments in item.Main.JobPayments)
+                        {
+                            string pDate = ((DateTime)payments.DtPayment).ToString("MMM-dd-yyyy (ddd)");
+                                        
+                            <p>
+                                @string.Format("{0:N}", payments.PaymentAmt)
+                                <span>-</span>
+                                @pDate
+                             </p>
+                        }
+
+                    }
+                    else
+                    {
+                        <p>No previous payments</p>
+                    }
+
+                    <hr /><h4> Create New Payment </h4>
+                    <div class="list-group" id="categorylist">
                         <a href="@Url.Action("Payments", "JobOrder", new { id = item.Main.Id}, null)" class="list-group-item">  Payment Transaction</a>
                         <a href="@Url.Action("PaymentCreate", "JobOrder", new { JobMainId = item.Main.Id, remarks = "Partial Payment" }, null)" class="list-group-item"> Partial Payment</a>
                         <a href="@Url.Action("PaymentCreate", "JobOrder", new { JobMainId = item.Main.Id, remarks = "Full Payment" }, null)" class="list-group-item"> Full Payment</a>

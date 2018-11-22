@@ -120,6 +120,30 @@
                     </div>
 
                     <div class="modal-body" id="modal2-content">
+
+                        <h4>Payment History</h4>
+
+                        @if (item.Main.JobPayments.Count() != 0)
+                        {
+                            foreach (var payments in item.Main.JobPayments)
+                            {
+                                string pDate = ((DateTime)payments.DtPayment).ToString("MMM-dd-yyyy (ddd)");
+                                <p>
+
+                                    @string.Format("{0:N}", payments.PaymentAmt)
+                                    <span>-</span>
+                                    @pDate
+                                </p>
+                            }
+
+                        }
+                        else
+                        {
+                            <p>No previous payments</p>
+                        }
+
+                        <hr /><h4> Create New Payment </h4>
+
                         <div class="list-group" id="categorylist">
 
                             <a href="@Url.Action("Payments", "JobOrder", new { id = item.Main.Id}, null)" class="list-group-item">  Payment Transaction</a>
