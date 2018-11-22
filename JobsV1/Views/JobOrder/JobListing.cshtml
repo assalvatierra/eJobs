@@ -54,7 +54,7 @@
                {
                    string s1 = ((DateTime)item.Main.JobDate).ToString("MMM-dd (ddd)");
                    @s1
-                   @item.Main.JobDate
+                  
                }
             </td>
             <td>
@@ -68,7 +68,8 @@
             <td>
                 <span style="font-weight:bold;">
                     @item.Main.Customer.Name
-                </span>/
+                </span>
+                <span>/</span>
                 @item.Main.Description
             </td>
             <td>
