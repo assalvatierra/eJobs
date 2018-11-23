@@ -94,6 +94,17 @@
         <p>@Html.ActionLink("Add New »", "Create", "SupplierItems", null, new { @class = "btn btn-default" }) </p>
     </div>
 
+    <div class="col-md-4">
+        <h2>Reporting</h2>
+        <p>
+           Joblisting, Payment Reports
+            <br />
+            [ @Html.ActionLink("Generate Report", "Index", "Reporting") ]
+
+        </p>
+        <p>@Html.ActionLink("Create Report »", "Index", "Reporting", null, new { @class = "btn btn-default" }) </p>
+    </div>
+
     <!--
     <div class="col-md-4">
         <h2>Destinations</h2>

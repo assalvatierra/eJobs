@@ -1,0 +1,67 @@
+﻿
+<div id="joblisting-filter" class="row" style="background-color:#f3f3f3;padding:15px; box-shadow:0px 0px 5px 2px lightgray; ">
+
+    <div class="col-lg-3">
+        
+        <h5>Start Date</h5>
+        <input type="date" value="@ViewBag.sDate" id="startDate" />
+    </div>
+    <div class="col-lg-3">
+        <h5>End Date</h5>
+        <input type="date" value="@ViewBag.eDate" id="endDate" />
+    </div>
+
+    <div class="col-lg-3">
+        <h5>Job ID</h5>
+        <input type="number" value="@ViewBag.Id" id="id-input" />
+    </div>
+
+    <div class="col-lg-3">
+        <br />
+        <button class="btn btn-primary" onclick="reportUpdate();"> Filter </button>
+        @Html.ActionLink("Print View", "JobListingPrint", new { sDateVal = "2018-11-22",eDateVal = "2018-11-29" }, new { @class = "btn btn-default" })
+    </div>
+</div>
+
+<div class="row" style="border: 1px solid lightgray;height:600px; padding:20px;margin-top:15px; box-shadow:0px 0px 5px 2px lightgray; ">
+
+    @{Html.RenderAction("JobListing");}
+
+</div>
+
+
+<script>
+    function reportUpdate() {
+        var idVal = document.getElementById("id-input").value;
+        var sDateVal = document.getElementById("startDate").value;
+        var eDateVal = document.getElementById("endDate").value;
+        var d = "2018-11-22";
+
+        var requestString = "/Reporting/Index?";
+
+        if (sDateVal == null ) {
+            sDateVal = "2018-11-22";
+        }
+
+        if (eDateVal == null ) {
+            eDateVal = "2018-11-22";
+        }
+
+        if (idVal != null) {
+            requestString += idVal;
+        }
+
+        if (eDateVal != null && sDateVal != null) {
+            if (isNaN(idVal)) {
+                alert(true);
+                requestString += "&";
+            } else {
+                requestString += "&";
+            }
+            requestString = requestString + "sDate=" + sDateVal + "&eDate=" + eDateVal;
+        }
+
+        window.location.href = requestString;
+        //window.location.href = "/Reporting/Index/" + idVal + "&sDate=" + sDateVal + "&sDate=" + eDateVal;
+    }
+</script>
