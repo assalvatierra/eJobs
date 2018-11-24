@@ -99,7 +99,8 @@
         <p>
            Joblisting, Payment Reports
             <br />
-            [ @Html.ActionLink("Generate Report", "Index", "Reporting") ]
+            [ @Html.ActionLink("Job Listing", "Index", "Reporting", new { reportId = 1 }, null) ,
+              @Html.ActionLink("Payment", "Index", "Reporting", new { reportId = 2 }, null) ]
 
         </p>
         <p>@Html.ActionLink("Create Report »", "Index", "Reporting", null, new { @class = "btn btn-default" }) </p>

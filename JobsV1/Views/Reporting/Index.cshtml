@@ -6,14 +6,12 @@
 
 
 <div class="container">
-
     <div class="col-lg-2" style="margin-bottom:10px;" >
         <h3>Reports</h3>
         <div class="row col-lg-12">
             <div class="btn-group-vertical" style="width:150px;">
                 @Html.ActionLink("Job Listing", "Index", new { reportId = 1 }, new { @class="btn btn-default" })
                 @Html.ActionLink("Payments", "Index", new { reportId = 2 }, new { @class = "btn btn-default" })
-               
             </div>
         </div>
 
@@ -23,7 +21,7 @@
         @{
                 if (ViewBag.reportId == 1)
                 {
-                    @Html.Partial("JobListingReport");
+                    @Html.Partial("JobListingReport", new ViewDataDictionary { { "sDate", @ViewBag.sDate } });
                 }
                 else if(ViewBag.reportId == 2)
                 {
