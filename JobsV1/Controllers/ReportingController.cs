@@ -306,9 +306,30 @@ order by x.jobid
             return PartialView(paymentReport);
         }
 
-        public ActionResult PaymentsPrint()
+        public ActionResult PaymentsPrint(string sDate, string eDate, string company)
         {
-            return View("Payments", db.JobPayments.ToList());
+            var paymentReport = db.JobPayments.ToList();
+
+            if (company != null)
+            {
+                if (company != "all")
+                {
+                    paymentReport = paymentReport
+                                        .Where(p => p.JobMain.Description.ToLower().Contains(company.ToLower()))
+                                        .ToList();
+                }
+            }
+
+            if (sDate != null && eDate != null)
+            {
+                DateTime startDateRange = DateTime.Parse(sDate.ToString());
+                DateTime endDateRange = DateTime.Parse(eDate.ToString());
+                paymentReport = paymentReport
+                    .Where(p => (DateTime.Compare(p.DtPayment.Date, startDateRange.Date) >= 0 && DateTime.Compare(p.DtPayment.Date, endDateRange.Date) <= 0))
+                    .ToList();
+            }
+
+            return View("Payments", paymentReport);
 
             //return View(db.JobPayments.ToList());
         }

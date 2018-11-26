@@ -19,9 +19,14 @@
 
     <div class="col-lg-3">
         <br />
-        <button class="btn btn-primary" onclick="reportUpdate();"> Filter </button>
-        <button class="btn btn-primary" onclick="Update();"> update </button>
-        @Html.ActionLink("Print View", "JobListingPrint", new { sDateVal = "2018-11-22",eDateVal = "2018-11-29" }, new { @class = "btn btn-default" })
+        <button class="btn btn-primary" onclick="reportUpdate();">
+            <span class="glyphicon glyphicon-search"></span> Filter 
+        </button>
+
+        <button class="btn btn-primary" onclick="reportPrint();">
+            <span class="glyphicon glyphicon-print"></span> Print
+        </button>
+        
     </div>
 </div>
 
@@ -87,7 +92,26 @@
             CompanyVal = "all";
         } 
         requestString += "&company=" + CompanyVal;
-     
+
+        window.location.href = requestString;
+        //window.location.href = "/Reporting/Index/" + idVal + "&sDate=" + sDateVal + "&sDate=" + eDateVal;
+    }
+
+    function reportPrint() {
+        var CompanyVal = document.getElementById("company-input").value;
+        var sDateVal = document.getElementById("startDate").value != "" ? document.getElementById("startDate").value : getToday();
+        var eDateVal = document.getElementById("endDate").value != "" ? document.getElementById("endDate").value : getToday();
+
+        var requestString = "/Reporting/JobListingPrint?";
+
+        if (eDateVal != null && sDateVal != null) {
+            requestString = requestString + "sDate=" + sDateVal + "&eDate=" + eDateVal;
+        }
+
+        if (CompanyVal == "") {
+            CompanyVal = "all";
+        }
+        requestString += "&company=" + CompanyVal;
 
         window.location.href = requestString;
         //window.location.href = "/Reporting/Index/" + idVal + "&sDate=" + sDateVal + "&sDate=" + eDateVal;

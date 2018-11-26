@@ -92,13 +92,13 @@ namespace JobsV1.Controllers
 
             ViewBag.today = today;
             today = today.Date;
-            /*
+            
             switch (sortid)
             {
                 case 1: //OnGoing
                     jobMains = jobMains
                         .Where(d => (d.JobStatusId != JOBCLOSED || d.JobStatusId != JOBCANCELLED)).ToList()
-                        .Where(p => DateTime.Compare(p.JobDate.Date, today.Date.AddDays(-60)) >= 0).ToList();   //get 1 month before all entries
+                        .Where(p => DateTime.Compare(p.JobDate.Date, today.Date.AddDays(-132)) >= 0).ToList();   //get 1 month before all entries
 
                     break;
                 case 2: //prev
@@ -119,7 +119,7 @@ namespace JobsV1.Controllers
                     jobMains = jobMains.ToList();
 
                     break;
-            }*/
+            }
 
             foreach (var main in jobMains)
             {

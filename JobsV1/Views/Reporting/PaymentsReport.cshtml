@@ -13,14 +13,18 @@
 
     <div class="col-lg-3">
         <h5>Payers Name (Description)</h5>
-        <input type="number" value="@ViewBag.Id" id="company-input" />
+        <input type="text" value="@ViewBag.Id" id="company-input" />
     </div>
-
 
     <div class="col-lg-3">
         <br />
-        <button class="btn btn-primary" onclick="paymentUpdate();"> Filter </button>
-        @Html.ActionLink("Print View", "PaymentsPrint", null, new { @class = "btn btn-default" })
+        <button class="btn btn-primary" onclick="paymentUpdate();">
+            <span class="glyphicon glyphicon-search"></span> Filter
+        </button>
+
+        <button class="btn btn-primary" onclick="paymentPrint();">
+            <span class="glyphicon glyphicon-print"></span> Print
+        </button>
     </div>
 </div>
 
@@ -88,6 +92,26 @@
         }
         requestString += "&company=" + CompanyVal;
 
+
+        window.location.href = requestString;
+        //window.location.href = "/Reporting/Index/" + idVal + "&sDate=" + sDateVal + "&sDate=" + eDateVal;
+    }
+
+    function paymentPrint() {
+        var CompanyVal = document.getElementById("company-input").value;
+        var sDateVal = document.getElementById("startDate").value != "" ? document.getElementById("startDate").value : getToday();
+        var eDateVal = document.getElementById("endDate").value != "" ? document.getElementById("endDate").value : getToday();
+
+        var requestString = "/Reporting/PaymentsPrint?";
+
+        if (eDateVal != null && sDateVal != null) {
+            requestString = requestString + "sDate=" + sDateVal + "&eDate=" + eDateVal;
+        }
+
+        if (CompanyVal == "") {
+            CompanyVal = "all";
+        }
+        requestString += "&company=" + CompanyVal;
 
         window.location.href = requestString;
         //window.location.href = "/Reporting/Index/" + idVal + "&sDate=" + sDateVal + "&sDate=" + eDateVal;
