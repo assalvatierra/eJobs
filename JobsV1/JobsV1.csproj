@@ -317,6 +317,7 @@
     <Compile Include="Controllers\ProductPricesController.cs" />
     <Compile Include="Controllers\ProductProdCatsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\ReportingController.cs" />
     <Compile Include="Controllers\SalesActivitiesController.cs" />
     <Compile Include="Controllers\SalesLeadsController.cs" />
     <Compile Include="Controllers\SupplierItemsController.cs" />
@@ -1349,6 +1350,13 @@
     <Content Include="Views\CarCoop\Partial_content_1.cshtml" />
     <Content Include="Views\JobOrder\JobListing.cshtml" />
     <Content Include="Views\Customers\CompanyCreate.cshtml" />
+    <Content Include="Views\Reporting\Index.cshtml" />
+    <Content Include="Views\Reporting\JobListing.cshtml" />
+    <Content Include="Views\Reporting\PaymentsReport.cshtml" />
+    <Content Include="Views\Reporting\JobListingReport.cshtml" />
+    <Content Include="Views\Reporting\Payments.cshtml" />
+    <Content Include="Views\Reporting\PaymentsPrint.cshtml" />
+    <Content Include="Views\Reporting\JobListingPrint.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

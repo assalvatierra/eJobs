@@ -95,27 +95,30 @@
             @if (item.InvCarRecords.OrderByDescending(s => s.dtDone).FirstOrDefault() != null)
             {
 
-                int high, high2;
-                int currentOdo = int.Parse(item.InvCarGateControls.OrderByDescending(s => s.dtControl).FirstOrDefault().Odometer);
-                int nextOdo = 0 ;
-                string nextDate = "N/A";
-                foreach (var odo in item.InvCarRecords.OrderBy(s=>s.NextOdometer))
+                if (item.InvCarGateControls.OrderByDescending(s => s.dtControl).FirstOrDefault() != null)
                 {
-                    if ( odo.NextOdometer > currentOdo)
+
+                    int high, high2;
+                    int currentOdo = int.Parse(item.InvCarGateControls.OrderByDescending(s => s.dtControl).FirstOrDefault().Odometer);
+                    int nextOdo = 0;
+                    string nextDate = "N/A";
+                    foreach (var odo in item.InvCarRecords.OrderBy(s => s.NextOdometer))
                     {
-                        nextOdo =  odo.NextOdometer ;
-                        nextDate = item.InvCarRecords.OrderByDescending(s => s.dtDone).FirstOrDefault().NextSched.ToString("MMM-dd-yyyy");
-                        break;
+                        if (odo.NextOdometer > currentOdo)
+                        {
+                            nextOdo = odo.NextOdometer;
+                            nextDate = item.InvCarRecords.OrderByDescending(s => s.dtDone).FirstOrDefault().NextSched.ToString("MMM-dd-yyyy");
+                            break;
+                        }
                     }
-                }
 
                 <span>Odometer:</span>
-                @String.Format("{0:n0}", nextOdo )
-                
+                @String.Format("{0:n0}", nextOdo)
+
                 <span>Schedule:</span>
                 @nextDate
-                
-            }
+                    }
+                }
             <br />
 
            

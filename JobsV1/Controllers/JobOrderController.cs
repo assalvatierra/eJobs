@@ -92,7 +92,7 @@ namespace JobsV1.Controllers
 
             ViewBag.today = today;
             today = today.Date;
-
+            /*
             switch (sortid)
             {
                 case 1: //OnGoing
@@ -119,7 +119,7 @@ namespace JobsV1.Controllers
                     jobMains = jobMains.ToList();
 
                     break;
-            }
+            }*/
 
             foreach (var main in jobMains)
             {
