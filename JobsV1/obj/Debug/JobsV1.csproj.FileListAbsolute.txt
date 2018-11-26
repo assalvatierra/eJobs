@@ -525,7 +525,6 @@ D:\Data\Real\Apps\GitHub\eJobs\JobsV1\obj\Debug\JobsV1.dll
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\obj\Debug\JobsV1.pdb
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\PayPal.dll
 D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\PayPal.xml
-D:\Data\Real\Apps\GitHub\eJobs\JobsV1\obj\Debug\JobsV1.csprojResolveAssemblyReference.cache
 C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\PayPal.dll
 C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\bin\PayPal.xml
 C:\Data\ABEL\Projects\GitHubApps\eJobs\JobsV1\obj\Debug\JobsV1.csprojResolveAssemblyReference.cache
@@ -623,3 +622,7 @@ C:\Users\VILLOSA\Documents\GithubClassic\eJobs\JobsV1\bin\zh-Hant\Microsoft.SqlS
 C:\Users\VILLOSA\Documents\GithubClassic\eJobs\JobsV1\obj\Debug\JobsV1.dll
 C:\Users\VILLOSA\Documents\GithubClassic\eJobs\JobsV1\obj\Debug\JobsV1.pdb
 C:\Users\VILLOSA\Documents\GithubClassic\eJobs\JobsV1\obj\Debug\JobsV1.csprojResolveAssemblyReference.cache
+D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\System.Web.Cors.dll
+D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\System.Web.Http.Cors.dll
+D:\Data\Real\Apps\GitHub\eJobs\JobsV1\bin\System.Web.Http.Cors.xml
+D:\Data\Real\Apps\GitHub\eJobs\JobsV1\obj\Debug\JobsV1.csprojResolveAssemblyReference.cache

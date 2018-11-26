@@ -369,6 +369,16 @@
       <End Role="CarUnit" EntitySet="CarUnits" />
       <End Role="CarUnitMeta" EntitySet="CarUnitMetas" />
     </AssociationSet>
+    <EntitySet Name="CoopMembers" EntityType="JobDB.CoopMember" />
+    <EntitySet Name="CoopMemberItems" EntityType="JobDB.CoopMemberItem" />
+    <AssociationSet Name="CoopMemberCoopMemberItem" Association="JobDB.CoopMemberCoopMemberItem">
+      <End Role="CoopMember" EntitySet="CoopMembers" />
+      <End Role="CoopMemberItem" EntitySet="CoopMemberItems" />
+    </AssociationSet>
+    <AssociationSet Name="InvItemCoopMemberItem" Association="JobDB.InvItemCoopMemberItem">
+      <End Role="InvItem" EntitySet="InvItems" />
+      <End Role="CoopMemberItem" EntitySet="CoopMemberItems" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="JobMain">
     <Key>
@@ -983,6 +993,8 @@
     <Property Name="EstHrPerDay" Type="Int32" Nullable="true" />
     <Property Name="EstKmTravel" Type="Int32" Nullable="true" />
     <NavigationProperty Name="CarResPackages" Relationship="JobDB.CarReservationCarResPackage" FromRole="CarReservation" ToRole="CarResPackage" />
+    <Property Name="JobRefNo" Type="Int32" Nullable="true" />
+    <Property Name="SelfDrive" Type="Int32" Nullable="true" />
   </EntityType>
   <Association Name="CarUnitCarReservation">
     <End Type="JobDB.CarUnit" Role="CarUnit" Multiplicity="1" />
@@ -1591,6 +1603,7 @@
     <Property Name="OrderNo" Type="Int32" Nullable="true" DefaultValue="999" />
     <NavigationProperty Name="InvCarRecords" Relationship="JobDB.InvItemInvCarRecord" FromRole="InvItem" ToRole="InvCarRecord" />
     <NavigationProperty Name="InvCarGateControls" Relationship="JobDB.InvItemInvCarGateControl" FromRole="InvItem" ToRole="InvCarGateControl" />
+    <NavigationProperty Name="CoopMemberItems" Relationship="JobDB.InvItemCoopMemberItem" FromRole="InvItem" ToRole="CoopMemberItem" />
   </EntityType>
   <EntityType Name="InvItemCat">
     <Key>
@@ -2085,6 +2098,7 @@
     <Property Name="FuelLonghaul" Type="Decimal" Nullable="false" />
     <Property Name="FuelDaily" Type="Decimal" Nullable="false" />
     <NavigationProperty Name="CarResPackages" Relationship="JobDB.CarRateUnitPackageCarResPackage" FromRole="CarRateUnitPackage" ToRole="CarResPackage" />
+    <Property Name="DailyAddon" Type="Decimal" Nullable="true" />
   </EntityType>
   <Association Name="CarRatePackageCarRateUnitPackage">
     <End Type="JobDB.CarRatePackage" Role="CarRatePackage" Multiplicity="1" />
@@ -2167,6 +2181,54 @@
       </Principal>
       <Dependent Role="CarUnitMeta">
         <PropertyRef Name="CarUnitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="CoopMember">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" />
+    <Property Name="Contact1" Type="String" Nullable="true" MaxLength="20" />
+    <Property Name="Contact2" Type="String" Nullable="true" MaxLength="20" />
+    <Property Name="Contact3" Type="String" Nullable="true" MaxLength="20" />
+    <Property Name="Email" Type="String" Nullable="true" MaxLength="50" />
+    <Property Name="Details" Type="String" Nullable="true" MaxLength="80" />
+    <Property Name="Status" Type="String" Nullable="true" MaxLength="10" />
+    <NavigationProperty Name="CoopMemberItems" Relationship="JobDB.CoopMemberCoopMemberItem" FromRole="CoopMember" ToRole="CoopMemberItem" />
+  </EntityType>
+  <EntityType Name="CoopMemberItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="CoopMember" Relationship="JobDB.CoopMemberCoopMemberItem" FromRole="CoopMemberItem" ToRole="CoopMember" />
+    <Property Name="CoopMemberId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="InvItem" Relationship="JobDB.InvItemCoopMemberItem" FromRole="CoopMemberItem" ToRole="InvItem" />
+    <Property Name="InvItemId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="CoopMemberCoopMemberItem">
+    <End Type="JobDB.CoopMember" Role="CoopMember" Multiplicity="1" />
+    <End Type="JobDB.CoopMemberItem" Role="CoopMemberItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CoopMember">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CoopMemberItem">
+        <PropertyRef Name="CoopMemberId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InvItemCoopMemberItem">
+    <End Type="JobDB.InvItem" Role="InvItem" Multiplicity="1" />
+    <End Type="JobDB.CoopMemberItem" Role="CoopMemberItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InvItem">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CoopMemberItem">
+        <PropertyRef Name="InvItemId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

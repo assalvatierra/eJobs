@@ -293,6 +293,8 @@
           <ScalarProperty Name="RenterLinkedInAccnt" ColumnName="RenterLinkedInAccnt" />
           <ScalarProperty Name="EstHrPerDay" ColumnName="EstHrPerDay" />
           <ScalarProperty Name="EstKmTravel" ColumnName="EstKmTravel" />
+          <ScalarProperty Name="JobRefNo" ColumnName="JobRefNo" />
+          <ScalarProperty Name="SelfDrive" ColumnName="SelfDrive" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -811,6 +813,7 @@
           <ScalarProperty Name="DailyRate" ColumnName="DailyRate" />
           <ScalarProperty Name="FuelLonghaul" ColumnName="FuelLonghaul" />
           <ScalarProperty Name="FuelDaily" ColumnName="FuelDaily" />
+          <ScalarProperty Name="DailyAddon" ColumnName="DailyAddon" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -834,6 +837,29 @@
           <ScalarProperty Name="PageTitle" ColumnName="PageTitle" />
           <ScalarProperty Name="MetaDesc" ColumnName="MetaDesc" />
           <ScalarProperty Name="HomeDesc" ColumnName="HomeDesc" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CoopMembers">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.CoopMember)">
+        <MappingFragment StoreEntitySet="CoopMembers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Contact1" ColumnName="Contact1" />
+          <ScalarProperty Name="Contact2" ColumnName="Contact2" />
+          <ScalarProperty Name="Contact3" ColumnName="Contact3" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CoopMemberItems">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.CoopMemberItem)">
+        <MappingFragment StoreEntitySet="CoopMemberItems">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CoopMemberId" ColumnName="CoopMemberId" />
+          <ScalarProperty Name="InvItemId" ColumnName="InvItemId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
