@@ -39,9 +39,9 @@ namespace JobsV1.Controllers
 
         #region Joblisting
 
-        public PartialViewResult JobListing(int? id,string sDate, string eDate, int? sortid, int? serviceId, int? mainid, string company)
+        public PartialViewResult JobListing(int? id,string sDate, string eDate, int? sortid, int? serviceId, int? mainid, string company, string unitDriver)
         {
-            var data = getJobData(id, sDate, eDate, sortid, serviceId, mainid, company);
+            var data = getJobData(id, sDate, eDate, sortid, serviceId, mainid, company, unitDriver);
 
             var jobmainId = serviceId != null ? db.JobServices.Find(serviceId).JobMainId : 0;
             jobmainId = mainid != null ? (int)mainid : jobmainId;
@@ -52,13 +52,13 @@ namespace JobsV1.Controllers
             
             if ( id != null )
             {
-                return PartialView("JobListingPrint", data.Where(c=>c.Main.Id == id));
+                return PartialView("JobListing", data.Where(c=>c.Main.Id == id));
             }
-            return PartialView("JobListingPrint", data.OrderByDescending(d => d.Main.JobDate));
+            return PartialView("JobListing", data.OrderByDescending(d => d.Main.JobDate));
             
         }
 
-        private List<cJobOrder> getJobData(int? id, string sDate, string eDate,int? sortid, int? serviceId, int? mainid, string company)
+        private List<cJobOrder> getJobData(int? id, string sDate, string eDate,int? sortid, int? serviceId, int? mainid, string company, string unitDriver)
         {
 
             if (sortid != null)
@@ -122,12 +122,13 @@ namespace JobsV1.Controllers
                     joTmp.Main.AgreedAmt += svc.ActualAmt;
 
                     joTmp.Services.Add(cjoTmp);
+                    
                 }
 
                 joTmp.ActionCounter = jobActionCntr.Where(d => d.JobId == joTmp.Main.Id).ToList();
-                
+
                 data.Add(joTmp);
-                 
+               
                 List<Models.JobPayment> jobPayment = db.JobPayments.Where(d => d.JobMainId == main.Id).ToList();
                 foreach (var payment in jobPayment)
                 {
@@ -158,6 +159,13 @@ namespace JobsV1.Controllers
                                 (DateTime.Compare(MaxJobDate(p.Main.Id).Date, startDateRange.Date) >= 0 && DateTime.Compare(MaxJobDate(p.Main.Id).Date, endDateRange.Date) <= 0)) 
                     .ToList();
 
+            }
+
+            if (unitDriver != null)
+            {
+                data = (List<cJobOrder>)data
+                 //   .Where(s=>s.Services.Where(s.Services.Where(d=>d.Service.JobServiceItems.Where(j=>j.InvItem.Description.Contains(unitDriver.ToLower())) != null ) != null) != null)
+                    .ToList();
             }
 
             return data;
@@ -251,9 +259,9 @@ order by x.jobid
         /**
          *  Joblist Printing View after filter
          */ 
-        public ActionResult JobListingPrint(int? id, string sDate, string eDate, int? sortid, int? serviceId, int? mainid, string company)
+        public ActionResult JobListingPrint(int? id, string sDate, string eDate, int? sortid, int? serviceId, int? mainid, string company,string unitDriver)
         {
-            var data = getJobData(id, sDate, eDate, sortid, serviceId, mainid, company);
+            var data = getJobData(id, sDate, eDate, sortid, serviceId, mainid, company, unitDriver);
 
             List<Customer> customers = db.Customers.ToList();
             ViewBag.companyList = customers;

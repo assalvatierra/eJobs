@@ -40,6 +40,9 @@
                     Company
                 </th>
                 <th>
+                    Unit/Driver 
+                </th>
+                <th>
                     Rate/Payment
                 </th>
             </tr>
@@ -64,7 +67,7 @@
                         @if (@item.Services.FirstOrDefault() != null)
                 {
 
-                    string s2 = ((DateTime)item.Services.LastOrDefault().Service.DtEnd).ToString("MMM-dd (ddd)");
+                            string s2 = ((DateTime)item.Services.LastOrDefault().Service.DtEnd).ToString("MMM-dd (ddd)");
                             @s2
                         }
                     </td>
@@ -75,10 +78,52 @@
                         <span>/</span>
                         @item.Main.Description
                     </td>
+
+                    <td>
+                        <span style="font-weight:bold;">
+                            <!-- Job Service List : Display Unit Driver -->
+                            @{
+                                var services = item.Services.Where(d => d.Service.JobMainId == item.Main.Id).ToList();
+                                foreach (var service in services)
+                                {
+                                    <text>
+                                        @service.Service.Particulars
+                                        <hr style="margin:1px;" />
+                                    </text>
+                                    var jobserviceItems = service.Service.JobServiceItems.ToList();
+                                    foreach (var serviceItem in jobserviceItems)
+                                    {
+                                        if (serviceItem.InvItem.ViewLabel == "UNIT")
+                                        {
+                                            <text>
+                                                <span style="font-size:13px;">
+                                                    @serviceItem.InvItem.Description.ToString()
+                                                </span>
+                                            </text>
+                                        }
+
+                                        if (serviceItem.InvItem.ViewLabel == "DRIVER" || serviceItem.InvItem.ViewLabel == "GUIDE")
+                                        {
+                                            <text>
+                                                <span>/</span>
+                                                <span>
+                                                    @serviceItem.InvItem.Description.ToString()
+                                                </span>
+                                            </text>
+                                        }
+
+                                        <text>
+                                            <br />
+                                        </text>
+                                    }
+                                }
+                            }
+                        </span>
+                    </td>
                     <td>
 
                         @if (@item.Main.AgreedAmt != 0)
-                {
+                        {
                             <span style="color:blue; font: bold 12px arial, verdana;">
                                 @string.Format("{0:N0}", @item.Main.AgreedAmt)
                             </span>
@@ -87,7 +132,7 @@
 
 
                         @if (@item.Payment != 0)
-                {
+                        {
                             <span>/ </span>
                             <span style="color:green; font: bold 12px arial, verdana;">
                                 @string.Format("{0:N0}", @item.Payment)

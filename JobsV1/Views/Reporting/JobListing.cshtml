@@ -22,20 +22,23 @@
     <div class="row" >
 
         <h3>
-            Job Listing
+            Job Listing2
         </h3>
 
 <table class="table table-bordered">
 
     <tr>
         <th>
-            From
+            From2
         </th>
         <th>
             To
         </th>
         <th>
             Company
+        </th>
+        <th>
+            Unit/Driver
         </th>
         <th>
             Rate/Payment
@@ -72,6 +75,52 @@
                 </span>
                 <span>/</span>
                 @item.Main.Description
+            </td>
+            <td>
+                <span style="font-weight:bold;">
+                    <!-- Job Service List : Display unit and Driver-->
+                    @{
+                        var services = item.Services.Where(d => d.Service.JobMainId == item.Main.Id).ToList();
+                        foreach (var service in services)
+                        {
+                            <text>
+                            @service.Service.Particulars
+                            <hr style="margin:1px;"/>
+                            </text>
+                            var jobserviceItems = service.Service.JobServiceItems.ToList();
+                            foreach (var serviceItem in jobserviceItems)
+                            {
+                                if (serviceItem.InvItem.ViewLabel == "UNIT")
+                                {
+                                    <text>
+                                    <span style="font-size:13px;">
+                                       Unit: @serviceItem.InvItem.ItemCode.ToString() @serviceItem.InvItem.Description.ToString()
+                                    </span>
+                                    </text>
+                                }
+                                
+                                if (serviceItem.InvItem.ViewLabel == "DRIVER" || serviceItem.InvItem.ViewLabel == "GUIDE")
+                                {
+                                    <text>
+                                    
+                                    <span style="font-size:13px;">
+                                      Driver: @serviceItem.InvItem.Description.ToString()
+                                    </span>
+                                    </text>
+                                }
+                                
+                                <text>
+                                <br />
+                                </text>
+                            }
+                            <text>
+                            <br />
+                            </text>
+                           
+                        }
+
+                    }
+                </span>
             </td>
             <td>
 

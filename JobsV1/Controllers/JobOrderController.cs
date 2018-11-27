@@ -150,6 +150,15 @@ namespace JobsV1.Controllers
 
                 joTmp.Main.JobDate =  TempJobDate(joTmp.Main.Id);
 
+                if (sortid == 1)
+                {
+                    joTmp.Main.JobDate = TempJobDate(joTmp.Main.Id);
+                }
+                else
+                {
+                    joTmp.Main.JobDate = MinJobDate(joTmp.Main.Id);
+                }
+
                 data.Add(joTmp);
 
                 List<Models.JobPayment> jobPayment = db.JobPayments.Where(d => d.JobMainId == main.Id).ToList();
@@ -171,7 +180,9 @@ namespace JobsV1.Controllers
                 case 2: //prev
                     data = (List<cJobOrder>)data
                         .Where(d => (d.Main.JobStatusId == JOBINQUIRY || d.Main.JobStatusId == JOBRESERVATION || d.Main.JobStatusId == JOBCONFIRMED)).ToList()
-                        .Where(p => DateTime.Compare(p.Main.JobDate.Date, today.Date) < 0).ToList();
+                        .Where(p => DateTime.Compare(p.Main.JobDate.Date, today.Date) < 0)
+                        
+                        .ToList();
 
                     break;
                 case 3: //close
@@ -185,7 +196,6 @@ namespace JobsV1.Controllers
                     break;
             }
            
-
 
             List<Customer> customers = db.Customers.ToList();
             ViewBag.companyList = customers;
@@ -283,6 +293,31 @@ namespace JobsV1.Controllers
             return minDate;
         }
 
+
+        public DateTime MinJobDate(int mainId)
+        {
+            //update jobdate
+            var main = db.JobMains.Where(j => mainId == j.Id).FirstOrDefault();
+
+            DateTime minDate = new DateTime(9999, 12, 30);
+
+            //loop though all jobservices in the jobmain
+            //to get the latest date
+            foreach (var svc in db.JobServices.Where(s => s.JobMainId == mainId).OrderBy(s => s.DtStart))
+            {
+                var svcDtStart = (DateTime)svc.DtStart;
+                var svcDtEnd = (DateTime)svc.DtEnd;
+                //get min date
+                // minDate = (DateTime)svc.DtStart;
+                if (DateTime.Compare(minDate, svcDtStart.Date) >= 0)
+                {
+                    minDate = svcDtStart.Date; //if minDate > Dtstart
+                }
+            }
+
+            //return main.JobDate;
+            return minDate;
+        }
 
         public List<cjobCounter> getJobActionCount(List<Int32> jobidlist )
         {
