@@ -126,8 +126,28 @@ namespace JobsV1.Controllers
                 }
 
                 joTmp.ActionCounter = jobActionCntr.Where(d => d.JobId == joTmp.Main.Id).ToList();
+                
+                //filter unit Driver
+                if (unitDriver != "all")
+                {
+                    var jsvc = db.JobServices.Where(s => s.JobMainId == main.Id)
+                        .Where(js=>js.JobServiceItems
+                        .Where(j=>j.InvItem.Description.ToLower().Contains(unitDriver.ToLower()) || j.InvItem.ItemCode.ToLower().Contains(unitDriver.ToLower()))
+                        .FirstOrDefault().JobServicesId == js.Id);
 
-                data.Add(joTmp);
+                        foreach (var temp_items in jsvc)
+                        {
+                            
+                            data.Add(joTmp);
+                            break;
+                            
+                        }
+                }
+                else
+                {
+                    //add all/ no filter
+                    data.Add(joTmp);
+                }
                
                 List<Models.JobPayment> jobPayment = db.JobPayments.Where(d => d.JobMainId == main.Id).ToList();
                 foreach (var payment in jobPayment)
@@ -148,7 +168,17 @@ namespace JobsV1.Controllers
 
                 }
             }
-
+            /*
+            if (unitDriver != null)
+            {
+                if (unitDriver != "all" || unitDriver != "")
+                {
+                    data = (List<cJobOrder>)data
+                        .Where(j => j.Services.Where(s => s.Service.Service.JobServices.Where(js => js.JobServiceItems.Where(jsi => jsi.InvItem.Description.ToLower().Contains(unitDriver.ToLower())).ToList() != null) != null) != null)
+                        .ToList();
+                }
+            }
+            */
             //Date filter
             if (sDate != null || eDate != null)
             {
@@ -161,12 +191,6 @@ namespace JobsV1.Controllers
 
             }
 
-            if (unitDriver != null)
-            {
-                data = (List<cJobOrder>)data
-                 //   .Where(s=>s.Services.Where(s.Services.Where(d=>d.Service.JobServiceItems.Where(j=>j.InvItem.Description.Contains(unitDriver.ToLower())) != null ) != null) != null)
-                    .ToList();
-            }
 
             return data;
         }

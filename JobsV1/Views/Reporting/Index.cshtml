@@ -10,7 +10,7 @@
         <h3>Reports</h3>
         <div class="row col-lg-12">
             <div class="btn-group-vertical" style="width:150px;">
-                @Html.ActionLink("Job Listing", "Index", new { reportId = 1 }, new { @class="btn btn-default" })
+                @Html.ActionLink("Job Listing", "Index", new { reportId = 1, company = "all", unitDriver = "all" }, new { @class="btn btn-default" })
                 @Html.ActionLink("Payments", "Index", new { reportId = 2 }, new { @class = "btn btn-default" })
             </div>
         </div>

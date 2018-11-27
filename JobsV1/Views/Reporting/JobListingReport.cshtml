@@ -51,16 +51,18 @@
         var date1 = url.searchParams.get("sDate") != null ? url.searchParams.get("sDate") : getToday();
         var date2 = url.searchParams.get("eDate") != null ? url.searchParams.get("eDate") : getToday();
         var company = url.searchParams.get("company");
+        var unitDriver = url.searchParams.get("unitDriver");
         $('#startDate').val(date1);
         $('#endDate').val(date2);
         $('#company-input').val(company);
+        $('#unitDriverInput').val(unitDriver);
     }
 
 
     $(function () {
         Update();
     });
-
+    Update();
     function getToday() {
 
         var today = new Date();
@@ -84,7 +86,8 @@
         var CompanyVal = document.getElementById("company-input").value;
         var sDateVal = document.getElementById("startDate").value != "" ? document.getElementById("startDate").value : getToday();
         var eDateVal = document.getElementById("endDate").value != "" ? document.getElementById("endDate").value : getToday();
-       
+        var unitDriverVal = document.getElementById("unitDriverInput").value;
+
         var requestString = "/Reporting?";
 
         requestString += "reportId=1&";
@@ -98,6 +101,11 @@
         } 
         requestString += "&company=" + CompanyVal;
 
+        if (unitDriverVal == "") {
+            unitDriverVal = "all";
+        }
+        requestString += "&unitDriver=" + unitDriverVal;
+
         window.location.href = requestString;
         //window.location.href = "/Reporting/Index/" + idVal + "&sDate=" + sDateVal + "&sDate=" + eDateVal;
     }
@@ -106,6 +114,7 @@
         var CompanyVal = document.getElementById("company-input").value;
         var sDateVal = document.getElementById("startDate").value != "" ? document.getElementById("startDate").value : getToday();
         var eDateVal = document.getElementById("endDate").value != "" ? document.getElementById("endDate").value : getToday();
+        var unitDriverVal = document.getElementById("unitDriverInput").value;
 
         var requestString = "/Reporting/JobListingPrint?";
 
@@ -117,6 +126,11 @@
             CompanyVal = "all";
         }
         requestString += "&company=" + CompanyVal;
+
+        if (unitDriverVal == "") {
+            unitDriverVal = "all";
+        }
+        requestString += "&unitDriver=" + unitDriverVal;
 
         window.location.href = requestString;
         //window.location.href = "/Reporting/Index/" + idVal + "&sDate=" + sDateVal + "&sDate=" + eDateVal;
