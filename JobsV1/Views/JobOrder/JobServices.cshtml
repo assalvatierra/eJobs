@@ -35,7 +35,7 @@
         Date: @ViewBag.JobOrder.JobDate.ToString("dd/MMM/yyyy")
         <br />Description: @ViewBag.JobOrder.Description
         <br />Encoder: @ViewBag.JobEncoder.user - @ViewBag.JobEncoder.dtTrail 
-
+        <br />Status: @ViewBag.JobStatus
         <br />@Html.ActionLink("Edit", "Edit", "JobMains", new { id = ViewBag.JobOrder.Id }, null)
         | @Html.ActionLink("Booking", "BookingDetails", "JobOrder", new { id = ViewBag.JobOrder.Id }, null) 
         | <a href="" id="aContractorLink">Contractors</a>

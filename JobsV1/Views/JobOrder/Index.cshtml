@@ -76,10 +76,12 @@
                 <br />
                 <span style="font:500 10px;color:darkblue;">
                  
-                    @item.Main.Description
+                    @item.Main.Description 
                    
                 </span>
-
+                <span>
+                   [ @item.Main.JobStatus.Status ]
+                </span>
             </div>
             <div>
                 @Html.Partial("PartialViewServiceList", item.Services)
@@ -147,7 +149,7 @@
 
                         foreach (var payments in item.Main.JobPayments)
                         {
-                            string pDate = ((DateTime)payments.DtPayment).ToString("MMM-dd-yyyy (ddd)");
+                            string pDate = ((DateTime)payments.DtPayment).ToString("MMM dd,yyyy (ddd)");
                                         
                             <p>
                                 @string.Format("{0:N}", payments.PaymentAmt)
