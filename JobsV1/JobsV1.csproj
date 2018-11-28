@@ -900,6 +900,7 @@
     <Content Include="Scripts\Job\FormRenter.js" />
     <Content Include="Scripts\Job\PO.js" />
     <Content Include="Scripts\Job\Product.js" />
+    <Content Include="Scripts\Job\Reporting.js" />
     <Content Include="Scripts\Job\SalesLead.js" />
     <Content Include="Scripts\Job\JobPickup.js" />
     <Content Include="Scripts\Job\Services.js" />

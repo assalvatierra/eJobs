@@ -99,6 +99,7 @@ namespace JobsV1.Controllers
           
             jobMains = jobMains.ToList();
             */
+
             foreach (var main in jobMains)
             {
                 cJobOrder joTmp = new cJobOrder();
@@ -189,6 +190,14 @@ namespace JobsV1.Controllers
                                 (DateTime.Compare(MaxJobDate(p.Main.Id).Date, startDateRange.Date) >= 0 && DateTime.Compare(MaxJobDate(p.Main.Id).Date, endDateRange.Date) <= 0)) 
                     .ToList();
 
+            }
+            else
+            {
+                
+                data = (List<cJobOrder>)data
+                    .Where(p => (DateTime.Compare(MinJobDate(p.Main.Id).Date, today) >= 0 && DateTime.Compare(MinJobDate(p.Main.Id).Date, today) <= 0) ||
+                                (DateTime.Compare(MaxJobDate(p.Main.Id).Date, today) >= 0 && DateTime.Compare(MaxJobDate(p.Main.Id).Date, today) <= 0))
+                    .ToList();
             }
 
 
@@ -331,9 +340,16 @@ order by x.jobid
                 paymentReport = paymentReport
                     .Where(p => (DateTime.Compare(p.DtPayment.Date, startDateRange.Date) >= 0 && DateTime.Compare(p.DtPayment.Date, endDateRange.Date) <= 0))
                     .ToList();
+            }else{
+                DateTime today = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time"));
+
+                paymentReport = paymentReport
+                    .Where(p => (DateTime.Compare(p.DtPayment.Date, today) >= 0 && DateTime.Compare(p.DtPayment.Date, today) <= 0))
+                    .ToList();
             }
 
-
+            ViewBag.sDate = sDate;
+            ViewBag.eDate = eDate;
 
             return PartialView(paymentReport);
         }

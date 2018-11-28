@@ -97,7 +97,7 @@ namespace JobsV1.Controllers
             {
                 case 1: //OnGoing
                     jobMains = jobMains
-                        .Where(d => (d.JobStatusId != JOBCLOSED || d.JobStatusId != JOBCANCELLED)).ToList()
+                        .Where(d => (d.JobStatusId != JOBCLOSED || d.JobStatusId != JOBCANCELLED))
                         .Where(p => DateTime.Compare(p.JobDate.Date, today.Date.AddDays(-132)) >= 0).ToList();   //get 1 month before all entries
 
                     break;
@@ -120,7 +120,7 @@ namespace JobsV1.Controllers
 
                     break;
             }
-
+           
             foreach (var main in jobMains)
             {
                 cJobOrder joTmp = new cJobOrder();
@@ -1150,6 +1150,8 @@ order by x.jobid
             ViewBag.JobItems = jobServices;
 
             ViewBag.Providers = providers;
+
+            ViewBag.JobStatus = db.JobMains.Where(j=>j.Id == JobMainId).FirstOrDefault().JobStatus.Status.ToString();
 
             ViewBag.Itineraries = db.JobItineraries.Where(d => d.JobMainId == JobMainId).ToList();
             
