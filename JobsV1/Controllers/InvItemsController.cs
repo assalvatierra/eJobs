@@ -264,6 +264,7 @@ namespace JobsV1.Controllers
             DBClasses dbclass = new DBClasses();
             Models.getItemSchedReturn gret = dbclass.ItemSchedules();
             ViewBag.dtLabel = gret.dLabel;
+            
             return View(gret.ItemSched);
         }
         #endregion

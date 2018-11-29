@@ -525,10 +525,36 @@ order by x.jobid
             return View(gret.ItemSched);
         }
 
+        public void AddUnassignedItem(int itemId, int serviceId)
+        {
+            string sqlstr = "Insert Into JobServiceItems([JobServicesId],[InvItemId]) values(" + serviceId.ToString() + "," + itemId.ToString() + ")";
+            db.Database.ExecuteSqlCommand(sqlstr);
+            var mainId = db.JobServices.Find(serviceId).JobMainId;
+           
+        }
+
+        public void RemoveUnassignedItem(int itemId, int serviceId)
+        {
+            string sqlstr = "Delete from JobServiceItems where JobServicesId = " + serviceId.ToString()
+                + " AND InvItemId = " + itemId.ToString();
+
+            db.Database.ExecuteSqlCommand(sqlstr);
+            
+        }
         public ActionResult AddItem(int itemId, int serviceId)
         {
             string sqlstr = "Insert Into JobServiceItems([JobServicesId],[InvItemId]) values(" + serviceId.ToString() + "," + itemId.ToString() + ")";
             db.Database.ExecuteSqlCommand(sqlstr);
+
+            //remove unassigned
+            var jscount = db.JobServiceItems.Count();
+            if (jscount > 0)
+            {
+                var unassigned = db.InvItems.Where(s => s.Description == "Unassigned").FirstOrDefault().Id;
+                RemoveUnassignedItem(unassigned,serviceId);
+
+            }
+
             var mainId = db.JobServices.Find(serviceId).JobMainId;
             return RedirectToAction("Index", new { serviceId = serviceId });
 
@@ -537,6 +563,16 @@ order by x.jobid
         {
             string sqlstr = "Insert Into JobServiceItems([JobServicesId],[InvItemId]) values(" + serviceId.ToString() + "," + itemId.ToString() + ")";
             db.Database.ExecuteSqlCommand(sqlstr);
+
+            //remove unassigned
+            var jscount = db.JobServiceItems.Count();
+            if (jscount > 0)
+            {
+                var unassigned = db.InvItems.Where(s => s.Description == "Unassigned").FirstOrDefault().Id;
+                RemoveUnassignedItem(unassigned, serviceId);
+
+            }
+
             var mainId = db.JobServices.Find(serviceId).JobMainId;
             return RedirectToAction("JobServices", new { JobMainId = mainId });
 
@@ -708,10 +744,7 @@ order by x.jobid
             ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name");
             ViewBag.JobStatusId = new SelectList(db.JobStatus, "Id", "Status", JOBCONFIRMED);
             ViewBag.JobThruId = new SelectList(db.JobThrus, "Id", "Desc");
-
             
-
-
             return View(job);
         }
 
@@ -834,12 +867,11 @@ order by x.jobid
             js.DtEnd = dtTmp.AddDays(job.NoOfDays - 1).AddHours(10);
             js.Remarks = "10hrs use per day P250 in excess, Driver and Fuel Included";
 
-            //modify SupplierItem
-            var supItemsActive = db.SupplierItems.Where(s => s.Status != "INC").ToList();
+
+             //modify SupplierItem
+             var supItemsActive = db.SupplierItems.Where(s => s.Status != "INC").ToList();
             var SuppliersActive = db.Suppliers.Where(s => s.Status != "INC").ToList();
-
-
-
+            
             ViewBag.id = JobMainId;
             ViewBag.JobMainId = new SelectList(db.JobMains, "Id", "Description",job.Description);
             ViewBag.SupplierId = new SelectList(SuppliersActive, "Id", "Name");
@@ -861,6 +893,10 @@ order by x.jobid
                 jobServices.DtEnd = ((DateTime)jobServices.DtEnd).Add(new TimeSpan(23, 59, 59));
                 db.JobServices.Add(jobServices);
                 db.SaveChanges();
+
+                //set initial unit as unassigned
+                int UnassignedId = db.InvItems.Where(u => u.Description == "Unassigned").FirstOrDefault().Id;
+                AddUnassignedItem(UnassignedId, jobServices.Id);
             }
 
             var supItemsActive = db.SupplierItems.Where(s => s.Status != "INC").ToList();

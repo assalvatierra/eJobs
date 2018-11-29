@@ -145,7 +145,6 @@ where d.JobStatusId < 4
                             JobServices js = db.JobServices.Where(j => j.Id == jsTmp.ServiceId).FirstOrDefault();
                             dsTmp.svc.Add( js );  
                         }
-
                         
                     }
 
