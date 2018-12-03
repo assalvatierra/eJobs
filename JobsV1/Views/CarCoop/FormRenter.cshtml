@@ -222,6 +222,7 @@
                 <input type="text" name="packageid" id="dtls-packageId" value="1" />
                 <input type="text" name="mealAcc" id="dtls-mealsAcc" value="1" />
                 <input type="text" name="fuel" id="dtls-fuel" value="1" />
+                <input type="text" name="host" id="dtls-host" value="" />
             </div>
             <br />
 
@@ -751,6 +752,11 @@
             $('[data-toggle="popover"]').not(this).popover('hide');
            
         });
+        $('#dtls-host').val(getUrl());
     });
+    
+    function getUrl(){
+        return window.location.host;
+    }
 </script>
 

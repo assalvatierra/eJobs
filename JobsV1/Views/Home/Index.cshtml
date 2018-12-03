@@ -106,6 +106,19 @@
         <p>@Html.ActionLink("Create Report »", "Index", "Reporting", null, new { @class = "btn btn-default" }) </p>
     </div>
 
+    <div class="col-md-4">
+        <h2>Notifications</h2>
+        <p>
+            Notification Listing
+            <br />
+            [ @Html.ActionLink("List", "NotificationList", "JobServices", new { reportId = 1 }, null)
+            ]
+
+        <p>@Html.ActionLink("View »", "NotificationList", "JobServices", null, new { @class = "btn btn-default" }) </p>
+        </p>
+
+    </div>
+
     <!--
     <div class="col-md-4">
         <h2>Destinations</h2>

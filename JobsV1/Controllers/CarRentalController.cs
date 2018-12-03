@@ -280,7 +280,7 @@ namespace JobsV1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult FormRenter([Bind(Include = "Id,DtTrx,CarUnitId,DtStart,LocStart,DtEnd,LocEnd,BaseRate,Destinations,UseFor,RenterName,RenterCompany,RenterEmail,RenterMobile,RenterAddress,RenterFbAccnt,RenterLinkedInAccnt,EstHrPerDay,EstKmTravel,JobRefNo,SelfDrive")] CarReservation carReservation, int packageid, int mealAcc, int fuel)
+        public ActionResult FormRenter([Bind(Include = "Id,DtTrx,CarUnitId,DtStart,LocStart,DtEnd,LocEnd,BaseRate,Destinations,UseFor,RenterName,RenterCompany,RenterEmail,RenterMobile,RenterAddress,RenterFbAccnt,RenterLinkedInAccnt,EstHrPerDay,EstKmTravel,JobRefNo,SelfDrive")] CarReservation carReservation, int packageid, int mealAcc, int fuel, string host)
         {
             if (ModelState.IsValid)
             {
@@ -291,6 +291,8 @@ namespace JobsV1.Controllers
                 addCarResPackage(carReservation.Id, packageid, mealAcc, fuel);
 
                 //apply payment to the job
+
+                //Filter email using url
 
                 //sendMail(jobid ,RenterEmail);
                 //sent email to travel.realbreze@gmail.com

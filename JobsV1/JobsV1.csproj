@@ -715,6 +715,9 @@
     <Content Include="Images\CarRental\pickup\pickup_front.jpg" />
     <Content Include="Images\CarRental\pickup\pickup_interior.jpg" />
     <Content Include="Images\CarRental\pickup\pickup_sideview.jpg" />
+    <Content Include="Images\CarRental\POTTMPC\Van_Nissan_Urban.png" />
+    <Content Include="Images\CarRental\POTTMPC\Van_Nissan_Urban_premium.png" />
+    <Content Include="Images\CarRental\POTTMPC\Van_Starex.png" />
     <Content Include="Images\CarRental\toyota-innova-car-rental.PNG" />
     <Content Include="Images\CarRental\toyotagrandia_primary.jpg" />
     <Content Include="Images\CarRental\HondaCity.jpg" />
@@ -1358,6 +1361,8 @@
     <Content Include="Views\Reporting\Payments.cshtml" />
     <Content Include="Views\Reporting\PaymentsPrint.cshtml" />
     <Content Include="Views\Reporting\JobListingPrint.cshtml" />
+    <Content Include="Views\CarCoop\CarDetail_van_hyundai_starex.cshtml" />
+    <Content Include="Views\CarCoop\CarDetail_van_hyundai_starex - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

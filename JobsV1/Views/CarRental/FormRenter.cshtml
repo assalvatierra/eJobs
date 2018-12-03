@@ -246,6 +246,7 @@
     reservationNum =  @(ViewBag.RsvId);
 
     function displayPackages(){
+        
         var ratePackageCount = 1;
         var carRateAdditional = 0;
         var packageDailyAddon = 0;
@@ -751,6 +752,15 @@
             $('[data-toggle="popover"]').not(this).popover('hide');
            
         });
+
+        getUrl();
     });
+
+    /***
+    *Get url to check if site is realwheels or pottmpc
+    */
+    function getUrl(){
+        return window.location.host;
+    }
 </script>
 

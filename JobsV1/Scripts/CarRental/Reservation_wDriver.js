@@ -245,6 +245,10 @@ function backtoPrev() {
 }
 
 
+function getUrl(){
+    return window.location.host;
+}
+
 function submitRenter(){
 
     data = {
@@ -260,13 +264,14 @@ function submitRenter(){
         UseFor : 'somewhere',
         RenterName : 'somewhere',
         RenterCompany : 'somewhere',
-        RenterEmail : 'somewhere@gmail.com',
+        RenterEmail : 'jahdielsvillosa@gmail.com',
         RenterMobile : '09123456',
         RenterAddress : '',
         RenterFbAccnt : '',
         RenterLinkedInAccnt : '',
         EstHrPerDay : '',
-        EstKmTravel : ''
+        EstKmTravel : '',
+        host: getUrl()
     }
 
 
@@ -325,6 +330,8 @@ function setReferenceIds(RntrSelectedTour, RntrMealsAcc, RntrFuel) {
     $('#dtls-fuel').val(RntrFuel);
 }
 
+//Check renter name, email and number if not null
+//check rent dates if valid
 function checkRenterDetails() {
     var name, email, mobile, startdate, enddate;
     name = $('#rnt-name').val();

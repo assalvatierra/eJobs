@@ -164,7 +164,7 @@ namespace JobsV1.Controllers
                 if (company != "all")
                 {
                     data = (List<cJobOrder>)data
-                        .Where(p => p.Main.Description.ToLower().Contains(company.ToLower()))
+                        .Where(p => p.Main.Description.ToLower().Contains(company.ToLower()) || p.Main.Customer.Name.ToLower().Contains(company.ToLower()))
                         .ToList();
 
                 }

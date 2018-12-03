@@ -283,7 +283,7 @@ namespace JobsV1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult FormRenter([Bind(Include = "Id,DtTrx,CarUnitId,DtStart,LocStart,DtEnd,LocEnd,BaseRate,Destinations,UseFor,RenterName,RenterCompany,RenterEmail,RenterMobile,RenterAddress,RenterFbAccnt,RenterLinkedInAccnt,EstHrPerDay,EstKmTravel,JobRefNo,SelfDrive")] CarReservation carReservation, int packageid, int mealAcc, int fuel)
+        public ActionResult FormRenter([Bind(Include = "Id,DtTrx,CarUnitId,DtStart,LocStart,DtEnd,LocEnd,BaseRate,Destinations,UseFor,RenterName,RenterCompany,RenterEmail,RenterMobile,RenterAddress,RenterFbAccnt,RenterLinkedInAccnt,EstHrPerDay,EstKmTravel,JobRefNo,SelfDrive")] CarReservation carReservation, int packageid, int mealAcc, int fuel, string host)
         {
             if (ModelState.IsValid)
             {
@@ -292,25 +292,24 @@ namespace JobsV1.Controllers
 
                 //add reservation package
                 addCarResPackage(carReservation.Id, packageid, mealAcc, fuel);
+                if (host.Contains("palawan") || host.Contains("site6"))
+                {
+                    //apply payment to the job
 
-                //apply payment to the job
+                    //sent email to POTTMPC@yahoo.com
+                    var adminEmail = "Reservation.realwheels@gmail.com";
+                    //var adminEmail = "POTTMPC@yahoo.com";
+                    sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
+                    
+                    //client email
+                    //sendMail(carReservation.Id, carReservation.RenterEmail, "CLIENT-PENDING", carReservation.RenterName);
 
-                //sendMail(jobid ,RenterEmail);
-                //sent email to travel.realbreze@gmail.com
-                var adminEmail = "travel.realbreze@gmail.com";
-                sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
-
-                //adminEmail = "AJDavao88@gmail.com";
-                adminEmail = "reservation.realwheels@gmail.com";
-                sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
-
-                //adminEmail = "AJDavao88@gmail.com";
-                adminEmail = "ajdavao88@gmail.com";
-                sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
-
-                //client email
-                sendMail(carReservation.Id, carReservation.RenterEmail, "CLIENT-PENDING", carReservation.RenterName);
-
+                }
+                else
+                {
+                    //client email
+                    sendMail(carReservation.Id, carReservation.RenterEmail, "CLIENT-PENDING", carReservation.RenterName);
+                }
                 return RedirectToAction("FormThankYou", new { rsvId = carReservation.Id });
             }
 
