@@ -19,17 +19,17 @@ namespace JobsV1
             #region wordpress links
             routes.MapRoute(
                 name: "van-for-rent",
-                url: "{controller}/van-for-rent",
+                url: "CarRental/van-for-rent",
                 defaults: new { controller = "CarRental", action = "CarDetail", unitid = 1 }
             );
             routes.MapRoute(
                 name: "NissanUrvanPremium-for-rent",
-                url: "{controller}/NissanUrvanPremium-for-rent",
+                url: "CarRental/NissanUrvanPremium-for-rent",
                 defaults: new { controller = "CarRental", action = "CarDetail", unitid = 2 }
             );
             routes.MapRoute(
                 name: "suvpickup4x4-rental-rates",
-                url: "carrental/suvpickup4x4-rental-rates",
+                url: "CarRental/suvpickup4x4-rental-rates",
                 defaults: new { controller = "CarRental", action = "CarDetail", unitid = 3 }
             );
             routes.MapRoute(
@@ -47,9 +47,25 @@ namespace JobsV1
                 url: "carrental/pickup-rental",
                 defaults: new { controller = "CarRental", action = "CarDetail", unitid = 6 }
             );
-
             #endregion
 
+            #region wordpress links
+            routes.MapRoute(
+                name: "Van-Starex-for-rent",
+                url: "CarCoop/Van-Starex-for-rent",
+                defaults: new { controller = "CarCoop", action = "CarDetail", unitid = 1 }
+            );
+            routes.MapRoute(
+                name: "Nissan-Urvan-Premium-for-rent",
+                url: "CarCoop/Nissan-Urvan-Premium-for-rent",
+                defaults: new { controller = "CarCoop", action = "CarDetail", unitid = 2 }
+            );
+            routes.MapRoute(
+                name: "Nissan-Urvan-for-rent",
+                url: "CarCoop/Nissan-Urvan-for-rent",
+                defaults: new { controller = "CarCoop", action = "CarDetail", unitid = 3 }
+            );
+            #endregion
 
             /********************************
             * landing/home page
