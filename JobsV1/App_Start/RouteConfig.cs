@@ -49,7 +49,7 @@ namespace JobsV1
             );
             #endregion
 
-            #region wordpress links
+            #region POTTMPC
             routes.MapRoute(
                 name: "Van-Starex-for-rent",
                 url: "CarCoop/Van-Starex-for-rent",
