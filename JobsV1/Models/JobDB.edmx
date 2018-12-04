@@ -610,6 +610,7 @@
     <Property Name="Remarks" Type="nvarchar(max)" Nullable="true" />
     <Property Name="CarCategoryId" Type="int" Nullable="false" />
     <Property Name="SelfDrive" Type="int" Nullable="true" />
+    <Property Name="SortOrder" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="CarDestinations">
     <Key>
@@ -2997,6 +2998,7 @@
           <Property Name="SelfDrive" Type="Int32" Nullable="true" />
           <NavigationProperty Name="CarRateUnitPackages" Relationship="JobDB.CarUnitCarRateUnitPackage" FromRole="CarUnit" ToRole="CarRateUnitPackage" />
           <NavigationProperty Name="CarUnitMetas" Relationship="JobDB.CarUnitCarUnitMeta" FromRole="CarUnit" ToRole="CarUnitMeta" />
+          <Property Name="SortOrder" Type="Int32" Nullable="true" />
         </EntityType>
         <Association Name="CarCategoryCarUnit">
           <End Type="JobDB.CarCategory" Role="CarCategory" Multiplicity="1" />
@@ -4572,6 +4574,7 @@
           <ScalarProperty Name="Remarks" ColumnName="Remarks" />
           <ScalarProperty Name="CarCategoryId" ColumnName="CarCategoryId" />
           <ScalarProperty Name="SelfDrive" ColumnName="SelfDrive" />
+          <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

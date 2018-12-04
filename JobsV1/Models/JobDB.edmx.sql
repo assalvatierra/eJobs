@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/04/2018 15:11:10
+-- Date Created: 12/04/2018 16:19:10
 -- Generated from EDMX file: D:\Data\Real\Apps\GitHub\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
@@ -699,7 +699,8 @@ CREATE TABLE [dbo].[CarUnits] (
     [Description] nvarchar(max)  NULL,
     [Remarks] nvarchar(max)  NULL,
     [CarCategoryId] int  NOT NULL,
-    [SelfDrive] int  NULL
+    [SelfDrive] int  NULL,
+    [SortOrder] int  NULL
 );
 GO
 

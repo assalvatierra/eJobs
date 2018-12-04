@@ -30,6 +30,7 @@ namespace JobsV1.Models
         public string Remarks { get; set; }
         public int CarCategoryId { get; set; }
         public Nullable<int> SelfDrive { get; set; }
+        public Nullable<int> SortOrder { get; set; }
     
         public virtual CarCategory CarCategory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
