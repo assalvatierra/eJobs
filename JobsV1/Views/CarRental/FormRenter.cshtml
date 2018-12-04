@@ -242,11 +242,11 @@
 <script>
     //initial
     $('#@(ViewBag.id)').attr('checked', true);
-
+    //$('#1').attr('checked', true);
     reservationNum =  @(ViewBag.RsvId);
 
     function displayPackages(){
-        
+
         var ratePackageCount = 1;
         var carRateAdditional = 0;
         var packageDailyAddon = 0;
@@ -679,14 +679,14 @@
     * Handles Start Date of Reservation
     * start date must be 2 days from today
     * and end date must be 1 day from start date by default
-    * 
+    *
     */
 
     function startDate(){
         var sdate = Date.parse($('input[name="DtStart"]').val());
         var edate = Date.parse($('input[name="DtEnd"]').val());
         var today = new Date();
-        
+
         today.setDate(today.getDate()+2);
 
         //reset time
@@ -699,38 +699,38 @@
         {
             console.log(Ssdate > Stoday);
             console.log("OK - SDATE: "+ Ssdate +" >= TODAY: "+ Stoday);
-            
+
         //start date is less than today
         }else if(Date.parse(Ssdate) < Date.parse(Stoday)){
-            
+
             $('input[name="DtStart"]').val(Stoday);
 
             console.log(Ssdate <= today); //do not accept payment
             console.log("INVALID - SDATE: "+ Ssdate +" < TODAY: "+ Stoday);
         }
-        
+
         //handles end date, add 1 day from start date
         if(Ssdate >= Sedate){
             var endt = new Date(Ssdate);
 
             endt.setDate(endt.getDate()+2);
-            
+
             var Edate = getDateFormat(endt);
 
             $('input[name="DtEnd"]').val(getDateFormat(endt));
             console.log("INVALID - Ssdate: "+ Ssdate +" > Sedate: "+ Sedate);
         }
     }
-    
+
     /**
     * Handles Start Date of Reservation
     * start date must be 2 days from today
     * and end date must be 1 day from start date by default
-    * 
+    *
     */
 
     function getDateFormat(currentDt){
-        
+
         var mm = currentDt.getMonth() + 1;
         var dd = currentDt.getDate();
         var yyyy = currentDt.getFullYear();
@@ -738,22 +738,24 @@
 
         return fDate;
     }
-    
+
     //next popup on formpackages package list
     $(document).ready(function(){
         $('[data-toggle="popover"]').popover({
             placement: 'right',
             html: 'true',
             content :  '<button class="btn btn-primary" onclick="showForm();">Proceed</button>'
-        });   
-        
+        });
+
 
         $('[data-toggle="popover"]').on('click', function (e) {
             $('[data-toggle="popover"]').not(this).popover('hide');
-           
+
         });
 
         getUrl();
+        
+        $('#3').attr('checked', true);
     });
 
     /***

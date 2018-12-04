@@ -9,9 +9,12 @@ var Fuel = 0;
 var selectedTour = 0;
 var reservationNum = 0;
 
+var url_string = window.location.href; //window.location.href
+var url = new URL(url_string);
+var c = url.searchParams.get("id");
 
 //initial-default
-$('#1').attr('checked', true);
+$('#5').attr('checked', true);
 $('#withdriver').attr('checked', true);
 $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
 $('#pkg-2').attr('checked', true);
