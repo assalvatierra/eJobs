@@ -801,6 +801,7 @@
           <ScalarProperty Name="DailyMeals" ColumnName="DailyMeals" />
           <ScalarProperty Name="DailyRoom" ColumnName="DailyRoom" />
           <ScalarProperty Name="DaysMin" ColumnName="DaysMin" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

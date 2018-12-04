@@ -2084,6 +2084,7 @@
     <Property Name="DailyMeals" Type="Decimal" Nullable="false" />
     <Property Name="DailyRoom" Type="Decimal" Nullable="false" />
     <Property Name="DaysMin" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="String" Nullable="true" MaxLength="5" />
   </EntityType>
   <EntityType Name="CarRateUnitPackage">
     <Key>

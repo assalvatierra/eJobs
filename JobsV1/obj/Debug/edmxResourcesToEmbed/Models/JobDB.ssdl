@@ -1113,6 +1113,7 @@
     <Property Name="DailyMeals" Type="decimal" Nullable="false" />
     <Property Name="DailyRoom" Type="decimal" Nullable="false" />
     <Property Name="DaysMin" Type="int" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" Nullable="true" MaxLength="5" />
   </EntityType>
   <EntityType Name="CarRateUnitPackages">
     <Key>

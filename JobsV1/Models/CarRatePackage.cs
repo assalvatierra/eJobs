@@ -26,6 +26,7 @@ namespace JobsV1.Models
         public decimal DailyMeals { get; set; }
         public decimal DailyRoom { get; set; }
         public int DaysMin { get; set; }
+        public string Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CarRateUnitPackage> CarRateUnitPackages { get; set; }

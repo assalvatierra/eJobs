@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/14/2018 17:27:21
+-- Date Created: 12/04/2018 15:11:10
 -- Generated from EDMX file: D:\Data\Real\Apps\GitHub\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [aspnet-JobsV1-20160528101923];
+USE [DB_A0A0AE_job];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -1207,7 +1207,8 @@ CREATE TABLE [dbo].[CarRatePackages] (
     [Remarks] nvarchar(250)  NULL,
     [DailyMeals] decimal(18,0)  NOT NULL,
     [DailyRoom] decimal(18,0)  NOT NULL,
-    [DaysMin] int  NOT NULL
+    [DaysMin] int  NOT NULL,
+    [Status] nvarchar(5)  NULL
 );
 GO
 
