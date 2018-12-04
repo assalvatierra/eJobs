@@ -12,6 +12,12 @@ namespace JobsV1.Controllers
 {
     public class CarRatePackagesController : Controller
     {
+        private List<SelectListItem> StatusList = new List<SelectListItem> {
+                new SelectListItem { Value = "ACT", Text = "Active" },
+                new SelectListItem { Value = "INC", Text = "Inactive" },
+                new SelectListItem { Value = "SYS", Text = "Self drive" }
+                };
+
         private JobDBContainer db = new JobDBContainer();
 
         // GET: CarRatePackages
@@ -38,6 +44,7 @@ namespace JobsV1.Controllers
         // GET: CarRatePackages/Create
         public ActionResult Create()
         {
+            ViewBag.Status = new SelectList(StatusList, "value", "text", "ACT");
             return View();
         }
 
@@ -70,6 +77,8 @@ namespace JobsV1.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.Status = new SelectList(StatusList, "value", "text", carRatePackage.Status);
             return View(carRatePackage);
         }
 

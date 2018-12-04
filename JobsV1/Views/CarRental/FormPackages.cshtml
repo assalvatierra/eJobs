@@ -15,7 +15,7 @@
 
                     @foreach (var package in ViewBag.Packages as IEnumerable<JobsV1.Models.CarRatePackage>)
                     {
-                        if (package.Id == 1)
+                        if (package.Id == 1 || package.Status == "INC")
                         {
                             //hide self drive option
                             <tr class="clickable-row" id="pkg-@(package.Id)" title="@(package.Id)" style="visibility:collapse">

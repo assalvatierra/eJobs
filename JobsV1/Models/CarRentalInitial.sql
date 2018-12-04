@@ -71,52 +71,51 @@ values
 	'Pickup 4x4 for rent in Davao City for difficult terrain or bigger luggages. Units: Mitsubishi strada 4x4, Toyota Hilux 4x4',
 	'Pickup 4x4 is best for difficult and unknown terrains. Can also use in hauling huge luggages.'
 	);
-
-Insert into CarRatePackages (Description,Remarks,DailyMeals,DailyRoom,DaysMin)
+	Insert into CarRatePackages (Description,Remarks,DailyMeals,DailyRoom,DaysMin, Status)
 values 
-('Custom', 'Fuel by renter', 0,0,0 ),
-('Davao City Tour', 'Car Rental for City (Downtown) Tour Package', 0,0,0 ),
-('Davao CountrySide Tour', 'Eden Nature Park, Philipine Eagle, Malagos, Japanese Tunnel, Shrine, Jacks Ridge', 0,0,0),
-('Samal Tour', 'Bat cave, Hagimit falls, Maxima Aquafun, Penaplata', 0,0,0 ),
-('Panabo','One round trip',300,400,1), 
-('Tagum','One round trip',300,400,1), 
-('Davao Del Norte','One round trip',300,400,1), 
-('Comval','One round trip',300,400,1), 
-('Governor Generoso','One round trip',300,400,1), 
-('Mati City','One round trip',300,400,1), 
-('Davao Oriental','One round trip',300,400,1), 
-('Agusan Del Sur','One round trip',300,400,1), 
-('Agusan Del Norte','One round trip',300,400,1), 
-('Surigao Del Sur','One round trip',300,400,1), 
-('Surigao Del Norte','One round trip',300,400,1),
+('Custom', 'Fuel by renter', 0,0,0,'SYS'),
+('Davao City Tour', 'Car Rental for City (Downtown) Tour Package', 0,0,0,'ACT' ),
+('Davao CountrySide Tour', 'Eden Nature Park, Philipine Eagle, Malagos, Japanese Tunnel, Shrine, Jacks Ridge', 0,0,0,'ACT'),
+('Samal Tour', 'Bat cave, Hagimit falls, Maxima Aquafun, Penaplata', 0,0,0,'ACT' ),
+('Panabo','One round trip',300,400,1,'ACT'), 
+('Tagum','One round trip',300,400,1,'ACT'), 
+('Davao Del Norte','One round trip',300,400,1,'ACT'), 
+('Comval','One round trip',300,400,1,'ACT'), 
+('Governor Generoso','One round trip',300,400,1, 'INC' ),
+('Mati City','One round trip',300,400,1, 'ACT' ),
+('Davao Oriental','One round trip',300,400,1, 'INC' ),
+('Agusan Del Sur','One round trip',300,400,1, 'INC' ),
+('Agusan Del Norte','One round trip',300,400,1, 'INC' ),
+('Surigao Del Sur','One round trip',300,400,1, 'INC' ),
+('Surigao Del Norte','One round trip',300,400,1, 'INC' ),
 
-('Marilog', 'One round trip', 0,0,0 ),
-('Buda', 'Seagull', 0,0,0 ),
-('Valencia', 'One round trip', 0,0,0 ),
-('Malaybalay', 'One round trip', 0,0,0 ),
-('Manolo fortich', 'One round trip', 0,0,0 ),
-('Cagayan De Oro', 'One round trip', 0,0,0 ),
-('Misamis Oriental', 'One round trip', 0,0,0 ),
-('Iligan', 'One round trip', 0,0,0 ),
+('Marilog', 'One round trip', 0,0,0 , 'ACT' ),
+('Buda', 'Seagull', 0,0,0 , 'ACT' ),
+('Valencia', 'One round trip', 0,0,0 , 'INC' ),
+('Malaybalay', 'One round trip', 0,0,0 , 'INC' ),
+('Manolo fortich', 'One round trip', 0,0,0 , 'INC' ),
+('Cagayan De Oro', 'One round trip', 0,0,0 , 'INC' ),
+('Misamis Oriental', 'One round trip', 0,0,0 , 'INC' ),
+('Iligan', 'One round trip', 0,0,0 , 'INC' ),
 
-('Santa Cruz', 'Davao Del Sur. One round trip', 0,0,0 ),
-('Digos', 'Davao Del Sur. One round trip', 0,0,0 ),
-('Davao Del Sur', 'One round trip', 0,0,0 ),
-('Malita', 'One round trip', 0,0,0 ),
-('Don Marcelino', 'One round trip', 0,0,0 ),
-('General Santos', 'One round trip', 0,0,0 ),
-('Sarangani', 'One round trip', 0,0,0 ),
-('Koronadal', 'One round trip', 0,0,0 ),
-('Isulan', 'One round trip', 0,0,0 ),
-('Sultan Kudarat', 'One round trip', 0,0,0 ),
+('Santa Cruz', 'Davao Del Sur. One round trip', 0,0,0 , 'ACT' ),
+('Digos', 'Davao Del Sur. One round trip', 0,0,0 , 'ACT' ),
+('Davao Del Sur', 'One round trip', 0,0,0 , 'ACT' ),
+('Malita', 'One round trip', 0,0,0 , 'ACT' ),
+('Don Marcelino', 'One round trip', 0,0,0 , 'INC' ),
+('General Santos', 'One round trip', 0,0,0 , 'ACT' ),
+('Sarangani', 'One round trip', 0,0,0 , 'INC' ),
+('Koronadal', 'One round trip', 0,0,0 , 'INC' ),
+('Isulan', 'One round trip', 0,0,0 , 'INC' ),
+('Sultan Kudarat', 'One round trip', 0,0,0 , 'INC' ),
 
-('Kidapawan', 'Kidapawan. One round trip', 0,0,0 ),
-('Ilomavis', 'Ilomavis. One round trip', 0,0,0 ),
-('Kabacan', 'Kabacan. One round trip', 0,0,0 ),
-('Arakan', 'Arakan. One round trip', 0,0,0 ),
-('Midsayap', 'Midsayap. One round trip', 0,0,0 ),
-('Cotabato City', 'Cotabato City. One round trip', 0,0,0 ),
-('North Cotabato', 'Kidapawan. One round trip', 0,0,0 )
+('Kidapawan', 'Kidapawan. One round trip', 0,0,0 , 'ACT' ),
+('Ilomavis', 'Ilomavis. One round trip', 0,0,0 , 'INC' ),
+('Kabacan', 'Kabacan. One round trip', 0,0,0 , 'INC' ),
+('Arakan', 'Arakan. One round trip', 0,0,0 , 'INC' ),
+('Midsayap', 'Midsayap. One round trip', 0,0,0 , 'INC' ),
+('Cotabato City', 'Cotabato City. One round trip', 0,0,0 , 'INC' ),
+('North Cotabato', 'Kidapawan. One round trip', 0,0,0 , 'INC' )
 ;
 
 
@@ -401,4 +400,6 @@ values
 ( 6, 38, 1000, 1500, 600,1000 ), --Midsayap
 ( 6, 39, 1500, 2000, 600,1000 ), --Cotabato City
 ( 6, 40, 1500, 2000, 700,1000 ); --North Cotabato
+
+
 
