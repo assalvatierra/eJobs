@@ -3,12 +3,12 @@ insert into CarCategories (Description, Remarks)
 values ('Rental','');
 
 insert into CarUnits ( Description, Remarks, CarCategoryId , SelfDrive, SortOrder) 
-values ('Van (10 seater)','Gl Grandia',1,1,5),
+values ('Van (10 seater)','Gl Grandia',1,1,4),
 	   ('Van (14 seater)','Nissan Premium',1,1,5),
-	   ('SUV','Ford Everest',1,0,4),
-	   ('MPV/AUV/MiniVan','Toyota Innova',1,0,3),	
-	   ('Sedan','Honda City',1,0,2),
-	   ('Pickup','Pickups',1,0,7);
+	   ('SUV','Ford Everest',1,0,3),
+	   ('MPV/AUV/MiniVan','Toyota Innova',1,0,2),	
+	   ('Sedan','Honda City',1,0,1),
+	   ('Pickup','Pickups',1,0,6);
 
 insert into CarImages ( CarUnitId, ImgUrl, Remarks, SysCode)
 values (1,'glgrandia-car-rental.png','','MAIN'),
