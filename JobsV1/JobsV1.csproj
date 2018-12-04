@@ -782,7 +782,12 @@
     <Content Include="Images\POTTMPC\icons\google-plus-48.png" />
     <Content Include="Images\POTTMPC\icons\icons8-airplane-take-off-100.png" />
     <Content Include="Images\POTTMPC\icons\icons8-car-rental-100.png" />
+    <Content Include="Images\POTTMPC\icons\icons8-checkmark-64.png" />
     <Content Include="Images\POTTMPC\icons\icons8-hotel-100.png" />
+    <Content Include="Images\POTTMPC\icons\icons8-new-ticket-104.png" />
+    <Content Include="Images\POTTMPC\icons\icons8-star-96.png" />
+    <Content Include="Images\POTTMPC\icons\icons8-taxi-booking-office-512%281%29.png" />
+    <Content Include="Images\POTTMPC\icons\icons8-taxi-booking-office-512.png" />
     <Content Include="Images\POTTMPC\icons\icons8-tourist-guide-100.png" />
     <Content Include="Images\POTTMPC\icons\icons8-van-100.png" />
     <Content Include="Images\POTTMPC\icons\marker-100.png" />
@@ -791,6 +796,13 @@
     <Content Include="Images\POTTMPC\Palawan_map.jpg" />
     <Content Include="Images\POTTMPC\POTTMPCBanner2.png" />
     <Content Include="Images\POTTMPC\POTTMPC_logo.png" />
+    <Content Include="Images\POTTMPC\Starex\hyundai-starex-front.jpg" />
+    <Content Include="Images\POTTMPC\Starex\hyundai-starex-rear2.jpg" />
+    <Content Include="Images\POTTMPC\Starex\hyundai-starex-seats2.jpg" />
+    <Content Include="Images\POTTMPC\Starex\hyundai-starex-seats21.jpg" />
+    <Content Include="Images\POTTMPC\Urvan\Nissan-Urvan-front.jpg" />
+    <Content Include="Images\POTTMPC\Urvan\Nissan-Urvan-seats.jpg" />
+    <Content Include="Images\POTTMPC\Urvan\Nissan-Urvan-side.jpg" />
     <Content Include="Images\RealBreezeLogo01.png" />
     <Content Include="Images\SalesLead\3dots.jpg" />
     <Content Include="Images\SalesLead\approve-icon.png" />
@@ -1361,8 +1373,9 @@
     <Content Include="Views\Reporting\Payments.cshtml" />
     <Content Include="Views\Reporting\PaymentsPrint.cshtml" />
     <Content Include="Views\Reporting\JobListingPrint.cshtml" />
-    <Content Include="Views\CarCoop\CarDetail_van_hyundai_starex.cshtml" />
-    <Content Include="Views\CarCoop\CarDetail_van_hyundai_starex - Copy.cshtml" />
+    <Content Include="Views\CarCoop\CarDetail_van_starex.cshtml" />
+    <Content Include="Views\CarCoop\CarDetail_van_urvan.cshtml" />
+    <Content Include="Views\CarCoop\CarDetail_van_urvan_premium.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
