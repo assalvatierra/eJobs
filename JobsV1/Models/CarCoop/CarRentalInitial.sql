@@ -14,8 +14,8 @@ values (1,'../CarRental/POTTMPC/Van_Starex.png','','MAIN'),
 	   
 insert into CarViewPages (CarUnitId, Viewname)
 values (1,'CarDetail_van_starex'),
-	   (2,'CarDetail_van_urban_premium'),
-	   (3,'CarDetail_van_urban');
+	   (2,'CarDetail_van_urvan_premium'),
+	   (3,'CarDetail_van_urvan');
 
 insert into CarRates (Daily,Weekly,Monthly,KmFree,KmRate,CarUnitId,OtRate)
 values (500,500,500,0,0,1,1500), --hyundai starex
