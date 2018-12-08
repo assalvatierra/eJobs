@@ -33,7 +33,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @maxlength = "80" } })
                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -57,7 +57,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.JobRemarks, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.JobRemarks, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.JobRemarks, new { htmlAttributes = new { @class = "form-control", @maxlength = "80" } })
                 @Html.ValidationMessageFor(model => model.JobRemarks, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -73,7 +73,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.StatusRemarks, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.StatusRemarks, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.StatusRemarks, new { htmlAttributes = new { @class = "form-control", @maxlength = "80" } })
                 @Html.ValidationMessageFor(model => model.StatusRemarks, "", new { @class = "text-danger" })
             </div>
         </div>

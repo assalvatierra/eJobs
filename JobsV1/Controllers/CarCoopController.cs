@@ -194,7 +194,7 @@ namespace JobsV1.Controllers
             ViewBag.CarUnitId = new SelectList(db.CarUnits, "Id", "Description");
             ViewBag.MealsAcc = new SelectList(MealsAcc, "Value", "Text");
             ViewBag.Fuel = new SelectList(Fuel, "Value", "Text");
-            ViewBag.CarUnitList = db.CarUnits.ToList();
+            ViewBag.CarUnitList = db.CarUnits.ToList().OrderBy(s=>s.SortOrder);
             return PartialView("CarReserve");
         }
 

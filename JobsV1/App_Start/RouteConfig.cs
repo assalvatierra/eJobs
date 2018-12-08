@@ -294,7 +294,6 @@ namespace JobsV1
 
             /********************************
             * CarCoop landing/home page
-            ********************************/
             routes.MapRoute(
                 name: "POTTMPC/Home",
                 url: "CarCoop/Index/{id}",
@@ -307,6 +306,7 @@ namespace JobsV1
                 defaults: new { controller = "CarCoop", action = "Index", id = UrlParameter.Optional }
             );
             
+            ********************************/
 
             /********************************
             * landing/home page

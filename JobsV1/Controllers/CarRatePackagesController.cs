@@ -62,6 +62,7 @@ namespace JobsV1.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.Status = new SelectList(StatusList, "value", "text", carRatePackage.Status);
             return View(carRatePackage);
         }
 
@@ -95,6 +96,7 @@ namespace JobsV1.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.Status = new SelectList(StatusList, "value", "text", carRatePackage.Status);
             return View(carRatePackage);
         }
 

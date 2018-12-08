@@ -15,11 +15,11 @@ var c = url.searchParams.get("id");
 
 //initial-default
 $('#5').attr('checked', true);
-$('#withdriver').attr('checked', true);
 $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
+$('#withdriver').attr('checked', true);
 $('#pkg-2').attr('checked', true);
 $('#pkg-2').addClass('active').siblings().removeClass('active');
-selectedTour = $('#pkg-2').attr('id').substring(4, 5);
+selectedTour = "1";
 updateTransaction();
 
 function rentalTypeChange() {
