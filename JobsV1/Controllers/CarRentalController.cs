@@ -327,15 +327,15 @@ namespace JobsV1.Controllers
                 //sendMail(jobid ,RenterEmail);
                 //sent email to travel.realbreze@gmail.com
                 var adminEmail = "travel.realbreze@gmail.com";
-                //sendMail(carReservation.Id, adminEmail, "ADMIN" ,carReservation.RenterName);
+                sendMail(carReservation.Id, adminEmail, "ADMIN" ,carReservation.RenterName);
 
                 //adminEmail = "AJDavao88@gmail.com";
                 adminEmail = "reservation.realwheels@gmail.com";
-                //sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
+                sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
 
                 //adminEmail = "AJDavao88@gmail.com";
                 adminEmail = "ajdavao88@gmail.com";
-                //sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
+                sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
 
                 //client email
                 sendMail(carReservation.Id, carReservation.RenterEmail, "CLIENT-PENDING", carReservation.RenterName);
@@ -393,7 +393,7 @@ namespace JobsV1.Controllers
         public string sendMail(int jobId, string renterEmail, string mailType, string recipientName )
         {
             EMailHandler mail = new EMailHandler();
-            return mail.SendMail(jobId, renterEmail, mailType, recipientName);
+            return mail.SendMail(jobId, renterEmail, mailType, recipientName, "https://realwheelsdavao.com/reservation/");
         }
         
         public ActionResult CarView(string carDesc)

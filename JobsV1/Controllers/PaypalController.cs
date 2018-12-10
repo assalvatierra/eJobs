@@ -56,6 +56,7 @@ namespace JobsV1.Controllers
             JobMain jobOrder = db.JobMains.Find(jobId);
             string clientName = jobOrder.Description;
             EMailHandler mail = new EMailHandler();
+            string siteRedirect = "https://realwheelsdavao.com/reservation/";
 
             switch (ev.event_type)
             {
@@ -65,9 +66,9 @@ namespace JobsV1.Controllers
                     AddPaymentRecord(jobId, Totalamount);
 
                     //send mail
-                    mail.SendMail(jobId, "reservation.realwheels@gmail.com", "PAYMENT-SUCCESS", clientName);
-                    mail.SendMail(jobId, "ajdavao88@gmail.com", "PAYMENT-SUCCESS", clientName);
-                    mail.SendMail(jobId, "travel.realbreze@gmail.com", "PAYMENT-SUCCESS", clientName);
+                    mail.SendMail(jobId, "reservation.realwheels@gmail.com", "PAYMENT-SUCCESS", clientName, siteRedirect);
+                    mail.SendMail(jobId, "ajdavao88@gmail.com", "PAYMENT-SUCCESS", clientName, siteRedirect);
+                    mail.SendMail(jobId, "travel.realbreze@gmail.com", "PAYMENT-SUCCESS", clientName, siteRedirect);
 
                     //add to log
                     DB.addTestNotification(jobId, paypalID);
@@ -76,9 +77,9 @@ namespace JobsV1.Controllers
                 case "PAYMENT.CAPTURE.DENIED": // Handle payment denied
 
                     //send mail
-                    mail.SendMail(jobId, "reservation.realwheels@gmail.com", "PAYMENT-DENIED", clientName);
-                    mail.SendMail(jobId, "ajdavao88@gmail.com", "PAYMENT-DENIED", clientName);
-                    mail.SendMail(jobId, "travel.realbreze@gmail.com", "PAYMENT-DENIED", clientName);
+                    mail.SendMail(jobId, "reservation.realwheels@gmail.com", "PAYMENT-DENIED", clientName, siteRedirect);
+                    mail.SendMail(jobId, "ajdavao88@gmail.com", "PAYMENT-DENIED", clientName, siteRedirect);
+                    mail.SendMail(jobId, "travel.realbreze@gmail.com", "PAYMENT-DENIED", clientName, siteRedirect);
 
                     //add to log
                     DB.addTestNotification(jobId, paypalID);
@@ -86,9 +87,9 @@ namespace JobsV1.Controllers
                 // Handle other webhooks
                 default: // Handle payment denied
                     //send mail
-                    mail.SendMail(jobId, "reservation.realwheels@gmail.com", "PAYMENT-PENDING", clientName);
-                    mail.SendMail(jobId, "ajdavao88@gmail.com", "PAYMENT-PENDING", clientName);
-                    mail.SendMail(jobId, "travel.realbreze@gmail.com", "PAYMENT-PENDING", clientName);
+                    mail.SendMail(jobId, "reservation.realwheels@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
+                    mail.SendMail(jobId, "ajdavao88@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
+                    mail.SendMail(jobId, "travel.realbreze@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
 
                     //add to log
                     DB.addTestNotification(jobId, paypalID);

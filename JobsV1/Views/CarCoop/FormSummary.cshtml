@@ -65,7 +65,7 @@
             <button class="btn btn-default" onclick="PrevForm()">Previous</button>
 
             <button class="btn btn-default" onclick="FormRenter_NextForm()"> Next </button>
-            @Html.ActionLink("Cancel", "Index", "CarRental", null, new { @class = "btn btn-default" })
+            @Html.ActionLink("Cancel", "Index", "CarCoop", null, new { @class = "btn btn-default" })
 
         </div>
     </div>
@@ -112,13 +112,13 @@
 
     function FormRenter(carId, noDays, rentalType, meals, fuel, pkgId) {
 
-        window.location.href = '/CarRental/FormRenter?id=' + carId + '&days=' + noDays +
+        window.location.href = '/CarCoop/FormRenter?id=' + carId + '&days=' + noDays +
             '&rentType=' + rentalType + '&meals=' + meals + '&fuel=' + fuel + '&pkg=' + pkgId;
     }
 
     //public PartialViewResult FormPackages (int? carId, int? days, int? rentType, int? meals, int? fuel)
     function FormPackages(carId, noDays, rentalType, meals, fuel, pkg) {
-        window.location.href = '/CarRental/FormPackages?carId=' + carId + '&days=' + noDays +
+        window.location.href = '/CarCoop/FormPackages?carId=' + carId + '&days=' + noDays +
             '&rentType=' + rentalType + '&meals=' + meals + '&fuel=' + fuel;
     }
 

@@ -319,7 +319,7 @@ namespace JobsV1.Controllers
                     //sent email to POTTMPC@yahoo.com
                     var adminEmail = "Reservation.realwheels@gmail.com";
                     //var adminEmail = "POTTMPC@yahoo.com";
-                    //sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
+                    sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
                     
                     //client email
                     sendMail(carReservation.Id, carReservation.RenterEmail, "CLIENT-PENDING", carReservation.RenterName);
@@ -378,7 +378,9 @@ namespace JobsV1.Controllers
         public string sendMail(int jobId, string renterEmail, string mailType, string recipientName)
         {
             EMailHandler mail = new EMailHandler();
-            return mail.SendMail(jobId, renterEmail, mailType, recipientName);
+
+            string siteRedirect = "http://palawantransportcoop.com";
+            return mail.SendMail(jobId, renterEmail, mailType, recipientName, siteRedirect);
         }
 
 
