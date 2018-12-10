@@ -101,72 +101,14 @@
 
 <!--Scripts-->
 <script type="text/javascript" src="~/Scripts/jquery-3.3.1.js"></script>
-<script type="text/javascript" src="~/Scripts/Job/FormRenter.js"></script>
 <script type="text/javascript" src="~/Scripts/CarRental/Reservation_wDriver.js"></script>
   
 <script>
 
-    function CarReserve_Default() {
-
-        var carid =  @ViewBag.carid;
-        $("#"+carid+"").attr('checked', true);
-        CarBorderReset();
-
-        $('#rsv-days').val(@ViewBag.days);
-
-        //meals and accomodation
-        if(@ViewBag.meals == 1){
-            $('#rsv-meal').val("1");
-        }else{
-            $('#rsv-meal').val("0");
-        }
-
-        //fuel inclusion
-        if(@ViewBag.meals == 1){
-            $('#rsv-fuelId').val("1");
-        }else{
-            $('#rsv-fuel').val("0");
-        }
-    }
-
-    function CarBorderReset(){
-
-        $('#car1').css('border', '1px solid lightgray');
-        $('#car2').css('border', '1px solid lightgray');
-        $('#car3').css('border', '1px solid lightgray');
-        $('#car4').css('border', '1px solid lightgray');
-        $('#car5').css('border', '1px solid lightgray');
-        $('#car6').css('border', '1px solid lightgray');
-        $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
-    }
-
-    function CarReserve_NextForm() {
-        var rentalType = $('input:radio[name=options]:checked').val() == "With Driver" ? 1 : 0;
-        var carId = $('input:radio[name=cars]:checked').attr("id");
-        var noDays = $('#rsv-days').val();
-        var mealsAcc = $('#rsv-meal').val();
-        var fuel = $('#rsv-fuel').val();
-
-        console.log("Rental:" + rentalType);
-        console.log("selectedCar:" + carId);
-        console.log("NoDays:" + noDays);
-        console.log("MealsAcc:" + mealsAcc);
-        console.log("Fuel:" + fuel);
-
-        CarReserve_FormPackages(carId, noDays, rentalType, mealsAcc, fuel);
-
-    }
-
-
     //next popup on formpackages package list
     $(document).ready(function(){
-        CarReserve_Default();
+        CarReserve_Default(@ViewBag.carid,@ViewBag.days,@ViewBag.meals,@ViewBag.fuelId);
     });
 
-    //public PartialViewResult FormPackages (int? carId, int? days, int? rentType, int? meals, int? fuel)
-    function CarReserve_FormPackages(carId, noDays, rentalType, meals, fuel) {
-        window.location.href = '/CarRental/FormPackages?carId=' + carId + '&days=' + noDays +
-            '&rentType=' + rentalType + '&meals=' + meals + '&fuel=' + fuel;
-    }
 
 </script>

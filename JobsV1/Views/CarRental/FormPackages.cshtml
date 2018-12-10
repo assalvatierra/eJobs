@@ -3,7 +3,7 @@
     <div class="modal-header">
         <h3 class="modal-title">Car Packages </h3>
 
-        <a href="#" onclick="PrevForm()"> Previous      </a>&bull;
+        <a href="#" onclick="FormPackages_PrevForm()"> Previous      </a>&bull;
         <a href="#" onclick="FormPackages_NextForm()"> Proceed         </a>
 
         <h5 id="modal-text-foot">-</h5>
@@ -49,7 +49,7 @@
                         <td id="pkg-days@(package.Id)">@package.Days</td>
                         <td>
                             <span id="pkg-rate@(package.Id)">  @package.TextRate </span>
-                            <b id="pkg-total@(package.Id)"> =  @package.Rate</b>
+                            <b id="pkg-total@(package.Id)">  @package.Rate.ToString("N0")</b>
                         </td>
                     </tr>
                     }
@@ -67,10 +67,11 @@
     <div class="modal-footer" id="rsv-footer" style="display:block;">
 
         <div class="pull-right">
-            <button class="btn btn-default" onclick="PrevForm()">Previous</button>
+            @Html.ActionLink("Cancel", "Index", "CarRental", null, new { @class = "btn btn-default" })
+
+            <button class="btn btn-default" onclick="FormPackages_PrevForm()">Previous</button>
 
             <button class="btn btn-default" onclick="FormPackages_NextForm()"> Next </button>
-            @Html.ActionLink("Cancel", "Index", "CarRental", null, new { @class = "btn btn-default" })
 
         </div>
     </div>
@@ -78,6 +79,7 @@
 
 
 <script type="text/javascript" src="~/Scripts/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="~/Scripts/CarRental/Reservation_wDriver.js"></script>
 
 <script>
     var selectedTour = 1; //selected package id
@@ -88,77 +90,24 @@
         var mealsAcc = @ViewBag.meals;
         var fuel = @ViewBag.fuel;
 
-        console.log("Rental:"      + rentalType );
-        console.log("selectedCar:" + carId      );
-        console.log("NoDays:"      + noDays     );
-        console.log("MealsAcc:"    + mealsAcc   );
-        console.log("Fuel:"        + fuel       );
-
-        FormPackages(carId, noDays, rentalType, mealsAcc, fuel, selectedTour);
+        FormPackages_Next(carId, noDays, rentalType, mealsAcc, fuel, selectedTour);
 
     }
 
-    function PrevForm() {
+    function FormPackages_PrevForm() {
         var rentalType = @ViewBag.rentType;
         var carId = @ViewBag.carId;
         var noDays = @ViewBag.days;
         var mealsAcc = @ViewBag.meals;
         var fuel = @ViewBag.fuel;
 
-        console.log("Rental:"      + rentalType );
-        console.log("selectedCar:" + carId      );
-        console.log("NoDays:"      + noDays     );
-        console.log("MealsAcc:"    + mealsAcc   );
-        console.log("Fuel:"        + fuel       );
-
-        FormCarReserve(carId, noDays, rentalType, mealsAcc, fuel, selectedTour);
-    }
-
-    //public PartialViewResult FormPackages (int? carId, int? days, int? rentType, int? meals, int? fuel)
-
-    function FormPackages(carId, noDays, rentalType, meals, fuel, pkg) {
-        window.location.href = '/CarRental/FormSummary?carId=' + carId + '&days=' + noDays +
-            '&rentType=' + rentalType + '&meals=' + meals + '&fuel=' + fuel + '&pkg=' + pkg;
-    }
-
-    //public PartialViewResult FormPackages (int? carId, int? days, int? rentType, int? meals, int? fuel)
-    function FormCarReserve(carId, noDays, rentalType, meals, fuel, pkg) {
-        window.location.href = '/CarRental/CarReserve?id=' + carId + '&days=' + noDays +
-            '&rentType=' + rentalType + '&meals=' + meals + '&fuel=' + fuel + '&pkg=' + pkg;
+        FormPackages_Prev(carId, noDays, rentalType, mealsAcc, fuel, selectedTour);
     }
 
     //next popup on formpackages package list
     $(document).ready(function () {
-        $('[data-toggle="popover"]').popover({
-            placement: 'right',
-            html: 'true',
-            content: '<button class="btn btn-primary" onclick="FormPackages_NextForm();">Proceed</button>'
-        });
-
-        $('[data-toggle="popover"]').on('click', function (e) {
-            $('[data-toggle="popover"]').not(this).popover('hide');
-        });
-
-        $('#pkg-table').on('click', '.clickable-row', function (event) {
-            $(this).addClass('active').siblings().removeClass('active');
-            selectedTour = $(this).attr('id').substring(4,6);
-            console.log(selectedTour);
-        });
-        updateTransactionText();
+        formPackages_TransText(@ViewBag.carId,@ViewBag.days,@ViewBag.meals,@ViewBag.fuel,"@ViewBag.RentTypeTxt","@ViewBag.carDesc");
     });
 
-    function updateTransactionText() {
-
-        var carId = @ViewBag.carId;
-        var noDays = @ViewBag.days;
-        var mealsAcc = @ViewBag.meals;
-        var fuel = @ViewBag.fuel;
-
-        console.log("test");
-
-        var mealPackage = mealsAcc == '1' ? 'Driver Meals/Accomodation Included ' : 'Driver Meals/Accomodation by renter';
-        var fuelPackage = fuel == '1' ? 'Driver Fuel Included ' : 'Driver Fuel by renter';
-        $('#modal-text-foot').text('@ViewBag.RentTypeTxt  - @ViewBag.carDesc - ' + noDays + ' Days - ' + mealPackage + ' - ' + fuelPackage + '');
-    }
 
 </script>

@@ -438,3 +438,129 @@ function longtermRental() {
     selectedTour = $('#pkg-1').attr('id').substring(4, 5);;
     showForm();
 }
+
+
+
+/******** Car Reserve ************/
+
+//public PartialViewResult FormPackages (int? carId, int? days, int? rentType, int? meals, int? fuel)
+function CarReserve_FormPackages(carId, noDays, rentalType, meals, fuel) {
+    window.location.href = '/CarRental/FormPackages?carId=' + carId + '&days=' + noDays +
+        '&rentType=' + rentalType + '&meals=' + meals + '&fuel=' + fuel;
+}
+
+//clear border highlight
+function CarBorderReset() {
+    $('#car1').css('border', '1px solid lightgray');
+    $('#car2').css('border', '1px solid lightgray');
+    $('#car3').css('border', '1px solid lightgray');
+    $('#car4').css('border', '1px solid lightgray');
+    $('#car5').css('border', '1px solid lightgray');
+    $('#car6').css('border', '1px solid lightgray');
+    $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
+}
+
+//get info from input and direct to formPackage form
+function CarReserve_NextForm() {
+    var rentalType = $('input:radio[name=options]:checked').val() == "With Driver" ? 1 : 0;
+    var carId = $('input:radio[name=cars]:checked').attr("id");
+    var noDays = $('#rsv-days').val();
+    var mealsAcc = $('#rsv-meal').val();
+    var fuel = $('#rsv-fuel').val();
+
+    console.log("Rental:" + rentalType);
+    console.log("selectedCar:" + carId);
+    console.log("NoDays:" + noDays);
+    console.log("MealsAcc:" + mealsAcc);
+    console.log("Fuel:" + fuel);
+
+    CarReserve_FormPackages(carId, noDays, rentalType, mealsAcc, fuel);
+
+}
+
+function CarReserve_Default(carid, days, meals, fuelId) {
+
+    var carid = carid;
+    $("#" + carid + "").attr('checked', true);
+    CarBorderReset();
+
+    $('#rsv-days').val(days);
+
+    //meals and accomodation
+    if (meals == 1) {
+        $('#rsv-meal').val("1");
+    } else {
+        $('#rsv-meal').val("0");
+    }
+
+    //fuel inclusion
+    if (fuelId == 1) {
+        $('#rsv-fuelId').val("1");
+    } else {
+        $('#rsv-fuel').val("0");
+    }
+}
+
+/******** Form Packages ************/
+
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover({
+        placement: 'right',
+        html: 'true',
+        content: '<button class="btn btn-primary" onclick="FormPackages_NextForm();">Proceed</button>'
+    });
+
+    $('[data-toggle="popover"]').on('click', function (e) {
+        $('[data-toggle="popover"]').not(this).popover('hide');
+    });
+
+    $('#pkg-table').on('click', '.clickable-row', function (event) {
+        $(this).addClass('active').siblings().removeClass('active');
+        selectedTour = $(this).attr('id').substring(4, 6);
+        console.log(selectedTour);
+    });
+
+});
+
+function formPackages_TransText(carId, days, meals, fuel, RentTypeTxt,carDesc) {
+
+    var carId = carId;
+    var noDays = days;
+    var mealsAcc = meals;
+    var fuel = fuel;
+
+    var mealPackage = mealsAcc == '1' ? 'Driver Meals/Accomodation Included ' : 'Driver Meals/Accomodation by renter';
+    var fuelPackage = fuel == '1' ? 'Driver Fuel Included ' : 'Driver Fuel by renter';
+    $('#modal-text-foot').text(RentTypeTxt + ' - ' + carDesc + ' - ' + noDays + ' Days - ' + mealPackage + ' - ' + fuelPackage + '');
+}
+
+
+//public PartialViewResult FormPackages (int? carId, int? days, int? rentType, int? meals, int? fuel)
+function FormPackages_Next(carId, noDays, rentalType, meals, fuel, pkg) {
+    window.location.href = '/CarRental/FormSummary?carId=' + carId + '&days=' + noDays +
+        '&rentType=' + rentalType + '&meals=' + meals + '&fuel=' + fuel + '&pkg=' + pkg;
+}
+
+//public PartialViewResult FormPackages (int? carId, int? days, int? rentType, int? meals, int? fuel)
+function FormPackages_Prev(carId, noDays, rentalType, meals, fuel, pkg) {
+    window.location.href = '/CarRental/CarReserve?id=' + carId + '&days=' + noDays +
+        '&rentType=' + rentalType + '&meals=' + meals + '&fuel=' + fuel + '&pkg=' + pkg;
+}
+
+
+/******** Form Summary ************/
+
+    //public PartialViewResult FormPackages (int? carId, int? days, int? rentType, int? meals, int? fuel)
+    function FormRenter_Next(carId, noDays, rentalType, meals, fuel, pkgId) {
+
+        window.location.href = '/CarRental/FormRenter?id=' + carId + '&days=' + noDays +
+            '&rentType=' + rentalType + '&meals=' + meals + '&fuel=' + fuel + '&pkg=' + pkgId;
+    }
+
+    //public PartialViewResult FormPackages (int? carId, int? days, int? rentType, int? meals, int? fuel)
+    function FormRenter_Prev(carId, noDays, rentalType, meals, fuel, pkg) {
+        window.location.href = '/CarRental/FormPackages?carId=' + carId + '&days=' + noDays +
+            '&rentType=' + rentalType + '&meals=' + meals + '&fuel=' + fuel;
+    }
+
+
