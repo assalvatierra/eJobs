@@ -14,7 +14,7 @@ namespace JobsV1.Controllers
     {
 
         private JobDBContainer db = new JobDBContainer();
-
+        private CarReserve carRsv = new CarReserve();
 
         private List<SelectListItem> MealsAcc = new List<SelectListItem> {
                 new SelectListItem { Value = "1", Text =  "Driver Meals and Accomodation included" },
@@ -120,20 +120,12 @@ namespace JobsV1.Controllers
                 //self drive reservation
                 addCarResPackage(carReservation.Id, 1, 0, 0);
 
-                //sendMail(jobid ,RenterEmail);
-                //sent email to the user
-                var adminEmail = "travel.realbreze@gmail.com";
+                //sent email to POTTMPC@yahoo.com
+                var adminEmail = "Reservation.realwheels@gmail.com";
+                //var adminEmail = "POTTMPC@yahoo.com";
                 sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
 
-                //adminEmail = "AJDavao88@gmail.com";
-                adminEmail = "reservation.realwheels@gmail.com";
-                sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
-
-                //adminEmail = "AJDavao88@gmail.com";
-                adminEmail = "ajdavao88@gmail.com";
-                sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
-
-                //Client Email
+                //client email
                 sendMail(carReservation.Id, carReservation.RenterEmail, "CLIENT-PENDING", carReservation.RenterName);
 
                 return RedirectToAction("FormThankYou", new { rsvId = carReservation.Id });
@@ -189,13 +181,19 @@ namespace JobsV1.Controllers
             return PartialView("CarRate", db.CarRates.Where(d => d.CarUnitId == unitid));
         }
 
-        public PartialViewResult CarReserve()
+        public ActionResult CarReserve(int? id, int? days, int? rentType, int? meals, int? fuel)
         {
-            ViewBag.CarUnitId = new SelectList(db.CarUnits, "Id", "Description");
-            ViewBag.MealsAcc = new SelectList(MealsAcc, "Value", "Text");
-            ViewBag.Fuel = new SelectList(Fuel, "Value", "Text");
-            ViewBag.CarUnitList = db.CarUnits.ToList().OrderBy(s=>s.SortOrder);
-            return PartialView("CarReserve");
+            ViewBag.CarUnitId = new SelectList(db.CarUnits, "Id", "Description", id);
+            ViewBag.MealsAcc = new SelectList(MealsAcc, "Value", "Text", meals);
+            ViewBag.Fuel = new SelectList(Fuel, "Value", "Text", fuel);
+            ViewBag.CarUnitList = db.CarUnits.ToList().OrderBy(s => s.SortOrder);
+
+            ViewBag.carid = id;
+            ViewBag.days = days == null ? 1 : days;
+            ViewBag.fuelId = fuel == null ? 1 : fuel;
+            ViewBag.meals = meals == null ? 1 : meals;
+
+            return View("CarReserve");
         }
 
 
@@ -207,23 +205,41 @@ namespace JobsV1.Controllers
             return PartialView("FormReservation");
         }
 
-        public PartialViewResult FormPackages()
+        public ActionResult FormPackages(int carId, int days, int rentType, int meals, int fuel)
         {
 
-            ViewBag.CarUnitList = db.CarUnits.ToList();
-            ViewBag.CarRates = db.CarRates.ToList();
-            ViewBag.CarUnitId = new SelectList(db.CarUnits, "Id", "Description");
-            ViewBag.Packages = db.CarRatePackages.ToList();
-            return PartialView("FormPackages");
+            int isAuthorize = HttpContext.User.Identity.Name == "" ? 0 : 1;
+            ViewBag.PackageList = carRsv.getPackageList(carId, days, rentType, meals, fuel, isAuthorize);
+
+            ViewBag.carId = carId;
+            ViewBag.carDesc = db.CarUnits.Find(carId).Description;
+            ViewBag.days = days;
+            ViewBag.rentType = rentType;
+            ViewBag.rentTypeTxt = rentType == 1 ? "With Driver" : "Self Drive";
+            ViewBag.meals = meals;
+            ViewBag.fuel = fuel;
+
+
+            return View();
         }
 
-        public PartialViewResult FormSummary()
+        public ActionResult FormSummary(int carId, int days, int rentType, int meals, int fuel, int pkg)
         {
-            ViewBag.CarUnitList = db.CarUnits.ToList();
-            ViewBag.CarRates = db.CarRates.ToList();
-            ViewBag.CarUnitId = new SelectList(db.CarUnits, "Id", "Description");
-            ViewBag.Packages = db.CarRatePackages.ToList();
-            return PartialView("FormSummary");
+            int isAuthorize = HttpContext.User.Identity.Name == "" ? 0 : 1;
+            PackageTable PackageSummary = carRsv.getPackageSummary(carId, days, rentType, meals, fuel, pkg, isAuthorize);
+
+            ViewBag.carId = carId;
+            ViewBag.carDesc = db.CarUnits.Find(carId).Description;
+            ViewBag.days = days;
+            ViewBag.RentType = rentType;
+            ViewBag.RentTypeTxt = rentType == 1 ? "With Driver" : "Self Drive";
+            ViewBag.meals = meals;
+            ViewBag.fuel = fuel;
+            ViewBag.pkg = pkg;
+
+            ViewBag.Unit = db.CarUnits.Find(carId).Description;
+
+            return View("FormSummary", carRsv.getPackageSummary(carId, days, rentType, meals, fuel, pkg, isAuthorize));
         }
 
         public ActionResult FormThankYou(int rsvId)
@@ -244,10 +260,13 @@ namespace JobsV1.Controllers
         }
 
         // GET: CarReservations/Create
-        public ActionResult FormRenter(int? id)
+        public ActionResult FormRenter(int? id, int days, int rentType, int meals, int fuel, int pkg)
         {
             DateTime today = DateTime.Now;
             today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Singapore Standard Time");
+
+            int Authorize = HttpContext.User.Identity.Name == "" ? 0 : 1;
+            PackageTable PackageSummary = carRsv.getPackageSummary((int)id, days, rentType, meals, fuel, pkg, Authorize);
 
             CarReservation reservation = new CarReservation();
             reservation.DtTrx = today;
@@ -257,26 +276,29 @@ namespace JobsV1.Controllers
             reservation.SelfDrive = 0;  //with driver = 0, self drive = 1;
             reservation.EstHrPerDay = 10;
             reservation.EstKmTravel = 100;
+            reservation.Destinations = db.CarRatePackages.Find(pkg).Description;
+            reservation.UseFor = db.CarRatePackages.Find(pkg).Description;
+            reservation.BaseRate = PackageSummary.Rate.ToString();
 
             //get previous id
             CarReservation lastId = db.CarReservations.ToList().OrderByDescending(c => c.Id).LastOrDefault();
 
             CarRatePackage selfDrive = db.CarRatePackages.Find(1);
 
+            ViewBag.CarUnitId = new SelectList(db.CarUnits, "Id", "Description", id);
             //get last reservation id
             ViewBag.RsvId = lastId != null ? lastId.Id + 1 : 1;
-
-            ViewBag.CarUnitId = new SelectList(db.CarUnits, "Id", "Description", id);
             ViewBag.id = id;
-            ViewBag.carRatesPackages = db.CarRateUnitPackages.ToList();
-            ViewBag.CarUnitList = db.CarUnits.ToList();
-            ViewBag.CarRates = db.CarRates.ToList();
-            ViewBag.isAuthorize = HttpContext.User.Identity.Name == "" ? 0 : 1;
+            ViewBag.fuel = fuel;
+            ViewBag.meals = meals;
+            ViewBag.pkgId = pkg;
 
             //except self drive package
-            ViewBag.Packages = db.CarRatePackages.ToList();
+            ViewBag.PackagesDesc = db.CarRatePackages.Find(pkg).Description;
+
             return View(reservation);
         }
+
 
         // POST: CarReservations/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -292,24 +314,16 @@ namespace JobsV1.Controllers
 
                 //add reservation package
                 addCarResPackage(carReservation.Id, packageid, mealAcc, fuel);
-                if (host.Contains("palawan") || host.Contains("site6"))
-                {
                     //apply payment to the job
 
                     //sent email to POTTMPC@yahoo.com
                     var adminEmail = "Reservation.realwheels@gmail.com";
                     //var adminEmail = "POTTMPC@yahoo.com";
-                    sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
+                    //sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
                     
                     //client email
-                    //sendMail(carReservation.Id, carReservation.RenterEmail, "CLIENT-PENDING", carReservation.RenterName);
-
-                }
-                else
-                {
-                    //client email
                     sendMail(carReservation.Id, carReservation.RenterEmail, "CLIENT-PENDING", carReservation.RenterName);
-                }
+                
                 return RedirectToAction("FormThankYou", new { rsvId = carReservation.Id });
             }
 

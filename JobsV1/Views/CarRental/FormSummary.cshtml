@@ -78,20 +78,23 @@
 
 <script>
     var selectedTour = 1; //selected package id
+
     function FormRenter_NextForm() {
         var rentalType = @ViewBag.rentType;
         var carId = @ViewBag.carId;
         var noDays = @ViewBag.days;
         var mealsAcc = @ViewBag.meals;
         var fuel = @ViewBag.fuel;
+        var pkgId = @ViewBag.pkg;
 
         console.log("Rental:"      + rentalType );
         console.log("selectedCar:" + carId      );
         console.log("NoDays:"      + noDays     );
         console.log("MealsAcc:"    + mealsAcc   );
         console.log("Fuel:"        + fuel       );
-
-        FormRenter(carId, noDays, rentalType, mealsAcc, fuel, selectedTour);
+        console.log("pkg:"         + pkgId       );
+        
+        FormRenter(carId, noDays, rentalType, mealsAcc, fuel, pkgId);
 
     }
 
@@ -107,9 +110,10 @@
 
     //public PartialViewResult FormPackages (int? carId, int? days, int? rentType, int? meals, int? fuel)
 
-    function FormRenter(carId, noDays, rentalType, meals, fuel, pkg) {
+    function FormRenter(carId, noDays, rentalType, meals, fuel, pkgId) {
+
         window.location.href = '/CarRental/FormRenter?id=' + carId + '&days=' + noDays +
-            '&rentType=' + rentalType + '&meals=' + meals + '&fuel=' + fuel + '&pkg=' + pkg;
+            '&rentType=' + rentalType + '&meals=' + meals + '&fuel=' + fuel + '&pkg=' + pkgId;
     }
 
     //public PartialViewResult FormPackages (int? carId, int? days, int? rentType, int? meals, int? fuel)
@@ -137,12 +141,26 @@
         });
 
         updateTransactionText();
+
+
+        var rentalType = @ViewBag.rentType;
+        var carId = @ViewBag.carId;
+        var noDays = @ViewBag.days;
+        var mealsAcc = @ViewBag.meals;
+        var fuel = @ViewBag.fuel;
+        var pkg = @ViewBag.pkg;
+
+        console.log("Rental:"      + rentalType );
+        console.log("selectedCar:" + carId      );
+        console.log("NoDays:"      + noDays     );
+        console.log("MealsAcc:"    + mealsAcc   );
+        console.log("Fuel:"        + fuel       );
+        console.log("pkg:"         + pkg       );
     });
 
 
     function updateTransactionText() {
 
-        var rentalType = @ViewBag.rentType;
         var carId = @ViewBag.carId;
         var noDays = @ViewBag.days;
         var mealsAcc = @ViewBag.meals;

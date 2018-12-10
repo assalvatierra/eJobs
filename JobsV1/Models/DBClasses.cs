@@ -73,6 +73,7 @@ namespace JobsV1.Models
 
     #endregion
 
+
     public class DBClasses
     {
         JobDBContainer db = new JobDBContainer();
@@ -228,5 +229,6 @@ where d.JobStatusId < 4
 
             db.SaveChanges();
         }
+
     }
 }

@@ -213,7 +213,7 @@ namespace JobsV1.Controllers
             return PartialView("FormReservation");
         }
         
-        public ActionResult FormPackages(int carId, int days, string rentType,  int meals, int fuel) {
+        public ActionResult FormPackages(int carId, int days, int rentType,  int meals, int fuel) {
 
             int isAuthorize = HttpContext.User.Identity.Name == "" ? 0 : 1;
             ViewBag.PackageList = carRsv.getPackageList(carId,days,rentType,meals,fuel, isAuthorize);
@@ -221,8 +221,8 @@ namespace JobsV1.Controllers
             ViewBag.carId = carId;
             ViewBag.carDesc = db.CarUnits.Find(carId).Description;
             ViewBag.days = days;
-            ViewBag.rentalType = rentType == "With Driver" ? 1:0;
-            ViewBag.rentTypeTxt = rentType == "With Driver" ? "With Driver" : "Self Drive";
+            ViewBag.rentType = rentType ;
+            ViewBag.rentTypeTxt = rentType == 1 ? "With Driver" : "Self Drive";
             ViewBag.meals = meals;
             ViewBag.fuel = fuel;
 
@@ -230,7 +230,7 @@ namespace JobsV1.Controllers
             return View();
         }
 
-        public ActionResult FormSummary(int carId, int days, string rentType, int meals, int fuel, int pkg)
+        public ActionResult FormSummary(int carId, int days, int rentType, int meals, int fuel, int pkg)
         {
             int isAuthorize = HttpContext.User.Identity.Name == "" ? 0 : 1;
             PackageTable PackageSummary = carRsv.getPackageSummary(carId, days, rentType, meals, fuel,pkg, isAuthorize);
@@ -238,10 +238,11 @@ namespace JobsV1.Controllers
             ViewBag.carId = carId;
             ViewBag.carDesc = db.CarUnits.Find(carId).Description;
             ViewBag.days = days;
-            ViewBag.RentType = rentType == "With Driver"? 1 : 0;
-            ViewBag.RentTypeTxt = rentType == "With Driver" ? "With Driver" : "Self Drive";
+            ViewBag.RentType = rentType;
+            ViewBag.RentTypeTxt = rentType == 1 ? "With Driver" : "Self Drive";
             ViewBag.meals = meals;
-            ViewBag.fuel = fuel ;
+            ViewBag.fuel = fuel;
+            ViewBag.pkg = pkg;
 
             ViewBag.Unit = db.CarUnits.Find(carId).Description;
 
@@ -265,7 +266,7 @@ namespace JobsV1.Controllers
         }
 
         // GET: CarReservations/Create
-        public ActionResult FormRenter(int? id, int days, string rentType, int meals, int fuel, int pkg)
+        public ActionResult FormRenter(int? id, int days, int rentType, int meals, int fuel, int pkg)
         {
             DateTime today = DateTime.Now;
             today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Singapore Standard Time");
@@ -281,6 +282,8 @@ namespace JobsV1.Controllers
             reservation.SelfDrive   = 0;  //with driver = 0, self drive = 1;
             reservation.EstHrPerDay = 10;
             reservation.EstKmTravel = 100;
+            reservation.Destinations = db.CarRatePackages.Find(pkg).Description;
+            reservation.UseFor = db.CarRatePackages.Find(pkg).Description;
             reservation.BaseRate    = PackageSummary.Rate.ToString();
             
             //get previous id
@@ -294,9 +297,11 @@ namespace JobsV1.Controllers
             ViewBag.id = id;
             ViewBag.fuel = fuel;
             ViewBag.meals = meals;
-            ViewBag.packageId = pkg;
+            ViewBag.pkgId = pkg;
+
             //except self drive package
-            ViewBag.Packages = db.CarRatePackages.ToList();
+            ViewBag.PackagesDesc = db.CarRatePackages.Find(pkg).Description;
+
             return View(reservation);
         }
 
@@ -326,7 +331,7 @@ namespace JobsV1.Controllers
 
                 //adminEmail = "AJDavao88@gmail.com";
                 adminEmail = "reservation.realwheels@gmail.com";
-               // sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
+                //sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
 
                 //adminEmail = "AJDavao88@gmail.com";
                 adminEmail = "ajdavao88@gmail.com";

@@ -1,48 +1,57 @@
 ﻿
 <style>
     .rental-type {
-       visibility:hidden;
+        visibility: hidden;
     }
 </style>
 
+<div class="modal-content" style="min-width:600px;">
+    <div class="modal-header">
+        <h3 class="modal-title">Car Reservation </h3>
 
-<div class="modal-body row" id="modal2-content">
+        <a href="#" onclick="CarReserve_NextForm()"> Proceed       </a>
 
-    <div id="btn-rentalType" class="btn-group btn-group-justified">
-        <label class="btn btn-primary active" id="rental-type-wdriver"  data-toggle="tooltip" title="Hooray!" >
-            <input type="radio" name="options" id="withdriver" value="With Driver" class="rental-type" />
-            <span >
-                With Driver
-               </span>
-        </label>
-        <label class="btn btn-primary" id="rental-type-sdrive">
-            <input type="radio" name="options" id="selfdrive" value="Self Drive" class="rental-type" onclick="rentalTypeChange()" />
-            <span >
-                Self Drive
-            </span>
-        </label>
-
-        <label class="btn btn-primary" id="rental-type-sdrive">
-            <input type="radio" name="options" id="longterm" value="longterm" class="rental-type"  onclick="longtermRental()" />
-            <span>
-                Long Term Rental
-            </span>
-        </label>
+        <h5 id="modal-text-foot">-</h5>
     </div>
-    <br />
-    
-    <!-- Number of Days, Fuel and Meals-->
-    <div class="form-horizontal">
 
-        <div class="form-group">
-            <label class="control-label col-lg-1"> Days </label>
-            <div class="col-lg-1"   >
-                <input type="number" value="1" class="form-control" id="rsv-days" oninput="dayschange()"/>
-            </div>
-            <div class="col-lg-2">
-                <button class="btn btn-default " id="days-add"> + </button>
-                <button class="btn btn-default " id="days-sub"> - </button>
-            </div>
+
+
+    <div class="modal-body row" id="modal2-content">
+
+        <div id="btn-rentalType" class="btn-group btn-group-justified">
+            <label class="btn btn-primary active" id="rental-type-wdriver" data-toggle="tooltip" title="Hooray!">
+                <input type="radio" name="options" id="withdriver" value="With Driver" class="rental-type" />
+                <span>
+                    With Driver
+                </span>
+            </label>
+            <label class="btn btn-primary" id="rental-type-sdrive">
+                <input type="radio" name="options" id="selfdrive" value="Self Drive" class="rental-type" onclick="rentalTypeChange()" />
+                <span>
+                    Self Drive
+                </span>
+            </label>
+
+            <label class="btn btn-primary" id="rental-type-sdrive">
+                <input type="radio" name="options" id="longterm" value="longterm" class="rental-type" onclick="longtermRental()" />
+                <span>
+                    Long Term Rental
+                </span>
+            </label>
+        </div>
+        <br />
+
+        <!-- Number of Days, Fuel and Meals-->
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-lg-1"> Days </label>
+                <div class="col-lg-1">
+                    <input type="number" value="1" class="form-control" id="rsv-days" oninput="dayschange()" />
+                </div>
+                <div class="col-lg-2">
+                    <button class="btn btn-default " id="days-add"> + </button>
+                    <button class="btn btn-default " id="days-sub"> - </button>
+                </div>
 
                 <div class="col-lg-4">
                     @Html.DropDownList("MealsAcc", null, htmlAttributes: new { @class = "form-control", @id = "rsv-meal" })
@@ -52,46 +61,112 @@
                     @Html.DropDownList("Fuel", null, htmlAttributes: new { @class = "form-control", @id = "rsv-fuel" })
                 </div>
 
+            </div>
+        </div>
+
+        <!-- Car selection list -->
+        <div class="col-lg-12 carent" id="btn-rentalUnit" style="margin-bottom:155px;">
+            @foreach (var carList in ViewBag.CarUnitList as IEnumerable<JobsV1.Models.CarUnit>)
+            {
+                <label class="btn col-md-4 car-selection isSelfDrive@(carList.SelfDrive)" id="car@(carList.Id)" style="width:180px;height:200px;">
+                    <h5><b>@carList.Description</b></h5>
+                    <input type="radio" name="cars" value="@carList.Description" id="@(carList.Id)" style="visibility:hidden;" />
+                    <img src="~/Images/CarRental/@carList.CarImages.Where(c=>c.CarUnitId == carList.Id).First().ImgUrl" width="100%" style="margin-left:-30px;" />
+                </label>
+            }
+        </div>
+
+
+    </div>
+
+    <div class="modal-footer" id="rsv-footer" style="display:block;">
+        <div class="pull-right">
+
+            @Html.ActionLink("Cancel", "Index", "CarRental", null, new { @class = "btn btn-default" })
+            <button class="btn btn-default" onclick="CarReserve_NextForm()"> Next </button>
+
         </div>
     </div>
-
-
-    <!-- Car selection list -->
-    <div class="col-lg-12 carent" id="btn-rentalUnit">
-        @foreach (var carList in ViewBag.CarUnitList as IEnumerable<JobsV1.Models.CarUnit>)
-            {
-            <label class="btn col-md-4 car-selection isSelfDrive@(carList.SelfDrive)" id="car@(carList.Id)" style="width:180px;height:200px;">
-                <h5><b>@carList.Description</b></h5>
-                <input type="radio" name="cars" value="@carList.Description" id="@(carList.Id)" style="visibility:hidden;" />
-                <img src="~/Images/CarRental/@carList.CarImages.Where(c=>c.CarUnitId == carList.Id).First().ImgUrl" width="100%" style="margin-left:-30px;" />
-            </label>
-            }
-    </div>
-
-    <br />
-
 </div>
 
-    <div class="modal-body row" id="formPackages" style="display:none;">
-        @Html.Action("FormPackages")
-    </div>
-    
-    <!--
-    <div class="modal-body row" id="formReserve" style="display:none;">
-        Html.Action("FormReservation")
-    </div>
-    -->
 
-    <div class="modal-body row" id="formSummary" style="display:none;">
-        @Html.Action("FormSummary")
-    </div>
+<div class="modal-body row" id="formFinish" style="display:none;">
+    <img src="~/Images/LOGO_AJRENTACAR.jpg" width="200" />
+
+    <h2>Thank you for the Reservation. </h2>
+    <p>We will contact you through provided email and mobile number.</p>
+
+    <button class="btn btn-primary">Close</button>
+</div>
+
+<!--Scripts-->
+<script type="text/javascript" src="~/Scripts/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="~/Scripts/Job/FormRenter.js"></script>
+<script type="text/javascript" src="~/Scripts/CarRental/Reservation_wDriver.js"></script>
+
+<script>
+
+    function CarReserve_Default() {
+
+        var carid =  @ViewBag.carid;
+        $("#"+carid+"").attr('checked', true);
+        CarBorderReset();
+
+        $('#rsv-days').val(@ViewBag.days);
+
+        //meals and accomodation
+        if(@ViewBag.meals == 1){
+            $('#rsv-meal').val("1");
+        }else{
+            $('#rsv-meal').val("0");
+        }
+
+        //fuel inclusion
+        if(@ViewBag.meals == 1){
+            $('#rsv-fuelId').val("1");
+        }else{
+            $('#rsv-fuel').val("0");
+        }
+    }
+
+    function CarBorderReset(){
+
+        $('#car1').css('border', '1px solid lightgray');
+        $('#car2').css('border', '1px solid lightgray');
+        $('#car3').css('border', '1px solid lightgray');
+        $('#car4').css('border', '1px solid lightgray');
+        $('#car5').css('border', '1px solid lightgray');
+        $('#car6').css('border', '1px solid lightgray');
+        $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
+    }
+
+    function CarReserve_NextForm() {
+        var rentalType = $('input:radio[name=options]:checked').val() == "With Driver" ? 1 : 0;
+        var carId = $('input:radio[name=cars]:checked').attr("id");
+        var noDays = $('#rsv-days').val();
+        var mealsAcc = $('#rsv-meal').val();
+        var fuel = $('#rsv-fuel').val();
+
+        console.log("Rental:" + rentalType);
+        console.log("selectedCar:" + carId);
+        console.log("NoDays:" + noDays);
+        console.log("MealsAcc:" + mealsAcc);
+        console.log("Fuel:" + fuel);
+
+        CarReserve_FormPackages(carId, noDays, rentalType, mealsAcc, fuel);
+
+    }
 
 
-    <div class="modal-body row" id="formFinish" style="display:none;">
-       <img src="~/Images/LOGO_AJRENTACAR.jpg" width="200" />
+    //next popup on formpackages package list
+    $(document).ready(function(){
+        CarReserve_Default();
+    });
 
-        <h2>Thank you for the Reservation. </h2>
-        <p>We will contact you through provided email and mobile number.</p>
+    //public PartialViewResult FormPackages (int? carId, int? days, int? rentType, int? meals, int? fuel)
+    function CarReserve_FormPackages(carId, noDays, rentalType, meals, fuel) {
+        window.location.href = '/CarRental/FormPackages?carId=' + carId + '&days=' + noDays +
+            '&rentType=' + rentalType + '&meals=' + meals + '&fuel=' + fuel;
+    }
 
-        <button class="btn btn-primary">Close</button>
-    </div>
+</script>

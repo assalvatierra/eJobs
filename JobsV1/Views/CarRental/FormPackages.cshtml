@@ -78,13 +78,11 @@
 
 
 <script type="text/javascript" src="~/Scripts/jquery-3.3.1.js"></script>
-<script type="text/javascript" src="~/Scripts/Job/FormRenter.js"></script>
-<script type="text/javascript" src="~/Scripts/CarRental/Reservation_wDriver.js"></script>
 
 <script>
     var selectedTour = 1; //selected package id
     function FormPackages_NextForm() {
-        var rentalType = @ViewBag.rentalType;
+        var rentalType = @ViewBag.rentType;
         var carId = @ViewBag.carId;
         var noDays = @ViewBag.days;
         var mealsAcc = @ViewBag.meals;
@@ -101,7 +99,7 @@
     }
 
     function PrevForm() {
-        var rentalType = @ViewBag.rentalType;
+        var rentalType = @ViewBag.rentType;
         var carId = @ViewBag.carId;
         var noDays = @ViewBag.days;
         var mealsAcc = @ViewBag.meals;
@@ -151,7 +149,6 @@
 
     function updateTransactionText() {
 
-        var rentalType = @ViewBag.rentTypeTxt;
         var carId = @ViewBag.carId;
         var noDays = @ViewBag.days;
         var mealsAcc = @ViewBag.meals;

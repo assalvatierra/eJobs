@@ -102,16 +102,15 @@
 <!--Scripts-->
 <script type="text/javascript" src="~/Scripts/jquery-3.3.1.js"></script>
 <script type="text/javascript" src="~/Scripts/Job/FormRenter.js"></script>
-
 <script type="text/javascript" src="~/Scripts/CarRental/Reservation_wDriver.js"></script>
   
 <script>
 
-    function setDefault() {
+    function CarReserve_Default() {
 
         var carid =  @ViewBag.carid;
         $("#"+carid+"").attr('checked', true);
-        carBorderReset();
+        CarBorderReset();
 
         $('#rsv-days').val(@ViewBag.days);
 
@@ -130,7 +129,7 @@
         }
     }
 
-    function carBorderReset(){
+    function CarBorderReset(){
 
         $('#car1').css('border', '1px solid lightgray');
         $('#car2').css('border', '1px solid lightgray');
@@ -142,7 +141,7 @@
     }
 
     function CarReserve_NextForm() {
-        var rentalType = $('input:radio[name=options]:checked').val();
+        var rentalType = $('input:radio[name=options]:checked').val() == "With Driver" ? 1 : 0;
         var carId = $('input:radio[name=cars]:checked').attr("id");
         var noDays = $('#rsv-days').val();
         var mealsAcc = $('#rsv-meal').val();
@@ -154,15 +153,20 @@
         console.log("MealsAcc:" + mealsAcc);
         console.log("Fuel:" + fuel);
 
-        FormPackages(carId, noDays, rentalType, mealsAcc, fuel);
+        CarReserve_FormPackages(carId, noDays, rentalType, mealsAcc, fuel);
 
     }
 
+
+    //next popup on formpackages package list
+    $(document).ready(function(){
+        CarReserve_Default();
+    });
+
     //public PartialViewResult FormPackages (int? carId, int? days, int? rentType, int? meals, int? fuel)
-    function FormPackages(carId, noDays, rentalType, meals, fuel) {
+    function CarReserve_FormPackages(carId, noDays, rentalType, meals, fuel) {
         window.location.href = '/CarRental/FormPackages?carId=' + carId + '&days=' + noDays +
             '&rentType=' + rentalType + '&meals=' + meals + '&fuel=' + fuel;
     }
 
-    setDefault();
 </script>

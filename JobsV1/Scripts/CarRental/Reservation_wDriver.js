@@ -19,7 +19,7 @@ $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px so
 $('#withdriver').attr('checked', true);
 $('#pkg-2').attr('checked', true);
 $('#pkg-2').addClass('active').siblings().removeClass('active');
-selectedTour = "1";
+selectedTour = "2";
 updateTransaction();
 
 function rentalTypeChange() {
@@ -87,7 +87,7 @@ $('#rsv-fuel').click(function () {
     updateTransaction();
 });
 
-//
+//carSelection on click
 $('#btn-rentalUnit').click(function () {
     updateTransaction();
     $('#car1').css('border', '1px solid lightgray');
@@ -99,7 +99,7 @@ $('#btn-rentalUnit').click(function () {
     $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
 });
 
-
+//packages selection on click
 $('#pkg-table').on('click', '.clickable-row', function (event) {
     $(this).addClass('active').siblings().removeClass('active');
     selectedTour = $(this).attr('id').substring(4,6);
@@ -378,6 +378,8 @@ function checkRenterDetails() {
         $('#submit-btn').addClass('disabled');
         $('#dtls-warning').css('display', 'block');
     }
+
+    console.log("check " + flag);
 }
 
 
