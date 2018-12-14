@@ -48,7 +48,7 @@
                             <td id="pkg-fuel@(package.Id)">@package.TextFuel</td>
                             <td id="pkg-days@(package.Id)">@package.Days</td>
                             <td>
-                                <span id="pkg-rate@(package.Id)">  @package.TextRate </span>
+                                <span id="pkg-rate@(package.Id)">  @package.TextRate = </span>
                                 <b id="pkg-total@(package.Id)">  @package.Rate.ToString("N0")</b>
                             </td>
                         </tr>
@@ -67,10 +67,11 @@
     <div class="modal-footer" id="rsv-footer" style="display:block;">
 
         <div class="pull-right">
+            @Html.ActionLink("Cancel", "Index", "CarRental", null, new { @class = "btn btn-default" })
+
             <button class="btn btn-default" onclick="FormPackages_PrevForm()">Previous</button>
 
             <button class="btn btn-default" onclick="FormPackages_NextForm()"> Next </button>
-            @Html.ActionLink("Cancel", "Index", "CarRental", null, new { @class = "btn btn-default" })
 
         </div>
     </div>
@@ -78,18 +79,18 @@
 
 
 <script type="text/javascript" src="~/Scripts/jquery-3.3.1.js"></script>
-<script type="text/javascript" src="~/Scripts/CarRental/Reservation_wDriver.js"></script>
+<script type="text/javascript" src="~/Scripts/CarRental/FormCarPackages.js"></script>
 
 <script>
-    var selectedTour = 1; //selected package id
     function FormPackages_NextForm() {
+        
         var rentalType = @ViewBag.rentType;
         var carId = @ViewBag.carId;
         var noDays = @ViewBag.days;
         var mealsAcc = @ViewBag.meals;
         var fuel = @ViewBag.fuel;
 
-        FormPackages_Next(carId, noDays, rentalType, mealsAcc, fuel, selectedTour);
+        FormPackages_Next("CarCoop",carId, noDays, rentalType, mealsAcc, fuel, selectedTour);
 
     }
 
@@ -100,7 +101,7 @@
         var mealsAcc = @ViewBag.meals;
         var fuel = @ViewBag.fuel;
 
-        FormPackages_Prev(carId, noDays, rentalType, mealsAcc, fuel, selectedTour);
+        FormPackages_Prev("CarCoop",carId, noDays, rentalType, mealsAcc, fuel, selectedTour);
     }
 
     //next popup on formpackages package list

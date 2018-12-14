@@ -53,7 +53,7 @@ namespace JobsV1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Description,Remarks,DailyMeals,DailyRoom,DaysMin")] CarRatePackage carRatePackage)
+        public ActionResult Create([Bind(Include = "Id,Description,Remarks,DailyMeals,DailyRoom,DaysMin,Status")] CarRatePackage carRatePackage)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +88,7 @@ namespace JobsV1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Description,Remarks,DailyMeals,DailyRoom,DaysMin")] CarRatePackage carRatePackage)
+        public ActionResult Edit([Bind(Include = "Id,Description,Remarks,DailyMeals,DailyRoom,DaysMin,Status")] CarRatePackage carRatePackage)
         {
             if (ModelState.IsValid)
             {

@@ -14,7 +14,7 @@ class CarReservation {
     hello() {
         console.log("asd");
     }
-    //getter
+   //getter
    // getCarId()      { return this.carid;      }
    // getRentalType() { return this.rentalType; }
    // getNoDays()     { return this.noDays;     }

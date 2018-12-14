@@ -10,6 +10,7 @@
             <span class="userRemarks" >
 
                 @{ 
+
                     string metaDesc = item.CarUnit.CarUnitMetas.Where(s => s.CarUnitId == item.CarUnitId).FirstOrDefault().MetaDesc.ToString();
                     string metaShow = metaDesc;
                     int icnt = 120;
@@ -33,7 +34,7 @@
 
     <tr><td colspan="4">
 
-            @Html.ActionLink("Cost Estimate and Reservation", "FormRenter", "CarCoop", new { id = item.CarUnitId }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Cost Estimate and Reservation", "CarReserve", "CarCoop", new { id = item.CarUnitId }, new { @class = "btn btn-primary" })
           
             @Html.ActionLink("More Details", "CarDetail", "CarCoop", new { unitid = item.CarUnitId }, new { @class = "btn btn-primary" })
     </td></tr>

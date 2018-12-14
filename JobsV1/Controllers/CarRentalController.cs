@@ -227,7 +227,7 @@ namespace JobsV1.Controllers
             ViewBag.fuel = fuel;
 
 
-            return View();
+            return View("FormPackages");
         }
 
         public ActionResult FormSummary(int carId, int days, int rentType, int meals, int fuel, int pkg)

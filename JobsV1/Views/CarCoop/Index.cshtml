@@ -4,21 +4,7 @@
     //ViewBag.Title = "Car Rental Davao";
     ViewBag.data = 1;
 }
-<!--
-    .bg-gradient-3 {
-        
-        background: linear-gradient(90deg, #dc3545 0%, #fd7e14 100%);
-        background: linear-gradient(90deg, #053b86 0%, #0b87cf 100%);
-        width:110%;
-        margin-left:-60px;
-    }
-    .bg-gradient-3 {
-        background-color: dodgerblue;
-        width:110%;
-        margin-left:-60px;
 
-    }
--->
 <style>
     .bg-gradient-3 {
         background-color: dodgerblue;
@@ -48,9 +34,6 @@
         <h2>Welcome to Palawan!</h2>
         <p class="lead">Start your journey with us.</p>
         @Html.ActionLink("Contact us", "Contact", "CarCoop", null, new { @class = "btn btn-primary btn-lg" })
-        <!--
-        <button href="" class="btn btn-primary" id="catbtn" data-toggle="modal" data-target="#ReserveCarList" style="margin-bottom:10px; font-size:18px; margin:1px;"> Reservation </button>
-        -->
 
         @Html.ActionLink("Reservation", "CarReserve", "CarCoop", new { id = 1 }, new { @class = "btn btn-primary btn-lg" })
     </div>
@@ -62,7 +45,6 @@
     <div class="col-md-2">
 
     </div>
-    @*@Html.ActionLink("Book a Car", "Create", "JobMains", null, new { @class = "btn btn-primary btn-lg" })*@
 
 </div>
 
@@ -92,7 +74,6 @@
                 </table>
             </div>
         </div>
-
     }
 </div>
 
@@ -121,7 +102,6 @@
         </div>
 
         <div class="col-lg-4" style="color:white;font-size:15px;">
-            
             <ul style="list-style:none;color:lightgray;"> 
                 <li style="color:white;">
                     <h3> Company</h3>
@@ -138,7 +118,6 @@
             </ul>
         </div>
         <div class="col-lg-4" style="margin-top:1px;">
-
             <h3 style="color:white"> Social Media</h3>
             <a href="https://web.facebook.com/POTTMPC/" target="_blank" style="padding-right:10px;"><img src="~/Images/POTTMPC/icons/facebook-f-48.png" width="40" /> </a>
             <a style="padding:10px;"><img src="~/Images/POTTMPC/icons/twitter-48.png" width="40" /> </a>

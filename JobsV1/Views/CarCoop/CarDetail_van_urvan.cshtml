@@ -18,7 +18,7 @@
 
         <div class="col-lg-12 details-container">
 
-            <img src="~/Images/CarRental/POTTMPC/Van_Nissan_Urban.png" class="center-block img-responsive" alt="Nissan Urvan Van For Rent Palawan" style="width:60%;margin:auto;" />
+            <img src="~/Images/CarRental/POTTMPC/Van_Nissan_Urban_premium.png" class="center-block img-responsive" alt="Nissan Urvan Van For Rent Palawan" style="width:60%;margin:auto;" />
             <h2>VAN</h2>
             &nbsp;
 
@@ -112,7 +112,7 @@
 
         <div class="col-lg-12 details-container" >
             <h1 class="text-primary text-center">Book Now! </h1>
-            @Html.ActionLink("Cost Estimate and Reservation", "FormRenter", "CarCoop", new { id = @ViewBag.Id }, new { @class = "btn btn-primary col-lg-12 rsvr-btn" })
+            @Html.ActionLink("Cost Estimate and Reservation", "CarReserve", "CarCoop", new { id = @ViewBag.Id }, new { @class = "btn btn-primary col-lg-12 rsvr-btn" })
             <p class="text-info text-center" style="font-size:12px;color:gray;">
             Note: availability of the vehicle will depend on the date of reservation. </p>
         </div>

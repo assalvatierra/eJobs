@@ -101,12 +101,31 @@
 
 <!--Scripts-->
 <script type="text/javascript" src="~/Scripts/jquery-3.3.1.js"></script>
-<script type="text/javascript" src="~/Scripts/CarRental/Reservation_wDriver.js"></script>
+<script type="text/javascript" src="~/Scripts/CarRental/FormCarReserve.js"></script>
 
 <script>
+    
+    //get info from input and direct to formPackage form
+    function CarReserve_NextForm() {
+        var rentalType = $('input:radio[name=options]:checked').val() == "With Driver" ? 1 : 0;
+        var carId = $('input:radio[name=cars]:checked').attr("id");
+        var noDays = $('#rsv-days').val();
+        var mealsAcc = $('#rsv-meal').val();
+        var fuel = $('#rsv-fuel').val();
 
+        console.log("Rental:" + rentalType);
+        console.log("selectedCar:" + carId);
+        console.log("NoDays:" + noDays);
+        console.log("MealsAcc:" + mealsAcc);
+        console.log("Fuel:" + fuel);
 
+        if (rentalType == 1) {
+            CarReserve_FormPackages("CarCoop",carId, noDays, rentalType, mealsAcc, fuel);
+        }else{
+            selfDrive(carId);
+        }
 
+    }
     //next popup on formpackages package list
     $(document).ready(function(){
         CarReserve_Default(@ViewBag.carid,@ViewBag.days,@ViewBag.meals,@ViewBag.fuelId);

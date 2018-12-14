@@ -110,7 +110,7 @@ namespace JobsV1.Controllers
                 case 3: //close
                     jobMains = jobMains
                         .Where(d => (d.JobStatusId == JOBCLOSED || d.JobStatusId == JOBCANCELLED)).ToList()
-                        .Where(p => p.JobDate.Date.AddDays(60) > today.Date).ToList();
+                        .Where(p => p.JobDate.Date > today.Date.AddDays(-60)).ToList();
 
                     break;
 
@@ -188,7 +188,7 @@ namespace JobsV1.Controllers
                 case 3: //close
                     data = (List<cJobOrder>)data
                         .Where(d => (d.Main.JobStatusId == JOBCLOSED || d.Main.JobStatusId == JOBCANCELLED)).ToList()
-                        .Where(p => p.Main.JobDate.AddDays(60).Date > today.Date).ToList();
+                        .Where(p => p.Main.JobDate.Date > today.Date.AddDays(-60)).ToList();
                     break;
 
                 default:
@@ -547,10 +547,11 @@ order by x.jobid
             db.Database.ExecuteSqlCommand(sqlstr);
 
             //remove unassigned
-            var jscount = db.JobServiceItems.Count();
-            if (jscount > 0)
+            var jscount = db.JobServiceItems.Where(s=>s.JobServicesId == serviceId).Count();
+
+            if (jscount > 1)
             {
-                var unassigned = db.InvItems.Where(s => s.Description == "Unassigned").FirstOrDefault().Id;
+                var unassigned = db.InvItems.Where(s => s.Description == "UnAssigned").FirstOrDefault().Id;
                 RemoveUnassignedItem(unassigned,serviceId);
 
             }
@@ -565,10 +566,10 @@ order by x.jobid
             db.Database.ExecuteSqlCommand(sqlstr);
 
             //remove unassigned
-            var jscount = db.JobServiceItems.Count();
-            if (jscount > 0)
+            var jscount = db.JobServiceItems.Where(s => s.JobServicesId == serviceId).Count();
+            if (jscount > 1)
             {
-                var unassigned = db.InvItems.Where(s => s.Description == "Unassigned").FirstOrDefault().Id;
+                var unassigned = db.InvItems.Where(s => s.Description == "UnAssigned").FirstOrDefault().Id;
                 RemoveUnassignedItem(unassigned, serviceId);
 
             }
@@ -895,7 +896,7 @@ order by x.jobid
                 db.SaveChanges();
 
                 //set initial unit as unassigned
-                int UnassignedId = db.InvItems.Where(u => u.Description == "Unassigned").FirstOrDefault().Id;
+                int UnassignedId = db.InvItems.Where(u => u.Description == "UnAssigned").FirstOrDefault().Id;
                 AddUnassignedItem(UnassignedId, jobServices.Id);
             }
 
