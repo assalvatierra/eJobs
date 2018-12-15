@@ -87,7 +87,6 @@ namespace JobsV1.Controllers
             //DateTime today = DateTime.Today;
             //today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Singapore Standard Time");
             
-            //
             DateTime today = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time"));
 
             ViewBag.today = today;
@@ -147,9 +146,7 @@ namespace JobsV1.Controllers
                 }
 
                 joTmp.ActionCounter = jobActionCntr.Where(d => d.JobId == joTmp.Main.Id).ToList();
-
-                joTmp.Main.JobDate =  TempJobDate(joTmp.Main.Id);
-
+                
                 if (sortid == 1)
                 {
                     joTmp.Main.JobDate = TempJobDate(joTmp.Main.Id);
@@ -299,7 +296,7 @@ namespace JobsV1.Controllers
             //update jobdate
             var main = db.JobMains.Where(j => mainId == j.Id).FirstOrDefault();
 
-            DateTime minDate = new DateTime(9999, 12, 30);
+            DateTime minDate = main.JobDate;
 
             //loop though all jobservices in the jobmain
             //to get the latest date

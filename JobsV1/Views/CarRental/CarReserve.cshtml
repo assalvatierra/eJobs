@@ -19,21 +19,21 @@
     <div class="modal-body row" id="modal2-content">
 
         <div id="btn-rentalType" class="btn-group btn-group-justified">
-            <label class="btn btn-primary active" id="rental-type-wdriver" data-toggle="tooltip" title="Hooray!">
+            <label class="btn btn-primary active" id="rental-type-wdriver" data-toggle="tooltip" >
                 <input type="radio" name="options" id="withdriver" value="With Driver" class="rental-type" />
                 <span>
                     With Driver
                 </span>
             </label>
             <label class="btn btn-primary" id="rental-type-sdrive">
-                <input type="radio" name="options" id="selfdrive" value="Self Drive" class="rental-type" onclick="rentalTypeChange()" />
+                <input type="radio" name="options" id="selfdrive" value="Self Drive" class="rental-type"  />
                 <span>
                     Self Drive
                 </span>
             </label>
 
-            <label class="btn btn-primary" id="rental-type-sdrive">
-                <input type="radio" name="options" id="longterm" value="longterm" class="rental-type" onclick="longtermRental()" />
+            <label class="btn btn-primary" id="rental-type-longterm">
+                <input type="radio" name="options" id="longterm" value="longterm" class="rental-type"  />
                 <span>
                     Long Term Rental
                 </span>
@@ -107,11 +107,28 @@
     
     //get info from input and direct to formPackage form
     function CarReserve_NextForm() {
-        var rentalType = $('input:radio[name=options]:checked').val() == "With Driver" ? 1 : 0;
+
+        var rentalTypeText = $('input:radio[name=options]:checked').val();
+        var rentalType = 1;
         var carId = $('input:radio[name=cars]:checked').attr("id");
         var noDays = $('#rsv-days').val();
         var mealsAcc = $('#rsv-meal').val();
         var fuel = $('#rsv-fuel').val();
+
+        switch(rentalType){
+            case "With Driver":
+                rentalType = 1;
+                break;
+            case "Self Drive":
+                rentalType = 2;
+                break;
+            case "longterm":
+                rentalType = 3;
+                break;
+            default:
+                rentalType = 1;
+                break;
+        }
 
         console.log("Rental:" + rentalType);
         console.log("selectedCar:" + carId);

@@ -215,7 +215,7 @@ namespace JobsV1.Controllers
             ViewBag.carDesc = db.CarUnits.Find(carId).Description;
             ViewBag.days = days;
             ViewBag.rentType = rentType;
-            ViewBag.rentTypeTxt = rentType == 1 ? "With Driver" : "Self Drive";
+            ViewBag.rentTypeTxt = getRentType(rentType);
             ViewBag.meals = meals;
             ViewBag.fuel = fuel;
 
@@ -232,7 +232,7 @@ namespace JobsV1.Controllers
             ViewBag.carDesc = db.CarUnits.Find(carId).Description;
             ViewBag.days = days;
             ViewBag.RentType = rentType;
-            ViewBag.RentTypeTxt = rentType == 1 ? "With Driver" : "Self Drive";
+            ViewBag.RentTypeTxt = getRentType(rentType);
             ViewBag.meals = meals;
             ViewBag.fuel = fuel;
             ViewBag.pkg = pkg;
@@ -240,6 +240,28 @@ namespace JobsV1.Controllers
             ViewBag.Unit = db.CarUnits.Find(carId).Description;
 
             return View("FormSummary", carRsv.getPackageSummary(carId, days, rentType, meals, fuel, pkg, isAuthorize));
+        }
+
+        public string getRentType(int rentType)
+        {
+            string rentText = "";
+            switch (rentType)
+            {
+                case 1:
+                    rentText = "With Driver";
+                    break;
+                case 2:
+                    rentText = "Self Drive";
+                    break;
+                case 3:
+                    rentText = "LongTerm";
+                    break;
+                default:
+                    rentText = "With Driver";
+                    break;
+            }
+
+            return rentText;
         }
 
         public ActionResult FormThankYou(int rsvId)

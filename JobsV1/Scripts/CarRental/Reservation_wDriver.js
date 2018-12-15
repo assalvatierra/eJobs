@@ -83,19 +83,20 @@ function checkRenterDetails() {
     enddate = $('#rnt-enddate').val();
     var flag = true;
 
-
+    //validate inputs if null or empty
     if (name == '' || name == null || email == '' || email == null || mobile == '' || mobile == null) {
         flag = false;
         $('#dtls-warning').text("Please enter your Name, Email and Mobile.");
-      
     }
 
+    //check if phone input is valid
     if (validateInputPhone()) {
     } else {
         flag = false;
         $('#dtls-warning').text("Phone number is not valid.");
     }
 
+    //check if email input is valid
     if (validateInputEmail()) {
     } else {
         flag = false;
@@ -103,6 +104,7 @@ function checkRenterDetails() {
     }
 
 
+    //validate inputs if null or empty
     if (name != null && email != null && mobile != null) {
     } else {
         flag = false;
@@ -121,11 +123,11 @@ function checkRenterDetails() {
 }
 
 
+//validate inputs if contains the correct format
 function  validateInputEmail() {
     var fieldValue = document.getElementById("rnt-email").value;
 
     var mailValidation = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
     if (fieldValue.match(mailValidation)) {
         // correct mail format
         return true;
@@ -135,6 +137,7 @@ function  validateInputEmail() {
     }
 }
 
+//validate inputs if containes number
 function validateInputPhone() {
     var fieldValue = document.getElementById("rnt-mobile").value;
 

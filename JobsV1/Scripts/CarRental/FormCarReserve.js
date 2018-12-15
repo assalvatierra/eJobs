@@ -1,14 +1,13 @@
 ﻿
 
 /******** Car Reserve ************/
-
-//public PartialViewResult FormPackages (int? carId, int? days, int? rentType, int? meals, int? fuel)
+//redirect to Packages selection form
 function CarReserve_FormPackages(controller,carId, noDays, rentalType, meals, fuel) {
     window.location.href = '/' + controller + '/FormPackages?carId=' + carId + '&days=' + noDays +
         '&rentType=' + rentalType + '&meals=' + meals + '&fuel=' + fuel;
 }
 
-//clear border highlight
+//clear border highlight on car selection
 function CarBorderReset() {
     $('#car1').css('border', '1px solid lightgray');
     $('#car2').css('border', '1px solid lightgray');
@@ -19,23 +18,25 @@ function CarBorderReset() {
     $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
 }
 
-
+//selfdrive: redirect to self drive reservation form
 function selfDrive(id){
    window.location.href = '/CarRental/Reservation?unitid='+id ;
 }
 
+//set default reservation
 function CarReserve_Default(carid, days, meals, fuelId) {
 
     $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
     $('#withdriver').attr('checked', true);
-
-    var carid = carid;
     $("#" + carid + "").attr('checked', true);
-    CarBorderReset();
-
     $('#rsv-days').val(days);
 
+    //clear car border highlight
+    CarBorderReset();
+
     //meals and accomodation
+    // 1 = included in the package
+    // 0 = by renter
     if (meals == 1) {
         $('#rsv-meal').val("1");
     } else {
@@ -43,123 +44,128 @@ function CarReserve_Default(carid, days, meals, fuelId) {
     }
 
     //fuel inclusion
-    if (fuelId == 1) {
-        $('#rsv-fuelId').val("1");
-    } else {
-        $('#rsv-fuel').val("0");
-    }
-
-    updateTransaction();
-
-}
-
-
-function rentalTypeChange() {
-
-    if ($('input:radio[name=options]:checked').val() == "Self Drive") {
-        if ($('input:radio[name=cars]:checked').attr("id") == 1 || $('input:radio[name=cars]:checked').attr("id") == 2) {
-            radiobtn = document.getElementById("3");
-            radiobtn.checked = true;
-            //
+    // 1 = included in the package
+    // 0 = by renter
+    if (meals == 1) {
+        if (fuelId == 1) {
+            $('#rsv-fuelId').val("1");
+        } else {
+            $('#rsv-fuel').val("0");
         }
 
-        $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
+        //update reservation text summary
+        updateTransaction();
 
-        $('.isSelfDrive1').hide();
-    } else {
-
-        $('#1').attr('checked', true);
-        $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
-
-        $('.isSelfDrive1').show();
     }
-
-    updateTransaction();
 }
 
-function selfDrive(id) {
-    window.location.href = '/CarRental/Reservation?unitid=' + id;
-}
+    //listener on rental type click
+    //values: with driver, self drive, longterm
+    $('#btn-rentalType').click(function () {
 
-$('#btn-rentalType').click(function () {
-    updateTransaction();
-    rentalReset();
-    $('#3').attr('checked', true);
+        //update reservation text summary
+        updateTransaction();
+        rentalReset();
+        rentalTypeSelection();
 
-    if ($('input:radio[name=options]:checked').val() == "Self Drive") {
-        if ($('input:radio[name=cars]:checked').attr("id") == 1) {
+        //initial value
+        $('#3').attr('checked', true);
+
+    });
+
+    //handle changes when selecting rental types
+    function rentalTypeSelection() {
+
+        if ($('input:radio[name=options]:checked').val() == "Self Drive") {
+            //Long Term rental Type
+            var selectedCar = $('input:radio[name=cars]:checked').attr("id");
+            //change selection when van is selectedCar
+            if (selectedCar == 1 || selectedCar == 2) {
+                $('#3').attr('checked', true);
+            }
+            //highlight rental type button
+            $('#rental-type-sdrive').addClass('active').siblings().removeClass('active');
+
+            CarBorderReset();
+            updateTransaction();
+            $('.isSelfDrive1').hide();
+
+        } else if ($('input:radio[name=options]:checked').val() == "longterm") {
+            //Long Term rental Type
+            //set car3 as default
             $('#3').attr('checked', true);
+
+            //highlight rental type button
+            $('#rental-type-longterm').addClass('active').siblings().removeClass('active');
+
+            CarBorderReset();
+            updateTransaction();
+            $('.isSelfDrive1').hide();
+
+        } else {
+            //With Driver rental Type
+            $('#1').attr('checked', true);
+
+            //highlight rental type button
+            $('#rental-type-wdriver').addClass('active').siblings().removeClass('active');
+
+            CarBorderReset();
+            updateTransaction();
+            $('.isSelfDrive1').show();
+        }
+    }
+
+    //meal selection on click
+    $('#rsv-meal').click(function () {
+        updateTransaction();
+    });
+    //fuel selection on click
+    $('#rsv-fuel').click(function () {
+        updateTransaction();
+    });
+
+    //carSelection on click
+    $('#btn-rentalUnit').click(function () {
+        updateTransaction();
+
+        $('#car' + +$('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue').siblings().css('border', '1px solid lightgray');
+    });
+
+    //update reservation text details
+    function updateTransaction() {
+        var mealPackage = $('#rsv-meal').val() == '1' ? 'Driver Meals/Accomodation Included ' : 'Driver Meals/Accomodation by renter';
+        var fuelPackage = $('#rsv-fuel').val() == '1' ? 'Driver Fuel Included ' : 'Driver Fuel by renter';
+
+        //display text on reservation summary
+        $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val() +
+        ' - ' + $('#rsv-days').val() + ' Days - ' + mealPackage + ' - ' + fuelPackage);
+
+    }
+
+    //reset text reservation summary
+    function rentalReset() {
+        $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - Please select a vehicle');
+    }
+
+    //handle change of days
+    function dayschange() {
+        if ($('#rsv-days').val() < 1) {
+            $('#rsv-days').val(1);
         }
 
-        $('#rental-type-sdrive').addClass('active').siblings().removeClass('active');
-
-        $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
-
-        updateTransaction();
-        $('.isSelfDrive1').hide();
-
-    } else {
-
-        $('#rental-type-wdriver').addClass('active').siblings().removeClass('active');
-
-        $('#1').attr('checked', true);
-
-        $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
-        updateTransaction();
-        $('.isSelfDrive1').show();
-    }
-});
-
-//meal selection on click
-$('#rsv-meal').click(function () {
-    updateTransaction();
-});
-//fuel selection on click
-$('#rsv-fuel').click(function () {
-    updateTransaction();
-});
-
-//carSelection on click
-$('#btn-rentalUnit').click(function () {
-    updateTransaction();
-
-    //$('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
-    $('#car' + +$('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue').siblings().css('border', '1px solid lightgray');
-});
-
-function updateTransaction() {
-    var mealPackage = $('#rsv-meal').val() == '1' ? 'Driver Meals/Accomodation Included ' : 'Driver Meals/Accomodation by renter';
-    var fuelPackage = $('#rsv-fuel').val() == '1' ? 'Driver Fuel Included ' : 'Driver Fuel by renter';
-    $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val() +
-    ' - ' + $('#rsv-days').val() + ' Days - ' + mealPackage + ' - ' + fuelPackage);
-
-}
-
-
-function rentalReset() {
-    $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - Please select a vehicle');
-
-    var selectedCar = "";
-}
-
-
-//handle the count of number of days 
-$('#days-add').click(function () {
-    $('#rsv-days').val(+$('#rsv-days').val() + 1);
-    updateTransaction();
-});
-$('#days-sub').click(function () {
-    if ($('#rsv-days').val() > 1) {
-        $('#rsv-days').val(+$('#rsv-days').val() - 1);
         updateTransaction();
     }
-});
 
-function dayschange() {
+    //handle the count of number of days  on addition
+    $('#days-add').click(function () {
+        $('#rsv-days').val(+$('#rsv-days').val() + 1);
+        updateTransaction();
+    });
 
-    if ($('#rsv-days').val() < 1) {
-        $('#rsv-days').val(1);
-    }
-    updateTransaction();
-
-}
+    //handle no of days limit and update text on subtraction
+    $('#days-sub').click(function () {
+        if ($('#rsv-days').val() > 1) {
+            $('#rsv-days').val(+$('#rsv-days').val() - 1);
+            updateTransaction();
+        }
+    });

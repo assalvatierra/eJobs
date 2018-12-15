@@ -14,7 +14,7 @@ function FormSummary_Prev(controller,carId, noDays, rentalType, meals, fuel, pkg
         '&rentType=' + rentalType + '&meals=' + meals + '&fuel=' + fuel;
 }
 
-
+//Display reservation summary at the header of the form
 function formPackages_TransText(carId, days, meals, fuel, RentTypeTxt, carDesc) {
 
     var carId = carId;
@@ -24,6 +24,7 @@ function formPackages_TransText(carId, days, meals, fuel, RentTypeTxt, carDesc) 
 
     var mealPackage = mealsAcc == '1' ? 'Driver Meals/Accomodation Included ' : 'Driver Meals/Accomodation by renter';
     var fuelPackage = fuel == '1' ? 'Driver Fuel Included ' : 'Driver Fuel by renter';
+
     $('#modal-text-foot').text(RentTypeTxt + ' - ' + carDesc + ' - ' + noDays + ' Days - ' + mealPackage + ' - ' + fuelPackage + '');
 }
 

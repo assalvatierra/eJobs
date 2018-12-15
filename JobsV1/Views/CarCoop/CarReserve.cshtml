@@ -19,21 +19,21 @@
     <div class="modal-body row" id="modal2-content">
 
         <div id="btn-rentalType" class="btn-group btn-group-justified">
-            <label class="btn btn-primary active" id="rental-type-wdriver" data-toggle="tooltip" title="Hooray!">
+            <label class="btn btn-primary active" id="rental-type-wdriver" data-toggle="tooltip" >
                 <input type="radio" name="options" id="withdriver" value="With Driver" class="rental-type" />
                 <span>
                     With Driver
                 </span>
             </label>
-            <label class="btn btn-primary" id="rental-type-sdrive">
-                <input type="radio" name="options" id="selfdrive" value="Self Drive" class="rental-type" onclick="rentalTypeChange()" />
+            <label class="btn btn-primary" id="rental-type-sdrive" style="display:none;">
+                <input type="radio" name="options" id="selfdrive" value="Self Drive" class="rental-type"  />
                 <span>
                     Self Drive
                 </span>
             </label>
 
-            <label class="btn btn-primary" id="rental-type-sdrive">
-                <input type="radio" name="options" id="longterm" value="longterm" class="rental-type" onclick="longtermRental()" />
+            <label class="btn btn-primary" id="rental-type-longterm" style="display:none;">
+                <input type="radio" name="options" id="longterm" value="longterm" class="rental-type" />
                 <span>
                     Long Term Rental
                 </span>
@@ -131,5 +131,22 @@
         CarReserve_Default(@ViewBag.carid,@ViewBag.days,@ViewBag.meals,@ViewBag.fuelId);
     });
 
+    function longtermRental(){
+        var rentalType = $('input:radio[name=options]:checked').val() == "longterm" ? 3 : 0;
+        var carId = $('input:radio[name=cars]:checked').attr("id");
+        var noDays = 30;
+        var mealsAcc = 0;
+        var fuel = 0;
+        var pkg = 1;
+
+        console.log("Rental:" + rentalType);
+        console.log("selectedCar:" + carId);
+        console.log("NoDays:" + noDays);
+        console.log("MealsAcc:" + mealsAcc);
+        console.log("Fuel:" + fuel);
+
+        CarReserve_FormPackages("CarCoop",carId, noDays, rentalType, mealsAcc, fuel );
+      
+    }
 
 </script>
