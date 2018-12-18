@@ -31,7 +31,11 @@ namespace JobsV1.Models
         JobDBContainer db = new JobDBContainer();
         
         #region PackageList
-        //reservation table
+
+        /*GET list of packages with the given
+         *car id, no of days, rental type, meal,
+         *fuel and permission
+         */ 
         public List<PackageTable> getPackageList(int CarId, int days, int rentType, int meals, int fuel, int isAuthorize)
         {
             int RentType = rentType;
@@ -40,7 +44,7 @@ namespace JobsV1.Models
             int rsvIncludeMeals = meals;
             int rsvIncludeFuel = fuel;
             decimal TotalRate = 1;
-            int adjDays = (rsvDays - 1);
+            int adjDays = (rsvDays - 1);    //subtract 1 day for the fuel calculation
 
             List<PackageTable> packages = new List<PackageTable>();
             List<CarRatePackage> packageList = db.CarRatePackages.Where(c => c.Status == "ACT" || c.Status == "SYS").ToList();
@@ -50,12 +54,11 @@ namespace JobsV1.Models
             {
                 //package rates of car unit
                 var carRatePackage = pkg.CarRateUnitPackages.Where(c => c.CarUnitId == CarId && c.CarRatePackage.Id == pkg.Id).FirstOrDefault();
-
-                //handle with driver
-
+                
                 //handle meals
                 decimal MealsRate = getMealsCalc(rsvIncludeMeals, pkg.DailyMeals, pkg.DailyRoom, adjDays, rsvRentType);
                 string MealsRateTxt = getMealsCalcTxt(rsvIncludeMeals, pkg.DailyMeals, pkg.DailyRoom, adjDays, rsvRentType, isAuthorize);
+                
                 //handle fuel
                 decimal FuelRate = getFuelCalc(rsvIncludeFuel, carRatePackage.FuelDaily, carRatePackage.FuelLonghaul, rsvDays, rsvRentType, pkg.Id);
                 string FuelRateTxt = getFuelCalcTxt(rsvIncludeFuel, carRatePackage.FuelDaily, carRatePackage.FuelLonghaul, rsvDays, rsvRentType, pkg.Id, isAuthorize);
@@ -63,6 +66,7 @@ namespace JobsV1.Models
                 //handle unit Rate
                 decimal carRate = getCarRateCalc(CarId, days, (decimal)carRatePackage.DailyAddon, carRatePackage.DailyRate);
                 string carRatetxt = getCarRateCalcTxt(CarId, days, (decimal)carRatePackage.DailyAddon, carRatePackage.DailyRate, isAuthorize);
+                
                 //handle total Rate
                 TotalRate = MealsRate + FuelRate + carRate;
 
@@ -73,7 +77,6 @@ namespace JobsV1.Models
                 newPkg.Meals = (MealsRate);
                 newPkg.Days = (rsvDays);
                 newPkg.Rate = TotalRate;
-                //string
                 newPkg.TextMeals = MealsRateTxt;
                 newPkg.TextFuel = FuelRateTxt;
                 newPkg.TextRate = carRatetxt;
@@ -84,7 +87,7 @@ namespace JobsV1.Models
             return packages;
         }
 
-
+        //Get the selected package by package ID
         public PackageTable getPackageSummary(int CarId, int days, int rentType, int meals, int fuel, int selectedPkgId, int isAuthorize)
         {
             int RentType = rentType;
@@ -93,16 +96,14 @@ namespace JobsV1.Models
             int rsvIncludeMeals = meals;
             int rsvIncludeFuel = fuel;
             decimal TotalRate = 1;
-            int adjDays = (rsvDays - 1);
+            int adjDays = (rsvDays - 1);   //subtract 1 day for the fuel calculation
 
             PackageTable packages = new PackageTable();
             CarRatePackage pkg = db.CarRatePackages.Where(c => c.Id == selectedPkgId).FirstOrDefault();
 
             //package rates of car unit
             var carRatePackage = pkg.CarRateUnitPackages.Where(c => c.CarUnitId == CarId && c.CarRatePackage.Id == pkg.Id).FirstOrDefault();
-
-            //handle with driver
-
+            
             //handle meals
             decimal MealsRate = getMealsCalc(rsvIncludeMeals, pkg.DailyMeals, pkg.DailyRoom, adjDays, rsvRentType);
             string MealsRateTxt = getMealsCalcTxt(rsvIncludeMeals, pkg.DailyMeals, pkg.DailyRoom, adjDays, rsvRentType, isAuthorize);
@@ -113,6 +114,7 @@ namespace JobsV1.Models
             //handle unit Rate
             decimal carRate = getCarRateCalc(CarId, days, (decimal)carRatePackage.DailyAddon, carRatePackage.DailyRate);
             string carRatetxt = getCarRateCalcTxt(CarId, days, (decimal)carRatePackage.DailyAddon, carRatePackage.DailyRate, isAuthorize);
+           
             //handle total Rate
             TotalRate = MealsRate + FuelRate + carRate;
 
@@ -123,7 +125,6 @@ namespace JobsV1.Models
             newPkg.Meals = (MealsRate);
             newPkg.Days = (rsvDays);
             newPkg.Rate = TotalRate;
-            //string
             newPkg.TextMeals = MealsRateTxt;
             newPkg.TextFuel = FuelRateTxt;
             newPkg.TextRate = carRatetxt;
@@ -133,6 +134,9 @@ namespace JobsV1.Models
             return packages;
         }
 
+        /**
+         * Get total Meal rate 
+         */ 
         private decimal getMealsCalc(int rsvIncludeMeals, decimal pkgMeals, decimal pkgRooms, int days, int rentType)
         {
             //MealsAcc
@@ -145,17 +149,19 @@ namespace JobsV1.Models
         }
 
 
+        /**
+         * Get total Meal rate Text
+         */
         private string getMealsCalcTxt(int rsvIncludeMeals, decimal pkgMeals, decimal pkgRooms, int days, int rentType, int isAuthorize)
         {
             // MealsAcc
             decimal mealsperDay = (pkgMeals + pkgRooms) * (days);
             decimal mealsRate = ((mealsperDay) + pkgMeals); //include meals on the day
-            mealsRate *= rentType;    //self drive does not include meals
-            mealsRate *= rsvIncludeMeals;    //check if user wants to include or not include driver meals
-
-            //build string
             string mealsText = "";
 
+            mealsRate *= rentType;    //self drive does not include meals
+            mealsRate *= rsvIncludeMeals;    //check if user wants to include or not include driver meals
+            
             if (isAuthorize == 1)
             {
                 mealsText = rsvIncludeMeals == 1 ? "Included - m : " + mealsRate : "by renter";
@@ -168,33 +174,35 @@ namespace JobsV1.Models
 
             return mealsText;
         }
-
-
-
+        
+        /**
+         * Get total Fuel rate 
+         */
         private decimal getFuelCalc(int rsvIncludeFuel, decimal pkgFuel, decimal pkglonghaul, int days, int rentType, int tourid)
         {
             //MealsAcc
             decimal fuelRate = 0;
 
             //Fuel
-            //fuel = (fuelrate * days ) + longhaul 
             fuelRate = (pkgFuel * days) + pkglonghaul;
             fuelRate *= rsvIncludeFuel;
 
             return fuelRate;
         }
 
+        /**
+         * Get total Fuel rate  text
+         */
         private string getFuelCalcTxt(int rsvIncludeFuel, decimal pkgFuel, decimal pkglonghaul, int days, int rentType, int tourid, int isAuthorize)
         {
             //MealsAcc
             decimal fuelRate = 0;
+            string fuelRateTxt = "";
 
             //Fuel
-            //fuel = (fuelrate * days ) + longhaul 
             fuelRate = (pkgFuel * days) + pkglonghaul;
             fuelRate *= rsvIncludeFuel;
             
-            string fuelRateTxt = "";
 
             if (isAuthorize == 1)
             {
@@ -209,6 +217,9 @@ namespace JobsV1.Models
         }
 
 
+        /**
+         * Get total car rate 
+         */
         private decimal getCarRateCalc(int carId, int days, decimal packageDailyAddon, decimal carRateAdditional)
         {
             //MealsAcc
@@ -239,14 +250,17 @@ namespace JobsV1.Models
             return totalCarRate;
         }
 
+        /**
+         * Get total Fuel rate text
+         */
         private string getCarRateCalcTxt(int carId, int days, decimal packageDailyAddon, decimal carRateAdditional, int isAuthorize)
         {
             //MealsAcc
             decimal totalCarRate = 0;
             var carRate = db.CarRates.Where(c => c.Id == carId).FirstOrDefault();
             decimal addedRates = carRateAdditional + (packageDailyAddon * days);
-
             string totalCarRateTxt = "";
+
             if (days > 21)
             {
                 totalCarRate = (carRate.Monthly * days);

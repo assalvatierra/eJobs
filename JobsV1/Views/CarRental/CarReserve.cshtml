@@ -114,8 +114,9 @@
         var noDays = $('#rsv-days').val();
         var mealsAcc = $('#rsv-meal').val();
         var fuel = $('#rsv-fuel').val();
-
-        switch(rentalType){
+        
+        
+        switch(rentalTypeText){
             case "With Driver":
                 rentalType = 1;
                 break;
@@ -124,11 +125,13 @@
                 break;
             case "longterm":
                 rentalType = 3;
+                noDays = 30;
                 break;
             default:
                 rentalType = 1;
                 break;
         }
+
 
         console.log("Rental:" + rentalType);
         console.log("selectedCar:" + carId);
@@ -136,7 +139,7 @@
         console.log("MealsAcc:" + mealsAcc);
         console.log("Fuel:" + fuel);
 
-        if (rentalType == 1) {
+        if (rentalType == 1 || rentalType == 3) {
             CarReserve_FormPackages("CarRental",carId, noDays, rentalType, mealsAcc, fuel);
         }else{
             selfDrive(carId);

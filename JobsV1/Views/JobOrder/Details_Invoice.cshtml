@@ -240,20 +240,18 @@
 <script>
 
     var today = new Date().toLocaleString();
-
-    if("@ViewBag.isPaymentValid" == "True" ) {
     
-        alert("Notice, online payment has been disable. For Payment transactions, please call (+63)9330895358  or (+63)9167558473");
-    
-    }else{
-
+    //if("ViewBag.isPaymentValid" == "True" ) {
+       // alert("Notice, online payment has been disable. For Payment transactions, please call (+63)9330895358  or (+63)9167558473");
+    //}else{
+      
         var count = 0;
         paypal.Button.render({
             // Configure environment
-            env: 'sandbox',
+            env: 'production',
             client: {
                 sandbox: 'AeKvfmAZjDaTJ4bH4PFGurLMvFZOl9OeHaK6xUlSCB0Ny8RU2WEeijZLTeRGvz0GjQXrX1SuaYvf53-H',
-                production: 'demo_production_client_id'
+                production: 'AaJyjdobN1jDP6GTLx5Evqz9l3k98qgzIqheT19-KUoY-WhnUjX1ipkp0f_qordwsM7ZbZXlEDVWutjz'
             },
             // Customize button (optional)
             locale: 'en_US',
@@ -338,6 +336,5 @@
             }
         }, '#paypal-button');
     
-    }//end of else
       
 </script>

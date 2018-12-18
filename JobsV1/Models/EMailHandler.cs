@@ -50,40 +50,43 @@ namespace JobsV1.Models
                 }
                 else if(mailType == "PAYMENT-SUCCESS")
                 {
+                    //mail content for successful payment
                     md.Subject = renterName + ": Paypal Reservation SUCCESS";   //mail title
 
                     CarReservation reserve = db.CarReservations.Find(jobId);
 
-                    //mail content for successful payment
                     //id = carReservation Id
                     message = "Paypal Payment is SUCCESS. Please follow the link for the reservation details. <a href='"+ siteName + "/" + jobId + "/" + reserve.DtTrx.Month + "/" + reserve.DtTrx.Day + "/" + reserve.DtTrx.Year + "/" + reserve.RenterName + "' " +
                     " style='display:block;background-color:dodgerblue;margin:20px;padding:20px;text-decoration:none;font-weight:bolder;font-size:300;color:white;border-radius:3px;'> Reservation Details </a> ";
                 }
                 else if (mailType == "PAYMENT-DENIED")
                 {
-                    md.Subject = renterName + ": Paypal Reservation DENIED";   //mail title
+                    //mail content for denied payment
+                    //mail title
+                    md.Subject = renterName + ": Paypal Reservation DENIED";   
 
                     CarReservation reserve = db.CarReservations.Find(jobId);
 
-                    //mail content for denied payment
                     //id = carReservation Id
                     message = "Paypal Payment have been DENIED. Please follow the link for the reservation details. <a href='" + siteName + "/" + jobId + "/" + reserve.DtTrx.Month + "/" + reserve.DtTrx.Day + "/" + reserve.DtTrx.Year + "/" + reserve.RenterName + "' " +
                     " style='display:block;background-color:dodgerblue;margin:20px;padding:20px;text-decoration:none;font-weight:bolder;font-size:300;color:white;border-radius:3px;'> Reservation Details </a> ";
                 }
                 else if (mailType == "PAYMENT-PENDING")
                 {
-                    md.Subject = renterName + ": Paypal Reservation PENDING";   //mail title
+                    //mail content for pending payment
+                    //mail title
+                    md.Subject = renterName + ": Paypal Reservation PENDING";   
 
                     CarReservation reserve = db.CarReservations.Find(jobId);
 
-                    //mail content for pending payment
                     //id = carReservation Id
                     message = "Paypal Payment has been sent. Please follow the link for the reservation details. <a href='" + siteName + "/" + jobId + "/" + reserve.DtTrx.Month + "/" + reserve.DtTrx.Day + "/" + reserve.DtTrx.Year + "/" + reserve.RenterName + "' " +
                     " style='display:block;background-color:dodgerblue;margin:20px;padding:20px;text-decoration:none;font-weight:bolder;font-size:300;color:white;border-radius:3px;'> Reservation Details </a> ";
                 }
                 else if (mailType == "CLIENT-PENDING")
                 {
-                    md.Subject = "Realwheels Reservation";   //mail title
+                    //mail title
+                    md.Subject = "Realwheels Reservation";   
 
                     CarReservation reserve = db.CarReservations.Find(jobId);
 
@@ -94,11 +97,9 @@ namespace JobsV1.Models
                 else
                 {
                     //send email in /joborder
-                    //id = jobMain Id
-
                     JobMain job = db.JobMains.Find(jobId);
-
-                    md.Subject = "Realwheels Reservation";   //mail title
+                    //mail title
+                    md.Subject = "Realwheels Reservation";  
 
                     //mail content for client inquiries
 
