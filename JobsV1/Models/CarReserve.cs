@@ -206,7 +206,7 @@ namespace JobsV1.Models
 
             if (isAuthorize == 1)
             {
-                fuelRateTxt = rsvIncludeFuel == 1 ? "Included - f: " + pkgFuel + "+ lh: " + pkglonghaul : "by renter";
+                fuelRateTxt = rsvIncludeFuel == 1 ? "Included - f: " + pkgFuel * days + "+ lh: " + pkglonghaul +" = " + fuelRate : "by renter";
             }
             else
             {   //guest user

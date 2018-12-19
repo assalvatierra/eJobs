@@ -701,6 +701,10 @@
     <Content Include="Images\CarRental\hondacity\hondacity_rearview.jpg" />
     <Content Include="Images\CarRental\hondaCity_Banner.png" />
     <Content Include="Images\CarRental\HondaCityPrimary.png" />
+    <Content Include="Images\CarRental\icon-gas-station.png" />
+    <Content Include="Images\CarRental\icon-gas.png" />
+    <Content Include="Images\CarRental\icon-meal.png" />
+    <Content Include="Images\CarRental\icon-sleep.png" />
     <Content Include="Images\CarRental\InnovaPrimary.png" />
     <Content Include="Images\CarRental\innova\toyotainnova_front.jpg" />
     <Content Include="Images\CarRental\innova\toyotainnova_interior.jpg" />

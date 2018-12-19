@@ -34,7 +34,7 @@ function formPackages_TransText(carId, days, meals, fuel, RentTypeTxt, carDesc) 
 
 
 //public PartialViewResult FormPackages (int? carId, int? days, int? rentType, int? meals, int? fuel)
-function FormPackages_Next(controller,carId, noDays, rentalType, meals, fuel, pkg) {
+function FormPackages_Next(controller, carId, noDays, rentalType, meals, fuel, pkg) {
     window.location.href = '/' + controller + '/FormSummary?carId=' + carId + '&days=' + noDays +
         '&rentType=' + rentalType + '&meals=' + meals + '&fuel=' + fuel + '&pkg=' + pkg;
 }

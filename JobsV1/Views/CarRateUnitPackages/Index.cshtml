@@ -67,7 +67,7 @@
             @item.CarUnit.CarRates.Where(c => c.CarUnitId == item.CarUnitId).FirstOrDefault().Monthly.ToString("N0")
         </td>
         <td>
-            @item.DailyRate.ToString("N0")
+            @item.DailyAddon.ToString()
         </td>
         <td>
             @item.FuelLonghaul.ToString("N0")

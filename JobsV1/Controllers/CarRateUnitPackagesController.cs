@@ -59,7 +59,7 @@ namespace JobsV1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,CarRatePackageId,CarUnitId,DailyRate,FuelLonghaul,FuelDaily")] CarRateUnitPackage carRateUnitPackage)
+        public ActionResult Create([Bind(Include = "Id,CarRatePackageId,CarUnitId,DailyRate,FuelLonghaul,FuelDaily,DailyAddon")] CarRateUnitPackage carRateUnitPackage)
         {
             if (ModelState.IsValid)
             {
@@ -95,7 +95,7 @@ namespace JobsV1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,CarRatePackageId,CarUnitId,DailyRate,FuelLonghaul,FuelDaily")] CarRateUnitPackage carRateUnitPackage)
+        public ActionResult Edit([Bind(Include = "Id,CarRatePackageId,CarUnitId,DailyRate,FuelLonghaul,FuelDaily,DailyAddon")] CarRateUnitPackage carRateUnitPackage)
         {
             if (ModelState.IsValid)
             {

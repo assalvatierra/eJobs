@@ -14,11 +14,8 @@
         <h5 id="modal-text-foot">-</h5>
     </div>
 
-
-
-    <div class="modal-body row" id="modal2-content">
-
-        <div id="btn-rentalType" class="btn-group btn-group-justified">
+    <div class="modal-body row" id="modal2-content" >
+        <div id="btn-rentalType" class="btn-group btn-group-justified" style="display:none;">
             <label class="btn btn-primary active" id="rental-type-wdriver" data-toggle="tooltip" >
                 <input type="radio" name="options" id="withdriver" value="With Driver" class="rental-type" />
                 <span>
@@ -39,33 +36,57 @@
                 </span>
             </label>
         </div>
+
         <br />
 
         <!-- Number of Days, Fuel and Meals-->
         <div class="form-horizontal">
-            <div class="form-group">
-                <label class="control-label col-lg-1"> Days </label>
-                <div class="col-lg-1">
-                    <input type="number" value="1" class="form-control" id="rsv-days" oninput="dayschange()" />
+                <div class="col-lg-4">
+                    <h4> &nbsp;&nbsp; Days </h4>
+                    <div class="col-sm-4" style="max-width:100px;margin-bottom:20px;margin-right:-25px;">
+                        <input type="number" value="1" class="form-control" id="rsv-days" oninput="dayschange()" />
+                    </div>
+                    <div class="col-lg-4" >
+                        <button class="btn btn-default " id="days-add"> + </button>
+                        <button class="btn btn-default " id="days-sub"> - </button>
+                    </div>
                 </div>
-                <div class="col-lg-2">
-                    <button class="btn btn-default " id="days-add"> + </button>
-                    <button class="btn btn-default " id="days-sub"> - </button>
-                </div>
+                <div class="col-lg-4">
+                    <!--
+                  Html.DropDownList("MealsAcc", null, htmlAttributes: new { class = "form-control", id = "rsv-meal" })
+                    -->
+                    <h4>Driver Meals & Accomodation</h4>
+                    <div class="col-lg-5">
+                        <img src="~/Images/CarRental/icon-meal.png" width="40"/> 
+                        &nbsp; &nbsp;
+                        <img src="~/Images/CarRental/icon-sleep.png" width="40"/> 
+                    </div>
+                    <div class="col-lg-7" >
+                        <input type="checkbox" id="rsv-meal-renter" name="meals" value="0" checked="checked" /> <span> Renter Will Provide  </span>
+                        <br />
+                        <input type="checkbox" id="rsv-meal-package" name="meals" value="1" /> <span> Included in the Package </span>
+                    </div>
+               </div>
 
                 <div class="col-lg-4">
-                    @Html.DropDownList("MealsAcc", null, htmlAttributes: new { @class = "form-control", @id = "rsv-meal" })
+                    <!--
+                    Html.DropDownList("Fuel", null, htmlAttributes: new { class = "form-control", id = "rsv-fuel" })
+                    -->
+                    <h4>Fuel Charges</h4>
+                    <div class="col-lg-3">
+                        <img src="~/Images/CarRental/icon-gas.png"  width="40"/>
+                    </div>
+                    <div class="col-lg-7">
+                        <input type="checkbox" id="rsv-fuel-renter" name="fuel" value="0" checked="checked" /> <span> Renter Will Provide  </span>
+                        <br />
+                        <input type="checkbox" id="rsv-fuel-package" name="fuel" value="1" /> <span> Included in the Package </span>
+                        
+                    </div>
                 </div>
 
-                <div class="col-lg-4">
-                    @Html.DropDownList("Fuel", null, htmlAttributes: new { @class = "form-control", @id = "rsv-fuel" })
-                </div>
-
-            </div>
         </div>
-
         <!-- Car selection list -->
-        <div class="col-lg-12 carent" id="btn-rentalUnit" style="margin-bottom:155px;">
+        <div class="col-lg-12 carent" id="btn-rentalUnit" style="margin-bottom:155px;margin-top:120px;">
             @foreach (var carList in ViewBag.CarUnitList as IEnumerable<JobsV1.Models.CarUnit>)
             {
                 <label class="btn col-md-4 car-selection isSelfDrive@(carList.SelfDrive)" id="car@(carList.Id)" style="width:180px;height:200px;">
@@ -104,7 +125,9 @@
 <script type="text/javascript" src="~/Scripts/CarRental/FormCarReserve.js"></script>
   
 <script>
-    
+    var mealsSelected = 0;
+    var fuelSelected = 0;
+
     //get info from input and direct to formPackage form
     function CarReserve_NextForm() {
 
@@ -112,8 +135,8 @@
         var rentalType = 1;
         var carId = $('input:radio[name=cars]:checked').attr("id");
         var noDays = $('#rsv-days').val();
-        var mealsAcc = $('#rsv-meal').val();
-        var fuel = $('#rsv-fuel').val();
+        var mealsAcc = mealsSelected;
+        var fuel = fuelSelected;
         
         
         switch(rentalTypeText){
@@ -151,5 +174,39 @@
         CarReserve_Default(@ViewBag.carid,@ViewBag.days,@ViewBag.meals,@ViewBag.fuelId);
     });
 
+    // the selector will match all input controls of type :checkbox
+    // and attach a click event handler 
+    $("input:checkbox").on('click', function() {
+        // in the handler, 'this' refers to the box clicked on
+        var $box = $(this);
+        if ($box.is(":checked")) {
+            // the name of the box is retrieved using the .attr() method
+            // as it is assumed and expected to be immutable
+            var group = "input:checkbox[name='" + $box.attr("name") + "']";
+            // the checked state of the group/box on the other hand will change
+            // and the current value is retrieved using .prop() method
+            $(group).prop("checked", false);
+            $box.prop("checked", true);
+
+            //console.log($box.attr("name") + ": " + $(this).val() );
+
+            switch($box.attr("name")){
+                case "meals":  
+                    mealsSelected = $(this).val();
+                    break;
+                case "fuel":  
+                    fuelSelected = $(this).val();
+                    break;
+                default: 
+                    break;
+            }
+
+            console.log("meals: " + mealsSelected);
+            console.log("fuel: " + fuelSelected);
+
+        } else {
+            $box.prop("checked", false);
+        }
+    });
 
 </script>
