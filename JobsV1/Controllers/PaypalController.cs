@@ -15,6 +15,7 @@ namespace JobsV1.Controllers
     public class PaypalController : Controller
     {
         DBClasses DB = new DBClasses();
+        PayPalHandler PPtrans = new PayPalHandler();
 
         JobDBContainer db = new JobDBContainer();
 
@@ -45,6 +46,9 @@ namespace JobsV1.Controllers
             string paypalID = jsonBody.resource.id;
             decimal Totalamount = (decimal)jsonBody.resource.amount.total;
             int jobId = (int)jsonBody.resource.invoice_number; // bookingid
+            DateTime paypalEventDate = (DateTime)jsonBody.create_time;
+            DateTime paypalTransDate = (DateTime)jsonBody.resource.create_time;
+
             var ev = WebhookEvent.Get(apiContext, webhookId);
 
             // We have all the information the SDK needs, so perform the validation.
@@ -68,10 +72,10 @@ namespace JobsV1.Controllers
                     //send mail
                     mail.SendMail(jobId, "reservation.realwheels@gmail.com", "PAYMENT-SUCCESS", clientName, siteRedirect);
                     mail.SendMail(jobId, "ajdavao88@gmail.com", "PAYMENT-SUCCESS", clientName, siteRedirect);
-                    mail.SendMail(jobId, "travel.realbreze@gmail.com", "PAYMENT-SUCCESS", clientName, siteRedirect);
+                    //mail.SendMail(jobId, "travel.realbreze@gmail.com", "PAYMENT-SUCCESS", clientName, siteRedirect);
 
                     //add to log
-                    DB.addTestNotification(jobId, paypalID);
+                    PPtrans.AddPaypalNotif(paypalID, jobId, paypalEventDate, paypalTransDate, ev.event_type, Totalamount);
                     break;
                 case "PAYMENT.SALE.DENIED":
                 case "PAYMENT.CAPTURE.DENIED": // Handle payment denied
@@ -79,20 +83,21 @@ namespace JobsV1.Controllers
                     //send mail
                     mail.SendMail(jobId, "reservation.realwheels@gmail.com", "PAYMENT-DENIED", clientName, siteRedirect);
                     mail.SendMail(jobId, "ajdavao88@gmail.com", "PAYMENT-DENIED", clientName, siteRedirect);
-                    mail.SendMail(jobId, "travel.realbreze@gmail.com", "PAYMENT-DENIED", clientName, siteRedirect);
+                    //mail.SendMail(jobId, "travel.realbreze@gmail.com", "PAYMENT-DENIED", clientName, siteRedirect);
 
                     //add to log
-                    DB.addTestNotification(jobId, paypalID);
+                    PPtrans.AddPaypalNotif(paypalID, jobId, paypalEventDate, paypalTransDate, ev.event_type, Totalamount);
+
                     break;
                 // Handle other webhooks
                 default: // Handle payment denied
                     //send mail
                     mail.SendMail(jobId, "reservation.realwheels@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
                     mail.SendMail(jobId, "ajdavao88@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
-                    mail.SendMail(jobId, "travel.realbreze@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
+                    //mail.SendMail(jobId, "travel.realbreze@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
 
                     //add to log
-                    DB.addTestNotification(jobId, paypalID);
+                    PPtrans.AddPaypalNotif(paypalID, jobId, paypalEventDate, paypalTransDate, ev.event_type, Totalamount);
 
                     break;
             }
@@ -116,10 +121,10 @@ namespace JobsV1.Controllers
             // Create the configuration map that contains mode and other optional configuration details.
             public static Dictionary<string, string> GetConfig()
             {
-                // ConfigManager.Instance.GetProperties(); // it doesn't work on ASPNET 5
+                // ConfigManager.Instance.GetProperties(); // it doesn't work on ASPNET 5 
                 return new Dictionary<string, string>() {
-                    { "clientId", "AeKvfmAZjDaTJ4bH4PFGurLMvFZOl9OeHaK6xUlSCB0Ny8RU2WEeijZLTeRGvz0GjQXrX1SuaYvf53-H" },
-                    { "clientSecret", "EASK4ghccZuqU3VDsEwA9WzEbNWqqtWPJQWXkd1UAcKflTQ1CX1dAvj2ZyKcE_nILs2ewK0rQkJ85hAX" }
+                    { "clientId", "AUvsEZNhW0bZQSYuzVDgNxePk5lrSEAoF4rQQHXLIByzeBd6N4-vjtLWGviKaFeVMu9U-GD_99nwCz29" },
+                    { "clientSecret", "EO7kEQ47mhxybEJkYr9H4tShohBvpw-Xf1PIEOOmeiz10wfomjX4udWw6j7IPSDtH-6ec28ok0cNGrG6" }
                 };
             }
 

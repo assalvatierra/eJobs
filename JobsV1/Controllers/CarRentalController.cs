@@ -227,14 +227,15 @@ namespace JobsV1.Controllers
             ViewBag.meals = meals;
             ViewBag.fuel = fuel;
 
-
             return View("FormPackages");
         }
 
         public ActionResult FormSummary(int carId, int days, int rentType, int meals, int fuel, int pkg)
         {
             int isAuthorize = HttpContext.User.Identity.Name == "" ? 0 : 1;
-            PackageTable PackageSummary = carRsv.getPackageSummary(carId, days, rentType, meals, fuel,pkg, isAuthorize);
+            fuel = fuel == 0 ? 0 : 1;
+            meals = meals == 0 ? 0 : 1;
+            PackageTable PackageSummary = carRsv.getPackageSummary(carId, days, rentType, meals, fuel, pkg, isAuthorize);
 
             ViewBag.carId = carId;
             ViewBag.carDesc = db.CarUnits.Find(carId).Description;
@@ -247,7 +248,7 @@ namespace JobsV1.Controllers
 
             ViewBag.Unit = db.CarUnits.Find(carId).Description;
 
-            return View("FormSummary", carRsv.getPackageSummary(carId, days, rentType, meals, fuel, pkg, isAuthorize));
+            return View("FormSummary", PackageSummary);
         }
 
         public string getRentType(int rentType)

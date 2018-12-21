@@ -99,5 +99,6 @@ namespace JobsV1.Models
         public virtual DbSet<CarUnitMeta> CarUnitMetas { get; set; }
         public virtual DbSet<CoopMember> CoopMembers { get; set; }
         public virtual DbSet<CoopMemberItem> CoopMemberItems { get; set; }
+        public virtual DbSet<PaypalTransaction> PaypalTransactions { get; set; }
     }
 }

@@ -312,6 +312,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MepuMainController.cs" />
     <Compile Include="Controllers\PaypalController.cs" />
+    <Compile Include="Controllers\PaypalTransactionsController.cs" />
     <Compile Include="Controllers\PreDefinedNotesController.cs" />
     <Compile Include="Controllers\ProductCategoriesController.cs" />
     <Compile Include="Controllers\ProductPricesController.cs" />
@@ -490,6 +491,10 @@
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\PayPalHandler.cs" />
+    <Compile Include="Models\PaypalTransaction.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PreDefinedNote.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
@@ -1385,6 +1390,11 @@
     <Content Include="Views\CarCoop\CarDetail_van_starex.cshtml" />
     <Content Include="Views\CarCoop\CarDetail_van_urvan.cshtml" />
     <Content Include="Views\CarCoop\CarDetail_van_urvan_premium.cshtml" />
+    <Content Include="Views\PaypalTransactions\Create.cshtml" />
+    <Content Include="Views\PaypalTransactions\Delete.cshtml" />
+    <Content Include="Views\PaypalTransactions\Details.cshtml" />
+    <Content Include="Views\PaypalTransactions\Edit.cshtml" />
+    <Content Include="Views\PaypalTransactions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

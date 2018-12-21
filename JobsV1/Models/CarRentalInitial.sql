@@ -6,7 +6,7 @@ insert into CarUnits ( Description, Remarks, CarCategoryId , SelfDrive, SortOrde
 values ('Van (10 seater)','Gl Grandia'    ,1,1,4),
 	   ('Van (14 seater)','Nissan Premium',1,1,5),
 	   ('SUV'            ,'Ford Everest'  ,1,0,3),
-	   ('MPV/AUV/MiniVan','Toyota Innova' ,1,0,2),	
+	   ('MPV/AUV/MiniVan','Toyota Innova' ,1,0,2),
 	   ('Sedan'          ,'Honda City'    ,1,0,1),
 	   ('Pickup'         ,'Pickups'       ,1,0,6);
 
@@ -27,12 +27,12 @@ values (1,'CarDetail_van'),
 	   (6,'CarDetail_pickup');
 
 insert into CarRates (Daily,Weekly,Monthly,KmFree,KmRate,CarUnitId,OtRate)
-values (2500,2500,2250,100,5,1,300), --grandia
-	   (2700,2500,2250,100,5,2,300), --premium
-	   (2500,2500,2250,100,5,3,300), --everest
-	   (2000,1800,1500,100,5,4,300), --innova
-	   (2000,1800,1500,100,5,5,300), --honda
-	   (2500,2500,2250,100,5,6,300); --pickup
+values (3000,2500,2250,100,5,1,300), --grandia
+	   (3500,2500,2250,100,5,2,300), --premium
+	   (3000,2500,2250,100,5,3,300), --everest
+	   (2500,1800,1500,100,5,4,300), --innova
+	   (2500,1800,1500,100,5,5,300), --honda
+	   (3500,2500,2250,100,5,6,300); --pickup
 
 insert into CarUnitMetas(carUnitId,PageTitle,MetaDesc,HomeDesc)
 values
@@ -122,43 +122,43 @@ values
 Insert into CarRateUnitPackages (CarUnitId,CarRatePackageId,DailyRate,FuelLonghaul,FuelDaily,DailyAddon)
 values
 -- regular van ( Grandia GL )
-( 1, 1, 0,  0,   0, 0 ), --+ selfdrive
-( 1, 2, 0,  0, 500, 500 ), --+ city
-( 1, 3, 0,  0, 800, 700 ), --+ Countryside
-( 1, 4, 0,  0, 800, 700 ), --+ Samal
+( 1, 1, 0,  0,   0,   0 ), --+ selfdrive
+( 1, 2, 0,  0, 500,   0 ), --+ city
+( 1, 3, 0,  0, 800, 500 ), --+ Countryside
+( 1, 4, 0,  0, 800, 500 ), --+ Samal
 
-( 1, 5,	 0,    0, 500, 700 ), --panabo
-( 1, 6,  0,    0, 500, 700 ), --tagum
-( 1, 7,  0,    0, 500, 700 ), --davao del norte
-( 1, 8,  0,  700, 700, 1300 ), --comval
-( 1, 9,  0,  900, 600, 1000 ), --govgen
-( 1, 10, 0,  900, 600, 1200 ), --Mati
+( 1, 5,	 0, 0, 500, 1000 ), --panabo
+( 1, 6,  0, 0, 500, 1000 ), --tagum
+( 1, 7,  0, 0, 500, 700 ), --davao del norte
+( 1, 8,  0, 0, 700, 2000 ), --comval
+( 1, 9,  0, 0, 500, 2000 ), --govgen
+( 1, 10, 0, 0, 1500, 2000 ), --Mati
 ( 1, 11, 1000, 2000, 700, 1000 ), --Davao Oriental
 ( 1, 12, 1500, 2500, 700, 1000 ), --Agusan del sur
 ( 1, 13, 2000, 2500, 700, 1000 ), --Agusan del Norte
 ( 1, 14, 1500, 2500, 700, 1000 ), --Surigao del sur
 ( 1, 15, 2500, 3500, 700, 1000 ), --Surigao del Norte
 
-( 1, 16,    0,    0, 600,900 ), --Marilog
-( 1, 17,    0,  400, 600,500 ), --Buda
-( 1, 18,    0,  900, 600,1000 ), --Valencia
-( 1, 19, 1000, 1500, 600,1000 ), --Malaybalay
-( 1, 20, 1000, 2000, 600,1000 ), --Manolo fortich
-( 1, 21, 1500, 2500, 600,1000 ), --Cagayan
-( 1, 22, 2000, 3000, 700,1000 ), --Misamis
-( 1, 23, 2000, 3000, 700,1000 ), --Iligan
+( 1, 16,    0,    0, 600, 1000 ),  --Marilog
+( 1, 17,    0,  400, 600, 1000 ),  --Buda
+( 1, 18,    0,  900, 600, 1000 ), --Valencia
+( 1, 19, 1000, 1500, 600, 1000 ), --Malaybalay
+( 1, 20, 1000, 2000, 600, 1000 ), --Manolo fortich
+( 1, 21, 1500, 2500, 600, 1000 ), --Cagayan
+( 1, 22, 2000, 3000, 700, 1000 ), --Misamis
+( 1, 23, 2000, 3000, 700, 1000 ), --Iligan
 
-( 1, 24, 0,   0, 600,900 ), --Santa Cruz, davao del sur
-( 1, 25, 0, 400, 600,500 ), --Digos, davao del sur
-( 1, 26, 0, 600, 700,200 ), --davao del sur
-( 1, 27, 0, 900, 600,1500 ), --Malita
+( 1, 24, 0,   0, 600, 1000 ), --Santa Cruz, davao del sur
+( 1, 25, 0,   0, 500, 1000 ), --Digos, davao del sur
+( 1, 26, 0,   0, 700, 1000 ), --davao del sur
+( 1, 27, 0,   0, 1000, 2000 ), --Malita
 ( 1, 28, 500, 1000, 600,1000 ), --Don Marcelino
-( 1, 29, 500, 1000, 600,900 ), --General Santos
+( 1, 29, 500,    0, 500, 1500 ), --General Santos
 ( 1, 30, 500, 1400, 700,1000 ), --Saranggani
 ( 1, 31, 500, 1500, 600,1000 ), --Koronadal
 ( 1, 32, 500, 1500, 700,1000 ), --Isulan
 ( 1, 33, 500, 1500, 700,1000 ), --Sultan Kudarat
-( 1, 34,   0, 1000, 600,1400 ), --Kidapawan
+( 1, 34,   0,    0, 1000,2000 ), --Kidapawan
 ( 1, 35, 500, 1000, 600,1000 ), --Ilomavis
 ( 1, 36, 500, 1000, 600,1000 ), --Kabacan
 ( 1, 37, 1000, 1200, 600,1000 ), --Arakan
@@ -257,17 +257,17 @@ values
 ( 3, 40, 1500, 2000, 700,1000 ), --North Cotabato
 
 -- MPV ( Innova )
-( 4, 1, 0,  0,   0, 0 ), --+ selfdrive
-( 4, 2, 0,  0, 500,   0 ), --+ city
-( 4, 3, 0,  0, 800, 300 ), --+ Cuntryside
-( 4, 4, 0,  0, 800, 300 ), --+ Samal
+( 4, 1, 0,  0,   0,   0 ), --+ selfdrive
+( 4, 2, 0,  0, 500, 300 ), --+ city
+( 4, 3, 0,  0, 800, 1000 ), --+ Countryside
+( 4, 4, 0,  0, 800, 1000 ), --+ Samal
 
 ( 4, 5,	 0,    0, 500, 1000 ), --panabo
-( 4, 6,  0,  200, 500, 1000 ), --tagum
+( 4, 6,  0,    0, 500, 1000 ), --tagum
 ( 4, 7,  0,  700, 500, 1000 ), --davao del norte
 ( 4, 8,  0,  700, 500, 1000 ), --comval
 ( 4, 9,  0,  900, 500, 1000 ), --govgen
-( 4, 10, 0,  900, 500, 1000 ), --Mati
+( 4, 10, 0,    0, 1400, 2500 ), --Mati
 ( 4, 11, 1000, 2000, 500, 1000 ), --Davao Oriental
 ( 4, 12, 1500, 2500, 500, 1000 ), --Agusan del sur
 ( 4, 13, 2000, 2500, 500, 1000 ), --Agusan del Norte
@@ -283,17 +283,17 @@ values
 ( 4, 22, 2000, 3000, 500,1000 ), --Misamis
 ( 4, 23, 2000, 3000, 500,1000 ), --Iligan
 
-( 4, 24, 0, 0, 500,1000 ), --Santa Cruz, davao del sur
-( 4, 25, 0, 400, 500,1000 ), --Digos, davao del sur
-( 4, 26, 0, 600, 500,1000 ), --davao del sur
-( 4, 27, 0, 900, 500,1000 ), --Malita
+( 4, 24, 0,   0, 500,1000 ), --Santa Cruz, davao del sur
+( 4, 25, 0,   0, 500,1000 ), --Digos, davao del sur
+( 4, 26, 0,   0, 500,   0 ), --davao del sur
+( 4, 27, 0,   0, 500,2500 ), --Malita
 ( 4, 28, 500, 1000, 500,1000 ), --Don Marcelino
-( 4, 29, 500, 1000, 500,1000 ), --General Santos
+( 4, 29, 500,    0, 500,2000 ), --General Santos
 ( 4, 30, 500, 1400, 500,1000 ), --Saranggani
 ( 4, 31, 500, 1500, 500,1000 ), --Koronadal
 ( 4, 32, 500, 1500, 500,1000 ), --Isulan
 ( 4, 33, 500, 1500, 500,1000 ), --Sultan Kudarat
-( 4, 34,   0, 1000, 500,1000 ), --Kidapawan
+( 4, 34,   0,    0, 500,2500 ), --Kidapawan 
 ( 4, 35, 500, 1000, 500,1000 ), --Ilomavis
 ( 4, 36, 500, 1000, 500,1000 ), --Kabacan
 ( 4, 37, 1000, 1200, 500,1000 ), --Arakan
@@ -306,7 +306,6 @@ values
 ( 5, 2, 0,  0, 500,   0 ), --+ city
 ( 5, 3, 0,  0, 800, 300 ), --+ Cuntryside
 ( 5, 4, 0,  0, 800, 300 ), --+ Samal
-
 ( 5, 5,	 0,    0, 500, 1000 ), --panabo
 ( 5, 6,  0,  200, 500, 1000 ), --tagum
 ( 5, 7,  0,  700, 500, 1000 ), --davao del norte

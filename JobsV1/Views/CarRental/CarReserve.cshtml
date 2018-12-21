@@ -5,11 +5,11 @@
     }
 </style>
 
-<div class="modal-content" style="min-width:600px;">
+<div class="modal-content" style="min-width:100px;">
     <div class="modal-header">
         <h3 class="modal-title">Car Reservation </h3>
 
-        <a href="#" onclick="CarReserve_NextForm()"> Proceed       </a>
+        <a href="#" onclick="CarReserve_NextForm()"> Proceed </a>
 
         <h5 id="modal-text-foot">-</h5>
     </div>
@@ -41,8 +41,9 @@
 
         <!-- Number of Days, Fuel and Meals-->
         <div class="form-horizontal">
+
                 <div class="col-lg-4">
-                    <h4> &nbsp;&nbsp; Days </h4>
+                    <h4  class="text-primary"> &nbsp;&nbsp; Days </h4>
                     <div class="col-sm-4" style="max-width:100px;margin-bottom:20px;margin-right:-25px;">
                         <input type="number" value="1" class="form-control" id="rsv-days" oninput="dayschange()" />
                     </div>
@@ -50,13 +51,15 @@
                         <button class="btn btn-default " id="days-add"> + </button>
                         <button class="btn btn-default " id="days-sub"> - </button>
                     </div>
+                    <br />
                 </div>
+
                 <div class="col-lg-4">
                     <!--
                   Html.DropDownList("MealsAcc", null, htmlAttributes: new { class = "form-control", id = "rsv-meal" })
                     -->
-                    <h4>Driver Meals & Accomodation</h4>
-                    <div class="col-lg-5">
+                    <h4 class="text-primary"> Driver Meals & Accomodation </h4>
+                    <div class="col-lg-5" style="margin-right:-20px;">
                         <img src="~/Images/CarRental/icon-meal.png" width="40"/> 
                         &nbsp; &nbsp;
                         <img src="~/Images/CarRental/icon-sleep.png" width="40"/> 
@@ -72,8 +75,8 @@
                     <!--
                     Html.DropDownList("Fuel", null, htmlAttributes: new { class = "form-control", id = "rsv-fuel" })
                     -->
-                    <h4>Fuel Charges</h4>
-                    <div class="col-lg-3">
+                    <h4 class="text-primary">Fuel Charges</h4>
+                    <div class="col-lg-3" style="margin-right:-30px;">
                         <img src="~/Images/CarRental/icon-gas.png"  width="40"/>
                     </div>
                     <div class="col-lg-7">
@@ -86,7 +89,7 @@
 
         </div>
         <!-- Car selection list -->
-        <div class="col-lg-12 carent" id="btn-rentalUnit" style="margin-bottom:155px;margin-top:120px;">
+        <div class="col-lg-12 carent" id="btn-rentalUnit" style="margin-top:100px;">
             @foreach (var carList in ViewBag.CarUnitList as IEnumerable<JobsV1.Models.CarUnit>)
             {
                 <label class="btn col-md-4 car-selection isSelfDrive@(carList.SelfDrive)" id="car@(carList.Id)" style="width:180px;height:200px;">
@@ -99,12 +102,12 @@
 
 
     </div>
-
+    <br />
     <div class="modal-footer" id="rsv-footer" style="display:block;">
-        <div class="pull-right">
+        <div class="pull-left">
 
-            @Html.ActionLink("Cancel", "Index", "CarRental", null, new { @class = "btn btn-default" })
-            <button class="btn btn-default" onclick="CarReserve_NextForm()" > Next </button>
+            @Html.ActionLink("Cancel", "Index", "CarRental", null, new { @class = "btn btn-primary" })
+            <button class="btn btn-primary" onclick="CarReserve_NextForm()" > Next </button>
 
         </div>
     </div>
@@ -137,8 +140,8 @@
         var noDays = $('#rsv-days').val();
         var mealsAcc = mealsSelected;
         var fuel = fuelSelected;
-        
-        
+
+
         switch(rentalTypeText){
             case "With Driver":
                 rentalType = 1;
@@ -171,11 +174,14 @@
     }
     //next popup on formpackages package list
     $(document).ready(function(){
+        //initial
+        checkbox();
+
         CarReserve_Default(@ViewBag.carid,@ViewBag.days,@ViewBag.meals,@ViewBag.fuelId);
     });
 
     // the selector will match all input controls of type :checkbox
-    // and attach a click event handler 
+    // and attach a click event handler
     $("input:checkbox").on('click', function() {
         // in the handler, 'this' refers to the box clicked on
         var $box = $(this);
@@ -191,13 +197,13 @@
             //console.log($box.attr("name") + ": " + $(this).val() );
 
             switch($box.attr("name")){
-                case "meals":  
+                case "meals":
                     mealsSelected = $(this).val();
                     break;
-                case "fuel":  
+                case "fuel":
                     fuelSelected = $(this).val();
                     break;
-                default: 
+                default:
                     break;
             }
 
@@ -209,4 +215,29 @@
         }
     });
 
+
+    function checkbox(){
+        //initial checkbox meals
+        if(@ViewBag.meals == 1){
+            $("#rsv-meal-package").prop("checked",true);
+            $("#rsv-meal-renter").prop("checked",false);
+        }
+        if(@ViewBag.meals == 0){
+            $("#rsv-meal-renter").prop("checked",true);
+            $("#rsv-meal-package").prop("checked",false);
+        }
+
+        //initial checkbox fuel
+        if(@ViewBag.fuelId == 1){
+            $("#rsv-fuel-package").prop("checked",true);
+            $("#rsv-fuel-renter").prop("checked",false);
+        }
+        if(@ViewBag.fuelId == 0){
+            $("#rsv-fuel-renter").prop("checked",true);
+            $("#rsv-fuel-package").prop("checked",false);
+        }
+
+        updateTransaction();
+
+    }
 </script>

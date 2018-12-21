@@ -111,7 +111,9 @@
         <p>
             Notification Listing
             <br />
-            [ @Html.ActionLink("List", "NotificationList", "JobServices", new { reportId = 1 }, null)
+            [ @Html.ActionLink("SMS", "NotificationList", "JobServices", new { reportId = 1 }, null) |
+              @Html.ActionLink("Paypal", "Index", "PaypalTransaction", null, null)
+            
             ]
 
         <p>@Html.ActionLink("View »", "NotificationList", "JobServices", null, new { @class = "btn btn-default" }) </p>

@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/04/2018 16:19:10
--- Generated from EDMX file: D:\Data\Real\Apps\GitHub\eJobs\JobsV1\Models\JobDB.edmx
+-- Date Created: 12/19/2018 14:32:01
+-- Generated from EDMX file: C:\Users\VILLOSA\Documents\GithubClassic\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [DB_A0A0AE_job];
+USE [aspnet-JobsV1-20160528101923];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -471,6 +471,9 @@ IF OBJECT_ID(N'[dbo].[CoopMembers]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[CoopMemberItems]', 'U') IS NOT NULL
     DROP TABLE [dbo].[CoopMemberItems];
+GO
+IF OBJECT_ID(N'[dbo].[PaypalTransactions]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[PaypalTransactions];
 GO
 
 -- --------------------------------------------------
@@ -1267,6 +1270,19 @@ CREATE TABLE [dbo].[CoopMemberItems] (
 );
 GO
 
+-- Creating table 'PaypalTransactions'
+CREATE TABLE [dbo].[PaypalTransactions] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [TrxId] nvarchar(20)  NOT NULL,
+    [JobId] int  NOT NULL,
+    [TrxDate] datetime  NOT NULL,
+    [DatePosted] datetime  NOT NULL,
+    [Status] nvarchar(20)  NOT NULL,
+    [Remarks] nvarchar(80)  NULL,
+    [Amount] decimal(18,0)  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -1712,6 +1728,12 @@ GO
 -- Creating primary key on [Id] in table 'CoopMemberItems'
 ALTER TABLE [dbo].[CoopMemberItems]
 ADD CONSTRAINT [PK_CoopMemberItems]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'PaypalTransactions'
+ALTER TABLE [dbo].[PaypalTransactions]
+ADD CONSTRAINT [PK_PaypalTransactions]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 

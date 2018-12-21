@@ -275,7 +275,14 @@ rental-type-wdriver {
     .reservation > label{
         color: dodgerblue;
     }
-
+    .rsv-call-text{
+        color: white;
+        width:200px;
+    }
+    .rsv-call-btn{
+        color: white;
+        width:255px;
+    }
     /**
     * ads description
     **/

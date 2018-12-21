@@ -1,34 +1,44 @@
 ﻿@model IEnumerable<JobsV1.Models.CarUnit>
 
 @{
-    //ViewBag.Title = "Car Rental Davao";
+    ViewBag.Title = "Car Rental Davao";
     ViewBag.data = 1;
 }
 
 <div class="jumbotron row">
-    <div class="col-md-5">
+    <div class="col-md-4">
         <h2>Welcome to Davao!</h2>
         <p class="lead">Start your journey with us.</p>
         @Html.ActionLink("Contact us", "Contact", "CarRental", null, new { @class = "btn btn-primary btn-lg" })
-        <!--
-        <button href="" class="btn btn-primary" id="catbtn" data-toggle="modal" data-target="#ReserveCarList" style="margin-bottom:10px; font-size:18px; margin:1px;"> Reservation </button>      
-        --> 
+
         @if (ViewBag.isAuthorize == 1)
         {
             @Html.ActionLink("Reservation", "CarReserve", "CarRental", new { id = 1 }, new { @class = "btn btn-primary btn-lg" })
         }
-     </div>
-
+</div>
     <div class="col-md-5"> 
-
         <img src="~/Images/CarRental/hondaCity_Banner.png"  alt="realwheelsdavao-car-rental-davao" width="350"/>
-    
     </div>
-
-    <div class="col-md-2">
-
+    <!--
+        Smart 0919-381-2657
+        Globe 0995-450-8517
+        Viber 0995-450-8517
+    -->  
+    <div class="col-md-1">
+        <br>
+        <a class="btn btn-primary rsv-call-btn rsv-call-text" href="tel:+63822971831">
+            <strong>LandLine:</strong> (+63) 82 297 1831 
+        </a><br />
+        <a class="btn btn-primary rsv-call-btn rsv-call-text" href="tel:+639193812657">
+            <strong>Smart:</strong> (+63) 919-381-2657
+        </a><br />
+        <a class="btn btn-primary rsv-call-btn rsv-call-text" href="tel:+639954508517">
+            <strong>Globe:</strong> (+63) 995-450-8517
+        </a><br />
+        <a class="btn btn-primary rsv-call-btn rsv-call-text" href="viber://chat?number=09954508517">
+            <strong>Viber:</strong> [0995-450-8517]
+        </a><br />
     </div>
-    @*@Html.ActionLink("Book a Car", "Create", "JobMains", null, new { @class = "btn btn-primary btn-lg" })*@ 
     
 </div>
 

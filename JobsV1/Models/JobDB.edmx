@@ -80,6 +80,7 @@
     <EntitySet Name="CarUnitMetas" EntityType="JobDB.Store.CarUnitMetas" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="CoopMembers" EntityType="JobDB.Store.CoopMembers" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="CoopMemberItems" EntityType="JobDB.Store.CoopMemberItems" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PaypalTransactions" EntityType="JobDB.Store.PaypalTransactions" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="JobMainJobType" Association="JobDB.Store.JobMainJobType">
       <End Role="JobMain" EntitySet="JobMains" />
       <End Role="JobType" EntitySet="JobTypes" />
@@ -1174,6 +1175,19 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CoopMemberId" Type="int" Nullable="false" />
     <Property Name="InvItemId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PaypalTransactions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TrxId" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="JobId" Type="int" Nullable="false" />
+    <Property Name="TrxDate" Type="datetime" Nullable="false" />
+    <Property Name="DatePosted" Type="datetime" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="Remarks" Type="nvarchar" Nullable="true" MaxLength="80" />
+    <Property Name="Amount" Type="decimal" Nullable="false" />
   </EntityType>
   <Association Name="JobMainJobType">
     <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="1" />
@@ -2470,6 +2484,7 @@
             <End Role="InvItem" EntitySet="InvItems" />
             <End Role="CoopMemberItem" EntitySet="CoopMemberItems" />
           </AssociationSet>
+          <EntitySet Name="PaypalTransactions" EntityType="JobDB.PaypalTransaction" />
         </EntityContainer>
         <EntityType Name="JobMain">
           <Key>
@@ -4325,6 +4340,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="PaypalTransaction">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TrxId" Type="String" Nullable="false" MaxLength="50" />
+          <Property Name="JobId" Type="Int32" Nullable="false" />
+          <Property Name="TrxDate" Type="DateTime" Nullable="false" />
+          <Property Name="DatePosted" Type="DateTime" Nullable="false" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="30" />
+          <Property Name="Remarks" Type="String" Nullable="true" MaxLength="80" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5192,6 +5220,20 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="CoopMemberId" ColumnName="CoopMemberId" />
           <ScalarProperty Name="InvItemId" ColumnName="InvItemId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PaypalTransactions">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.PaypalTransaction)">
+        <MappingFragment StoreEntitySet="PaypalTransactions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TrxId" ColumnName="TrxId" />
+          <ScalarProperty Name="JobId" ColumnName="JobId" />
+          <ScalarProperty Name="TrxDate" ColumnName="TrxDate" />
+          <ScalarProperty Name="DatePosted" ColumnName="DatePosted" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
