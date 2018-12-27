@@ -87,8 +87,9 @@
             Sporting Gears, Cameras
             <br />
             [
-            @Html.ActionLink("Packages", "Index", "CarRatePackages") |
-            @Html.ActionLink("Unit Rates", "Index", "CarRateUnitPackages") ]
+            @Html.ActionLink("Packages", "Index", "CarRatePackages", new { isActive = 1 }, null) |
+            @Html.ActionLink("Unit Package Rates", "Index", "CarRateUnitPackages", new { isActive = 1 }, null) |
+            @Html.ActionLink("Unit Rates", "Index", "CarRates", null , null)  ]
 
         </p>
         <p>@Html.ActionLink("Add New »", "Create", "SupplierItems", null, new { @class = "btn btn-default" }) </p>
@@ -112,7 +113,7 @@
             Notification Listing
             <br />
             [ @Html.ActionLink("SMS", "NotificationList", "JobServices", new { reportId = 1 }, null) |
-              @Html.ActionLink("Paypal", "Index", "PaypalTransaction", null, null)
+              @Html.ActionLink("Paypal", "Index", "PaypalTransactions", null, null)
             
             ]
 

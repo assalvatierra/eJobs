@@ -15,20 +15,49 @@ namespace JobsV1.Controllers
         private JobDBContainer db = new JobDBContainer();
 
         // GET: CarRateUnitPackages
-        public ActionResult Index(int? sortby)
+        public ActionResult Index(int? sortby, int? isActive)
         {
-            List<CarRateUnitPackage> carRateUnitPackages = new List<CarRateUnitPackage>();
+            List<CarRateUnitPackage> UnitPkgList = new List<CarRateUnitPackage>();
+
+            // Sort Order
             if (sortby != null)
             {
                 if(sortby == 1)
-                    carRateUnitPackages = db.CarRateUnitPackages.Include(c => c.CarRatePackage).Include(c => c.CarUnit).OrderBy(s=>s.CarUnitId).ToList();
+                {
+                    //filter by Car Unit
+                    UnitPkgList = db.CarRateUnitPackages.Include(c => c.CarRatePackage)
+                        .Include(c => c.CarUnit).OrderBy(s => s.CarUnitId).ToList();
+                }
                 if (sortby == 2)
-                    carRateUnitPackages = db.CarRateUnitPackages.Include(c => c.CarRatePackage).Include(c => c.CarUnit).OrderBy(s => s.CarRatePackageId).ToList();
+                {
+                    //Filter by Packges
+                    UnitPkgList = db.CarRateUnitPackages.Include(c => c.CarRatePackage)
+                        .Include(c => c.CarUnit).OrderBy(s => s.CarRatePackageId).ToList();
+                }
+
+            } else {
+                //default no filter
+                UnitPkgList = db.CarRateUnitPackages.Include(c => c.CarRatePackage)
+                    .Include(c => c.CarUnit).ToList();
             }
-            else {
-                carRateUnitPackages = db.CarRateUnitPackages.Include(c => c.CarRatePackage).Include(c => c.CarUnit).ToList();
+
+            //Filter Active/Inactive
+            if (isActive != null)
+            {
+                if (isActive == 1)
+                {
+                    //show active packages per unit
+                    UnitPkgList = UnitPkgList.Where(cp => cp.CarRatePackage.Status == "ACT").ToList();
+                }
+                else
+                {
+                    //show inactive packages per unit
+                    UnitPkgList = UnitPkgList.Where(cp => cp.CarRatePackage.Status == "INC").ToList();
+                }
             }
-            return View(carRateUnitPackages);
+            
+
+            return View(UnitPkgList);
         }
 
         // GET: CarRateUnitPackages/Details/5

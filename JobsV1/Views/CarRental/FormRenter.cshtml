@@ -11,6 +11,7 @@
         <div class="form-horizontal col-md-12">
             <h3>Usage Details</h3>
             <p>Fields with * are required.</p>
+             <label style="color:orangered" id="dtls-warning-usage"></label>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group" style="display:none">
@@ -45,7 +46,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" onchange="startDate()" >
                 <label class="control-label col-md-2"> Date End* </label>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.DtEnd, new { htmlAttributes = new { @class = "form-control", @id = "rnt-startdate" } })
@@ -240,27 +241,30 @@
         if(Date.parse(Ssdate) >= Date.parse(Stoday))
         {
             console.log(Ssdate > Stoday);
-            console.log("OK - SDATE: "+ Ssdate +" >= TODAY: "+ Stoday);
-
+            console.log("OK - SDATE: " + Ssdate + " >= TODAY: " + Stoday);
+            $("#dtls-warning-usage").text("Invald Dates");
+        
         //start date is less than today
         }else if(Date.parse(Ssdate) < Date.parse(Stoday)){
 
             $('input[name="DtStart"]').val(Stoday);
 
             console.log(Ssdate <= today); //do not accept payment
-            console.log("INVALID - SDATE: "+ Ssdate +" < TODAY: "+ Stoday);
+            console.log("INVALID - SDATE: " + Ssdate + " < TODAY: " + Stoday);
+            $("#dtls-warning-usage").text("Invald Dates");
         }
 
         //handles end date, add 1 day from start date
         if(Ssdate >= Sedate){
             var endt = new Date(Ssdate);
 
-            endt.setDate(endt.getDate()+2);
-
+            //endt.setDate(endt.getDate()+2);
+             
             var Edate = getDateFormat(endt);
 
             $('input[name="DtEnd"]').val(getDateFormat(endt));
-            console.log("INVALID - Ssdate: "+ Ssdate +" > Sedate: "+ Sedate);
+            console.log("INVALID - Ssdate: " + Ssdate + " > Sedate: " + Sedate);
+            $("#dtls-warning-usage").text("Invald Dates");
         }
     }
 

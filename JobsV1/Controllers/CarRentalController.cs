@@ -199,7 +199,7 @@ namespace JobsV1.Controllers
 
             ViewBag.carid = id;
             ViewBag.days = days == null ? 1: days;
-            ViewBag.fuelId = fuel == null ? 1 : fuel ;
+            ViewBag.fuelId = fuel == null ? 1 : fuel;
             ViewBag.meals = meals == null ? 1 : meals;
 
             return View("CarReserve");

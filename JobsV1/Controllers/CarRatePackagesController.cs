@@ -21,9 +21,35 @@ namespace JobsV1.Controllers
         private JobDBContainer db = new JobDBContainer();
 
         // GET: CarRatePackages
-        public ActionResult Index()
+        public ActionResult Index(int? showActive)
         {
-            return View(db.CarRatePackages.ToList());
+            List<CarRatePackage> packageList = new List<CarRatePackage>();
+
+            if(showActive != null)
+            {
+                if(showActive == 1)
+                {
+                    //show active packages
+                    packageList = db.CarRatePackages.Where(p => p.Status == "ACT").ToList();
+                }
+                else if(showActive == 2)
+                {
+                    //show active packages
+                    packageList = db.CarRatePackages.Where(p => p.Status == "INC").ToList();
+                }
+                else
+                {
+                    //show all
+                    packageList = db.CarRatePackages.ToList();
+                }
+            }
+            else
+            {
+                //show all
+                packageList = db.CarRatePackages.ToList();
+            }
+
+            return View(packageList);
         }
 
         // GET: CarRatePackages/Details/5

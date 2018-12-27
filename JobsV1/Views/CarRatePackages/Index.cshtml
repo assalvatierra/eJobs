@@ -9,6 +9,12 @@
 <p>
         @Html.ActionLink("Create New", "Create") |
 </p>
+
+<!-- Filter -->
+<p>
+    @Html.ActionLink("Active", "Index", new { showActive = 1 }) |
+    @Html.ActionLink("Inactive", "Index", new { showActive = 2 }) 
+</p>
 <table class="table">
     <tr>
         <th>
