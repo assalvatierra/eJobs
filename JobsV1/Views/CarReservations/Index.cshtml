@@ -112,7 +112,14 @@
             }
             else
             {
-                @Html.ActionLink("Create Quotation", "CreateQuotation", new { rsvId = item.Id }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Create Quotation", "CreateQuotation",
+               new { rsvId = item.Id , renter = item.RenterName, dtStart = item.DtStart,
+                   dtEnd = item.DtEnd, details = item.Destinations , rentType = item.SelfDrive ,
+                   unit = item.CarUnitId ,rate = item.BaseRate,
+                   renterNum = item.RenterMobile, renterEmail = item.RenterEmail
+               },
+
+               new { @class = "btn btn-default" })
             }
         </td>
     </tr>

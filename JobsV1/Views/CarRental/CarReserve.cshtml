@@ -5,6 +5,7 @@
     }
 </style>
 
+
 <div class="modal-content" style="min-width:100px;">
     <div class="modal-header">
         <h3 class="modal-title">Car Reservation </h3>
@@ -133,6 +134,7 @@
 
     //get info from input and direct to formPackage form
     function CarReserve_NextForm() {
+        LoadOverlay();
 
         var rentalTypeText = $('input:radio[name=options]:checked').val();
         var rentalType = 1;
@@ -240,4 +242,5 @@
         updateTransaction();
 
     }
+
 </script>

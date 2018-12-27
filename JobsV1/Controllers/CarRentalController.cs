@@ -351,7 +351,7 @@ namespace JobsV1.Controllers
                 //sendMail(jobid ,RenterEmail);
                 //sent email to travel.realbreze@gmail.com
                 var adminEmail = "travel.realbreze@gmail.com";
-                sendMail(carReservation.Id, adminEmail, "ADMIN" ,carReservation.RenterName);
+                //sendMail(carReservation.Id, adminEmail, "ADMIN" ,carReservation.RenterName);
 
                 //adminEmail = "AJDavao88@gmail.com";
                 adminEmail = "reservation.realwheels@gmail.com";
@@ -359,7 +359,7 @@ namespace JobsV1.Controllers
 
                 //adminEmail = "AJDavao88@gmail.com";
                 adminEmail = "ajdavao88@gmail.com";
-                sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
+                //sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
 
                 //client email
                 sendMail(carReservation.Id, carReservation.RenterEmail, "CLIENT-PENDING", carReservation.RenterName);

@@ -12,7 +12,18 @@ namespace JobsV1.Controllers
 {
     public class CarReservationsController : Controller
     {
+        // NEW CUSTOMER Reference ID
+        private int NewCustSysId = 1;
+        // Job Status
+        private int JOBINQUIRY = 1;
+        private int JOBRESERVATION = 2;
+        private int JOBCONFIRMED = 3;
+        private int JOBCLOSED = 4;
+        private int JOBCANCELLED = 5;
+        private int JOBTEMPLATE = 6;
+
         private JobDBContainer db = new JobDBContainer();
+        private DBClasses dbc = new DBClasses();
 
         // GET: CarReservations
         public ActionResult Index(int? filter)
@@ -195,5 +206,99 @@ namespace JobsV1.Controllers
 
             return View("Details", job);
         }
+
+
+        // GET: CarReservations/CreateQuotation
+        public ActionResult CreateQuotation(int? id, int rsvId, string dtStart,string dtEnd,string renter,string details, int rentType, int unit, decimal rate, string renterNum, string renterEmail)
+        {
+
+            DateTime today = DateTime.Today;
+            today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Singapore Standard Time");
+            string unitdesc = db.CarUnits.Find(unit).Description;
+            DateTime DtStart = DateTime.Parse(dtStart);
+            DateTime DtEnd = DateTime.Parse(dtEnd);
+            int days = (int)DtEnd.Subtract(DtStart).TotalDays;
+
+            JobMain job = new JobMain();
+            job.JobDate = today;
+            job.NoOfDays = days;
+            job.NoOfPax = 1;
+            job.Description = renter + " - " +  details;
+            job.JobRemarks = rentType == 1 ? unitdesc + " - With Driver" : unitdesc + " - Self Drive";
+            job.AgreedAmt = rate;
+            job.CustContactEmail = renterEmail;
+            job.CustContactNumber = renterNum;
+            
+
+            if (id == null)
+            {
+                ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status != "INC"), "Id", "Name", NewCustSysId);
+            }
+            else
+            {
+
+                ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status != "INC"), "Id", "Name", id);
+            }
+            ViewBag.ReservationId = rsvId;
+            ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name");
+            ViewBag.JobStatusId = new SelectList(db.JobStatus, "Id", "Status", JOBCONFIRMED);
+            ViewBag.JobThruId = new SelectList(db.JobThrus, "Id", "Desc");
+
+            return View(job);
+        }
+
+
+        // POST: CarReservations/CreateQuotation
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateQuotation([Bind(Include = "Id,JobDate,CustomerId,Description,NoOfPax,NoOfDays,AgreedAmt,JobRemarks,JobStatusId,StatusRemarks,BranchId,JobThruId,CustContactEmail,CustContactNumber")] JobMain jobMain, int rsvid)
+        {
+            if (ModelState.IsValid)
+            {
+                if (jobMain.CustContactEmail == null && jobMain.CustContactNumber == null)
+                {
+                    var cust = db.Customers.Find(jobMain.CustomerId);
+                    jobMain.CustContactEmail = cust.Email;
+                    jobMain.CustContactNumber = cust.Contact1;
+                }
+
+                db.JobMains.Add(jobMain);
+                db.SaveChanges();
+
+                //link job to reservation
+                linkQuotation(rsvid, jobMain.Id);
+
+                dbc.addEncoderRecord("joborder-reservation", jobMain.Id.ToString(), HttpContext.User.Identity.Name, "Create New Job for Reservation");
+                
+                return RedirectToAction("Index", "JobOrder", new { sortid = 1 });
+
+            }
+
+            ViewBag.CustomerId = new SelectList(db.Customers.Where(d => d.Status != "INC"), "Id", "Name", jobMain.CustomerId);
+            ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name", jobMain.BranchId);
+            ViewBag.JobStatusId = new SelectList(db.JobStatus, "Id", "Status", jobMain.JobStatusId);
+            ViewBag.JobThruId = new SelectList(db.JobThrus, "Id", "Desc", jobMain.JobThruId);
+
+            return View(jobMain);
+        }
+
+        public int linkQuotation(int rsvId, int jobId)
+        {
+            try{
+
+                CarReservation rsv = db.CarReservations.Find(rsvId);
+                rsv.JobRefNo = jobId;
+
+                db.Entry(rsv).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            catch (Exception ex){
+                return 1;
+            }
+            return 0;
+        }
+
     }
 }

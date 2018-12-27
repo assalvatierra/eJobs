@@ -169,3 +169,7 @@ function CarReserve_Default(carid, days, meals, fuelId) {
             updateTransaction();
         }
     });
+
+    function LoadOverlay(){
+        $("#overlay").css("display","flex");
+    }

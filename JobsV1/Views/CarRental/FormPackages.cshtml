@@ -83,11 +83,15 @@
 
 <script>
     function FormPackages_NextForm() {
+
         var rentalType = @ViewBag.rentType;
         var carId = @ViewBag.carId;
         var noDays = @ViewBag.days;
         var mealsAcc = @ViewBag.meals;
         var fuel = @ViewBag.fuel;
+
+        //loading screen
+        LoadOverlay();
 
         FormPackages_Next("CarRental",carId, noDays, rentalType, mealsAcc, fuel, selectedTour);
 
@@ -99,6 +103,9 @@
         var noDays = @ViewBag.days;
         var mealsAcc = @ViewBag.meals;
         var fuel = @ViewBag.fuel;
+        
+        //loading screen
+        LoadOverlay();
         
         FormPackages_Prev("CarRental",carId, noDays, rentalType, mealsAcc, fuel, selectedTour);
     }

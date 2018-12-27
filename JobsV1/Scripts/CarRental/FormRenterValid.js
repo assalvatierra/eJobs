@@ -152,3 +152,7 @@ function validateInputPhone() {
 }
 
 
+
+function LoadOverlay() {
+    $("#overlay").css("display", "flex");
+}

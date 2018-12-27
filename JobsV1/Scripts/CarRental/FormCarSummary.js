@@ -28,3 +28,7 @@ function formPackages_TransText(carId, days, meals, fuel, RentTypeTxt, carDesc) 
     $('#modal-text-foot').text(RentTypeTxt + ' - ' + carDesc + ' - ' + noDays + ' Days - ' + mealPackage + ' - ' + fuelPackage + '');
 }
 
+
+function LoadOverlay() {
+    $("#overlay").css("display", "flex");
+}

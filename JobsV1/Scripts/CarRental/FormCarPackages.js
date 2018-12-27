@@ -50,3 +50,7 @@ $('#pkg-table').on('click', '.clickable-row', function (event) {
     $(this).addClass('active').siblings().removeClass('active');
     selectedTour = $(this).attr('id').substring(4, 6);
 });
+
+function LoadOverlay() {
+    $("#overlay").css("display", "flex");
+}

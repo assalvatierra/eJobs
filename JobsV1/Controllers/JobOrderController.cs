@@ -1416,7 +1416,7 @@ order by x.jobid
 
 
 
-        public string SendEmail(int jobId, string mailType)
+        public ActionResult SendEmail(int jobId, string mailType)
         {
             JobMain jobOrder = db.JobMains.Find(jobId);
             EMailHandler mail = new EMailHandler();
@@ -1431,7 +1431,7 @@ order by x.jobid
             mailResult = mail.SendMail(jobId, jobOrder.Customer.Email, mailType, clientName, siteRedirect); //booking job customer email
 
            // return RedirectToAction("Index", new { mainid = jobId });
-            return mailResult;
+            return RedirectToAction("Payments", "JobOrder" ,new { id = jobOrder.Id });
         }
     
 
