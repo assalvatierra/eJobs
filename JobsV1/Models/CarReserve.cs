@@ -79,7 +79,7 @@ namespace JobsV1.Models
                 newPkg.Rate = TotalRate;
                 newPkg.TextMeals = MealsRateTxt;
                 newPkg.TextFuel = FuelRateTxt;
-                newPkg.TextRate = carRatetxt;
+                newPkg.TextRate = carRatetxt + " + m: " + MealsRate + " + f: " + FuelRate;
 
                 packages.Add(newPkg);
             }
@@ -127,7 +127,7 @@ namespace JobsV1.Models
             newPkg.Rate = TotalRate;
             newPkg.TextMeals = MealsRateTxt;
             newPkg.TextFuel = FuelRateTxt;
-            newPkg.TextRate = carRatetxt;
+            newPkg.TextRate = carRatetxt + " + m: " + MealsRate + " + f: " + FuelRate; 
 
             packages = newPkg;
 

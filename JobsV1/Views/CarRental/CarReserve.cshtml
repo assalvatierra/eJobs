@@ -66,7 +66,7 @@
                         <img src="~/Images/CarRental/icon-sleep.png" width="40"/> 
                     </div>
                     <div class="col-lg-7" >
-                        <input type="checkbox" id="rsv-meal-renter" name="meals" value="0" checked="checked" /> <span> Renter Will Provide  </span>
+                        <input type="checkbox" id="rsv-meal-renter" name="meals" value="0"  /> <span> Renter Will Provide  </span>
                         <br />
                         <input type="checkbox" id="rsv-meal-package" name="meals" value="1" /> <span> Included in the Package </span>
                     </div>
@@ -81,7 +81,7 @@
                         <img src="~/Images/CarRental/icon-gas.png"  width="40"/>
                     </div>
                     <div class="col-lg-7">
-                        <input type="checkbox" id="rsv-fuel-renter" name="fuel" value="0" checked="checked" /> <span> Renter Will Provide  </span>
+                        <input type="checkbox" id="rsv-fuel-renter" name="fuel" value="0"  /> <span> Renter Will Provide  </span>
                         <br />
                         <input type="checkbox" id="rsv-fuel-package" name="fuel" value="1" /> <span> Included in the Package </span>
                         
@@ -177,9 +177,10 @@
     //next popup on formpackages package list
     $(document).ready(function(){
         //initial
-        checkbox();
-
         CarReserve_Default(@ViewBag.carid,@ViewBag.days,@ViewBag.meals,@ViewBag.fuelId);
+   
+        console.log("meals: " + mealsSelected);
+        console.log("fuel: " + fuelSelected);
     });
 
     // the selector will match all input controls of type :checkbox
@@ -220,26 +221,49 @@
 
     function checkbox(){
         //initial checkbox meals
-        if(@ViewBag.meals == 1){
+        //$("#rsv-meal-renter").prop("checked",true);
+        //$("#rsv-meal-package").prop("checked",false);
+        //$("#rsv-fuel-renter").prop("checked",true);
+        //$("#rsv-fuel-package").prop("checked",false);
+
+        if(@ViewBag.meals == '1'){
             $("#rsv-meal-package").prop("checked",true);
             $("#rsv-meal-renter").prop("checked",false);
+            mealsSelected = 1;
+        }else{
+            
+            if(@ViewBag.meals == '0'){
+                $("#rsv-meal-renter").prop("checked",true);
+                $("#rsv-meal-package").prop("checked",false);
+            }else{
+                $("#rsv-meal-package").prop("checked",true);
+                $("#rsv-meal-renter").prop("checked",false);
+            }
+            
+            mealsSelected = 0;
         }
-        if(@ViewBag.meals == 0){
-            $("#rsv-meal-renter").prop("checked",true);
-            $("#rsv-meal-package").prop("checked",false);
-        }
+
 
         //initial checkbox fuel
-        if(@ViewBag.fuelId == 1){
+        if(@ViewBag.fuelId == '1'){
             $("#rsv-fuel-package").prop("checked",true);
             $("#rsv-fuel-renter").prop("checked",false);
-        }
-        if(@ViewBag.fuelId == 0){
-            $("#rsv-fuel-renter").prop("checked",true);
-            $("#rsv-fuel-package").prop("checked",false);
+            fuelSelected = 1;
+        }else{
+           
+            if(@ViewBag.fuelId == '0'){
+                $("#rsv-fuel-renter").prop("checked",true);
+                $("#rsv-fuel-package").prop("checked",false);
+            }else{
+                $("#rsv-fuel-renter").prop("checked",true);
+                $("#rsv-fuel-package").prop("checked",false);
+            }
+
+            fuelSelected = 0;
+
         }
 
-        updateTransaction();
+
 
     }
 

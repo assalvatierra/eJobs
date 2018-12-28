@@ -294,6 +294,7 @@
     <Compile Include="Controllers\CustFilesController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\DestinationsController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InvCarGateControlsController.cs" />
     <Compile Include="Controllers\InvCarRecordsController.cs" />
@@ -913,7 +914,7 @@
     <Content Include="Scripts\CarRental\FormCarPackages.js" />
     <Content Include="Scripts\CarRental\FormCarReserve.js" />
     <Content Include="Scripts\CarRental\ReservationClass.js" />
-    <Content Include="Scripts\CarRental\Reservation_wDriver.js" />
+    <Content Include="Scripts\CarRental\FormRenterValid.js" />
     <Content Include="Scripts\DateRangePicker\bower.json" />
     <Content Include="Scripts\DateRangePicker\package.json" />
     <Content Include="Scripts\CarRental\Reservation.js" />
@@ -1396,6 +1397,8 @@
     <Content Include="Views\PaypalTransactions\Details.cshtml" />
     <Content Include="Views\PaypalTransactions\Edit.cshtml" />
     <Content Include="Views\PaypalTransactions\Index.cshtml" />
+    <Content Include="Views\Shared\NotFound.cshtml" />
+    <Content Include="Views\Error\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

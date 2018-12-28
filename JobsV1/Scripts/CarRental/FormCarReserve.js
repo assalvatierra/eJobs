@@ -28,7 +28,7 @@ function CarReserve_Default(carid, days, meals, fuelId) {
 
     $('#car' + $('input:radio[name=cars]:checked').attr("id")).css('border', '2px solid dodgerblue');
     $('#withdriver').attr('checked', true);
-    $("#" + carid + "").attr('checked', true);
+    $("#" + carid ).attr('checked', true);
     $('#rsv-days').val(days);
 
     //clear car border highlight
@@ -37,26 +37,15 @@ function CarReserve_Default(carid, days, meals, fuelId) {
     //meals and accomodation
     // 1 = included in the package
     // 0 = by renter
-    if (meals == 1) {
-        $('#rsv-meal').val("1");
-    } else {
-        $('#rsv-meal').val("0");
-    }
 
     //fuel inclusion
     // 1 = included in the package
     // 0 = by renter
-    if (meals == 1) {
-        if (fuelId == 1) {
-            $('#rsv-fuelId').val("1");
-        } else {
-            $('#rsv-fuel').val("0");
-        }
+    checkbox()
 
-        //update reservation text summary
-        updateTransaction();
+    //update reservation text summary
+    updateTransaction();
 
-    }
 }
 
     //listener on rental type click

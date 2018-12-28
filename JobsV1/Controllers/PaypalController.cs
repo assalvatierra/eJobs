@@ -45,7 +45,7 @@ namespace JobsV1.Controllers
             string webhookId = jsonBody.id;
             string paypalID = jsonBody.resource.id;
             decimal Totalamount = (decimal)jsonBody.resource.amount.total;
-            int jobId = (int)jsonBody.resource.invoice_number; // bookingid
+            int jobId = (int)jsonBody.resource.custom; // bookingid
             DateTime paypalEventDate = (DateTime)jsonBody.create_time;
             DateTime paypalTransDate = (DateTime)jsonBody.resource.create_time;
 
