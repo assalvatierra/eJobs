@@ -1421,12 +1421,12 @@ order by x.jobid
             JobMain jobOrder = db.JobMains.Find(jobId);
             EMailHandler mail = new EMailHandler();
 
-            string siteRedirect = "https://realwheelsdavao.com/reservation/";
+            string siteRedirect = "https://realwheelsdavao.com/invoice/";
 
             string clientName  = jobOrder.Description; 
-            string renterEmail = "reservation.realwheels@gmail.com"; //testing
+            string companyEmail = "reservation.realwheels@gmail.com"; //testing
             string mailResult  = "success";
-            mailResult = mail.SendMail(jobId, renterEmail, mailType, clientName, siteRedirect);                    //reservation gmail
+            mailResult = mail.SendMail(jobId, companyEmail, mailType, clientName, siteRedirect);                    //reservation gmail
             mailResult = mail.SendMail(jobId, jobOrder.CustContactEmail, mailType, clientName, siteRedirect);      //customer email
             mailResult = mail.SendMail(jobId, jobOrder.Customer.Email, mailType, clientName, siteRedirect); //booking job customer email
 
@@ -1441,7 +1441,7 @@ order by x.jobid
             EMailHandler mail = new EMailHandler();
 
             string clientName = jobOrder.Description;
-            string siteRedirect = "https://realwheelsdavao.com/reservation/";
+            string siteRedirect = "https://realwheelsdavao.com/invoice/";
 
             mail.SendMail(jobId, "reservation.realwheels@gmail.com", mailType, clientName, siteRedirect);                    //reservation gmail
             mail.SendMail(jobId, "AJDavao88@gmail.com", mailType, clientName, siteRedirect);      //customer email
