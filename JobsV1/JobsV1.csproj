@@ -584,6 +584,10 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="WebService.asmx.cs">
+      <DependentUpon>WebService.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\aspnet-JobsV1-20160528101923.mdf" />
@@ -876,6 +880,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="WebService.asmx" />
     <EntityDeploy Include="Models\JobDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>JobDB.Designer.cs</LastGenOutput>

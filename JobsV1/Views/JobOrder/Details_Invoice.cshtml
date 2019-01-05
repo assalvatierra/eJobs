@@ -248,11 +248,10 @@
         var count = 0;
         paypal.Button.render({
             // Configure environment
-            //env: 'production',
-            env: 'sandbox',
+            env: 'production',
+            //env: 'sandbox',
             client: {
-                //
-                //sandbox: 'AeKvfmAZjDaTJ4bH4PFGurLMvFZOl9OeHaK6xUlSCB0Ny8RU2WEeijZLTeRGvz0GjQXrX1SuaYvf53-H',
+                //paypal live
                 sandbox: 'AUvsEZNhW0bZQSYuzVDgNxePk5lrSEAoF4rQQHXLIByzeBd6N4-vjtLWGviKaFeVMu9U-GD_99nwCz29',
                 production: 'AaJyjdobN1jDP6GTLx5Evqz9l3k98qgzIqheT19-KUoY-WhnUjX1ipkp0f_qordwsM7ZbZXlEDVWutjz'
             },
@@ -282,8 +281,8 @@
                             }
                         },
                         description: 'RealWheels Car Rental.',
-                        custom: @Model.Id,// Insert a unique invoice number
-                        //invoice_number: Model.Id,// Insert a unique invoice number
+                        custom: '@Model.Id',// Insert a unique invoice number
+                        invoice_number: @Model.Id,// Insert a unique invoice number
                         payment_options: {
                             allowed_payment_method: 'INSTANT_FUNDING_SOURCE'
                         },
@@ -330,7 +329,7 @@
                 return actions.payment.execute()
                 .then(function (response) {
                     // Show a confirmation message to the buyer
-                    window.alert('Thank you for your purchase! '  );
+                    window.alert('Thank you for payment! '  );
 
                     console.log(data);
                     console.log(response);

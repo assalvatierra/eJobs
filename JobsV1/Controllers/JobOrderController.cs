@@ -1416,7 +1416,7 @@ order by x.jobid
 
 
 
-        public ActionResult SendEmail(int jobId, string mailType)
+        public String SendEmail(int jobId, string mailType)
         {
             JobMain jobOrder = db.JobMains.Find(jobId);
             EMailHandler mail = new EMailHandler();
@@ -1424,17 +1424,20 @@ order by x.jobid
             string siteRedirect = "https://realwheelsdavao.com/invoice/";
 
             string clientName  = jobOrder.Description; 
-            string companyEmail = "reservation.realwheels@gmail.com"; //testing
-            string mailResult  = "success";
-            mailResult = mail.SendMail(jobId, companyEmail, mailType, clientName, siteRedirect);                    //reservation gmail
-            mailResult = mail.SendMail(jobId, jobOrder.CustContactEmail, mailType, clientName, siteRedirect);      //customer email
-            mailResult = mail.SendMail(jobId, jobOrder.Customer.Email, mailType, clientName, siteRedirect); //booking job customer email
+            string companyEmail = "reservation.realwheels@gmail.com"; //realwheelsemail
+            string ajdavaoEmail = "ajdavao88@gmail.com"; //testing
+            string mailResult  = "";
 
+            mailResult = mail.SendMailPayment(jobId, ajdavaoEmail, mailType, clientName, siteRedirect);        //reservation gmail
+            //mailResult = mail.SendMailPayment(jobId, companyEmail, mailType, clientName, siteRedirect);               //reservation gmail
+
+            mailResult = mail.SendMailClientInvoice(jobId, jobOrder.CustContactEmail, mailType, clientName, siteRedirect);  //customer email
+            //mailResult = mail.SendMailClientPayment(jobId, jobOrder.Customer.Email, mailType, clientName, siteRedirect);    //booking job customer email
+            return "Email sent Successfully";
            // return RedirectToAction("Index", new { mainid = jobId });
-            return RedirectToAction("Payments", "JobOrder" ,new { id = jobOrder.Id });
+           // return RedirectToAction("BookingDetails", "JobOrder" ,new { id = jobOrder.Id , iType = 1});
         }
     
-
         public void SendEmailAdmin(int jobId, string mailType)
         {
             JobMain jobOrder = db.JobMains.Find(jobId);
@@ -1443,8 +1446,8 @@ order by x.jobid
             string clientName = jobOrder.Description;
             string siteRedirect = "https://realwheelsdavao.com/invoice/";
 
-            mail.SendMail(jobId, "reservation.realwheels@gmail.com", mailType, clientName, siteRedirect);                    //reservation gmail
-            mail.SendMail(jobId, "AJDavao88@gmail.com", mailType, clientName, siteRedirect);      //customer email
+            mail.SendMailPayment(jobId, "reservation.realwheels@gmail.com", mailType, clientName, siteRedirect);                    //reservation gmail
+            mail.SendMailPayment(jobId, "AJDavao88@gmail.com", mailType, clientName, siteRedirect);      //customer email
         }
 
         #endregion

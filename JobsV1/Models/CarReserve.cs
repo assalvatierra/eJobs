@@ -79,7 +79,12 @@ namespace JobsV1.Models
                 newPkg.Rate = TotalRate;
                 newPkg.TextMeals = MealsRateTxt;
                 newPkg.TextFuel = FuelRateTxt;
-                newPkg.TextRate = carRatetxt + " + m: " + MealsRate + " + f: " + FuelRate;
+
+                if (isAuthorize == 1) {  //guest user
+                    newPkg.TextRate = carRatetxt + " + m: " + MealsRate + " + f: " + FuelRate;
+                } else {   //guest user
+                    newPkg.TextRate = carRatetxt;
+                }
 
                 packages.Add(newPkg);
             }
@@ -127,7 +132,13 @@ namespace JobsV1.Models
             newPkg.Rate = TotalRate;
             newPkg.TextMeals = MealsRateTxt;
             newPkg.TextFuel = FuelRateTxt;
-            newPkg.TextRate = carRatetxt + " + m: " + MealsRate + " + f: " + FuelRate; 
+
+            if (isAuthorize == 1) { // admin user
+                newPkg.TextRate = carRatetxt + " + m: " + MealsRate + " + f: " + FuelRate;
+            } else {                // guest user
+                newPkg.TextRate = carRatetxt;
+            }
+
 
             packages = newPkg;
 
@@ -255,7 +266,7 @@ namespace JobsV1.Models
          */
         private string getCarRateCalcTxt(int carId, int days, decimal packageDailyAddon, decimal carRateAdditional, int isAuthorize)
         {
-            //MealsAcc
+           
             decimal totalCarRate = 0;
             var carRate = db.CarRates.Where(c => c.Id == carId).FirstOrDefault();
             decimal addedRates = carRateAdditional + (packageDailyAddon * days);
@@ -285,7 +296,7 @@ namespace JobsV1.Models
             totalCarRate = (carRate.Daily * days);
             totalCarRate += addedRates;
 
-            totalCarRateTxt += " a: " + addedRates;
+            totalCarRateTxt +=  " a: " + addedRates;
             
 
             if (isAuthorize == 0)
