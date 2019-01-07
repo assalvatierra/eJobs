@@ -6,23 +6,21 @@
 }
 
 <div class="jumbotron row rental-banner">
-    <div class="col-md-4">
+    <div class="col-md-5">
         <h2>Welcome to Davao!</h2>
         <p class="lead">Start your journey with us.</p>
-        @Html.ActionLink("Contact us", "Contact", "CarRental", null, new { @class = "btn btn-primary btn-lg" })
+
+        <a class="btn btn-primary btn-lg" href="https://goo.gl/maps/Q5QBmS8mEWn">
+            Location
+        </a>
 
         @if (ViewBag.isAuthorize == 1)
         {
-            @Html.ActionLink("Reservation", "CarReserve", "CarRental", new { id = 1 }, new { @class = "btn btn-primary btn-lg" })
+            @Html.ActionLink("Reservation", "CarReserve", "CarRental", new { id = 1 }, new { @class = "btn btn-success btn-lg btn-rsv" })
         }
-</div>
-    <div class="col-md-5"> 
-        <img src="~/Images/CarRental/hondaCity_Banner.png"  alt="realwheelsdavao-car-rental-davao" width="350"/>
-    </div>
-    <div class="col-md-1">
         <br>
         <a class="btn btn-primary rsv-call-btn rsv-call-text" href="tel:+63822971831">
-            <strong>LandLine:</strong> (+63) 82 297 1831 
+            <strong>LandLine:</strong> (+63) 82 297 1831
         </a><br />
         <a class="btn btn-primary rsv-call-btn rsv-call-text" href="tel:+639193812657">
             <strong>Smart:</strong> (+63) 919-381-2657
@@ -33,6 +31,17 @@
         <a class="btn btn-primary rsv-call-btn rsv-call-text" href="viber://chat?number=09954508517">
             <strong>Viber:</strong> [0995-450-8517]
         </a><br />
+        <a class="btn btn-primary rsv-call-btn rsv-call-text" href="mailto:inquiries.realwheels@gmail.com">
+            <strong>Email:</strong> inquiries.realwheels@gmail.com
+        </a><br />
+        
+    </div>
+    <div class="col-md-4"> 
+     <!--   <img src="~/Images/CarRental/hondaCity_Banner.png"  alt="realwheelsdavao-car-rental-davao" width="350"/>
+      -->
+    </div>
+    <div class="col-md-1">
+
     </div>
 </div>
 

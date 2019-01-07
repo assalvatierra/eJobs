@@ -159,13 +159,13 @@
                 rentalType = 1;
                 break;
         }
+        
 
-
-        console.log("Rental:" + rentalType);
-        console.log("selectedCar:" + carId);
-        console.log("NoDays:" + noDays);
-        console.log("MealsAcc:" + mealsAcc);
-        console.log("Fuel:" + fuel);
+        //console.log("Rental:" + rentalType);
+        //console.log("selectedCar:" + carId);
+        //console.log("NoDays:" + noDays);
+        //console.log("MealsAcc:" + mealsAcc);
+        //console.log("Fuel:" + fuel);
 
         if (rentalType == 1 || rentalType == 3) {
             CarReserve_FormPackages("CarRental",carId, noDays, rentalType, mealsAcc, fuel);
@@ -174,48 +174,14 @@
         }
 
     }
+
     //next popup on formpackages package list
     $(document).ready(function(){
         //initial
         CarReserve_Default(@ViewBag.carid,@ViewBag.days,@ViewBag.meals,@ViewBag.fuelId);
-   
-        console.log("meals: " + mealsSelected);
-        console.log("fuel: " + fuelSelected);
-    });
-
-    // the selector will match all input controls of type :checkbox
-    // and attach a click event handler
-    $("input:checkbox").on('click', function() {
-        // in the handler, 'this' refers to the box clicked on
-        var $box = $(this);
-        if ($box.is(":checked")) {
-            // the name of the box is retrieved using the .attr() method
-            // as it is assumed and expected to be immutable
-            var group = "input:checkbox[name='" + $box.attr("name") + "']";
-            // the checked state of the group/box on the other hand will change
-            // and the current value is retrieved using .prop() method
-            $(group).prop("checked", false);
-            $box.prop("checked", true);
-
-            //console.log($box.attr("name") + ": " + $(this).val() );
-
-            switch($box.attr("name")){
-                case "meals":
-                    mealsSelected = $(this).val();
-                    break;
-                case "fuel":
-                    fuelSelected = $(this).val();
-                    break;
-                default:
-                    break;
-            }
-
-            console.log("meals: " + mealsSelected);
-            console.log("fuel: " + fuelSelected);
-
-        } else {
-            $box.prop("checked", false);
-        }
+        
+        //console.log("meals: " + mealsSelected);
+        //console.log("fuel: " + fuelSelected);
     });
 
 

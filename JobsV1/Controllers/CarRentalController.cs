@@ -301,7 +301,7 @@ namespace JobsV1.Controllers
             CarReservation reservation = new CarReservation();
             reservation.DtTrx       = today;
             reservation.DtStart     = today.AddDays(2).ToString();
-            reservation.DtEnd       = today.AddDays(3).ToString();
+            reservation.DtEnd       = today.AddDays(4).ToString();
             reservation.JobRefNo    = 0;
             reservation.SelfDrive   = 0;  //with driver = 0, self drive = 1;
             reservation.EstHrPerDay = 10;
@@ -322,6 +322,9 @@ namespace JobsV1.Controllers
             ViewBag.fuel = fuel;
             ViewBag.meals = meals;
             ViewBag.pkgId = pkg;
+
+            ViewBag.DtStart = today.AddDays(2);
+            ViewBag.DtEnd = today.AddDays(3);
 
             //except self drive package
             ViewBag.PackagesDesc = db.CarRatePackages.Find(pkg).Description;
@@ -347,19 +350,16 @@ namespace JobsV1.Controllers
                 //apply payment to the job
 
                 //Filter email using url
-
-                //sendMail(jobid ,RenterEmail);
-                //sent email to travel.realbreze@gmail.com
+                
+                //sent email 
                 var adminEmail = "travel.realbreze@gmail.com";
-                //sendMail(carReservation.Id, adminEmail, "ADMIN" ,carReservation.RenterName);
-
-                //adminEmail = "AJDavao88@gmail.com";
+                sendMail(carReservation.Id, adminEmail, "ADMIN" ,carReservation.RenterName);
+                
                 adminEmail = "reservation.realwheels@gmail.com";
                 sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
-
-                //adminEmail = "AJDavao88@gmail.com";
+                
                 adminEmail = "ajdavao88@gmail.com";
-                //sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
+                sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
 
                 //client email
                 sendMail(carReservation.Id, carReservation.RenterEmail, "CLIENT-PENDING", carReservation.RenterName);

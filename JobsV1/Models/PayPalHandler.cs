@@ -26,14 +26,6 @@ namespace JobsV1.Models
             db.SaveChanges();
 
         }
-
-        private DateTime GetDateTimeNow()
-        {
-
-            DateTime today = DateTime.Now;
-            today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Singapore Standard Time");
-
-            return today;
-        }
+        
     }
 }

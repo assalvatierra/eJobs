@@ -53,12 +53,13 @@ function CarReserve_Default(carid, days, meals, fuelId) {
     $('#btn-rentalType').click(function () {
 
         //update reservation text summary
-        updateTransaction();
         rentalReset();
         rentalTypeSelection();
 
         //initial value
         $('#3').attr('checked', true);
+
+        updateTransaction();
 
     });
 
@@ -122,8 +123,8 @@ function CarReserve_Default(carid, days, meals, fuelId) {
 
     //update reservation text details
     function updateTransaction() {
-        var mealPackage = $('#rsv-meal').val() == '1' ? 'Driver Meals/Accomodation Included ' : 'Driver Meals/Accomodation by renter';
-        var fuelPackage = $('#rsv-fuel').val() == '1' ? 'Driver Fuel Included ' : 'Driver Fuel by renter';
+        var mealPackage = $('#rsv-meal-package').is(":checked") ? 'Driver Meals/Accomodation Included ' : 'Driver Meals/Accomodation by renter';
+        var fuelPackage = $('#rsv-fuel-package').is(":checked") ? 'Driver Fuel Included ' : 'Driver Fuel by renter';
 
         //display text on reservation summary
         $('#modal-text-foot').text($('input:radio[name=options]:checked').val() + ' - ' + $('input:radio[name=cars]:checked').val() +
@@ -162,3 +163,43 @@ function CarReserve_Default(carid, days, meals, fuelId) {
     function LoadOverlay(){
         $("#overlay").css("display","flex");
     }
+
+
+    // the selector will match all input controls of type :checkbox
+    // and attach a click event handler
+    $("input:checkbox").on('click', function () {
+        // in the handler, 'this' refers to the box clicked on
+        var $box = $(this);
+
+        if ($box.is(":checked")) {
+            // the name of the box is retrieved using the .attr() method
+            // as it is assumed and expected to be immutable
+
+            var group = "input:checkbox[name='" + $box.attr("name") + "']";
+            // the checked state of the group/box on the other hand will change
+            // and the current value is retrieved using .prop() method
+
+            $(group).prop("checked", false);
+            $box.prop("checked", true);
+
+            //console.log($box.attr("name") + ": " + $(this).val() );
+
+            switch ($box.attr("name")) {
+                case "meals":
+                    mealsSelected = $(this).val();
+                    break;
+                case "fuel":
+                    fuelSelected = $(this).val();
+                    break;
+                default:
+                    break;
+            }
+
+            //console.log("meals: " + mealsSelected);
+            //console.log("fuel: " + fuelSelected);
+        } else {
+            $box.prop("checked", false);
+        }
+
+        updateTransaction();
+    });

@@ -287,10 +287,16 @@ rental-type-wdriver {
     .rsv-call-text{
         color: white;
         width:200px;
+       
     }
     .rsv-call-btn{
         color: white;
-        width:255px;
+        width:270px;
+    }
+
+    .btn-rsv{
+        width:164px;
+
     }
     /**
     * ads description

@@ -1,4 +1,37 @@
 ﻿
+//generate validations on inputs
+$(document).ready(function () {
+    //initial
+    rentDateFilter();
+    checkRenterDetails();
+
+    $("#rnt-startDate").change(function () {
+        rentDateFilter();
+    });
+
+    $("#rnt-endDate").change(function () {
+        rentDateFilter();
+    });
+
+
+    $("#rnt-name").change(function () {
+        checkRenterDetails();
+    });
+
+    $("#rnt-email").change(function () {
+        checkRenterDetails();
+    });
+
+    $("#rnt-mobile").change(function () {
+        checkRenterDetails();
+    });
+
+});
+
+/**
+ * Ajax sample on sending data to server
+ *
+ */
 
 function submitRenter(){
 
@@ -82,34 +115,38 @@ function checkRenterDetails() {
     startdate = $('#rnt-startdate').val();
     enddate = $('#rnt-enddate').val();
     var flag = true;
-
+    /*
     //validate inputs if null or empty
     if (name == '' || name == null || email == '' || email == null || mobile == '' || mobile == null) {
         flag = false;
-        $('#dtls-warning').text("Please enter your Name, Email and Mobile.");
-    }
+        $('#dtls-warning').text("Important fields are empty. Please enter your Name, Email and Mobile.");
 
-    //check if phone input is valid
-    if (validateInputPhone()) {
-    } else {
-        flag = false;
-        $('#dtls-warning').text("Phone number is not valid.");
-    }
-
-    //check if email input is valid
-    if (validateInputEmail()) {
-    } else {
-        flag = false;
-        $('#dtls-warning').text("Email is not valid.");
-    }
-
-
+    }*/
     //validate inputs if null or empty
-    if (name != null && email != null && mobile != null) {
-    } else {
+    if (name == '' || name == null ) {
+        flag = false;
+        $('#dtls-warning').text("Please enter your Name.");
+
+    }
+    //validate inputs if null or empty
+    if (name == '' && email == '' && mobile == '') {
+    
         flag = false;
         $('#dtls-warning').text("Please enter your Name, Email and Mobile.");
 
+    } else {
+
+        //check if phone input is valid
+        if (!validateInputPhone()) {
+            flag = false;
+            $('#dtls-warning').text("Phone number is not valid.");
+        }
+
+        //check if email input is valid
+        if (!validateInputEmail()) {
+            flag = false;
+            $('#dtls-warning').text("Email is not valid.");
+        }
     }
 
     if (flag == true) {
@@ -119,6 +156,8 @@ function checkRenterDetails() {
         $('#submit-btn').addClass('disabled');
         $('#dtls-warning').css('display', 'block');
     }
+
+    return flag;
 
 }
 
@@ -151,8 +190,121 @@ function validateInputPhone() {
     }
 }
 
-
-
 function LoadOverlay() {
     $("#overlay").css("display", "flex");
 }
+
+/**
+* Handles Start Date of Reservation
+* start date must be 2 days from today
+* and end date must be 1 day from start date by default
+*
+*/
+
+function rentDateFilter() {
+    var flag = true;
+    var sdate = Date.parse($('input[name="DtStart"]').val());
+    var edate = Date.parse($('input[name="DtEnd"]').val());
+    var today = new Date();
+    var todayPlus4 = new Date();
+    today.setDate(today.getDate() + 2);
+
+    //reset time
+    var Ssdate = getDateFormat(new Date(sdate));
+    var Sedate = getDateFormat(new Date(edate));
+    var Stoday = getDateFormat(today);
+
+    //hide warning message
+
+    //start date is greater than or equal to today - must always true
+    if (+Date.parse(Ssdate) >= +Date.parse(Stoday)) {
+        flag = true;
+
+        //handles invalid date start and date end
+        if (+Date.parse(Ssdate) <= +Date.parse(Sedate)) {
+            flag = true;
+        } else if (+Date.parse(Sedate) < +Date.parse(Stoday)) {
+            $('input[name="DtEnd"]').val(Stoday);
+            flag = false;
+        } else {
+            //display warning message - invalid date start and date end
+            flag = false;
+        }
+
+        //start date is less than today
+    } else if (+Date.parse(Ssdate) < +Date.parse(Stoday)) {
+        $('input[name="DtStart"]').val(Stoday);
+        flag = false;
+    }
+
+    //check renter details;
+    checkRenterDetails();
+
+    //generate warning message
+    return DateTimeWarning(flag);
+}
+
+//generate warning message, 
+//disable submit button on false
+//enable submit button on true
+function DateTimeWarning(flag) {
+
+    var sdate = Date.parse($('input[name="DtStart"]').val());
+    var edate = Date.parse($('input[name="DtEnd"]').val());
+    var today = new Date();
+    today.setDate(today.getDate() + 2);
+
+    //reset time
+    var Ssdate = getDateFormat(new Date(sdate));
+    var Sedate = getDateFormat(new Date(edate));
+    var Stoday = getDateFormat(today);
+
+    if (flag == true) {
+        //enable submit button
+        $('#submit-btn').removeClass('disabled');
+
+        //console.log(+Ssdate <= +today);
+        //console.log("OK - SDATE: " + Ssdate + " >= TODAY: " + Stoday);
+        //console.log(+Ssdate <= +Sedate);
+        //console.log("OK - Ssdate: " + Ssdate + " <= Sedate: " + Sedate);
+
+        //hide waring message
+        $("#dtls-warning-usage").text("");
+        $('#dtls-warning-usage').css('display', 'none');
+
+    } else {
+        //disable submit button
+        $('#submit-btn').addClass('disabled');
+
+        //console.log(+Ssdate <= +today);
+        //console.log("INVALID - Ssdate: " + Ssdate + " <= Sedate: " + Sedate);
+        //console.log(+Ssdate <= +Sedate);
+        //console.log("INVALID - SDATE: " + Ssdate + " < TODAY: " + Stoday);
+
+        //show waring message
+        $("#dtls-warning-usage").text("Entered Dates are invalid.");
+        $('#dtls-warning-usage').css('display', 'block');
+    }
+
+
+    return flag;
+}
+
+/**
+* Handles Start Date of Reservation
+* start date must be 2 days from today
+* and end date must be 1 day from start date by default
+*
+*/
+
+function getDateFormat(currentDt) {
+
+    var mm = currentDt.getMonth() + 1;
+    var dd = currentDt.getDate();
+    var yyyy = currentDt.getFullYear();
+    var fDate = mm + '/' + dd + '/' + yyyy + " 9:00 AM";
+
+    return fDate;
+}
+
+

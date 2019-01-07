@@ -112,8 +112,15 @@
 
     //next popup on formpackages package list
     $(document).ready(function () {
+        
+        formPackages_default();
+
         formPackages_TransText(@ViewBag.carId,@ViewBag.days,@ViewBag.meals,@ViewBag.fuel,"@ViewBag.RentTypeTxt","@ViewBag.carDesc");
     });
 
+    
+    function formPackages_default() {
+        $('#pkg-' + selectedTour).addClass('active').siblings().removeClass('active');
+    }
 
 </script>

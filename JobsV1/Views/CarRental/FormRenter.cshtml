@@ -11,7 +11,7 @@
         <div class="form-horizontal col-md-12">
             <h3>Usage Details</h3>
             <p>Fields with * are required.</p>
-             <label style="color:orangered" id="dtls-warning-usage"></label>
+             <label style="color:orangered;display:none" id="dtls-warning-usage"></label>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group" style="display:none">
@@ -30,32 +30,32 @@
                 </div>
             </div>
 
-            <div class="form-group"  onchange="startDate()" >
+            <div class="form-group" >
                 <label class="control-label col-md-2"> Start Date* </label>
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.DtStart, new { htmlAttributes = new { @class = "form-control", @id = "rnt-startdate" } })
+                    @Html.EditorFor(model => model.DtStart, new { htmlAttributes = new { @class = "form-control", @id = "rnt-startDate" } })
                     @Html.ValidationMessageFor(model => model.DtStart, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.LocStart, htmlAttributes: new { @class = "control-label col-md-2" })
+                <label class="control-label col-md-2"> Start Location </label>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.LocStart, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.LocStart, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-            <div class="form-group" onchange="startDate()" >
+            <div class="form-group" >
                 <label class="control-label col-md-2"> Date End* </label>
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.DtEnd, new { htmlAttributes = new { @class = "form-control", @id = "rnt-startdate" } })
+                    @Html.EditorFor(model => model.DtEnd, new { htmlAttributes = new { @class = "form-control", @id = "rnt-endDate" } })
                     @Html.ValidationMessageFor(model => model.DtEnd, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.LocEnd, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="form-group" >
+                <label class="control-label col-md-2"> End Location </label>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.LocEnd, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.LocEnd, "", new { @class = "text-danger" })
@@ -87,7 +87,7 @@
             </div>
 
 
-            <div class="form-group" disabled>
+            <div class="form-group" style="display:none">
                 @Html.LabelFor(model => model.EstHrPerDay, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10" disabled="disabled">
                     @Html.EditorFor(model => model.EstHrPerDay, new { htmlAttributes = new { @class = "form-control" , @readonly = "readonly" } })
@@ -95,7 +95,7 @@
                 </div>
             </div>
 
-            <div class="form-group" disabled>
+            <div class="form-group" style="display:none">
                 @Html.LabelFor(model => model.EstKmTravel, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.EstKmTravel, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
@@ -108,13 +108,8 @@
                 <label style="color:orangered;display:none" id="dtls-warning"></label>
             </p>
             <hr />
-            <div class="form-group" onchange="checkRenterDetails()">
-                <label class="control-label col-md-2"> </label>
-                <div class="col-md-10">
-                </div>
-            </div>
 
-            <div class="form-group"  onchange="checkRenterDetails()" >
+            <div class="form-group"   >
                 <label class="control-label col-md-2"> Name* </label>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.RenterName, new { htmlAttributes = new { @class = "form-control" , @id = "rnt-name" } })
@@ -130,7 +125,7 @@
                 </div>
             </div>
 
-            <div class="form-group" onchange="checkRenterDetails()" >
+            <div class="form-group"  >
                 <label class="control-label col-md-2"> Email* </label>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.RenterEmail, new { htmlAttributes = new { @class = "form-control", @id = "rnt-email" } })
@@ -138,7 +133,7 @@
                 </div>
             </div>
 
-            <div class="form-group" onchange="checkRenterDetails()" onemptied="checkRenterDetails()" >
+            <div class="form-group" >
                 <label class="control-label col-md-2"> Mobile* </label>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.RenterMobile, new { htmlAttributes = new { @class = "form-control", @id = "rnt-mobile" } })
@@ -215,75 +210,4 @@
 <script type="text/javascript" src="~/Scripts/jquery-3.3.1.js"></script>
 <script type="text/javascript" src="~/Scripts/Job/FormRenter.js"></script>
 <script type="text/javascript" src="~/Scripts/CarRental/FormRenterValid.js"></script>
-
-<script>
-    
-    /**
-    * Handles Start Date of Reservation
-    * start date must be 2 days from today
-    * and end date must be 1 day from start date by default
-    *
-    */
-
-    function startDate(){
-        var sdate = Date.parse($('input[name="DtStart"]').val());
-        var edate = Date.parse($('input[name="DtEnd"]').val());
-        var today = new Date();
-
-        today.setDate(today.getDate()+2);
-
-        //reset time
-        var Ssdate = getDateFormat(new Date(sdate));
-        var Sedate = getDateFormat(new Date(edate));
-        var Stoday = getDateFormat(today);
-
-        //start date is greater than or equal to today
-        if(Date.parse(Ssdate) >= Date.parse(Stoday))
-        {
-            console.log(Ssdate > Stoday);
-            console.log("OK - SDATE: " + Ssdate + " >= TODAY: " + Stoday);
-            $("#dtls-warning-usage").text("Invald Dates");
-        
-        //start date is less than today
-        }else if(Date.parse(Ssdate) < Date.parse(Stoday)){
-
-            $('input[name="DtStart"]').val(Stoday);
-
-            console.log(Ssdate <= today); //do not accept payment
-            console.log("INVALID - SDATE: " + Ssdate + " < TODAY: " + Stoday);
-            $("#dtls-warning-usage").text("Invald Dates");
-        }
-
-        //handles end date, add 1 day from start date
-        if(Ssdate >= Sedate){
-            var endt = new Date(Ssdate);
-
-            //endt.setDate(endt.getDate()+2);
-             
-            var Edate = getDateFormat(endt);
-
-            $('input[name="DtEnd"]').val(getDateFormat(endt));
-            console.log("INVALID - Ssdate: " + Ssdate + " > Sedate: " + Sedate);
-            $("#dtls-warning-usage").text("Invald Dates");
-        }
-    }
-
-    /**
-    * Handles Start Date of Reservation
-    * start date must be 2 days from today
-    * and end date must be 1 day from start date by default
-    *
-    */
-
-    function getDateFormat(currentDt){
-
-        var mm = currentDt.getMonth() + 1;
-        var dd = currentDt.getDate();
-        var yyyy = currentDt.getFullYear();
-        var fDate = mm + '/' + dd + '/' + yyyy + " 9:00 AM";
-
-        return fDate;
-    }
-
-</script>
 

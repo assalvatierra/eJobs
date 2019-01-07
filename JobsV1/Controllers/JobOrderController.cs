@@ -1423,19 +1423,21 @@ order by x.jobid
 
             string siteRedirect = "https://realwheelsdavao.com/invoice/";
 
-            string clientName  = jobOrder.Description; 
+            string clientName   = jobOrder.Description; 
             string companyEmail = "reservation.realwheels@gmail.com"; //realwheelsemail
             string ajdavaoEmail = "ajdavao88@gmail.com"; //testing
-            string mailResult  = "";
+            string mailResult   = "";
+            string adminEmail   = "travel.realbreze@gmail.com";
 
-            mailResult = mail.SendMailPayment(jobId, ajdavaoEmail, mailType, clientName, siteRedirect);        //reservation gmail
-            //mailResult = mail.SendMailPayment(jobId, companyEmail, mailType, clientName, siteRedirect);               //reservation gmail
+            mailResult = mail.SendMailPaymentAdvice(jobId, ajdavaoEmail, mailType, clientName, siteRedirect);    
+            mailResult = mail.SendMailPaymentAdvice(jobId, companyEmail, mailType, clientName, siteRedirect);           
+            mailResult = mail.SendMailPaymentAdvice(jobId, adminEmail, mailType, clientName, siteRedirect);     
 
             mailResult = mail.SendMailClientInvoice(jobId, jobOrder.CustContactEmail, mailType, clientName, siteRedirect);  //customer email
-            //mailResult = mail.SendMailClientPayment(jobId, jobOrder.Customer.Email, mailType, clientName, siteRedirect);    //booking job customer email
-            return "Email sent Successfully";
-           // return RedirectToAction("Index", new { mainid = jobId });
-           // return RedirectToAction("BookingDetails", "JobOrder" ,new { id = jobOrder.Id , iType = 1});
+            //mailResult = mail.SendMailClientPayment(jobId, jobOrder.Customer.Email, mailType, clientName, siteRedirect);  //booking job customer email
+
+            mailResult = mailResult == "success" ? "Email is sent successfully." : "Our System cannot send the email to the client. Please try again.";
+            return mailResult;
         }
     
         public void SendEmailAdmin(int jobId, string mailType)
@@ -1446,8 +1448,8 @@ order by x.jobid
             string clientName = jobOrder.Description;
             string siteRedirect = "https://realwheelsdavao.com/invoice/";
 
-            mail.SendMailPayment(jobId, "reservation.realwheels@gmail.com", mailType, clientName, siteRedirect);                    //reservation gmail
-            mail.SendMailPayment(jobId, "AJDavao88@gmail.com", mailType, clientName, siteRedirect);      //customer email
+            mail.SendMailPaymentAdvice(jobId, "reservation.realwheels@gmail.com", mailType, clientName, siteRedirect);                    //reservation gmail
+            mail.SendMailPaymentAdvice(jobId, "AJDavao88@gmail.com", mailType, clientName, siteRedirect);      //customer email
         }
 
         #endregion

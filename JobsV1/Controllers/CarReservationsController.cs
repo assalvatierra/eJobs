@@ -74,7 +74,7 @@ namespace JobsV1.Controllers
             cr.RenterAddress = cr.RenterAddress == null ? "N/A" : cr.RenterAddress;
             cr.RenterFbAccnt = cr.RenterFbAccnt == null ? "N/A" : cr.RenterFbAccnt;
             cr.RenterLinkedInAccnt = cr.RenterLinkedInAccnt == null ? "N/A" : cr.RenterLinkedInAccnt;
-
+            ViewBag.rentalType = cr.SelfDrive == 1 ? "With Driver" : "Self Drive";
 
             return View(cr);
         }
