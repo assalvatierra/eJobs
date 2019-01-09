@@ -333,7 +333,7 @@
 
                     console.log(data);
                     console.log(response);
-                    window.location.href = '@Url.Action("SendEmail", "JobOrder", new{ jobId = Model.Id, mailType = "PAYMENT-PENDING" })'
+                    window.location.href = '@Url.Action("onPaymentSuccess", "JobOrder", new{ jobId = Model.Id, mailType = "PAYMENT-PENDING" })'
                 });
             }
         }, '#paypal-button');

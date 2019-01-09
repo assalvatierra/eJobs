@@ -68,7 +68,7 @@ namespace JobsV1.Controllers
             string clientName = jobOrder.Description;
             EMailHandler mail = new EMailHandler();
             string siteRedirect = "https://realwheelsdavao.com/reservation/";
-            /*
+            
             switch (ev.event_type)
             {
                 case "PAYMENT.CAPTURE.COMPLETED":
@@ -79,7 +79,7 @@ namespace JobsV1.Controllers
                     //send mail
                     mail.SendMail(jobId, "reservation.realwheels@gmail.com", "PAYMENT-SUCCESS", clientName, siteRedirect);
                     mail.SendMail(jobId, "ajdavao88@gmail.com", "PAYMENT-SUCCESS", clientName, siteRedirect);
-                    //mail.SendMail(jobId, "travel.realbreze@gmail.com", "PAYMENT-SUCCESS", clientName, siteRedirect);
+                    mail.SendMail(jobId, "travel.realbreeze@gmail.com", "PAYMENT-SUCCESS", clientName, siteRedirect);
 
                     //add to log
                     PPtrans.AddPaypalNotif(paypalID, jobId, paypalEventDate, paypalTransDate, ev.event_type, Totalamount);
@@ -90,7 +90,7 @@ namespace JobsV1.Controllers
                     //send mail
                     mail.SendMail(jobId, "reservation.realwheels@gmail.com", "PAYMENT-DENIED", clientName, siteRedirect);
                     mail.SendMail(jobId, "ajdavao88@gmail.com", "PAYMENT-DENIED", clientName, siteRedirect);
-                    //mail.SendMail(jobId, "travel.realbreze@gmail.com", "PAYMENT-DENIED", clientName, siteRedirect);
+                    mail.SendMail(jobId, "travel.realbreeze@gmail.com", "PAYMENT-DENIED", clientName, siteRedirect);
 
                     //add to log
                     PPtrans.AddPaypalNotif(paypalID, jobId, paypalEventDate, paypalTransDate, ev.event_type, Totalamount);
@@ -102,23 +102,23 @@ namespace JobsV1.Controllers
                     mail.SendMail(jobId, "reservation.realwheels@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
                     mail.SendMail2(jobId, "reservation.realwheels@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect, ev.event_type);
                     mail.SendMail(jobId, "ajdavao88@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
-                    //mail.SendMail(jobId, "travel.realbreze@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
+                    mail.SendMail(jobId, "travel.realbreeze@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
 
                     //add to log
                     PPtrans.AddPaypalNotif(paypalID, jobId, paypalEventDate, paypalTransDate, ev.event_type, Totalamount);
 
                     break;
             }
-            */
+            
 
             //add to log
-            PPtrans.AddPaypalNotif(paypalID, jobId, paypalEventDate, paypalTransDate, ev.event_type, Totalamount);
+            //PPtrans.AddPaypalNotif(paypalID, jobId, paypalEventDate, paypalTransDate, ev.event_type, Totalamount);
 
             //send mail
-            mail.SendMail(jobId, "reservation.realwheels@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
-            mail.SendMail2(jobId, "reservation.realwheels@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect, ev.event_type);
-            mail.SendMail(jobId, "ajdavao88@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
-            //mail.SendMail(jobId, "travel.realbreze@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
+            //mail.SendMail(jobId, "reservation.realwheels@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
+            //mail.SendMail2(jobId, "reservation.realwheels@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect, ev.event_type);
+            //mail.SendMail(jobId, "ajdavao88@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
+            //mail.SendMail(jobId, "travel.realbreeze@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
 
             return new HttpStatusCodeResult(200);
         }

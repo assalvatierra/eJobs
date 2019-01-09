@@ -1,4 +1,4 @@
-﻿
+﻿var captchaflag = false;
 //generate validations on inputs
 $(document).ready(function () {
     //initial
@@ -149,7 +149,7 @@ function checkRenterDetails() {
         }
     }
 
-    if (flag == true) {
+    if (flag == true && captchaflag) {
         $('#submit-btn').removeClass('disabled');
         $('#dtls-warning').css('display', 'none');
     } else {

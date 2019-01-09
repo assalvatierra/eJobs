@@ -1427,7 +1427,7 @@ order by x.jobid
             string companyEmail = "reservation.realwheels@gmail.com"; //realwheelsemail
             string ajdavaoEmail = "ajdavao88@gmail.com"; //testing
             string mailResult   = "";
-            string adminEmail   = "travel.realbreze@gmail.com";
+            string adminEmail   = "travel.realbreeze@gmail.com";
 
             mailResult = mail.SendMailPaymentAdvice(jobId, ajdavaoEmail, mailType, clientName, siteRedirect);    
             mailResult = mail.SendMailPaymentAdvice(jobId, companyEmail, mailType, clientName, siteRedirect);           
@@ -1439,7 +1439,34 @@ order by x.jobid
             mailResult = mailResult == "success" ? "Email is sent successfully." : "Our System cannot send the email to the client. Please try again.";
             return mailResult;
         }
-    
+
+
+
+
+        public void onPaymentSuccess(int jobId, string mailType)
+        {
+            JobMain jobOrder = db.JobMains.Find(jobId);
+            EMailHandler mail = new EMailHandler();
+
+            string siteRedirect = "https://realwheelsdavao.com/invoice/";
+
+            string clientName = jobOrder.Description;
+            string companyEmail = "reservation.realwheels@gmail.com"; //realwheelsemail
+            string ajdavaoEmail = "ajdavao88@gmail.com"; //testing
+            string mailResult = "";
+            string adminEmail = "travel.realbreeze@gmail.com";
+
+            mailResult = mail.SendMailPaymentAdvice(jobId, ajdavaoEmail, mailType, clientName, siteRedirect);
+            mailResult = mail.SendMailPaymentAdvice(jobId, companyEmail, mailType, clientName, siteRedirect);
+            mailResult = mail.SendMailPaymentAdvice(jobId, adminEmail, mailType, clientName, siteRedirect);
+
+            mailResult = mail.SendMailClientPayment(jobId, jobOrder.CustContactEmail, mailType, clientName, siteRedirect);  //customer email
+            //mailResult = mail.SendMailClientPayment(jobId, jobOrder.Customer.Email, mailType, clientName, siteRedirect);  //booking job customer email
+
+            mailResult = mailResult == "success" ? "Email is sent successfully." : "Our System cannot send the email to the client. Please try again.";
+            
+        }
+
         public void SendEmailAdmin(int jobId, string mailType)
         {
             JobMain jobOrder = db.JobMains.Find(jobId);

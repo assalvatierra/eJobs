@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using JobsV1.Models;
+using System.IO;
+using Newtonsoft.Json.Linq;
 
 namespace JobsV1.Controllers
 {
@@ -123,14 +125,12 @@ namespace JobsV1.Controllers
 
                 //sendMail(jobid ,RenterEmail);
                 //sent email to the user
-                var adminEmail = "travel.realbreze@gmail.com";
+                var adminEmail = "travel.realbreeze@gmail.com";
                 sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
-
-                //adminEmail = "AJDavao88@gmail.com";
+                
                 adminEmail = "reservation.realwheels@gmail.com";
                 sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
-
-                //adminEmail = "AJDavao88@gmail.com";
+                
                 adminEmail = "ajdavao88@gmail.com";
                 sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
 
@@ -352,7 +352,7 @@ namespace JobsV1.Controllers
                 //Filter email using url
                 
                 //sent email 
-                var adminEmail = "travel.realbreze@gmail.com";
+                var adminEmail = "travel.realbreeze@gmail.com";
                 sendMail(carReservation.Id, adminEmail, "ADMIN" ,carReservation.RenterName);
                 
                 adminEmail = "reservation.realwheels@gmail.com";
@@ -488,5 +488,29 @@ namespace JobsV1.Controllers
                     return View("~/Views/CarRental/CarViews/ListingAds.cshtml");
             }
         }
+
+
+        public int IsReCaptchValid(string gresponse)
+        {
+            var result = false;
+            var captchaResponse = gresponse;
+            var secretKey = "6LdjKIgUAAAAAFEq3dup7VYSQsUMcpbJcT6tRVgb";
+            var apiUrl = "https://www.google.com/recaptcha/api/siteverify?secret="+ secretKey +"&response="+ gresponse;
+            var requestUri = string.Format(apiUrl, secretKey, captchaResponse);
+            var request = (HttpWebRequest)WebRequest.Create(requestUri);
+
+            using (WebResponse response = request.GetResponse())
+            {
+                using (StreamReader stream = new StreamReader(response.GetResponseStream()))
+                {
+                    JObject jResponse = JObject.Parse(stream.ReadToEnd());
+                    var isSuccess = jResponse.Value<bool>("success");
+                    result = (isSuccess) ? true : false;
+                }
+            }
+            
+            return result == true ? 200 : 500;
+        }
+        
     }
 }

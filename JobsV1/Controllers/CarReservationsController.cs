@@ -212,19 +212,19 @@ namespace JobsV1.Controllers
         public ActionResult CreateQuotation(int? id, int rsvId, string dtStart,string dtEnd,string renter,string details, int rentType, int unit, decimal rate, string renterNum, string renterEmail)
         {
 
-            DateTime today = DateTime.Today;
+            DateTime today = DateTime.Today.AddDays(1);
             today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Singapore Standard Time");
             string unitdesc = db.CarUnits.Find(unit).Description;
             DateTime DtStart = DateTime.Parse(dtStart);
             DateTime DtEnd = DateTime.Parse(dtEnd);
             int days = (int)DtEnd.Subtract(DtStart).TotalDays;
-
+           
             JobMain job = new JobMain();
             job.JobDate = today;
-            job.NoOfDays = days;
+            job.NoOfDays = days == 0 ? 1 : days ;
             job.NoOfPax = 1;
             job.Description = renter + " - " +  details;
-            job.JobRemarks = rentType == 1 ? unitdesc + " - With Driver" : unitdesc + " - Self Drive";
+            job.JobRemarks = rentType == 0 ? unitdesc + " - With Driver" : unitdesc + " - Self Drive";
             job.AgreedAmt = rate;
             job.CustContactEmail = renterEmail;
             job.CustContactNumber = renterNum;
