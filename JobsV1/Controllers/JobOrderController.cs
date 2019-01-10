@@ -1413,9 +1413,7 @@ order by x.jobid
             SMSWebService ws = new SMSWebService();
             ws.AddNotification(id);
         }
-
-
-
+        
         public String SendEmail(int jobId, string mailType)
         {
             JobMain jobOrder = db.JobMains.Find(jobId);
@@ -1429,20 +1427,28 @@ order by x.jobid
             string mailResult   = "";
             string adminEmail   = "travel.realbreeze@gmail.com";
 
-            mailResult = mail.SendMailPaymentAdvice(jobId, ajdavaoEmail, mailType, clientName, siteRedirect);    
-            mailResult = mail.SendMailPaymentAdvice(jobId, companyEmail, mailType, clientName, siteRedirect);           
-            mailResult = mail.SendMailPaymentAdvice(jobId, adminEmail, mailType, clientName, siteRedirect);     
-
-            mailResult = mail.SendMailClientInvoice(jobId, jobOrder.CustContactEmail, mailType, clientName, siteRedirect);  //customer email
+            //admin
+            //mailResult = mail.SendMailInvoiceAdvice(jobId, ajdavaoEmail, mailType, clientName, siteRedirect);    
+            //mailResult = mail.SendMailInvoiceAdvice(jobId, companyEmail, mailType, clientName, siteRedirect);           
+            //mailResult = mail.SendMailInvoiceAdvice(jobId, adminEmail, mailType, clientName, siteRedirect);     
+            
+            //client
+            //mailResult = mail.SendMailClientInvoice(jobId, jobOrder.CustContactEmail, mailType, clientName, siteRedirect);  //customer email
             //mailResult = mail.SendMailClientPayment(jobId, jobOrder.Customer.Email, mailType, clientName, siteRedirect);  //booking job customer email
+            
+            //Send invoice 
+            mailResult = mail.SendMail(jobId, ajdavaoEmail, "ADMIN-INVOICE-SENT", clientName, siteRedirect);
+            mailResult = mail.SendMail(jobId, companyEmail, "ADMIN-INVOICE-SENT", clientName, siteRedirect);
+            mailResult = mail.SendMail(jobId, adminEmail, "ADMIN-INVOICE-SENT", clientName, siteRedirect);
+
+            //client
+            mailResult = mail.SendMail(jobId, jobOrder.CustContactEmail, mailType, clientName, siteRedirect);
+
 
             mailResult = mailResult == "success" ? "Email is sent successfully." : "Our System cannot send the email to the client. Please try again.";
             return mailResult;
         }
-
-
-
-
+        
         public void onPaymentSuccess(int jobId, string mailType)
         {
             JobMain jobOrder = db.JobMains.Find(jobId);
@@ -1456,12 +1462,20 @@ order by x.jobid
             string mailResult = "";
             string adminEmail = "travel.realbreeze@gmail.com";
 
-            mailResult = mail.SendMailPaymentAdvice(jobId, ajdavaoEmail, mailType, clientName, siteRedirect);
-            mailResult = mail.SendMailPaymentAdvice(jobId, companyEmail, mailType, clientName, siteRedirect);
-            mailResult = mail.SendMailPaymentAdvice(jobId, adminEmail, mailType, clientName, siteRedirect);
+            //mailResult = mail.SendMailPaymentAdvice(jobId, ajdavaoEmail, mailType, clientName, siteRedirect);
+            //mailResult = mail.SendMailPaymentAdvice(jobId, companyEmail, mailType, clientName, siteRedirect);
+            //mailResult = mail.SendMailPaymentAdvice(jobId, adminEmail, mailType, clientName, siteRedirect);
 
-            mailResult = mail.SendMailClientPayment(jobId, jobOrder.CustContactEmail, mailType, clientName, siteRedirect);  //customer email
-            //mailResult = mail.SendMailClientPayment(jobId, jobOrder.Customer.Email, mailType, clientName, siteRedirect);  //booking job customer email
+            //mailResult = mail.SendMailClientPayment(jobId, jobOrder.CustContactEmail, mailType, clientName, siteRedirect);  //customer email
+            
+            //Send invoice 
+            mailResult = mail.SendMail(jobId, ajdavaoEmail, "ADMIN-PAYMENT-SUCCESS", clientName, siteRedirect);
+            mailResult = mail.SendMail(jobId, companyEmail, "ADMIN-PAYMENT-SUCCESS", clientName, siteRedirect);
+            mailResult = mail.SendMail(jobId, adminEmail,   "ADMIN-PAYMENT-SUCCESS", clientName, siteRedirect);
+
+            //client
+            mailResult = mail.SendMail(jobId, jobOrder.CustContactEmail, "CLIENT-PAYMENT-SUCCESS", clientName, siteRedirect);
+
 
             mailResult = mailResult == "success" ? "Email is sent successfully." : "Our System cannot send the email to the client. Please try again.";
             

@@ -56,19 +56,19 @@ namespace JobsV1.Controllers
             // var isValid = WebhookEvent.ValidateReceivedEvent(apiContext, ToNameValueCollection(requestheaders), requestBody, webhookId);
 
             DB.addTestNotification((int)jsonBody.resource.custom, paypalID);
-            PPtrans.AddPaypalNotif(paypalID, 17508, paypalEventDate, paypalTransDate, ev.event_type, Totalamount);
+           
+            int jobId =  (int)jsonBody.resource.custom ; // bookingid , 
 
-            int jobId = 17508;
-           // jobId = jsonBody.resource.custom != null ? (int)jsonBody.resource.custom : 17508; // bookingid , 
+            PPtrans.AddPaypalNotif(paypalID, jobId, paypalEventDate, paypalTransDate, ev.event_type, Totalamount);
 
-            jobId = (int)jsonBody.resource.invoice_number;
+            //jobId = (int)jsonBody.resource.invoice_number;
             // DB.addTestNotification(jobId, paypalID);
             //get job description
             JobMain jobOrder = db.JobMains.Find(jobId);
             string clientName = jobOrder.Description;
             EMailHandler mail = new EMailHandler();
             string siteRedirect = "https://realwheelsdavao.com/reservation/";
-            
+            /*
             switch (ev.event_type)
             {
                 case "PAYMENT.CAPTURE.COMPLETED":
@@ -78,8 +78,8 @@ namespace JobsV1.Controllers
 
                     //send mail
                     mail.SendMail(jobId, "reservation.realwheels@gmail.com", "PAYMENT-SUCCESS", clientName, siteRedirect);
-                    mail.SendMail(jobId, "ajdavao88@gmail.com", "PAYMENT-SUCCESS", clientName, siteRedirect);
-                    mail.SendMail(jobId, "travel.realbreeze@gmail.com", "PAYMENT-SUCCESS", clientName, siteRedirect);
+                    //mail.SendMail(jobId, "ajdavao88@gmail.com", "PAYMENT-SUCCESS", clientName, siteRedirect);
+                    //mail.SendMail(jobId, "travel.realbreeze@gmail.com", "PAYMENT-SUCCESS", clientName, siteRedirect);
 
                     //add to log
                     PPtrans.AddPaypalNotif(paypalID, jobId, paypalEventDate, paypalTransDate, ev.event_type, Totalamount);
@@ -89,8 +89,8 @@ namespace JobsV1.Controllers
 
                     //send mail
                     mail.SendMail(jobId, "reservation.realwheels@gmail.com", "PAYMENT-DENIED", clientName, siteRedirect);
-                    mail.SendMail(jobId, "ajdavao88@gmail.com", "PAYMENT-DENIED", clientName, siteRedirect);
-                    mail.SendMail(jobId, "travel.realbreeze@gmail.com", "PAYMENT-DENIED", clientName, siteRedirect);
+                    //mail.SendMail(jobId, "ajdavao88@gmail.com", "PAYMENT-DENIED", clientName, siteRedirect);
+                    //mail.SendMail(jobId, "travel.realbreeze@gmail.com", "PAYMENT-DENIED", clientName, siteRedirect);
 
                     //add to log
                     PPtrans.AddPaypalNotif(paypalID, jobId, paypalEventDate, paypalTransDate, ev.event_type, Totalamount);
@@ -100,22 +100,23 @@ namespace JobsV1.Controllers
                 default: // Handle payment denied
                     //send mail
                     mail.SendMail(jobId, "reservation.realwheels@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
-                    mail.SendMail2(jobId, "reservation.realwheels@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect, ev.event_type);
-                    mail.SendMail(jobId, "ajdavao88@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
-                    mail.SendMail(jobId, "travel.realbreeze@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
+                    //mail.SendMail2(jobId, "reservation.realwheels@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect, ev.event_type);
+                    //mail.SendMail(jobId, "ajdavao88@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
+                    //mail.SendMail(jobId, "travel.realbreeze@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
 
                     //add to log
                     PPtrans.AddPaypalNotif(paypalID, jobId, paypalEventDate, paypalTransDate, ev.event_type, Totalamount);
 
                     break;
             }
-            
+            */
 
+            //AddPaymentRecord(jobId, Totalamount);
             //add to log
             //PPtrans.AddPaypalNotif(paypalID, jobId, paypalEventDate, paypalTransDate, ev.event_type, Totalamount);
 
             //send mail
-            //mail.SendMail(jobId, "reservation.realwheels@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
+            mail.SendMail(jobId, "reservation.realwheels@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
             //mail.SendMail2(jobId, "reservation.realwheels@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect, ev.event_type);
             //mail.SendMail(jobId, "ajdavao88@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
             //mail.SendMail(jobId, "travel.realbreeze@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
@@ -141,11 +142,12 @@ namespace JobsV1.Controllers
             {
                 // ConfigManager.Instance.GetProperties(); // it doesn't work on ASPNET 5 
                 // live
+                /*
                 return new Dictionary<string, string>() {
                     { "clientId", "AaJyjdobN1jDP6GTLx5Evqz9l3k98qgzIqheT19-KUoY-WhnUjX1ipkp0f_qordwsM7ZbZXlEDVWutjz" },
                     { "clientSecret", "EK78AMCMsuDbbrEqy0q1pQmeLmgv8keR4KcHzQJj0tbuYXj7gustAOFnyJNI2VPrRPOeoVgeS7PoOgOx" }
                 };
-                
+                */
 
                 /* sandbox
                 return new Dictionary<string, string>() {
@@ -156,12 +158,12 @@ namespace JobsV1.Controllers
 
                 // jahdiel test paypal
                 //NVP SOAP - sandbox
-                /*
+               
                 return new Dictionary<string, string>() {
-                    { "clientId",     "AZ81b5Xsyxw7nv1zIaNcDaeUH0C3xOsPLWxQ3gS37nPV6JAo6xIJTKY5-y88uNoCE6skg63BfFbfhErp" },
-                    { "clientSecret", "EE4Ztvixpk14XJCZsG14QlaUlvfvRPnQ16gl4Y0sj2BJyBfPS8p6jImM_mVGauciBjfm5Tt7V5dXbR2K" }
+                    { "clientId",     "AeKvfmAZjDaTJ4bH4PFGurLMvFZOl9OeHaK6xUlSCB0Ny8RU2WEeijZLTeRGvz0GjQXrX1SuaYvf53-H" },
+                    { "clientSecret", "EASK4ghccZuqU3VDsEwA9WzEbNWqqtWPJQWXkd1UAcKflTQ1CX1dAvj2ZyKcE_nILs2ewK0rQkJ85hAX" }
                 };
-                */
+                
             }
 
             // Create accessToken
@@ -200,7 +202,7 @@ namespace JobsV1.Controllers
 
             string remarks = "PayPal Payment";
             JobPayment jobPayment = new JobPayment();
-            jobPayment.BankId = 2;                      //personal guarantee, need to add (5) paypal
+            jobPayment.BankId = 5;                      //personal guarantee, need to add (5) paypal
             jobPayment.DtPayment = today;
             jobPayment.JobMainId = (int)JobMainId;
             jobPayment.PaymentAmt = amount;

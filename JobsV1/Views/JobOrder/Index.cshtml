@@ -247,8 +247,17 @@
                     scrollTop: $("#main@(ViewBag.mainId)").offset().top - 50
                 }, 500);
             }
-
         });
+
+        
+        function LoadOverlay(){
+            $("#overlay2").css("display","flex");
+        }
+
+        
+        function disableLoadOverlay(){
+            $("#overlay2").css("display","none");
+        }
 
         switch(@(Session["FilterID"] != null? (int)Session["FilterID"]: 1 )){
             case 1:
@@ -283,10 +292,15 @@
         function ajaxSendMail(jobid) {
             var data = {
                 jobId: jobid,
-                mailType: "CLIENT"
+                mailType: "CLIENT-INVOICE-SEND"
             }
+
             var serviceURL = '/JobOrder/SendEmail';
 
+            //loading screen
+            LoadOverlay()
+
+            //send email using ajax
             $.ajax({
                 type: "POST",
                 url: serviceURL,
@@ -295,18 +309,12 @@
                 dataType: "json",
                 success: function(){
                     console.log('success');
+                    disableLoadOverlay();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    //console.log('An error occurred... Look at the console (F12 or Ctrl+Shift+I, Console tab) for more information!');
 
-                    //$('#result').html('<p>status code: '+jqXHR.status+'</p><p>errorThrown: ' + errorThrown + '</p><p>jqXHR.responseText:</p><div>'+jqXHR.responseText + '</div>');
-                    //console.log('jqXHR:');
-                    //console.log(jqXHR);
-                    //console.log('textStatus:');
-                    //console.log(textStatus);
-                    //console.log('errorThrown:');
-                    //console.log(errorThrown);
                     alert(jqXHR.responseText);
+                    disableLoadOverlay();
                 }
             });
         }

@@ -427,6 +427,26 @@ rental-type-wdriver {
     /**
     *  care reservation loading overlay
     **/
+    
+    #overlay2 {
+        position: fixed;
+        width: 100%;
+        height:100%;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.5);
+        top: 0;
+        z-index:200;
+        margin-left:0px;
+        display:none;
+    }
+    
+    .overlay-msg2 {
+        display: flex;
+        margin: 0 auto;
+        margin-top:80px;
+        margin-left:auto;
+    }
+
     #overlay {
         position: fixed;
         width: 100%;
@@ -443,7 +463,7 @@ rental-type-wdriver {
         display: flex;
         margin: 0 auto;
         margin-top:160px;
-        margin-left:640px;
+        margin-left:auto;
     }
 
     .spinner {

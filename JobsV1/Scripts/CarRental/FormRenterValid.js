@@ -115,13 +115,15 @@ function checkRenterDetails() {
     startdate = $('#rnt-startdate').val();
     enddate = $('#rnt-enddate').val();
     var flag = true;
-    /*
-    //validate inputs if null or empty
-    if (name == '' || name == null || email == '' || email == null || mobile == '' || mobile == null) {
-        flag = false;
-        $('#dtls-warning').text("Important fields are empty. Please enter your Name, Email and Mobile.");
 
-    }*/
+
+    //check if captcha input is valid
+    if (!captchaflag) {
+        $('#submit-btn').removeClass('disabled');
+        $('#dtls-warning').text("Please check the Captcha form.");
+    }
+
+
     //validate inputs if null or empty
     if (name == '' || name == null ) {
         flag = false;
@@ -151,6 +153,8 @@ function checkRenterDetails() {
 
     if (flag == true && captchaflag) {
         $('#submit-btn').removeClass('disabled');
+        $('#submit-btn').removeClass('btn-default');
+        $('#submit-btn').addClass('btn-primary');
         $('#dtls-warning').css('display', 'none');
     } else {
         $('#submit-btn').addClass('disabled');

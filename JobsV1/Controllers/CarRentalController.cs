@@ -346,9 +346,7 @@ namespace JobsV1.Controllers
                 
                 //add reservation package
                 addCarResPackage(carReservation.Id, packageid, mealAcc, fuel);
-
-                //apply payment to the job
-
+                
                 //Filter email using url
                 
                 //sent email 
@@ -395,13 +393,13 @@ namespace JobsV1.Controllers
             var carUnitView = db.CarViewPages.Where(s => s.CarUnitId == unitid).FirstOrDefault();
             return View(carUnitView.Viewname, db.CarUnits.Where(d => d.Id == unitid).FirstOrDefault());
         }
-        
+          
         public ActionResult ReservationRequest()
         {
             return View();
         }
 
-       
+         
         public void addCarResPackage(int CarReservationId, int packageid, int mealsAcc, int fuel)
         {
             CarResPackage packages = new CarResPackage();
