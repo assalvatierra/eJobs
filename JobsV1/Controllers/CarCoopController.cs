@@ -122,7 +122,9 @@ namespace JobsV1.Controllers
 
                 //sent email to POTTMPC@yahoo.com
                 var adminEmail = "Reservation.realwheels@gmail.com";
-                //var adminEmail = "POTTMPC@yahoo.com";
+                sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
+
+                adminEmail = "POTTMPC@yahoo.com";
                 sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
 
                 //client email
@@ -337,15 +339,16 @@ namespace JobsV1.Controllers
 
                 //add reservation package
                 addCarResPackage(carReservation.Id, packageid, mealAcc, fuel);
-                    //apply payment to the job
+                
+                //sent email to POTTMPC@yahoo.com
+                var adminEmail = "Reservation.realwheels@gmail.com";
+                sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
 
-                    //sent email to POTTMPC@yahoo.com
-                    var adminEmail = "Reservation.realwheels@gmail.com";
-                    //var adminEmail = "POTTMPC@yahoo.com";
-                    sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
-                    
-                    //client email
-                    sendMail(carReservation.Id, carReservation.RenterEmail, "CLIENT-PENDING", carReservation.RenterName);
+                adminEmail = "POTTMPC@yahoo.com";
+                sendMail(carReservation.Id, adminEmail, "ADMIN", carReservation.RenterName);
+
+                //client email
+                sendMail(carReservation.Id, carReservation.RenterEmail, "CLIENT-PENDING", carReservation.RenterName);
                 
                 return RedirectToAction("FormThankYou", new { rsvId = carReservation.Id });
             }
@@ -402,12 +405,10 @@ namespace JobsV1.Controllers
         {
             EMailHandler mail = new EMailHandler();
 
-            string siteRedirect = "http://palawantransportcoop.com";
+            string siteRedirect = "http://palawantransportcoop.com/reservation/";
             return mail.SendMail(jobId, renterEmail, mailType, recipientName, siteRedirect);
         }
-
-
-
+        
         public ActionResult CarView(string carDesc)
         {
             switch (carDesc)

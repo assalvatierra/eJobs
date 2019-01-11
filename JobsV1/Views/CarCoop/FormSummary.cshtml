@@ -84,6 +84,8 @@
         var fuel = @ViewBag.fuel;
         var pkgId = @ViewBag.pkg;
 
+        //loading screen
+        LoadOverlay();
         FormSummary_Next("CarCoop",carId, noDays, rentalType, mealsAcc, fuel, pkgId);
 
     }
@@ -94,7 +96,11 @@
         var noDays = @ViewBag.days;
         var mealsAcc = @ViewBag.meals;
         var fuel = @ViewBag.fuel;
-        FormSummary_Prev("Carcoop",carId, noDays, rentalType, mealsAcc, fuel);
+
+        //loading screen
+        LoadOverlay();
+
+        FormSummary_Prev("CarCoop",carId, noDays, rentalType, mealsAcc, fuel);
 
     }
 

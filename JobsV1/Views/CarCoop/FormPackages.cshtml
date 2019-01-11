@@ -83,11 +83,15 @@
 
 <script>
     function FormPackages_NextForm() {
+
         var rentalType = @ViewBag.rentType;
         var carId = @ViewBag.carId;
         var noDays = @ViewBag.days;
         var mealsAcc = @ViewBag.meals;
         var fuel = @ViewBag.fuel;
+
+        //loading screen
+        LoadOverlay();
 
         FormPackages_Next("CarCoop",carId, noDays, rentalType, mealsAcc, fuel, selectedTour);
 
@@ -100,13 +104,23 @@
         var mealsAcc = @ViewBag.meals;
         var fuel = @ViewBag.fuel;
 
+        //loading screen
+        LoadOverlay();
+
         FormPackages_Prev("CarCoop",carId, noDays, rentalType, mealsAcc, fuel, selectedTour);
     }
 
     //next popup on formpackages package list
     $(document).ready(function () {
+
+        formPackages_default();
+
         formPackages_TransText(@ViewBag.carId,@ViewBag.days,@ViewBag.meals,@ViewBag.fuel,"@ViewBag.RentTypeTxt","@ViewBag.carDesc");
     });
 
+
+    function formPackages_default() {
+        $('#pkg-' + selectedTour).addClass('active').siblings().removeClass('active');
+    }
 
 </script>

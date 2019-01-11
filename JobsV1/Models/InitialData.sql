@@ -136,6 +136,7 @@ Values
 
 insert into InvItems ([ItemCode],[Description],[Remarks],[ContactInfo],[ViewLabel],[OrderNo] )
 values
+('NA','Unassigned','','','',10),
 ('RNY301','Toyota Innova','M/T 2.5 Diesel 2013 Brown','','UNIT',100),
 ('AAF8980','Toyota Innova','M/T 2.5 Diesel 2013 Silver','','UNIT',100),
 ('NEO380','Toyota Fortuner','A/T 3.0 Diesel 2009 Gold','','UNIT',100),
