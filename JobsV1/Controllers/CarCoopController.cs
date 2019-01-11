@@ -190,7 +190,7 @@ namespace JobsV1.Controllers
             ViewBag.Fuel = new SelectList(Fuel, "Value", "Text", fuel);
             ViewBag.CarUnitList = db.CarUnits.ToList().OrderBy(s => s.SortOrder);
 
-            ViewBag.carid = id;
+            ViewBag.carid = (int)id == 0 ? 1 : id;
             ViewBag.days = days == null ? 1 : days;
             ViewBag.fuelId = fuel == null ? 1 : fuel;
             ViewBag.meals = meals == null ? 1 : meals;

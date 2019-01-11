@@ -240,11 +240,11 @@
 <script>
 
     var today = new Date().toLocaleString();
-    
+
     //if("ViewBag.isPaymentValid" == "True" ) {
        // alert("Notice, online payment has been disable. For Payment transactions, please call (+63)9330895358  or (+63)9167558473");
        //}else{
-      
+
         var count = 0;
         paypal.Button.render({
             // Configure environment
@@ -269,10 +269,10 @@
                 return actions.payment.create({
                     transactions: [{
                         amount: {
-                            total: '@dQuotedAmt.ToString("##,###.00")',
+                            total: '@dQuotedAmt.ToString("##,###.00")', //'dQuotedAmt.ToString("##,###.00")'
                             currency: 'PHP',
                             details: {
-                                subtotal: '@dQuotedAmt.ToString("##,###.00")',
+                                subtotal: '@dQuotedAmt.ToString("##,###.00")', //
                                 tax: '0.00'
                                 //shipping: '0.01',
                                 //handling_fee: '1.00',
@@ -316,7 +316,6 @@
                                             currency: 'PHP'
                                         }
                                         </text>
-
                                     }
                                 }
                             ]
@@ -329,14 +328,77 @@
                 return actions.payment.execute()
                 .then(function (response) {
                     // Show a confirmation message to the buyer
-                    window.alert('Thank you for payment! '  );
-
                     console.log(data);
                     console.log(response);
-                    window.location.href = '@Url.Action("onPaymentSuccess", "JobOrder", new{ jobId = Model.Id, mailType = "PAYMENT-PENDING" })'
+                    ajaxSendMail(@Model.Id);
+                    //window.location.href = 'Url.Action("onPaymentSuccess", "JobOrder", new{ jobId = Model.Id, mailType = "PAYMENT-PENDING" })'
                 });
             }
         }, '#paypal-button');
-    
-      
+
+
+
+
+    function ajaxSendMail(jobid) {
+        var data = {
+            jobId: jobid,
+            mailType: "CLIENT-PAYMENT-SUCCESS"
+        }
+
+        var serviceURL = '/JobOrder/onPaymentSuccess';
+
+        //loading screen
+        LoadOverlay()
+
+        //send email using ajax
+        $.ajax({
+            type: "POST",
+            url: serviceURL,
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(){
+                console.log('success');
+                disableLoadOverlay();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+
+                console.log(jqXHR.responseText);
+                disableLoadOverlay();
+            }
+        });
+    }
+
+    function LoadOverlay(){
+        $("#overlay2").css("display","flex");
+    }
+
+    function disableLoadOverlay(){
+
+        window.alert('Thank you for payment! Please check your email for the confirmation.'  );
+
+        $("#overlay2").css("display","none");
+    }
+
+    function getPaypalFee(){
+        var Amount = @dQuotedAmt;
+
+        var fee  = Amount * 0.05;
+
+        console.log("Paypal fee: " + fee);
+
+        return fee;
+    }
+
+
+    function getcalcAddOn(){
+        var Amount = @dQuotedAmt;
+
+        var total = Amount + getPaypalFee();
+
+        console.log("total: " + total );
+        return total;
+    }
+
+    getcalcAddOn();
 </script>

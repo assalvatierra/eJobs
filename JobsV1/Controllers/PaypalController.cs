@@ -55,16 +55,17 @@ namespace JobsV1.Controllers
             // Note: at least on Sandbox environment this returns false.
             // var isValid = WebhookEvent.ValidateReceivedEvent(apiContext, ToNameValueCollection(requestheaders), requestBody, webhookId);
 
-            DB.addTestNotification((int)jsonBody.resource.custom, paypalID);
+            DB.addTestNotification(1, "1");
            
-            int jobId =  (int)jsonBody.resource.custom ; // bookingid , 
+            //int jobId =  (int)jsonBody.resource.custom ; // bookingid , 
+            PPtrans.AddPaypalNotif("1", 1, paypalEventDate, paypalTransDate, ev.event_type, Totalamount);
 
-            PPtrans.AddPaypalNotif(paypalID, jobId, paypalEventDate, paypalTransDate, ev.event_type, Totalamount);
+            //PPtrans.AddPaypalNotif(paypalID, jobId, paypalEventDate, paypalTransDate, ev.event_type, Totalamount);
 
             //jobId = (int)jsonBody.resource.invoice_number;
             // DB.addTestNotification(jobId, paypalID);
             //get job description
-            JobMain jobOrder = db.JobMains.Find(jobId);
+            JobMain jobOrder = db.JobMains.Find(1);
             string clientName = jobOrder.Description;
             EMailHandler mail = new EMailHandler();
             string siteRedirect = "https://realwheelsdavao.com/reservation/";
@@ -116,7 +117,7 @@ namespace JobsV1.Controllers
             //PPtrans.AddPaypalNotif(paypalID, jobId, paypalEventDate, paypalTransDate, ev.event_type, Totalamount);
 
             //send mail
-            mail.SendMail(jobId, "reservation.realwheels@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
+            mail.SendMail(1, "reservation.realwheels@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
             //mail.SendMail2(jobId, "reservation.realwheels@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect, ev.event_type);
             //mail.SendMail(jobId, "ajdavao88@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
             //mail.SendMail(jobId, "travel.realbreeze@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
@@ -154,11 +155,11 @@ namespace JobsV1.Controllers
                     { "clientId", "AUvsEZNhW0bZQSYuzVDgNxePk5lrSEAoF4rQQHXLIByzeBd6N4-vjtLWGviKaFeVMu9U-GD_99nwCz29" },
                     { "clientSecret", "EO7kEQ47mhxybEJkYr9H4tShohBvpw-Xf1PIEOOmeiz10wfomjX4udWw6j7IPSDtH-6ec28ok0cNGrG6" }
                 };
+                
                 */
-
                 // jahdiel test paypal
-                //NVP SOAP - sandbox
-               
+                // sandbox
+
                 return new Dictionary<string, string>() {
                     { "clientId",     "AeKvfmAZjDaTJ4bH4PFGurLMvFZOl9OeHaK6xUlSCB0Ny8RU2WEeijZLTeRGvz0GjQXrX1SuaYvf53-H" },
                     { "clientSecret", "EASK4ghccZuqU3VDsEwA9WzEbNWqqtWPJQWXkd1UAcKflTQ1CX1dAvj2ZyKcE_nILs2ewK0rQkJ85hAX" }
