@@ -143,12 +143,12 @@ namespace JobsV1.Controllers
             {
                 // ConfigManager.Instance.GetProperties(); // it doesn't work on ASPNET 5 
                 // live
-                /*
+                /**/
                 return new Dictionary<string, string>() {
                     { "clientId", "AaJyjdobN1jDP6GTLx5Evqz9l3k98qgzIqheT19-KUoY-WhnUjX1ipkp0f_qordwsM7ZbZXlEDVWutjz" },
                     { "clientSecret", "EK78AMCMsuDbbrEqy0q1pQmeLmgv8keR4KcHzQJj0tbuYXj7gustAOFnyJNI2VPrRPOeoVgeS7PoOgOx" }
                 };
-                */
+                
 
                 /* sandbox
                 return new Dictionary<string, string>() {
@@ -156,7 +156,7 @@ namespace JobsV1.Controllers
                     { "clientSecret", "EO7kEQ47mhxybEJkYr9H4tShohBvpw-Xf1PIEOOmeiz10wfomjX4udWw6j7IPSDtH-6ec28ok0cNGrG6" }
                 };
                 
-                */
+              
                 // jahdiel test paypal
                 // sandbox
 
@@ -164,7 +164,7 @@ namespace JobsV1.Controllers
                     { "clientId",     "AeKvfmAZjDaTJ4bH4PFGurLMvFZOl9OeHaK6xUlSCB0Ny8RU2WEeijZLTeRGvz0GjQXrX1SuaYvf53-H" },
                     { "clientSecret", "EASK4ghccZuqU3VDsEwA9WzEbNWqqtWPJQWXkd1UAcKflTQ1CX1dAvj2ZyKcE_nILs2ewK0rQkJ85hAX" }
                 };
-                
+                  */
             }
 
             // Create accessToken
