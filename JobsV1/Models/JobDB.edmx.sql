@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/19/2018 14:32:01
+-- Date Created: 01/14/2019 11:01:28
 -- Generated from EDMX file: C:\Users\VILLOSA\Documents\GithubClassic\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
@@ -474,6 +474,9 @@ IF OBJECT_ID(N'[dbo].[CoopMemberItems]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[PaypalTransactions]', 'U') IS NOT NULL
     DROP TABLE [dbo].[PaypalTransactions];
+GO
+IF OBJECT_ID(N'[dbo].[PaypalAccounts]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[PaypalAccounts];
 GO
 
 -- --------------------------------------------------
@@ -1273,13 +1276,22 @@ GO
 -- Creating table 'PaypalTransactions'
 CREATE TABLE [dbo].[PaypalTransactions] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [TrxId] nvarchar(20)  NOT NULL,
+    [TrxId] nvarchar(50)  NOT NULL,
     [JobId] int  NOT NULL,
     [TrxDate] datetime  NOT NULL,
     [DatePosted] datetime  NOT NULL,
-    [Status] nvarchar(20)  NOT NULL,
+    [Status] nvarchar(30)  NOT NULL,
     [Remarks] nvarchar(80)  NULL,
     [Amount] decimal(18,0)  NOT NULL
+);
+GO
+
+-- Creating table 'PaypalAccounts'
+CREATE TABLE [dbo].[PaypalAccounts] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [SysCode] nvarchar(50)  NOT NULL,
+    [Key] nvarchar(100)  NOT NULL,
+    [Secret] nvarchar(100)  NOT NULL
 );
 GO
 
@@ -1734,6 +1746,12 @@ GO
 -- Creating primary key on [Id] in table 'PaypalTransactions'
 ALTER TABLE [dbo].[PaypalTransactions]
 ADD CONSTRAINT [PK_PaypalTransactions]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'PaypalAccounts'
+ALTER TABLE [dbo].[PaypalAccounts]
+ADD CONSTRAINT [PK_PaypalAccounts]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 

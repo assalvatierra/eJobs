@@ -154,3 +154,11 @@ values
 -- ----------------------------------------------
 insert into SupplierPoStatus ([Status],[OrderNo]) values ('REQUEST',1),('APPROVED',2),('CANCELLED',2),('CONFIRMED',3),('DELIVERED',4),('CLOSE',5);
 
+
+
+-- ----------------------------------------------
+-- Paypal Accounts
+-- ----------------------------------------------
+insert into PaypalAccounts ([SysCode],[Key],[Secret])
+values
+('Realwheels', 'ASTv_oxNk66nZW4tVTbt78dtocU-70VVoDDmgtdMSzv1Aqmw8QK6lJ01vzn6lO6jPio3DbfbT_6G6F6b' , 'EAYtPcgQYKu5UfA4WV5lzE_iPj1WFiGnPC_8XvSgYrjoISJEnZAezmdcofe5oRyJZzPToJO6QUMlgmS2');

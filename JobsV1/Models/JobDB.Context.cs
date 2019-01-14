@@ -100,5 +100,6 @@ namespace JobsV1.Models
         public virtual DbSet<CoopMember> CoopMembers { get; set; }
         public virtual DbSet<CoopMemberItem> CoopMemberItems { get; set; }
         public virtual DbSet<PaypalTransaction> PaypalTransactions { get; set; }
+        public virtual DbSet<PaypalAccount> PaypalAccounts { get; set; }
     }
 }

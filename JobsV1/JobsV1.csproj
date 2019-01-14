@@ -492,6 +492,9 @@
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\PaypalAccount.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PayPalHandler.cs" />
     <Compile Include="Models\PaypalTransaction.cs">
       <DependentUpon>JobDB.tt</DependentUpon>

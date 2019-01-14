@@ -145,8 +145,8 @@ namespace JobsV1.Controllers
                 // live
                 /**/
                 return new Dictionary<string, string>() {
-                    { "clientId", "AaJyjdobN1jDP6GTLx5Evqz9l3k98qgzIqheT19-KUoY-WhnUjX1ipkp0f_qordwsM7ZbZXlEDVWutjz" },
-                    { "clientSecret", "EK78AMCMsuDbbrEqy0q1pQmeLmgv8keR4KcHzQJj0tbuYXj7gustAOFnyJNI2VPrRPOeoVgeS7PoOgOx" }
+                    { "clientId", "AVoJltP7TidcyKYb7qNwmX2S1xyd-3eFClTQOcA77WGTBky_IJtgccVAA-6C8D8EGGM3-DzjUye1jKzQ" },
+                    { "clientSecret", "EI_D_W8aJRWqEg5jC6bzygsi8X44lxvfd1pwGazPp62UhbGRO65OudfsIGhXxzzcsyllIjt69gXuNi7f" }
                 };
                 
 

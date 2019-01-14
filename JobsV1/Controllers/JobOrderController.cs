@@ -1273,6 +1273,11 @@ order by x.jobid
             ViewBag.ReservationType = "Rental";
             ViewBag.Amount = 1000;
 
+            //get paypal keys at db
+            //PaypalAccount paypal = db.PaypalAccounts.Where(p => p.SysCode.Equals("RealWheels")).FirstOrDefault();
+            //ViewBag.key = paypal.Key;
+            //ViewBag.secret = paypal.secret;
+              
             DateTime today = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time"));
             today = today.Date;
 
@@ -1852,9 +1857,9 @@ order by x.jobid
             //mailResult = mail.SendMailClientPayment(jobId, jobOrder.CustContactEmail, mailType, clientName, siteRedirect);  //customer email
 
             //Send invoice 
-            //mailResult = mail.SendMail(jobId, ajdavaoEmail, "ADMIN-PAYMENT-SUCCESS", clientName, siteRedirect);
+            mailResult = mail.SendMail(jobId, ajdavaoEmail, "ADMIN-PAYMENT-SUCCESS", clientName, siteRedirect);
             mailResult = mail.SendMail(jobId, companyEmail, "ADMIN-PAYMENT-SUCCESS", clientName, siteRedirect);
-            //mailResult = mail.SendMail(jobId, adminEmail, "ADMIN-PAYMENT-SUCCESS", clientName, siteRedirect);
+            mailResult = mail.SendMail(jobId, adminEmail, "ADMIN-PAYMENT-SUCCESS", clientName, siteRedirect);
 
             //client
             mailResult = mail.SendMail(jobId, jobOrder.CustContactEmail, "CLIENT-PAYMENT-SUCCESS", clientName, siteRedirect);
