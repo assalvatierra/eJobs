@@ -379,6 +379,18 @@
       <End Role="InvItem" EntitySet="InvItems" />
       <End Role="CoopMemberItem" EntitySet="CoopMemberItems" />
     </AssociationSet>
+    <EntitySet Name="PaypalTransactions" EntityType="JobDB.PaypalTransaction" />
+    <EntitySet Name="PaypalAccounts" EntityType="JobDB.PaypalAccount" />
+    <EntitySet Name="RateGroups" EntityType="JobDB.RateGroup" />
+    <EntitySet Name="CarRateGroups" EntityType="JobDB.CarRateGroup" />
+    <AssociationSet Name="RateGroupCarRateGroup" Association="JobDB.RateGroupCarRateGroup">
+      <End Role="RateGroup" EntitySet="RateGroups" />
+      <End Role="CarRateGroup" EntitySet="CarRateGroups" />
+    </AssociationSet>
+    <AssociationSet Name="CarRatePackageCarRateGroup" Association="JobDB.CarRatePackageCarRateGroup">
+      <End Role="CarRatePackage" EntitySet="CarRatePackages" />
+      <End Role="CarRateGroup" EntitySet="CarRateGroups" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="JobMain">
     <Key>
@@ -907,6 +919,7 @@
     <Property Name="SelfDrive" Type="Int32" Nullable="true" />
     <NavigationProperty Name="CarRateUnitPackages" Relationship="JobDB.CarUnitCarRateUnitPackage" FromRole="CarUnit" ToRole="CarRateUnitPackage" />
     <NavigationProperty Name="CarUnitMetas" Relationship="JobDB.CarUnitCarUnitMeta" FromRole="CarUnit" ToRole="CarUnitMeta" />
+    <Property Name="SortOrder" Type="Int32" Nullable="true" />
   </EntityType>
   <Association Name="CarCategoryCarUnit">
     <End Type="JobDB.CarCategory" Role="CarCategory" Multiplicity="1" />
@@ -2085,6 +2098,7 @@
     <Property Name="DailyRoom" Type="Decimal" Nullable="false" />
     <Property Name="DaysMin" Type="Int32" Nullable="false" />
     <Property Name="Status" Type="String" Nullable="true" MaxLength="5" />
+    <NavigationProperty Name="CarRateGroups" Relationship="JobDB.CarRatePackageCarRateGroup" FromRole="CarRatePackage" ToRole="CarRateGroup" />
   </EntityType>
   <EntityType Name="CarRateUnitPackage">
     <Key>
@@ -2230,6 +2244,70 @@
       </Principal>
       <Dependent Role="CoopMemberItem">
         <PropertyRef Name="InvItemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="PaypalTransaction">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TrxId" Type="String" Nullable="false" MaxLength="50" />
+    <Property Name="JobId" Type="Int32" Nullable="false" />
+    <Property Name="TrxDate" Type="DateTime" Nullable="false" />
+    <Property Name="DatePosted" Type="DateTime" Nullable="false" />
+    <Property Name="Status" Type="String" Nullable="false" MaxLength="30" />
+    <Property Name="Remarks" Type="String" Nullable="true" MaxLength="80" />
+    <Property Name="Amount" Type="Decimal" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PaypalAccount">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SysCode" Type="String" Nullable="false" MaxLength="50" />
+    <Property Name="Key" Type="String" Nullable="false" MaxLength="100" />
+    <Property Name="Secret" Type="String" Nullable="false" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="RateGroup">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GroupName" Type="String" Nullable="false" MaxLength="30" />
+    <NavigationProperty Name="CarRateGroups" Relationship="JobDB.RateGroupCarRateGroup" FromRole="RateGroup" ToRole="CarRateGroup" />
+  </EntityType>
+  <EntityType Name="CarRateGroup">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="RateGroup" Relationship="JobDB.RateGroupCarRateGroup" FromRole="CarRateGroup" ToRole="RateGroup" />
+    <Property Name="RateGroupId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CarRatePackage" Relationship="JobDB.CarRatePackageCarRateGroup" FromRole="CarRateGroup" ToRole="CarRatePackage" />
+    <Property Name="CarRatePackageId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="RateGroupCarRateGroup">
+    <End Type="JobDB.RateGroup" Role="RateGroup" Multiplicity="1" />
+    <End Type="JobDB.CarRateGroup" Role="CarRateGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RateGroup">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CarRateGroup">
+        <PropertyRef Name="RateGroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CarRatePackageCarRateGroup">
+    <End Type="JobDB.CarRatePackage" Role="CarRatePackage" Multiplicity="1" />
+    <End Type="JobDB.CarRateGroup" Role="CarRateGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarRatePackage">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CarRateGroup">
+        <PropertyRef Name="CarRatePackageId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

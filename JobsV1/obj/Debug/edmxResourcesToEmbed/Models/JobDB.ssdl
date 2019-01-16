@@ -75,6 +75,10 @@
     <EntitySet Name="CarUnitMetas" EntityType="JobDB.Store.CarUnitMetas" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="CoopMembers" EntityType="JobDB.Store.CoopMembers" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="CoopMemberItems" EntityType="JobDB.Store.CoopMemberItems" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PaypalTransactions" EntityType="JobDB.Store.PaypalTransactions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PaypalAccounts" EntityType="JobDB.Store.PaypalAccounts" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RateGroups" EntityType="JobDB.Store.RateGroups" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CarRateGroups" EntityType="JobDB.Store.CarRateGroups" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="JobMainJobType" Association="JobDB.Store.JobMainJobType">
       <End Role="JobMain" EntitySet="JobMains" />
       <End Role="JobType" EntitySet="JobTypes" />
@@ -379,6 +383,14 @@
       <End Role="InvItem" EntitySet="InvItems" />
       <End Role="CoopMemberItem" EntitySet="CoopMemberItems" />
     </AssociationSet>
+    <AssociationSet Name="RateGroupCarRateGroup" Association="JobDB.Store.RateGroupCarRateGroup">
+      <End Role="RateGroup" EntitySet="RateGroups" />
+      <End Role="CarRateGroup" EntitySet="CarRateGroups" />
+    </AssociationSet>
+    <AssociationSet Name="CarRatePackageCarRateGroup" Association="JobDB.Store.CarRatePackageCarRateGroup">
+      <End Role="CarRatePackage" EntitySet="CarRatePackages" />
+      <End Role="CarRateGroup" EntitySet="CarRateGroups" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="JobMains">
     <Key>
@@ -605,6 +617,7 @@
     <Property Name="Remarks" Type="nvarchar(max)" Nullable="true" />
     <Property Name="CarCategoryId" Type="int" Nullable="false" />
     <Property Name="SelfDrive" Type="int" Nullable="true" />
+    <Property Name="SortOrder" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="CarDestinations">
     <Key>
@@ -1168,6 +1181,43 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CoopMemberId" Type="int" Nullable="false" />
     <Property Name="InvItemId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PaypalTransactions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TrxId" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="JobId" Type="int" Nullable="false" />
+    <Property Name="TrxDate" Type="datetime" Nullable="false" />
+    <Property Name="DatePosted" Type="datetime" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="Remarks" Type="nvarchar" Nullable="true" MaxLength="80" />
+    <Property Name="Amount" Type="decimal" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PaypalAccounts">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SysCode" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Key" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Secret" Type="nvarchar" Nullable="false" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="RateGroups">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GroupName" Type="nvarchar" Nullable="false" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="CarRateGroups">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RateGroupId" Type="int" Nullable="false" />
+    <Property Name="CarRatePackageId" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="JobMainJobType">
     <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="1" />
@@ -2078,6 +2128,30 @@
       </Principal>
       <Dependent Role="CoopMemberItem">
         <PropertyRef Name="InvItemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RateGroupCarRateGroup">
+    <End Role="RateGroup" Type="JobDB.Store.RateGroups" Multiplicity="1" />
+    <End Role="CarRateGroup" Type="JobDB.Store.CarRateGroups" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RateGroup">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CarRateGroup">
+        <PropertyRef Name="RateGroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CarRatePackageCarRateGroup">
+    <End Role="CarRatePackage" Type="JobDB.Store.CarRatePackages" Multiplicity="1" />
+    <End Role="CarRateGroup" Type="JobDB.Store.CarRateGroups" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarRatePackage">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CarRateGroup">
+        <PropertyRef Name="CarRatePackageId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

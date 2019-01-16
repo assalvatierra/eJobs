@@ -244,6 +244,7 @@
           <ScalarProperty Name="Remarks" ColumnName="Remarks" />
           <ScalarProperty Name="CarCategoryId" ColumnName="CarCategoryId" />
           <ScalarProperty Name="SelfDrive" ColumnName="SelfDrive" />
+          <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -861,6 +862,47 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="CoopMemberId" ColumnName="CoopMemberId" />
           <ScalarProperty Name="InvItemId" ColumnName="InvItemId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PaypalTransactions">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.PaypalTransaction)">
+        <MappingFragment StoreEntitySet="PaypalTransactions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TrxId" ColumnName="TrxId" />
+          <ScalarProperty Name="JobId" ColumnName="JobId" />
+          <ScalarProperty Name="TrxDate" ColumnName="TrxDate" />
+          <ScalarProperty Name="DatePosted" ColumnName="DatePosted" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PaypalAccounts">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.PaypalAccount)">
+        <MappingFragment StoreEntitySet="PaypalAccounts">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SysCode" ColumnName="SysCode" />
+          <ScalarProperty Name="Key" ColumnName="Key" />
+          <ScalarProperty Name="Secret" ColumnName="Secret" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RateGroups">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.RateGroup)">
+        <MappingFragment StoreEntitySet="RateGroups">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CarRateGroups">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.CarRateGroup)">
+        <MappingFragment StoreEntitySet="CarRateGroups">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RateGroupId" ColumnName="RateGroupId" />
+          <ScalarProperty Name="CarRatePackageId" ColumnName="CarRatePackageId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
