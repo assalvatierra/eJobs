@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 01/14/2019 11:01:28
+-- Date Created: 01/16/2019 14:01:42
 -- Generated from EDMX file: C:\Users\VILLOSA\Documents\GithubClassic\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
@@ -245,6 +245,12 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_InvItemCoopMemberItem]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[CoopMemberItems] DROP CONSTRAINT [FK_InvItemCoopMemberItem];
 GO
+IF OBJECT_ID(N'[dbo].[FK_RateGroupCarRateGroup]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CarRateGroups] DROP CONSTRAINT [FK_RateGroupCarRateGroup];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CarRatePackageCarRateGroup]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CarRateGroups] DROP CONSTRAINT [FK_CarRatePackageCarRateGroup];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -477,6 +483,12 @@ IF OBJECT_ID(N'[dbo].[PaypalTransactions]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[PaypalAccounts]', 'U') IS NOT NULL
     DROP TABLE [dbo].[PaypalAccounts];
+GO
+IF OBJECT_ID(N'[dbo].[RateGroups]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[RateGroups];
+GO
+IF OBJECT_ID(N'[dbo].[CarRateGroups]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CarRateGroups];
 GO
 
 -- --------------------------------------------------
@@ -1295,6 +1307,21 @@ CREATE TABLE [dbo].[PaypalAccounts] (
 );
 GO
 
+-- Creating table 'RateGroups'
+CREATE TABLE [dbo].[RateGroups] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [GroupName] nvarchar(30)  NOT NULL
+);
+GO
+
+-- Creating table 'CarRateGroups'
+CREATE TABLE [dbo].[CarRateGroups] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [RateGroupId] int  NOT NULL,
+    [CarRatePackageId] int  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -1752,6 +1779,18 @@ GO
 -- Creating primary key on [Id] in table 'PaypalAccounts'
 ALTER TABLE [dbo].[PaypalAccounts]
 ADD CONSTRAINT [PK_PaypalAccounts]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'RateGroups'
+ALTER TABLE [dbo].[RateGroups]
+ADD CONSTRAINT [PK_RateGroups]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'CarRateGroups'
+ALTER TABLE [dbo].[CarRateGroups]
+ADD CONSTRAINT [PK_CarRateGroups]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -2897,6 +2936,36 @@ GO
 CREATE INDEX [IX_FK_InvItemCoopMemberItem]
 ON [dbo].[CoopMemberItems]
     ([InvItemId]);
+GO
+
+-- Creating foreign key on [RateGroupId] in table 'CarRateGroups'
+ALTER TABLE [dbo].[CarRateGroups]
+ADD CONSTRAINT [FK_RateGroupCarRateGroup]
+    FOREIGN KEY ([RateGroupId])
+    REFERENCES [dbo].[RateGroups]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_RateGroupCarRateGroup'
+CREATE INDEX [IX_FK_RateGroupCarRateGroup]
+ON [dbo].[CarRateGroups]
+    ([RateGroupId]);
+GO
+
+-- Creating foreign key on [CarRatePackageId] in table 'CarRateGroups'
+ALTER TABLE [dbo].[CarRateGroups]
+ADD CONSTRAINT [FK_CarRatePackageCarRateGroup]
+    FOREIGN KEY ([CarRatePackageId])
+    REFERENCES [dbo].[CarRatePackages]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CarRatePackageCarRateGroup'
+CREATE INDEX [IX_FK_CarRatePackageCarRateGroup]
+ON [dbo].[CarRateGroups]
+    ([CarRatePackageId]);
 GO
 
 -- --------------------------------------------------

@@ -319,6 +319,7 @@
     <Compile Include="Controllers\ProductPricesController.cs" />
     <Compile Include="Controllers\ProductProdCatsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\RateGroupsController.cs" />
     <Compile Include="Controllers\ReportingController.cs" />
     <Compile Include="Controllers\SalesActivitiesController.cs" />
     <Compile Include="Controllers\SalesLeadsController.cs" />
@@ -346,6 +347,9 @@
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CarRate.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CarRateGroup.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CarRatePackage.cs">
@@ -518,6 +522,9 @@
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProductProdCat.cs">
+      <DependentUpon>JobDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RateGroup.cs">
       <DependentUpon>JobDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SalesActCode.cs">
@@ -1409,6 +1416,11 @@
     <Content Include="Views\PaypalTransactions\Index.cshtml" />
     <Content Include="Views\Shared\NotFound.cshtml" />
     <Content Include="Views\Error\Error.cshtml" />
+    <Content Include="Views\RateGroups\Create.cshtml" />
+    <Content Include="Views\RateGroups\Delete.cshtml" />
+    <Content Include="Views\RateGroups\Details.cshtml" />
+    <Content Include="Views\RateGroups\Edit.cshtml" />
+    <Content Include="Views\RateGroups\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

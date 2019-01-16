@@ -12,25 +12,17 @@ namespace JobsV1.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class CarRatePackage
+    public partial class RateGroup
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CarRatePackage()
+        public RateGroup()
         {
-            this.CarRateUnitPackages = new HashSet<CarRateUnitPackage>();
             this.CarRateGroups = new HashSet<CarRateGroup>();
         }
     
         public int Id { get; set; }
-        public string Description { get; set; }
-        public string Remarks { get; set; }
-        public decimal DailyMeals { get; set; }
-        public decimal DailyRoom { get; set; }
-        public int DaysMin { get; set; }
-        public string Status { get; set; }
+        public string GroupName { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CarRateUnitPackage> CarRateUnitPackages { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CarRateGroup> CarRateGroups { get; set; }
     }

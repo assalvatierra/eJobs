@@ -25,6 +25,16 @@ namespace JobsV1.Controllers
             return View();
         }
 
+
+        /* Recieve Webhook events from paypal when a transaction is made.
+         * Transactions events trigger on payments. 
+         * Transaction status can be PENDING, COMPLETED or DENIED.
+         * This will recieve the event and filter the event based on the
+         * status. On payment complete, payment of the job (acquired through jobid from 'custom' field)
+         * is updated. 
+         * Events will be recorded in the PaypalTransactions table.
+         */ 
+
         [System.Web.Http.HttpPost]
         public ActionResult Webhook()
         {
@@ -41,11 +51,11 @@ namespace JobsV1.Controllers
                 requestBody = reader.ReadToEnd();
             }
 
+            //get event data from the request body
             dynamic jsonBody = JObject.Parse(requestBody);
             string webhookId = jsonBody.id;
             string paypalID = jsonBody.resource.id;
             decimal Totalamount = (decimal)jsonBody.resource.amount.total;
-             
             DateTime paypalEventDate = (DateTime)jsonBody.create_time;
             DateTime paypalTransDate = (DateTime)jsonBody.resource.create_time;
 
@@ -55,21 +65,26 @@ namespace JobsV1.Controllers
             // Note: at least on Sandbox environment this returns false.
             // var isValid = WebhookEvent.ValidateReceivedEvent(apiContext, ToNameValueCollection(requestheaders), requestBody, webhookId);
 
+            //add record on the Notification table
+            //Note: remove if events are successful. Notification table is used for sms notifications.
             DB.addTestNotification(1, "1");
            
+            //get jobid from CUSTOM object field
             //int jobId =  (int)jsonBody.resource.custom ; // bookingid , 
-            PPtrans.AddPaypalNotif("1", 1, paypalEventDate, paypalTransDate, ev.event_type, Totalamount);
+            //PPtrans.AddPaypalNotif("1", 1, paypalEventDate, paypalTransDate, ev.event_type, Totalamount);
 
+            //get job id from invoice number
             //PPtrans.AddPaypalNotif(paypalID, jobId, paypalEventDate, paypalTransDate, ev.event_type, Totalamount);
-
             //jobId = (int)jsonBody.resource.invoice_number;
             // DB.addTestNotification(jobId, paypalID);
+
             //get job description
             JobMain jobOrder = db.JobMains.Find(1);
             string clientName = jobOrder.Description;
             EMailHandler mail = new EMailHandler();
             string siteRedirect = "https://realwheelsdavao.com/reservation/";
-            /*
+            
+            /* Handle transaction request from paypal webhook events 
             switch (ev.event_type)
             {
                 case "PAYMENT.CAPTURE.COMPLETED":
@@ -117,7 +132,7 @@ namespace JobsV1.Controllers
             //PPtrans.AddPaypalNotif(paypalID, jobId, paypalEventDate, paypalTransDate, ev.event_type, Totalamount);
 
             //send mail
-            mail.SendMail(1, "reservation.realwheels@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
+            //mail.SendMail(1, "reservation.realwheels@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
             //mail.SendMail2(jobId, "reservation.realwheels@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect, ev.event_type);
             //mail.SendMail(jobId, "ajdavao88@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
             //mail.SendMail(jobId, "travel.realbreeze@gmail.com", "PAYMENT-PENDING", clientName, siteRedirect);
@@ -149,7 +164,6 @@ namespace JobsV1.Controllers
                     { "clientSecret", "EI_D_W8aJRWqEg5jC6bzygsi8X44lxvfd1pwGazPp62UhbGRO65OudfsIGhXxzzcsyllIjt69gXuNi7f" }
                 };
                 
-
                 /* sandbox
                 return new Dictionary<string, string>() {
                     { "clientId", "AUvsEZNhW0bZQSYuzVDgNxePk5lrSEAoF4rQQHXLIByzeBd6N4-vjtLWGviKaFeVMu9U-GD_99nwCz29" },

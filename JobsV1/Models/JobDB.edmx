@@ -82,6 +82,8 @@
     <EntitySet Name="CoopMemberItems" EntityType="JobDB.Store.CoopMemberItems" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="PaypalTransactions" EntityType="JobDB.Store.PaypalTransactions" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="PaypalAccounts" EntityType="JobDB.Store.PaypalAccounts" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RateGroups" EntityType="JobDB.Store.RateGroups" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CarRateGroups" EntityType="JobDB.Store.CarRateGroups" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="JobMainJobType" Association="JobDB.Store.JobMainJobType">
       <End Role="JobMain" EntitySet="JobMains" />
       <End Role="JobType" EntitySet="JobTypes" />
@@ -385,6 +387,14 @@
     <AssociationSet Name="InvItemCoopMemberItem" Association="JobDB.Store.InvItemCoopMemberItem">
       <End Role="InvItem" EntitySet="InvItems" />
       <End Role="CoopMemberItem" EntitySet="CoopMemberItems" />
+    </AssociationSet>
+    <AssociationSet Name="RateGroupCarRateGroup" Association="JobDB.Store.RateGroupCarRateGroup">
+      <End Role="RateGroup" EntitySet="RateGroups" />
+      <End Role="CarRateGroup" EntitySet="CarRateGroups" />
+    </AssociationSet>
+    <AssociationSet Name="CarRatePackageCarRateGroup" Association="JobDB.Store.CarRatePackageCarRateGroup">
+      <End Role="CarRatePackage" EntitySet="CarRatePackages" />
+      <End Role="CarRateGroup" EntitySet="CarRateGroups" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="JobMains">
@@ -1198,6 +1208,21 @@
     <Property Name="SysCode" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="Key" Type="nvarchar" Nullable="false" MaxLength="100" />
     <Property Name="Secret" Type="nvarchar" Nullable="false" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="RateGroups">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GroupName" Type="nvarchar" Nullable="false" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="CarRateGroups">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RateGroupId" Type="int" Nullable="false" />
+    <Property Name="CarRatePackageId" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="JobMainJobType">
     <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="1" />
@@ -2111,6 +2136,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="RateGroupCarRateGroup">
+    <End Role="RateGroup" Type="JobDB.Store.RateGroups" Multiplicity="1" />
+    <End Role="CarRateGroup" Type="JobDB.Store.CarRateGroups" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RateGroup">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CarRateGroup">
+        <PropertyRef Name="RateGroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CarRatePackageCarRateGroup">
+    <End Role="CarRatePackage" Type="JobDB.Store.CarRatePackages" Multiplicity="1" />
+    <End Role="CarRateGroup" Type="JobDB.Store.CarRateGroups" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarRatePackage">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CarRateGroup">
+        <PropertyRef Name="CarRatePackageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -2496,6 +2545,16 @@
           </AssociationSet>
           <EntitySet Name="PaypalTransactions" EntityType="JobDB.PaypalTransaction" />
           <EntitySet Name="PaypalAccounts" EntityType="JobDB.PaypalAccount" />
+          <EntitySet Name="RateGroups" EntityType="JobDB.RateGroup" />
+          <EntitySet Name="CarRateGroups" EntityType="JobDB.CarRateGroup" />
+          <AssociationSet Name="RateGroupCarRateGroup" Association="JobDB.RateGroupCarRateGroup">
+            <End Role="RateGroup" EntitySet="RateGroups" />
+            <End Role="CarRateGroup" EntitySet="CarRateGroups" />
+          </AssociationSet>
+          <AssociationSet Name="CarRatePackageCarRateGroup" Association="JobDB.CarRatePackageCarRateGroup">
+            <End Role="CarRatePackage" EntitySet="CarRatePackages" />
+            <End Role="CarRateGroup" EntitySet="CarRateGroups" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="JobMain">
           <Key>
@@ -4203,6 +4262,7 @@
           <Property Name="DailyRoom" Type="Decimal" Nullable="false" />
           <Property Name="DaysMin" Type="Int32" Nullable="false" />
           <Property Name="Status" Type="String" Nullable="true" MaxLength="5" />
+          <NavigationProperty Name="CarRateGroups" Relationship="JobDB.CarRatePackageCarRateGroup" FromRole="CarRatePackage" ToRole="CarRateGroup" />
         </EntityType>
         <EntityType Name="CarRateUnitPackage">
           <Key>
@@ -4373,6 +4433,48 @@
           <Property Name="Key" Type="String" Nullable="false" MaxLength="100" />
           <Property Name="Secret" Type="String" Nullable="false" MaxLength="100" />
         </EntityType>
+        <EntityType Name="RateGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupName" Type="String" Nullable="false" MaxLength="30" />
+          <NavigationProperty Name="CarRateGroups" Relationship="JobDB.RateGroupCarRateGroup" FromRole="RateGroup" ToRole="CarRateGroup" />
+        </EntityType>
+        <EntityType Name="CarRateGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="RateGroup" Relationship="JobDB.RateGroupCarRateGroup" FromRole="CarRateGroup" ToRole="RateGroup" />
+          <Property Name="RateGroupId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CarRatePackage" Relationship="JobDB.CarRatePackageCarRateGroup" FromRole="CarRateGroup" ToRole="CarRatePackage" />
+          <Property Name="CarRatePackageId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="RateGroupCarRateGroup">
+          <End Type="JobDB.RateGroup" Role="RateGroup" Multiplicity="1" />
+          <End Type="JobDB.CarRateGroup" Role="CarRateGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RateGroup">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CarRateGroup">
+              <PropertyRef Name="RateGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CarRatePackageCarRateGroup">
+          <End Type="JobDB.CarRatePackage" Role="CarRatePackage" Multiplicity="1" />
+          <End Type="JobDB.CarRateGroup" Role="CarRateGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CarRatePackage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CarRateGroup">
+              <PropertyRef Name="CarRatePackageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5264,6 +5366,23 @@
           <ScalarProperty Name="SysCode" ColumnName="SysCode" />
           <ScalarProperty Name="Key" ColumnName="Key" />
           <ScalarProperty Name="Secret" ColumnName="Secret" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RateGroups">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.RateGroup)">
+        <MappingFragment StoreEntitySet="RateGroups">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CarRateGroups">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.CarRateGroup)">
+        <MappingFragment StoreEntitySet="CarRateGroups">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RateGroupId" ColumnName="RateGroupId" />
+          <ScalarProperty Name="CarRatePackageId" ColumnName="CarRatePackageId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

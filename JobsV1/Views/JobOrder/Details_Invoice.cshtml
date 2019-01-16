@@ -248,12 +248,12 @@
         var count = 0;
         paypal.Button.render({
             // Configure environment
-            //env: 'production',
-            env: 'sandbox',
+            env: 'production',
+            //env: 'sandbox',
             client: {
                 //paypal live
                 sandbox: 'AQx9QuKflAiELK-iXsyxy6sINZ9NxJ9DQUWZnW0Tp4LcxGbBN2HyOg0C3K0-qmrGwLSXnzL-xHRrko3q',
-                production: 'AVoJltP7TidcyKYb7qNwmX2S1xyd-3eFClTQOcA77WGTBky_IJtgccVAA-6C8D8EGGM3-DzjUye1jKzQ'
+                production: '@ViewBag.key'
             },
             // Customize button (optional)
             locale: 'en_US',

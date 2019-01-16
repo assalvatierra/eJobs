@@ -34,6 +34,8 @@ values (3000,2500,2250,100,5,1,300), --grandia
 	   (2500,1800,1500,100,5,5,300), --honda
 	   (3500,2500,2250,100,5,6,300); --pickup
 
+
+
 insert into CarUnitMetas(carUnitId,PageTitle,MetaDesc,HomeDesc)
 values
 	-- Van -- 
@@ -391,4 +393,12 @@ values
 ( 6, 40, 1500, 2000, 700,1000 ); --North Cotabato
 
 
+--add car rate groups
+insert into RateGroups (GroupName) 
+values ('Davao Del Sur'),
+	   ('Davao Del Norte');
 
+--car rate group
+insert into CarRateGroups (RateGroupId,CarRatePackageId) 
+values	(1,1),(1,2),(1,3),(1,4),
+		(2,5),(2,6),(2,7),(2,8);

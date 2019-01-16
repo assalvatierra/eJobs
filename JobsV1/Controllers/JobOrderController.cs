@@ -1274,9 +1274,8 @@ order by x.jobid
             ViewBag.Amount = 1000;
 
             //get paypal keys at db
-            //PaypalAccount paypal = db.PaypalAccounts.Where(p => p.SysCode.Equals("RealWheels")).FirstOrDefault();
-            //ViewBag.key = paypal.Key;
-            //ViewBag.secret = paypal.secret;
+            PaypalAccount paypal = db.PaypalAccounts.Where(p => p.SysCode.Equals("RealWheels")).FirstOrDefault();
+            ViewBag.key = paypal.Key;
               
             DateTime today = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time"));
             today = today.Date;
@@ -1354,6 +1353,10 @@ order by x.jobid
 
             DateTime today = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time"));
             today = today.Date;
+
+            //get paypal keys at db
+            PaypalAccount paypal = db.PaypalAccounts.Where(p => p.SysCode.Equals("RealWheels")).FirstOrDefault();
+            ViewBag.key = paypal.Key;
 
             ViewBag.isPaymentValid = jobMain.JobDate.Date == today ? "True" : "False" ;
 

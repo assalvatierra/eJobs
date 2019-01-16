@@ -159,6 +159,10 @@
         <AssociationConnector Association="JobDB.InvItemCoopMemberItem" />
         <EntityTypeShape EntityType="JobDB.PaypalTransaction" Width="1.5" PointX="10.5" PointY="21.625" />
         <EntityTypeShape EntityType="JobDB.PaypalAccount" Width="1.5" PointX="8.375" PointY="20.875" />
+        <EntityTypeShape EntityType="JobDB.RateGroup" Width="1.5" PointX="40.875" PointY="22.5" />
+        <EntityTypeShape EntityType="JobDB.CarRateGroup" Width="1.5" PointX="38.625" PointY="22.5" />
+        <AssociationConnector Association="JobDB.RateGroupCarRateGroup" />
+        <AssociationConnector Association="JobDB.CarRatePackageCarRateGroup" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
