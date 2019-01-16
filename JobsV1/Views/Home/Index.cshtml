@@ -89,7 +89,8 @@
             [
             @Html.ActionLink("Packages", "Index", "CarRatePackages", new { isActive = 1 }, null) |
             @Html.ActionLink("Unit Package Rates", "Index", "CarRateUnitPackages", new { isActive = 1 }, null) |
-            @Html.ActionLink("Unit Rates", "Index", "CarRates", null , null)  ]
+            @Html.ActionLink("Unit Rates", "Index", "CarRates", null , null)  | 
+            @Html.ActionLink("Groups", "Index", "RateGroups", null, null) ]
 
         </p>
         <p>@Html.ActionLink("Add New »", "Create", "SupplierItems", null, new { @class = "btn btn-default" }) </p>

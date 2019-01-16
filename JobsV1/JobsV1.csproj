@@ -1421,6 +1421,8 @@
     <Content Include="Views\RateGroups\Details.cshtml" />
     <Content Include="Views\RateGroups\Edit.cshtml" />
     <Content Include="Views\RateGroups\Index.cshtml" />
+    <Content Include="Views\RateGroups\CreateRateGroup.cshtml" />
+    <Content Include="Views\RateGroups\CarRateGroupList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
