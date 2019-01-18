@@ -1427,6 +1427,7 @@
     <Content Include="Views\Reporting\PackageRates.cshtml" />
     <Content Include="Views\Reporting\PackageRatesReport.cshtml" />
     <Content Include="Views\Reporting\PackageRatesPrint.cshtml" />
+    <Content Include="Views\CarRental\Articles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

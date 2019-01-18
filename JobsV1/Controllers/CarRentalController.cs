@@ -487,7 +487,7 @@ namespace JobsV1.Controllers
             }
         }
 
-
+        //Handle Google Captcha
         public int IsReCaptchValid(string gresponse)
         {
             var result = false;
@@ -509,6 +509,13 @@ namespace JobsV1.Controllers
             
             return result == true ? 200 : 500;
         }
+
+        public PartialViewResult Articles()
+        {
+
+            return PartialView("Articles");
+        }
+
         
     }
 }

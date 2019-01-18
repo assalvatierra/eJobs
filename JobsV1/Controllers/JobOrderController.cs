@@ -1377,6 +1377,25 @@ order by x.jobid
 
             Models.JobServicePickup svcpu;
             Models.JobServices svc = db.JobServices.Find(id);
+
+            string custName = svc.JobMain.Customer.Name;
+
+            switch (custName)
+            {
+                case "Real Breeze Davao":
+                    custName = "Real Breeze Travel & Tours";
+                    break;
+                case "AJ88 Car Rental":
+                    custName = "AJ88 Car Rental";
+                    break;
+                case "RealWheels Car Rental Davao":
+                    custName = "RealWheels Car Rental Davao";
+                    break;
+                default:
+                    custName = "Real Breeze Travel & Tours";
+                    break;
+            }
+
             if (svc.JobServicePickups.FirstOrDefault() == null)
             {
                 sData += "\nPickup: undefined ";
@@ -1406,7 +1425,7 @@ order by x.jobid
                 sData += "\nParticulars:" + svc.Particulars;
                 sData += "\n  " + svc.Remarks;
                 sData += "\nNo.Pax:  " + svc.JobMain.NoOfPax;
-                sData += "\n\nHave a safe trip,\nAJ88 Car Rental";
+                sData += "\n\nThank you for trusting " + custName;
             }
 
             ViewBag.StrData = sData;
