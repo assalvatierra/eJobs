@@ -395,10 +395,11 @@ values
 
 --add car rate groups
 insert into RateGroups (GroupName) 
-values ('Davao Del Sur'),
+values ('N/A'),
+       ('Davao Del Sur'),
 	   ('Davao Del Norte');
 
 --car rate group
 insert into CarRateGroups (RateGroupId,CarRatePackageId) 
-values	(1,1),(1,2),(1,3),(1,4),
-		(2,5),(2,6),(2,7),(2,8);
+values	(2,1),(2,2),(2,3),(2,4),
+		(3,5),(3,6),(3,7),(3,8);

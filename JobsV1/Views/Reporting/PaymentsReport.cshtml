@@ -6,12 +6,13 @@
         <h5>Start Date</h5>
         <input type="date"  value="@ViewBag.sDate" id="startDate" />
     </div>
+
     <div class="col-lg-3">
         <h5>End Date</h5>
         <input type="date"  value="@ViewBag.eDate" id="endDate" />
     </div>
-
-    <div class="col-lg-3">
+   
+    <div class="col-lg-6">
         <h5>Payers Name (Description)</h5>
         <input type="text" value="@ViewBag.Id" id="company-input" />
     </div>
@@ -80,7 +81,7 @@
 
         var requestString = "/Reporting?";
 
-        requestString += "reportId=2&";
+        requestString += "reportkey=payments&";
 
         if (eDateVal != null && sDateVal != null) {
 

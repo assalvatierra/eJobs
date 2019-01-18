@@ -1,0 +1,93 @@
+﻿
+<div id="joblisting-filter" class="row" style="background-color:#f3f3f3;padding:15px; box-shadow:0px 0px 5px 2px lightgray; ">
+
+    <div class="col-lg-3">
+        <h5>Unit</h5>
+        <input type="text" value="@ViewBag.unit" id="unit-input" />
+    </div>
+
+    <div class="col-lg-8">
+        <h5>Package</h5>
+        <input type="text" value="@ViewBag.package" id="package-input" />
+    </div>
+
+
+    <div class="col-lg-3">
+        <br />
+        <button class="btn btn-primary" onclick="packageUpdate();">
+            <span class="glyphicon glyphicon-search"></span> Filter
+        </button>
+
+        <button class="btn btn-primary" onclick="packagePrint();">
+            <span class="glyphicon glyphicon-print"></span> Print
+        </button>
+    </div>
+</div>
+
+<div class="row" style="border: 1px solid lightgray; padding:20px;margin-top:15px; box-shadow:0px 0px 5px 2px lightgray; ">
+
+    @{Html.RenderAction("PackageRates");}
+
+</div>
+
+
+<script src="~/Scripts/jquery-1.12.4.min.js"> </script>
+<script>
+
+    function Update() {
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var unit = url.searchParams.get("unit");
+        $('#unit-input').val(unit);
+        var unit = url.searchParams.get("package");
+        $('#package-input').val(unit);
+    }
+
+
+    $(function () {
+        Update();
+    });
+
+
+    function packageUpdate() {
+        var unitVal = document.getElementById("unit-input").value;
+        var packageVal = document.getElementById("package-input").value;
+
+        var requestString = "/Reporting?";
+        requestString += "reportkey=packages";
+
+        if (unitVal == "") {
+            unitVal = "all";
+        }
+        requestString += "&unit=" + unitVal;
+
+        if (packageVal == "") {
+            packageVal = "all";
+        }
+        requestString += "&package=" + packageVal;
+
+
+        window.location.href = requestString;
+    }
+
+    function packagePrint() {
+        var unitVal = document.getElementById("unit-input").value;
+        var packageVal = document.getElementById("package-input").value;
+
+        var requestString = "/Reporting/PackageRatesPrint?";
+
+        if (unitVal == "") {
+            unitVal = "all";
+        }
+        requestString += "&unit=" + unitVal;
+
+        if (packageVal == "") {
+            packageVal = "all";
+        }
+        requestString += "&package=" + packageVal;
+
+
+        window.location.href = requestString;
+    }
+
+</script>

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<JobsV1.Models.CarRateUnitPackage>
+﻿@model List<JobsV1.Models.PackageperUnit >
 
 @{
     ViewBag.Title = "Index";
@@ -11,14 +11,21 @@
 </p>
 
 <p>
-    Sort by: 
-        @Html.ActionLink("Unit", "Index", new { sortby = 1 }) |
-        @Html.ActionLink("Package", "Index", new { sortby = 2 })
-    &nbsp;
-    Filter by:
-        @Html.ActionLink("Active", "Index", new { isActive = 1 }) |
-        @Html.ActionLink("Inactive", "Index", new { isActive = 2 }) 
-</p>
+  
+
+    <select id="group-input">
+        @foreach (var item in ViewBag.Group as IEnumerable<JobsV1.Models.RateGroup>)
+        {
+            <text>
+                <option value="@item.GroupName">@item.GroupName</option>
+            </text>
+        }
+    </select>
+
+    <button class="btn btn-primary" onclick="reportUpdate();">
+        <span class="glyphicon glyphicon-search"></span> Filter
+    </button>
+
 <p>
    
    
@@ -42,10 +49,10 @@
            Add-on Rate
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FuelLonghaul)
+            Long HAul
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FuelDaily)
+            Fuel Daily
         </th>
         <th>
             Driver Meals
@@ -56,25 +63,28 @@
         <th>
            Unit
         </th>
+        <th>
+            Group
+        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.CarRatePackage.Description)
+            @Html.DisplayFor(modelItem => item.PkgDesc )
         </td>
         <td>
-            @item.CarUnit.CarRates.Where(c=>c.CarUnitId == item.CarUnitId).FirstOrDefault().Daily.ToString("N0")
+            @item.RateperDay.ToString("N0")
         </td>
         <td>
-            @item.CarUnit.CarRates.Where(c => c.CarUnitId == item.CarUnitId).FirstOrDefault().Weekly.ToString("N0")
+            @item.RateperWeek.ToString("N0")
         </td>
         <td>
-            @item.CarUnit.CarRates.Where(c => c.CarUnitId == item.CarUnitId).FirstOrDefault().Monthly.ToString("N0")
+            @item.RateperMonth.ToString("N0")
         </td>
         <td>
-            @item.DailyAddon.ToString()
+            @item.AddOn.ToString()
         </td>
         <td>
             @item.FuelLonghaul.ToString("N0")
@@ -83,14 +93,18 @@
             @item.FuelDaily.ToString("N0")
         </td>
         <td>
-            @item.CarRatePackage.DailyMeals
+            @item.FuelDaily
         </td>
         <td>
-            @item.CarRatePackage.DailyRoom
+            @item.Acc
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CarUnit.Description)
+            @Html.DisplayFor(modelItem => item.Unit )
         </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Group)
+        </td>
+
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Details", "Details", new { id=item.Id }) |
@@ -107,3 +121,23 @@
     @Html.ActionLink("Unit Rates", "Index", "CarRates", null, null)  |
     @Html.ActionLink("Groups", "Index", "RateGroups", null, null)
 </p>
+
+
+<script>
+    function reportUpdate() {
+        var groupVal = document.getElementById("group-input").value;
+
+        var requestString = "/CarRateUnitPackages?";
+
+        if (groupVal == "") {
+            groupVal = "all";
+        }
+
+        requestString += "group=" + groupVal;
+
+        window.location.href = requestString;
+
+        //window.location.href = "/Reporting/Index/" + idVal + "&sDate=" + sDateVal + "&sDate=" + eDateVal;
+    }
+
+</script>

@@ -10,52 +10,49 @@ using JobsV1.Models;
 
 namespace JobsV1.Controllers
 {
+    
     public class CarRateUnitPackagesController : Controller
     {
         private JobDBContainer db = new JobDBContainer();
 
         // GET: CarRateUnitPackages
-        public ActionResult Index(int? sortby, int? isActive)
+        public ActionResult Index(int? sortby, int? isActive, string group)
         {
-            List<CarRateUnitPackage> UnitPkgList = new List<CarRateUnitPackage>();
+            List<PackageperUnit> UnitPkgList = new List<PackageperUnit>();
 
-            // Sort Order
-            if (sortby != null)
+            IEnumerable<CarRateUnitPackage> pkglist = db.CarRateUnitPackages.Include(c=>c.CarRatePackage.CarRateGroups).ToList();
+
+            foreach (var list in pkglist)
             {
-                if(sortby == 1)
-                {
-                    //filter by Car Unit
-                    UnitPkgList = db.CarRateUnitPackages.Include(c => c.CarRatePackage)
-                        .Include(c => c.CarUnit).OrderBy(s => s.CarUnitId).ToList();
-                }
-                if (sortby == 2)
-                {
-                    //Filter by Packges
-                    UnitPkgList = db.CarRateUnitPackages.Include(c => c.CarRatePackage)
-                        .Include(c => c.CarUnit).OrderBy(s => s.CarRatePackageId).ToList();
-                }
+                int id = db.CarRateGroups.Where(c => c.CarRatePackageId == list.CarRatePackageId).FirstOrDefault() != null ? db.CarRateGroups.Where(c => c.CarRatePackageId == list.CarRatePackageId).FirstOrDefault().RateGroupId : 1 ;
+                RateGroup groupPkg = db.RateGroups.Find(id);
 
-            } else {
-                //default no filter
-                UnitPkgList = db.CarRateUnitPackages.Include(c => c.CarRatePackage)
-                    .Include(c => c.CarUnit).ToList();
+                UnitPkgList.Add(new PackageperUnit
+                {
+                    Id = list.Id,
+                    RateperDay = list.CarUnit.CarRates.Where(s => s.CarUnitId == list.CarUnitId).FirstOrDefault().Daily,
+                    RateperWeek = list.CarUnit.CarRates.Where(s => s.CarUnitId == list.CarUnitId).FirstOrDefault().Weekly,
+                    RateperMonth = list.CarUnit.CarRates.Where(s => s.CarUnitId == list.CarUnitId).FirstOrDefault().Monthly,
+                    AddOn = (decimal)list.DailyAddon,
+                    FuelDaily = list.FuelDaily,
+                    FuelLonghaul = list.FuelLonghaul,
+                    Meals = list.CarRatePackage.DailyMeals,
+                    Acc = list.CarRatePackage.DailyRoom,
+                    PkgDesc = list.CarRatePackage.Description,
+                    Unit = list.CarUnit.CarRates.Where(s => s.CarUnitId == list.CarUnitId).FirstOrDefault().CarUnit.Description,
+                    Group = groupPkg.GroupName
+                });
             }
 
-            //Filter Active/Inactive
-            if (isActive != null)
+            UnitPkgList = UnitPkgList.ToList();
+
+            if (group != "all" )
             {
-                if (isActive == 1)
-                {
-                    //show active packages per unit
-                    UnitPkgList = UnitPkgList.Where(cp => cp.CarRatePackage.Status == "ACT").ToList();
-                }
-                else
-                {
-                    //show inactive packages per unit
-                    UnitPkgList = UnitPkgList.Where(cp => cp.CarRatePackage.Status == "INC").ToList();
-                }
+                UnitPkgList = UnitPkgList.Where(p=>p.Group.ToLower().Contains(group.ToLower())).ToList();
             }
-            
+
+
+            ViewBag.Group = db.RateGroups.ToList();
 
             return View(UnitPkgList);
         }

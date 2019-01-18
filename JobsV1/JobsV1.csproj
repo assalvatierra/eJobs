@@ -1423,6 +1423,9 @@
     <Content Include="Views\RateGroups\Index.cshtml" />
     <Content Include="Views\RateGroups\CreateRateGroup.cshtml" />
     <Content Include="Views\RateGroups\CarRateGroupList.cshtml" />
+    <Content Include="Views\Reporting\PackageRates.cshtml" />
+    <Content Include="Views\Reporting\PackageRatesReport.cshtml" />
+    <Content Include="Views\Reporting\PackageRatesPrint.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

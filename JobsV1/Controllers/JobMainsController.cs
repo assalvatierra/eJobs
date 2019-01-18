@@ -283,8 +283,11 @@ namespace JobsV1.Controllers
         // GET: JobMains/Create
         public ActionResult Create(int? id)
         {
+
+            DateTime today = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time"));
+
             JobMain job = new JobMain();
-            job.JobDate = System.DateTime.Today;
+            job.JobDate = today;
             job.NoOfDays = 1;
             job.NoOfPax = 1;
             var customerlist = new SelectList(db.Customers.Where(d => d.Status == "ACT"), "Id", "Name", id != null? id : NewCustSysId);

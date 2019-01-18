@@ -24,14 +24,14 @@ namespace JobsV1.Controllers
         private DBClasses dbc = new DBClasses();
 
         // GET: Reporting
-        public ActionResult Index(int? id, int? reportId)
+        public ActionResult Index(int? id, string reportkey)
         {
             if(id != null)
             {
                 ViewBag.Id = id;
             }
-
-            ViewBag.reportId = reportId != null ? reportId : 1;
+            //pass reporting key
+            ViewBag.reportkey = reportkey != null ? reportkey : "job";
 
             return View();
         }
@@ -228,8 +228,7 @@ namespace JobsV1.Controllers
             //return main.JobDate;
             return minDate;
         }
-
-
+        
         public DateTime MaxJobDate(int mainId)
         {
             //update jobdate
@@ -254,8 +253,7 @@ namespace JobsV1.Controllers
             //return main.JobDate;
             return maxDate;
         }
-
-
+        
         public List<cjobCounter> getJobActionCount(List<Int32> jobidlist)
         {
             #region sqlstr
@@ -317,8 +315,6 @@ order by x.jobid
         #endregion 
 
         #region Payments Report
-
-
         public PartialViewResult Payments(string sDate, string eDate ,string company)
         {
             var paymentReport = db.JobPayments.ToList();
@@ -380,6 +376,48 @@ order by x.jobid
             return View("Payments", paymentReport);
 
             //return View(db.JobPayments.ToList());
+        }
+        #endregion
+
+        #region Packages
+        public PartialViewResult PackageRates(string unit, string package)
+        {   
+            IEnumerable<CarRateUnitPackage> packages = db.CarRateUnitPackages.ToList();
+
+            if ( unit != "all")
+            {
+                packages = packages.Where(p => p.CarUnit.Description.ToLower().Contains(unit.ToLower())).ToList();
+            }
+
+            if (package != "all")
+            {
+                packages = packages.Where(p => p.CarRatePackage.Description.ToLower().Contains(package.ToLower())).ToList();
+            }
+
+            ViewBag.unit = unit;
+            ViewBag.Package = package;
+            return PartialView(packages);
+        }
+
+        public ActionResult PackageRatesPrint(string unit, string package)
+        {
+            IEnumerable<CarRateUnitPackage> packages = db.CarRateUnitPackages.ToList();
+
+            if (unit != "all")
+            {
+                packages = packages.Where(p => p.CarUnit.Description.ToLower().Contains(unit.ToLower())).ToList();
+            }
+
+            if (package != "all")
+            {
+                packages = packages.Where(p => p.CarRatePackage.Description.ToLower().Contains(package.ToLower())).ToList();
+            }
+
+            ViewBag.unit = unit;
+            ViewBag.Package = package;
+
+
+            return View("PackageRatesPrint", packages);
         }
 
         #endregion

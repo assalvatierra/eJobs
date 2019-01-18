@@ -88,7 +88,7 @@
             <br />
             [
             @Html.ActionLink("Packages", "Index", "CarRatePackages", new { isActive = 1 }, null) |
-            @Html.ActionLink("Unit Package Rates", "Index", "CarRateUnitPackages", new { isActive = 1 }, null) |
+            @Html.ActionLink("Unit Package Rates", "Index", "CarRateUnitPackages", new { Group = "all" }, null) |
             @Html.ActionLink("Unit Rates", "Index", "CarRates", null , null)  | 
             @Html.ActionLink("Groups", "Index", "RateGroups", null, null) ]
 
@@ -101,9 +101,9 @@
         <p>
            Joblisting, Payment Reports
             <br />
-            [ @Html.ActionLink("Job Listing", "Index", "Reporting", new { reportId = 1 }, null) ,
-              @Html.ActionLink("Payment", "Index", "Reporting", new { reportId = 2 }, null) ]
-
+            [ @Html.ActionLink("Job Listing", "Index", "Reporting", new { reportkey = "job" }, null) ,
+              @Html.ActionLink("Payment", "Index", "Reporting", new { reportkey = "payments" }, null),
+              @Html.ActionLink("Package Rates", "Index", "Reporting", new { reportkey = "packages", unit = "all", package = "all" }, null) ]
         </p>
         <p>@Html.ActionLink("Create Report »", "Index", "Reporting", null, new { @class = "btn btn-default" }) </p>
     </div>

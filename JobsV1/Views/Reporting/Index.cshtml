@@ -10,23 +10,27 @@
         <h3>Reports</h3>
         <div class="row col-lg-12">
             <div class="btn-group-vertical" style="width:150px;">
-                @Html.ActionLink("Job Listing", "Index", new { reportId = 1, company = "all", unitDriver = "all" }, new { @class="btn btn-default" })
-                @Html.ActionLink("Payments", "Index", new { reportId = 2 }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Job Listing", "Index", new { reportkey = "job", company = "all", unitDriver = "all" }, new { @class="btn btn-default" })
+                @Html.ActionLink("Payments", "Index", new { reportkey = "payments" }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Packages", "Index", new { reportkey = "packages" , unit = "all", package = "all" }, new { @class = "btn btn-default" })
             </div>
         </div>
-
     </div>
     <div class="col-lg-9"  >
         <!-- filter -->
         @{
-                if (ViewBag.reportId == 1)
+                if (ViewBag.reportkey == "job")
                 {
                     @Html.Partial("JobListingReport", new ViewDataDictionary { { "sDate", @ViewBag.sDate } });
                 }
-                else if(ViewBag.reportId == 2)
+                else if(ViewBag.reportkey == "payments")
                 {
                     @Html.Partial("PaymentsReport");
                 }
-            }
+                else if(ViewBag.reportkey == "packages")
+                {
+                    @Html.Partial("PackageRatesReport");
+                }
+         }
     </div>
 </div>
