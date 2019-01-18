@@ -33,6 +33,10 @@ namespace JobsV1.Controllers
             //pass reporting key
             ViewBag.reportkey = reportkey != null ? reportkey : "job";
 
+            ViewBag.Packages = db.CarRatePackages.ToList();
+            ViewBag.Group = db.RateGroups.ToList();
+            ViewBag.Units = db.CarUnits.ToList();
+
             return View();
         }
 
@@ -380,44 +384,37 @@ order by x.jobid
         #endregion
 
         #region Packages
-        public PartialViewResult PackageRates(string unit, string package)
-        {   
-            IEnumerable<CarRateUnitPackage> packages = db.CarRateUnitPackages.ToList();
 
-            if ( unit != "all")
-            {
-                packages = packages.Where(p => p.CarUnit.Description.ToLower().Contains(unit.ToLower())).ToList();
-            }
+        public PartialViewResult PackageRates(string status,string unit, string package, string group)
+        {
+            var unitPkgList = dbc.getPackageperUnitList(status, package, unit, group);
+            
+            ViewBag.Packages = db.CarRatePackages.ToList();
+            ViewBag.Group = db.RateGroups.ToList();
+            ViewBag.Units = db.CarUnits.ToList();
 
-            if (package != "all")
-            {
-                packages = packages.Where(p => p.CarRatePackage.Description.ToLower().Contains(package.ToLower())).ToList();
-            }
-
+            ViewBag.status = status;
             ViewBag.unit = unit;
-            ViewBag.Package = package;
-            return PartialView(packages);
+            ViewBag.package = package;
+            ViewBag.group = group;
+
+            return PartialView(unitPkgList);
         }
 
-        public ActionResult PackageRatesPrint(string unit, string package)
+        public ActionResult PackageRatesPrint(string status, string unit, string package, string group)
         {
-            IEnumerable<CarRateUnitPackage> packages = db.CarRateUnitPackages.ToList();
+            var unitPkgList = dbc.getPackageperUnitList(status, package, unit, group);
 
-            if (unit != "all")
-            {
-                packages = packages.Where(p => p.CarUnit.Description.ToLower().Contains(unit.ToLower())).ToList();
-            }
+            ViewBag.Packages = db.CarRatePackages.ToList();
+            ViewBag.Group = db.RateGroups.ToList();
+            ViewBag.Units = db.CarUnits.ToList();
 
-            if (package != "all")
-            {
-                packages = packages.Where(p => p.CarRatePackage.Description.ToLower().Contains(package.ToLower())).ToList();
-            }
-
+            ViewBag.status = status;
             ViewBag.unit = unit;
-            ViewBag.Package = package;
+            ViewBag.package = package;
+            ViewBag.group = group;
 
-
-            return View("PackageRatesPrint", packages);
+            return View("PackageRatesPrint", unitPkgList);
         }
 
         #endregion

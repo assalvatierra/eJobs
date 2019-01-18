@@ -1,20 +1,68 @@
 ﻿
 <div id="joblisting-filter" class="row" style="background-color:#f3f3f3;padding:15px; box-shadow:0px 0px 5px 2px lightgray; ">
-
+   <div class="col-lg-3">
+       <!-- Package Status Search Filter -->
+       <h5>&nbsp; Status</h5>
+       <select class="dropdown" id="status-input" style="font-size:15px;padding:7px;">
+           <option value="all">All</option>
+           <option value="ACT">Active</option>
+           <option value="INC">Inactive</option>
+       </select>
+   </div>
+    
     <div class="col-lg-3">
-        <h5>Unit</h5>
-        <input type="text" value="@ViewBag.unit" id="unit-input" />
+        <!-- Package Search Filter-->
+        <h5>&nbsp; Package</h5>
+        <select class="dropdown" id="package-input" style="font-size:15px;padding:7px;">
+            <text>
+                <option value="all">All</option>
+            </text>
+
+            @foreach (var item in ViewBag.Packages as IEnumerable<JobsV1.Models.CarRatePackage>)
+            {
+                <text>
+                    <option value="@item.Description">@item.Description</option>
+                </text>
+            }
+        </select>
     </div>
 
-    <div class="col-lg-8">
-        <h5>Package</h5>
-        <input type="text" value="@ViewBag.package" id="package-input" />
+    <div class="col-lg-3">
+        <!-- Vehicle Search Filter  -->
+        <h5>&nbsp; Unit</h5>
+        <select class="dropdown" id="unit-input" style="font-size:15px;padding:7px;">
+            <text>
+                <option value="all">All</option>
+            </text>
+            @foreach (var item in ViewBag.Units as IEnumerable<JobsV1.Models.CarUnit>)
+            {
+                <text>
+                    <option value="@item.Description">@item.Description</option>
+                </text>
+            }
+        </select>
+    </div>
+        
+    <div class="col-lg-3">        <!-- Group Search Filter -->
+        <h5>&nbsp; Group Package : </h5>
+        <select class="dropdown" id="group-input" style="font-size:15px;padding:7px;">
+            <text>
+                <option value="all">All</option>
+            </text>
+
+            @foreach (var item in ViewBag.Group as IEnumerable<JobsV1.Models.RateGroup>)
+            {
+                <text>
+                    <option value="@item.GroupName">@item.GroupName</option>
+                </text>
+            }
+        </select>
     </div>
 
-
-    <div class="col-lg-3">
+    <div class="col-lg-3 ">
         <br />
-        <button class="btn btn-primary" onclick="packageUpdate();">
+
+        <button class="btn btn-primary" onclick="reportUpdate();">
             <span class="glyphicon glyphicon-search"></span> Filter
         </button>
 
@@ -33,7 +81,7 @@
 
 <script src="~/Scripts/jquery-1.12.4.min.js"> </script>
 <script>
-
+    /*
     function Update() {
         var url_string = window.location.href;
         var url = new URL(url_string);
@@ -69,25 +117,100 @@
 
         window.location.href = requestString;
     }
-
+    
+    */
     function packagePrint() {
-        var unitVal = document.getElementById("unit-input").value;
+        var statusVal = document.getElementById("status-input").value;
         var packageVal = document.getElementById("package-input").value;
+        var groupVal = document.getElementById("group-input").value;
+        var unitVal = document.getElementById("unit-input").value;
 
         var requestString = "/Reporting/PackageRatesPrint?";
 
-        if (unitVal == "") {
-            unitVal = "all";
+        //Status filter
+        if (statusVal == "") {
+            statusVal = "all";
         }
-        requestString += "&unit=" + unitVal;
+        requestString += "status=" + statusVal + "&";
 
+        //package filter
         if (packageVal == "") {
             packageVal = "all";
         }
-        requestString += "&package=" + packageVal;
+        requestString += "package=" + packageVal + "&";
+
+        //unit filter
+        if (unitVal == "") {
+            unitVal = "all";
+        }
+        requestString += "unit=" + unitVal + "&";
+
+        //group filter
+        if (groupVal == "") {
+            groupVal = "all";
+        }
+        requestString += "group=" + groupVal;
 
 
         window.location.href = requestString;
+    }
+
+
+    $(document).ready(function () {
+        Update();
+    });
+
+    function Update() {
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+
+        var statusUrl = url.searchParams.get("status");
+        var packageUrl = url.searchParams.get("package");
+        var unitUrl = url.searchParams.get("unit");
+        var groupUrl = url.searchParams.get("group");
+        //alert(unitUrl);
+
+        $('#status-input').val(statusUrl);
+        $('#package-input').val(packageUrl);
+        $('#unit-input').val(unitUrl);
+        $('#group-input').val(groupUrl);
+    }
+
+    function reportUpdate() {
+        var statusVal = document.getElementById("status-input").value;
+        var packageVal = document.getElementById("package-input").value;
+        var groupVal = document.getElementById("group-input").value;
+        var unitVal = document.getElementById("unit-input").value;
+
+        var requestString = "/Reporting?reportkey=packages&";
+
+        //Status filter
+        if (statusVal == "") {
+            statusVal = "all";
+        }
+        requestString += "status=" + statusVal + "&";
+
+        //package filter
+        if (packageVal == "") {
+            packageVal = "all";
+        }
+        requestString += "package=" + packageVal + "&";
+
+        //unit filter
+        if (unitVal == "") {
+            unitVal = "all";
+        }
+        requestString += "unit=" + unitVal + "&";
+
+        //group filter
+        if (groupVal == "") {
+            groupVal = "all";
+        }
+        requestString += "group=" + groupVal;
+
+        window.location.href = requestString;
+
+        //window.location.href = "/Reporting/Index/" + idVal + "&sDate=" + sDateVal + "&sDate=" + eDateVal;
     }
 
 </script>

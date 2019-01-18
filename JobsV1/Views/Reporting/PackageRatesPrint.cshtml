@@ -1,4 +1,4 @@
-﻿@model IEnumerable<JobsV1.Models.CarRateUnitPackage>
+﻿@model IEnumerable<JobsV1.Models.PackageperUnit>
 
 
 <table>
@@ -22,7 +22,10 @@
         <h3>
             Package Rates Report :
         </h3>
-        <p>Unit: <b>@ViewBag.unit</b> Package <b>@ViewBag.package</b></p>
+        <p>
+            STATUS : @ViewBag.status | UNIT : @ViewBag.unit |
+            PACKAGE : @ViewBag.package  | GROUP : @ViewBag.group
+        </p> 
         <table class="table table-bordered">
             <tr>
                 <th>
@@ -55,25 +58,28 @@
                 <th>
                     Unit
                 </th>
+                <th>
+                    Group
+                </th>
             </tr>
 
             @foreach (var item in Model)
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CarRatePackage.Description)
+                        @Html.DisplayFor(modelItem => item.PkgDesc)
                     </td>
                     <td>
-                        @item.CarUnit.CarRates.Where(c => c.CarUnitId == item.CarUnitId).FirstOrDefault().Daily.ToString("N0")
+                        @item.RateperDay.ToString("N0")
                     </td>
                     <td>
-                        @item.CarUnit.CarRates.Where(c => c.CarUnitId == item.CarUnitId).FirstOrDefault().Weekly.ToString("N0")
+                        @item.RateperWeek.ToString("N0")
                     </td>
                     <td>
-                        @item.CarUnit.CarRates.Where(c => c.CarUnitId == item.CarUnitId).FirstOrDefault().Monthly.ToString("N0")
+                        @item.RateperMonth.ToString("N0")
                     </td>
                     <td>
-                        @item.DailyAddon.ToString()
+                        @item.AddOn.ToString()
                     </td>
                     <td>
                         @item.FuelLonghaul.ToString("N0")
@@ -82,13 +88,16 @@
                         @item.FuelDaily.ToString("N0")
                     </td>
                     <td>
-                        @item.CarRatePackage.DailyMeals
+                        @item.FuelDaily
                     </td>
                     <td>
-                        @item.CarRatePackage.DailyRoom
+                        @item.Acc
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CarUnit.Description)
+                        @Html.DisplayFor(modelItem => item.Unit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Group)
                     </td>
                 </tr>
             }
