@@ -89,6 +89,7 @@ namespace JobsV1.Models
         public decimal Acc { get; set; }
         public string Unit { get; set; }
         public string Group { get; set; }
+        public string Status { get; set; }
     }
 
 

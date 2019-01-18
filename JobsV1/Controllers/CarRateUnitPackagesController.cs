@@ -16,7 +16,7 @@ namespace JobsV1.Controllers
         private JobDBContainer db = new JobDBContainer();
 
         // GET: CarRateUnitPackages
-        public ActionResult Index(int? sortby, int? isActive, string group)
+        public ActionResult Index(int? sortby, string status, string package, string unit, string group)
         {
             List<PackageperUnit> UnitPkgList = new List<PackageperUnit>();
 
@@ -40,11 +40,27 @@ namespace JobsV1.Controllers
                     Acc = list.CarRatePackage.DailyRoom,
                     PkgDesc = list.CarRatePackage.Description,
                     Unit = list.CarUnit.CarRates.Where(s => s.CarUnitId == list.CarUnitId).FirstOrDefault().CarUnit.Description,
-                    Group = groupPkg.GroupName
+                    Group = groupPkg.GroupName,
+                    Status = list.CarRatePackage.Status
                 });
             }
 
             UnitPkgList = UnitPkgList.ToList();
+
+            if (status != "all")
+            {
+                UnitPkgList = UnitPkgList.Where(p => p.Status.ToLower().Contains(status.ToLower())).ToList();
+            }
+
+            if (package != "all")
+            {
+                UnitPkgList = UnitPkgList.Where(p => p.PkgDesc.ToLower().Contains(package.ToLower())).ToList();
+            }
+
+            if (unit != "all")
+            {
+                UnitPkgList = UnitPkgList.Where(p => p.Unit.ToLower().Contains(unit.ToLower())).ToList();
+            }
 
             if (group != "all" )
             {
@@ -52,7 +68,9 @@ namespace JobsV1.Controllers
             }
 
 
+            ViewBag.Packages = db.CarRatePackages.ToList();
             ViewBag.Group = db.RateGroups.ToList();
+            ViewBag.Units = db.CarUnits.ToList();
 
             return View(UnitPkgList);
         }
