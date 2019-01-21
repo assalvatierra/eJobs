@@ -1,8 +1,8 @@
 ﻿insert into CarUnitMetas(carUnitId,PageTitle,MetaDesc,HomeDesc)
 values
 -- Van -- 
-(1, 'Vehicle (Toyota Grandia GL) for Rent in Davao City, Reliable car rental company in Davao',
-'Toyota Grandia GL is 10-12 seater van for business, tour and family travel needs. Car Rental offers affordable and flexible rental rates',
+(1, 'Toyota Grandia | Davao Car Rental with driver | Rent a car',
+'Toyota Grandia GL is 10-12 seater van for rent in Davao City. Grandia for Rent is with driver only.',
 'Comfortable 10 Seater van for rent for business and family occasions. Popular unit for Rent-A-Car in Davao.'
 ),
 
