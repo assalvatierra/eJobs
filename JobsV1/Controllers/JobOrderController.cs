@@ -1425,7 +1425,7 @@ order by x.jobid
                 sData += "\nParticulars:" + svc.Particulars;
                 sData += "\n  " + svc.Remarks;
                 sData += "\nNo.Pax:  " + svc.JobMain.NoOfPax;
-                sData += "\n\nThank you for trusting " + custName;
+                sData += "\n\nThank you for Trusting \n" + custName;
             }
 
             ViewBag.StrData = sData;

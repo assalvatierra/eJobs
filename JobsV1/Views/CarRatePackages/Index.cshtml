@@ -70,7 +70,7 @@
 <p>
     @Html.ActionLink("Home", "Index", "Home", null, null) |
     Packages |
-    @Html.ActionLink("Unit Package Rates", "Index", "CarRateUnitPackages", new { isActive = 1 }, null) |
+    @Html.ActionLink("Unit Package Rates", "Index", "CarRateUnitPackages", new { status = "all", package = "all", unit = "all", group = "all" }, null) |
     @Html.ActionLink("Unit Rates", "Index", "CarRates", null, null)  |
     @Html.ActionLink("Groups", "Index", "RateGroups", null, null)
 </p>

@@ -37,8 +37,6 @@
         
     </div>
     <div class="col-md-4"> 
-     <!--   <img src="~/Images/CarRental/hondaCity_Banner.png"  alt="realwheelsdavao-car-rental-davao" width="350"/>
-      -->
     </div>
     <div class="col-md-1">
 
@@ -60,7 +58,6 @@
 <div class="row">
     @foreach (var item in Model)
     {
-        
         <div class="col-md-4 car-primary">
             <h2>@Html.DisplayFor(modelItem => item.Description)</h2>
             <div style="background-image:url('/CarRental/MainImage/@Html.DisplayFor(modelItem => item.Id)');background-position:center;background-repeat:no-repeat;background-size:200px;height:180px;">
@@ -223,10 +220,12 @@
         </div>
     </div>
 
-    
+    <!--
     <div class="row">
         <div class="col-md-12">
-            @{Html.RenderPartial("Articles");}
+            Html.RenderPartial("Articles");
         </div>
     </div>
+    -->
+
     @Html.Action("MobileModalView")
