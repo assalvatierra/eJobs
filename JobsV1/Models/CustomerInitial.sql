@@ -11,8 +11,3 @@ values('NewCompany.Inc','Davao City','09950753794','09950753794','Images/Custome
 
 insert into CustEntities(CustEntMainId, CustomerId) 
 values(2,3);
-
-update CustCategories set iconPath = 'Images/Customers/Category/star-filled-40.png' where Id = 1; 
-update CustCategories set iconPath = 'Images/Customers/Category/Active-30.png' where Id = 2; 
-update CustCategories set iconPath = 'Images/Customers/Category//suspended-64.png' where Id = 3; 
-update CustCategories set iconPath = 'Images/Customers/Category/cancel-40.png' where Id = 4;  

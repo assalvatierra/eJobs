@@ -14,7 +14,6 @@ namespace JobsV1.Controllers
     {
         private JobDBContainer db = new JobDBContainer();
 
-        // GET: CustEntMains
         public ActionResult Index()
         {
             return View(db.CustEntMains.ToList());

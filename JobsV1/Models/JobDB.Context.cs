@@ -103,5 +103,8 @@ namespace JobsV1.Models
         public virtual DbSet<PaypalAccount> PaypalAccounts { get; set; }
         public virtual DbSet<RateGroup> RateGroups { get; set; }
         public virtual DbSet<CarRateGroup> CarRateGroups { get; set; }
+        public virtual DbSet<EmailBlasterTemplate> EmailBlasterTemplates { get; set; }
+        public virtual DbSet<BlasterLog> BlasterLogs { get; set; }
+        public virtual DbSet<EmailBlasterLogs> EmailBlasterLogs { get; set; }
     }
 }

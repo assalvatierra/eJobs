@@ -32,10 +32,9 @@ namespace JobsV1.Controllers
         }
 
         #region Dynamic SiteMap 
-        //[Route("sitemap.xml")]
+       // [Route("sitemap.xml")]
         public ActionResult SitemapXml()
         {
-
             string currentUrl = Request.Url.AbsoluteUri;
             int iTmp = currentUrl.IndexOf('/', 7);
             string newurl = currentUrl.Substring(0, iTmp + 1);

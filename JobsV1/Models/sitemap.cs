@@ -67,10 +67,9 @@ namespace JobsV1.Models
         public List<string> GetItemRoot()
         {
             List<string> items = new List<string>();
-            items.Add("Index");
-            items.Add("About");
-            items.Add("Contact");
-            items.Add("CarRental");
+            items.Add("realwheelsdavao.com/CarRental/Index");
+            items.Add("realwheelsdavao.com/CarRental/About");
+            items.Add("realwheelsdavao.com/CarRental/Contact");
 
             return items;
         }
@@ -103,13 +102,13 @@ namespace JobsV1.Models
         public List<string> GetCarList()
         {
             List<string> items = new List<string>();
-            items.Add("CarRental/van-for-rent");
-            items.Add("CarRental/NissanUrvanPremium-for-rent");
-            items.Add("CarRental/suvpickup4x4-rental-rates");
-            items.Add("CarRental/toyota-innova-for-rent");
-            items.Add("CarRental/sedan-rental");
-            items.Add("CarRental/pickup-rental");
-
+                    items.Add("realwheelsdavao.com/CarRental/van-for-rent");
+                    items.Add("realwheelsdavao.com/CarRental/NissanUrvanPremium-for-rent");
+                    items.Add("realwheelsdavao.com/CarRental/suvpickup4x4-rental-rates");
+                    items.Add("realwheelsdavao.com/CarRental/toyota-innova-for-rent");
+                    items.Add("realwheelsdavao.com/CarRental/sedan-rental");
+                    items.Add("realwheelsdavao.com/CarRental/pickup-rental");
+            
             return items;
 
         }

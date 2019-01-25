@@ -74,7 +74,7 @@
         <EntityTypeShape EntityType="JobDB.CustCat" Width="1.5" PointX="5" PointY="2.75" />
         <AssociationConnector Association="JobDB.CustomerCustCat" />
         <AssociationConnector Association="JobDB.CustCategoryCustCat" />
-        <EntityTypeShape EntityType="JobDB.CustEntMain" Width="1.5" PointX="7.25" PointY="0.75" />
+        <EntityTypeShape EntityType="JobDB.CustEntMain" Width="1.5" PointX="7.875" PointY="0.625" />
         <EntityTypeShape EntityType="JobDB.SalesLead" Width="1.5" PointX="5" PointY="9.25" />
         <EntityTypeShape EntityType="JobDB.SalesStatusCode" Width="1.5" PointX="7" PointY="9.75" />
         <EntityTypeShape EntityType="JobDB.SalesStatus" Width="1.5" PointX="7" PointY="12.125" />
@@ -83,7 +83,7 @@
         <EntityTypeShape EntityType="JobDB.SalesActivity" Width="1.5" PointX="5.125" PointY="15.125" />
         <AssociationConnector Association="JobDB.SalesActCodeSalesActivity" />
         <AssociationConnector Association="JobDB.SalesLeadSalesActivity" />
-        <EntityTypeShape EntityType="JobDB.CustEntity" Width="1.5" PointX="7.25" PointY="3.25" />
+        <EntityTypeShape EntityType="JobDB.CustEntity" Width="1.5" PointX="7.875" PointY="3.125" />
         <AssociationConnector Association="JobDB.CustEntMainCustEntity" />
         <AssociationConnector Association="JobDB.CustomerCustEntity" />
         <EntityTypeShape EntityType="JobDB.SalesActStatus" Width="1.5" PointX="7.125" PointY="17.75" />
@@ -163,6 +163,11 @@
         <EntityTypeShape EntityType="JobDB.CarRateGroup" Width="1.5" PointX="38.625" PointY="22.5" />
         <AssociationConnector Association="JobDB.RateGroupCarRateGroup" />
         <AssociationConnector Association="JobDB.CarRatePackageCarRateGroup" />
+        <EntityTypeShape EntityType="JobDB.EmailBlasterTemplate" Width="1.5" PointX="6.375" PointY="20.875" />
+        <EntityTypeShape EntityType="JobDB.BlasterLog" Width="1.5" PointX="4.375" PointY="20.875" />
+        <EntityTypeShape EntityType="JobDB.EmailBlasterLogs" Width="1.5" PointX="4.25" PointY="23.875" />
+        <AssociationConnector Association="JobDB.EmailBlasterLogsBlasterLog" />
+        <AssociationConnector Association="JobDB.EmailBlasterTemplateBlasterLog" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

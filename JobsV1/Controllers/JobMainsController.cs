@@ -290,6 +290,7 @@ namespace JobsV1.Controllers
             job.JobDate = today;
             job.NoOfDays = 1;
             job.NoOfPax = 1;
+            job.JobRemarks = "CASH BASIS";
             var customerlist = new SelectList(db.Customers.Where(d => d.Status == "ACT"), "Id", "Name", id != null? id : NewCustSysId);
           
             ViewBag.CustomerId = customerlist;
@@ -464,12 +465,14 @@ namespace JobsV1.Controllers
         {
             if (ModelState.IsValid)
             {
+                customer.Status = "ACT";
                 db.Customers.Add(customer);
                 db.SaveChanges();
 
                 int currentjobid = (int)Session["CurrentJobId"];
                 JobMain job = db.JobMains.Find(currentjobid);
                 job.CustomerId = customer.Id;
+
                 if (job.CustContactEmail == null && job.CustContactNumber == null)
                 {
                     job.CustContactEmail = job.Customer.Email;
@@ -480,7 +483,7 @@ namespace JobsV1.Controllers
                 db.SaveChanges();
 
                 //return RedirectToAction("Index");
-                return RedirectToAction("Services", "JobServices", new { id = currentjobid });
+                return RedirectToAction("JobServices", "JobOrder", new { JobMainId = currentjobid });
             }
 
             return View(customer);

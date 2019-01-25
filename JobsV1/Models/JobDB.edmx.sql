@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 01/16/2019 14:01:42
+-- Date Created: 01/25/2019 09:22:46
 -- Generated from EDMX file: C:\Users\VILLOSA\Documents\GithubClassic\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
@@ -251,6 +251,12 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_CarRatePackageCarRateGroup]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[CarRateGroups] DROP CONSTRAINT [FK_CarRatePackageCarRateGroup];
 GO
+IF OBJECT_ID(N'[dbo].[FK_EmailBlasterLogsBlasterLog]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[BlasterLogs] DROP CONSTRAINT [FK_EmailBlasterLogsBlasterLog];
+GO
+IF OBJECT_ID(N'[dbo].[FK_EmailBlasterTemplateBlasterLog]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[BlasterLogs] DROP CONSTRAINT [FK_EmailBlasterTemplateBlasterLog];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -490,6 +496,15 @@ GO
 IF OBJECT_ID(N'[dbo].[CarRateGroups]', 'U') IS NOT NULL
     DROP TABLE [dbo].[CarRateGroups];
 GO
+IF OBJECT_ID(N'[dbo].[EmailBlasterTemplates]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[EmailBlasterTemplates];
+GO
+IF OBJECT_ID(N'[dbo].[BlasterLogs]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[BlasterLogs];
+GO
+IF OBJECT_ID(N'[dbo].[EmailBlasterLogs]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[EmailBlasterLogs];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -522,7 +537,7 @@ CREATE TABLE [dbo].[Suppliers] (
     [Contact2] nvarchar(20)  NULL,
     [Contact3] nvarchar(20)  NULL,
     [Email] nvarchar(50)  NULL,
-    [Details] nvarchar(80)  NULL,
+    [Details] nvarchar(250)  NULL,
     [CityId] int  NOT NULL,
     [SupplierTypeId] int  NOT NULL,
     [Status] nvarchar(10)  NULL
@@ -1322,6 +1337,35 @@ CREATE TABLE [dbo].[CarRateGroups] (
 );
 GO
 
+-- Creating table 'EmailBlasterTemplates'
+CREATE TABLE [dbo].[EmailBlasterTemplates] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [EmailCategory] nvarchar(50)  NOT NULL,
+    [RecipientsCategory] nvarchar(50)  NOT NULL,
+    [EmailTitle] nvarchar(150)  NOT NULL,
+    [EmailBody] nvarchar(750)  NOT NULL
+);
+GO
+
+-- Creating table 'BlasterLogs'
+CREATE TABLE [dbo].[BlasterLogs] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [EmailBlasterLogsId] int  NOT NULL,
+    [EmailBlasterTemplateId] int  NOT NULL,
+    [ReportId] int  NOT NULL
+);
+GO
+
+-- Creating table 'EmailBlasterLogs'
+CREATE TABLE [dbo].[EmailBlasterLogs] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Email] nvarchar(120)  NOT NULL,
+    [DateTime] datetime  NOT NULL,
+    [Status] nvarchar(20)  NOT NULL,
+    [CustId] int  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -1791,6 +1835,24 @@ GO
 -- Creating primary key on [Id] in table 'CarRateGroups'
 ALTER TABLE [dbo].[CarRateGroups]
 ADD CONSTRAINT [PK_CarRateGroups]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'EmailBlasterTemplates'
+ALTER TABLE [dbo].[EmailBlasterTemplates]
+ADD CONSTRAINT [PK_EmailBlasterTemplates]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'BlasterLogs'
+ALTER TABLE [dbo].[BlasterLogs]
+ADD CONSTRAINT [PK_BlasterLogs]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'EmailBlasterLogs'
+ALTER TABLE [dbo].[EmailBlasterLogs]
+ADD CONSTRAINT [PK_EmailBlasterLogs]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -2966,6 +3028,36 @@ GO
 CREATE INDEX [IX_FK_CarRatePackageCarRateGroup]
 ON [dbo].[CarRateGroups]
     ([CarRatePackageId]);
+GO
+
+-- Creating foreign key on [EmailBlasterLogsId] in table 'BlasterLogs'
+ALTER TABLE [dbo].[BlasterLogs]
+ADD CONSTRAINT [FK_EmailBlasterLogsBlasterLog]
+    FOREIGN KEY ([EmailBlasterLogsId])
+    REFERENCES [dbo].[EmailBlasterLogs]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_EmailBlasterLogsBlasterLog'
+CREATE INDEX [IX_FK_EmailBlasterLogsBlasterLog]
+ON [dbo].[BlasterLogs]
+    ([EmailBlasterLogsId]);
+GO
+
+-- Creating foreign key on [EmailBlasterTemplateId] in table 'BlasterLogs'
+ALTER TABLE [dbo].[BlasterLogs]
+ADD CONSTRAINT [FK_EmailBlasterTemplateBlasterLog]
+    FOREIGN KEY ([EmailBlasterTemplateId])
+    REFERENCES [dbo].[EmailBlasterTemplates]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_EmailBlasterTemplateBlasterLog'
+CREATE INDEX [IX_FK_EmailBlasterTemplateBlasterLog]
+ON [dbo].[BlasterLogs]
+    ([EmailBlasterTemplateId]);
 GO
 
 -- --------------------------------------------------

@@ -15,7 +15,7 @@
         @foreach (var item in Model)
         {
             <dt>
-                <img src="/@Html.DisplayFor(modelItem => item.iconPath)" width="25" height="25" style="margin-right:20px;" />
+                <img src="~/@Html.DisplayFor(modelItem => item.iconPath)" width="25" height="25" style="margin-right:20px;" />
 
             </dt>
             <dd>
@@ -48,6 +48,10 @@
                     <a href="@Url.Action("addCategory", "CustCats", new { catid = 2, userid = @customerid })" class="list-group-item"> ACTIVE </a>
                     <a href="@Url.Action("addCategory", "CustCats", new { catid = 3, userid = @customerid })" class="list-group-item"> SUSPENDED </a>
                     <a href="@Url.Action("addCategory", "CustCats", new { catid = 4, userid = @customerid })" class="list-group-item"> BAD ACCOUNT </a>
+                    <a href="@Url.Action("addCategory", "CustCats", new { catid = 5, userid = @customerid })" class="list-group-item"> CAR_RENTAL </a>
+                    <a href="@Url.Action("addCategory", "CustCats", new { catid = 6, userid = @customerid })" class="list-group-item"> TOUR </a>
+                    <a href="@Url.Action("addCategory", "CustCats", new { catid = 7, userid = @customerid })" class="list-group-item"> CLIENT </a>
+                    <a href="@Url.Action("addCategory", "CustCats", new { catid = 8, userid = @customerid })" class="list-group-item"> COMPANY </a>
                 </div>
 
             </div>

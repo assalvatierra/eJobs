@@ -23,8 +23,15 @@ values
 -- Sales Lead Configuration
 -- ------------------------------------------------------------
 
-insert into CustCategories([Name])
-values ('PRIORITY'),('ACTIVE'),('SUSPENDED'),('BAD ACCOUNT'); 
+insert into CustCategories([Name],[iconPath])
+values ('PRIORITY','Images/Customers/Category/star-filled-40.png'),
+	   ('ACTIVE','Images/Customers/Category/Active-30.png'),
+	   ('SUSPENDED','Images/Customers/Category/suspended-64.png'),
+	   ('BAD ACCOUNT','Images/Customers/Category/cancel-40.png'),
+	   ('CAR-RENTAL','Images/Customers/Category/Active-30.png'),
+	   ('TOUR','Images/Customers/Category/star-filled-40.png'),
+	   ('CLIENT','Images/Customers/Category/Active-30.png'),
+	   ('COMPANY','Images/Customers/Category/star-filled-40.png'); 
 
 insert into CustEntMains([Name],[Address],[Contact1],[Contact2])
 values ('NEW (not yet defined)',' ',' ',' ');

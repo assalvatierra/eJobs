@@ -208,6 +208,7 @@ namespace JobsV1.Controllers
             PartialView_Jobs(id);
             PartialView_Categories(id);
             PartialView_CustomerFiles(id);
+            ViewBag.categoryList = db.CustCategories.ToList();
 
             return View(customer);
         }
@@ -480,6 +481,7 @@ namespace JobsV1.Controllers
 
             ViewBag.categoryDetails = categoryDetails;
 
+            ViewBag.categoryList = db.CustCategories.ToList();
         }
 
         private void PartialView_CustomerFiles(int? id)
@@ -493,7 +495,6 @@ namespace JobsV1.Controllers
 
             if (customerFiles == null)
             {
-
                 FilesList.Add(new CustFiles
                 {
                     Id = 0,
@@ -523,7 +524,6 @@ namespace JobsV1.Controllers
                 }
             }
             ViewBag.fileList = FilesList;
-            
         }
 
         public ActionResult addCompanyCat(int companyId, int userid)
@@ -543,8 +543,7 @@ namespace JobsV1.Controllers
             {   //create new company
                 return RedirectToAction("CompanyCreate", "Customers", new { id = userid });
             }
-
         }
-
+        
     }
 }

@@ -1,8 +1,7 @@
 ﻿@model IEnumerable<JobsV1.Models.CarUnit>
 
 @{
-    ViewBag.Title = "Car Rental Davao";
-    ViewBag.data = 1;
+   
 }
 
 <div class="jumbotron row rental-banner">
@@ -44,12 +43,23 @@
 </div>
 
 <div class="row">
-    <div class="col-lg-5"></div>
-    <div class="col-lg-5"></div>
+    <div class="col-lg-5 ">
+        <b>We accept payments in</b>
+        <p class="right">
+            <img src="~/Images/CarRental/paymentIcons/BDO.png" width="50" alt="BDO" title="BDO" /> &nbsp;
+            <img src="~/Images/CarRental/paymentIcons/Bpi.png" width="50" alt="BPI" title="BPI" /> &nbsp;
+            <img src="~/Images/CarRental/paymentIcons/paypal.png" width="25" alt="Paypal" title="Paypal" /> &nbsp;
+            <img src="~/Images/CarRental/paymentIcons/visa.png" width="40" alt="Visa" title="Visa-Paypal" /> &nbsp;
+            <img src="~/Images/CarRental/paymentIcons/mastercard.png" width="40" alt="Mastercard" title="Mastercard-Paypal" /> &nbsp;
+            <img src="~/Images/CarRental/paymentIcons/american-express.png" width="40" alt="American Express" title="American Express-Paypal" /> &nbsp;
+            <img src="~/Images/CarRental/paymentIcons/discover.png" width="40" alt="Disvocer" title="Discover-Paypal" /> &nbsp;
+        </p>
+    </div>
 
+    <div class="col-lg-5"></div>
     <!-- Facebook Like -->
     <div class="col-lg-2">
-
+        <b>Follow us on Facebook</b>
         <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FRealWheelsDavao%2F&width=500&layout=button_count&action=like&size=large&show_faces=false&share=true&height=46&appId" width="225" height="46" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
 
     </div>

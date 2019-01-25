@@ -16,6 +16,16 @@ namespace JobsV1
             routes.IgnoreRoute("{*x}", new { x = @".*\.asmx(/.*)?" });
 
 
+            /********************************
+            * sitemap
+            ********************************/
+            routes.MapRoute(
+                name: "sitemap",
+                url: "sitemap",
+                defaults: new { controller = "Home", action = "SitemapXml", id = UrlParameter.Optional }
+                );
+
+
             #region wordpress links
             routes.MapRoute(
                 name: "van-for-rent",
@@ -282,15 +292,6 @@ namespace JobsV1
                 url: "reservation/{id}/{month}/{day}/{year}/{rName}",
                 defaults: new { controller = "CarReservations", action = "ReservationRedirect", id = "id", month = "month", day = "day", year = "year", rName = "rName" }
             );
-
-            /********************************
-            * sitemap
-            ********************************/
-            routes.MapRoute(
-                name: "Sitemapxml",
-                url: "Sitemap.xml",
-                defaults: new { controller = "Home", action = "SitemapXml" }
-                );
 
             /********************************
             * CarCoop landing/home page

@@ -1163,7 +1163,7 @@ order by x.jobid
                     }
                     catch
                     {
-                        sTmp = "Provider not defined.";
+                        sTmp = "Pickup Details / Provider not defined.";
                     }
 
                     if (!providers.Contains(sTmp))
