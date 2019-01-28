@@ -23,7 +23,7 @@ namespace JobsV1.Controllers
     public class EmailBlasterController : Controller
     {
         private JobDBContainer db = new JobDBContainer();
-
+        private EmailBlaster eb = new EmailBlaster();
 
         private List<SelectListItem> EmailCat = new List<SelectListItem> {
                 new SelectListItem { Value = "CAR-RENTAL", Text = "Car Rental" },
@@ -73,11 +73,11 @@ namespace JobsV1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,EmailCategory,RecipientsCategory,EmailTitle,EmailBody")] EmailBlasterTemplate emailBlasterTemplate)
+        public ActionResult Create([Bind(Include = "Id,EmailCategory,RecipientsCategory,EmailTitle,EmailBody,ContentPicture")] EmailBlasterTemplate emailBlasterTemplate)
         {
             if (ModelState.IsValid)
             {
-                //emailBlasterTemplate.EmailBody = System.Web.HttpUtility.UrlPathEncode(emailBlasterTemplate.EmailBody); 
+                //emailBlasterTemplate.EmailBody = Server.HtmlEncode(emailBlasterTemplate.EmailBody); 
                 db.EmailBlasterTemplates.Add(emailBlasterTemplate);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -96,12 +96,16 @@ namespace JobsV1.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             EmailBlasterTemplate emailBlasterTemplate = db.EmailBlasterTemplates.Find(id);
+
+            //emailBlasterTemplate.EmailBody = Uri(emailBlasterTemplate.EmailBody);
+
             if (emailBlasterTemplate == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.EmailCategory = new SelectList(EmailCat, "value", "text");
-            ViewBag.RecipientsCategory = new SelectList(RecipientsCat, "value", "text");
+
+            ViewBag.EmailCategory = new SelectList(EmailCat, "value", "text", emailBlasterTemplate.EmailCategory);
+            ViewBag.RecipientsCategory = new SelectList(RecipientsCat, "value", "text", emailBlasterTemplate.RecipientsCategory);
             return View(emailBlasterTemplate);
         }
 
@@ -110,16 +114,17 @@ namespace JobsV1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,EmailCategory,RecipientsCategory,EmailTitle,EmailBody")] EmailBlasterTemplate emailBlasterTemplate)
+        public ActionResult Edit([Bind(Include = "Id,EmailCategory,RecipientsCategory,EmailTitle,EmailBody,ContentPicture")] EmailBlasterTemplate emailBlasterTemplate)
         {
             if (ModelState.IsValid)
             {
+                //emailBlasterTemplate.EmailBody = Uri.EscapeDataString(emailBlasterTemplate.EmailBody);
                 db.Entry(emailBlasterTemplate).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.EmailCategory = new SelectList(EmailCat, "value", "text");
-            ViewBag.RecipientsCategory = new SelectList(RecipientsCat, "value", "text");
+            ViewBag.EmailCategory = new SelectList(EmailCat, "value", "text", emailBlasterTemplate.EmailCategory);
+            ViewBag.RecipientsCategory = new SelectList(RecipientsCat, "value", "text", emailBlasterTemplate.RecipientsCategory);
             return View(emailBlasterTemplate);
         }
 
@@ -168,8 +173,13 @@ namespace JobsV1.Controllers
             string recipientFilter = emailTemplate.RecipientsCategory;
             string emailFilter = emailTemplate.EmailCategory;
 
+            //create Email Content
+            string emailTitle = emailTemplate.EmailTitle;
+            string emailBody = emailTemplate.EmailBody;
+            string emailPicture = emailTemplate.ContentPicture;
+
             //get recipients list from customer's table then filter
-            var recipients = db.Customers.ToList();
+            var recipients = db.Customers.Where(c=>c.Status == "ACT").ToList();
 
             List<BlasterRecipients> blasterRecipients = new List<BlasterRecipients>();
             int count = 0;
@@ -179,7 +189,7 @@ namespace JobsV1.Controllers
                 if (recipient.CustCats != null)
                 {
 
-                    var recipientCategories = recipient.CustCats.Where(r => r.CustomerId == recipient.Id).ToList();
+                    var recipientCategories = recipient.CustCats.Where(r => r.CustomerId == recipient.Id ).ToList();
 
 
                     //get categories
@@ -202,31 +212,30 @@ namespace JobsV1.Controllers
             }
 
             //Filter out recipients with matching the user categories
-            var FinalRecipients = blasterRecipients.Where(b => b.Category.Contains(emailFilter)).ToList();
+            var FinalRecipients = blasterRecipients.Where(b => b.Category.Contains(emailFilter) || b.Category.Contains(recipientFilter)).ToList();
 
             //send one by one, get status of each email and log
-            int logId    = 1;
+            int logId = 1;
             int blastReportId = getPrevBlastRecord();
 
             foreach (var recipient in FinalRecipients)
             {
-                logId = LogEmailBlastResult(recipient.id,recipient.Email);
+                string status = eb.SendMailBlaster(recipient.Email, emailTitle, emailBody, emailPicture);
+                logId = LogEmailBlastResult(recipient.id, recipient.Email, status);
                 blastReportId = BlastRecord(logId, id, blastReportId);
-
             }
 
-
             //display result
-            return RedirectToAction("BlastResult", new { reportId = blastReportId });
+            return RedirectToAction("BlastResult", new { reportId = blastReportId , sDate = "today", eDate = "today"});
             
         }
 
 
-        public int LogEmailBlastResult(int recipientId,string email)
+        public int LogEmailBlastResult(int recipientId,string email,string EmailStatus)
         {
             EmailBlasterLogs logs = new EmailBlasterLogs();
             DateTime Datetoday = DateTime.Now;
-            string status = "success";
+            string status = EmailStatus;
 
             logs.DateTime = Datetoday;
             logs.Status = status;

@@ -13,7 +13,7 @@ namespace JobsV1.Models
 
         private JobDBContainer db = new JobDBContainer();
 
-        public string SendMailBlaster( string renterMail)
+        public string SendMailBlaster( string renterMail, string emailSubject, string emailContent, string emailPicture)
         {
             try
             {
@@ -23,30 +23,31 @@ namespace JobsV1.Models
                 MailDefinition md = new MailDefinition();
                 md.From = "Realwheels.Reservation@RealWheelsDavao.com";      //sender mail
                 md.IsBodyHtml = true;                       //set true to enable use of html tags 
-                md.Subject = "RealWheels Reservation";      //mail title
+                md.Subject = emailSubject;      //mail title
 
                 ListDictionary replacements = new ListDictionary();
                 replacements.Add("{name}", "Martin");
 
                 string body, message;
-
-                //mail title
-                md.Subject = "RealWheels ";  
-                
-                //mail subject
-                md.Subject = "Realwheels Newsletter : ";
                 
                 //mail content for client inquiries
-                message ="";
+                message =emailContent;
                 
                 body =
                     "" +
                     " <div style='background-color:#f4f4f4;padding:20px' align='center'>" +
-                    " <div style='background-color:white;min-width:250px;margin:30px;padding:30px;text-align:center;color:#555555;font:normal 300 16px/21px 'Helvetica Neue',Arial'>  <h1> RealWheels Car Reservation </h1>" +
+                    " <div style='background-color:white;min-width:250px;margin:20px;padding:0px;text-align:center;color:#555555;font:normal 300 16px/21px 'Helvetica Neue',Arial;'> "+
+                    " <h1 style='text-align:left;padding:20px;'> " + emailSubject + " </h1>" +
+                    " <img src='"+ emailPicture +"' style='width:100%'> <br />" +
+                    " <div style='text-align:left;padding:20px;'><h3>" +
                     message +
+                    " </h3></div>" +
+                    " </div>" +
+                    " <div style='text-align:center;color:darkgray;'>" +
                     " <p> This is an auto-generated email. DO NOT REPLY TO THIS MESSAGE </p> " +
-                    " <p> For further inquiries kindly email us through ajdavao88@gmail.com or dial(+63) 82 297 1831. </p> " +
-                    " </div></div>" +
+                    " <p> For inquiries, kindly email us through realbreezedavao@gmail.com or dial(+63) 82 297 1831. </p> " +
+                    " </div>" +
+                    " </div>" +
                     "";
 
                 MailMessage msg = md.CreateMailMessage(renterMail, replacements, body, new System.Web.UI.Control());
