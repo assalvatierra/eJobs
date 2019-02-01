@@ -48,7 +48,7 @@ namespace JobsV1.Controllers
                     {
                         Id = 0,
                         Name = "Not Assigned",
-                        iconPath = "http://localhost:50382/Images/Customers/Category/unavailable-40.png"
+                        iconPath = "Images/Customers/Category/unavailable-40.png"
                     };
                 }
 
@@ -67,7 +67,7 @@ namespace JobsV1.Controllers
                         Address = "none",
                         Contact1 = "0",
                         Contact2 = "0",
-                        iconPath = "http://localhost:50382/Images/Customers/Category/unavailable-40.png"
+                        iconPath = "Images/Customers/Category/unavailable-40.png"
                     };
                 }
 
@@ -86,7 +86,7 @@ namespace JobsV1.Controllers
                     CustCategoryIcon = custcategory.iconPath,
                     CustEntID = company.Id,
                     CustEntName = company.Name,
-                    CustEntIconPath = company.iconPath,
+                    CustEntIconPath = "~/Images/Customers/Company/organization-40.png",
                     categories = getCategoriesList(customer.Id),
                     companies = getCompanyList(customer.Id)
 
@@ -118,7 +118,7 @@ namespace JobsV1.Controllers
                 categoryDetails.Add(new CustCategory
                 {
                     Id = 0,
-                    iconPath = "http://localhost:50382/Images/Customers/Category/unavailable-40.png",
+                    iconPath = "Images/Customers/Category/unavailable-40.png",
                     Name = "not assigned"
                 });
 
@@ -128,6 +128,35 @@ namespace JobsV1.Controllers
 
                 foreach (var cat in categoryList)
                 {
+                    switch (cat.CustCategory.Name) {
+                        case "PRIORITY":
+                            cat.CustCategory.iconPath = "Images/Customers/Category/star-filled-40.png";
+                            break;
+                        case "ACTIVE":
+                            cat.CustCategory.iconPath = "Images/Customers/Category/Active-30.png";
+                            break;
+                        case "SUSPENDED":
+                            cat.CustCategory.iconPath = "Images/Customers/Category/suspended-64.png";
+                            break;
+                        case "BAD ACCOUNT":
+                            cat.CustCategory.iconPath = "Images/Customers/Category/cancel-40.png";
+                            break;
+                        case "CAR-RENTAL":
+                            cat.CustCategory.iconPath = "Images/Customers/Category/Active-30.png";
+                            break;
+                        case "TOUR":
+                            cat.CustCategory.iconPath = "Images/Customers/Category/star-filled-40.png";
+                            break;
+                        case "CLIENT":
+                            cat.CustCategory.iconPath = "Images/Customers/Category/Active-30.png";
+                            break;
+                        case "COMPANY":
+                            cat.CustCategory.iconPath = "Images/Customers/Category/star-filled-40.png";
+                            break;
+                    }
+
+
+
                     categoryDetails.Add(new CustCategory
                     {
                         Id = cat.CustCategory.Id,
@@ -176,7 +205,7 @@ namespace JobsV1.Controllers
                         Address = record.CustEntMain.Address,
                         Contact1 = record.CustEntMain.Contact1,
                         Contact2 = record.CustEntMain.Contact2,
-                        iconPath = record.CustEntMain.iconPath
+                        iconPath = "Images/Customers/Company/organization-40.png"
                     });
 
                 }

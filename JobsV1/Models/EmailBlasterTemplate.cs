@@ -26,6 +26,7 @@ namespace JobsV1.Models
         public string EmailTitle { get; set; }
         public string EmailBody { get; set; }
         public string ContentPicture { get; set; }
+        public string AttachmentLink { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BlasterLog> BlasterLogs { get; set; }

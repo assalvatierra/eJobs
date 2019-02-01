@@ -31,8 +31,6 @@ namespace JobsV1.Controllers
                 };
 
         private List<SelectListItem> RecipientsCat = new List<SelectListItem> {
-                new SelectListItem { Value = "ACT", Text = "Active" },
-                new SelectListItem { Value = "INC", Text = "Inactive" },
                 new SelectListItem { Value = "CLIENT", Text = "Client" },
                 new SelectListItem { Value = "COMPANY", Text = "Company" }
                 };
@@ -73,7 +71,7 @@ namespace JobsV1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,EmailCategory,RecipientsCategory,EmailTitle,EmailBody,ContentPicture")] EmailBlasterTemplate emailBlasterTemplate)
+        public ActionResult Create([Bind(Include = "Id,EmailCategory,RecipientsCategory,EmailTitle,EmailBody,ContentPicture,AttachmentLink")] EmailBlasterTemplate emailBlasterTemplate)
         {
             if (ModelState.IsValid)
             {
@@ -114,7 +112,7 @@ namespace JobsV1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,EmailCategory,RecipientsCategory,EmailTitle,EmailBody,ContentPicture")] EmailBlasterTemplate emailBlasterTemplate)
+        public ActionResult Edit([Bind(Include = "Id,EmailCategory,RecipientsCategory,EmailTitle,EmailBody,ContentPicture,AttachmentLink")] EmailBlasterTemplate emailBlasterTemplate)
         {
             if (ModelState.IsValid)
             {
@@ -177,6 +175,7 @@ namespace JobsV1.Controllers
             string emailTitle = emailTemplate.EmailTitle;
             string emailBody = emailTemplate.EmailBody;
             string emailPicture = emailTemplate.ContentPicture;
+            string emailAttachmentLink = emailTemplate.AttachmentLink;
 
             //get recipients list from customer's table then filter
             var recipients = db.Customers.Where(c=>c.Status == "ACT").ToList();
@@ -220,7 +219,7 @@ namespace JobsV1.Controllers
 
             foreach (var recipient in FinalRecipients)
             {
-                string status = eb.SendMailBlaster(recipient.Email, emailTitle, emailBody, emailPicture);
+                string status = eb.SendMailBlaster(recipient.Email, emailTitle, emailBody, emailPicture, emailAttachmentLink);
                 logId = LogEmailBlastResult(recipient.id, recipient.Email, status);
                 blastReportId = BlastRecord(logId, id, blastReportId);
             }
@@ -238,7 +237,7 @@ namespace JobsV1.Controllers
             string status = EmailStatus;
 
             logs.DateTime = Datetoday;
-            logs.Status = status;
+            logs.Status = status == null ? "failed" : status;
             logs.Email = email;
             logs.CustId = recipientId;
 

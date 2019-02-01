@@ -103,7 +103,7 @@ namespace JobsV1.Controllers
                 case 2: //prev
                     jobMains = jobMains
                         .Where(d => (d.JobStatusId != JOBCLOSED || d.JobStatusId != JOBCANCELLED)).ToList()
-                        .Where(p => DateTime.Compare(p.JobDate.Date, today.Date) < 0).ToList(); //get 1 month before all entries
+                        .Where(p => DateTime.Compare(p.JobDate.Date, today.Date) < 0 && DateTime.Compare(p.JobDate.Date, today.Date.AddDays(-120)) > 0).ToList(); //get 1 month before all entries
 
                     break;
                 case 3: //close
