@@ -18,7 +18,7 @@ namespace JobsV1.Models
         //[emailContent] as email body,
         //[emalPicture] as Picture Link to <img>,
         //[emailAttachmentLink] as Attachment link to <a>
-        public string SendMailBlaster( string renterMail, string emailSubject, string emailContent, string emailPicture,string emailAttachmentLink)
+        public string SendMailBlaster( string renterMail, string emailSubject, string emailContent, string emailPicture,string emailAttachmentLink, string company)
         {
             try
             {
@@ -39,11 +39,11 @@ namespace JobsV1.Models
                 message = emailContent;
 
                 //build email body
-                body =
-                    "" +
+                body =   
+                    "" +  
                     " <div style='background-color:#f4f4f4;padding:20px' align='center'>" +
                     " <div style='background-color:white;min-width:250px;margin:20px;padding:0px;text-align:center;color:#555555;font:normal 300 16px/21px 'Helvetica Neue',Arial;'> " +
-                    " <img src='http://realbreezedavaotours.com/wp-content/uploads/2019/01/realbreeze_logo_2.jpg' width='250' style='margin-bottom:0px;'> " +
+                     handleCompany(company) +
                     " <h1 style='text-align:center;padding-bottom:20px;margin-top:-60px;'> " + emailSubject + " </h1>" +
                     handlePictureLink(emailPicture) +
                     " <div style='text-align:left;padding:20px;'><h3>" +
@@ -110,6 +110,39 @@ namespace JobsV1.Models
 
             //link is empty
             if (link == "" || link == null)
+            {
+                pictureLink = " ";
+            }
+
+            return pictureLink;
+        }
+
+
+        //generate html element  of the picture link and return string
+        //return none if no link is specified
+        public string handleCompany(string company)
+        {
+            string pictureLink = "";
+
+            //link is not empty
+            if (company != "" || company != null)
+            {
+                switch (company)
+                {
+                    case "REALBREEZE":
+                        pictureLink = " <img src='http://realbreezedavaotours.com/wp-content/uploads/2019/02/Realbreeze_logo_transparent.png' width='250' style='margin-bottom:0px;'> ";
+                        break;
+                    case "REALWHEELS":
+                        pictureLink = " <img src='http://realbreezedavaotours.com/wp-content/uploads/2019/01/realbreeze_logo_2.jpg' width='250' style='margin-bottom:0px;'> ";
+                        break;
+                    default:
+                        pictureLink = " <img src='http://realbreezedavaotours.com/wp-content/uploads/2019/01/realbreeze_logo_2.jpg' width='250' style='margin-bottom:0px;'> ";
+                        break;
+                }
+            }
+
+            //link is empty
+            if (company == "" || company == null)
             {
                 pictureLink = " ";
             }

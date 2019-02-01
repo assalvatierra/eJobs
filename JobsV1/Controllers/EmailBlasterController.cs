@@ -35,6 +35,11 @@ namespace JobsV1.Controllers
                 new SelectListItem { Value = "COMPANY", Text = "Company" }
                 };
 
+        private List<SelectListItem> CompanyList = new List<SelectListItem> {
+                new SelectListItem { Value = "REALBREEZE", Text = "Realbreeze Travel and Tours" },
+                new SelectListItem { Value = "REALWHEELS", Text = "RealWheels Car Rental" }
+                };
+
         // GET: CustEntMains
 
         // GET: EmailBlasterTemplates
@@ -63,6 +68,7 @@ namespace JobsV1.Controllers
         {
             ViewBag.EmailCategory = new SelectList(EmailCat, "value", "text");
             ViewBag.RecipientsCategory = new SelectList(RecipientsCat, "value", "text");
+            ViewBag.Company = new SelectList(CompanyList, "value", "text");
             return View();
         }
 
@@ -71,7 +77,7 @@ namespace JobsV1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,EmailCategory,RecipientsCategory,EmailTitle,EmailBody,ContentPicture,AttachmentLink")] EmailBlasterTemplate emailBlasterTemplate)
+        public ActionResult Create([Bind(Include = "Id,EmailCategory,RecipientsCategory,EmailTitle,EmailBody,ContentPicture,AttachmentLink,Company")] EmailBlasterTemplate emailBlasterTemplate)
         {
             if (ModelState.IsValid)
             {
@@ -83,6 +89,7 @@ namespace JobsV1.Controllers
 
             ViewBag.EmailCategory = new SelectList(EmailCat, "Value", "text");
             ViewBag.RecipientsCategory = new SelectList(RecipientsCat, "value", "text");
+            ViewBag.Company = new SelectList(CompanyList, "value", "text");
             return View(emailBlasterTemplate);
         }
 
@@ -104,6 +111,7 @@ namespace JobsV1.Controllers
 
             ViewBag.EmailCategory = new SelectList(EmailCat, "value", "text", emailBlasterTemplate.EmailCategory);
             ViewBag.RecipientsCategory = new SelectList(RecipientsCat, "value", "text", emailBlasterTemplate.RecipientsCategory);
+            ViewBag.Company = new SelectList(CompanyList, "value", "text",emailBlasterTemplate.Company);
             return View(emailBlasterTemplate);
         }
 
@@ -112,7 +120,7 @@ namespace JobsV1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,EmailCategory,RecipientsCategory,EmailTitle,EmailBody,ContentPicture,AttachmentLink")] EmailBlasterTemplate emailBlasterTemplate)
+        public ActionResult Edit([Bind(Include = "Id,EmailCategory,RecipientsCategory,EmailTitle,EmailBody,ContentPicture,AttachmentLink,Company")] EmailBlasterTemplate emailBlasterTemplate)
         {
             if (ModelState.IsValid)
             {
@@ -123,6 +131,7 @@ namespace JobsV1.Controllers
             }
             ViewBag.EmailCategory = new SelectList(EmailCat, "value", "text", emailBlasterTemplate.EmailCategory);
             ViewBag.RecipientsCategory = new SelectList(RecipientsCat, "value", "text", emailBlasterTemplate.RecipientsCategory);
+            ViewBag.Company = new SelectList(CompanyList, "value", "text", emailBlasterTemplate.Company);
             return View(emailBlasterTemplate);
         }
 
@@ -176,6 +185,7 @@ namespace JobsV1.Controllers
             string emailBody = emailTemplate.EmailBody;
             string emailPicture = emailTemplate.ContentPicture;
             string emailAttachmentLink = emailTemplate.AttachmentLink;
+            string company = emailTemplate.Company;
 
             //get recipients list from customer's table then filter
             var recipients = db.Customers.Where(c=>c.Status == "ACT").ToList();
@@ -219,7 +229,7 @@ namespace JobsV1.Controllers
 
             foreach (var recipient in FinalRecipients)
             {
-                string status = eb.SendMailBlaster(recipient.Email, emailTitle, emailBody, emailPicture, emailAttachmentLink);
+                string status = eb.SendMailBlaster(recipient.Email, emailTitle, emailBody, emailPicture, emailAttachmentLink,company);
                 logId = LogEmailBlastResult(recipient.id, recipient.Email, status);
                 blastReportId = BlastRecord(logId, id, blastReportId);
             }

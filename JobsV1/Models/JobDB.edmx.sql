@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 01/31/2019 14:45:38
+-- Date Created: 02/01/2019 10:24:39
 -- Generated from EDMX file: C:\Users\VILLOSA\Documents\GithubClassic\eJobs\JobsV1\Models\JobDB.edmx
 -- --------------------------------------------------
 
@@ -1345,7 +1345,8 @@ CREATE TABLE [dbo].[EmailBlasterTemplates] (
     [EmailTitle] nvarchar(150)  NOT NULL,
     [EmailBody] nvarchar(750)  NOT NULL,
     [ContentPicture] nvarchar(250)  NULL,
-    [AttachmentLink] nvarchar(200)  NULL
+    [AttachmentLink] nvarchar(200)  NULL,
+    [Company] nvarchar(max)  NOT NULL
 );
 GO
 

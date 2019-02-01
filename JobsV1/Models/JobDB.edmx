@@ -1246,6 +1246,7 @@
     <Property Name="EmailBody" Type="nvarchar" Nullable="false" MaxLength="750" />
     <Property Name="ContentPicture" Type="nvarchar" Nullable="true" MaxLength="250" />
     <Property Name="AttachmentLink" Type="nvarchar" Nullable="true" MaxLength="200" />
+    <Property Name="Company" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="BlasterLogs">
     <Key>
@@ -4564,6 +4565,7 @@
           <NavigationProperty Name="BlasterLogs" Relationship="JobDB.EmailBlasterTemplateBlasterLog" FromRole="EmailBlasterTemplate" ToRole="BlasterLog" />
           <Property Name="ContentPicture" Type="String" Nullable="true" MaxLength="250" />
           <Property Name="AttachmentLink" Type="String" Nullable="true" MaxLength="200" />
+          <Property Name="Company" Type="String" Nullable="false" />
         </EntityType>
         <EntityType Name="BlasterLog">
           <Key>
@@ -5532,6 +5534,7 @@
           <ScalarProperty Name="EmailBody" ColumnName="EmailBody" />
           <ScalarProperty Name="ContentPicture" ColumnName="ContentPicture" />
           <ScalarProperty Name="AttachmentLink" ColumnName="AttachmentLink" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
