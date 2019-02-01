@@ -43,8 +43,8 @@ namespace JobsV1.Models
                     "" +
                     " <div style='background-color:#f4f4f4;padding:20px' align='center'>" +
                     " <div style='background-color:white;min-width:250px;margin:20px;padding:0px;text-align:center;color:#555555;font:normal 300 16px/21px 'Helvetica Neue',Arial;'> " +
-                    " <img src='http://realbreezedavaotours.com/wp-content/uploads/2019/01/realbreeze_logo_2.jpg' width='100%'> " +
-                    " <h1 style='text-align:left;padding:20px;'> " + emailSubject + " </h1>" +
+                    " <img src='http://realbreezedavaotours.com/wp-content/uploads/2019/01/realbreeze_logo_2.jpg' width='250' style='margin-bottom:0px;'> " +
+                    " <h1 style='text-align:center;padding-bottom:20px;margin-top:-60px;'> " + emailSubject + " </h1>" +
                     handlePictureLink(emailPicture) +
                     " <div style='text-align:left;padding:20px;'><h3>" +
                     message +
@@ -52,12 +52,12 @@ namespace JobsV1.Models
                     handleAttachLink(emailAttachmentLink) +
                     " <br />" +
                     " </div>" +
-                    " <div style='text-align:center;color:darkgray;'>" +
+                    " <div style='text-align:center;color:#626262;'>" +
                     " <p> This is an auto-generated email. DO NOT REPLY TO THIS MESSAGE </p> " +
                     " <p> For inquiries, kindly email us through realbreezedavao@gmail.com or dial(+63) 82 297 1831. </p> " +
                     " </div>" +
                     " </div>" +
-                    "";
+                    "       " ;   
                
                 MailMessage msg = md.CreateMailMessage(renterMail, replacements, body, new System.Web.UI.Control());
                 //msg.Attachments.Add(new Attachment(emailPicture));
@@ -105,7 +105,7 @@ namespace JobsV1.Models
             //link is not empty
             if (link != "" || link != null)
             {
-                pictureLink = " <img src='" + link + "' style='width:25px'> <br />";
+                pictureLink = " <img src='" + link + "' style='width:100%'> <br />";
             }
 
             //link is empty
