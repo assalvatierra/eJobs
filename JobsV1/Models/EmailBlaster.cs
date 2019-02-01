@@ -133,7 +133,7 @@ namespace JobsV1.Models
                         pictureLink = " <img src='http://realbreezedavaotours.com/wp-content/uploads/2019/02/Realbreeze_logo_transparent.png' width='250' style='margin-bottom:0px;'> ";
                         break;
                     case "REALWHEELS":
-                        pictureLink = " <img src='http://realbreezedavaotours.com/wp-content/uploads/2019/01/realbreeze_logo_2.jpg' width='250' style='margin-bottom:0px;'> ";
+                        pictureLink = " <img src='http://realbreezedavaotours.com/wp-content/uploads/2019/02/RealWheels.jpg' width='250' style='margin-top:20px;'> ";
                         break;
                     default:
                         pictureLink = " <img src='http://realbreezedavaotours.com/wp-content/uploads/2019/01/realbreeze_logo_2.jpg' width='250' style='margin-bottom:0px;'> ";
