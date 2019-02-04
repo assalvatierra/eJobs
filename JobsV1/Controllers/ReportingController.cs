@@ -19,7 +19,7 @@ namespace JobsV1.Controllers
         private int JOBCLOSED = 4;
         private int JOBCANCELLED = 5;
         private int JOBTEMPLATE = 6;
-
+        
         private JobDBContainer db = new JobDBContainer();
         private DBClasses dbc = new DBClasses();
 
@@ -319,7 +319,7 @@ order by x.jobid
         #endregion 
 
         #region Payments Report
-        public PartialViewResult Payments(string sDate, string eDate ,string company)
+        public PartialViewResult Payments(string sDate, string eDate ,string company, string bank)
         {
             var paymentReport = db.JobPayments.ToList();
 
@@ -348,13 +348,23 @@ order by x.jobid
                     .ToList();
             }
 
+            if (bank != null)
+            {
+                if (bank != "all")
+                {
+                    paymentReport = paymentReport.Where(p => p.JobMain.JobPayments.Where(s=>s.JobMainId == p.JobMainId).FirstOrDefault()
+                                        .Bank.BankName.ToLower().Contains(bank.ToLower()))
+                                        .ToList();
+                }
+            }
+
             ViewBag.sDate = sDate;
             ViewBag.eDate = eDate;
 
             return PartialView(paymentReport);
         }
 
-        public ActionResult PaymentsPrint(string sDate, string eDate, string company)
+        public ActionResult PaymentsPrint(string sDate, string eDate, string company, string bank)
         {
             var paymentReport = db.JobPayments.ToList();
 
@@ -375,6 +385,16 @@ order by x.jobid
                 paymentReport = paymentReport
                     .Where(p => (DateTime.Compare(p.DtPayment.Date, startDateRange.Date) >= 0 && DateTime.Compare(p.DtPayment.Date, endDateRange.Date) <= 0))
                     .ToList();
+            }
+
+            if (bank != null)
+            {
+                if (bank != "all")
+                {
+                    paymentReport = paymentReport.Where(p => p.JobMain.JobPayments.Where(s => s.JobMainId == p.JobMainId).FirstOrDefault()
+                                        .Bank.BankName.ToLower().Contains(bank.ToLower()))
+                                        .ToList();
+                }
             }
 
             return View("Payments", paymentReport);

@@ -92,32 +92,51 @@ namespace JobsV1.Controllers
 
         }
 
-        public ActionResult ActiveJobs(int? FilterId)
+        public ActionResult ActiveJobs(int? FilterId, string service)
         {
             IQueryable<Models.JobMain> jobMains = db.JobMains.Include(j => j.Customer).Include(j => j.Branch).Include(j => j.JobStatus).Include(j => j.JobThru).OrderBy(d => d.JobDate);
             jobMains = (IQueryable<Models.JobMain>)jobMains.Where(d => d.JobStatusId == JOBRESERVATION || d.JobStatusId == JOBCONFIRMED);
 
             var p = jobMains.Select(s => s.Id);
 
-            var data = db.JobServices.Where(w => p.Contains(w.JobMainId)).ToList().OrderBy(s=>s.DtStart);
+            List<JobServices> data = db.JobServices.Where(w => p.Contains(w.JobMainId)).OrderBy(s => s.DtStart).ToList();
 
             DateTime today = GetCurrentTime();
             //today = today.AddHours(-12).Date;
             //today = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(today, TimeZoneInfo.Local.Id, "Singapore Standard Time");
             DateTime tomorrow = today.AddDays(1);
+            DateTime after2Days = today.AddDays(2);
             switch (FilterId) {
                 case 1:
-                    data = db.JobServices.Where(w => p.Contains(w.JobMainId)).ToList().OrderBy(s => s.DtStart);
+                    data = db.JobServices.Where(w => p.Contains(w.JobMainId)).OrderBy(s => s.DtStart).ToList();
                     break;
                 case 2:
-                    data = db.JobServices.Where(w => p.Contains(w.JobMainId)).ToList().Where(w => DateTime.Compare(w.DtStart.Value.Date, today.Date) == 0).ToList().OrderBy(s => s.DtStart);
+                    //get jobs from today
+                    data = db.JobServices.Where(w => p.Contains(w.JobMainId)).ToList().Where(w => DateTime.Compare(w.DtStart.Value.Date, today.Date) == 0).OrderBy(s => s.DtStart).ToList();
                     break;
                 case 3:
-                    data = db.JobServices.Where(w => p.Contains(w.JobMainId)).ToList().Where(w => DateTime.Compare(w.DtStart.Value.Date, tomorrow.Date) == 0).ToList().OrderBy(s => s.DtStart);
+                    //get jobs from tomorrow
+                    data = db.JobServices.Where(w => p.Contains(w.JobMainId)).ToList().Where(w => DateTime.Compare(w.DtStart.Value.Date, tomorrow.Date) == 0).OrderBy(s => s.DtStart).ToList();
+                    break;
+                case 4:
+                    //get jobs from today to 2 days after
+                    data = db.JobServices.Where(w => p.Contains(w.JobMainId)).ToList()
+                        .Where(w => DateTime.Compare(w.DtStart.Value.Date, after2Days.Date) <= 0 && DateTime.Compare(w.DtStart.Value.Date, today.Date) >= 0 ).OrderBy(s => s.DtStart)
+                        .ToList();
                     break;
                 default:
                     break;
             }
+
+
+            if (service != null)
+            {
+                if (service != "all")
+                {
+                    data = data.Where(s=>s.Service.Name.ToLower().Contains(service.ToLower())).ToList();
+                }
+            }
+
 
             ViewBag.Current = this.GetCurrentTime().ToString("MMM-dd-yyyy (ddd)");
             ViewBag.today = GetCurrentTime();

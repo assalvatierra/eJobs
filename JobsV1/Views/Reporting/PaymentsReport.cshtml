@@ -11,10 +11,24 @@
         <input type="date"  value="@ViewBag.eDate" id="endDate" />
     </div>
    
-    <div class="col-lg-6">
+    <div class="col-lg-3">
         <h5>Payers Name (Description)</h5>
         <input type="text" value="@ViewBag.Id" id="company-input" />
     </div>
+
+    <div class="col-lg-3">
+        <!-- Package Status Search Filter -->
+        <h5>&nbsp; Bank</h5>
+        <select class="dropdown" id="bank-input" style="font-size:15px;padding:7px;">
+            <option value="all">All</option>
+            <option value="Cash">Cash</option>
+            <option value="BDO">BDO</option>
+            <option value="BPI">BPI</option>
+            <option value="Paypal">Paypal</option>
+            <option value="Personal Guarantee">Personal Guarantee</option>
+        </select>
+    </div>
+
 
     <div class="col-lg-3">
         <br />
@@ -44,9 +58,11 @@
         var date1 = url.searchParams.get("sDate") != null ? url.searchParams.get("sDate") : getToday();
         var date2 = url.searchParams.get("eDate") != null ? url.searchParams.get("eDate") : getToday();
         var company = url.searchParams.get("company");
+        var bank = url.searchParams.get("bank");
         $('#startDate').val(date1);
         $('#endDate').val(date2);
         $('#company-input').val(company);
+        $('#bank-input').val(bank);
     }
 
 
@@ -77,6 +93,7 @@
         var CompanyVal = document.getElementById("company-input").value;
         var sDateVal = document.getElementById("startDate").value != "" ? document.getElementById("startDate").value : getToday();
         var eDateVal = document.getElementById("endDate").value != "" ? document.getElementById("endDate").value : getToday();
+        var bankVal = document.getElementById("bank-input").value;
 
         var requestString = "/Reporting?";
 
@@ -87,12 +104,18 @@
             requestString = requestString + "sDate=" + sDateVal + "&eDate=" + eDateVal;
         }
 
+        if (bankVal != null) {
+
+            requestString = requestString + "&bank=" + bankVal ;
+        }
+
+
         if (CompanyVal == "") {
             CompanyVal = "all";
         }
         requestString += "&company=" + CompanyVal;
 
-
+         
         window.location.href = requestString;
         //window.location.href = "/Reporting/Index/" + idVal + "&sDate=" + sDateVal + "&sDate=" + eDateVal;
     }
@@ -106,6 +129,11 @@
 
         if (eDateVal != null && sDateVal != null) {
             requestString = requestString + "sDate=" + sDateVal + "&eDate=" + eDateVal;
+        }
+
+        if (bankVal != null) {
+
+            requestString = requestString + "&bank=" + bankVal;
         }
 
         if (CompanyVal == "") {

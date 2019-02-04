@@ -33,13 +33,13 @@
             @Html.DisplayNameFor(model => model.PaymentAmt)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Remarks)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.JobMain.Description)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Bank.BankName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Remarks)
         </th>
         <th></th>
     </tr>
@@ -50,16 +50,16 @@
             @Html.DisplayFor(modelItem => item.DtPayment)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PaymentAmt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Remarks)
+            @string.Format("{0:N}", @item.PaymentAmt)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.JobMain.Description)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Bank.BankName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Remarks)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

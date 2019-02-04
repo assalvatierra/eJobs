@@ -79,6 +79,9 @@
     <EntitySet Name="PaypalAccounts" EntityType="JobDB.Store.PaypalAccounts" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="RateGroups" EntityType="JobDB.Store.RateGroups" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="CarRateGroups" EntityType="JobDB.Store.CarRateGroups" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="EmailBlasterTemplates" EntityType="JobDB.Store.EmailBlasterTemplates" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BlasterLogs" EntityType="JobDB.Store.BlasterLogs" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="EmailBlasterLogs" EntityType="JobDB.Store.EmailBlasterLogs" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="JobMainJobType" Association="JobDB.Store.JobMainJobType">
       <End Role="JobMain" EntitySet="JobMains" />
       <End Role="JobType" EntitySet="JobTypes" />
@@ -391,6 +394,14 @@
       <End Role="CarRatePackage" EntitySet="CarRatePackages" />
       <End Role="CarRateGroup" EntitySet="CarRateGroups" />
     </AssociationSet>
+    <AssociationSet Name="EmailBlasterLogsBlasterLog" Association="JobDB.Store.EmailBlasterLogsBlasterLog">
+      <End Role="EmailBlasterLogs" EntitySet="EmailBlasterLogs" />
+      <End Role="BlasterLog" EntitySet="BlasterLogs" />
+    </AssociationSet>
+    <AssociationSet Name="EmailBlasterTemplateBlasterLog" Association="JobDB.Store.EmailBlasterTemplateBlasterLog">
+      <End Role="EmailBlasterTemplate" EntitySet="EmailBlasterTemplates" />
+      <End Role="BlasterLog" EntitySet="BlasterLogs" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="JobMains">
     <Key>
@@ -421,7 +432,7 @@
     <Property Name="Contact2" Type="nvarchar" Nullable="true" MaxLength="20" />
     <Property Name="Contact3" Type="nvarchar" Nullable="true" MaxLength="20" />
     <Property Name="Email" Type="nvarchar" Nullable="true" MaxLength="50" />
-    <Property Name="Details" Type="nvarchar" Nullable="true" MaxLength="80" />
+    <Property Name="Details" Type="nvarchar" Nullable="true" MaxLength="250" />
     <Property Name="CityId" Type="int" Nullable="false" />
     <Property Name="SupplierTypeId" Type="int" Nullable="false" />
     <Property Name="Status" Type="nvarchar" Nullable="true" MaxLength="10" />
@@ -1218,6 +1229,38 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="RateGroupId" Type="int" Nullable="false" />
     <Property Name="CarRatePackageId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EmailBlasterTemplates">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmailCategory" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="RecipientsCategory" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="EmailTitle" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="EmailBody" Type="nvarchar" Nullable="false" MaxLength="750" />
+    <Property Name="ContentPicture" Type="nvarchar" Nullable="true" MaxLength="250" />
+    <Property Name="AttachmentLink" Type="nvarchar" Nullable="true" MaxLength="200" />
+    <Property Name="Company" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BlasterLogs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmailBlasterLogsId" Type="int" Nullable="false" />
+    <Property Name="EmailBlasterTemplateId" Type="int" Nullable="false" />
+    <Property Name="ReportId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EmailBlasterLogs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="120" />
+    <Property Name="DateTime" Type="datetime" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="CustId" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="JobMainJobType">
     <End Role="JobMain" Type="JobDB.Store.JobMains" Multiplicity="1" />
@@ -2152,6 +2195,30 @@
       </Principal>
       <Dependent Role="CarRateGroup">
         <PropertyRef Name="CarRatePackageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EmailBlasterLogsBlasterLog">
+    <End Role="EmailBlasterLogs" Type="JobDB.Store.EmailBlasterLogs" Multiplicity="1" />
+    <End Role="BlasterLog" Type="JobDB.Store.BlasterLogs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmailBlasterLogs">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BlasterLog">
+        <PropertyRef Name="EmailBlasterLogsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EmailBlasterTemplateBlasterLog">
+    <End Role="EmailBlasterTemplate" Type="JobDB.Store.EmailBlasterTemplates" Multiplicity="1" />
+    <End Role="BlasterLog" Type="JobDB.Store.BlasterLogs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmailBlasterTemplate">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BlasterLog">
+        <PropertyRef Name="EmailBlasterTemplateId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

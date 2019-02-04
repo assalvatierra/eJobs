@@ -1469,6 +1469,7 @@
     <Content Include="Areas\Accounting\Scripts\Accounting.js" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Scripts\Reporting\" />
     <Folder Include="Views\Paypal\" />
   </ItemGroup>
   <PropertyGroup>

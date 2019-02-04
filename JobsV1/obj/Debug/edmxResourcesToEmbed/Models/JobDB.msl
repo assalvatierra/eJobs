@@ -906,5 +906,40 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="EmailBlasterTemplates">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.EmailBlasterTemplate)">
+        <MappingFragment StoreEntitySet="EmailBlasterTemplates">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="EmailCategory" ColumnName="EmailCategory" />
+          <ScalarProperty Name="RecipientsCategory" ColumnName="RecipientsCategory" />
+          <ScalarProperty Name="EmailTitle" ColumnName="EmailTitle" />
+          <ScalarProperty Name="EmailBody" ColumnName="EmailBody" />
+          <ScalarProperty Name="ContentPicture" ColumnName="ContentPicture" />
+          <ScalarProperty Name="AttachmentLink" ColumnName="AttachmentLink" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BlasterLogs">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.BlasterLog)">
+        <MappingFragment StoreEntitySet="BlasterLogs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="EmailBlasterLogsId" ColumnName="EmailBlasterLogsId" />
+          <ScalarProperty Name="EmailBlasterTemplateId" ColumnName="EmailBlasterTemplateId" />
+          <ScalarProperty Name="ReportId" ColumnName="ReportId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmailBlasterLogs">
+      <EntityTypeMapping TypeName="IsTypeOf(JobDB.EmailBlasterLogs)">
+        <MappingFragment StoreEntitySet="EmailBlasterLogs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CustId" ColumnName="CustId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

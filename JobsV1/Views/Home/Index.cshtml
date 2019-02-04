@@ -102,7 +102,7 @@
            Joblisting, Payment Reports
             <br />
             [ @Html.ActionLink("Job Listing", "Index", "Reporting", new { reportkey = "job" }, null) ,
-              @Html.ActionLink("Payment", "Index", "Reporting", new { reportkey = "payments" }, null),
+              @Html.ActionLink("Payment", "Index", "Reporting", new { reportkey = "payments" , company = "all", bank = "all"}, null),
               @Html.ActionLink("Package Rates", "Index", "Reporting", new { reportkey = "packages", status = "all", unit = "all", package = "all",group = "all"  }, null) ]
         </p>
         <p>@Html.ActionLink("Create Report »", "Index", "Reporting", null, new { @class = "btn btn-default" }) </p>

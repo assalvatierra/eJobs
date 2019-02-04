@@ -47,7 +47,7 @@
             @Html.DisplayFor(modelItem => item.DtPayment)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PaymentAmt)
+            @string.Format("{0:N}", @item.PaymentAmt )
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Remarks)
