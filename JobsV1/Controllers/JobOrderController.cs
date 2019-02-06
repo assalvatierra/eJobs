@@ -1430,7 +1430,66 @@ order by x.jobid
 
             ViewBag.StrData = sData;
             return View();
+        }
 
+        public ActionResult TextConfirmation(int? id)
+        {
+            string sData = "Booking Confirmation";
+
+            Models.JobServiceItem svcpu;
+            Models.JobMain jobmain = db.JobMains.Find(id);
+            var svc = db.JobServices.Where(j=>j.JobMainId == id).ToList();
+            string custName = jobmain.Customer.Name;
+
+            switch (custName)
+            {
+                case "Real Breeze Davao":
+                    custName = "Real Breeze Travel & Tours";
+                    break;
+                case "AJ88 Car Rental":
+                    custName = "AJ88 Car Rental";
+                    break;
+                case "RealWheels Car Rental Davao":
+                    custName = "RealWheels Car Rental Davao";
+                    break;
+                default:
+                    custName = "Real Breeze Travel & Tours";
+                    break;
+            }
+
+            if (svc.FirstOrDefault() == null)
+            {
+                sData += "\nServices: undefined ";
+            }
+            else
+            {
+                Decimal quote = (jobmain.AgreedAmt == null ? 0 : (decimal)jobmain.AgreedAmt);
+                sData += "\n" + custName;
+                sData += "\n\nGuest:" + jobmain.Description;
+                sData += "\nContact:" + jobmain.CustContactNumber;
+
+                foreach (var svi in svc)
+                {
+                    
+                    sData += "\nitem: " + svi.Id ;
+                    sData += "\nDate:" + ((DateTime)svi.DtStart).ToString("dd MMM yyyy (ddd)") + " - " + ((DateTime)svi.DtEnd).ToString("dd MMM yyyy (ddd)");
+                    sData += "\nDesc:" + svi.Particulars;
+                    sData += "\nVehicle:" + svi.SupplierItem.Description;
+                    sData += "\nRate:P" + svi.QuotedAmt;
+                    
+                }
+                
+                sData += "\n  ";
+                sData += "\nTotal Rate:P" + quote.ToString("##,###.00");
+                sData += "\nParticulars:" ;
+                sData += "\n  " + jobmain.JobRemarks;
+                sData += "\nNo.Pax:  " + jobmain.NoOfPax;
+                sData += "\n\n Thank you and have a nice day.\n" ;
+            }
+
+            ViewBag.StrData = sData;
+
+            return View();
         }
 
 

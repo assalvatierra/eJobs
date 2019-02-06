@@ -1453,6 +1453,7 @@
     <Content Include="Views\EmailBlaster\Edit.cshtml" />
     <Content Include="Views\EmailBlaster\Index.cshtml" />
     <Content Include="Views\EmailBlaster\BlastResult.cshtml" />
+    <Content Include="Views\JobOrder\TextConfirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

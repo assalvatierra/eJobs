@@ -78,10 +78,10 @@ namespace JobsV1.Controllers
                 dt2 = System.DateTime.Now.AddDays(90);
                 sParam += "[ Date : current and incoming ] ";
             }
-
+                
             List<int> svcs = db.JobServices.Where(d =>
                 ((DateTime)d.DtEnd).CompareTo(dt1) >= 0 && ((DateTime)d.DtStart).CompareTo(dt2) <= 0).Select(s => s.JobMainId).ToList();
-
+                
             jobMains = (IQueryable<Models.JobMain>)jobMains.Where( d => 
             (  d.JobDate.CompareTo(dt1) >= 0 && d.JobDate.CompareTo(dt2) <= 0  )
             || ( svcs.Contains( d.Id ) )  
@@ -89,7 +89,6 @@ namespace JobsV1.Controllers
 
             ViewBag.ListParam = sParam;
             return View(jobMains.ToList());
-
         }
 
         public ActionResult ActiveJobs(int? FilterId, string service)
