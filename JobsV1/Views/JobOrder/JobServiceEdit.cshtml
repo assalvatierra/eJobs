@@ -121,7 +121,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index", new {   serviceId = @ViewBag.svcId }, null)
+    @Html.ActionLink("Back to List", "JobServices", "JobOrder", new { JobMainId = Model.JobMainId }, null)
 </div>
 
 @section Scripts {

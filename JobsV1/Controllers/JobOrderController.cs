@@ -1133,7 +1133,7 @@ order by x.jobid
 
                 int ij = db.JobServices.Find(jobServicePickup.JobServicesId).JobMainId;
 
-                return RedirectToAction("Index", new { serviceid = jobServicePickup.JobServicesId });
+                return RedirectToAction("JobServices", new { JobMainId = jobServicePickup.JobService.JobMainId });
             }
             //ViewBag.JobServicesId = new SelectList(db.JobServices, "Id", "Particulars", jobServicePickup.JobServicesId);
 
@@ -1435,7 +1435,7 @@ order by x.jobid
         public ActionResult TextConfirmation(int? id)
         {
             string sData = "Booking Confirmation";
-
+            decimal totalAmount = 0;
             Models.JobServiceItem svcpu;
             Models.JobMain jobmain = db.JobMains.Find(id);
             var svc = db.JobServices.Where(j=>j.JobMainId == id).ToList();
@@ -1470,19 +1470,28 @@ order by x.jobid
 
                 foreach (var svi in svc)
                 {
-                    
-                    sData += "\nitem: " + svi.Id ;
-                    sData += "\nDate:" + ((DateTime)svi.DtStart).ToString("dd MMM yyyy (ddd)") + " - " + ((DateTime)svi.DtEnd).ToString("dd MMM yyyy (ddd)");
-                    sData += "\nDesc:" + svi.Particulars;
+
+                    var quoted = (decimal)svi.QuotedAmt;
+                    sData += "\n\nDate:" + ((DateTime)svi.DtStart).ToString("dd MMM yyyy (ddd)") + " - " + ((DateTime)svi.DtEnd).ToString("dd MMM yyyy (ddd)");
+                    sData += "\nDescription:" + svi.Particulars;
                     sData += "\nVehicle:" + svi.SupplierItem.Description;
-                    sData += "\nRate:P" + svi.QuotedAmt;
-                    
+                    sData += "\nRate:P" + quoted.ToString("##,###.00");
+                    totalAmount += (decimal)svi.QuotedAmt;
+
                 }
-                
+
+                //Pickup Details
+                sData += "\n\nPickup Details: TBA";
+                sData += "\nDate: TBA" ;
+                sData += "\nTime: TBA" ;
+                sData += "\nLocation: TBA" ;
+
+
+                //Summary Details
                 sData += "\n  ";
-                sData += "\nTotal Rate:P" + quote.ToString("##,###.00");
-                sData += "\nParticulars:" ;
-                sData += "\n  " + jobmain.JobRemarks;
+                sData += "\nTotal Rate:P" + totalAmount.ToString("##,###.00");
+                sData += "\nRemarks:" ;
+                sData += "  " + jobmain.JobRemarks;
                 sData += "\nNo.Pax:  " + jobmain.NoOfPax;
                 sData += "\n\n Thank you and have a nice day.\n" ;
             }

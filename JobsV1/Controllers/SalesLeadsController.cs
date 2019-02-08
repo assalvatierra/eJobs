@@ -110,7 +110,7 @@ namespace JobsV1.Controllers
 
             ViewBag.LeadId = leadId;
             ViewBag.CurrentFilter = sortid;
-            ViewBag.StatusCodes = db.SalesStatusCodes.ToList();
+            ViewBag.StatusCodes = db.JobStatus.ToList();
 
             return View(salesLeads);
         }

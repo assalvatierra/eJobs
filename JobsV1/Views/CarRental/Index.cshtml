@@ -1,4 +1,5 @@
-﻿@model IEnumerable<JobsV1.Models.CarUnit>
+﻿
+@model IEnumerable<JobsV1.Models.CarUnit>
 
 @{
    
@@ -38,7 +39,9 @@
     <div class="col-md-4"> 
     </div>
     <div class="col-md-1">
-
+        <p>
+            <img src="~/Images/CarRental/honda-city-car-rental.PNG" width="0" alt="Realwheels Car Rental" title="Realwheels Car Rental" /> &nbsp;
+        </p>
     </div>
 </div>
 
@@ -46,13 +49,14 @@
     <div class="col-lg-5 ">
         <b>We accept payments in</b>
         <p class="right">
-            <img src="~/Images/CarRental/paymentIcons/BDO.png" width="50" alt="BDO" title="BDO" /> &nbsp;
-            <img src="~/Images/CarRental/paymentIcons/Bpi.png" width="50" alt="BPI" title="BPI" /> &nbsp;
-            <img src="~/Images/CarRental/paymentIcons/paypal.png" width="25" alt="Paypal" title="Paypal" /> &nbsp;
-            <img src="~/Images/CarRental/paymentIcons/visa.png" width="40" alt="Visa" title="Visa-Paypal" /> &nbsp;
-            <img src="~/Images/CarRental/paymentIcons/mastercard.png" width="40" alt="Mastercard" title="Mastercard-Paypal" /> &nbsp;
-            <img src="~/Images/CarRental/paymentIcons/american-express.png" width="40" alt="American Express" title="American Express-Paypal" /> &nbsp;
-            <img src="~/Images/CarRental/paymentIcons/discover.png" width="40" alt="Disvocer" title="Discover-Paypal" /> &nbsp;
+            <div style="background-image:url('https://realwheelsdavao.com/Images/CarRental/paymentIcons/BDO.png');background-position:center;background-repeat:no-repeat;background-size:50px;display:block;width:50px;height:40px;margin-right:5px;" class="pull-left" alt="BDO" title="BDO" >  &nbsp; </div>
+            <div style="background-image:url('https://realwheelsdavao.com/Images/CarRental/paymentIcons/Bpi.png');background-position:center;background-repeat:no-repeat;background-size:50px;display:block;width:50px;height:40px;margin-right:5px;" class="pull-left" alt="BPI" title="BPI">  &nbsp; </div>
+            <div style="background-image:url('https://realwheelsdavao.com/Images/CarRental/paymentIcons/paypal.png');background-position:center;background-repeat:no-repeat;background-size:30px;display:block;width:50px;height:40px;margin-right:5px;" class="pull-left" alt="Paypal" title="Paypal">  &nbsp; </div>
+            <div style="background-image:url('https://realwheelsdavao.com/Images/CarRental/paymentIcons/visa.png');background-position:center;background-repeat:no-repeat;background-size:40px;display:block;width:40px;height:40px;margin-right:5px;" class="pull-left" alt="Paypal-VISA" title="Paypal-VISA">  &nbsp; </div>
+            <div style="background-image:url('https://realwheelsdavao.com/Images/CarRental/paymentIcons/mastercard.png');background-position:center;background-repeat:no-repeat;background-size:40px;display:block;width:40px;height:40px;margin-right:5px;" class="pull-left" alt="Paypal-MASTERCARD" title="Paypal-MASTERCARD">  &nbsp; </div>
+            <div style="background-image:url('https://realwheelsdavao.com/Images/CarRental/paymentIcons/american-express.png');background-position:center;background-repeat:no-repeat;background-size:40px;display:block;width:40px;height:40px;margin-right:5px;" class="pull-left" alt="Paypal-AMERICAN EXPRESS" title="Paypal-AMERICAN EXPRESS">  &nbsp; </div>
+            <div style="background-image:url('https://realwheelsdavao.com/Images/CarRental/paymentIcons/discover.png');background-position:center;background-repeat:no-repeat;background-size:40px;display:block;width:40px;height:40px;margin-right:5px;" class="pull-left" alt="Paypal-DISCOVER" title="Paypal-DISCOVER">  &nbsp; </div>
+
         </p>
     </div>
 
@@ -70,10 +74,8 @@
     {
         <div class="col-md-4 car-primary">
             <h2>@Html.DisplayFor(modelItem => item.Description)</h2>
-            <div style="background-image:url('/CarRental/MainImage/@Html.DisplayFor(modelItem => item.Id)');background-position:center;background-repeat:no-repeat;background-size:200px;height:180px;">
+            <img src="~/CarRental/MainImage/@Html.DisplayFor(modelItem => item.Id)" style="display:block;margin-right:auto;margin-left:auto;background-repeat:no-repeat;background-size:200px;height:180px;">
                 <p>&nbsp</p>
-            </div>
-
             <div>
                 <table>
                     <tr>
