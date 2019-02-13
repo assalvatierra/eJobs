@@ -113,7 +113,8 @@ namespace JobsV1.Controllers
                 if (jobServices.SupplierId == NewSupplierSysId)
                     return RedirectToAction("CreateSupplier", new { Svcid = jobServices.Id });
                 else
-                    return RedirectToAction("Services", new { id = jobServices.JobMainId });
+                    // return RedirectToAction("Services", new { id = jobServices.JobMainId });
+                    return RedirectToAction("Services", "JobOrder", new { id = jobServices.JobMainId });
             }
 
             ViewBag.JobMainId = new SelectList(db.JobMains, "Id", "Description", jobServices.JobMainId);

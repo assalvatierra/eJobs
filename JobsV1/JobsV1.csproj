@@ -801,6 +801,9 @@
     <Content Include="Images\Customers\Category\Active-30.png" />
     <Content Include="Images\Customers\Category\cancel-40.png" />
     <Content Include="Images\Customers\Category\high-priority-40.png" />
+    <Content Include="Images\Customers\Category\client-40.png" />
+    <Content Include="Images\Customers\Category\tour-40.png" />
+    <Content Include="Images\Customers\Category\car-40.png" />
     <Content Include="Images\Customers\Category\low-priority-40.png" />
     <Content Include="Images\Customers\Category\medium-priority-40.png" />
     <Content Include="Images\Customers\Category\medium2-priority-40.png" />

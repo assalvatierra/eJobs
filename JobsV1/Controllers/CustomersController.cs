@@ -142,16 +142,16 @@ namespace JobsV1.Controllers
                             cat.CustCategory.iconPath = "Images/Customers/Category/cancel-40.png";
                             break;
                         case "CAR-RENTAL":
-                            cat.CustCategory.iconPath = "Images/Customers/Category/Active-30.png";
+                            cat.CustCategory.iconPath = "Images/Customers/Category/car-40.png";
                             break;
                         case "TOUR":
-                            cat.CustCategory.iconPath = "Images/Customers/Category/star-filled-40.png";
+                            cat.CustCategory.iconPath = "Images/Customers/Category/tour-40.png";
                             break;
                         case "CLIENT":
-                            cat.CustCategory.iconPath = "Images/Customers/Category/Active-30.png";
+                            cat.CustCategory.iconPath = "Images/Customers/Category/client-40.png";
                             break;
                         case "COMPANY":
-                            cat.CustCategory.iconPath = "Images/Customers/Category/star-filled-40.png";
+                            cat.CustCategory.iconPath = "Images/Customers/Company/organization-40.png";
                             break;
                     }
 
@@ -476,39 +476,7 @@ namespace JobsV1.Controllers
         private void PartialView_Categories(int? id)
         {
 
-            //PartialView for Details of the Customer
-            List<CustCategory> categoryDetails = new List<CustCategory>();
-
-            //error
-            var categoryList = db.CustCats.Where(c => c.CustomerId == id).ToList();
-
-            if (categoryList == null)
-            {
-
-                categoryDetails.Add(new CustCategory
-                {
-                    Id = 0,
-                    iconPath = "/Images/Customers/Category/unavailable-40.png",
-                    Name = "not assigned"
-                });
-
-            }
-            else
-            {
-
-                foreach (var category in categoryList)
-                {
-                    categoryDetails.Add(new CustCategory
-                    {
-                        Id = category.CustCategory.Id,
-                        iconPath = category.CustCategory.iconPath,
-                        Name = category.CustCategory.Name
-
-                    });
-                }
-            }
-
-            ViewBag.categoryDetails = categoryDetails;
+            ViewBag.categoryDetails = getCategoriesList((int)id);
 
             ViewBag.categoryList = db.CustCategories.ToList();
         }

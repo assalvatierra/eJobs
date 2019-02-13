@@ -103,7 +103,7 @@ namespace JobsV1.Controllers
                 case 2: //prev
                     jobMains = jobMains
                         .Where(d => (d.JobStatusId != JOBCLOSED || d.JobStatusId != JOBCANCELLED)).ToList()
-                        .Where(p => DateTime.Compare(p.JobDate.Date, today.Date) < 0 && DateTime.Compare(p.JobDate.Date, today.Date.AddDays(-120)) > 0).ToList(); //get 1 month before all entries
+                        .Where(p => DateTime.Compare(p.JobDate.Date, today.Date) < 0 && DateTime.Compare(p.JobDate.Date, today.Date.AddDays(-132)) > 0).ToList(); //get 1 month before all entries
 
                     break;
                 case 3: //close
@@ -147,15 +147,16 @@ namespace JobsV1.Controllers
 
                 joTmp.ActionCounter = jobActionCntr.Where(d => d.JobId == joTmp.Main.Id).ToList();
                 
-                if (sortid == 1)
+                //get min job date
+                if(sortid == 1)
                 {
                     joTmp.Main.JobDate = TempJobDate(joTmp.Main.Id);
+                    //joTmp.Main.JobDate = MinJobDate(joTmp.Main.Id);
                 }
                 else
                 {
                     joTmp.Main.JobDate = MinJobDate(joTmp.Main.Id);
                 }
-
                 data.Add(joTmp);
 
                 List<Models.JobPayment> jobPayment = db.JobPayments.Where(d => d.JobMainId == main.Id).ToList();
@@ -225,24 +226,31 @@ namespace JobsV1.Controllers
             today = today.Date;
             //loop though all jobservices in the jobmain
             //to get the latest date
+            var counter = 1;
             foreach (var svc in db.JobServices.Where(s => s.JobMainId == mainId).OrderBy(s=>s.DtStart))
             {
+                var firstService =(DateTime) db.JobServices.Where(s => s.JobMainId == mainId).OrderBy(s => s.DtStart).FirstOrDefault().DtStart;
                 var svcDtStart = (DateTime)svc.DtStart;
                 var svcDtEnd = (DateTime)svc.DtEnd;
                 //get min date
-                // minDate = (DateTime)svc.DtStart;
+                if (counter == 1)
+                {
+                    minDate = firstService;
+                }
+
+                // minDate >= (DateTime)svc.DtStart;
                 if (DateTime.Compare(minDate, svcDtStart.Date) >= 0) {
                     minDate = svcDtStart.Date; //if minDate > Dtstart
                 }
 
                 if (DateTime.Compare(today, svcDtStart.Date) >= 0 && DateTime.Compare(today, svcDtEnd.Date) <= 0)
                 {
-                    minDate = today;
+                    minDate = today; //latest date is today or within the range of start date and end date
                     //skip
                 } else {
                     if (DateTime.Compare(today, svcDtStart.Date) < 0 && DateTime.Compare(today, minDate) > 0)
                     {
-                        minDate = svcDtStart.Date; //if Today > Dtstart
+                        minDate = svcDtStart.Date; //if Today < Dtstart but today is greater than smallest date
                     }
                 }
                 
@@ -253,20 +261,25 @@ namespace JobsV1.Controllers
                 }
             }
 
+            //today is equal to smallest start date
             if (DateTime.Compare(today, minDate) == 0)
             {
                 main.JobDate = minDate;
             }
 
+            //today is equal to highest end date
             if (DateTime.Compare(today, maxDate) == 0)
             {
                 main.JobDate = maxDate;
             }
-
+            
+            //today is < smallest date
             if (DateTime.Compare(today, minDate) < 0) {
                 main.JobDate = minDate;
             }
 
+            //today is greater than the smallest date
+            //job is currently on going, adjust date
             if (DateTime.Compare(today, minDate) > 0)
             {
                 if (DateTime.Compare(today, maxDate) < 0)
@@ -278,16 +291,15 @@ namespace JobsV1.Controllers
                 {
                     main.JobDate = minDate;
                 }
-
             }
 
             if (minDate == new DateTime(9999, 12, 30)) {
-
-                minDate = db.JobMains.Where(j => mainId == j.Id).FirstOrDefault().JobDate;
-                
+                // main.JobDate = db.JobMains.Where(j => mainId == j.Id).FirstOrDefault().JobDate;
+                main.JobDate = minDate;
             }
-            //return main.JobDate;
-            return minDate;
+
+            return main.JobDate;
+            //return minDate;
         }
 
 
@@ -297,18 +309,51 @@ namespace JobsV1.Controllers
             var main = db.JobMains.Where(j => mainId == j.Id).FirstOrDefault();
 
             DateTime minDate = main.JobDate;
+            DateTime maxDate = new DateTime(1, 1, 1);
 
+            DateTime today = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time"));
+            today = today.Date;
             //loop though all jobservices in the jobmain
             //to get the latest date
             foreach (var svc in db.JobServices.Where(s => s.JobMainId == mainId).OrderBy(s => s.DtStart))
             {
+                //var svcDtStart = (DateTime)svc.DtStart;
+                //var svcDtEnd = (DateTime)svc.DtEnd;
+                ////get min date
+                //// minDate = (DateTime)svc.DtStart;
+                //if (DateTime.Compare(minDate, svcDtStart.Date) >= 0)
+                //{
+                //    minDate = svcDtStart.Date; //if minDate > Dtstart
+                //}
+
                 var svcDtStart = (DateTime)svc.DtStart;
                 var svcDtEnd = (DateTime)svc.DtEnd;
                 //get min date
-                // minDate = (DateTime)svc.DtStart;
+
+                // minDate >= (DateTime)svc.DtStart;
                 if (DateTime.Compare(minDate, svcDtStart.Date) >= 0)
                 {
                     minDate = svcDtStart.Date; //if minDate > Dtstart
+                }
+
+                if (DateTime.Compare(today, svcDtStart.Date) >= 0 && DateTime.Compare(today, svcDtEnd.Date) <= 0)
+                {
+                    minDate = today; //latest date is today or within the range of start date and end date
+                    //skip
+                }
+                else
+                {
+                    if (DateTime.Compare(today, svcDtStart.Date) < 0 && DateTime.Compare(today, minDate) > 0)
+                    {
+                        minDate = svcDtStart.Date; //if Today < Dtstart but today is greater than smallest date
+                    }
+                }
+
+
+                //get max date
+                if (DateTime.Compare(maxDate, svcDtEnd.Date) <= 0)
+                {
+                    maxDate = svcDtEnd.Date;
                 }
             }
 
@@ -768,7 +813,7 @@ order by x.jobid
 
                 dbc.addEncoderRecord("joborder", jobMain.Id.ToString(), HttpContext.User.Identity.Name, "Create New Job");
 
-                return RedirectToAction("Index");
+                return RedirectToAction("JobServices", "JobOrder", new { JobMainId = jobMain.Id });
 
             }
 
@@ -1142,8 +1187,19 @@ order by x.jobid
         }
 
 
-        public ActionResult JobServices(int? JobMainId, int? serviceId)
+        public ActionResult JobServices(int? JobMainId, int? serviceId, int? sortid)
         {
+
+            if (sortid != null)
+                Session["FilterID"] = (int)sortid;
+            else
+            {
+                if (Session["FilterID"] != null)
+                    sortid = (int)Session["FilterID"];
+                else
+                    sortid = 1;
+            }
+
             ViewBag.JobMainId = JobMainId;
 
             var Job = db.JobMains.Where(d => d.Id == JobMainId).FirstOrDefault();
@@ -1188,7 +1244,9 @@ order by x.jobid
             ViewBag.JobStatus = db.JobMains.Where(j=>j.Id == JobMainId).FirstOrDefault().JobStatus.Status.ToString();
 
             ViewBag.Itineraries = db.JobItineraries.Where(d => d.JobMainId == JobMainId).ToList();
-            
+
+            ViewBag.sortid = sortid;
+
             return View(jobServices.OrderBy(d => d.DtStart).ToList());
 
         }

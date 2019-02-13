@@ -11,7 +11,21 @@
 {
     <tr class="daily-update-row">
         <td style="padding:14px;">
-            [ @Html.DisplayFor(modelItem => item.refId) ]
+            [ 
+            @if (item.StatusCategory == "New JobOrder")
+            {
+                @Html.ActionLink(item.refId.ToString(), "JobServices", "JobOrder",new { jobMainId = item.refId },null)
+            }
+            else if (item.StatusCategory == "SalesLead Activity")
+            {
+                @Html.DisplayFor(modelItem => item.refId)
+            }
+            else
+            {
+                @Html.DisplayFor(modelItem => item.refId)
+            }
+            
+            ]
             <span class="daily-update-data-status">
                 @Html.DisplayFor(modelItem => item.StatusCategory)
             </span>

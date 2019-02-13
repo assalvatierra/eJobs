@@ -6,7 +6,7 @@
     <h1>Sys Online v1.1</h1>
     <p class="lead">Resource Planning App</p>
 
-    <p>@Html.ActionLink("Register New Job Order »", "Create", "JobMains", null, new { @class = "btn btn-primary btn-lg" }) </p>
+    <p>@Html.ActionLink("Register New Job Order »", "jobCreate", "JobOrder", null, new { @class = "btn btn-primary btn-lg" }) </p>
     <p class="lead">Jobs
     [ @Html.ActionLink("Work In Progress", "Index", "JobOrder", new { sortid = 1 },null) ] [ @Html.ActionLink("Job Table", "JobTable", "JobMains", new { span = 30 }, null) ]
     [ @Html.ActionLink("Payments", "AdvanceList", "JobPayments") ]

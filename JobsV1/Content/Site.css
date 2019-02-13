@@ -500,3 +500,14 @@ rental-type-wdriver {
        from {transform: rotate(0deg);}
        to {transform: rotate(359deg);}
     }
+
+
+    /*CarRental/Index*/
+    .carrental-car-img{
+        display:block;
+        margin-right:auto;
+        margin-left:auto;
+        background-repeat:no-repeat;
+        background-size:200px;
+        height:180px;
+    }
