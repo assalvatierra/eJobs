@@ -87,10 +87,15 @@
             Sporting Gears, Cameras
             <br />
             [
-            @Html.ActionLink("Packages", "Index", "CarRatePackages", new { isActive = 1 }, null) 
-            @Html.ActionLink("Unit Package Rates", "Index", "CarRateUnitPackages", new { status = "all", package = "all", unit = "all" ,group = "all" }, null) |
-            @Html.ActionLink("Unit Rates", "Index", "CarRates", null , null)  | 
-            @Html.ActionLink("Groups", "Index", "RateGroups", null, null) ]
+            @Html.ActionLink("Packages", "Index", "CarRatePackages", new { isActive = 1 }, null) |
+            @Html.ActionLink("Unit Package Rates", "Index", "CarRateUnitPackages", new { status = "all", package = "all", unit = "all", group = "all" }, null) |
+            @Html.ActionLink("Unit Rates", "Index", "CarRates", null, null)  |
+            @Html.ActionLink("Groups", "Index", "RateGroups", null, null) ] 
+            <br />
+            [
+            @Html.ActionLink("Notes", "Index", "PreDefinedNotes", null, null) |
+            @Html.ActionLink("Destinations", "Index", "Destinations", null, null)
+            ]
 
         </p>
         <p>@Html.ActionLink("Add New »", "Create", "SupplierItems", null, new { @class = "btn btn-default" }) </p>
