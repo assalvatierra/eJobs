@@ -260,7 +260,7 @@ namespace JobsV1.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.Services = db.JobServices.Include(j => j.JobServicePickups).Where(j => j.JobMainId == jobMain.Id).Where( j => j.JobServicePickups.FirstOrDefault().ProviderName == sProvider);
+            ViewBag.Services = db.JobServices.Include(j => j.JobServicePickups).Where(j => j.JobMainId == jobMain.Id).Where( j => j.JobServicePickups.FirstOrDefault().ProviderName == sProvider).OrderBy(s=>s.Id);
             ViewBag.Itinerary = db.JobItineraries.Include(j => j.Destination).Where(j => j.JobMainId == jobMain.Id);
             //            ViewBag.Payments = db.JobPayments.Where(j => j.JobMainId == jobMain.Id);
 

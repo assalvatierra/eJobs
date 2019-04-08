@@ -482,6 +482,64 @@ namespace JobsV1.Controllers
                     return View("~/Views/CarRental/CarViews/ListingPickup.cshtml");
                 case "ads-listing-page-2":
                     return View("~/Views/CarRental/CarViews/ListingAds2.cshtml");
+
+                //error list
+                case "toyota-hiace-van-for-rent":
+                    return View("~/Views/CarRental/CarViews/Rentals/toyota-hiace-van-for-rent.cshtml");
+                case "davao-city-car-rentals":
+                    return View("~/Views/CarRental/CarViews/Rentals/davao-city-car-rentals.cshtml");
+                case "hondacitybr1":
+                    return View("~/Views/CarRental/CarViews/Rentals/hondacitybr1.cshtml");
+                case "carrental/honda-city":
+                    return View("~/Views/CarRental/CarViews/Rentals/honda-city.cshtml");
+                case "toyota-vios-2012":
+                    return View("~/Views/CarRental/CarViews/Rentals/toyota-vios-2012.cshtml");
+                case "ford-everest-rear01":
+                    return View("~/Views/CarRental/CarViews/Rentals/ford-everest-rear01.cshtml");
+                case "suvauvmpv":
+                    return View("~/Views/CarRental/CarViews/Rentals/suvauvmpv.cshtml");
+                case "toyota-avanza-for-rent":
+                    return View("~/Views/CarRental/CarViews/Rentals/toyota-avanza-for-rent.cshtml");
+                case "category/rates":
+                    return View("~/Views/CarRental/CarViews/Rentals/category-rates.cshtml");
+                case "category/realwheels":
+                    return View("~/Views/CarRental/CarViews/Rentals/realwheels.cshtml");
+                //10-20
+                case "van-rental-rates":
+                    return View("~/Views/CarRental/CarViews/Rentals/van-rental-rates.cshtml");
+                case "ford-everest-suv-car-for-rent-davao-car-rental":
+                    return View("~/Views/CarRental/CarViews/Rentals/ford-everest-suv-car-for-rent-davao-car-rental.cshtml");
+                case "author/abel":
+                    return View("~/Views/CarRental/CarViews/Rentals/author-abel.cshtml");
+                case "category/4x4":
+                    return View("~/Views/CarRental/CarViews/Rentals/category-4x4.cshtml");
+                case "tag/rent-a-car":
+                    return View("~/Views/CarRental/CarViews/Rentals/tag-rent-a-car.cshtml");
+                case "category/sedan":
+                    return View("~/Views/CarRental/CarViews/Rentals/category-sedan.cshtml");
+                case "davao-rent-a-car":
+                    return View("~/Views/CarRental/CarViews/Rentals/davao-rent-a-car.cshtml");
+                case "toyota-vios-for-rent":
+                    return View("~/Views/CarRental/CarViews/Rentals/toyota-vios-for-rent.cshtml");
+                case "page/2":
+                    return View("~/Views/CarRental/CarViews/Rentals/page-2.cshtml");
+                case "toyota-fortuner-4x4":
+                    return View("~/Views/CarRental/CarViews/Rentals/toyota-fortuner-4x4.cshtml");
+
+                case "mpvauvminivan-rental-rates":
+                    return View("~/Views/CarRental/CarViews/Rentals/mpvauvminivan-rental-rates.cshtml");
+                case "tag/auv-rentals":
+                    return View("~/Views/CarRental/CarViews/Rentals/tag-auv-rentals.cshtml");
+                case "chevrolet-trailblazer":
+                    return View("~/Views/CarRental/CarViews/Rentals/chevrolet-trailblazer.cshtml");
+                case "category/van":
+                    return View("~/Views/CarRental/CarViews/Rentals/category-van.cshtml");
+                case "toyota-fortuner-for-rent":
+                    return View("~/Views/CarRental/CarViews/Rentals/toyota-fortuner-for-rent.cshtml");
+                case "category/featured":
+                    return View("~/Views/CarRental/CarViews/Rentals/category-featured.cshtml");
+                case "van-for-rent":
+                    return View("~/Views/CarRental/CarViews/Rentals/van-for-rent.cshtml");
                 default:
                     return View("~/Views/CarRental/CarViews/ListingAds.cshtml");
             }
